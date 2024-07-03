@@ -1,7 +1,7 @@
 Morningstar TimeSeries Connector
 ================================
 
-This Highcharts Dashboards connector gives access to the [Morningstar TimeSeries API].
+This Highcharts Dashboards connector provides access to the [Morningstar TimeSeries API].
 
 
 
