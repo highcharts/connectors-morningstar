@@ -1,7 +1,12 @@
 {
     "extends": "../tsconfig.json",
     "compilerOptions": {
-        "outDir": "../lib/"
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "outDir": "../lib/",
     },
     "files": [
         "./index.ts"

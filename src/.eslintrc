@@ -1,0 +1,143 @@
+{
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
+    "plugins": [
+        "brackets",
+        "jsdoc",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "brackets/array-bracket-newline": 2,
+        "brackets/call-parens-newline": 2,
+        "brackets/conditional-parens-newline": 2,
+        "brackets/func-parens-newline": 2,
+        "brackets/object-curly-newline": 2,
+        "camelcase": [
+            2,
+            {
+                "properties": "always"
+            }
+        ],
+        "capitalized-comments": [
+            "error",
+            "always", {
+                "ignoreConsecutiveComments": true
+            }
+        ],
+        "class-methods-use-this": 0,
+        "comma-dangle": [
+            2,
+            "never"
+        ],
+        "consistent-return": 0,
+        "default-case": 0,
+        "default-param-last": 0,
+        "dot-notation": 0,
+        "function-paren-newline": 0,
+        "func-style": 0,
+        "indent": 0,
+        "max-len": [
+            "error",
+            {
+                "code": 80,
+                "comments": 80,
+                "ignoreUrls": true,
+                "ignorePattern": "`|eslint-disable-line|headerFormat|pointFormat|static defaultOptions| (extends|implements) |@\\w|\\w<|\\.\\/| highcharts\\/|\\]\\(#"
+            }
+        ],
+        "no-dupe-class-members": 0,
+        "no-inner-declarations": 0, // deprecated with ES6
+        "no-invalid-this": 0, // covered by TypeScript
+        "no-undef": 0,
+        "no-unused-expressions": 0,
+        "no-use-before-define": 0,
+        "no-useless-constructor": 0,
+        "no-useless-return": 0,
+        "object-curly-spacing": [2, "always"],
+        "object-shorthand": 0,
+        "quote-props": [2, "as-needed", { "keywords": true, "unnecessary": false }],
+        "semi": 0,
+        "spaced-comment": ["error", "always", { "markers": ["/"] }],
+        "valid-jsdoc": 0,
+        "@typescript-eslint/array-type": 0,
+        "@typescript-eslint/explicit-function-return-type": [
+            "error",
+            {
+                "allowExpressions": false,
+                "allowTypedFunctionExpressions": false
+            }
+        ],
+        "@typescript-eslint/indent": [
+            "error",
+            4,
+            {
+                "FunctionExpression": { "parameters": 1 },
+                "SwitchCase": 1
+            }
+        ],
+        "@typescript-eslint/no-empty-interface": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/no-namespace": 0,
+        "@typescript-eslint/no-object-literal-type-assertion": 0,
+        "@typescript-eslint/no-unused-vars": ["error", { "vars": "all", "args": "after-used" }],
+        "@typescript-eslint/no-use-before-define": 0,
+        "@typescript-eslint/no-useless-constructor": 2,
+        "@typescript-eslint/restrict-plus-operands": 0,
+        "@typescript-eslint/semi": 2,
+        "jsdoc/check-alignment": 0,
+        "jsdoc/check-param-names": 1,
+        "jsdoc/check-tag-names": [
+            "error",
+            {
+                "definedTags": [
+                    "apioption",
+                    "context",
+                    "declare",
+                    "exclude",
+                    "excluding",
+                    "ignore-declaration",
+                    "ignore-option",
+                    "internal",
+                    "optionparent",
+                    "product",
+                    "productdesc",
+                    "sample",
+                    "validvalue"
+                ]
+            }
+        ],
+        "jsdoc/check-types": 0,
+        "jsdoc/require-description": 1
+    },
+    "settings": {
+        "jsdoc": {
+            "mode": "typescript",
+            "preferredTypes": {
+                "array": "Array",
+                "function": "Function",
+                "object": "Object",
+                "Boolean": "boolean",
+                "Number": "number",
+                "Object": "Object",
+                "String": "string"
+            },
+            "tagNamePreference": {
+                "augments": "augments",
+                "class": "class",
+                "constructor": "class",
+                "emits": "emits",
+                "extends": "extends",
+                "fires": "emits",
+                "returns": "return"
+            }
+        }
+    }
+}
