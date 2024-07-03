@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "version": "0.0.1",
+    "name": "@highcharts/morningstar-connectors",
+    "license": "UNLICENSED",
+    "description": "Highcharts Dashboards connectors for Morningstar Data APIs",
+    "author": "Highsoft AS",
+    "bugs": "https://github.com/highcharts/morningstar-connectors/issues",
+    "homepage": "https://github.com/highcharts/morningstar-connectors#readme",
+    "repository": "https://github.com/highcharts/morningstar-connectors.git",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "devDependencies": {
+        "@highcharts/dashboards": "2.2.0",
+        "bundle-declarations-webpack-plugin": "^5.1.1",
+        "typescript": "^5.5.3",
+        "webpack": "^5.92.1",
+        "webpack-cli": "^5.1.4"
+    },
+    "files": [
+        "dist/",
+        "lib/",
+        "LICENSE.md",
+        "README.md"
+    ],
+    "keywords": [
+        "Highcharts",
+        "Dashboards",
+        "Morningstar"
+    ],
+    "scripts": {
+        "build": "tsc -p src/",
+        "test": "npm run build",
+        "watch": "tsc -p src/ -w",
+        "webpack": "webpack"
+    }
+}
