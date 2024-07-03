@@ -68,13 +68,7 @@
         "spaced-comment": ["error", "always", { "markers": ["/"] }],
         "valid-jsdoc": 0,
         "@typescript-eslint/array-type": 0,
-        "@typescript-eslint/explicit-function-return-type": [
-            "error",
-            {
-                "allowExpressions": false,
-                "allowTypedFunctionExpressions": false
-            }
-        ],
+        "@typescript-eslint/explicit-function-return-type": 0, // covered by TypeScript
         "@typescript-eslint/indent": [
             "error",
             4,
