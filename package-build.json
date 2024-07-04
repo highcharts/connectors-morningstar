@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "version": "1.0.0",
+    "name": "@highcharts/morningstar-connectors",
+    "license": "UNLICENSED",
+    "description": "Highcharts Dashboards connectors for Morningstar Direct Web Services",
+    "author": "Highsoft AS",
+    "bugs": "https://www.highcharts.com/support/",
+    "homepage": "https://www.highcharts.com/",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "dist/",
+        "lib/",
+        "LICENSE.md",
+        "README.md"
+    ],
+    "keywords": [
+        "Highcharts",
+        "Dashboards",
+        "Morningstar",
+        "Time Series"
+    ],
+    "peerDependencies": {
+        "@highcharts/dashboards": "^2.2.0"
+    }
+}

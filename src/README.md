@@ -12,14 +12,18 @@ folders:
 
 
 
-To-Dos
-------
+Release
+-------
 
-- [ ] `src/PortfolioAnalysis/`
+Do the following steps in order:
 
-- [ ] `src/Screener/`
+* Edit the version property of `package-build.json`.
 
-- [ ] `src/SecurityDetails/`
+* Run `npm i`.
+
+* Run `npm run build`.
+
+* Release `build/highcharts-morningstar-connectors-x.x.x.tgz`.
 
 
 
