@@ -5,4 +5,6 @@ This Highcharts Dashboards connector provides access to the [Morningstar TimeSer
 
 
 
+<!-- Link References -->
+
 [Morningstar TimeSeries API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/time-series/overview
