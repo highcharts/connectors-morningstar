@@ -13,8 +13,8 @@ The connectors are available as
 
 * ES6 modules by importing `@highcharts/morningstar-connectors` in your project.
 
-* UMD bundle by loading `@highcharts/morningstar-connectors/dist/all.js` in your
-  web app.
+* UMD bundle by adding the `@highcharts/morningstar-connectors/dist/all.js`
+  script to your web app or web page.
 
 
 

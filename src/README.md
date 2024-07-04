@@ -4,7 +4,7 @@ Morningstar Connector Sources
 The source code of the Highcharts Dashboards connectors consist of the following
 folders:
 
-* [src/Shared/] - Shared implementations for autorization, common options, and
+* [src/Shared/] - Shared implementations for authentication, common options, and
                   error handling.
 
 * [src/TimeSeries/] - Connector implementation for the Morningstar TimeSeries

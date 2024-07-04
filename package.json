@@ -11,8 +11,6 @@
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
     "devDependencies": {
-        "@highcharts/dashboards": "2.2.0",
-        "bundle-declarations-webpack-plugin": "^5.1.1",
         "@typescript-eslint/eslint-plugin": "^7.15.0",
         "eslint": "^8.56.0",
         "eslint-plugin-brackets": "^0.1.3",
@@ -33,7 +31,8 @@
     "keywords": [
         "Highcharts",
         "Dashboards",
-        "Morningstar"
+        "Morningstar",
+        "Time Series"
     ],
     "lint-staged": {
         "*.ts": [
@@ -46,11 +45,12 @@
     "scripts": {
         "build": "tsc -p src/",
         "prepare": "husky install",
+        "release": "npm pack",
         "test": "npm run test:build",
         "test:build": "npm run build",
         "test:morningstar": "npx newman run tmp/Collection.json -e tmp/Environment.json",
         "test:precommit": "npm run test",
         "watch": "tsc -p src/ -w",
-        "webpack": "webpack"
+        "webpack": "npm run build && webpack"
     }
 }
