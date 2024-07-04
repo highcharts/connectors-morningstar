@@ -32,7 +32,22 @@ import DataConnectorOptions from '@highcharts/dashboards/es-modules/Data/Connect
 
 
 export interface MorningstarAPIOptions {
-    path?: string;
+
+    /**
+     * Absolute URL or relative URL path to the API to be used.
+     *
+     * Defaults to the nearest Morningstar API region based on the browser
+     * localization settings. 
+     */
+    url?: string;
+
+    /**
+     * Manually set the version of API.
+     *
+     * Default to the version number of the API URL or `1`.
+     */
+    version?: number;
+
 }
 
 

@@ -45,14 +45,28 @@ export class MorningstarAPI {
     public constructor (
         options: MorningstarAPIOptions = {}
     ) {
-        options.path = options.path || MorningstarAPI.RegionPath.NorthAmerica;
-
         this.lastRequestTimestamp = 0;
         this.options = options;
-        this.path = options.path;
         this.requestDelay = 0;
-        this.version =
-            parseInt((options.path.match(/\/v(\d+)\/?/) || [])[ 1 ], 10);
+        this.url = new URL(
+            options.url ??
+            MorningstarAPI.RegionPath.NorthAmerica,
+            window.location.href
+        );
+        this.version = (
+            options.version ??
+            parseInt(
+                (this.url.pathname.match(/\/v(\d+)(?:\/|$)/) || [])[ 1 ],
+                10
+            )
+        );
+        this.version = this.version > 0 ? this.version : 1;
+
+        // Validate API URL
+        if (this.url.protocol !== 'https:') {
+            throw new Error('Insecure API protocol');
+        }
+
     }
 
 
@@ -72,10 +86,10 @@ export class MorningstarAPI {
     public readonly options: MorningstarAPIOptions;
 
 
-    public readonly path: string;
-
-
     protected requestDelay: number;
+
+
+    public readonly url: URL;
 
 
     public readonly version: number;
