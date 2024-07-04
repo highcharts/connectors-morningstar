@@ -16,10 +16,12 @@ import * as Path from 'node:path';
  * */
 
 
-const namespace = 'MorningstarConnectors';
+const amd = 'dashboards/dashboards';
+const commonjs = '@highcharts/morningstar-connectors';
 const projectFolder = FS.realpathSync(process.cwd());
 const sourceFolder = './lib/';
 const targetFolder = './dist/';
+const root = 'Dashboards';
 
 
 /* *
@@ -29,18 +31,27 @@ const targetFolder = './dist/';
  * */
 
 
-function addDashboardsUMDConfig(target, ...pathMembers) {
-    const amd = ['dashboards/dashboards']
-    const commonjs = ['@highcharts/dashboards'];
-    const root = ['Dashboards'];
+const externals = {};
+
+
+function addExternal(nodeModule, pathMembers) {
+    const amd = [
+        nodeModule.split('/').pop() + '/' + nodeModule.split('/').pop()
+    ]
+    const commonjs = [nodeModule];
+    const root = [
+        nodeModule.split('/').pop().substring(0, 1).toUpperCase() +
+        nodeModule.split('/').pop().substring(1)
+    ];
 
     if (pathMembers.length) {
-        amd.push(pathMembers[pathMembers.length - 1]);
-        commonjs.push(pathMembers[pathMembers.length - 1]);
-        root.push(pathMembers[pathMembers.length - 1]);
+        amd.push(pathMembers.slice().pop());
+        commonjs.push(pathMembers.slice().pop());
+        root.push(pathMembers.slice().pop());
+        nodeModule += pathMembers.join('/');
     }
 
-    target[`@highcharts/dashboards/es-modules/${pathMembers.join('/')}`] = {
+    externals[nodeModule] = {
         amd,
         commonjs,
         commonjs2: commonjs,
@@ -50,18 +61,13 @@ function addDashboardsUMDConfig(target, ...pathMembers) {
 }
 
 
-/* *
- *
- *  Externals
- *
- * */
-
-
-const externals = {};
-
-addDashboardsUMDConfig(externals);
-addDashboardsUMDConfig(externals, 'Data', 'Connectors', 'DataConnector');
-addDashboardsUMDConfig(externals, 'Data', 'Converters', 'DataConverter');
+Object
+    .entries(JSON.parse(FS.readFileSync('webpack.externals.json', 'utf8')))
+    .forEach(entry => (
+        entry[1].forEach(path => (
+            addExternal(entry[0], path.split('/'))
+        ))
+    ));
 
 
 /* *
@@ -86,7 +92,11 @@ const webpacks = [
             filename: 'morningstar-connectors.js',
             globalObject: 'this',
             library: {
-                name: namespace,
+                name: {
+                    amd: `${amd}/morningstar-connectors`,
+                    commonjs,
+                    root: [root, 'MorningstarConnectors'],
+                },
                 type: 'umd',
                 umdNamedDefine: true,
             },
@@ -118,7 +128,11 @@ const webpacks = [
             filename: 'morningstar-time-series.js',
             globalObject: 'this',
             library: {
-                name: `${namespace}.TimeSeries`,
+                name: {
+                    amd: `${amd}/morningstar-time-series`,
+                    commonjs: `${commonjs}/lib/TimeSeries/index`,
+                    root: [root, 'MorningstarConnectors', 'TimeSeries']
+                },
                 type: 'umd',
                 umdNamedDefine: true,
             },

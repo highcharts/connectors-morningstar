@@ -1,0 +1,9 @@
+{
+    "@highcharts/dashboards": [
+        "",
+        "/es-modules/Data/Connectors/DataConnector",
+        "/es-modules/Data/Converters/DataConverter",
+        "/es-modules/Data/DataTable",
+        "/es-modules/Data/DataTableCore"
+    ]
+}
