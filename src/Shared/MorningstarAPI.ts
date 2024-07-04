@@ -50,17 +50,14 @@ export class MorningstarAPI {
         this.requestDelay = 0;
         this.url = new URL(
             options.url ??
-            MorningstarAPI.RegionPath.NorthAmerica,
+            MorningstarAPI.regionURL[MorningstarAPI.detectRegion()],
             window.location.href
         );
         this.version = (
             options.version ??
-            parseInt(
-                (this.url.pathname.match(/\/v(\d+)(?:\/|$)/) || [])[ 1 ],
-                10
-            )
+            parseInt((this.url.pathname.match(/\/v(\d+)(?:\/|$)/) || [])[ 1 ], 10)
         );
-        this.version = this.version > 0 ? this.version : 1;
+        this.version = (this.version > 0 ? this.version : 1);
 
         // Validate API URL
         if (this.url.protocol !== 'https:') {
@@ -134,10 +131,7 @@ export class MorningstarAPI {
                 throw new Error();
             }
 
-            const rateLimit = parseInt(
-                response.headers.get('X-RateLimit-Limit') || '0',
-                10
-            );
+            const rateLimit = parseInt(response.headers.get('X-RateLimit-Limit') || '0', 10);
 
             // Update potential delay for rate limit
             if (rateLimit > 0) {
@@ -171,15 +165,59 @@ export namespace MorningstarAPI {
 
     /* *
      *
-     *  Enums
+     *  Constants
      *
      * */
 
 
-    export enum RegionPath {
-        APAC = 'https://www.apac-api.morningstar.com/ecint/v1/',
-        EMEA = 'https://www.emea-api.morningstar.com/ecint/v1/',
-        NorthAmerica = 'https://www.us-api.morningstar.com/ecint/v1/',
+    export const regionURL: Record<('APAC'|'EMEA'|'NorthAmerica'), string> = {
+        APAC: 'https://www.apac-api.morningstar.com/ecint/v1/',
+        EMEA: 'https://www.emea-api.morningstar.com/ecint/v1/',
+        NorthAmerica: 'https://www.us-api.morningstar.com/ecint/v1/'
+    };
+
+
+    const countriesEMEA = [
+        'AD', 'AE', 'AL', 'AM', 'AO', 'AT', 'AX', 'BA', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BW',
+        'BY', 'CD', 'CF', 'CG', 'CH', 'CI', 'CM', 'CV', 'CY', 'CZ', 'DE', 'DJ', 'DK', 'DZ', 'EE',
+        'EG', 'EH', 'ER', 'ES', 'ET', 'EU', 'FI', 'FO', 'FR', 'GA', 'GB', 'GE', 'GG', 'GH', 'GI',
+        'GL', 'GM', 'GN', 'GQ', 'GR', 'GW', 'HR', 'HU', 'IE', 'IL', 'IM', 'IQ', 'IR', 'IS', 'IT',
+        'JE', 'JO', 'KE', 'KW', 'LB', 'LI', 'LR', 'LS', 'LT', 'LU', 'LV', 'LY', 'MA', 'MC', 'MD',
+        'ME', 'MG', 'MK', 'ML', 'MR', 'MT', 'MW', 'MZ', 'NA', 'NE', 'NG', 'NL', 'NO', 'OM', 'PL',
+        'PS', 'PT', 'QA', 'RO', 'RS', 'RW', 'SA', 'SC', 'SD', 'SE', 'SI', 'SJ', 'SK', 'SL', 'SM',
+        'SN', 'SO', 'SS', 'ST', 'SX', 'SY', 'SZ', 'TD', 'TF', 'TG', 'TN', 'TR', 'TZ', 'UA', 'UG',
+        'VA', 'YE', 'ZA', 'ZM', 'ZW'
+    ];
+
+
+    const countriesNorthAmerica = [
+        'AG', 'AI', 'AW', 'BB', 'BL', 'BM', 'BQ', 'BS', 'BZ', 'CA', 'CR', 'CU', 'CW', 'DM', 'DO',
+        'GD', 'GP', 'GT', 'HN', 'HT', 'JM', 'KN', 'KY', 'LC', 'MF', 'MQ', 'MS', 'MX', 'NI', 'PA',
+        'PM', 'PR', 'SV', 'UM', 'US', 'VC', 'VG', 'VI'
+    ];
+
+
+    /* *
+     *
+     *  Functions
+     *
+     * */
+
+
+    export function detectRegion(): ('APAC'|'EMEA'|'NorthAmerica') {
+        const country = window.navigator.language.toUpperCase().match(/-(\w\w)/);
+
+        if (country) {
+            if (countriesEMEA.includes(country[1])) {
+                return 'EMEA';
+            }
+            if (countriesNorthAmerica.includes(country[1])) {
+                return 'NorthAmerica';
+            }
+            return 'APAC';
+        }
+
+        return 'NorthAmerica';
     }
 
 
