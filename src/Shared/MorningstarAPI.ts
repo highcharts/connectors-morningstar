@@ -110,43 +110,35 @@ export class MorningstarAPI {
         input: (RequestInfo|URL),
         init?: RequestInit
     ): Promise<Response> {
-        let response: (Response|undefined);
+        const requestDelay = (
+            this.requestDelay -
+            ((new Date()).getTime() - this.lastRequestTimestamp)
+        );
 
-        try {
-            const requestDelay = (
-                this.requestDelay -
-                ((new Date()).getTime() - this.lastRequestTimestamp)
-            );
-
-            // Apply delay for rate limit
-            if (requestDelay > 0) {
-                await this.delay(requestDelay);
-            }
-
-            this.lastRequestTimestamp = (new Date()).getTime();
-
-            response = await window.fetch(input, init);
-
-            if (response.status >= 400) {
-                throw new Error();
-            }
-
-            const rateLimit = parseInt(response.headers.get('X-RateLimit-Limit') || '0', 10);
-
-            // Update potential delay for rate limit
-            if (rateLimit > 0) {
-                this.requestDelay = (3600000 / rateLimit);
-            }
-
-            return response;
-        }
-        catch (error) {
-            if (response) {
-                throw new MorningstarError(response);
-            }
-            throw error;
+        // Apply delay for rate limit
+        if (requestDelay > 0) {
+            await this.delay(requestDelay);
         }
 
+        this.lastRequestTimestamp = (new Date()).getTime();
+
+        const response = await window.fetch(input, init);
+
+        if (
+            response.status >= 400 ||
+            !response.url.startsWith('https')
+        ) {
+            throw new MorningstarError(response);
+        }
+
+        const rateLimit = parseInt(response.headers.get('X-RateLimit-Limit') || '0', 10);
+
+        // Update potential delay for rate limit
+        if (rateLimit > 0) {
+            this.requestDelay = (3600000 / rateLimit);
+        }
+
+        return response;
     }
 
 
@@ -165,16 +157,27 @@ export namespace MorningstarAPI {
 
     /* *
      *
+     *  Declarations
+     *
+     * */
+
+
+    export type Region = ('Americas'|'APAC'|'EMEA');
+
+
+    /* *
+     *
      *  Constants
      *
      * */
 
 
-    export const regionURL: Record<('APAC'|'EMEA'|'NorthAmerica'), string> = {
-        APAC: 'https://www.apac-api.morningstar.com/ecint/v1/',
-        EMEA: 'https://www.emea-api.morningstar.com/ecint/v1/',
-        NorthAmerica: 'https://www.us-api.morningstar.com/ecint/v1/'
-    };
+    const countriesAmericas = [
+        'AG', 'AI', 'AR', 'AW', 'BB', 'BL', 'BM', 'BO', 'BQ', 'BR', 'BS', 'BZ', 'CA', 'CL', 'CO',
+        'CR', 'CU', 'CW', 'DM', 'DO', 'EC', 'FK', 'GD', 'GF', 'GP', 'GS', 'GT', 'GY', 'HN', 'HT',
+        'JM', 'KN', 'KY', 'LC', 'MF', 'MQ', 'MS', 'MX', 'NI', 'PA', 'PE', 'PM', 'PR', 'PY', 'SR',
+        'SV', 'UM', 'US', 'UY', 'VC', 'VE', 'VG', 'VI'
+    ];
 
 
     const countriesEMEA = [
@@ -190,11 +193,11 @@ export namespace MorningstarAPI {
     ];
 
 
-    const countriesNorthAmerica = [
-        'AG', 'AI', 'AW', 'BB', 'BL', 'BM', 'BQ', 'BS', 'BZ', 'CA', 'CR', 'CU', 'CW', 'DM', 'DO',
-        'GD', 'GP', 'GT', 'HN', 'HT', 'JM', 'KN', 'KY', 'LC', 'MF', 'MQ', 'MS', 'MX', 'NI', 'PA',
-        'PM', 'PR', 'SV', 'UM', 'US', 'VC', 'VG', 'VI'
-    ];
+    export const regionURL: Record<Region, string> = {
+        Americas: 'https://www.us-api.morningstar.com/ecint/v1/',
+        APAC: 'https://www.apac-api.morningstar.com/ecint/v1/',
+        EMEA: 'https://www.emea-api.morningstar.com/ecint/v1/'
+    };
 
 
     /* *
@@ -204,20 +207,20 @@ export namespace MorningstarAPI {
      * */
 
 
-    export function detectRegion(): ('APAC'|'EMEA'|'NorthAmerica') {
+    export function detectRegion(): Region {
         const country = window.navigator.language.toUpperCase().match(/-(\w\w)/);
 
         if (country) {
+            if (countriesAmericas.includes(country[1])) {
+                return 'Americas';
+            }
             if (countriesEMEA.includes(country[1])) {
                 return 'EMEA';
-            }
-            if (countriesNorthAmerica.includes(country[1])) {
-                return 'NorthAmerica';
             }
             return 'APAC';
         }
 
-        return 'NorthAmerica';
+        return 'Americas';
     }
 
 
