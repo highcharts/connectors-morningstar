@@ -11,6 +11,7 @@
  *
  * */
 
+
 'use strict';
 
 
@@ -21,8 +22,12 @@
  * */
 
 
+import MorningstarOAuth2 from './MorningstarOAuth2';
 import MorningstarError from './MorningstarError';
-import { MorningstarAPIOptions } from './MorningstarOptions';
+import {
+    MorningstarAPIOptions,
+    MorningstarAuthenticationOptions
+} from './MorningstarOptions';
 
 
 /* *
@@ -48,19 +53,19 @@ export class MorningstarAPI {
         this.lastRequestTimestamp = 0;
         this.options = options;
         this.requestDelay = 0;
-        this.url = new URL(
+        this.baseURL = new URL(
             options.url ??
-            MorningstarAPI.regionURL[MorningstarAPI.detectRegion()],
+            MorningstarAPI.regionalBaseURL[MorningstarAPI.detectRegion()],
             window.location.href
         );
         this.version = (
             options.version ??
-            parseInt((this.url.pathname.match(/\/v(\d+)(?:\/|$)/) || [])[ 1 ], 10)
+            parseInt((this.baseURL.pathname.match(/\/v(\d+)(?:\/|$)/) || [])[ 1 ], 10)
         );
         this.version = (this.version > 0 ? this.version : 1);
 
         // Validate API URL
-        if (this.url.protocol !== 'https:') {
+        if (this.baseURL.protocol !== 'https:') {
             throw new Error('Insecure API protocol');
         }
 
@@ -74,7 +79,16 @@ export class MorningstarAPI {
      * */
 
 
+    private accessTimeout?: number;
+
+
+    private accessToken?: string;
+
+
     public authorized?: boolean;
+
+
+    public readonly baseURL: URL;
 
 
     protected lastRequestTimestamp: number;
@@ -84,9 +98,6 @@ export class MorningstarAPI {
 
 
     protected requestDelay: number;
-
-
-    public readonly url: URL;
 
 
     public readonly version: number;
@@ -99,6 +110,64 @@ export class MorningstarAPI {
      * */
 
 
+    public async authenticate(
+        options: (MorningstarAuthenticationOptions|undefined) = this.options.authentication || {}
+    ): Promise<boolean> {
+
+        window.clearTimeout(this.accessTimeout);
+
+        delete this.accessTimeout;
+        delete this.accessToken;
+        delete this.authorized;
+
+        if (options.accessToken) {
+            this.setAccessTimeout(3600, options);
+            this.accessToken = options.accessToken;
+            this.authorized = true;
+            return true;
+        }
+
+        if (
+            !options.password ||
+            !options.username
+        ) {
+            return false;
+        }
+
+        // First validate connection without credentials, expect a fail.
+        try {
+            await this.fetch(MorningstarOAuth2.url, MorningstarOAuth2.getDummyRequest());
+            return false;
+        }
+        catch (error) {
+            if (
+                !(error instanceof MorningstarError) ||
+                error.response.status !== 403 ||
+                !MorningstarOAuth2.isOAuth2MessageJSON(await error.response.json())
+            ) {
+                return false;
+            }
+        }
+
+        // Now do the real request with credentials.
+        const response = await this.fetch(
+            MorningstarOAuth2.url,
+            MorningstarOAuth2.getAuthenticationRequest(options.username, options.password)
+        );
+
+        const responseJSON: unknown = await response.json();
+
+        if (MorningstarOAuth2.isOAuth2TokenJSON(responseJSON)) {
+            this.setAccessTimeout(responseJSON.expires_in, options);
+            this.accessToken = responseJSON.access_token;
+            this.authorized = true;
+            return true;
+        }
+
+        return false;
+    }
+
+
     public delay (
         milliseconds: number
     ): Promise<void> {
@@ -107,9 +176,15 @@ export class MorningstarAPI {
 
 
     public async fetch (
-        input: (RequestInfo|URL),
+        url: string,
         init?: RequestInit
     ): Promise<Response> {
+
+        if (URL.canParse(url)) {
+            throw new Error('Absolute URLs are not supported.');
+        }
+
+        const finalURL = new URL(url, this.baseURL);
         const requestDelay = (
             this.requestDelay -
             ((new Date()).getTime() - this.lastRequestTimestamp)
@@ -122,13 +197,22 @@ export class MorningstarAPI {
 
         this.lastRequestTimestamp = (new Date()).getTime();
 
-        const response = await window.fetch(input, init);
+        if (this.accessToken) {
+            init = MorningstarOAuth2.getAuthorizedRequest(this.accessToken, init);
+        }
 
-        if (
-            response.status >= 400 ||
-            !response.url.startsWith('https')
-        ) {
+        const response = await window.fetch(finalURL, init);
+
+        if (!response.url.startsWith('https')) {
+            throw new Error('Unsecured connection');
+        }
+
+        if (response.status >= 400) {
             throw new MorningstarError(response);
+        }
+
+        if (response.headers.get('Content-Type') !== 'application/json') {
+            throw new Error('Unexpected data');
         }
 
         const rateLimit = parseInt(response.headers.get('X-RateLimit-Limit') || '0', 10);
@@ -142,12 +226,29 @@ export class MorningstarAPI {
     }
 
 
+    protected setAccessTimeout(
+        seconds: number,
+        options: MorningstarAuthenticationOptions = this.options.authentication || {}
+    ): void {
+
+        if (seconds > 1) {
+            --seconds;
+        }
+
+        this.accessTimeout = window.setTimeout(
+            (): void => void this.authenticate(options),
+            seconds * 1000
+        );
+
+    }
+
+
 }
 
 
 /* *
  *
- *  Namespace
+ *  Class Namespace
  *
  * */
 
@@ -193,10 +294,10 @@ export namespace MorningstarAPI {
     ];
 
 
-    export const regionURL: Record<Region, string> = {
-        Americas: 'https://www.us-api.morningstar.com/ecint/v1/',
-        APAC: 'https://www.apac-api.morningstar.com/ecint/v1/',
-        EMEA: 'https://www.emea-api.morningstar.com/ecint/v1/'
+    export const regionalBaseURL: Record<Region, string> = {
+        Americas: 'https://www.us-api.morningstar.com/',
+        APAC: 'https://www.apac-api.morningstar.com/',
+        EMEA: 'https://www.emea-api.morningstar.com/'
     };
 
 

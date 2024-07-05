@@ -11,6 +11,7 @@
  *
  * */
 
+
 'use strict';
 
 
@@ -21,7 +22,7 @@
  * */
 
 
-import DataConnectorOptions from '@highcharts/dashboards/es-modules/Data/Connectors/DataConnectorOptions';
+import type DataConnectorOptions from '@highcharts/dashboards/es-modules/Data/Connectors/DataConnectorOptions';
 
 
 /* *
@@ -34,10 +35,16 @@ import DataConnectorOptions from '@highcharts/dashboards/es-modules/Data/Connect
 export interface MorningstarAPIOptions {
 
     /**
+     * Authentication options to get authorized access to the Morningstar Direct
+     * Web Services.
+     */
+    authentication?: MorningstarAuthenticationOptions;
+
+    /**
      * Absolute URL or relative URL path to the API to be used.
      *
-     * Defaults to the nearest Morningstar API region based on the browser
-     * localization settings. 
+     * Defaults to the nearest region of the Morningstar Direct Web Services
+     * based on the browser localization settings. 
      */
     url?: string;
 
@@ -47,6 +54,29 @@ export interface MorningstarAPIOptions {
      * Default to the version number of the API URL or `1`.
      */
     version?: number;
+
+}
+
+
+export interface MorningstarAuthenticationOptions {
+
+    /**
+     * Use an access token for the Morningstar Direct Web Services instead of
+     * username and password.
+     */
+    accessToken?: string;
+
+    /**
+     * Use the password in combination with the username to receive a session
+     * token for the Morningstar Direct Web Services.
+     */
+    password?: string;
+
+    /**
+     * Use the username in combination with the password to receive a session
+     * token for the Morningstar Direct Web Services.
+     */
+    username?: string;
 
 }
 
