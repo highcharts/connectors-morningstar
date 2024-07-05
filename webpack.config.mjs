@@ -26,61 +26,27 @@ const root = 'Dashboards';
 
 /* *
  *
- *  Externals
- *
- * */
-
-
-const externals = {};
-
-
-function addExternal(nodeModule, pathMembers) {
-    const amd = [
-        nodeModule.split('/').pop() + '/' + nodeModule.split('/').pop()
-    ]
-    const commonjs = [nodeModule];
-    const root = [
-        nodeModule.split('/').pop().substring(0, 1).toUpperCase() +
-        nodeModule.split('/').pop().substring(1)
-    ];
-
-    if (pathMembers.length) {
-        amd.push(pathMembers.slice().pop());
-        commonjs.push(pathMembers.slice().pop());
-        root.push(pathMembers.slice().pop());
-        nodeModule += pathMembers.join('/');
-    }
-
-    externals[nodeModule] = {
-        amd,
-        commonjs,
-        commonjs2: commonjs,
-        root
-    };
-
-}
-
-
-Object
-    .entries(JSON.parse(FS.readFileSync('webpack.externals.json', 'utf8')))
-    .forEach(entry => (
-        entry[1].forEach(path => (
-            addExternal(entry[0], path.split('/'))
-        ))
-    ));
-
-
-/* *
- *
  *  Distribution
  *
  * */
+
+
+const externals = {
+    '@highcharts/dashboards': {
+        amd: 'dashboards/dashboards',
+        commonjs: '@highcharts/dashboards',
+        commonjs2: '@highcharts/dashboards',
+        root: 'Dashboards'
+    }
+};
 
 
 const webpacks = [
     // Morningstar connectors
     {
         mode: 'production',
+
+        devtool: 'source-map',
 
         // path to the main file
         entry: Path.resolve(projectFolder, `${sourceFolder}/index.js`),
@@ -117,6 +83,8 @@ const webpacks = [
     // Morningstar Time Series
     {
         mode: 'production',
+
+        devtool: 'source-map',
 
         // path to the main file
         entry: Path.resolve(projectFolder, `${sourceFolder}/TimeSeries/index.js`),
