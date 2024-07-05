@@ -26,7 +26,7 @@ const root = 'Dashboards';
 
 /* *
  *
- *  Functions
+ *  Externals
  *
  * */
 
