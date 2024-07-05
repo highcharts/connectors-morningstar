@@ -34,6 +34,8 @@
         "build:prepare": "mkdir -p build/package/ && cp -R dist lib LICENSE.md README.md build/package/ && cp package-build.json build/package/package.json",
         "build:pack": "npm pack build/package/ --pack-destination build/",
         "build:cleanup": "rm -rf build/package/",
+        "demos": "npm run webpack && npm run demos:server",
+        "demos:server": "python3 -m http.server --bind localhost 8123",
         "prepare": "husky install",
         "scripts": "tsc -p src/",
         "test": "npm run test:prepare",

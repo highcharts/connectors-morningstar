@@ -1,7 +1,7 @@
 To-Dos
 ======
 
-* Implement `MorningstarConnector` with automated autorization.
+* Implement `Playbook.getAuthenticationOptionsFromEnvironment`.
 
 * Implement `MorningstarConverter` with JSON processing and validation.
 
