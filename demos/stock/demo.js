@@ -7,6 +7,7 @@ const api = new MCS.MorningstarAPI();
     Dashboards.board('container', {
         dataPool: {
             connectors: [{
+                id: 'Time Series',
                 type: 'MorningstarTimeSeries',
                 options: {
                     api: {

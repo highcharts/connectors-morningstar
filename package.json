@@ -35,7 +35,7 @@
         "build:pack": "npm pack build/package/ --pack-destination build/",
         "build:cleanup": "rm -rf build/package/",
         "demos": "npm run webpack && npm run demos:server",
-        "demos:server": "python3 -m http.server --bind localhost 8123",
+        "demos:server": "(sleep 1 ; open http://localhost:8080) & python3 -m http.server --bind localhost 8080",
         "prepare": "husky install",
         "scripts": "tsc -p src/",
         "test": "npm run test:prepare",

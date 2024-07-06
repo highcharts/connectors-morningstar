@@ -22,6 +22,8 @@
  * */
 
 
+import * as Dashboards from '@highcharts/dashboards';
+
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import TimeSeriesConverter from './TimeSeriesConverter';
 import TimeSeriesOptions from './TimeSeriesOptions';
@@ -50,6 +52,7 @@ class TimeSeriesConnector extends MorningstarConnector {
         super(options);
 
         this.converter = new TimeSeriesConverter(options.converter);
+        this.options = options;
     }
 
 
@@ -63,7 +66,27 @@ class TimeSeriesConnector extends MorningstarConnector {
     public override readonly converter: TimeSeriesConverter;
 
 
+    public readonly options: TimeSeriesOptions;
+
+
 }
+
+
+/* *
+ *
+ *  Registry
+ *
+ * */
+
+
+declare module '@highcharts/dashboards/es-modules/Data/Connectors/DataConnectorType' {
+    interface DataConnectorTypes {
+        MorningstarTimeSeries: typeof TimeSeriesConnector
+    }
+}
+
+
+Dashboards.DataConnector.registerType('MorningstarTimeSeries', TimeSeriesConnector);
 
 
 /* *
