@@ -11,7 +11,7 @@ const api = new MCS.MorningstarAPI();
                 type: 'MorningstarTimeSeries',
                 options: {
                     api: {
-                        authentication: {
+                        access: {
                             password: environment.values[2].value,
                             username: environment.values[1].value
                         }

@@ -23,7 +23,7 @@
 
 
 import MorningstarAPI from './MorningstarAPI';
-import MorningstarOAuth2 from './MorningstarOAuth2';
+import MorningstarOAuth2 from './MorningstarAccess';
 
 
 /* *
@@ -35,7 +35,7 @@ import MorningstarOAuth2 from './MorningstarOAuth2';
 
 export * from './MorningstarAPI';
 export * from './MorningstarError';
-export * from './MorningstarOAuth2';
+export * from './MorningstarAccess';
 export * from './MorningstarOptions';
 
 

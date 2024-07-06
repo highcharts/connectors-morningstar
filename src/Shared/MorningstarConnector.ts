@@ -77,8 +77,8 @@ export abstract class MorningstarConnector extends Dashboards.DataConnector {
 
     public override async load(): Promise<this> {
 
-        if (!this.api.authorized) {
-            await this.api.authenticate();
+        if (!this.api.access.authorized) {
+            await this.api.access.authenticate();
         }
 
         return super.load();
