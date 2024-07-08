@@ -133,7 +133,10 @@ export class MorningstarAccess {
             throw new Error('Insecure API protocol');
         }
 
-        this.lastingToken = options.token;
+        if (options.token) {
+            this.token = options.token;
+            this.tokenType = 'Option';
+        }
 
         this.setPayload(options.username, options.password);
 
@@ -159,9 +162,6 @@ export class MorningstarAccess {
     public errorMessage?: string;
 
 
-    private readonly lastingToken?: string;
-
-
     private payload?: string;
 
 
@@ -171,7 +171,7 @@ export class MorningstarAccess {
     private token?: string;
 
 
-    private tokenType?: 'Bearer';
+    private tokenType?: ('Bearer'|'Option');
 
 
     private readonly url: URL;
@@ -194,8 +194,11 @@ export class MorningstarAccess {
         delete this.authorized;
         delete this.errorMessage;
         delete this.timeout;
-        delete this.token;
-        delete this.tokenType;
+
+        if (this.tokenType === 'Bearer') {
+            delete this.token;
+            delete this.tokenType;
+        }
 
         if (
             typeof password === 'string' &&
@@ -206,11 +209,8 @@ export class MorningstarAccess {
 
         if (!this.payload) {
 
-            if (this.lastingToken) {
+            if (this.token) {
                 this.authorized = true;
-                this.token = this.lastingToken;
-                this.tokenType = 'Bearer';
-                this.setTimeout(3600);
             }
 
             return !!this.authorized;
@@ -272,7 +272,11 @@ export class MorningstarAccess {
         requestInit: RequestInit
     ): RequestInit {
         const token = this.token;
-        const tokenType = this.tokenType;
+        const tokenType = (
+            this.tokenType === 'Option' ?
+                'Bearer' :
+                this.tokenType
+        );
 
         if (
             typeof token === 'undefined' ||

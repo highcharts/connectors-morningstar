@@ -67,8 +67,8 @@ export interface MorningstarAccessOptions {
     password?: string;
 
     /**
-     * Use a token for the Morningstar Direct Web Services instead of username
-     * and password.
+     * Use the given token for the Morningstar Direct Web Services instead of
+     * username and password.
      */
     token?: string;
 
