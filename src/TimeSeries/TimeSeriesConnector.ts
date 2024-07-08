@@ -66,7 +66,7 @@ class TimeSeriesConnector extends MorningstarConnector {
     public override readonly converter: TimeSeriesConverter;
 
 
-    public readonly options: TimeSeriesOptions;
+    public override readonly options: TimeSeriesOptions;
 
 
 }

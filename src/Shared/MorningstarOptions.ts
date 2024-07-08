@@ -44,7 +44,7 @@ export interface MorningstarAPIOptions {
      * Absolute URL or relative URL path to the API to be used.
      *
      * Defaults to the nearest region of the Morningstar Direct Web Services
-     * based on the browser localization settings. 
+     * based on the browser localization settings.
      */
     url?: string;
 
@@ -94,9 +94,38 @@ export interface MorningstarConverterOptions {
 }
 
 
+/**
+ * Options to load the Morningstar Direct Web Service options from a provided
+ * Postman file.
+ */
+export interface MorningstarPostmanOptions {
+
+    /**
+     * URL or path to the shared Postman Environment to use.
+     */
+    environmentURL?: string;
+
+}
+
+
 export interface MorningstarOptions extends DataConnectorOptions {
+
+    /**
+     * Options to configure the API communication with the Morningstar Direct
+     * Web Services.
+     */
     api?: MorningstarAPIOptions;
+
+    /**
+     * Options to configure connector details.
+     */
     converter?: MorningstarConverterOptions;
+
+    /**
+     * Options to configure the connector from provided Postman files.
+     */
+    postman?: MorningstarPostmanOptions;
+
 }
 
 
