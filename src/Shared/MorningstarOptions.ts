@@ -94,20 +94,6 @@ export interface MorningstarConverterOptions {
 }
 
 
-/**
- * Options to load the Morningstar Direct Web Service options from a provided
- * Postman file.
- */
-export interface MorningstarPostmanOptions {
-
-    /**
-     * URL or path to the shared Postman Environment to use.
-     */
-    environmentURL?: string;
-
-}
-
-
 export interface MorningstarOptions extends DataConnectorOptions {
 
     /**
@@ -125,6 +111,35 @@ export interface MorningstarOptions extends DataConnectorOptions {
      * Options to configure the connector from provided Postman files.
      */
     postman?: MorningstarPostmanOptions;
+
+}
+
+
+/**
+ * Options to load the Morningstar Direct Web Service options from a provided
+ * Postman file.
+ */
+export interface MorningstarPostmanOptions {
+
+    /**
+     * URL or path to the shared Postman Environment to use.
+     */
+    environmentURL?: string;
+
+}
+
+
+export interface MorningstarSecurityOptions {
+
+    /**
+     * Security identifier.
+     */
+    id: string;
+
+    /**
+     * Security identifier type.
+     */
+    idType: string;
 
 }
 

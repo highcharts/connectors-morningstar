@@ -27,6 +27,7 @@ import type { MorningstarAPIOptions } from './MorningstarOptions';
 import MorningstarAuthentication from './MorningstarAccess';
 import MorningstarError from './MorningstarError';
 import MorningstarRegion from './MorningstarRegion';
+import MorningstarURL from './MorningstarURL';
 
 
 /* *
@@ -114,7 +115,7 @@ export class MorningstarAPI {
 
 
     public async fetch (
-        url: string,
+        url: MorningstarURL,
         requestInit: RequestInit = {}
     ): Promise<Response> {
 
@@ -122,7 +123,6 @@ export class MorningstarAPI {
             throw new Error('Absolute URLs are not supported.');
         }
 
-        const finalURL = new URL(url, this.baseURL);
         const requestDelay = (
             this.requestDelay -
             ((new Date()).getTime() - this.lastRequestTimestamp)
@@ -139,7 +139,7 @@ export class MorningstarAPI {
             requestInit = this.access.authorizeRequest(requestInit);
         }
 
-        const response = await window.fetch(finalURL, requestInit);
+        const response = await window.fetch(url, requestInit);
 
         if (!response.url.startsWith('https')) {
             throw new Error('Unsecured connection');
