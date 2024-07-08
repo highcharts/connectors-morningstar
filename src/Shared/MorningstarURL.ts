@@ -22,7 +22,7 @@
  * */
 
 
-import MorningstarSearchParams from "./MorningstarSearchParameter";
+import MorningstarSearchParams from "./MorningstarSearchParams";
 
 
 /* *
