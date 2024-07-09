@@ -313,6 +313,8 @@ export class MorningstarAccess {
             typeof password === 'string' &&
             typeof username === 'string'
         ) {
+            username = unescape(encodeURIComponent(username));
+            password = unescape(encodeURIComponent(password));
             this.payload = btoa(`${username}:${password}`);
         }
 
