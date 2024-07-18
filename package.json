@@ -39,7 +39,7 @@
         "prepare": "husky install",
         "scripts": "tsc -p src/",
         "test": "npm run test:prepare",
-        "test:morningstar": "npx -y newman run tmp/Collection.json -e tmp/Environment.json",
+        "test:morningstar": "npx -y newman run --bail tmp/Collection.json -e tmp/Environment.json",
         "test:precommit": "npm run test",
         "test:prepare": "npm run webpack",
         "watch": "tsc -p src/ -w",
