@@ -22,9 +22,11 @@
  * */
 
 
+import type LocalizationOptions from '../Shared/LocalizationOptions';
 import type {
     MorningstarConverterOptions,
-    MorningstarOptions
+    MorningstarOptions,
+    MorningstarSecurityOptions
 } from '../Shared/MorningstarOptions';
 
 
@@ -40,9 +42,88 @@ export interface TimeSeriesConverterOptions extends MorningstarConverterOptions 
 }
 
 
-export interface TimeSeriesOptions extends MorningstarOptions {
-    converter?: TimeSeriesConverterOptions;
+export interface CumulativeReturnSeriesOptions {
+
+    /**
+     * Series type to retrieve.
+     */
+    type: 'CumulativeReturn';
+
 }
+
+
+export interface DividendSeriesOptions {
+
+    /**
+     * Series type to retrieve.
+     */
+    type: 'Dividend';
+
+}
+
+
+export interface GrowthSeriesOptions {
+
+    /**
+     * Series type to retrieve.
+     */
+    type: 'Growth';
+
+}
+
+
+export interface PriceSeriesOptions {
+
+    /**
+     * Series type to retrieve.
+     */
+    type: 'Price';
+
+}
+
+
+export interface TimeSeriesSecurityOptions extends MorningstarSecurityOptions {
+
+    id: string;
+
+    idType: ('ISIN'|'MORNINGSTAR'|'MSID'|'SECID');
+
+}
+
+
+export interface TimeSeriesOptions extends MorningstarOptions {
+
+    converter?: TimeSeriesConverterOptions;
+
+    /**
+     * Localization options.
+     */
+    localization?: LocalizationOptions;
+
+    /**
+     * Security to retrieve.
+     */
+    securities?: Array<TimeSeriesSecurityOptions>;
+
+    /**
+     * Type-based series options.
+     */
+    series: TimeSeriesType;
+
+    /**
+     * Tax option.
+     */
+    tax: ('pretax'|'posttax');
+
+}
+
+
+export type TimeSeriesType = (
+    | CumulativeReturnSeriesOptions
+    | DividendSeriesOptions
+    | GrowthSeriesOptions
+    | PriceSeriesOptions
+);
 
 
 /* *
