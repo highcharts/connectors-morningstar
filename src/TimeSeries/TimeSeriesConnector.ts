@@ -23,8 +23,11 @@
 
 
 import External from '../Shared/External';
+import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarConverter from '../Shared/MorningstarConverter';
+import MorningstarURL from '../Shared/MorningstarURL';
+import TimeSeriesCumulativeReturnConverter from './Converters/TimeSeriesCumulativeReturnConverter';
 import TimeSeriesRatingConverter from './Converters/TimeSeriesRatingConverter';
 import TimeSeriesOptions from './TimeSeriesOptions';
 
@@ -52,6 +55,13 @@ class TimeSeriesConnector extends MorningstarConnector {
         super(options);
 
         switch (options.series?.type) {
+
+            case 'CumulativeReturn':
+                this.converter = new TimeSeriesCumulativeReturnConverter({
+                    ...options.converter,
+                    ...options.series
+                });
+                break;
 
             case 'Rating':
                 this.converter = new TimeSeriesRatingConverter({
@@ -81,6 +91,31 @@ class TimeSeriesConnector extends MorningstarConnector {
 
 
     public override readonly options: TimeSeriesOptions;
+
+
+    /* *
+     *
+     *  Functions
+     *
+     * */
+
+
+    public override async load(): Promise<this> {
+        const options = this.options;
+        const url = new MorningstarURL('timeseries/cumulativereturn');
+        const api = new MorningstarAPI(options.api);
+
+        if (options.securities) {
+            url.searchParams.setSecurityOptions(options.securities);
+
+            const response = await api.fetch(url);
+            const json = await response.json() as unknown;
+
+            this.converter.parse({ json });
+        }
+
+        return this;
+    }
 
 
 }
