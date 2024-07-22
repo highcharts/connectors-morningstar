@@ -24,7 +24,8 @@
 
 import External from '../Shared/External';
 import MorningstarConnector from '../Shared/MorningstarConnector';
-import TimeSeriesConverter from './TimeSeriesConverter';
+import MorningstarConverter from '../Shared/MorningstarConverter';
+import TimeSeriesRatingConverter from './Converters/TimeSeriesRatingConverter';
 import TimeSeriesOptions from './TimeSeriesOptions';
 
 
@@ -50,8 +51,22 @@ class TimeSeriesConnector extends MorningstarConnector {
     ) {
         super(options);
 
-        this.converter = new TimeSeriesConverter(options.converter);
+        switch (options.series?.type) {
+
+            case 'Rating':
+                this.converter = new TimeSeriesRatingConverter({
+                    ...options.converter,
+                    ...options.series
+                });
+                break;
+
+            default:
+                throw new Error('Invalid series type');
+
+        }
+
         this.options = options;
+
     }
 
 
@@ -62,7 +77,7 @@ class TimeSeriesConnector extends MorningstarConnector {
      * */
 
 
-    public override readonly converter: TimeSeriesConverter;
+    public override readonly converter: MorningstarConverter;
 
 
     public override readonly options: TimeSeriesOptions;

@@ -82,6 +82,16 @@ export interface PriceSeriesOptions {
 }
 
 
+export interface RatingSeriesOptions {
+
+    /**
+     * Series type to retrieve.
+     */
+    type: 'Rating';
+
+}
+
+
 export interface TimeSeriesSecurityOptions extends MorningstarSecurityOptions {
 
     id: string;
@@ -123,6 +133,7 @@ export type TimeSeriesType = (
     | DividendSeriesOptions
     | GrowthSeriesOptions
     | PriceSeriesOptions
+    | RatingSeriesOptions
 );
 
 
