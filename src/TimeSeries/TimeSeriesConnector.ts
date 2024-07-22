@@ -112,6 +112,9 @@ class TimeSeriesConnector extends MorningstarConnector {
             const json = await response.json() as unknown;
 
             this.converter.parse({ json });
+
+            this.table.deleteColumns();
+            this.table.setColumns(this.converter.getTable().getColumns());
         }
 
         return this;
