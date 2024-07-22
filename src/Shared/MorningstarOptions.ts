@@ -22,7 +22,7 @@
  * */
 
 
-import type DataConnectorOptions from '@highcharts/dashboards/es-modules/Data/Connectors/DataConnectorOptions';
+import type * as External from './External';
 
 
 /* *
@@ -94,7 +94,7 @@ export interface MorningstarConverterOptions {
 }
 
 
-export interface MorningstarOptions extends DataConnectorOptions {
+export interface MorningstarOptions extends External.DataConnectorOptions {
 
     /**
      * Options to configure the API communication with the Morningstar Direct

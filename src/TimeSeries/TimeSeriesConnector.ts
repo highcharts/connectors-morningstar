@@ -22,8 +22,7 @@
  * */
 
 
-import * as Dashboards from '@highcharts/dashboards';
-
+import External from '../Shared/External';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import TimeSeriesConverter from './TimeSeriesConverter';
 import TimeSeriesOptions from './TimeSeriesOptions';
@@ -86,7 +85,10 @@ declare module '@highcharts/dashboards/es-modules/Data/Connectors/DataConnectorT
 }
 
 
-Dashboards.DataConnector.registerType('MorningstarTimeSeries', TimeSeriesConnector);
+External.DataConnector.registerType(
+    'MorningstarTimeSeries',
+    TimeSeriesConnector
+);
 
 
 /* *

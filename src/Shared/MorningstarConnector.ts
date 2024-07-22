@@ -22,8 +22,7 @@
  * */
 
 
-import * as Dashboards from '@highcharts/dashboards';
-
+import * as External from './External';
 import MorningstarAPI from './MorningstarAPI';
 import MorningstarConverter from './MorningstarConverter';
 import MorningstarOptions from './MorningstarOptions';
@@ -37,7 +36,7 @@ import MorningstarPostman from './MorningstarPostman';
  * */
 
 
-export abstract class MorningstarConnector extends Dashboards.DataConnector {
+export abstract class MorningstarConnector extends External.DataConnector {
 
 
     /* *

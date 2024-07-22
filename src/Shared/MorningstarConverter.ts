@@ -22,7 +22,7 @@
  * */
 
 
-import * as Dashboards from '@highcharts/dashboards';
+import * as External from './External';
 
 
 /* *
@@ -32,19 +32,12 @@ import * as Dashboards from '@highcharts/dashboards';
  * */
 
 
-/**
- * @internal
- * @todo Remove and replace references with Dashboards.DataConverter
- */
-declare type Dashboards_DataConverter = Dashboards.DataConnector['converter'];
+export interface MorningstarConverterOptions
+    extends External.DataConverterOptions {
 
+    json?: unknown;
 
-/**
- * @internal
- * @todo Remove and replace references with Dashboards.DataConverter
- */
-declare type Dashboards_DataConverter_Options = Dashboards.DataConnector['converter']['options'];
-/* eslint-disable @typescript-eslint/no-unsafe-declaration-merging */
+}
 
 
 /* *
@@ -54,7 +47,7 @@ declare type Dashboards_DataConverter_Options = Dashboards.DataConnector['conver
  * */
 
 
-export abstract class MorningstarConverter implements Dashboards_DataConverter {
+export abstract class MorningstarConverter extends External.DataConverter {
 
 
     /* *
@@ -65,9 +58,12 @@ export abstract class MorningstarConverter implements Dashboards_DataConverter {
 
 
     public constructor (
-        options: Partial<Dashboards_DataConverter_Options> = {}
+        options: MorningstarConverterOptions = {}
     ) {
-        this.options = options as Dashboards_DataConverter_Options;
+        super(options);
+
+        this.options = options as Required<MorningstarConverterOptions>;
+        this.table = new External.DataTable();
     }
 
 
@@ -78,25 +74,29 @@ export abstract class MorningstarConverter implements Dashboards_DataConverter {
      * */
 
 
-    public options: Dashboards_DataConverter_Options;
+    public override options: Required<MorningstarConverterOptions>;
 
 
-}
+    protected table: External.DataTable;
 
 
-/* *
- *
- *  Class Prototype
- *
- * */
+    /* *
+     *
+     *  Functions
+     *
+     * */
 
 
-/**
- * @internal
- * @todo Remove interface after Dashboards.DataConverter is available.
- */
-export interface MorningstarConverter extends Dashboards_DataConverter {
-    // Forcing non-existing structure on MorningstarConverter as a workaround.
+    public abstract override parse(
+        options: MorningstarConverterOptions
+    ): void;
+
+
+    public override getTable(): External.DataTable {
+        return this.table;
+    }
+
+
 }
 
 
