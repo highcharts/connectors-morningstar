@@ -110,11 +110,19 @@ class TimeSeriesConnector extends MorningstarConnector {
 
     public override async load(): Promise<this> {
         const options = this.options;
-        const url = new MorningstarURL('timeseries/cumulativereturn');
-        const api = new MorningstarAPI(options.api);
+        const securities = options.securities;
+        const tax = options.tax;
 
-        if (options.securities) {
-            url.searchParams.setSecurityOptions(options.securities);
+        if (securities) {
+            const url = new MorningstarURL('timeseries/cumulativereturn');
+            const searchParams = url.searchParams;
+            const api = new MorningstarAPI(options.api);
+
+            searchParams.setSecurityOptions(securities);
+
+            if (tax) {
+                searchParams.set('tax', tax);
+            }
 
             const response = await api.fetch(url);
             const json = await response.json() as unknown;

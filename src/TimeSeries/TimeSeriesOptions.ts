@@ -57,6 +57,15 @@ export interface TimeSeriesCumulativeReturnOptions extends TimeSeriesConverterOp
 export interface TimeSeriesDividendOptions extends TimeSeriesConverterOptions {
 
     /**
+     * Whether to include currency information as an additional column for each
+     * security (`true`), or not (`false`). The name of the additional column
+     * has the format `[SID]_Currency`, e.g. `F0GBR04S23_Currency`.
+     *
+     * @default false
+     */
+    includeCurrency?: boolean;
+
+    /**
      * Series type to retrieve.
      */
     type: 'Dividend';
@@ -114,12 +123,12 @@ export interface TimeSeriesOptions extends MorningstarOptions {
     /**
      * Type-based series options.
      */
-    series: TimeSeriesType;
+    series?: TimeSeriesType;
 
     /**
      * Tax option.
      */
-    tax: ('pretax'|'posttax');
+    tax?: ('pretax'|'posttax');
 
 }
 

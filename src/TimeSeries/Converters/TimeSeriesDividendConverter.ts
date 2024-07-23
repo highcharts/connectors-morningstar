@@ -92,6 +92,7 @@ export class TimeSeriesDividendConverter extends MorningstarConverter {
             ...this.options,
             ...options
         };
+        const includeCurrency = userOptions.includeCurrency;
         const json = userOptions.json;
 
         // Validate JSON
@@ -141,7 +142,9 @@ export class TimeSeriesDividendConverter extends MorningstarConverter {
 
         for (const securityId of securityIds) {
             table.setColumn(securityId);
-            table.setColumn(`${securityId}_CID`);
+            if (includeCurrency) {
+                table.setColumn(`${securityId}_Currency`);
+            }
         }
 
         // Add dividends to table
@@ -155,7 +158,9 @@ export class TimeSeriesDividendConverter extends MorningstarConverter {
                 table.setCell('Date', ++currentTableIndex, currentTableDate);
             }
             table.setCell(dividend.Id, currentTableIndex, dividend.Value);
-            table.setCell(`${dividend.Id}_CID`, currentTableIndex, dividend.CurrencyId);
+            if (includeCurrency) {
+                table.setCell(`${dividend.Id}_Currency`, currentTableIndex, dividend.CurrencyId);
+            }
         }
 
     }
