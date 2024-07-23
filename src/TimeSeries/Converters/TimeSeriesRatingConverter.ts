@@ -22,13 +22,8 @@
  * */
 
 
-import {
-    MorningstarConverter,
-    MorningstarConverterOptions
-} from '../../Shared/MorningstarConverter';
-import {
-    RatingSeriesOptions
-} from '../TimeSeriesOptions';
+import MorningstarConverter from '../../Shared/MorningstarConverter';
+import { TimeSeriesRatingOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
 
 
@@ -43,12 +38,6 @@ interface Rating {
     Id: string;
     EndDate: number;
     Value: number;
-}
-
-
-export interface TimeSeriesRatingConverterOptions
-    extends MorningstarConverterOptions, RatingSeriesOptions {
-
 }
 
 
@@ -70,11 +59,11 @@ export class TimeSeriesConverter extends MorningstarConverter {
 
 
     public constructor(
-        options?: TimeSeriesRatingConverterOptions
+        options?: TimeSeriesRatingOptions
     ) {
         super(options);
 
-        this.options = options as Required<TimeSeriesRatingConverterOptions>;
+        this.options = options as Required<TimeSeriesRatingOptions>;
     }
 
 
@@ -85,7 +74,7 @@ export class TimeSeriesConverter extends MorningstarConverter {
      * */
 
 
-    public override readonly options: Required<TimeSeriesRatingConverterOptions>;
+    public override readonly options: Required<TimeSeriesRatingOptions>;
 
     /* *
      *
@@ -95,7 +84,7 @@ export class TimeSeriesConverter extends MorningstarConverter {
 
 
     public parse(
-        options: TimeSeriesRatingConverterOptions
+        options: TimeSeriesRatingOptions
     ): void {
         const table = this.table;
         const userOptions = {
@@ -113,27 +102,31 @@ export class TimeSeriesConverter extends MorningstarConverter {
         // Cumulate security ratings by date
 
         const securityIds: Array<string> = [];
-        const sortedRating: Array<Rating> = [];
+        const sortedRatings: Array<Rating> = [];
 
         for (const security of json.Security) {
+
             if (!security.RatingSeries) {
                 continue;
             }
+
             securityIds.push(security.Id);
+
             for (const history of security.RatingSeries) {
                 for (const detail of history.HistoryDetail) {
-                    sortedRating.push({
+                    sortedRatings.push({
                         EndDate: Date.parse(detail.EndDate),
                         Id: security.Id,
                         Value: parseFloat(detail.Value)
                     });
                 }
             }
+
         }
 
         // Sort ratings by date
 
-        sortedRating.sort((a, b) => (
+        sortedRatings.sort((a, b) => (
             a.EndDate === b.EndDate ?
                 0 :
                 a.EndDate < b.EndDate ? -1 : 1
@@ -153,7 +146,7 @@ export class TimeSeriesConverter extends MorningstarConverter {
         let currentTableDate: number = 0;
         let currentTableIndex: number = 0;
 
-        for (const rating of sortedRating) {
+        for (const rating of sortedRatings) {
             if (currentTableDate !== rating.EndDate) {
                 currentTableDate = rating.EndDate;
                 table.setCell('Date', ++currentTableIndex, currentTableDate);

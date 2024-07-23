@@ -23,21 +23,7 @@
 
 
 import * as External from './External';
-
-
-/* *
- *
- *  Declarations
- *
- * */
-
-
-export interface MorningstarConverterOptions
-    extends External.DataConverterOptions {
-
-    json?: unknown;
-
-}
+import { MorningstarConverterOptions } from './MorningstarOptions';
 
 
 /* *

@@ -28,8 +28,9 @@ import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarConverter from '../Shared/MorningstarConverter';
 import MorningstarURL from '../Shared/MorningstarURL';
 import TimeSeriesCumulativeReturnConverter from './Converters/TimeSeriesCumulativeReturnConverter';
-import TimeSeriesRatingConverter from './Converters/TimeSeriesRatingConverter';
+import TimeSeriesDividendConverter from './Converters/TimeSeriesDividendConverter';
 import TimeSeriesOptions from './TimeSeriesOptions';
+import TimeSeriesRatingConverter from './Converters/TimeSeriesRatingConverter';
 
 
 /* *
@@ -58,6 +59,13 @@ class TimeSeriesConnector extends MorningstarConnector {
 
             case 'CumulativeReturn':
                 this.converter = new TimeSeriesCumulativeReturnConverter({
+                    ...options.converter,
+                    ...options.series
+                });
+                break;
+
+            case 'Dividend':
+                this.converter = new TimeSeriesDividendConverter({
                     ...options.converter,
                     ...options.series
                 });

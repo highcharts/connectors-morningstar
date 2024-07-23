@@ -39,10 +39,12 @@ import type {
 
 export interface TimeSeriesConverterOptions extends MorningstarConverterOptions {
 
+    // Nothing to add yet.
+
 }
 
 
-export interface CumulativeReturnSeriesOptions {
+export interface TimeSeriesCumulativeReturnOptions extends TimeSeriesConverterOptions {
 
     /**
      * Series type to retrieve.
@@ -52,7 +54,7 @@ export interface CumulativeReturnSeriesOptions {
 }
 
 
-export interface DividendSeriesOptions {
+export interface TimeSeriesDividendOptions extends TimeSeriesConverterOptions {
 
     /**
      * Series type to retrieve.
@@ -62,7 +64,7 @@ export interface DividendSeriesOptions {
 }
 
 
-export interface GrowthSeriesOptions {
+export interface TimeSeriesGrowthOptions extends TimeSeriesConverterOptions {
 
     /**
      * Series type to retrieve.
@@ -72,7 +74,7 @@ export interface GrowthSeriesOptions {
 }
 
 
-export interface PriceSeriesOptions {
+export interface TimeSeriesPriceOptions extends TimeSeriesConverterOptions{
 
     /**
      * Series type to retrieve.
@@ -82,7 +84,7 @@ export interface PriceSeriesOptions {
 }
 
 
-export interface RatingSeriesOptions {
+export interface TimeSeriesRatingOptions extends TimeSeriesConverterOptions{
 
     /**
      * Series type to retrieve.
@@ -92,17 +94,11 @@ export interface RatingSeriesOptions {
 }
 
 
-export interface TimeSeriesSecurityOptions extends MorningstarSecurityOptions {
-
-    id: string;
-
-    idType: ('ISIN'|'MORNINGSTAR'|'MSID'|'SECID');
-
-}
-
-
 export interface TimeSeriesOptions extends MorningstarOptions {
 
+    /**
+     * Common type-independent series options.
+     */
     converter?: TimeSeriesConverterOptions;
 
     /**
@@ -113,7 +109,7 @@ export interface TimeSeriesOptions extends MorningstarOptions {
     /**
      * Security to retrieve.
      */
-    securities?: Array<TimeSeriesSecurityOptions>;
+    securities?: Array<MorningstarSecurityOptions>;
 
     /**
      * Type-based series options.
@@ -129,11 +125,11 @@ export interface TimeSeriesOptions extends MorningstarOptions {
 
 
 export type TimeSeriesType = (
-    | CumulativeReturnSeriesOptions
-    | DividendSeriesOptions
-    | GrowthSeriesOptions
-    | PriceSeriesOptions
-    | RatingSeriesOptions
+    | TimeSeriesCumulativeReturnOptions
+    | TimeSeriesDividendOptions
+    | TimeSeriesGrowthOptions
+    | TimeSeriesPriceOptions
+    | TimeSeriesRatingOptions
 );
 
 

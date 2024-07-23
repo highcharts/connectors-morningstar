@@ -89,7 +89,12 @@ export interface MorningstarAccessOptions {
 }
 
 
-export interface MorningstarConverterOptions {
+export interface MorningstarConverterOptions extends External.DataConverterOptions {
+
+    /**
+     * JSON data from Morningstar Direct Web Service.
+     */
+    json?: unknown;
 
 }
 
