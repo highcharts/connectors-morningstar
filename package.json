@@ -17,7 +17,8 @@
         "eslint-plugin-jsdoc": "^48.5.0",
         "husky": "^9.0.11",
         "lint-staged": "^15.2.7",
-        "typescript": "^5.5.3",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.5.4",
         "webpack": "^5.92.1",
         "webpack-cli": "^5.1.4"
     },
@@ -36,7 +37,7 @@
         "build:cleanup": "rm -rf build/package/",
         "demos": "npm run webpack && npm run demos:server",
         "demos:server": "(sleep 1 ; open http://localhost:8080) & python3 -m http.server --bind localhost 8080",
-        "prepare": "husky install",
+        "prepare": "rm -rf '.husky/_' ; husky",
         "scripts": "tsc -p src/",
         "test": "npm run test:prepare",
         "test:morningstar": "npx -y newman run --bail tmp/Collection.json -e tmp/Environment.json",

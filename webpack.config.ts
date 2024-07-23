@@ -5,6 +5,8 @@
  * */
 
 
+import type { Configuration } from 'webpack';
+
 import * as FS from 'node:fs';
 import * as Path from 'node:path';
 
@@ -41,7 +43,7 @@ const externals = {
 };
 
 
-const webpacks = [
+const webpacks: Array<Configuration> = [
     // Morningstar connectors
     {
         mode: 'production',
@@ -134,10 +136,16 @@ for (let webpack of webpacks.slice()) {
         ...webpack.optimization,
         minimize: false
     };
-    webpack.output.filename =
-        Path.basename(webpack.output.filename, '.js') + '.src.js';
-    webpack.output.path =
-        Path.resolve(webpack.output.path, Path.join('..', 'code'));
+    if (
+        typeof webpack.output === 'object' &&
+        typeof webpack.output.filename === 'string' &&
+        typeof webpack.output.path === 'string'
+    ) {
+        webpack.output.filename =
+            Path.basename(webpack.output.filename, '.js') + '.src.js';
+        webpack.output.path =
+            Path.resolve(webpack.output.path, Path.join('..', 'code'));
+    }
     webpack.performance = {
         ...webpack.performance,
         maxAssetSize: 1000000,
