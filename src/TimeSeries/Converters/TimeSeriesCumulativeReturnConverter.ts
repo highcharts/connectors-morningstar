@@ -29,6 +29,7 @@ import {
 import {
     CumulativeReturnSeriesOptions
 } from '../TimeSeriesOptions';
+import TimeSeriesJSON from '../TimeSeriesJSON';
 
 
 /* *
@@ -44,119 +45,10 @@ interface CumulativeReturn {
     Value: number;
 }
 
-interface CumulativeReturnJSON {
-    TimeSeries: CumulativeReturnTimeSeriesJSON;
-}
-
-
-interface CumulativeReturnSecurityJSON {
-    Id: string;
-    RatingSeries: Array<CumulativeReturnSeriesJSON>;
-}
-
-
-interface CumulativeReturnSeriesJSON {
-    HistoryDetail: Array<CumulativeReturnHistoryDetailJSON>;
-}
-
-
-interface CumulativeReturnTimeSeriesJSON {
-    Security: Array<CumulativeReturnSecurityJSON>;
-}
-
-
-interface CumulativeReturnHistoryDetailJSON {
-    EndDate: string;
-    Value: string;
-}
-
-
 
 export interface TSCumulativeReturnConverterOptions
     extends MorningstarConverterOptions, CumulativeReturnSeriesOptions {
     // Nothing to add
-}
-
-
-/* *
- *
- *  Functions
- *
- * */
-
-
-function isCumulativeReturnHistoryDetailJSON(
-    json?: unknown
-): json is CumulativeReturnHistoryDetailJSON {
-    return (
-        !!json &&
-        typeof json === 'object' &&
-        typeof (json as CumulativeReturnHistoryDetailJSON).EndDate === 'string' &&
-        typeof (json as CumulativeReturnHistoryDetailJSON).Value === 'string'
-    );
-}
-
-
-function isCumulativeReturnJSON(
-    json?: unknown
-): json is CumulativeReturnJSON {
-    return (
-        !!json &&
-        typeof json === 'object' &&
-        typeof (json as CumulativeReturnJSON).TimeSeries === 'object' &&
-        isCumulativeReturnTimeSeriesJSON((json as CumulativeReturnJSON).TimeSeries)
-    );
-}
-
-
-function isCumulativeReturnSecurityJSON(
-    json?: unknown
-): json is CumulativeReturnSecurityJSON {
-    return (
-        !!json &&
-        typeof json === 'object' &&
-        typeof (json as CumulativeReturnSecurityJSON).Id === 'string' &&
-        typeof (json as CumulativeReturnSecurityJSON).RatingSeries === 'object' &&
-        (json as CumulativeReturnSecurityJSON).RatingSeries instanceof Array &&
-        (
-            (json as CumulativeReturnSecurityJSON).RatingSeries.length === 0 ||
-            isCumulativeReturnSeriesJSON((json as CumulativeReturnSecurityJSON).RatingSeries[0])
-        )
-    );
-}
-
-
-function isCumulativeReturnSeriesJSON(
-    json?: unknown
-): json is CumulativeReturnSeriesJSON {
-    return (
-        !!json &&
-        typeof json === 'object' &&
-        typeof (json as CumulativeReturnSeriesJSON).HistoryDetail === 'object' &&
-        (json as CumulativeReturnSeriesJSON).HistoryDetail instanceof Array &&
-        (
-            (json as CumulativeReturnSeriesJSON).HistoryDetail.length === 0 ||
-            isCumulativeReturnHistoryDetailJSON(
-                (json as CumulativeReturnSeriesJSON).HistoryDetail[0]
-            )
-        )
-    );
-}
-
-
-function isCumulativeReturnTimeSeriesJSON(
-    json?: unknown
-): json is CumulativeReturnJSON {
-    return (
-        !!json &&
-        typeof json === 'object' &&
-        typeof (json as CumulativeReturnTimeSeriesJSON).Security === 'object' &&
-        (json as CumulativeReturnTimeSeriesJSON).Security instanceof Array &&
-        (
-            (json as CumulativeReturnTimeSeriesJSON).Security.length === 0 ||
-            isCumulativeReturnSecurityJSON((json as CumulativeReturnTimeSeriesJSON).Security[0])
-        )
-    );
 }
 
 
@@ -214,7 +106,7 @@ export class TimeSeriesCumulativeReturnConverter extends MorningstarConverter {
 
         // Validate JSON
 
-        if (!isCumulativeReturnJSON(json)) {
+        if (!TimeSeriesJSON.isResponse(json)) {
             throw new Error('Invalid data');
         }
 
@@ -224,13 +116,16 @@ export class TimeSeriesCumulativeReturnConverter extends MorningstarConverter {
         const sortedRating: Array<CumulativeReturn> = [];
 
         for (const security of json.TimeSeries.Security) {
+            if (!security.CumulativeReturnSeries) {
+                continue;
+            }
             securityIds.push(security.Id);
-            for (const series of security.RatingSeries) {
-                for (const history of series.HistoryDetail) {
+            for (const history of security.CumulativeReturnSeries) {
+                for (const detail of history.HistoryDetail) {
                     sortedRating.push({
-                        EndDate: Date.parse(history.EndDate),
+                        EndDate: Date.parse(detail.EndDate),
                         Id: security.Id,
-                        Value: parseFloat(history.Value)
+                        Value: parseFloat(detail.Value)
                     });
                 }
             }

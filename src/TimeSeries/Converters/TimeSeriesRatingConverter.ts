@@ -29,6 +29,7 @@ import {
 import {
     RatingSeriesOptions
 } from '../TimeSeriesOptions';
+import TimeSeriesJSON from '../TimeSeriesJSON';
 
 
 /* *
@@ -45,101 +46,9 @@ interface Rating {
 }
 
 
-interface RatingHistoryDetailJSON {
-    EndDate: string;
-    Value: string;
-}
-
-
-interface RatingJSON {
-    Security: Array<RatingSecurityJSON>;
-}
-
-
-interface RatingSecurityJSON {
-    Id: string;
-    RatingSeries: Array<RatingSeriesJSON>;
-}
-
-
-interface RatingSeriesJSON {
-    HistoryDetail: Array<RatingHistoryDetailJSON>;
-}
-
-
 export interface TimeSeriesRatingConverterOptions
     extends MorningstarConverterOptions, RatingSeriesOptions {
 
-}
-
-
-/* *
- *
- *  Functions
- *
- * */
-
-
-function isRatingHistoryDetailJSON(
-    json?: unknown
-): json is RatingHistoryDetailJSON {
-    return (
-        !!json &&
-        typeof json === 'object' &&
-        typeof (json as RatingHistoryDetailJSON).EndDate === 'string' &&
-        typeof (json as RatingHistoryDetailJSON).Value === 'string'
-    );
-}
-
-
-function isRatingJSON(
-    json?: unknown
-): json is RatingJSON {
-    return (
-        !!json &&
-        typeof json === 'object' &&
-        typeof (json as RatingJSON).Security === 'object' &&
-        (json as RatingJSON).Security instanceof Array &&
-        (
-            (json as RatingJSON).Security.length === 0 ||
-            isRatingSecurityJSON((json as RatingJSON).Security[0])
-        )
-    );
-}
-
-
-function isRatingSecurityJSON(
-    json?: unknown
-): json is RatingSecurityJSON {
-    return (
-        !!json &&
-        typeof json === 'object' &&
-        typeof (json as RatingSecurityJSON).Id === 'string' &&
-        typeof (json as RatingSecurityJSON).RatingSeries === 'object' &&
-        (json as RatingSecurityJSON).RatingSeries instanceof Array &&
-        (
-            (json as RatingSecurityJSON).RatingSeries.length === 0 ||
-            isRatingSeriesJSON((json as RatingSecurityJSON).RatingSeries[0])
-        )
-    );
-}
-
-
-function isRatingSeriesJSON(
-    json?: unknown
-): json is RatingSeriesJSON {
-    return (
-        !!json &&
-        typeof json === 'object' &&
-        typeof (json as RatingSeriesJSON).HistoryDetail === 'object' &&
-        (json as RatingSeriesJSON).HistoryDetail instanceof Array &&
-        (
-            (json as RatingSeriesJSON).HistoryDetail.length === 0 ||
-            isRatingHistoryDetailJSON(
-                (json as RatingSeriesJSON).HistoryDetail[0]
-            )
-        )
-    );
 }
 
 
@@ -197,7 +106,7 @@ export class TimeSeriesConverter extends MorningstarConverter {
 
         // Validate JSON
 
-        if (!isRatingJSON(json)) {
+        if (!TimeSeriesJSON.isTimeSeriesReponse(json)) {
             throw new Error('Invalid data');
         }
 
@@ -207,13 +116,16 @@ export class TimeSeriesConverter extends MorningstarConverter {
         const sortedRating: Array<Rating> = [];
 
         for (const security of json.Security) {
+            if (!security.RatingSeries) {
+                continue;
+            }
             securityIds.push(security.Id);
-            for (const series of security.RatingSeries) {
-                for (const history of series.HistoryDetail) {
+            for (const history of security.RatingSeries) {
+                for (const detail of history.HistoryDetail) {
                     sortedRating.push({
-                        EndDate: Date.parse(history.EndDate),
+                        EndDate: Date.parse(detail.EndDate),
                         Id: security.Id,
-                        Value: parseFloat(history.Value)
+                        Value: parseFloat(detail.Value)
                     });
                 }
             }
