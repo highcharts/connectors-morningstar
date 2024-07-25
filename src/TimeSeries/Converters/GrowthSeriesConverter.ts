@@ -99,7 +99,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
             throw new Error('Invalid data');
         }
 
-        // Cumulate security ratings by date
+        // Cumulate security growth by date
 
         const securityIds: Array<string> = [];
         const sortedGrowths: Array<Growth> = [];
@@ -124,7 +124,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
 
         }
 
-        // Sort ratings by date
+        // Sort growths by date
 
         sortedGrowths.sort((a, b) => (
             a.EndDate === b.EndDate ?
@@ -141,7 +141,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
             table.setColumn(securityId);
         }
 
-        // Add ratings to table
+        // Add growths to table
 
         let currentTableDate: number = 0;
         let currentTableIndex: number = 0;

@@ -111,6 +111,11 @@ export interface TimeSeriesOptions extends MorningstarOptions {
     converter?: TimeSeriesConverterOptions;
 
     /**
+     * Currency code (ISO alpha-3) for requested values.
+     */
+    currencyId?: string;
+
+    /**
      * Localization options.
      */
     localization?: LocalizationOptions;

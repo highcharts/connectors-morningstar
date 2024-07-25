@@ -119,6 +119,7 @@ class TimeSeriesConnector extends MorningstarConnector {
     public override async load(): Promise<this> {
         const options = this.options;
         const securities = options.securities;
+        const currencyId = options.currencyId;
         const tax = options.tax;
 
         if (securities) {
@@ -127,6 +128,10 @@ class TimeSeriesConnector extends MorningstarConnector {
             const api = new MorningstarAPI(options.api);
 
             searchParams.setSecurityOptions(securities);
+
+            if (currencyId) {
+                searchParams.set('currencyId', currencyId);
+            }
 
             if (tax) {
                 searchParams.set('tax', tax);
