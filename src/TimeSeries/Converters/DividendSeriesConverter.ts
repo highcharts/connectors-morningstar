@@ -23,7 +23,7 @@
 
 
 import MorningstarConverter from '../../Shared/MorningstarConverter';
-import { TimeSeriesRatingOptions } from '../TimeSeriesOptions';
+import { DividendSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
 
 
@@ -34,7 +34,8 @@ import TimeSeriesJSON from '../TimeSeriesJSON';
  * */
 
 
-interface Rating {
+interface Dividend {
+    CurrencyId: string;
     Id: string;
     EndDate: number;
     Value: number;
@@ -48,7 +49,7 @@ interface Rating {
  * */
 
 
-export class TimeSeriesConverter extends MorningstarConverter {
+export class DividendSeriesConverter extends MorningstarConverter {
 
 
     /* *
@@ -59,11 +60,11 @@ export class TimeSeriesConverter extends MorningstarConverter {
 
 
     public constructor(
-        options?: TimeSeriesRatingOptions
+        options?: DividendSeriesOptions
     ) {
         super(options);
 
-        this.options = options as Required<TimeSeriesRatingOptions>;
+        this.options = options as Required<DividendSeriesOptions>;
     }
 
 
@@ -74,7 +75,7 @@ export class TimeSeriesConverter extends MorningstarConverter {
      * */
 
 
-    public override readonly options: Required<TimeSeriesRatingOptions>;
+    public override readonly options: Required<DividendSeriesOptions>;
 
     /* *
      *
@@ -84,49 +85,51 @@ export class TimeSeriesConverter extends MorningstarConverter {
 
 
     public parse(
-        options: TimeSeriesRatingOptions
+        options: DividendSeriesOptions
     ): void {
         const table = this.table;
         const userOptions = {
             ...this.options,
             ...options
         };
+        const includeCurrency = userOptions.includeCurrency;
         const json = userOptions.json;
 
         // Validate JSON
 
-        if (!TimeSeriesJSON.isTimeSeriesReponse(json)) {
+        if (!TimeSeriesJSON.isResponse(json)) {
             throw new Error('Invalid data');
         }
 
-        // Cumulate security ratings by date
+        // Cumulate security dividends by date
 
         const securityIds: Array<string> = [];
-        const sortedRatings: Array<Rating> = [];
+        const sortedDividends: Array<Dividend> = [];
 
-        for (const security of json.Security) {
+        for (const security of json.TimeSeries.Security) {
 
-            if (!security.RatingSeries) {
+            if (!security.DividendSeries) {
                 continue;
             }
 
             securityIds.push(security.Id);
 
-            for (const history of security.RatingSeries) {
+            for (const history of security.DividendSeries) {
                 for (const detail of history.HistoryDetail) {
-                    sortedRatings.push({
+                    sortedDividends.push({
+                        CurrencyId: detail.Value.CurrencyId,
                         EndDate: Date.parse(detail.EndDate),
                         Id: security.Id,
-                        Value: parseFloat(detail.Value)
+                        Value: parseFloat(detail.Value.value)
                     });
                 }
             }
 
         }
 
-        // Sort ratings by date
+        // Sort dividends by date
 
-        sortedRatings.sort((a, b) => (
+        sortedDividends.sort((a, b) => (
             a.EndDate === b.EndDate ?
                 0 :
                 a.EndDate < b.EndDate ? -1 : 1
@@ -139,19 +142,25 @@ export class TimeSeriesConverter extends MorningstarConverter {
 
         for (const securityId of securityIds) {
             table.setColumn(securityId);
+            if (includeCurrency) {
+                table.setColumn(`${securityId}_Currency`);
+            }
         }
 
-        // Add ratings to table
+        // Add dividends to table
 
         let currentTableDate: number = 0;
         let currentTableIndex: number = 0;
 
-        for (const rating of sortedRatings) {
-            if (currentTableDate !== rating.EndDate) {
-                currentTableDate = rating.EndDate;
+        for (const dividend of sortedDividends) {
+            if (currentTableDate !== dividend.EndDate) {
+                currentTableDate = dividend.EndDate;
                 table.setCell('Date', ++currentTableIndex, currentTableDate);
             }
-            table.setCell(rating.Id, currentTableIndex, rating.Value);
+            table.setCell(dividend.Id, currentTableIndex, dividend.Value);
+            if (includeCurrency) {
+                table.setCell(`${dividend.Id}_Currency`, currentTableIndex, dividend.CurrencyId);
+            }
         }
 
     }
@@ -167,4 +176,4 @@ export class TimeSeriesConverter extends MorningstarConverter {
  * */
 
 
-export default TimeSeriesConverter;
+export default DividendSeriesConverter;

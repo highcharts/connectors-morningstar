@@ -23,7 +23,7 @@
 
 
 import MorningstarConverter from '../../Shared/MorningstarConverter';
-import { TimeSeriesGrowthOptions } from '../TimeSeriesOptions';
+import { GrowthSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
 
 
@@ -59,11 +59,11 @@ export class GrowthSeriesConverter extends MorningstarConverter {
 
 
     public constructor(
-        options?: TimeSeriesGrowthOptions
+        options?: GrowthSeriesOptions
     ) {
         super(options);
 
-        this.options = options as Required<TimeSeriesGrowthOptions>;
+        this.options = options as Required<GrowthSeriesOptions>;
     }
 
 
@@ -74,7 +74,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
      * */
 
 
-    public override readonly options: Required<TimeSeriesGrowthOptions>;
+    public override readonly options: Required<GrowthSeriesOptions>;
 
     /* *
      *
@@ -84,7 +84,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
 
 
     public parse(
-        options: TimeSeriesGrowthOptions
+        options: GrowthSeriesOptions
     ): void {
         const table = this.table;
         const userOptions = {

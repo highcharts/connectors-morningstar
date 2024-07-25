@@ -23,7 +23,7 @@
 
 
 import MorningstarConverter from '../../Shared/MorningstarConverter';
-import { TimeSeriesCumulativeReturnOptions } from '../TimeSeriesOptions';
+import { RatingSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
 
 
@@ -34,7 +34,7 @@ import TimeSeriesJSON from '../TimeSeriesJSON';
  * */
 
 
-interface CumulativeReturn {
+interface Rating {
     Id: string;
     EndDate: number;
     Value: number;
@@ -48,7 +48,7 @@ interface CumulativeReturn {
  * */
 
 
-export class TimeSeriesCumulativeReturnConverter extends MorningstarConverter {
+export class RatingSeriesConverter extends MorningstarConverter {
 
 
     /* *
@@ -59,11 +59,11 @@ export class TimeSeriesCumulativeReturnConverter extends MorningstarConverter {
 
 
     public constructor(
-        options?: TimeSeriesCumulativeReturnOptions
+        options?: RatingSeriesOptions
     ) {
         super(options);
 
-        this.options = options as Required<TimeSeriesCumulativeReturnOptions>;
+        this.options = options as Required<RatingSeriesOptions>;
     }
 
 
@@ -74,7 +74,7 @@ export class TimeSeriesCumulativeReturnConverter extends MorningstarConverter {
      * */
 
 
-    public override readonly options: Required<TimeSeriesCumulativeReturnOptions>;
+    public override readonly options: Required<RatingSeriesOptions>;
 
     /* *
      *
@@ -84,7 +84,7 @@ export class TimeSeriesCumulativeReturnConverter extends MorningstarConverter {
 
 
     public parse(
-        options: TimeSeriesCumulativeReturnOptions
+        options: RatingSeriesOptions
     ): void {
         const table = this.table;
         const userOptions = {
@@ -95,26 +95,26 @@ export class TimeSeriesCumulativeReturnConverter extends MorningstarConverter {
 
         // Validate JSON
 
-        if (!TimeSeriesJSON.isResponse(json)) {
+        if (!TimeSeriesJSON.isTimeSeriesReponse(json)) {
             throw new Error('Invalid data');
         }
 
-        // Cumulate security returns by date
+        // Cumulate security ratings by date
 
         const securityIds: Array<string> = [];
-        const sortedReturns: Array<CumulativeReturn> = [];
+        const sortedRatings: Array<Rating> = [];
 
-        for (const security of json.TimeSeries.Security) {
+        for (const security of json.Security) {
 
-            if (!security.CumulativeReturnSeries) {
+            if (!security.RatingSeries) {
                 continue;
             }
 
             securityIds.push(security.Id);
 
-            for (const history of security.CumulativeReturnSeries) {
+            for (const history of security.RatingSeries) {
                 for (const detail of history.HistoryDetail) {
-                    sortedReturns.push({
+                    sortedRatings.push({
                         EndDate: Date.parse(detail.EndDate),
                         Id: security.Id,
                         Value: parseFloat(detail.Value)
@@ -124,9 +124,9 @@ export class TimeSeriesCumulativeReturnConverter extends MorningstarConverter {
 
         }
 
-        // Sort returns by date
+        // Sort ratings by date
 
-        sortedReturns.sort((a, b) => (
+        sortedRatings.sort((a, b) => (
             a.EndDate === b.EndDate ?
                 0 :
                 a.EndDate < b.EndDate ? -1 : 1
@@ -141,17 +141,17 @@ export class TimeSeriesCumulativeReturnConverter extends MorningstarConverter {
             table.setColumn(securityId);
         }
 
-        // Add returns to table
+        // Add ratings to table
 
         let currentTableDate: number = 0;
         let currentTableIndex: number = 0;
 
-        for (const return_ of sortedReturns) {
-            if (currentTableDate !== return_.EndDate) {
-                currentTableDate = return_.EndDate;
+        for (const rating of sortedRatings) {
+            if (currentTableDate !== rating.EndDate) {
+                currentTableDate = rating.EndDate;
                 table.setCell('Date', ++currentTableIndex, currentTableDate);
             }
-            table.setCell(return_.Id, currentTableIndex, return_.Value);
+            table.setCell(rating.Id, currentTableIndex, rating.Value);
         }
 
     }
@@ -167,4 +167,4 @@ export class TimeSeriesCumulativeReturnConverter extends MorningstarConverter {
  * */
 
 
-export default TimeSeriesCumulativeReturnConverter;
+export default RatingSeriesConverter;

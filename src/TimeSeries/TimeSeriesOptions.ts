@@ -37,14 +37,7 @@ import type {
  * */
 
 
-export interface TimeSeriesConverterOptions extends MorningstarConverterOptions {
-
-    // Nothing to add yet.
-
-}
-
-
-export interface TimeSeriesCumulativeReturnOptions extends TimeSeriesConverterOptions {
+export interface CumulativeReturnSeriesOptions extends TimeSeriesConverterOptions {
 
     /**
      * Series type to retrieve.
@@ -54,7 +47,7 @@ export interface TimeSeriesCumulativeReturnOptions extends TimeSeriesConverterOp
 }
 
 
-export interface TimeSeriesDividendOptions extends TimeSeriesConverterOptions {
+export interface DividendSeriesOptions extends TimeSeriesConverterOptions {
 
     /**
      * Whether to include currency information as an additional column for each
@@ -73,7 +66,7 @@ export interface TimeSeriesDividendOptions extends TimeSeriesConverterOptions {
 }
 
 
-export interface TimeSeriesGrowthOptions extends TimeSeriesConverterOptions {
+export interface GrowthSeriesOptions extends TimeSeriesConverterOptions {
 
     /**
      * Series type to retrieve.
@@ -83,7 +76,7 @@ export interface TimeSeriesGrowthOptions extends TimeSeriesConverterOptions {
 }
 
 
-export interface TimeSeriesPriceOptions extends TimeSeriesConverterOptions{
+export interface PriceSeriesOptions extends TimeSeriesConverterOptions{
 
     /**
      * Series type to retrieve.
@@ -93,12 +86,19 @@ export interface TimeSeriesPriceOptions extends TimeSeriesConverterOptions{
 }
 
 
-export interface TimeSeriesRatingOptions extends TimeSeriesConverterOptions{
+export interface RatingSeriesOptions extends TimeSeriesConverterOptions{
 
     /**
      * Series type to retrieve.
      */
     type: 'Rating';
+
+}
+
+
+export interface TimeSeriesConverterOptions extends MorningstarConverterOptions {
+
+    // Nothing to add yet.
 
 }
 
@@ -134,11 +134,11 @@ export interface TimeSeriesOptions extends MorningstarOptions {
 
 
 export type TimeSeriesType = (
-    | TimeSeriesCumulativeReturnOptions
-    | TimeSeriesDividendOptions
-    | TimeSeriesGrowthOptions
-    | TimeSeriesPriceOptions
-    | TimeSeriesRatingOptions
+    | CumulativeReturnSeriesOptions
+    | DividendSeriesOptions
+    | GrowthSeriesOptions
+    | PriceSeriesOptions
+    | RatingSeriesOptions
 );
 
 
