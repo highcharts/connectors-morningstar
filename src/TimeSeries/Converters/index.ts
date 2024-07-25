@@ -22,6 +22,7 @@
  * */
 
 
+import GrowthSeriesConverter from './GrowthSeriesConverter';
 import TimeSeriesCumulativeReturnConverter from './TimeSeriesCumulativeReturnConverter';
 import TimeSeriesDividendConverter from './TimeSeriesDividendConverter';
 import TimeSeriesRatingConverter from './TimeSeriesRatingConverter';
@@ -34,6 +35,7 @@ import TimeSeriesRatingConverter from './TimeSeriesRatingConverter';
  * */
 
 
+export * from './GrowthSeriesConverter';
 export * from './TimeSeriesCumulativeReturnConverter';
 export * from './TimeSeriesDividendConverter';
 export * from './TimeSeriesRatingConverter';
@@ -47,6 +49,7 @@ export * from './TimeSeriesRatingConverter';
 
 
 export default {
+    GrowthSeriesConverter,
     TimeSeriesCumulativeReturnConverter,
     TimeSeriesDividendConverter,
     TimeSeriesRatingConverter

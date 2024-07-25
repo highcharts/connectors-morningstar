@@ -34,7 +34,7 @@ import TimeSeriesConnector from './TimeSeriesConnector';
 
 export * from './TimeSeriesConnector';
 export * from './TimeSeriesOptions';
-export * from './Converters/index';
+export * as TimeSeriesConverters from './Converters/index';
 
 
 /* *

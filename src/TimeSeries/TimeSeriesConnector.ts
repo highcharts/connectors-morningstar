@@ -23,6 +23,7 @@
 
 
 import External from '../Shared/External';
+import GrowthSeriesConverter from './Converters/GrowthSeriesConverter';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarConverter from '../Shared/MorningstarConverter';
@@ -66,6 +67,13 @@ class TimeSeriesConnector extends MorningstarConnector {
 
             case 'Dividend':
                 this.converter = new TimeSeriesDividendConverter({
+                    ...options.converter,
+                    ...options.series
+                });
+                break;
+
+            case 'Growth':
+                this.converter = new GrowthSeriesConverter({
                     ...options.converter,
                     ...options.series
                 });

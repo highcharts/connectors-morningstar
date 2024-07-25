@@ -68,6 +68,7 @@ namespace TimeSeriesJSON {
     export interface Security {
         CumulativeReturnSeries?: Array<History>;
         DividendSeries?: Array<CurrencyHistory>;
+        GrowthSeries?: Array<History>;
         Id: string;
         RatingSeries?: Array<History>;
     }
