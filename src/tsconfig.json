@@ -7,7 +7,7 @@
         "noImplicitReturns": true,
         "noImplicitThis": true,
         "sourceMap": true,
-        "outDir": "../lib/",
+        "outDir": "../code/es-modules/",
         "target": "ES2020",
         "lib": [
             "DOM",

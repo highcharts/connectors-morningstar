@@ -7,12 +7,13 @@
     "author": "Highsoft AS",
     "bugs": "https://www.highcharts.com/support/",
     "homepage": "https://www.highcharts.com/",
-    "main": "lib/index.js",
-    "types": "lib/index.d.ts",
+    "main": "es-modules/index.js",
+    "types": "es-modules/index.d.ts",
     "files": [
-        "dist/",
-        "lib/",
+        "es-modules/",
         "LICENSE.md",
+        "morningstar-*.js",
+        "morningstar-*.js.map",
         "README.md"
     ],
     "keywords": [

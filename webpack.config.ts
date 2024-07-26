@@ -21,8 +21,8 @@ import * as Path from 'node:path';
 const amd = 'dashboards/dashboards';
 const commonjs = '@highcharts/morningstar-connectors';
 const projectFolder = FS.realpathSync(process.cwd());
-const sourceFolder = './lib/';
-const targetFolder = './dist/';
+const sourceFolder = './code/es-modules/';
+const targetFolder = './code/';
 const root = 'Dashboards';
 
 
@@ -43,19 +43,36 @@ const externals = {
 };
 
 
+const sharedConfiguration: Configuration = {
+
+    mode: 'production',
+
+    devtool: 'source-map',
+
+    externals,
+
+    performance: {
+        hints: 'error',
+        maxAssetSize: 100000,
+        maxEntrypointSize: 100000,
+    },
+
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
+    },
+
+};
+
+
 const webpacks: Array<Configuration> = [
     // Morningstar connectors
     {
-        mode: 'production',
+        ...sharedConfiguration,
 
-        devtool: 'source-map',
-
-        // path to the main file
+        // Path to the main file
         entry: Path.resolve(projectFolder, `${sourceFolder}/index.js`),
 
-        externals,
-
-        // name for the javascript file that is created/compiled in memory
+        // Name for the javascript file that is created/compiled in memory
         output: {
             filename: 'morningstar-connectors.js',
             globalObject: 'this',
@@ -77,31 +94,23 @@ const webpacks: Array<Configuration> = [
             maxEntrypointSize: 200000,
         },
 
-        resolve: {
-            extensions: ['.tsx', '.ts', '.js'],
-        },
-
     },
-    // Morningstar Time Series
-    {
-        mode: 'production',
+    // Morningstar RNA news
+    /*{
+        ...sharedConfiguration,
 
-        devtool: 'source-map',
+        // Path to the main file
+        entry: Path.resolve(projectFolder, `${sourceFolder}/RNANews/index.js`),
 
-        // path to the main file
-        entry: Path.resolve(projectFolder, `${sourceFolder}/TimeSeries/index.js`),
-
-        externals,
-
-        // name for the javascript file that is created/compiled in memory
+        // Name for the javascript file that is created/compiled in memory
         output: {
-            filename: 'morningstar-time-series.js',
+            filename: 'morningstar-rna-news.js',
             globalObject: 'this',
             library: {
                 name: {
-                    amd: `${amd}/morningstar-time-series`,
-                    commonjs: `${commonjs}/lib/TimeSeries/index`,
-                    root: [root, 'MorningstarConnectors', 'TimeSeries']
+                    amd: `${amd}/morningstar-rna-news`,
+                    commonjs: `${commonjs}/es-modules/RNANews/index`,
+                    root: [root, 'MorningstarConnectors', 'RNANews']
                 },
                 type: 'umd',
                 umdNamedDefine: true,
@@ -109,14 +118,28 @@ const webpacks: Array<Configuration> = [
             path: Path.resolve(projectFolder, targetFolder),
         },
 
-        performance: {
-            hints: 'error',
-            maxAssetSize: 100000,
-            maxEntrypointSize: 100000,
-        },
+    },*/
+    // Morningstar time series
+    {
+        ...sharedConfiguration,
 
-        resolve: {
-            extensions: ['.tsx', '.ts', '.js'],
+        // Path to the main file
+        entry: Path.resolve(projectFolder, `${sourceFolder}/TimeSeries/index.js`),
+
+        // Name for the javascript file that is created/compiled in memory
+        output: {
+            filename: 'morningstar-time-series.js',
+            globalObject: 'this',
+            library: {
+                name: {
+                    amd: `${amd}/morningstar-time-series`,
+                    commonjs: `${commonjs}/es-modules/TimeSeries/index`,
+                    root: [root, 'MorningstarConnectors', 'TimeSeries']
+                },
+                type: 'umd',
+                umdNamedDefine: true,
+            },
+            path: Path.resolve(projectFolder, targetFolder),
         },
 
     }

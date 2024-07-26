@@ -3,7 +3,5 @@
 /.vscode/
 /build/
 /code/
-/dist/
-/lib/
 /node_modules/
 /tmp/
