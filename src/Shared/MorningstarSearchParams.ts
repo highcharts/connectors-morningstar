@@ -15,6 +15,7 @@
 'use strict';
 
 
+import LocalizationOptions from './LocalizationOptions';
 /* *
  *
  *  Imports
@@ -66,6 +67,30 @@ export class MorningstarSearchParams extends URLSearchParams {
 
         this.set('id', id);
         this.set('idType', idType);
+
+        return this;
+    }
+
+    /**
+     * Sets `languageId` based on given localization options.
+     *
+     * @param options
+     * Localization options to set.
+     *
+     * @return
+     * The modified search parameters as reference.
+     */
+    public setLocalizationOptions(
+        options: LocalizationOptions
+    ): MorningstarSearchParams {
+
+        const {
+            country,
+            language
+        } = options;
+
+        const languageCultureCode = `${language.toLowerCase()}-${country.toUpperCase()}`;
+        this.set('languageId', languageCultureCode);
 
         return this;
     }
