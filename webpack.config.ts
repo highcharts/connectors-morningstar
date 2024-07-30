@@ -39,6 +39,12 @@ const externals = {
         commonjs: '@highcharts/dashboards',
         commonjs2: '@highcharts/dashboards',
         root: 'Dashboards'
+    },
+    '@highcharts/dashboards/datagrid': {
+        amd: 'datagrid/datagrid',
+        commonjs: '@highcharts/dashboards/datagrid',
+        commonjs2: '@highcharts/dashboards/datagrid',
+        root: 'DataGrid'
     }
 };
 

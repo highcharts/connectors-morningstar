@@ -119,10 +119,6 @@ export class MorningstarAPI {
         requestInit: RequestInit = {}
     ): Promise<Response> {
 
-        if (URL.canParse(url)) {
-            throw new Error('Absolute URLs are not supported.');
-        }
-
         const requestDelay = (
             this.requestDelay -
             ((new Date()).getTime() - this.lastRequestTimestamp)
