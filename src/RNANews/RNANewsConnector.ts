@@ -96,12 +96,12 @@ class RNANewsConnector extends MorningstarConnector {
         searchParams.setSecurityOptions([security]);
 
         if (startDate) {
-            const date = this.#validateAndFormatDate(startDate);
+            const date = RNANewsConnector.validateAndFormatDate(startDate);
             searchParams.set('startDate', date);
         }
 
         if (endDate) {
-            const date = this.#validateAndFormatDate(endDate);
+            const date = RNANewsConnector.validateAndFormatDate(endDate);
             searchParams.set('endDate', date);
         }
 
@@ -128,6 +128,15 @@ class RNANewsConnector extends MorningstarConnector {
         return this;
     }
 
+}
+
+/* *
+ *
+ * Class Namespace
+ * 
+ *  */
+
+namespace RNANewsConnector {
     /**
      * If a number is provided, it is treated as a unix timestamp in
      * milliseconds and converted to format `yyyy-MM-dd`.
@@ -136,7 +145,7 @@ class RNANewsConnector extends MorningstarConnector {
      * @param {number | string} date date as a timestamp of formatted string
      * @return {string} date formatted as `yyyy-MM-dd`.
      */
-    #validateAndFormatDate(date: number | string): string {
+    export function validateAndFormatDate(date: number | string): string {
         let timestamp: number;
         if (typeof date === 'string') {
             // Check if string is a number, likely a timestamp

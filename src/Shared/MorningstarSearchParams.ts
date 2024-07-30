@@ -15,7 +15,6 @@
 'use strict';
 
 
-import LocalizationOptions from './LocalizationOptions';
 /* *
  *
  *  Imports
@@ -24,6 +23,7 @@ import LocalizationOptions from './LocalizationOptions';
 
 
 import type { MorningstarSecurityOptions } from './MorningstarOptions';
+import LocalizationOptions from './LocalizationOptions';
 
 
 /* *

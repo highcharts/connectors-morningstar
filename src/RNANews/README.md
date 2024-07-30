@@ -1,4 +1,4 @@
-Morningstar Regulatory News Announcements Connector
+Morningstar RNA News Connector
 ===================================================
 
 This Highcharts Dashboards connector provides access to the [Morningstar RNANews API]. The JSON from the API is converted into a DataTable.
