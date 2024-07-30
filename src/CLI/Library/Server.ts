@@ -105,10 +105,8 @@ export class Server {
     public constructor(
         folder: string = process.cwd()
     ) {
-        this.http = new HTTP.Server(
-            (req, res) => this.handle(req, res)
-        );
         this.folder = folder;
+        this.http = new HTTP.Server((req, res) => this.handle(req, res));
     }
 
 
@@ -147,11 +145,13 @@ export class Server {
     ): void {
         let folder = this.folder;
         let path = sanitizePath(request.url || '/index.html');
-        console.log(path);
+
         if (path.startsWith('/code/')) {
             if (FS.existsSync('code')) {
-                folder = '';
+                // Runs in repository
+                folder = '.';
             } else {
+                // Runs in package
                 folder = Path.join(__dirname, '..');
                 path = path.substring(5);
             }
@@ -159,7 +159,7 @@ export class Server {
 
         let file = Path.posix.basename(path);
 
-        if (path[path.length - 1] === '/') {
+        if (path.endsWith('/')) {
             file = 'index.html';
         } else {
             file = Path.posix.basename(path);
@@ -181,12 +181,11 @@ export class Server {
             filePath = filePath.substring(1);
         }
 
-        console.log(filePath);
-
         FS.readFile(
             filePath,
             (error, data) => {
                 if (error) {
+                    console.error(error.message);
                     response.writeHead(404);
                     response.end('404: Path not found', 'utf-8');
                 } else {
