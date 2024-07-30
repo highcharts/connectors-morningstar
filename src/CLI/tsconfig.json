@@ -1,0 +1,12 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "declaration": false,
+        "sourceMap": false,
+        "module": "CommonJS",
+        "outDir": "../../bin/"
+    },
+    "files": [
+        "morningstar-connectors.ts"
+    ]
+}

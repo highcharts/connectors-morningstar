@@ -8,10 +8,12 @@
     "bugs": "https://github.com/highcharts/morningstar-connectors/issues",
     "homepage": "https://github.com/highcharts/morningstar-connectors#readme",
     "repository": "https://github.com/highcharts/morningstar-connectors.git",
+    "bin": "bin/morningstar-connectors.js",
     "main": "code/es-modules/index.js",
     "types": "code/es-modules/index.d.ts",
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^7.17.0",
+        "@types/node": "^20.0.0",
         "eslint": "^8.56.0",
         "eslint-plugin-brackets": "^0.1.3",
         "eslint-plugin-jsdoc": "^48.8.3",
@@ -28,17 +30,20 @@
         ]
     },
     "peerDependencies": {
-        "@highcharts/dashboards": "^2.2.0"
+        "@highcharts/dashboards": ">=2.2.0"
     },
     "scripts": {
-        "build": "npm run webpack && npm run build:prepare && npm run build:pack && npm run build:cleanup",
-        "build:prepare": "mkdir -p build/package/ && cp -R code/* LICENSE.md README.md build/package/ && cp package-build.json build/package/package.json",
-        "build:pack": "npm pack build/package/ --pack-destination build/",
+        "build": "npm run webpack && npm run build:prepare && npm run build:copy && npm run build:pack && npm run build:cleanup",
         "build:cleanup": "rm -rf build/package/",
+        "build:copy": "cp -R bin code/* LICENSE.md README.md build/package/ && cp package-build.json build/package/package.json",
+        "build:prepare": "rm -rf build/ ; mkdir -p build/package/",
+        "build:pack": "npm pack build/package/ --pack-destination build/",
         "demos": "npm run webpack && npm run demos:server",
-        "demos:server": "(sleep 1 ; open http://localhost:8080) & python3 -m http.server --bind localhost 8080",
+        "demos:server": "(sleep 1 ; open http://localhost:8080) & node bin/morningstar-connectors demos",
         "prepare": "rm -rf '.husky/_' ; husky",
-        "scripts": "tsc -p src/",
+        "scripts": "npm run scripts:bin && npm run scripts:code",
+        "scripts:bin": "rm -rf bin/ ; tsc -p src/CLI/",
+        "scripts:code": "rm -rf code/ ; tsc -p src/",
         "test": "npm run test:prepare",
         "test:morningstar": "npx -y newman run --bail tmp/Collection.json -e tmp/Environment.json",
         "test:precommit": "npm run test",
