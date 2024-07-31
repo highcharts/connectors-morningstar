@@ -98,6 +98,12 @@ class RNANewsConverter extends MorningstarConverter {
             return false;
         }
 
+        // Validate JSON
+
+        if (!RNANewsJSON.isResponse(options.json)) {
+            throw new Error('Invalid data');
+        }
+
         // Transform rows
         const rows: RNANewsJSON.RNANewsItem[] = [];
         for (const dailyNews of options.json) {

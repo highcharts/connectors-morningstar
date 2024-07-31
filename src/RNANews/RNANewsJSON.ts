@@ -42,7 +42,7 @@ namespace RNANewsJSON {
          * A UNIX timestamp in milliseconds specifying the day
          * at which the news items were published.
          */
-        day: number;
+        day: string;
 
         /**
          * List of news items.
@@ -58,6 +58,46 @@ namespace RNANewsJSON {
 
     export type Response = ResponseItem[];
 
+    /* *
+     *
+     *  Functions
+     *
+     * */
+
+    export function isResponse(
+        json?: unknown
+    ): json is Response {
+        return (
+            !!json &&
+            Array.isArray(json) &&
+            json.length === 0 || 
+            isResponseItem((json as Array<unknown>)[0])
+        );
+    }
+
+
+    function isResponseItem(
+        json?: unknown
+    ): json is ResponseItem {
+        return (
+            !!json &&
+            typeof json === 'object' &&
+            typeof (json as ResponseItem).day === 'string' &&
+            typeof (json as ResponseItem).items === 'object' &&
+            isRNANewsResponseItem(typeof (json as ResponseItem).items[0])
+        );
+    }
+
+    function isRNANewsResponseItem(
+        json?: unknown
+    ): json is RNANewsResponseItem {
+        return (
+            !!json &&
+            Array.isArray(json) &&
+            json.length === 4 &&
+            !json.find(entry => typeof entry !== 'string')
+        );
+    }
 
 }
 
