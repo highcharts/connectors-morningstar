@@ -38,10 +38,21 @@ export interface DateOptions {
 
 export interface LocalizationOptions {
 
+    /**
+     * A two-letter ISO-3166-1 alpha-2 country code.
+     * For example: US, JP
+     */
     country: string;
 
+    /**
+     * The currency to use.
+     */
     currency: Currency;
 
+    /**
+     * A two-letter ISO-639-1 alpha-2 language code.
+     * For example: en, ja
+     */
     language: string;
 
 }
