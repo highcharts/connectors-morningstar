@@ -22,7 +22,10 @@
  * */
 
 
-export type Currency = ('AUD'|'CAD'|'CNY'|'EUR'|'GBP'|'INR'|'JPY'|'USD');
+/**
+ * Currency to use for value conversions. Use `BAS` for base currency.
+ */
+export type Currency = ('AUD'|'BAS'|'CAD'|'CNY'|'EUR'|'GBP'|'INR'|'JPY'|'USD');
 
 
 export interface DateOptions {
@@ -45,7 +48,10 @@ export interface LocalizationOptions {
     country: string;
 
     /**
-     * The currency to use.
+     * ISO 4217 currency code to use for value conversions, or `BAS` for base
+     * currency.
+     *
+     * @default "USD"
      */
     currency: Currency;
 
