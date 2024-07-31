@@ -22,11 +22,10 @@
  * */
 
 
-const SHORTCUT_MAP: Record<string, string> = {
+export const SHORTCUTS: Record<string, string> = {
     '?': 'help',
-    'h': 'help',
-    'p': 'port',
-    'v': 'version'
+    h: 'help',
+    v: 'version'
 };
 
 
@@ -60,7 +59,8 @@ export type ArgValue =  (true|string|Array<string>);
  * Converted CLI arguments.
  */
 function getArgs(
-    argv = process.argv
+    argv = process.argv,
+    shortcutMap = SHORTCUT_MAP
 ): Args {
     const args: Args = {};
 
@@ -72,7 +72,7 @@ function getArgs(
             currentKey = arg.substring(2);
             args[currentKey] = true;
         } else if (arg.startsWith('-')) {
-            currentKey = SHORTCUT_MAP[arg[1]];
+            currentKey = shortcutMap[arg.substring(1)];
             args[currentKey] = true;
         } else {
             currentValue = args[currentKey];

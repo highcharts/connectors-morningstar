@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* *
  *
  *  (c) 2009-2024 Highsoft AS
@@ -22,7 +23,7 @@
  * */
 
 
-import Args from './Library/Args';
+import Args, { SHORTCUTS as ARGS_SHORTCUTS } from './Library/Args';
 import * as FS from 'node:fs/promises';
 import * as Path from 'node:path';
 import Server, { DEFAULT_PORT } from './Library/Server';
@@ -40,21 +41,33 @@ npx morningstar-connectors [COMMAND] [OPTIONS]
 
 COMMAND:
 
-    demos         Starts a local web server to run demos in your web browser.
+    demos    Opens demos in your web browser.
+
+    docs     Opens docs in your browser.
 
 OPTIONS:
 
-    --help -h     This help.
+    --environment -e  [path]  Postman environment file to use.
 
-    --port -p     Port to use for the local web server. (default: ${DEFAULT_PORT})
+    --help -h                 This help.
 
-    --version -v  Version of the Morningstar connectors package.
+    --port -p          [int]  Port to use for the local web server.
+                              (default: ${DEFAULT_PORT})
+
+    --version -v              Version of the Morningstar connectors package.
 
 EXAMPLE:
 
-npx morningstar-connectors demo --port 8080
+npx morningstar-connectors demo -e postman_environment.json -p 8080
 
 `;
+
+
+const SHORTCUTS = {
+    ...ARGS_SHORTCUTS,
+    e: 'environment',
+    p: 'port'
+};
 
 
 /* *
@@ -65,7 +78,7 @@ npx morningstar-connectors demo --port 8080
 
 
 export async function main(): Promise<void> {
-    const args = Args.getArgs();
+    const args = Args.getArgs(process.argv, SHORTCUTS);
 
     if (args.help) {
         console.info(HELP);
