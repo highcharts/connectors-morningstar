@@ -139,4 +139,3 @@ board.dataPool.getConnectorTable('rna')
           }
       });
   });
-  
