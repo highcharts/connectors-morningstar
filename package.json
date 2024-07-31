@@ -30,7 +30,8 @@
         ]
     },
     "peerDependencies": {
-        "@highcharts/dashboards": ">=2.2.0"
+        "@highcharts/dashboards": ">=2.2.0",
+        "highcharts": ">=11.4.0"
     },
     "scripts": {
         "build": "npm run webpack && npm run build:prepare && npm run build:copy && npm run build:pack && npm run build:cleanup",
