@@ -13,5 +13,58 @@
         "brackets",
         "jsdoc",
         "@typescript-eslint"
-    ]
+    ],
+    "rules": {
+        "camelcase": [2, {"properties": "always"}],
+        "comma-dangle": [2, "never"],
+        "dot-location": [2, "property"],
+        "lines-around-comment": 0,
+        "max-len": 2,
+        "newline-after-var": 0,
+        "no-alert": 2,
+        "no-console": 2,
+        "no-debugger": 2,
+        "no-else-return": 2,
+        "no-nested-ternary": 0,
+        "no-unmodified-loop-condition": 0,
+        "no-unused-vars": 1,
+        "object-curly-spacing": [2, "always"],
+        "operator-linebreak": [2, "after"],
+        "quotes": [2, "single"],
+        "require-unicode-regexp": 1,
+        "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}], // JSLint style
+        "strict": 0,
+        "jsdoc/check-alignment": 1,
+        "jsdoc/check-param-names": 1,
+        "jsdoc/check-tag-names": 1,
+        "jsdoc/check-types": 0,
+        "jsdoc/newline-after-description": 0,
+        "jsdoc/require-jsdoc": 0,
+        "jsdoc/require-param": 1,
+        "jsdoc/require-returns": 0,
+        "node/shebang": 0,
+        "node/no-unpublished-require": 0
+    },
+    "settings": {
+        "jsdoc": {
+            "preferredTypes": {
+                "array": "Array",
+                "function": "Function",
+                "object": "Object",
+                "Boolean": "boolean",
+                "Number": "number",
+                "Object": "Object",
+                "String": "string"
+            },
+            "tagNamePreference": {
+                "augments": "augments",
+                "class": "class",
+                "constructor": "class",
+                "emits": "emits",
+                "extends": "extends",
+                "fires": "emits",
+                "returns": "return"
+            }
+        }
+    }
 }

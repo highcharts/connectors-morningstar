@@ -60,7 +60,7 @@ export type ArgValue =  (true|string|Array<string>);
  */
 function getArgs(
     argv = process.argv,
-    shortcutMap = SHORTCUT_MAP
+    shortcuts = SHORTCUTS
 ): Args {
     const args: Args = {};
 
@@ -72,7 +72,7 @@ function getArgs(
             currentKey = arg.substring(2);
             args[currentKey] = true;
         } else if (arg.startsWith('-')) {
-            currentKey = shortcutMap[arg.substring(1)];
+            currentKey = shortcuts[arg.substring(1)];
             args[currentKey] = true;
         } else {
             currentValue = args[currentKey];
