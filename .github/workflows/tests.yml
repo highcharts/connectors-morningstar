@@ -8,7 +8,7 @@ on:
 jobs:
 
   test-distribution:
-    name: Test build
+    name: Test distribution
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,12 +20,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build distribution file
+      - name: Build distribution bundle
         run: npm run build
 
   test-unit-tests:
     name: Test unit-tests
     runs-on: ubuntu-latest
+    env:
+      MORNINGSTAR_PASSWORD: ${{ secrets.MORNINGSTAR_PWD }}
+      MORNINGSTAR_USERNAME: ${{ secrets.MORNINGSTAR_USERNAME }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -37,4 +40,4 @@ jobs:
         run: npm install
 
       - name: Run unit-tests
-        run: npm test
+        run: npm test:unit-tests

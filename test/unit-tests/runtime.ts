@@ -36,9 +36,12 @@ import * as JSDOM from 'jsdom';
  * */
 
 
-const access: Shared.MorningstarAccessOptions = {
-    password: process.env.MORNINGSTAR_PASSWORD,
-    username: process.env.MORNINGSTAR_USERNAME
+const api: Shared.MorningstarAPIOptions = {
+    access: {
+        password: process.env.MORNINGSTAR_PASSWORD,
+        username: process.env.MORNINGSTAR_USERNAME
+    },
+    url: 'https://www.emea-api.morningstar.com'
 };
 
 
@@ -70,6 +73,8 @@ function prepareGlobals() {
         return originalDispatchEvent.call(this, event);
     };
 
+    window.fetch = fetch;
+
     if (!global.Node) {
         global.Node = window.Node;
     }
@@ -89,8 +94,9 @@ async function runUnitTests() {
     const failures: Array<string> = [];
     const successes: Array<string> = [];
 
-    let test: unknown;
     let testCounter = 0;
+
+    let test: unknown;
     let unitTests: Record<string, unknown>;
 
     for (let path of await FS.readdir(__dirname, { recursive: true })) {
@@ -110,7 +116,7 @@ async function runUnitTests() {
 
                 try {
                     ++testCounter;
-                    test(access);
+                    await test(api);
                     successes.push(testName);
 
                 } catch (error) {
@@ -130,7 +136,11 @@ async function runUnitTests() {
         'succeeded.'
     );
 
-    Assert.deepEqual(failures.length, 0, `${failures.length} failed.`);
+    Assert.deepEqual(
+        failures.length,
+        0,
+        `${failures.length} ${(failures.length === 1 ? 'test' : 'tests')} failed.`
+    );
 
 }
 
