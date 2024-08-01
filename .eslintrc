@@ -13,5 +13,8 @@
         "brackets",
         "jsdoc",
         "@typescript-eslint"
-    ]
+    ],
+    "rules": {
+        "@typescript-eslint/restrict-plus-operands": 0
+    }
 }
