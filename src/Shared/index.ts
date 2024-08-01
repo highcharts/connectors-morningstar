@@ -23,7 +23,9 @@
 
 
 import MorningstarAPI from './MorningstarAPI';
-import MorningstarOAuth2 from './MorningstarAccess';
+import MorningstarError from './MorningstarError';
+import MorningstarAccess from './MorningstarAccess';
+import MorningstarRegion from './MorningstarRegion';
 
 
 /* *
@@ -48,5 +50,7 @@ export * from './MorningstarOptions';
 
 export default {
     MorningstarAPI,
-    MorningstarOAuth2
+    MorningstarError,
+    MorningstarAccess,
+    MorningstarRegion
 };

@@ -53,7 +53,7 @@ export class MorningstarURL extends URL {
 
         super(superURL);
 
-        this.searchParams = new MorningstarSearchParams(superURL.searchParams);
+        this._searchParams = new MorningstarSearchParams(superURL.searchParams);
     }
 
 
@@ -64,7 +64,12 @@ export class MorningstarURL extends URL {
      * */
 
 
-    public override searchParams: MorningstarSearchParams;
+    public _searchParams: MorningstarSearchParams;
+
+
+    public override get searchParams(): MorningstarSearchParams {
+        return this._searchParams;
+    }
 
 
 }

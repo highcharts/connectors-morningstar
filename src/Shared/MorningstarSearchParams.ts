@@ -44,32 +44,32 @@ export class MorningstarSearchParams extends URLSearchParams {
 
 
     /**
-     * Sets `id` and `idType` based on given security options.
+     * Sets the parameter with the given date.
      *
-     * @param options
-     * Security options to set.
+     * @param name
+     * Parameter name to set.
+     *
+     * @param date
+     * JavaScript timestamp or date string.
      *
      * @return
      * The modified search parameters as reference.
      */
-    public setSecurityOptions(
-        options: Array<MorningstarSecurityOptions>
+    public setDate(
+        name: ('endDate'|'startDate'),
+        date: (number|string)
     ): MorningstarSearchParams {
-        let id: string = this.get('id') || '';
-        let idType: string = this.get('idType') || '';
+        const dateTime = (
+            typeof date === 'number' ?
+                new Date(date) :
+                new Date(Date.parse(date))
+        );
 
-        options = (options instanceof Array ? options : [options]);
-
-        for (const security of options) {
-            id = (id ? `${id}|${security.id}` : id);
-            idType = (idType ? `${idType}|${security.idType}` : idType);
-        }
-
-        this.set('id', id);
-        this.set('idType', idType);
+        this.set(name, dateTime.toISOString().substring(0, 10));
 
         return this;
     }
+
 
     /**
      * Sets `languageId` based on given localization options.
@@ -84,13 +84,40 @@ export class MorningstarSearchParams extends URLSearchParams {
         options: LocalizationOptions
     ): MorningstarSearchParams {
 
-        const {
-            country,
-            language
-        } = options;
+        this.set(
+            'languageId', (
+                options.language.toLowerCase() +
+                '-' +
+                options.country.toUpperCase()
+            )
+        );
 
-        const languageCultureCode = `${language.toLowerCase()}-${country.toUpperCase()}`;
-        this.set('languageId', languageCultureCode);
+        return this;
+    }
+
+
+    /**
+     * Sets `id` and `idType` based on given security options.
+     *
+     * @param options
+     * Security options to set.
+     *
+     * @return
+     * The modified search parameters as reference.
+     */
+    public setSecurityOptions(
+        options: Array<MorningstarSecurityOptions>
+    ): MorningstarSearchParams {
+        let id: string = this.get('id') || '';
+        let idType: string = this.get('idType') || '';
+
+        for (const security of options) {
+            id = (id ? `${id}|${security.id}` : security.id);
+            idType = (idType ? `${idType}|${security.idType}` : security.idType);
+        }
+
+        this.set('id', id);
+        this.set('idType', idType);
 
         return this;
     }
