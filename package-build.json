@@ -1,6 +1,6 @@
 {
     "private": true,
-    "version": "1.0.0",
+    "version": "0.1.0",
     "name": "@highcharts/morningstar-connectors",
     "license": "UNLICENSED",
     "description": "Highcharts Dashboards connectors for Morningstar Direct Web Services",
@@ -12,8 +12,7 @@
     "files": [
         "es-modules/",
         "LICENSE.md",
-        "morningstar-*.js",
-        "morningstar-*.js.map",
+        "morningstar-*",
         "README.md"
     ],
     "keywords": [

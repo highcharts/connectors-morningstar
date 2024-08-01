@@ -59,7 +59,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
 
 
     public constructor(
-        options?: GrowthSeriesOptions
+        options: GrowthSeriesOptions = { type: 'Growth' }
     ) {
         super(options);
 
@@ -75,6 +75,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
 
 
     public override readonly options: Required<GrowthSeriesOptions>;
+
 
     /* *
      *

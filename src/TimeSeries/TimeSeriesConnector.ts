@@ -41,7 +41,7 @@ import TimeSeriesRatingConverter from './Converters/RatingSeriesConverter';
  * */
 
 
-class TimeSeriesConnector extends MorningstarConnector {
+export class TimeSeriesConnector extends MorningstarConnector {
 
 
     /* *
@@ -167,10 +167,7 @@ declare module '@highcharts/dashboards/es-modules/Data/Connectors/DataConnectorT
 }
 
 
-External.DataConnector.registerType(
-    'MorningstarTimeSeries',
-    TimeSeriesConnector
-);
+External.DataConnector.registerType('MorningstarTimeSeries', TimeSeriesConnector);
 
 
 /* *

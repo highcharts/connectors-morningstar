@@ -13,16 +13,18 @@
 
 'use strict';
 
-import * as External from '../Shared/External';
+
 /* *
  *
  *  Imports
  *
  * */
 
+import * as External from '../Shared/External';
 import MorningstarConverter from '../Shared/MorningstarConverter';
 import RNANewsJSON from './RNANewsJSON';
 import { RNANewsConverterOptions } from './RNANewsOptions';
+
 
 /* *
  *
@@ -30,19 +32,20 @@ import { RNANewsConverterOptions } from './RNANewsOptions';
  *
  * */
 
+
 /**
- * Handles parsing and transformation of
- * Regulatory News Announcements to a table.
+ * Handles parsing and transformation of RNA news to a table.
  *
  * @private
  */
-class RNANewsConverter extends MorningstarConverter {
+export class RNANewsConverter extends MorningstarConverter {
 
     /* *
      *
      *  Constructor
      *
      * */
+
 
     /**
      * Constructs an instance of the RNANewsConverter.
@@ -51,7 +54,7 @@ class RNANewsConverter extends MorningstarConverter {
      * Options for the converter.
      */
     constructor(
-        options?: RNANewsConverterOptions
+        options: RNANewsConverterOptions = {}
     ) {
         super(options);
 

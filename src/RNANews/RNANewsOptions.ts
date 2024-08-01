@@ -17,9 +17,20 @@
  *  Imports
  *
  * */
+
+
 import type LocalizationOptions from '../Shared/LocalizationOptions';
+
 import MorningstarOptions, { MorningstarConverterOptions, MorningstarSecurityOptions } from "../Shared/MorningstarOptions";
 import RNANewsJSON from './RNANewsJSON';
+
+
+/* *
+ *
+ *  Declarations
+ *
+ * */
+
 
 export interface RNANewsOptions extends RNANewsConverterOptions, MorningstarOptions {
 
@@ -54,14 +65,17 @@ export interface RNANewsOptions extends RNANewsConverterOptions, MorningstarOpti
 
 }
 
+
 export interface RNANewsConverterOptions extends MorningstarConverterOptions {
     json?: RNANewsJSON.Response
 }
+
 
 /* *
  *
  *  Default Export
  *
  * */
+
 
 export default RNANewsOptions;

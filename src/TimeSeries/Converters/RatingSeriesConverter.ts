@@ -59,7 +59,7 @@ export class RatingSeriesConverter extends MorningstarConverter {
 
 
     public constructor(
-        options?: RatingSeriesOptions
+        options: RatingSeriesOptions = { type: 'Rating' }
     ) {
         super(options);
 
@@ -75,6 +75,7 @@ export class RatingSeriesConverter extends MorningstarConverter {
 
 
     public override readonly options: Required<RatingSeriesOptions>;
+
 
     /* *
      *

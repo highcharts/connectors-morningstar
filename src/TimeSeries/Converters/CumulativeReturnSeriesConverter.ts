@@ -59,7 +59,7 @@ export class CumulativeReturnSeriesConverter extends MorningstarConverter {
 
 
     public constructor(
-        options?: CumulativeReturnSeriesOptions
+        options: CumulativeReturnSeriesOptions = { type: 'CumulativeReturn' }
     ) {
         super(options);
 
@@ -75,6 +75,7 @@ export class CumulativeReturnSeriesConverter extends MorningstarConverter {
 
 
     public override readonly options: Required<CumulativeReturnSeriesOptions>;
+
 
     /* *
      *

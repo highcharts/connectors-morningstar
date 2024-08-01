@@ -21,6 +21,7 @@
  *
  * */
 
+
 import External from '../Shared/External';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarAPI from '../Shared/MorningstarAPI';
@@ -29,27 +30,81 @@ import RNANewsOptions from './RNANewsOptions';
 import RNANewsConverter from './RNANewsConverter';
 import RNANewsJSON from './RNANewsJSON';
 
+
+/* *
+ *
+ *  Functions
+ *
+ * */
+
+
+/**
+ * If a number is provided, it is treated as a unix timestamp in
+ * milliseconds and converted to format `yyyy-MM-dd`.
+ * If a string is provided, it is validated to conform to the format.
+ * @private
+ * @param {number | string} date date as a timestamp of formatted string
+ * @return {string} date formatted as `yyyy-MM-dd`.
+ */
+function validateAndFormatDate(date: number | string): string {
+    let timestamp: number;
+    if (typeof date === 'string') {
+        // Check if string is a number, likely a timestamp
+        if (!Number.isNaN(Number(date))) {
+            timestamp = Number(date);
+        } else {
+            const parsedDate = Date.parse(date);
+            if (Number.isNaN(parsedDate)) {
+                throw new Error(`The date ${date} is not a valid date.`);
+            }
+            timestamp = parsedDate;
+        }
+    } else if (typeof date === 'number') {
+        timestamp = date;
+    } else {
+        throw new Error(
+            'The provided date is not of type string, nor number.'
+        );
+    }
+
+    return new Date(timestamp)
+        .toISOString()
+        .substring(0, 10);
+}
+
+
 /* *
  *
  *  Class
  * 
  *  */
 
-class RNANewsConnector extends MorningstarConnector {
+
+export class RNANewsConnector extends MorningstarConnector {
+
+
+    /* *
+     *
+     *  Constructor
+     *
+     * */
+
 
     /**
      * Constructs an instance of RNANewsConnector.
+     *
      * @param {RNANewsOptions} [options]
      * Options for the connector and converter.
      */
     public constructor(
-        options: RNANewsOptions
+        options: RNANewsOptions = {}
     ) {
         super(options);
 
         this.converter = new RNANewsConverter(options);
         this.options = options;
     }
+
 
     /* *
      *
@@ -63,11 +118,13 @@ class RNANewsConnector extends MorningstarConnector {
 
     public override readonly options: RNANewsOptions;
 
+
     /* *
      *
      *  Functions
      *
      * */
+
 
     /**
      * Loads RNANews data from Morningstar.
@@ -96,12 +153,12 @@ class RNANewsConnector extends MorningstarConnector {
         searchParams.setSecurityOptions([security]);
 
         if (startDate) {
-            const date = RNANewsConnector.validateAndFormatDate(startDate);
+            const date = validateAndFormatDate(startDate);
             searchParams.set('startDate', date);
         }
 
         if (endDate) {
-            const date = RNANewsConnector.validateAndFormatDate(endDate);
+            const date = validateAndFormatDate(endDate);
             searchParams.set('endDate', date);
         }
 
@@ -128,49 +185,9 @@ class RNANewsConnector extends MorningstarConnector {
         return this;
     }
 
+
 }
 
-/* *
- *
- * Class Namespace
- * 
- *  */
-
-namespace RNANewsConnector {
-    /**
-     * If a number is provided, it is treated as a unix timestamp in
-     * milliseconds and converted to format `yyyy-MM-dd`.
-     * If a string is provided, it is validated to conform to the format.
-     * @private
-     * @param {number | string} date date as a timestamp of formatted string
-     * @return {string} date formatted as `yyyy-MM-dd`.
-     */
-    export function validateAndFormatDate(date: number | string): string {
-        let timestamp: number;
-        if (typeof date === 'string') {
-            // Check if string is a number, likely a timestamp
-            if (!Number.isNaN(Number(date))) {
-                timestamp = Number(date);
-            } else {
-                const parsedDate = Date.parse(date);
-                if (Number.isNaN(parsedDate)) {
-                    throw new Error(`The date ${date} is not a valid date.`);
-                }
-                timestamp = parsedDate;
-            }
-        } else if (typeof date === 'number') {
-            timestamp = date;
-        } else {
-            throw new Error(
-                'The provided date is not of type string, nor number.'
-            );
-        }
-
-        return new Date(timestamp)
-            .toISOString()
-            .substring(0, 10);
-    }
-}
 
 /* *
  *
@@ -186,10 +203,7 @@ declare module '@highcharts/dashboards/es-modules/Data/Connectors/DataConnectorT
 }
 
 
-External.DataConnector.registerType(
-    'MorningstarRNANews',
-    RNANewsConnector
-);
+External.DataConnector.registerType('MorningstarRNANews', RNANewsConnector);
 
 
 /* *

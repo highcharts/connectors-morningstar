@@ -102,7 +102,7 @@ const webpacks: Array<Configuration> = [
 
     },
     // Morningstar RNA news
-    /*{
+    {
         ...sharedConfiguration,
 
         // Path to the main file
@@ -124,7 +124,7 @@ const webpacks: Array<Configuration> = [
             path: Path.resolve(projectFolder, targetFolder),
         },
 
-    },*/
+    },
     // Morningstar time series
     {
         ...sharedConfiguration,
