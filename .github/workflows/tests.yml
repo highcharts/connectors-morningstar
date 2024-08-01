@@ -40,4 +40,4 @@ jobs:
         run: npm install
 
       - name: Run unit-tests
-        run: npm test:unit-tests
+        run: npm run test:unit-tests
