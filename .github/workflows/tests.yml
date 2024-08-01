@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  test-distribution:
+  test_distribution:
     name: Test distribution
     runs-on: ubuntu-latest
     steps:
@@ -23,7 +23,7 @@ jobs:
       - name: Build distribution bundle
         run: npm run build
 
-  test-unit-tests:
+  test_unit-tests:
     name: Test unit-tests
     runs-on: ubuntu-latest
     env:
@@ -39,5 +39,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Build webpack
+        run: npm run webpack
+
       - name: Run unit-tests
-        run: npm run test:unit-tests
+        run: npx ts-node test/unit-tests/runtime
