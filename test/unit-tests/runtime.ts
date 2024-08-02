@@ -31,35 +31,66 @@ import * as JSDOM from 'jsdom';
 
 /* *
  *
- *  Constants
- *
- * */
-
-
-const api: Shared.MorningstarAPIOptions = {
-    access: {
-        password: process.env.MORNINGSTAR_PASSWORD,
-        username: process.env.MORNINGSTAR_USERNAME
-    },
-    url: 'https://www.emea-api.morningstar.com'
-};
-
-
-/* *
- *
  *  Functions
  *
  * */
 
 
-function logError(
-    error: unknown
-) {
-    if (error instanceof Error) {
-        console.error(error);
-    } else {
-        console.error('' + error);
+async function getAPIOptions(): Promise<Shared.MorningstarAPIOptions> {
+    const apiOptions: Shared.MorningstarAPIOptions = {
+        url: 'https://www.emea-api.morningstar.com'
+    };
+
+    if ((await FS.lstat('.env')).isFile()) {
+        process.loadEnvFile('.env');
     }
+
+    if (
+        process.env.MORNINGSTAR_PASSWORD &&
+        process.env.MORNINGSTAR_USERNAME
+    ) {
+        apiOptions.access = {
+            password: process.env.MORNINGSTAR_PASSWORD,
+            username: process.env.MORNINGSTAR_USERNAME
+        }
+    }
+
+    return apiOptions;
+}
+
+
+async function logError(
+    error: unknown
+): Promise<void> {
+
+    if (error instanceof Error) {
+        const request = (error as Shared.MorningstarError).request;
+        const response = (error as Shared.MorningstarError).response;
+
+        // Duck typing to avoid real import before tests
+        if (response) {
+            const headers = (
+                request.headers instanceof Headers ?
+                    request.headers :
+                    new Headers(request.headers)
+            );
+
+            console.error(error.message);
+            console.error('REQUEST:', new Map(headers.entries()));
+            console.error('RESPONSE:', await response.text());
+
+        } else {
+
+            console.error(error);
+
+        }
+
+    } else {
+
+        console.error('' + error);
+
+    }
+
 }
 
 
@@ -88,18 +119,14 @@ function prepareGlobals() {
 
 
 async function runUnitTests() {
-
-    prepareGlobals();
-
     const failures: Array<string> = [];
     const successes: Array<string> = [];
-
-    let testCounter = 0;
+    const stdout = process.stdout;
 
     let test: unknown;
     let unitTests: Record<string, unknown>;
 
-    for (let path of await FS.readdir(__dirname, { recursive: true })) {
+    for (let path of (await FS.readdir(__dirname, { recursive: true })).sort()) {
 
         if (!path.endsWith('test.ts')) {
             continue;
@@ -108,31 +135,45 @@ async function runUnitTests() {
         path = './' + path.substring(0, path.length - 3);
         unitTests = await import(path) as Record<string, unknown>;
 
-        for (const testName of Object.keys(unitTests)) {
+        for (let testName of Object.keys(unitTests).sort()) {
 
             test = unitTests[testName];
+            testName = testName.replace('_', ' ');
 
             if (typeof test === 'function') {
 
                 try {
-                    ++testCounter;
-                    await test(api);
+
+                    stdout.write(`[${new Date().toISOString().substring(0, 19).replace('T', ' ')}]`);
+                    stdout.write(` Test ${testName} ... `);
+
+                    await test(await getAPIOptions());
+
+                    stdout.write('success.\n');
+
                     successes.push(testName);
 
                 } catch (error) {
-                    logError(error);
+
+                    stdout.write('failure.\n');
+
+                    await logError(error);
+
                     failures.push(testName);
+
                 }
             }
         }
 
     }
 
+    const total = successes.length + failures.length;
+
     console.info(
         successes.length,
         'of',
-        testCounter,
-        (testCounter === 1 ? 'test' : 'tests'),
+        total,
+        (total === 1 ? 'test' : 'tests'),
         'succeeded.'
     );
 
@@ -152,7 +193,13 @@ async function runUnitTests() {
  * */
 
 
-runUnitTests().catch(error => {
-    logError(error);
+prepareGlobals();
+
+
+runUnitTests().catch(async error => {
+
+    await logError(error);
+
     process.exit(1);
+
 });

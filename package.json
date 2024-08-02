@@ -46,7 +46,7 @@
         "reset": "rm -rf bin/ build/ code/ node_modules/ ; npm i",
         "test": "npm run test:unit-tests",
         "test:morningstar": "npx -y newman run --bail tmp/Collection.json -e tmp/Environment.json",
-        "test:unit-tests": "npm run webpack && node -r ts-node/register --env-file .env test/unit-tests/runtime",
+        "test:unit-tests": "npm run webpack && ts-node test/unit-tests/runtime",
         "watch": "tsc -p src/ -w",
         "webpack": "npm run scripts && webpack && npm run webpack:dts",
         "webpack:dts": "npm run webpack:dts:mc && npm run webpack:dts:mrn && npm run webpack:dts:mts",
