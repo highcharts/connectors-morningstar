@@ -146,20 +146,19 @@ export class RNANewsConnector extends MorningstarConnector {
             return this;
         }
 
-        const url = new MorningstarURL('timeseries/rna-news');
-        const searchParams = url.searchParams;
         const api = new MorningstarAPI(options.api);
+        const url = new MorningstarURL('timeseries/rna-news');
 
-        searchParams.setSecurityOptions([security]);
+        url.setSecuritiesOptions([security]);
 
         if (startDate) {
             const date = validateAndFormatDate(startDate);
-            searchParams.set('startDate', date);
+            url.setDate('startDate', date);
         }
 
         if (endDate) {
             const date = validateAndFormatDate(endDate);
-            searchParams.set('endDate', date);
+            url.setDate('endDate', date);
         }
 
         if (maxStories) {
@@ -167,11 +166,11 @@ export class RNANewsConnector extends MorningstarConnector {
             if (!Number.isInteger(numericMaxStories)) {
                 throw new Error(`Expected maxStories to be integer, but is instead ${maxStories}`);
             }
-            searchParams.set('maxStories', '' + maxStories);
+            url.searchParams.set('maxStories', '' + maxStories);
         }
 
         if (localization) {
-            searchParams.setLocalizationOptions(localization);
+            url.setLocalizationOptions(localization);
         }
 
         const response = await api.fetch(url);

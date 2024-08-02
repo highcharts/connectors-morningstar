@@ -63,6 +63,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
                     ...options.converter,
                     ...options.series
                 });
+                this.path = 'timeseries/cumulativereturn';
                 break;
 
             case 'Dividend':
@@ -70,6 +71,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
                     ...options.converter,
                     ...options.series
                 });
+                this.path = 'timeseries/dividend';
                 break;
 
             case 'Growth':
@@ -77,6 +79,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
                     ...options.converter,
                     ...options.series
                 });
+                this.path = 'timeseries/growth';
                 break;
 
             case 'Rating':
@@ -84,6 +87,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
                     ...options.converter,
                     ...options.series
                 });
+                this.path = 'timeseries/rating';
                 break;
 
             default:
@@ -109,6 +113,9 @@ export class TimeSeriesConnector extends MorningstarConnector {
     public override readonly options: TimeSeriesOptions;
 
 
+    public readonly path: string;
+
+
     /* *
      *
      *  Functions
@@ -118,23 +125,32 @@ export class TimeSeriesConnector extends MorningstarConnector {
 
     public override async load(): Promise<this> {
         const options = this.options;
-        const securities = options.securities;
         const currencyId = options.currencyId;
+        const endDate = options.endDate;
+        const securities = options.securities;
+        const startDate = options.startDate;
         const tax = options.tax;
 
         if (securities) {
-            const url = new MorningstarURL('timeseries/cumulativereturn');
-            const searchParams = url.searchParams;
             const api = new MorningstarAPI(options.api);
+            const url = new MorningstarURL(this.path, api.baseURL);
 
-            searchParams.setSecurityOptions(securities);
+            url.setSecuritiesOptions(securities);
 
             if (currencyId) {
-                searchParams.set('currencyId', currencyId);
+                url.searchParams.set('currencyId', currencyId);
+            }
+
+            if (endDate) {
+                url.setDate('endDate', endDate);
+            }
+
+            if (startDate) {
+                url.setDate('startDate', startDate);
             }
 
             if (tax) {
-                searchParams.set('tax', tax);
+                url.searchParams.set('tax', tax);
             }
 
             const response = await api.fetch(url);

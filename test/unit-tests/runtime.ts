@@ -38,7 +38,7 @@ import * as JSDOM from 'jsdom';
 
 async function getAPIOptions(): Promise<Shared.MorningstarAPIOptions> {
     const apiOptions: Shared.MorningstarAPIOptions = {
-        url: 'https://www.emea-api.morningstar.com'
+        url: 'https://www.emea-api.morningstar.com/ecint/v1/'
     };
 
     if ((await FS.lstat('.env')).isFile()) {
@@ -128,14 +128,16 @@ async function runUnitTests() {
 
     for (let path of (await FS.readdir(__dirname, { recursive: true })).sort()) {
 
-        if (!path.endsWith('test.ts')) {
+        if (!path.endsWith('.test.ts')) {
             continue;
         }
+
+        stdWrite('Start', path.substring(0, path.length - 8), 'tests ...\n');
 
         path = './' + path.substring(0, path.length - 3);
         unitTests = await import(path) as Record<string, unknown>;
 
-        for (let testName of Object.keys(unitTests).sort()) {
+        for (let testName of Object.keys(unitTests)) {
 
             test = unitTests[testName];
             testName = testName.replace('_', ' ');
@@ -144,18 +146,17 @@ async function runUnitTests() {
 
                 try {
 
-                    stdout.write(`[${new Date().toISOString().substring(0, 19).replace('T', ' ')}]`);
-                    stdout.write(` Test ${testName} ... `);
+                    stdWrite('Test', testName, '...');
 
                     await test(await getAPIOptions());
 
-                    stdout.write('success.\n');
+                    stdout.write(' OK.\n');
 
                     successes.push(testName);
 
                 } catch (error) {
 
-                    stdout.write('failure.\n');
+                    stdout.write(' ERROR.\n');
 
                     await logError(error);
 
@@ -183,6 +184,18 @@ async function runUnitTests() {
         `${failures.length} ${(failures.length === 1 ? 'test' : 'tests')} failed.`
     );
 
+}
+
+
+function stdWrite(
+    ...text: Array<string>
+): void {
+    process.stdout.write([
+        '[',
+        new Date().toISOString().substring(0, 19).replace('T', ' '),
+        '] ',
+        text.join(' ')
+    ].join(''));
 }
 
 
