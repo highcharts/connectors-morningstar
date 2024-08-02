@@ -145,7 +145,7 @@ export class CumulativeReturnSeriesConverter extends MorningstarConverter {
         // Add returns to table
 
         let currentTableDate: number = 0;
-        let currentTableIndex: number = 0;
+        let currentTableIndex: number = -1;
 
         for (const return_ of sortedReturns) {
             if (currentTableDate !== return_.EndDate) {

@@ -152,7 +152,7 @@ export class DividendSeriesConverter extends MorningstarConverter {
         // Add dividends to table
 
         let currentTableDate: number = 0;
-        let currentTableIndex: number = 0;
+        let currentTableIndex: number = -1;
 
         for (const dividend of sortedDividends) {
             if (currentTableDate !== dividend.EndDate) {

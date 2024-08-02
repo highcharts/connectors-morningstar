@@ -170,18 +170,18 @@ async function runUnitTests() {
 
     const total = successes.length + failures.length;
 
-    if (successes.length === total) {
+    if (total && total === successes.length) {
 
         stdWrite(
             '✅', (total === 1 ? 'This' : 'All'), total,
             (total === 1 ? 'test' : 'tests'),
-            'succeeded.\n'
+            'succeeded. 🎉\n'
         );
 
     } else {
 
         stdWrite(
-            '✅', successes.length, 'of', total,
+            '⭕️', successes.length, 'of', total,
             (total === 1 ? 'test' : 'tests'),
             'succeeded.\n'
         );
@@ -194,8 +194,6 @@ async function runUnitTests() {
 
     }
 
-    process.exit(0);
-
 }
 
 
@@ -204,7 +202,7 @@ function stdWrite(
 ): void {
     process.stdout.write([
         '[',
-        new Date().toISOString().substring(0, 19).replace('T', ' '),
+        new Date().toISOString().substring(11, 19),
         '] ',
         text.join(' ')
     ].join(''));
@@ -221,10 +219,12 @@ function stdWrite(
 prepareGlobals();
 
 
-runUnitTests().catch(async error => {
-
-    await logError(error);
-
-    process.exit(1);
-
-});
+runUnitTests()
+    .then(() => {
+        console.log();
+        process.exit(0);
+    })
+    .catch(async error => {
+        await logError(error);
+        process.exit(1);
+    });

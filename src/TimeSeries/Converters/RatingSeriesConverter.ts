@@ -145,7 +145,7 @@ export class RatingSeriesConverter extends MorningstarConverter {
         // Add ratings to table
 
         let currentTableDate: number = 0;
-        let currentTableIndex: number = 0;
+        let currentTableIndex: number = -1;
 
         for (const rating of sortedRatings) {
             if (currentTableDate !== rating.EndDate) {

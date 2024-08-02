@@ -145,7 +145,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
         // Add growths to table
 
         let currentTableDate: number = 0;
-        let currentTableIndex: number = 0;
+        let currentTableIndex: number = -1;
 
         for (const growth of sortedGrowths) {
             if (currentTableDate !== growth.EndDate) {

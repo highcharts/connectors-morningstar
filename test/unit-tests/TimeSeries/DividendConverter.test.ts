@@ -37,4 +37,10 @@ export async function rating_load(
         'Connector table should exist of expected columns.'
     );
 
+    Assert.strictEqual(
+        connector.table.getRowCount(),
+        1,
+        'Connector table should have one expected dividend row.'
+    );
+
 }
