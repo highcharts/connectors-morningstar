@@ -116,6 +116,12 @@ export interface TimeSeriesOptions extends MorningstarOptions {
     currencyId?: string;
 
     /**
+     * The end date for the requested securities data. This can be either a
+     * JavaScript timestamp or a date string.
+     */
+    endDate?: (number|string);
+
+    /**
      * Localization options.
      */
     localization?: LocalizationOptions;
@@ -129,6 +135,12 @@ export interface TimeSeriesOptions extends MorningstarOptions {
      * Type-based series options.
      */
     series?: TimeSeriesType;
+
+    /**
+     * The start date for the requested securities data. This can be either a
+     * JavaScript timestamp or a date string.
+     */
+    startDate?: (number|string);
 
     /**
      * Tax option.

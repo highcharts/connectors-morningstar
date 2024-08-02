@@ -21,7 +21,8 @@
  *
  * */
 
-namespace RNANewsJSON {
+
+export namespace RNANewsJSON {
 
 
     /* *
@@ -30,9 +31,12 @@ namespace RNANewsJSON {
      *
      * */
 
+
     export type RNANewsResponseItem = [id: string, title: string, source: string, type: string];
-  
+
+
     export type RNANewsItem = [day: number, title: string, source: string, type: string];
+
 
     /**
      * The response JSON for RNANews from Morningstar.
@@ -56,13 +60,16 @@ namespace RNANewsJSON {
         items: RNANewsResponseItem[];
     }
 
+
     export type Response = ResponseItem[];
+
 
     /* *
      *
      *  Functions
      *
      * */
+
 
     export function isResponse(
         json?: unknown
@@ -88,6 +95,7 @@ namespace RNANewsJSON {
         );
     }
 
+
     function isRNANewsResponseItem(
         json?: unknown
     ): json is RNANewsResponseItem {
@@ -99,14 +107,15 @@ namespace RNANewsJSON {
         );
     }
 
+
 }
 
 
 /* *
-*
-*  Default Export
-*
-* */
+ *
+ *  Default Export
+ *
+ * */
 
 
 export default RNANewsJSON;

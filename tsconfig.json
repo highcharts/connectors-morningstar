@@ -27,7 +27,7 @@
 
     /* Modules */
     // "module": "commonjs",                             /* Specify what module code is generated. */
-    "module": "ES6",
+    "module": "CommonJS",
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
     // "moduleResolution": "node10",                     /* Specify how TypeScript looks up a file from a given module specifier. */
     "moduleResolution": "node",
@@ -116,7 +116,7 @@
     // these options are overrides used only by ts-node
     // same as the --compilerOptions flag and the TS_NODE_COMPILER_OPTIONS environment variable
     "compilerOptions": {
-      "module": "commonjs"
+      "module": "CommonJS"
     }
   }
 }

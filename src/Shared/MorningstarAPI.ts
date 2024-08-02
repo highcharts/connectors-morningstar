@@ -119,6 +119,10 @@ export class MorningstarAPI {
         requestInit: RequestInit = {}
     ): Promise<Response> {
 
+        if (url.searchParams.get('outputType') !== 'compactjson') {
+            url.searchParams.set('outputType', 'json');
+        }
+
         const requestDelay = (
             this.requestDelay -
             ((new Date()).getTime() - this.lastRequestTimestamp)
@@ -131,7 +135,10 @@ export class MorningstarAPI {
 
         this.lastRequestTimestamp = (new Date()).getTime();
 
-        if (this.access.authorized) {
+        if (
+            this.access.authorized ||
+            await this.access.authenticate()
+        ) {
             requestInit = this.access.authorizeRequest(requestInit);
         }
 
@@ -142,11 +149,13 @@ export class MorningstarAPI {
         }
 
         if (response.status >= 400) {
-            throw new MorningstarError(response);
+            throw new MorningstarError(requestInit, response);
         }
 
-        if (response.headers.get('Content-Type') !== 'application/json') {
-            throw new Error('Unexpected data');
+        const contentType = response.headers.get('Content-Type');
+
+        if (contentType !== 'application/json') {
+            throw new Error(`Unexpected data: ${contentType}`);
         }
 
         const rateLimit = parseInt(response.headers.get('X-RateLimit-Limit') || '0', 10);

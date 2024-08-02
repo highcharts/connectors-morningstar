@@ -5,3 +5,5 @@
 /code/
 /node_modules/
 /tmp/
+
+/.env

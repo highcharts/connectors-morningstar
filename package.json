@@ -12,10 +12,12 @@
     "types": "code/es-modules/index.d.ts",
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^7.17.0",
+        "@types/jsdom": "^21.1.7",
         "eslint": "^8.56.0",
         "eslint-plugin-brackets": "^0.1.3",
         "eslint-plugin-jsdoc": "^48.8.3",
         "husky": "^9.1.2",
+        "jsdom": "^24.1.1",
         "lint-staged": "^15.2.7",
         "ts-node": "^10.9.2",
         "typescript": "^5.5.4",
@@ -28,22 +30,28 @@
         ]
     },
     "peerDependencies": {
-        "@highcharts/dashboards": "^2.2.0"
+        "@highcharts/dashboards": "^2.2.0",
+        "highcharts": ">=11.4.0"
     },
     "scripts": {
-        "build": "npm run webpack && npm run build:prepare && npm run build:pack && npm run build:cleanup",
-        "build:prepare": "mkdir -p build/package/ && cp -R code/* LICENSE.md README.md build/package/ && cp package-build.json build/package/package.json",
-        "build:pack": "npm pack build/package/ --pack-destination build/",
+        "build": "npm run webpack && npm run build:prepare && npm run build:copy && npm run build:pack && npm run build:cleanup",
         "build:cleanup": "rm -rf build/package/",
+        "build:copy": "cp -R code/* LICENSE.md README.md build/package/ && cp package-build.json build/package/package.json",
+        "build:pack": "npm pack build/package/ --pack-destination build/",
+        "build:prepare": "rm -rf build/ ; mkdir -p build/package/",
         "demos": "npm run webpack && npm run demos:server",
         "demos:server": "(sleep 1 ; open http://localhost:8080) & python3 -m http.server --bind localhost 8080",
         "prepare": "rm -rf '.husky/_' ; husky",
-        "scripts": "tsc -p src/",
-        "test": "npm run test:prepare",
+        "scripts": "rm -rf code/ ; tsc -p src/",
+        "reset": "rm -rf bin/ build/ code/ node_modules/ ; npm i",
+        "test": "npm run test:unit-tests",
         "test:morningstar": "npx -y newman run --bail tmp/Collection.json -e tmp/Environment.json",
-        "test:precommit": "npm run test",
-        "test:prepare": "npm run webpack",
+        "test:unit-tests": "npm run webpack && ts-node test/unit-tests/runtime",
         "watch": "tsc -p src/ -w",
-        "webpack": "npm run scripts && webpack"
+        "webpack": "npm run scripts && webpack && npm run webpack:dts",
+        "webpack:dts": "npm run webpack:dts:mc && npm run webpack:dts:mrn && npm run webpack:dts:mts",
+        "webpack:dts:mc": "cp src/webpack.d.ts code/morningstar-connectors.d.ts && cp src/webpack.d.ts code/morningstar-connectors.src.d.ts",
+        "webpack:dts:mrn": "cp src/webpack.d.ts code/morningstar-rna-news.d.ts && cp src/webpack.d.ts code/morningstar-rna-news.src.d.ts",
+        "webpack:dts:mts": "cp src/webpack.d.ts code/morningstar-time-series.d.ts && cp src/webpack.d.ts code/morningstar-time-series.src.d.ts"
     }
 }

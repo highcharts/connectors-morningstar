@@ -59,7 +59,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
 
 
     public constructor(
-        options?: GrowthSeriesOptions
+        options: GrowthSeriesOptions = { type: 'Growth' }
     ) {
         super(options);
 
@@ -75,6 +75,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
 
 
     public override readonly options: Required<GrowthSeriesOptions>;
+
 
     /* *
      *
@@ -95,7 +96,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
 
         // Validate JSON
 
-        if (!TimeSeriesJSON.isTimeSeriesReponse(json)) {
+        if (!TimeSeriesJSON.isTimeSeriesResponse(json)) {
             throw new Error('Invalid data');
         }
 
@@ -144,7 +145,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
         // Add growths to table
 
         let currentTableDate: number = 0;
-        let currentTableIndex: number = 0;
+        let currentTableIndex: number = -1;
 
         for (const growth of sortedGrowths) {
             if (currentTableDate !== growth.EndDate) {

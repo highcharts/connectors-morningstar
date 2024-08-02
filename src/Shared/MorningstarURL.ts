@@ -8,6 +8,7 @@
  *
  *  Authors:
  *  - Sophie Bremer
+ *  - Eskil Gjerde Sviggum
  *
  * */
 
@@ -22,7 +23,8 @@
  * */
 
 
-import MorningstarSearchParams from "./MorningstarSearchParams";
+import type { MorningstarSecurityOptions } from './MorningstarOptions';
+import LocalizationOptions from './LocalizationOptions';
 
 
 /* *
@@ -40,31 +42,88 @@ export class MorningstarURL extends URL {
 
     /* *
      *
-     *  Constructor
+     *  Functions
      *
      * */
 
 
-    public constructor(
-        url: (string|URL),
-        base: (string|URL|undefined) = window.location.href
-    ) {
-        const superURL = new URL(url, base);
+    /**
+     * Sets the parameter with the given date.
+     *
+     * @param name
+     * Parameter name to set.
+     *
+     * @param date
+     * JavaScript timestamp or date string.
+     *
+     * @return
+     * The modified search parameters as reference.
+     */
+    public setDate(
+        name: ('endDate'|'startDate'),
+        date: (number|string)
+    ): void {
+        const dateTime = (
+            typeof date === 'number' ?
+                new Date(date) :
+                new Date(Date.parse(date))
+        );
 
-        super(superURL);
+        this.searchParams.set(name, dateTime.toISOString().substring(0, 10));
 
-        this.searchParams = new MorningstarSearchParams(superURL.searchParams);
     }
 
 
-    /* *
+    /**
+     * Sets `languageId` based on given localization options.
      *
-     *  Properties
+     * @param options
+     * Localization options to set.
      *
-     * */
+     * @return
+     * The modified search parameters as reference.
+     */
+    public setLocalizationOptions(
+        options: LocalizationOptions
+    ): void {
+
+        this.searchParams.set(
+            'languageId', (
+                options.language.toLowerCase() +
+                '-' +
+                options.country.toUpperCase()
+            )
+        );
+
+    }
 
 
-    public override searchParams: MorningstarSearchParams;
+    /**
+     * Sets `id` and `idType` based on given security options.
+     *
+     * @param options
+     * Security options to set.
+     *
+     * @return
+     * The modified search parameters as reference.
+     */
+    public setSecuritiesOptions(
+        securities: Array<MorningstarSecurityOptions>
+    ): void {
+        const searchParams = this.searchParams;
+
+        let id: string = searchParams.get('id') || '';
+        let idType: string = searchParams.get('idType') || '';
+
+        for (const security of securities) {
+            id = (id ? `${id}|${security.id}` : security.id);
+            idType = (idType ? `${idType}|${security.idType}` : security.idType);
+        }
+
+        searchParams.set('id', id);
+        searchParams.set('idType', idType);
+
+    }
 
 
 }

@@ -22,7 +22,6 @@
  * */
 
 
-import RNANewsConverter from "./RNANewsConverter";
 import RNANewsConnector from "./RNANewsConnector";
 
 
@@ -33,8 +32,9 @@ import RNANewsConnector from "./RNANewsConnector";
  * */
 
 
-export * from './RNANewsConverter';
 export * from './RNANewsConnector';
+export * from './RNANewsConverter';
+export * from './RNANewsOptions';
 
 
 /* *
@@ -44,7 +44,4 @@ export * from './RNANewsConnector';
  * */
 
 
-export default {
-    RNANewsConverter,
-    RNANewsConnector
-};
+export default RNANewsConnector;
