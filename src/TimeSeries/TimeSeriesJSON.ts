@@ -120,7 +120,7 @@ namespace TimeSeriesJSON {
             !!json &&
             typeof json === 'object' &&
             typeof (json as Response).TimeSeries === 'object' &&
-            isTimeSeriesReponse((json as Response).TimeSeries)
+            isTimeSeriesResponse((json as Response).TimeSeries)
         );
     }
 
@@ -148,7 +148,7 @@ namespace TimeSeriesJSON {
     }
 
 
-    export function isTimeSeriesReponse(
+    export function isTimeSeriesResponse(
         json?: unknown
     ): json is TimeSeriesResponse {
         return (

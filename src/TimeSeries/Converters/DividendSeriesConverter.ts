@@ -98,7 +98,8 @@ export class DividendSeriesConverter extends MorningstarConverter {
 
         // Validate JSON
 
-        if (!TimeSeriesJSON.isResponse(json)) {
+        if (!TimeSeriesJSON.isTimeSeriesResponse(json)) {
+            console.log(json);
             throw new Error('Invalid data');
         }
 
@@ -107,7 +108,7 @@ export class DividendSeriesConverter extends MorningstarConverter {
         const securityIds: Array<string> = [];
         const sortedDividends: Array<Dividend> = [];
 
-        for (const security of json.TimeSeries.Security) {
+        for (const security of json.Security) {
 
             if (!security.DividendSeries) {
                 continue;

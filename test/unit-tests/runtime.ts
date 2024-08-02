@@ -24,8 +24,8 @@
 
 import type { Shared } from '../../code/morningstar-connectors.src';
 
-import * as Assert from 'node:assert/strict';
 import * as FS from 'node:fs/promises';
+import * as FSSync from 'node:fs';
 import * as JSDOM from 'jsdom';
 
 
@@ -36,12 +36,12 @@ import * as JSDOM from 'jsdom';
  * */
 
 
-async function getAPIOptions(): Promise<Shared.MorningstarAPIOptions> {
+function getAPIOptions(): Shared.MorningstarAPIOptions {
     const apiOptions: Shared.MorningstarAPIOptions = {
         url: 'https://www.emea-api.morningstar.com/ecint/v1/'
     };
 
-    if ((await FS.lstat('.env')).isFile()) {
+    if (FSSync.existsSync('.env')) {
         process.loadEnvFile('.env');
     }
 
@@ -148,15 +148,15 @@ async function runUnitTests() {
 
                     stdWrite('Test', testName, '...');
 
-                    await test(await getAPIOptions());
+                    await test(getAPIOptions());
 
-                    stdout.write(' OK.\n');
+                    stdout.write(' ✅ OK.\n');
 
                     successes.push(testName);
 
                 } catch (error) {
 
-                    stdout.write(' ERROR.\n');
+                    stdout.write(' ❌ ERROR.\n');
 
                     await logError(error);
 
@@ -170,25 +170,37 @@ async function runUnitTests() {
 
     const total = successes.length + failures.length;
 
-    console.info(
-        successes.length,
-        'of',
-        total,
-        (total === 1 ? 'test' : 'tests'),
-        'succeeded.'
-    );
+    if (successes.length === total) {
 
-    Assert.deepEqual(
-        failures.length,
-        0,
-        `${failures.length} ${(failures.length === 1 ? 'test' : 'tests')} failed.`
-    );
+        stdWrite(
+            '✅', (total === 1 ? 'This' : 'All'), total,
+            (total === 1 ? 'test' : 'tests'),
+            'succeeded.\n'
+        );
+
+    } else {
+
+        stdWrite(
+            '✅', successes.length, 'of', total,
+            (total === 1 ? 'test' : 'tests'),
+            'succeeded.\n'
+        );
+
+        stdWrite(
+            '❌', failures.length,
+            (failures.length === 1 ? 'test' : 'tests'),
+            'failed.\n'
+        );
+
+    }
+
+    process.exit(0);
 
 }
 
 
 function stdWrite(
-    ...text: Array<string>
+    ...text: Array<unknown>
 ): void {
     process.stdout.write([
         '[',

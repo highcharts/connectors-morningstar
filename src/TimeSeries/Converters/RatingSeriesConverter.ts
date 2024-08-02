@@ -96,7 +96,7 @@ export class RatingSeriesConverter extends MorningstarConverter {
 
         // Validate JSON
 
-        if (!TimeSeriesJSON.isTimeSeriesReponse(json)) {
+        if (!TimeSeriesJSON.isTimeSeriesResponse(json)) {
             throw new Error('Invalid data');
         }
 
