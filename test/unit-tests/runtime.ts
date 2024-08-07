@@ -36,7 +36,7 @@ import * as JSDOM from 'jsdom';
  * */
 
 
-function getAPIOptions(): Shared.MorningstarAPIOptions {
+function getAPIOptions (): Shared.MorningstarAPIOptions {
     const apiOptions: Shared.MorningstarAPIOptions = {
         url: 'https://www.emea-api.morningstar.com/ecint/v1/'
     };
@@ -59,7 +59,7 @@ function getAPIOptions(): Shared.MorningstarAPIOptions {
 }
 
 
-async function logError(
+async function logError (
     error: unknown
 ): Promise<void> {
 
@@ -94,7 +94,7 @@ async function logError(
 }
 
 
-function prepareGlobals() {
+function prepareGlobals () {
     const jsdom = new JSDOM.JSDOM();
     const window = jsdom.window;
     const originalDispatchEvent = window.dispatchEvent;
@@ -118,7 +118,7 @@ function prepareGlobals() {
 }
 
 
-async function runUnitTests() {
+async function runUnitTests () {
     const failures: Array<string> = [];
     const successes: Array<string> = [];
     const stdout = process.stdout;
@@ -140,7 +140,7 @@ async function runUnitTests() {
         for (let testName of Object.keys(unitTests)) {
 
             test = unitTests[testName];
-            testName = testName.replace('_', ' ');
+            testName = testName.replace(/[A-Z]+/u, ' $0').toLowerCase();
 
             if (typeof test === 'function') {
 
@@ -197,7 +197,7 @@ async function runUnitTests() {
 }
 
 
-function stdWrite(
+function stdWrite (
     ...text: Array<unknown>
 ): void {
     process.stdout.write([

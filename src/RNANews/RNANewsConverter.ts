@@ -53,7 +53,7 @@ export class RNANewsConverter extends MorningstarConverter {
      * @param {RNANewsConverterOptions} [options]
      * Options for the converter.
      */
-    constructor(
+    constructor (
         options: RNANewsConverterOptions = {}
     ) {
         super(options);
@@ -86,12 +86,12 @@ export class RNANewsConverter extends MorningstarConverter {
     /**
      * Initiates the parsing of the RNANews
      *
-     * @param {RNANewsConverterOptions}[options]
+     * @param {RNANewsConverterOptions} [options]
      * Options for the parser
      *
      */
-    public parse(
-        options: RNANewsConverterOptions,
+    public parse (
+        options: RNANewsConverterOptions
     ): (boolean|undefined) {
 
         this.header = ['Day', 'Title', 'Source', 'Type'];
@@ -140,7 +140,7 @@ export class RNANewsConverter extends MorningstarConverter {
      * @return {DataTable}
      * Table from the parsed RNANews
      */
-    public override getTable(): External.DataTable {
+    public override getTable (): External.DataTable {
         return MorningstarConverter.getTableFromColumns(this.columns, this.header);
     }
 

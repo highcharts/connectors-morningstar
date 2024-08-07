@@ -22,9 +22,9 @@
  * */
 
 
-import type { MorningstarAccessOptions } from "./MorningstarOptions";
+import type { MorningstarAccessOptions } from './MorningstarOptions';
 
-import MorningstarRegion from "./MorningstarRegion";
+import MorningstarRegion from './MorningstarRegion';
 
 
 /* *
@@ -78,7 +78,7 @@ interface OAuth2TokenJSON {
  * */
 
 
-function isOAuth2MessageJSON(
+function isOAuth2MessageJSON (
     json: unknown
 ): json is OAuth2MessageJSON {
     return (
@@ -89,7 +89,7 @@ function isOAuth2MessageJSON(
 }
 
 
-function isOAuth2TokenJSON(
+function isOAuth2TokenJSON (
     json: unknown
 ): json is OAuth2TokenJSON {
     return (
@@ -119,7 +119,7 @@ export class MorningstarAccess {
      * */
 
 
-    public constructor(
+    public constructor (
         options: MorningstarAccessOptions = {}
     ) {
 
@@ -184,7 +184,7 @@ export class MorningstarAccess {
      * */
 
 
-    public async authenticate(
+    public async authenticate (
         username?: string,
         password?: string
     ): Promise<boolean> {
@@ -268,7 +268,7 @@ export class MorningstarAccess {
     }
 
 
-    public authorizeRequest(
+    public authorizeRequest (
         requestInit: RequestInit
     ): RequestInit {
         const token = this.token;
@@ -302,7 +302,7 @@ export class MorningstarAccess {
     }
 
 
-    protected setPayload(
+    protected setPayload (
         username?: string,
         password?: string
     ): void {
@@ -321,7 +321,7 @@ export class MorningstarAccess {
     }
 
 
-    protected setTimeout(
+    protected setTimeout (
         seconds: number
     ): void {
 
@@ -335,7 +335,7 @@ export class MorningstarAccess {
     }
 
 
-    public setToken(
+    public setToken (
         token: string
     ): void {
         this.authorized = true;

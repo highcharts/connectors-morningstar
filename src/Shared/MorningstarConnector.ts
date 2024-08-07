@@ -78,7 +78,7 @@ export abstract class MorningstarConnector extends External.DataConnector {
      * */
 
 
-    public override async load(): Promise<this> {
+    public override async load (): Promise<this> {
         const options = this.options;
 
         // Expecting async Postman options
