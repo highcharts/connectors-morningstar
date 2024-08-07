@@ -14,8 +14,7 @@
         "bin/",
         "es-modules/",
         "LICENSE.md",
-        "morningstar-*.js",
-        "morningstar-*.js.map",
+        "morningstar-*",
         "README.md"
     ],
     "keywords": [

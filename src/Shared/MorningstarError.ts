@@ -32,7 +32,8 @@ export class MorningstarError extends Error {
      * */
 
 
-    public constructor (
+    public constructor(
+        request: RequestInit,
         response: Response
     ) {
         super(
@@ -41,6 +42,7 @@ export class MorningstarError extends Error {
             'Unknown Error'
         );
 
+        this.request = request;
         this.response = response;
     }
 
@@ -50,6 +52,9 @@ export class MorningstarError extends Error {
      *  Properties
      *
      * */
+
+
+    public readonly request: RequestInit;
 
 
     public readonly response: Response;

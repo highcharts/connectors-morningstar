@@ -59,7 +59,7 @@ export class RatingSeriesConverter extends MorningstarConverter {
 
 
     public constructor(
-        options?: RatingSeriesOptions
+        options: RatingSeriesOptions = { type: 'Rating' }
     ) {
         super(options);
 
@@ -75,6 +75,7 @@ export class RatingSeriesConverter extends MorningstarConverter {
 
 
     public override readonly options: Required<RatingSeriesOptions>;
+
 
     /* *
      *
@@ -95,7 +96,7 @@ export class RatingSeriesConverter extends MorningstarConverter {
 
         // Validate JSON
 
-        if (!TimeSeriesJSON.isTimeSeriesReponse(json)) {
+        if (!TimeSeriesJSON.isTimeSeriesResponse(json)) {
             throw new Error('Invalid data');
         }
 
@@ -144,7 +145,7 @@ export class RatingSeriesConverter extends MorningstarConverter {
         // Add ratings to table
 
         let currentTableDate: number = 0;
-        let currentTableIndex: number = 0;
+        let currentTableIndex: number = -1;
 
         for (const rating of sortedRatings) {
             if (currentTableDate !== rating.EndDate) {

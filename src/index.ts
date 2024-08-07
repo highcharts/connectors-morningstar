@@ -22,7 +22,7 @@
  * */
 
 
-import MorningstarAPI from './Shared/MorningstarAPI';
+import * as Shared from './Shared/index';
 import TimeSeries from './TimeSeries/index';
 import RNANews from './RNANews/index';
 
@@ -35,8 +35,8 @@ import RNANews from './RNANews/index';
 
 
 export * as Shared from './Shared/index';
-export * as TimeSeries from './TimeSeries/index';
-export * as RNANews from './RNANews/index';
+export * from './TimeSeries/index';
+export * from './RNANews/index';
 
 
 /* *
@@ -47,7 +47,7 @@ export * as RNANews from './RNANews/index';
 
 
 export default {
-    MorningstarAPI,
+    Shared,
     TimeSeries,
     RNANews
 };

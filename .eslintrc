@@ -19,7 +19,7 @@
         "comma-dangle": [2, "never"],
         "dot-location": [2, "property"],
         "lines-around-comment": 0,
-        "max-len": 2,
+        "max-len": [2, {"code": 100, "comments": 80}],
         "newline-after-var": 0,
         "no-alert": 2,
         "no-console": 2,
@@ -34,6 +34,7 @@
         "require-unicode-regexp": 1,
         "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}], // JSLint style
         "strict": 0,
+        "@typescript-eslint/restrict-plus-operands": 0,
         "jsdoc/check-alignment": 1,
         "jsdoc/check-param-names": 1,
         "jsdoc/check-tag-names": 1,
@@ -66,5 +67,14 @@
                 "returns": "return"
             }
         }
-    }
+    },
+    "overrides": [
+        {
+            "files": ["test/unit-tests/**"],
+            "rules": {
+                "camelcase": 0,
+                "no-console": 0
+            }
+        }
+    ]
 }

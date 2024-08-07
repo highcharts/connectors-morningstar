@@ -60,7 +60,7 @@ export class DividendSeriesConverter extends MorningstarConverter {
 
 
     public constructor(
-        options?: DividendSeriesOptions
+        options: DividendSeriesOptions = { type: 'Dividend' }
     ) {
         super(options);
 
@@ -76,6 +76,7 @@ export class DividendSeriesConverter extends MorningstarConverter {
 
 
     public override readonly options: Required<DividendSeriesOptions>;
+
 
     /* *
      *
@@ -97,7 +98,7 @@ export class DividendSeriesConverter extends MorningstarConverter {
 
         // Validate JSON
 
-        if (!TimeSeriesJSON.isResponse(json)) {
+        if (!TimeSeriesJSON.isTimeSeriesResponse(json)) {
             throw new Error('Invalid data');
         }
 
@@ -106,7 +107,7 @@ export class DividendSeriesConverter extends MorningstarConverter {
         const securityIds: Array<string> = [];
         const sortedDividends: Array<Dividend> = [];
 
-        for (const security of json.TimeSeries.Security) {
+        for (const security of json.Security) {
 
             if (!security.DividendSeries) {
                 continue;
@@ -150,7 +151,7 @@ export class DividendSeriesConverter extends MorningstarConverter {
         // Add dividends to table
 
         let currentTableDate: number = 0;
-        let currentTableIndex: number = 0;
+        let currentTableIndex: number = -1;
 
         for (const dividend of sortedDividends) {
             if (currentTableDate !== dividend.EndDate) {

@@ -22,9 +22,8 @@
  * */
 
 
-import type DataConverterType from '@highcharts/dashboards/es-modules/Data/Converters/DataConverter';
-
-import * as Dashboards from '@highcharts/dashboards';
+import _DataConverter from '@highcharts/dashboards/es-modules/Data/Converters/DataConverter';
+import * as _Dashboards from '@highcharts/dashboards';
 
 
 /* *
@@ -34,17 +33,19 @@ import * as Dashboards from '@highcharts/dashboards';
  * */
 
 
-export type DataConnector = Dashboards.DataConnector;
-
-export type DataConnectorOptions =
-    Partial<Dashboards.DataConnector.UserOptions>;
-
-export type DataConveter = DataConverterType;
-
-export type DataConverterOptions = Partial<DataConverterType.Options>;
+export type DataConnector = _Dashboards.DataConnector;
 
 
-export type DataTable = Dashboards.DataTable;
+export type DataConnectorOptions = Partial<_Dashboards.DataConnector.UserOptions>;
+
+
+export type DataConveter = _DataConverter;
+
+
+export type DataConverterOptions = Partial<_DataConverter.Options>;
+
+
+export type DataTable = _Dashboards.DataTable;
 
 
 /* *
@@ -54,14 +55,13 @@ export type DataTable = Dashboards.DataTable;
  * */
 
 
-export const DataConnector = Dashboards.DataConnector;
+export const DataConnector = _Dashboards.DataConnector;
 
-// @todo simplify
-export const DataConverter =
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */
-    (Dashboards as any).DataConverter as typeof DataConverterType;
 
-export const DataTable = Dashboards.DataTable;
+export const DataConverter = _DataConverter;
+
+
+export const DataTable = _Dashboards.DataTable;
 
 
 /* *

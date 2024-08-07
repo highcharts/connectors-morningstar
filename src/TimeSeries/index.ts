@@ -33,8 +33,8 @@ import TimeSeriesConnector from './TimeSeriesConnector';
 
 
 export * from './TimeSeriesConnector';
-export * from './TimeSeriesOptions';
 export * as TimeSeriesConverters from './Converters/index';
+export * from './TimeSeriesOptions';
 
 
 /* *
