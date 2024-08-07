@@ -32,7 +32,7 @@ export class MorningstarError extends Error {
      * */
 
 
-    public constructor (
+    public constructor(
         request: RequestInit,
         response: Response
     ) {

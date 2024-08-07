@@ -1,10 +1,4 @@
-.DS_Store
-
-/.vscode/
 /bin/
 /build/
 /code/
 /node_modules/
-/tmp/
-
-/.env

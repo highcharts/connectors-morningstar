@@ -1,20 +1,102 @@
 {
     "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "eslint:recommended"
     ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "project": "./tsconfig.json"
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true,
+        "jasmine": true
     },
-    "plugins": [
-        "brackets",
-        "jsdoc",
-        "@typescript-eslint"
-    ],
-    "rules": {
-        "@typescript-eslint/restrict-plus-operands": 0
-    }
+    "globals": {
+        "Dashboards": true,
+        "Highcharts": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2020
+    },
+    "overrides": [
+        {
+            "files": ["*.ts"],
+            "extends": [
+                "eslint:recommended",
+                "plugin:@typescript-eslint/eslint-recommended",
+                "plugin:@typescript-eslint/recommended",
+                "plugin:@typescript-eslint/recommended-requiring-type-checking"
+            ],
+            "parser": "@typescript-eslint/parser",
+            "parserOptions": {
+                "project": "./tsconfig.json"
+            },
+            "plugins": [
+                "brackets",
+                "jsdoc",
+                "@typescript-eslint"
+            ],
+            "globals": {
+                "Dashboards": false,
+                "Highcharts": false
+            },
+            "rules": {
+                "camelcase": [2, {"properties": "always"}],
+                "comma-dangle": [2, "never"],
+                "dot-location": [2, "property"],
+                "lines-around-comment": 0,
+                "max-len": [2, {"code": 100, "comments": 80}],
+                "newline-after-var": 0,
+                "no-alert": 2,
+                "no-console": 2,
+                "no-debugger": 2,
+                "no-else-return": 2,
+                "no-nested-ternary": 0,
+                "no-unmodified-loop-condition": 0,
+                "no-unused-vars": 1,
+                "object-curly-spacing": [2, "always"],
+                "operator-linebreak": [2, "after"],
+                "quotes": [2, "single"],
+                "require-unicode-regexp": 1,
+                "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}], // JSLint style
+                "strict": 0,
+                "@typescript-eslint/restrict-plus-operands": 0,
+                "jsdoc/check-alignment": 1,
+                "jsdoc/check-param-names": 1,
+                "jsdoc/check-tag-names": 1,
+                "jsdoc/check-types": 0,
+                "jsdoc/newline-after-description": 0,
+                "jsdoc/require-jsdoc": 0,
+                "jsdoc/require-param": 1,
+                "jsdoc/require-returns": 0,
+                "node/shebang": 0,
+                "node/no-unpublished-require": 0
+            },
+            "settings": {
+                "jsdoc": {
+                    "preferredTypes": {
+                        "array": "Array",
+                        "function": "Function",
+                        "object": "Object",
+                        "Boolean": "boolean",
+                        "Number": "number",
+                        "Object": "Object",
+                        "String": "string"
+                    },
+                    "tagNamePreference": {
+                        "augments": "augments",
+                        "class": "class",
+                        "constructor": "class",
+                        "emits": "emits",
+                        "extends": "extends",
+                        "fires": "emits",
+                        "returns": "return"
+                    }
+                }
+            }
+        },
+        {
+            "files": ["test/unit-tests/runtime.ts"],
+            "rules": {
+                "no-console": 0
+            }
+        }
+    ]
 }

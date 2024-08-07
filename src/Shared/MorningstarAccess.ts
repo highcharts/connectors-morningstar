@@ -22,9 +22,9 @@
  * */
 
 
-import type { MorningstarAccessOptions } from "./MorningstarOptions";
+import type { MorningstarAccessOptions } from './MorningstarOptions';
 
-import MorningstarRegion from "./MorningstarRegion";
+import MorningstarRegion from './MorningstarRegion';
 
 
 /* *

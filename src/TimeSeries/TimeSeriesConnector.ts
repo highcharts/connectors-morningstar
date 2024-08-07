@@ -51,7 +51,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
      * */
 
 
-    public constructor (
+    public constructor(
         options: TimeSeriesOptions
     ) {
         super(options);

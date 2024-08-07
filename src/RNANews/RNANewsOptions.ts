@@ -21,7 +21,7 @@
 
 import type LocalizationOptions from '../Shared/LocalizationOptions';
 
-import MorningstarOptions, { MorningstarConverterOptions, MorningstarSecurityOptions } from "../Shared/MorningstarOptions";
+import MorningstarOptions, { MorningstarConverterOptions, MorningstarSecurityOptions } from '../Shared/MorningstarOptions';
 import RNANewsJSON from './RNANewsJSON';
 
 

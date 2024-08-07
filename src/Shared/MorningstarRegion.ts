@@ -78,7 +78,7 @@ export namespace MorningstarRegion {
 
 
     export function detect(): Name {
-        const country = window.navigator.language.toUpperCase().match(/-(\w\w)/);
+        const country = window.navigator.language.toUpperCase().match(/-(\w\w)/u);
 
         if (country) {
             if (countriesAmericas.includes(country[1])) {

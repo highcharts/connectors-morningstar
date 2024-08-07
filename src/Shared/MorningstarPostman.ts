@@ -67,7 +67,7 @@ export namespace MorningstarPostman {
         const apiOptions: MorningstarAPIOptions = {};
 
         const password = postmanEnvironment.getValueOf('Morningstar as a Service Password');
-        const url = postmanEnvironment.getValueOf(/^Morningstar as a Service \(/);
+        const url = postmanEnvironment.getValueOf(/^Morningstar as a Service \(/u);
         const username = postmanEnvironment.getValueOf('Morningstar as a Service Username');
 
         if (password && username) {

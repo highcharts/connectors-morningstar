@@ -43,7 +43,7 @@ export abstract class MorningstarConverter extends External.DataConverter {
      * */
 
 
-    public constructor (
+    public constructor(
         options: MorningstarConverterOptions = {}
     ) {
         super(options);

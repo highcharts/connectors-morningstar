@@ -101,8 +101,8 @@ export class MorningstarURL extends URL {
     /**
      * Sets `id` and `idType` based on given security options.
      *
-     * @param options
-     * Security options to set.
+     * @param securities
+     * Securities options to set.
      *
      * @return
      * The modified search parameters as reference.

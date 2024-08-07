@@ -86,12 +86,12 @@ export class RNANewsConverter extends MorningstarConverter {
     /**
      * Initiates the parsing of the RNANews
      *
-     * @param {RNANewsConverterOptions}[options]
+     * @param {RNANewsConverterOptions} [options]
      * Options for the parser
      *
      */
     public parse(
-        options: RNANewsConverterOptions,
+        options: RNANewsConverterOptions
     ): (boolean|undefined) {
 
         this.header = ['Day', 'Title', 'Source', 'Type'];
