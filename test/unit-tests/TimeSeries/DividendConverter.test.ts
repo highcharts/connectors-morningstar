@@ -1,7 +1,7 @@
 import * as Assert from 'node:assert/strict';
 import * as MorningstarConnectors from '../../../code/morningstar-connectors.src';
 
-export async function rating_load(
+export async function ratingLoad(
     api: MorningstarConnectors.Shared.MorningstarAPIOptions
 ) {
     const connector = new MorningstarConnectors.TimeSeriesConnector({

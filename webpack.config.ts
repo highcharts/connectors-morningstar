@@ -60,12 +60,12 @@ const sharedConfiguration: Configuration = {
     performance: {
         hints: 'error',
         maxAssetSize: 100000,
-        maxEntrypointSize: 100000,
+        maxEntrypointSize: 100000
     },
 
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
-    },
+        extensions: ['.tsx', '.ts', '.js']
+    }
 
 };
 
@@ -86,19 +86,19 @@ const webpacks: Array<Configuration> = [
                 name: {
                     amd: `${amd}/morningstar-connectors`,
                     commonjs,
-                    root: [root, 'MorningstarConnectors'],
+                    root: [root, 'MorningstarConnectors']
                 },
                 type: 'umd',
-                umdNamedDefine: true,
+                umdNamedDefine: true
             },
-            path: Path.resolve(projectFolder, targetFolder),
+            path: Path.resolve(projectFolder, targetFolder)
         },
 
         performance: {
             hints: 'error',
             maxAssetSize: 200000,
-            maxEntrypointSize: 200000,
-        },
+            maxEntrypointSize: 200000
+        }
 
     },
     // Morningstar RNA news
@@ -119,10 +119,10 @@ const webpacks: Array<Configuration> = [
                     root: [root, 'MorningstarConnectors', 'RNANews']
                 },
                 type: 'umd',
-                umdNamedDefine: true,
+                umdNamedDefine: true
             },
-            path: Path.resolve(projectFolder, targetFolder),
-        },
+            path: Path.resolve(projectFolder, targetFolder)
+        }
 
     },
     // Morningstar time series
@@ -143,10 +143,10 @@ const webpacks: Array<Configuration> = [
                     root: [root, 'MorningstarConnectors', 'TimeSeries']
                 },
                 type: 'umd',
-                umdNamedDefine: true,
+                umdNamedDefine: true
             },
-            path: Path.resolve(projectFolder, targetFolder),
-        },
+            path: Path.resolve(projectFolder, targetFolder)
+        }
 
     }
 ];
@@ -178,7 +178,7 @@ for (let webpack of webpacks.slice()) {
     webpack.performance = {
         ...webpack.performance,
         maxAssetSize: 1000000,
-        maxEntrypointSize: 1000000,
+        maxEntrypointSize: 1000000
     };
     webpacks.push(webpack);
 }

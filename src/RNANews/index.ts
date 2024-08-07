@@ -22,7 +22,7 @@
  * */
 
 
-import RNANewsConnector from "./RNANewsConnector";
+import RNANewsConnector from './RNANewsConnector';
 
 
 /* *

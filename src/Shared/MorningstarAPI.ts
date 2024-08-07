@@ -47,7 +47,7 @@ export class MorningstarAPI {
      * */
 
 
-    public constructor (
+    public constructor(
         options: MorningstarAPIOptions = {}
     ) {
 
@@ -66,7 +66,7 @@ export class MorningstarAPI {
         this.requestDelay = 0;
         this.version = (
             options.version ??
-            parseInt((this.baseURL.pathname.match(/\/v(\d+)(?:\/|$)/) || [])[ 1 ], 10)
+            parseInt((this.baseURL.pathname.match(/\/v(\d+)(?:\/|$)/u) || [])[ 1 ], 10)
         );
         this.version = (this.version > 0 ? this.version : 1);
 
@@ -107,14 +107,14 @@ export class MorningstarAPI {
      * */
 
 
-    public delay (
+    public delay(
         milliseconds: number
     ): Promise<void> {
         return new Promise(resolve => window.setTimeout(resolve, milliseconds));
     }
 
 
-    public async fetch (
+    public async fetch(
         url: MorningstarURL,
         requestInit: RequestInit = {}
     ): Promise<Response> {

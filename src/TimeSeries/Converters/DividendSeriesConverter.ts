@@ -99,7 +99,6 @@ export class DividendSeriesConverter extends MorningstarConverter {
         // Validate JSON
 
         if (!TimeSeriesJSON.isTimeSeriesResponse(json)) {
-            console.log(json);
             throw new Error('Invalid data');
         }
 
