@@ -185,6 +185,7 @@ export class Server {
             filePath,
             (error, data) => {
                 if (error) {
+                    // eslint-disable-next-line no-console
                     console.error(error.message);
                     response.writeHead(404);
                     response.end('404: Path not found', 'utf-8');

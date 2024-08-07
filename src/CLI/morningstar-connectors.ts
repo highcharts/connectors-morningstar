@@ -13,6 +13,9 @@
  * */
 
 
+/* eslint-disable no-console */
+
+
 'use strict';
 
 
@@ -114,8 +117,8 @@ export async function main (): Promise<void> {
             break;
 
         default:
-            console.log(args._);
-            throw new Error('No valid command provided.');
+            console.info(HELP);
+            throw new Error(`No valid command provided. (${'' + args._})`);
 
     }
 

@@ -71,6 +71,12 @@ function getArgs (
     let currentValue: ArgValue;
 
     for (const arg of argv) {
+        if (
+            currentKey === '_' &&
+            arg.startsWith('/')
+        ) {
+            continue;
+        }
         if (arg.startsWith('--')) {
             currentKey = arg.substring(2);
             args[currentKey] = true;

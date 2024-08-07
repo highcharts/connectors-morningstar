@@ -45,7 +45,7 @@
         "demos:server": "(sleep 1 ; open http://localhost:8080) & node bin/morningstar-connectors demos",
         "prepare": "rm -rf '.husky/_' ; husky",
         "scripts": "npm run scripts:bin && npm run scripts:code",
-        "scripts:bin": "rm -rf bin/ ; tsc -p src/CLI/",
+        "scripts:bin": "rm -rf bin/ ; tsc -p src/CLI/ ; chmod +x bin/*.js",
         "scripts:code": "rm -rf code/ ; tsc -p src/",
         "reset": "rm -rf bin/ build/ code/ node_modules/ ; npm i",
         "test": "npm run test:unit-tests",
