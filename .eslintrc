@@ -1,20 +1,45 @@
 {
     "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "eslint:recommended"
     ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "project": "./tsconfig.json"
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true,
+        "jasmine": true
     },
-    "plugins": [
-        "brackets",
-        "jsdoc",
-        "@typescript-eslint"
-    ],
-    "rules": {
-        "@typescript-eslint/restrict-plus-operands": 0
-    }
+    "globals": {
+        "Dashboards": true,
+        "Highcharts": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2020
+    },
+    "overrides": [
+        {
+            "files": ["*.ts"],
+            "extends": [
+                "eslint:recommended",
+                "plugin:@typescript-eslint/eslint-recommended",
+                "plugin:@typescript-eslint/recommended",
+                "plugin:@typescript-eslint/recommended-requiring-type-checking"
+            ],
+            "parser": "@typescript-eslint/parser",
+            "parserOptions": {
+                "project": "./tsconfig.json"
+            },
+            "plugins": [
+                "brackets",
+                "jsdoc",
+                "@typescript-eslint"
+            ],
+            "globals": {
+                "Dashboards": false,
+                "Highcharts": false
+            },
+            "rules": {
+                "@typescript-eslint/restrict-plus-operands": 0
+            }
+        }
+    ]
 }
