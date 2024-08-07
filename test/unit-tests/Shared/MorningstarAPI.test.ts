@@ -1,7 +1,7 @@
 import * as Assert from 'node:assert/strict';
 import * as MC from '../../../code/morningstar-connectors.src';
 
-export async function apiAccess(
+export async function apiAccess (
     apiOptions: MC.Shared.MorningstarAPIOptions
 ) {
     const api = new MC.Shared.MorningstarAPI(apiOptions);

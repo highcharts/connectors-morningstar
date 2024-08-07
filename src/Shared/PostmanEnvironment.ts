@@ -39,7 +39,7 @@ interface PostmanEnvironmentJSON {
  * */
 
 
-function isPostmanEnvironmentJSON(
+function isPostmanEnvironmentJSON (
     obj: unknown
 ): obj is PostmanEnvironmentJSON {
     return (
@@ -57,7 +57,7 @@ function isPostmanEnvironmentJSON(
 }
 
 
-function isPostmanEnvironmentValue(
+function isPostmanEnvironmentValue (
     obj: unknown
 ): obj is PostmanEnvironment.Value {
     return (
@@ -95,18 +95,37 @@ export class PostmanEnvironment {
 
 
     /**
-     * Loads the Postman Environment from the given file content or posted file.
+     * Loads the Postman environment from the given file content or posted file.
      *
      * @param file
      * File content or posted file.
      *
      * @return
-     * Promise to succeed.
+     * Promise of PostmanEnvironment instance.
      */
-    public static async fromFile(
+    public static async fromFile (
         file: (string|File)
     ): Promise<PostmanEnvironment> {
-        const json: unknown = JSON.parse(typeof file === 'string' ? file : await file.text());
+        return PostmanEnvironment.fromJSON(JSON.parse(
+            typeof file === 'string' ?
+                file :
+                await file.text()
+        ) as unknown);
+    }
+
+
+    /**
+     * Loads the Postman Environment from the given Postman JSON.
+     *
+     * @param json
+     * Postman JSON.
+     *
+     * @return
+     * PostmanEnvironment instance.
+     */
+    public static fromJSON (
+        json: unknown
+    ): PostmanEnvironment {
         const values = [];
 
         let id = '';
@@ -136,9 +155,9 @@ export class PostmanEnvironment {
      * URL to load from.
      *
      * @return
-     * Promise to succeed.
+     * Promise of PostmanEnvironment instance.
      */
-    public static async fromURL(
+    public static async fromURL (
         url: string
     ): Promise<PostmanEnvironment> {
         return await this.fromFile(await (await fetch(url)).text());
@@ -152,7 +171,7 @@ export class PostmanEnvironment {
      * */
 
 
-    protected constructor(
+    protected constructor (
         id: string,
         name: string,
         values: Array<PostmanEnvironment.Value>
@@ -195,7 +214,7 @@ export class PostmanEnvironment {
      * @return
      * Postman Environment value or `undefined`.
      */
-    public getAllValuesOf(
+    public getAllValuesOf (
         key: (string|RegExp)
     ): Array<PostmanEnvironment.Value> {
         const values: Array<PostmanEnvironment.Value> = [];
@@ -227,7 +246,7 @@ export class PostmanEnvironment {
      * @return
      * Postman Environment value or `undefined`.
      */
-    public getLastValueOf(
+    public getLastValueOf (
         key: (string|RegExp)
     ): (PostmanEnvironment.Value|undefined) {
         let lastValue: (PostmanEnvironment.Value|undefined);
@@ -265,7 +284,7 @@ export class PostmanEnvironment {
      * @return
      * Postman Environment value or `undefined`.
      */
-    public getValueOf(
+    public getValueOf (
         key: (string|RegExp)
     ): (PostmanEnvironment.Value|undefined) {
 

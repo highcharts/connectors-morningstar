@@ -7,9 +7,11 @@
     "author": "Highsoft AS",
     "bugs": "https://www.highcharts.com/support/",
     "homepage": "https://www.highcharts.com/",
+    "bin": "bin/morningstar-connectors.js",
     "main": "es-modules/index.js",
     "types": "es-modules/index.d.ts",
     "files": [
+        "bin/",
         "es-modules/",
         "LICENSE.md",
         "morningstar-*",

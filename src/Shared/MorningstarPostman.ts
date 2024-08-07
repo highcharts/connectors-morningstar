@@ -47,10 +47,15 @@ export namespace MorningstarPostman {
      * */
 
 
-    export async function getAPIOptions(
+    export async function getAPIOptions (
         options: MorningstarPostmanOptions = {}
     ): Promise<(MorningstarAPIOptions|undefined)> {
 
+        if (options.environmentJSON) {
+            return getAPIOptionsFromPostmanEnvironment(
+                PostmanEnvironment.fromJSON(options.environmentJSON)
+            );
+        }
         if (options.environmentURL) {
             return getAPIOptionsFromPostmanEnvironment(
                 await PostmanEnvironment.fromURL(options.environmentURL)
@@ -61,7 +66,7 @@ export namespace MorningstarPostman {
     }
 
 
-    function getAPIOptionsFromPostmanEnvironment(
+    function getAPIOptionsFromPostmanEnvironment (
         postmanEnvironment: PostmanEnvironment
     ): MorningstarAPIOptions {
         const apiOptions: MorningstarAPIOptions = {};

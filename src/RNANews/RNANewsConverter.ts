@@ -53,7 +53,7 @@ export class RNANewsConverter extends MorningstarConverter {
      * @param {RNANewsConverterOptions} [options]
      * Options for the converter.
      */
-    constructor(
+    constructor (
         options: RNANewsConverterOptions = {}
     ) {
         super(options);
@@ -90,7 +90,7 @@ export class RNANewsConverter extends MorningstarConverter {
      * Options for the parser
      *
      */
-    public parse(
+    public parse (
         options: RNANewsConverterOptions
     ): (boolean|undefined) {
 
@@ -140,7 +140,7 @@ export class RNANewsConverter extends MorningstarConverter {
      * @return {DataTable}
      * Table from the parsed RNANews
      */
-    public override getTable(): External.DataTable {
+    public override getTable (): External.DataTable {
         return MorningstarConverter.getTableFromColumns(this.columns, this.header);
     }
 

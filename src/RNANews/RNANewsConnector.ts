@@ -46,7 +46,7 @@ import RNANewsJSON from './RNANewsJSON';
  * @param {number | string} date date as a timestamp of formatted string
  * @return {string} date formatted as `yyyy-MM-dd`.
  */
-function validateAndFormatDate(date: number | string): string {
+function validateAndFormatDate (date: number | string): string {
     let timestamp: number;
     if (typeof date === 'string') {
         // Check if string is a number, likely a timestamp
@@ -96,7 +96,7 @@ export class RNANewsConnector extends MorningstarConnector {
      * @param {RNANewsOptions} [options]
      * Options for the connector and converter.
      */
-    public constructor(
+    public constructor (
         options: RNANewsOptions = {}
     ) {
         super(options);
@@ -132,7 +132,7 @@ export class RNANewsConnector extends MorningstarConnector {
      * @return {Promise<this>}
      * Same connector instance with modified table.
      */
-    public override async load(): Promise<this> {
+    public override async load (): Promise<this> {
         const options = this.options;
         const {
             security,

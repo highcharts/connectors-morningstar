@@ -51,7 +51,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
      * */
 
 
-    public constructor(
+    public constructor (
         options: TimeSeriesOptions
     ) {
         super(options);
@@ -123,7 +123,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
      * */
 
 
-    public override async load(): Promise<this> {
+    public override async load (): Promise<this> {
         const options = this.options;
         const currencyId = options.currencyId;
         const endDate = options.endDate;

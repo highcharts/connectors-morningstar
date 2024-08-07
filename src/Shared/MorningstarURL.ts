@@ -59,7 +59,7 @@ export class MorningstarURL extends URL {
      * @return
      * The modified search parameters as reference.
      */
-    public setDate(
+    public setDate (
         name: ('endDate'|'startDate'),
         date: (number|string)
     ): void {
@@ -83,7 +83,7 @@ export class MorningstarURL extends URL {
      * @return
      * The modified search parameters as reference.
      */
-    public setLocalizationOptions(
+    public setLocalizationOptions (
         options: LocalizationOptions
     ): void {
 
@@ -107,7 +107,7 @@ export class MorningstarURL extends URL {
      * @return
      * The modified search parameters as reference.
      */
-    public setSecuritiesOptions(
+    public setSecuritiesOptions (
         securities: Array<MorningstarSecurityOptions>
     ): void {
         const searchParams = this.searchParams;

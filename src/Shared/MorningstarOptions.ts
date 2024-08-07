@@ -127,6 +127,11 @@ export interface MorningstarOptions extends External.DataConnectorOptions {
 export interface MorningstarPostmanOptions {
 
     /**
+     * Postman JSON to use.
+     */
+    environmentJSON?: unknown;
+
+    /**
      * URL or path to the shared Postman Environment to use.
      */
     environmentURL?: string;

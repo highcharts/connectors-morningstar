@@ -58,7 +58,7 @@ export class CumulativeReturnSeriesConverter extends MorningstarConverter {
      * */
 
 
-    public constructor(
+    public constructor (
         options: CumulativeReturnSeriesOptions = { type: 'CumulativeReturn' }
     ) {
         super(options);
@@ -84,7 +84,7 @@ export class CumulativeReturnSeriesConverter extends MorningstarConverter {
      * */
 
 
-    public parse(
+    public parse (
         options: CumulativeReturnSeriesOptions
     ): void {
         const table = this.table;

@@ -15,6 +15,27 @@
     "parserOptions": {
         "ecmaVersion": 2020
     },
+    "rules": {
+        "camelcase": [2, {"properties": "always"}],
+        "comma-dangle": [2, "never"],
+        "dot-location": [2, "property"],
+        "lines-around-comment": 0,
+        "max-len": [2, {"code": 100, "comments": 80}],
+        "newline-after-var": 0,
+        "no-alert": 2,
+        "no-console": 2,
+        "no-debugger": 2,
+        "no-else-return": 2,
+        "no-nested-ternary": 0,
+        "no-unmodified-loop-condition": 0,
+        "no-unused-vars": 1,
+        "object-curly-spacing": [2, "always"],
+        "operator-linebreak": [2, "after"],
+        "quotes": [2, "single"],
+        "require-unicode-regexp": 1,
+        "space-before-function-paren": 2,
+        "strict": 0
+    },
     "overrides": [
         {
             "files": ["*.ts"],
@@ -55,9 +76,10 @@
                 "operator-linebreak": [2, "after"],
                 "quotes": [2, "single"],
                 "require-unicode-regexp": 1,
-                "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}], // JSLint style
+                "space-before-function-paren": 2,
                 "strict": 0,
                 "@typescript-eslint/restrict-plus-operands": 0,
+                "@typescript-eslint/restrict-template-expressions": 0,
                 "jsdoc/check-alignment": 1,
                 "jsdoc/check-param-names": 1,
                 "jsdoc/check-tag-names": 1,
@@ -90,12 +112,6 @@
                         "returns": "return"
                     }
                 }
-            }
-        },
-        {
-            "files": ["test/unit-tests/runtime.ts"],
-            "rules": {
-                "no-console": 0
             }
         }
     ]

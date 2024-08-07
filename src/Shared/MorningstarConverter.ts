@@ -43,7 +43,7 @@ export abstract class MorningstarConverter extends External.DataConverter {
      * */
 
 
-    public constructor(
+    public constructor (
         options: MorningstarConverterOptions = {}
     ) {
         super(options);
@@ -73,12 +73,12 @@ export abstract class MorningstarConverter extends External.DataConverter {
      * */
 
 
-    public abstract override parse(
+    public abstract override parse (
         options: MorningstarConverterOptions
     ): void;
 
 
-    public override getTable(): External.DataTable {
+    public override getTable (): External.DataTable {
         return this.table;
     }
 
