@@ -51,6 +51,11 @@ export namespace MorningstarPostman {
         options: MorningstarPostmanOptions = {}
     ): Promise<(MorningstarAPIOptions|undefined)> {
 
+        if (options.environmentJSON) {
+            return getAPIOptionsFromPostmanEnvironment(
+                PostmanEnvironment.fromJSON(options.environmentJSON)
+            );
+        }
         if (options.environmentURL) {
             return getAPIOptionsFromPostmanEnvironment(
                 await PostmanEnvironment.fromURL(options.environmentURL)

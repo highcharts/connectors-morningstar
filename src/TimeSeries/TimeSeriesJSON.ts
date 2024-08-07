@@ -85,7 +85,7 @@ namespace TimeSeriesJSON {
      * */
 
 
-    export function isHistory(
+    export function isHistory (
         json?: unknown
     ): json is History {
         return (
@@ -101,7 +101,7 @@ namespace TimeSeriesJSON {
     }
 
 
-    function isHistoryDetail(
+    function isHistoryDetail (
         json?: unknown
     ): json is HistoryDetail {
         return (
@@ -113,7 +113,7 @@ namespace TimeSeriesJSON {
     }
 
 
-    export function isResponse(
+    export function isResponse (
         json?: unknown
     ): json is Response {
         return (
@@ -125,7 +125,7 @@ namespace TimeSeriesJSON {
     }
 
 
-    function isSecurity(
+    function isSecurity (
         json?: unknown
     ): json is Security {
         return (
@@ -148,7 +148,7 @@ namespace TimeSeriesJSON {
     }
 
 
-    export function isTimeSeriesResponse(
+    export function isTimeSeriesResponse (
         json?: unknown
     ): json is TimeSeriesResponse {
         return (

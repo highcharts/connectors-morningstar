@@ -55,10 +55,13 @@ export type ArgValue =  (true|string|Array<string>);
  * @param argv
  * Arguments to convert.
  *
+ * @param shortcuts
+ * Shortcut arguments as a map to their full counterpart.
+ *
  * @return
  * Converted CLI arguments.
  */
-function getArgs(
+function getArgs (
     argv = process.argv,
     shortcuts = SHORTCUTS
 ): Args {

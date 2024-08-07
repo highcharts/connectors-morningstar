@@ -74,7 +74,7 @@ const PATH_ESCAPE = /\.\.?\/|\/\.|\/\//u;
  * @return
  * Sanitized path.
  */
-function sanitizePath(path: string) {
+function sanitizePath (path: string) {
     path = (new URL(path, 'http://localhost')).pathname;
 
     while (PATH_ESCAPE.test(path)) {
@@ -102,7 +102,7 @@ export class Server {
      * */
 
 
-    public constructor(
+    public constructor (
         folder: string = process.cwd()
     ) {
         this.folder = folder;
@@ -210,7 +210,7 @@ export class Server {
      * @return
      * Server instance for reference.
      */
-    public start(
+    public start (
         port: number = DEFAULT_PORT,
         folder?: string
     ): Server {
@@ -228,7 +228,7 @@ export class Server {
      * @return
      * Server instance for reference.
      */
-    public stop(): Server {
+    public stop (): Server {
 
         this.http.closeAllConnections();
 

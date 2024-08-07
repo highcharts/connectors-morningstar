@@ -71,7 +71,7 @@ export namespace RNANewsJSON {
      * */
 
 
-    export function isResponse(
+    export function isResponse (
         json?: unknown
     ): json is Response {
         return (
@@ -83,7 +83,7 @@ export namespace RNANewsJSON {
     }
 
 
-    function isResponseItem(
+    function isResponseItem (
         json?: unknown
     ): json is ResponseItem {
         return (
@@ -96,7 +96,7 @@ export namespace RNANewsJSON {
     }
 
 
-    function isRNANewsResponseItem(
+    function isRNANewsResponseItem (
         json?: unknown
     ): json is RNANewsResponseItem {
         return (

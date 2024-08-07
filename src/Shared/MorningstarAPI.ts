@@ -47,7 +47,7 @@ export class MorningstarAPI {
      * */
 
 
-    public constructor(
+    public constructor (
         options: MorningstarAPIOptions = {}
     ) {
 
@@ -107,14 +107,14 @@ export class MorningstarAPI {
      * */
 
 
-    public delay(
+    public delay (
         milliseconds: number
     ): Promise<void> {
         return new Promise(resolve => window.setTimeout(resolve, milliseconds));
     }
 
 
-    public async fetch(
+    public async fetch (
         url: MorningstarURL,
         requestInit: RequestInit = {}
     ): Promise<Response> {

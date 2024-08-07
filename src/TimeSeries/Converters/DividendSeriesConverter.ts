@@ -59,7 +59,7 @@ export class DividendSeriesConverter extends MorningstarConverter {
      * */
 
 
-    public constructor(
+    public constructor (
         options: DividendSeriesOptions = { type: 'Dividend' }
     ) {
         super(options);
@@ -85,7 +85,7 @@ export class DividendSeriesConverter extends MorningstarConverter {
      * */
 
 
-    public parse(
+    public parse (
         options: DividendSeriesOptions
     ): void {
         const table = this.table;

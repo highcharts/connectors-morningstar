@@ -58,7 +58,7 @@ export class RatingSeriesConverter extends MorningstarConverter {
      * */
 
 
-    public constructor(
+    public constructor (
         options: RatingSeriesOptions = { type: 'Rating' }
     ) {
         super(options);
@@ -84,7 +84,7 @@ export class RatingSeriesConverter extends MorningstarConverter {
      * */
 
 
-    public parse(
+    public parse (
         options: RatingSeriesOptions
     ): void {
         const table = this.table;

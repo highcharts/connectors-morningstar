@@ -95,7 +95,10 @@
             }
         },
         {
-            "files": ["test/unit-tests/runtime.ts"],
+            "files": [
+                "src/CLI/**",
+                "test/unit-tests/runtime.ts"
+            ],
             "rules": {
                 "no-console": 0
             }

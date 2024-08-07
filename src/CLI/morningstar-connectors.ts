@@ -77,7 +77,7 @@ const SHORTCUTS = {
  * */
 
 
-export async function main(): Promise<void> {
+export async function main (): Promise<void> {
     const args = Args.getArgs(process.argv, SHORTCUTS);
 
     if (args.help) {

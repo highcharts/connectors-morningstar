@@ -58,7 +58,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
      * */
 
 
-    public constructor(
+    public constructor (
         options: GrowthSeriesOptions = { type: 'Growth' }
     ) {
         super(options);
@@ -84,7 +84,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
      * */
 
 
-    public parse(
+    public parse (
         options: GrowthSeriesOptions
     ): void {
         const table = this.table;
