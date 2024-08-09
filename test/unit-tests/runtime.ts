@@ -143,7 +143,7 @@ async function runUnitTests () {
         for (let testName of Object.keys(unitTests)) {
 
             test = unitTests[testName];
-            testName = testName.replace(/[A-Z]+/u, ' $0').toLowerCase();
+            testName = testName.replace(/([A-Z]+)/u, ' $1').toLowerCase();
 
             if (typeof test === 'function') {
 

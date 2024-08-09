@@ -133,6 +133,8 @@ export class RNANewsConnector extends MorningstarConnector {
      * Same connector instance with modified table.
      */
     public override async load (): Promise<this> {
+        await super.load();
+
         const options = this.options;
         const {
             security,
@@ -146,8 +148,8 @@ export class RNANewsConnector extends MorningstarConnector {
             return this;
         }
 
-        const api = new MorningstarAPI(options.api);
-        const url = new MorningstarURL('timeseries/rna-news');
+        const api = this.api = this.api || new MorningstarAPI(options.api);
+        const url = new MorningstarURL('timeseries/rna-news', api.baseURL);
 
         url.setSecuritiesOptions([security]);
 
