@@ -34,6 +34,9 @@ import * as Path from 'node:path';
  * */
 
 
+export const CWD = process.cwd();
+
+
 export const DEFAULT_PORT = 8080;
 
 
@@ -147,13 +150,13 @@ export class Server {
         let path = sanitizePath(request.url || '/index.html');
 
         if (path.startsWith('/code/')) {
-            if (FS.existsSync('code')) {
+            if (folder.includes('node_modules')) {
+                // Runs in package
+                folder = Path.relative(CWD, Path.join(__dirname, '..', '..'));
+                path = path.substring(5);
+            } else {
                 // Runs in repository
                 folder = '.';
-            } else {
-                // Runs in package
-                folder = Path.join(__dirname, '..');
-                path = path.substring(5);
             }
         }
 
