@@ -10,7 +10,8 @@
     },
     "globals": {
         "Dashboards": true,
-        "Highcharts": true
+        "Highcharts": true,
+        "MorningstarConnectors": true
     },
     "parserOptions": {
         "ecmaVersion": 2020
