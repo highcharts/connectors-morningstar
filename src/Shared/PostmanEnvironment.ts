@@ -39,7 +39,7 @@ interface PostmanEnvironmentJSON {
  * */
 
 
-function isPostmanEnvironmentJSON (
+export function isPostmanEnvironmentJSON (
     obj: unknown
 ): obj is PostmanEnvironmentJSON {
     return (

@@ -92,9 +92,9 @@ const webpacks: Array<Configuration> = [
             globalObject: 'this',
             library: {
                 name: {
-                    amd: `${amd}/morningstar-standalone`,
+                    amd: 'morningstar-standalone',
                     commonjs,
-                    root: [root, 'MorningstarConnectors']
+                    root: 'MorningstarConnectors'
                 },
                 type: 'umd',
                 umdNamedDefine: true
