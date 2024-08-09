@@ -77,7 +77,39 @@ const sharedConfiguration: Configuration = {
 
 
 const webpacks: Array<Configuration> = [
-    // Morningstar connectors
+    // Morningstar standalone
+    {
+        ...sharedConfiguration,
+
+        // Path to the main file
+        entry: Path.resolve(projectFolder, `${sourceFolder}/index.js`),
+
+        externals: void 0,
+
+        // Name for the javascript file that is created/compiled in memory
+        output: {
+            filename: 'morningstar-standalone.js',
+            globalObject: 'this',
+            library: {
+                name: {
+                    amd: `${amd}/morningstar-standalone`,
+                    commonjs,
+                    root: [root, 'MorningstarConnectors']
+                },
+                type: 'umd',
+                umdNamedDefine: true
+            },
+            path: Path.resolve(projectFolder, targetFolder)
+        },
+
+        performance: {
+            hints: 'error',
+            maxAssetSize: 200000,
+            maxEntrypointSize: 200000
+        }
+
+    },
+    // Morningstar all
     {
         ...sharedConfiguration,
 
