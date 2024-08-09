@@ -124,6 +124,8 @@ export class TimeSeriesConnector extends MorningstarConnector {
 
 
     public override async load (): Promise<this> {
+        await super.load();
+
         const options = this.options;
         const currencyId = options.currencyId;
         const endDate = options.endDate;
@@ -131,36 +133,38 @@ export class TimeSeriesConnector extends MorningstarConnector {
         const startDate = options.startDate;
         const tax = options.tax;
 
-        if (securities) {
-            const api = new MorningstarAPI(options.api);
-            const url = new MorningstarURL(this.path, api.baseURL);
-
-            url.setSecuritiesOptions(securities);
-
-            if (currencyId) {
-                url.searchParams.set('currencyId', currencyId);
-            }
-
-            if (endDate) {
-                url.setDate('endDate', endDate);
-            }
-
-            if (startDate) {
-                url.setDate('startDate', startDate);
-            }
-
-            if (tax) {
-                url.searchParams.set('tax', tax);
-            }
-
-            const response = await api.fetch(url);
-            const json = await response.json() as unknown;
-
-            this.converter.parse({ json });
-
-            this.table.deleteColumns();
-            this.table.setColumns(this.converter.getTable().getColumns());
+        if (!securities) {
+            return this;
         }
+
+        const api = this.api = this.api || new MorningstarAPI(options.api);
+        const url = new MorningstarURL(this.path, api.baseURL);
+
+        url.setSecuritiesOptions(securities);
+
+        if (currencyId) {
+            url.searchParams.set('currencyId', currencyId);
+        }
+
+        if (endDate) {
+            url.setDate('endDate', endDate);
+        }
+
+        if (startDate) {
+            url.setDate('startDate', startDate);
+        }
+
+        if (tax) {
+            url.searchParams.set('tax', tax);
+        }
+
+        const response = await api.fetch(url);
+        const json = await response.json() as unknown;
+
+        this.converter.parse({ json });
+
+        this.table.deleteColumns();
+        this.table.setColumns(this.converter.getTable().getColumns());
 
         return this;
     }

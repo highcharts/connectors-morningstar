@@ -12,6 +12,8 @@
     "types": "es-modules/index.d.ts",
     "files": [
         "bin/",
+        "demos/",
+        "docs/",
         "es-modules/",
         "LICENSE.md",
         "morningstar-*",

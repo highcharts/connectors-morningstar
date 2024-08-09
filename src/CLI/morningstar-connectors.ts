@@ -126,6 +126,19 @@ export async function main (): Promise<void> {
 
     console.info(`Content available at http://localhost:${port}.`);
 
+    process.stdin.on('data', (data) => {
+        const input = data.toString('utf8');
+
+        if (
+            input.startsWith('exit') ||
+            input.startsWith('quit') ||
+            input.startsWith('stop')
+        ) {
+            server.stop();
+            process.exit(0);
+        }
+    });
+
 }
 
 

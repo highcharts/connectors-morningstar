@@ -27,6 +27,9 @@
         "webpack-cli": "^5.1.4"
     },
     "lint-staged": {
+        "*.js": [
+            "eslint"
+        ],
         "*.ts": [
             "eslint"
         ]
@@ -38,17 +41,19 @@
     "scripts": {
         "build": "npm run webpack && npm run build:prepare && npm run build:copy && npm run build:pack && npm run build:cleanup",
         "build:cleanup": "rm -rf build/package/",
-        "build:copy": "cp -R bin code/* LICENSE.md README.md build/package/ && cp package-build.json build/package/package.json",
+        "build:copy": "cp -R bin code/* demos docs LICENSE.md README.md build/package/ && cp package-build.json build/package/package.json",
         "build:pack": "npm pack build/package/ --pack-destination build/",
         "build:prepare": "rm -rf build/ ; mkdir -p build/package/",
         "demos": "npm run webpack && npm run demos:server",
         "demos:server": "(sleep 1 ; open http://localhost:8080) & node bin/morningstar-connectors demos",
+        "husky:pre-commit": "npx lint-staged && npm run webpack",
         "prepare": "rm -rf '.husky/_' ; husky",
         "scripts": "npm run scripts:bin && npm run scripts:code",
         "scripts:bin": "rm -rf bin/ ; tsc -p src/CLI/ ; chmod +x bin/*.js",
         "scripts:code": "rm -rf code/ ; tsc -p src/",
         "reset": "rm -rf bin/ build/ code/ node_modules/ ; npm i",
-        "test": "npm run test:unit-tests",
+        "test": "npm run test:eslint && npm run test:unit-tests",
+        "test:eslint": "eslint .",
         "test:morningstar": "npx -y newman run --bail tmp/Collection.json -e tmp/Environment.json",
         "test:unit-tests": "npm run webpack && ts-node test/unit-tests/runtime",
         "watch": "tsc -p src/ -w",

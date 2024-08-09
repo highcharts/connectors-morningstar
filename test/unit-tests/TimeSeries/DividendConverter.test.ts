@@ -1,10 +1,10 @@
 import * as Assert from 'node:assert/strict';
-import * as MorningstarConnectors from '../../../code/morningstar-connectors.src';
+import * as MC from '../../../code/morningstar-connectors.src';
 
 export async function ratingLoad (
-    api: MorningstarConnectors.Shared.MorningstarAPIOptions
+    api: MC.Shared.MorningstarAPIOptions
 ) {
-    const connector = new MorningstarConnectors.TimeSeriesConnector({
+    const connector = new MC.TimeSeriesConnector({
         api,
         currencyId: 'EUR',
         endDate: '2020-12-31',
@@ -19,13 +19,13 @@ export async function ratingLoad (
     });
 
     Assert.ok(
-        connector instanceof MorningstarConnectors.TimeSeriesConnector,
+        connector instanceof MC.TimeSeriesConnector,
         'Connector should be instance of TimeSeries class.'
     );
 
     Assert.ok(
         connector.converter instanceof
-        MorningstarConnectors.TimeSeriesConverters.DividendSeriesConverter,
+        MC.TimeSeriesConverters.DividendSeriesConverter,
         'Converter should be instance of TimeSeries DividendSeriesConverter.'
     );
 
