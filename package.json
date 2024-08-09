@@ -38,7 +38,7 @@
     "scripts": {
         "build": "npm run webpack && npm run build:prepare && npm run build:copy && npm run build:pack && npm run build:cleanup",
         "build:cleanup": "rm -rf build/package/",
-        "build:copy": "cp -R bin code/* LICENSE.md README.md build/package/ && cp package-build.json build/package/package.json",
+        "build:copy": "cp -R bin code/* demos docs LICENSE.md README.md build/package/ && cp package-build.json build/package/package.json",
         "build:pack": "npm pack build/package/ --pack-destination build/",
         "build:prepare": "rm -rf build/ ; mkdir -p build/package/",
         "demos": "npm run webpack && npm run demos:server",
