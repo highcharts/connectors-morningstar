@@ -18,14 +18,12 @@ document.getElementById('postman-json').addEventListener(
                 type: 'Dividend'
             },
             securities: [{
-                id: 'F0GBR06KY1',
+                id: 'F0GBR04S23',
                 idType: 'MSID'
-            }, {
-                id: 'LU0011963245USD',
-                idType: 'ISIN'
             }],
-            startDate: '2020-01-01',
-            endDate: '2024-12-31'
+            startDate: '2000-01-01',
+            endDate: '2020-12-31',
+            currencyId: 'EUR'
         });
 
         await dividendConnector.load();

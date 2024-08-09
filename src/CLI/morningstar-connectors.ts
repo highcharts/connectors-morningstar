@@ -44,9 +44,9 @@ npx morningstar-connectors [COMMAND] [OPTIONS]
 
 COMMAND:
 
-    demos    Opens demos in your web browser.
+    api      Opens API docs in your browser. (not implemented)
 
-    docs     Opens docs in your browser.
+    demos    Opens demos in your web browser.
 
 OPTIONS:
 
@@ -113,8 +113,14 @@ export async function main (): Promise<void> {
 
         case 'demo':
         case 'demos':
-            server = new Server('demos');
+            server = new Server(
+                Path.relative(process.cwd(), Path.join(__dirname, '..', 'demos'))
+            );
             break;
+
+        case 'api':
+            console.info('Not implemented yet. Use VSC for inline API information.');
+            return;
 
         default:
             console.info(HELP);
