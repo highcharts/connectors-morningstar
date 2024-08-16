@@ -13,7 +13,7 @@ export async function ratingLoad (
             idType: 'MSID'
         }],
         series: {
-            type: 'Dividend'
+            type: 'Rating'
         },
         startDate: '2020-01-01'
     });
@@ -25,8 +25,8 @@ export async function ratingLoad (
 
     Assert.ok(
         connector.converter instanceof
-        MC.TimeSeriesConverters.DividendSeriesConverter,
-        'Converter should be instance of TimeSeries DividendSeriesConverter.'
+        MC.TimeSeriesConverters.RatingSeriesConverter,
+        'Converter should be instance of TimeSeries RatingSeriesConverter.'
     );
 
     await connector.load();
@@ -39,8 +39,8 @@ export async function ratingLoad (
 
     Assert.strictEqual(
         connector.table.getRowCount(),
-        1,
-        'Connector table should have one expected dividend row.'
+        12,
+        'Connector table should have 12 expected rating rows.'
     );
 
 }
