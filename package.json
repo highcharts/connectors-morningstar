@@ -58,9 +58,10 @@
         "test:unit-tests": "npm run webpack && ts-node test/unit-tests/runtime",
         "watch": "tsc -p src/ -w",
         "webpack": "npm run scripts && webpack && npm run webpack:dts",
-        "webpack:dts": "npm run webpack:dts:mc && npm run webpack:dts:mrn && npm run webpack:dts:mts",
-        "webpack:dts:mc": "cp src/webpack.d.ts code/morningstar-connectors.d.ts && cp src/webpack.d.ts code/morningstar-connectors.src.d.ts",
-        "webpack:dts:mrn": "cp src/webpack.d.ts code/morningstar-rna-news.d.ts && cp src/webpack.d.ts code/morningstar-rna-news.src.d.ts",
-        "webpack:dts:mts": "cp src/webpack.d.ts code/morningstar-time-series.d.ts && cp src/webpack.d.ts code/morningstar-time-series.src.d.ts"
+        "webpack:dts": "npm run webpack:dts:cm && npm run webpack:dts:dbm && npm run webpack:dts:dgm && npm run webpack:dts:hcm",
+        "webpack:dts:cm": "cp src/webpack.d.ts code/connectors-morningstar.d.ts && cp src/webpack.d.ts code/connectors-morningstar.src.d.ts",
+        "webpack:dts:dbm": "cp src/webpack.d.ts code/dashboards-morningstar.d.ts && cp src/webpack.d.ts code/dashboards-morningstar.src.d.ts",
+        "webpack:dts:dgm": "cp src/webpack.d.ts code/datagrid-morningstar.d.ts && cp src/webpack.d.ts code/datagrid-morningstar.src.d.ts",
+        "webpack:dts:hcm": "cp src/webpack.d.ts code/highcharts-morningstar.d.ts && cp src/webpack.d.ts code/highcharts-morningstar.src.d.ts"
     }
 }
