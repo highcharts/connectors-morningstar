@@ -130,20 +130,20 @@ const sharedConfiguration: Configuration = {
 };
 
 
-const webpacks: Array<Configuration> = Object.keys(metas).map(product => ({
+const webpacks: Array<Configuration> = Object.keys(metas).map(variant => ({
     ...sharedConfiguration,
 
     // Path to the main file
     entry: Path.resolve(projectFolder, `${sourceFolder}/index.js`),
 
-    externals: (metas[product].noExternals ? void 0 : externals),
+    externals: (metas[variant].noExternals ? void 0 : externals),
 
     // Name for the javascript file that is created/compiled in memory
     output: {
-        filename: metas[product].filename,
+        filename: metas[variant].filename,
         globalObject: 'this',
         library: {
-            name: metas[product].umdNames,
+            name: metas[variant].umdNames,
             type: 'umd',
             umdNamedDefine: true
         },
