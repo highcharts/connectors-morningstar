@@ -138,7 +138,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
         }
 
         const api = this.api = this.api || new MorningstarAPI(options.api);
-        const url = new MorningstarURL(this.path, api.baseURL);
+        const url = new MorningstarURL('/ecint/v1/' + this.path, api.baseURL);
 
         url.setSecuritiesOptions(securities);
 

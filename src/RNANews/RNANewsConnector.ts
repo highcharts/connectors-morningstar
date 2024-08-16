@@ -149,7 +149,7 @@ export class RNANewsConnector extends MorningstarConnector {
         }
 
         const api = this.api = this.api || new MorningstarAPI(options.api);
-        const url = new MorningstarURL('timeseries/rna-news', api.baseURL);
+        const url = new MorningstarURL('/ecint/v1/timeseries/rna-news', api.baseURL);
 
         url.setSecuritiesOptions([security]);
 
