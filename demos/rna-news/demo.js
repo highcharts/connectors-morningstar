@@ -1,3 +1,8 @@
+Dashboards.DataConnector.registerType(
+    'MorningstarRNANews',
+    Connectors.Morningstar.RNANewsConnector
+);
+
 const board = Dashboards.board('container', {
     dataPool: {
         connectors: [{
