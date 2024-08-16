@@ -96,7 +96,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
 
         // Validate JSON
 
-        if (!TimeSeriesJSON.isTimeSeriesResponse(json)) {
+        if (!TimeSeriesJSON.isResponse(json)) {
             throw new Error('Invalid data');
         }
 
@@ -105,7 +105,7 @@ export class GrowthSeriesConverter extends MorningstarConverter {
         const securityIds: Array<string> = [];
         const sortedGrowths: Array<Growth> = [];
 
-        for (const security of json.Security) {
+        for (const security of json.TimeSeries.Security) {
 
             if (!security.GrowthSeries) {
                 continue;
