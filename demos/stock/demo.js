@@ -10,7 +10,7 @@ document.getElementById('postman-json').addEventListener(
 
         target.parentNode.style.display = 'none';
 
-        const dividendConnector = new MorningstarConnectors.TimeSeriesConnector({
+        const dividendConnector = new Connectors.Morningstar.TimeSeriesConnector({
             postman: {
                 environmentJSON: postmanJSON
             },
@@ -43,7 +43,7 @@ async function getPostmanJSON (htmlInputFile) {
     for (file of htmlInputFile.files) {
         try {
             fileJSON = JSON.parse(await file.text());
-            if (MorningstarConnectors.isPostmanEnvironmentJSON(fileJSON)) {
+            if (Connectors.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
                 break;
             }
         } catch (error) {

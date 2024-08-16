@@ -45,7 +45,7 @@
         "build:pack": "npm pack build/package/ --pack-destination build/",
         "build:prepare": "rm -rf build/ ; mkdir -p build/package/",
         "demos": "npm run webpack && npm run demos:server",
-        "demos:server": "(sleep 1 ; open http://localhost:8080) & node bin/morningstar-connectors demos",
+        "demos:server": "(sleep 1 ; open http://localhost:8080) & node bin/connectors-morningstar demos",
         "husky:pre-commit": "npx lint-staged && npm run webpack",
         "prepare": "rm -rf '.husky/_' ; husky",
         "scripts": "npm run scripts:bin && npm run scripts:code",
