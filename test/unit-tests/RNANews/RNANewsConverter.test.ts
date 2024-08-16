@@ -1,5 +1,6 @@
 import * as Assert from 'node:assert/strict';
 import * as MC from '../../../code/morningstar-connectors.src';
+import RNANewsJSON from '../../../src/RNANews/RNANewsJSON';
 
 export async function rnaNewsLoad (
     api: MC.Shared.MorningstarAPIOptions
@@ -39,4 +40,22 @@ export async function rnaNewsLoad (
         'Connector table should have one expected dividend row.'
     );
 
+}
+
+export function rnaNewsValidation () {
+
+  const day = '1723766400000';
+  const item = ['LSE20240816070005_5311334', 'Transaction in Own Shares', 'RNS', 'POS'];
+
+  const mockResponse = [
+    {
+      day: day,
+      items: [item]
+    }
+  ];
+
+  Assert.ok(
+    RNANewsJSON.isResponse(mockResponse),
+    'Mock response should be considered a valid response'
+  );
 }
