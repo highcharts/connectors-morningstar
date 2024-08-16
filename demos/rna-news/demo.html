@@ -2,13 +2,22 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="https://code.highcharts.com/dashboards/2.2.0/css/dashboards.css" />
-        <script src="https://code.highcharts.com/dashboards/2.2.0/dashboards.src.js"></script>
-        <script src="../../code/morningstar-connectors.src.js"></script>
+        <link rel="stylesheet" href="demo.css" />
+        <script src="https://code.highcharts.com/dashboards/datagrid.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="../../code/morningstar-standalone.src.js"></script>
         <title>RNA News Demo - Morningstar Connectors Demos</title>
     </head>
     <body>
-        <div id="container"></div>
+        <p>
+            Add your Postman environment file from Morningstar to start the demo:
+            <input type="file" id="postman-json" accept=".json,application/json" />
+        </p>
+        <p id="loading-label" style="display: none;">Loading data…</p>
+        <div class="row" id="container">
+            <div class="cell" id="dashboard-col-0"></div>
+            <div class="cell" id="dashboard-col-1"></div>
+        </div>
         <script src="./demo.js"></script>
     </body>
 </html>
