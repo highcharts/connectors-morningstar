@@ -25,7 +25,7 @@
  * */
 
 
-import type { Shared } from '../../code/morningstar-connectors.src';
+import type { Shared } from '../../code/connectors-morningstar.src';
 
 import * as FS from 'node:fs/promises';
 import * as FSSync from 'node:fs';
