@@ -77,8 +77,8 @@ export namespace RNANewsJSON {
         return (
             !!json &&
             Array.isArray(json) &&
-            json.length === 0 || 
-            isResponseItem((json as Array<unknown>)[0])
+            (json.length === 0 || 
+            isResponseItem((json as Array<unknown>)[0]))
         );
     }
 
@@ -91,7 +91,7 @@ export namespace RNANewsJSON {
             typeof json === 'object' &&
             typeof (json as ResponseItem).day === 'string' &&
             typeof (json as ResponseItem).items === 'object' &&
-            isRNANewsResponseItem(typeof (json as ResponseItem).items[0])
+            isRNANewsResponseItem((json as ResponseItem).items[0])
         );
     }
 
