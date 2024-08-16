@@ -41,7 +41,7 @@ import * as JSDOM from 'jsdom';
 
 function getAPIOptions (): Shared.MorningstarAPIOptions {
     const apiOptions: Shared.MorningstarAPIOptions = {
-        url: 'https://www.emea-api.morningstar.com/ecint/v1/'
+        url: 'https://www.emea-api.morningstar.com'
     };
 
     if (FSSync.existsSync('.env')) {
