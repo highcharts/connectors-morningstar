@@ -22,8 +22,8 @@
  * */
 
 
-import MorningstarConverter from '../../Shared/MorningstarConverter';
-import MorningstarURL from '../../Shared/MorningstarURL';
+import MorningstarConverter from '../Shared/MorningstarConverter';
+import MorningstarURL from '../Shared/MorningstarURL';
 
 
 /* *

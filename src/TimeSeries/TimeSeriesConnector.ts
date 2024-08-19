@@ -32,7 +32,7 @@ import DividendSeriesConverter from './Converters/DividendSeriesConverter';
 import TimeSeriesOptions from './TimeSeriesOptions';
 import TimeSeriesRatingConverter from './Converters/RatingSeriesConverter';
 import PriceSeriesConverter from './Converters/PriceSeriesConverter';
-import TimeSeriesConverter from './Converters/TimeSeriesConverter';
+import TimeSeriesConverter from './TimeSeriesConverter';
 
 
 /* *

@@ -22,7 +22,7 @@
  * */
 
 
-import TimeSeriesConverter from './TimeSeriesConverter';
+import TimeSeriesConverter from '../TimeSeriesConverter';
 import { CumulativeReturnSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
 

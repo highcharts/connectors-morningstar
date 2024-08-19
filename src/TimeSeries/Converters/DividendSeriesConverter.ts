@@ -22,7 +22,7 @@
  * */
 
 
-import TimeSeriesConverter from './TimeSeriesConverter';
+import TimeSeriesConverter from '../TimeSeriesConverter';
 import { DividendSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
 

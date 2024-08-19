@@ -22,7 +22,7 @@
  * */
 
 
-import TimeSeriesConverter from './TimeSeriesConverter';
+import TimeSeriesConverter from '../TimeSeriesConverter';
 import { GrowthSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
 

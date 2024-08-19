@@ -22,7 +22,7 @@
  * */
 
 
-import TimeSeriesConverter from './TimeSeriesConverter';
+import TimeSeriesConverter from '../TimeSeriesConverter';
 import { PriceSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
 import MorningstarURL from '../../Shared/MorningstarURL';
