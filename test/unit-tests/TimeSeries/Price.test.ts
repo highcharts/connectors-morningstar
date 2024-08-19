@@ -1,5 +1,6 @@
 import * as Assert from 'node:assert/strict';
 import * as MC from '../../../code/connectors-morningstar.src';
+import MorningstarURL from '../../../src/Shared/MorningstarURL';
 
 export async function priceLoad (
     api: MC.Shared.MorningstarAPIOptions
@@ -44,4 +45,22 @@ export async function priceLoad (
         'Connector table should have 12 expected rating rows.'
     );
 
+}
+
+
+export function decorateURL () {
+    const priceConverter = new MC.TimeSeriesConverters.PriceSeriesConverter({
+        type: 'Price',
+        priceType: 'PRICE'
+    });
+
+
+    const url = new MorningstarURL('/ecint/v1/' + priceConverter.path, 'http://mock-api.com');
+    priceConverter.decorateURL(url);
+
+    Assert.equal(
+        url.href,
+        'http://mock-api.com/ecint/v1/timeseries/price?priceType=PRICE',
+        'URL should be decorated with priceType'
+    );
 }
