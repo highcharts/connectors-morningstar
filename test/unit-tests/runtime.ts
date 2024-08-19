@@ -25,7 +25,7 @@
  * */
 
 
-import type { Shared } from '../../code/morningstar-connectors.src';
+import type { Shared } from '../../code/connectors-morningstar.src';
 
 import * as FS from 'node:fs/promises';
 import * as FSSync from 'node:fs';
@@ -41,7 +41,7 @@ import * as JSDOM from 'jsdom';
 
 function getAPIOptions (): Shared.MorningstarAPIOptions {
     const apiOptions: Shared.MorningstarAPIOptions = {
-        url: 'https://www.emea-api.morningstar.com/ecint/v1/'
+        url: 'https://www.emea-api.morningstar.com'
     };
 
     if (FSSync.existsSync('.env')) {

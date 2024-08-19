@@ -9,9 +9,9 @@
         "jasmine": true
     },
     "globals": {
+        "Connectors": true,
         "Dashboards": true,
-        "Highcharts": true,
-        "MorningstarConnectors": true
+        "Highcharts": true
     },
     "parserOptions": {
         "ecmaVersion": 2020

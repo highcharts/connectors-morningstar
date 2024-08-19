@@ -1,7 +1,7 @@
 import * as Assert from 'node:assert/strict';
 import * as MC from '../../../code/connectors-morningstar.src';
 
-export async function ratingLoad (
+export async function cumulativeReturnLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.TimeSeriesConnector({
@@ -13,7 +13,7 @@ export async function ratingLoad (
             idType: 'MSID'
         }],
         series: {
-            type: 'Dividend'
+            type: 'CumulativeReturn'
         },
         startDate: '2020-01-01'
     });
@@ -25,8 +25,8 @@ export async function ratingLoad (
 
     Assert.ok(
         connector.converter instanceof
-        MC.TimeSeriesConverters.DividendSeriesConverter,
-        'Converter should be instance of TimeSeries DividendSeriesConverter.'
+        MC.TimeSeriesConverters.CumulativeReturnSeriesConverter,
+        'Converter should be instance of TimeSeries CumulativeReturnSeriesConverter.'
     );
 
     await connector.load();
@@ -39,8 +39,8 @@ export async function ratingLoad (
 
     Assert.strictEqual(
         connector.table.getRowCount(),
-        1,
-        'Connector table should have one expected dividend row.'
+        366,
+        'Connector table should have 366 cumulative return rows.'
     );
 
 }
