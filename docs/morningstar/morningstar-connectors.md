@@ -11,7 +11,7 @@ kinds of financial assets.
 * Morningstar credentials: You will need credentials to access the services.
   This can be either:
   - Access token from your server
-  - Usernam and password
+  - Username and password
 
 * Morningstar standalone for Highcharts:
   `@highcharts/morningstar-connectors/morningstar-standalone`
@@ -40,7 +40,7 @@ assing the resulting table to your series options.
 
 ### Highcharts Dashboards Quick Start
 
-For Highcharts Dashboards you just need to load teh `morningstar-connectors`
+For Highcharts Dashboards you just need to load the `morningstar-connectors`
 bundle, which will register all connectors to the Dashboards registry. All
 Morningstar connectors are then available in the data pool as other connector
 types.
