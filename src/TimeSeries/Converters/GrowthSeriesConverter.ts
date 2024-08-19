@@ -22,7 +22,7 @@
  * */
 
 
-import MorningstarConverter from '../../Shared/MorningstarConverter';
+import TimeSeriesConverter from './TimeSeriesConverter';
 import { GrowthSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
 
@@ -48,7 +48,7 @@ interface Growth {
  * */
 
 
-export class GrowthSeriesConverter extends MorningstarConverter {
+export class GrowthSeriesConverter extends TimeSeriesConverter {
 
 
     /* *
@@ -75,6 +75,8 @@ export class GrowthSeriesConverter extends MorningstarConverter {
 
 
     public override readonly options: Required<GrowthSeriesOptions>;
+
+    public override path: string = 'timeseries/growth';
 
 
     /* *

@@ -22,9 +22,10 @@
  * */
 
 
-import MorningstarConverter from '../../Shared/MorningstarConverter';
+import TimeSeriesConverter from './TimeSeriesConverter';
 import { PriceSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
+import MorningstarURL from '../../Shared/MorningstarURL';
 
 
 /* *
@@ -48,7 +49,7 @@ interface Price {
  * */
 
 
-export class PriceSeriesConverter extends MorningstarConverter {
+export class PriceSeriesConverter extends TimeSeriesConverter {
 
 
     /* *
@@ -75,6 +76,8 @@ export class PriceSeriesConverter extends MorningstarConverter {
 
 
     public override readonly options: Required<PriceSeriesOptions>;
+
+    public override path: string = 'timeseries/price';
 
 
     /* *
@@ -152,6 +155,12 @@ export class PriceSeriesConverter extends MorningstarConverter {
             table.setCell(price.Id, currentTableIndex, price.Value);
         }
 
+    }
+
+    public override decorateURL (url: MorningstarURL) {
+        if (this.options.priceType !== undefined) {
+            url.searchParams.set('priceType', this.options.priceType);
+        }
     }
 
 

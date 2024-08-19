@@ -26,13 +26,13 @@ import External from '../Shared/External';
 import GrowthSeriesConverter from './Converters/GrowthSeriesConverter';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
-import MorningstarConverter from '../Shared/MorningstarConverter';
 import MorningstarURL from '../Shared/MorningstarURL';
 import CumulativeReturnSeriesConverter from './Converters/CumulativeReturnSeriesConverter';
 import DividendSeriesConverter from './Converters/DividendSeriesConverter';
 import TimeSeriesOptions from './TimeSeriesOptions';
 import TimeSeriesRatingConverter from './Converters/RatingSeriesConverter';
 import PriceSeriesConverter from './Converters/PriceSeriesConverter';
+import TimeSeriesConverter from './Converters/TimeSeriesConverter';
 
 
 /* *
@@ -64,8 +64,6 @@ export class TimeSeriesConnector extends MorningstarConnector {
                     ...options.converter,
                     ...options.series
                 });
-                this.path = 'timeseries/cumulativereturn';
-                this.additionalConnectorOptions = [];
                 break;
 
             case 'Dividend':
@@ -73,8 +71,6 @@ export class TimeSeriesConnector extends MorningstarConnector {
                     ...options.converter,
                     ...options.series
                 });
-                this.path = 'timeseries/dividend';
-                this.additionalConnectorOptions = [];
                 break;
 
             case 'Growth':
@@ -82,8 +78,6 @@ export class TimeSeriesConnector extends MorningstarConnector {
                     ...options.converter,
                     ...options.series
                 });
-                this.path = 'timeseries/growth';
-                this.additionalConnectorOptions = [];
                 break;
 
             case 'Rating':
@@ -91,8 +85,6 @@ export class TimeSeriesConnector extends MorningstarConnector {
                     ...options.converter,
                     ...options.series
                 });
-                this.path = 'timeseries/rating';
-                this.additionalConnectorOptions = [];
                 break;
 
             case 'Price':
@@ -100,13 +92,6 @@ export class TimeSeriesConnector extends MorningstarConnector {
                     ...options.converter,
                     ...options.series
                 });
-                this.path = 'timeseries/price';
-                this.additionalConnectorOptions = [
-                    {
-                        seriesOptionsParameter: 'priceType',
-                        apiParameter: 'priceType'
-                    }
-                ];
                 break;
 
             default:
@@ -126,18 +111,10 @@ export class TimeSeriesConnector extends MorningstarConnector {
      * */
 
 
-    public override readonly converter: MorningstarConverter;
+    public override readonly converter: TimeSeriesConverter;
 
 
     public override readonly options: TimeSeriesOptions;
-
-
-    public readonly path: string;
-
-    private additionalConnectorOptions: { 
-        seriesOptionsParameter: string, 
-        apiParameter: string 
-    }[] = [];
 
 
     /* *
@@ -162,7 +139,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
         }
 
         const api = this.api = this.api || new MorningstarAPI(options.api);
-        const url = new MorningstarURL('/ecint/v1/' + this.path, api.baseURL);
+        const url = new MorningstarURL('/ecint/v1/' + this.converter.path, api.baseURL);
 
         url.setSecuritiesOptions(securities);
 
@@ -182,18 +159,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
             url.searchParams.set('tax', tax);
         }
 
-        this.additionalConnectorOptions.forEach(({ seriesOptionsParameter, apiParameter }) => {
-            if (!options.series) {
-                return;
-            }
-            
-            const seriesMap = (options.series as unknown as {[k: string]: string});
-            const parameterValue = seriesMap[seriesOptionsParameter];
-
-            if (parameterValue !== undefined) {
-                url.searchParams.set(apiParameter, parameterValue);
-            }
-        });
+        this.converter.decorateURL(url);
 
         const response = await api.fetch(url);
         const json = await response.json() as unknown;
