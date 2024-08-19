@@ -16,10 +16,13 @@ The connectors are available as
   `@highcharts/connectors-morningstar/connectors-morningstar.js` script to your
   web app or web page.
 
+**Note:** The UMD bundle is not available via
+`https://code.highcharts.com/connectors/connectors-morningstar.js` yet.
+
 
 
 <!-- Link References -->
 
-[Highcharts connectors]: https://highcharts.com/connectors/
+[Highcharts Connectors]: https://highcharts.com/connectors/
 
 [Morningstar Direct Web Services]: https://developer.morningstar.com/direct-web-services/
