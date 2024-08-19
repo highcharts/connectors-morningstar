@@ -23,6 +23,7 @@
 
 
 import TimeSeriesConnector from './TimeSeriesConnector';
+import TimeSeriesConverter from './TimeSeriesConverter';
 
 
 /* *
@@ -35,6 +36,7 @@ import TimeSeriesConnector from './TimeSeriesConnector';
 export * from './TimeSeriesConnector';
 export * as TimeSeriesConverters from './Converters/index';
 export * from './TimeSeriesOptions';
+export * from './TimeSeriesConverter';
 
 
 /* *
@@ -44,4 +46,7 @@ export * from './TimeSeriesOptions';
  * */
 
 
-export default TimeSeriesConnector;
+export default {
+    TimeSeriesConnector,
+    TimeSeriesConverter
+};
