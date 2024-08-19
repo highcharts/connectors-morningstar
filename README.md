@@ -1,7 +1,7 @@
 Morningstar Connectors
 ======================
 
-Collection of [Highcharts connectors] for [Morningstar Direct Web Services].
+Collection of [Highcharts Connectors] for [Morningstar Direct Web Services].
 
 
 
