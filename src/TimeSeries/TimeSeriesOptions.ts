@@ -83,6 +83,13 @@ export interface PriceSeriesOptions extends TimeSeriesConverterOptions{
      */
     type: 'Price';
 
+    /**
+     * The type of price to retrieve.
+     * 
+     * `SPLITADJ` is the default when instrument type is `CEF`.
+     */
+    priceType?: PriceType;
+
 }
 
 
@@ -158,6 +165,14 @@ export type TimeSeriesType = (
     | RatingSeriesOptions
 );
 
+export type PriceType = (
+    | 'PRICE'
+    | 'NAV-CF'
+    | 'SPLITADJ'
+    | 'BONDCLEANPRICE'
+    | 'BONDACCRUEDINTEREST'
+    | 'TAXADJNAV'
+);
 
 /* *
  *
