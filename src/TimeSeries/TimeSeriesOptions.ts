@@ -76,7 +76,7 @@ export interface GrowthSeriesOptions extends TimeSeriesConverterOptions {
 }
 
 
-export interface PriceSeriesOptions extends TimeSeriesConverterOptions{
+export interface PriceSeriesOptions extends TimeSeriesConverterOptions {
 
     /**
      * Series type to retrieve.
@@ -93,7 +93,7 @@ export interface PriceSeriesOptions extends TimeSeriesConverterOptions{
 }
 
 
-export interface RatingSeriesOptions extends TimeSeriesConverterOptions{
+export interface RatingSeriesOptions extends TimeSeriesConverterOptions {
 
     /**
      * Series type to retrieve.

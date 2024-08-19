@@ -187,8 +187,8 @@ export class TimeSeriesConnector extends MorningstarConnector {
                 return;
             }
             
-            const parameterValue = (options.series as unknown as {[k: string]: string})
-                ?.[seriesOptionsParameter];
+            const seriesMap = (options.series as unknown as {[k: string]: string});
+            const parameterValue = seriesMap[seriesOptionsParameter];
 
             if (parameterValue !== undefined) {
                 url.searchParams.set(apiParameter, parameterValue);
