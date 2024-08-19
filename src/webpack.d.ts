@@ -1,5 +1,5 @@
-import MorningstarConnectors from './es-modules/index';
+import ConnectorsMorningstar from './es-modules/index';
 
 export * from './es-modules/index';
 
-export default MorningstarConnectors;
+export default ConnectorsMorningstar;

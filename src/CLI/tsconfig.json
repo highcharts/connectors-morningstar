@@ -7,6 +7,6 @@
         "outDir": "../../bin/"
     },
     "files": [
-        "morningstar-connectors.ts"
+        "connectors-morningstar.ts"
     ]
 }

@@ -13,17 +13,36 @@ import * as Path from 'node:path';
 
 /* *
  *
+ *  Declarations
+ *
+ * */
+
+
+interface Meta {
+    filename: string;
+    noExternals?: boolean;
+    umdNames: MetaUMDNames;
+}
+
+
+interface MetaUMDNames {
+    amd: string;
+    commonjs: string;
+    root: (string|Array<string>);
+}
+
+
+/* *
+ *
  *  Constants
  *
  * */
 
 
-const amd = 'dashboards/dashboards';
-const commonjs = '@highcharts/morningstar-connectors';
+const commonjs = '@highcharts/connectors-morningstar';
 const projectFolder = FS.realpathSync(process.cwd());
 const sourceFolder = './code/es-modules/';
 const targetFolder = './code/';
-const root = 'Dashboards';
 
 
 /* *
@@ -55,13 +74,48 @@ const externals = {
 };
 
 
+const metas: Record<string, Meta> = {
+    dashboards: {
+        filename: 'dashboards-morningstar.js',
+        umdNames: {
+            amd: 'dashboards/dashboards',
+            commonjs,
+            root: ['Dashboards', 'Morningstar']
+        }
+    },
+    datagrid: {
+        filename: 'datagrid-morningstar.js',
+        umdNames: {
+            amd: 'datagrid/datagrid',
+            commonjs,
+            root: ['DataGrid', 'Morningstar']
+        }
+    },
+    highcharts: {
+        filename: 'highcharts-morningstar.js',
+        umdNames: {
+            amd: 'highcharts/highcarts',
+            commonjs,
+            root: ['Highcharts', 'Morningstar']
+        }
+    },
+    standalone: {
+        filename: 'connectors-morningstar.js',
+        noExternals: true,
+        umdNames: {
+            amd: 'highcharts/connectors-morningstar',
+            commonjs,
+            root: ['Connectors', 'Morningstar']
+        }
+    }
+};
+
+
 const sharedConfiguration: Configuration = {
 
     mode: 'production',
 
     devtool: 'source-map',
-
-    externals,
 
     performance: {
         hints: 'error',
@@ -76,118 +130,34 @@ const sharedConfiguration: Configuration = {
 };
 
 
-const webpacks: Array<Configuration> = [
-    // Morningstar standalone
-    {
-        ...sharedConfiguration,
+const webpacks: Array<Configuration> = Object.keys(metas).map(variant => ({
+    ...sharedConfiguration,
 
-        // Path to the main file
-        entry: Path.resolve(projectFolder, `${sourceFolder}/index.js`),
+    // Path to the main file
+    entry: Path.resolve(projectFolder, `${sourceFolder}/index.js`),
 
-        externals: void 0,
+    externals: (metas[variant].noExternals ? void 0 : externals),
 
-        // Name for the javascript file that is created/compiled in memory
-        output: {
-            filename: 'morningstar-standalone.js',
-            globalObject: 'this',
-            library: {
-                name: {
-                    amd: 'morningstar-standalone',
-                    commonjs,
-                    root: 'MorningstarConnectors'
-                },
-                type: 'umd',
-                umdNamedDefine: true
-            },
-            path: Path.resolve(projectFolder, targetFolder)
+    // Name for the javascript file that is created/compiled in memory
+    output: {
+        filename: metas[variant].filename,
+        globalObject: 'this',
+        library: {
+            name: metas[variant].umdNames,
+            type: 'umd',
+            umdNamedDefine: true
         },
-
-        performance: {
-            hints: 'error',
-            maxAssetSize: 200000,
-            maxEntrypointSize: 200000
-        }
-
+        path: Path.resolve(projectFolder, targetFolder)
     },
-    // Morningstar all
-    {
-        ...sharedConfiguration,
 
-        // Path to the main file
-        entry: Path.resolve(projectFolder, `${sourceFolder}/index.js`),
-
-        // Name for the javascript file that is created/compiled in memory
-        output: {
-            filename: 'morningstar-connectors.js',
-            globalObject: 'this',
-            library: {
-                name: {
-                    amd: `${amd}/morningstar-connectors`,
-                    commonjs,
-                    root: [root, 'MorningstarConnectors']
-                },
-                type: 'umd',
-                umdNamedDefine: true
-            },
-            path: Path.resolve(projectFolder, targetFolder)
-        },
-
-        performance: {
-            hints: 'error',
-            maxAssetSize: 200000,
-            maxEntrypointSize: 200000
-        }
-
-    },
-    // Morningstar RNA news
-    {
-        ...sharedConfiguration,
-
-        // Path to the main file
-        entry: Path.resolve(projectFolder, `${sourceFolder}/RNANews/index.js`),
-
-        // Name for the javascript file that is created/compiled in memory
-        output: {
-            filename: 'morningstar-rna-news.js',
-            globalObject: 'this',
-            library: {
-                name: {
-                    amd: `${amd}/morningstar-rna-news`,
-                    commonjs: `${commonjs}/es-modules/RNANews/index`,
-                    root: [root, 'MorningstarConnectors', 'RNANews']
-                },
-                type: 'umd',
-                umdNamedDefine: true
-            },
-            path: Path.resolve(projectFolder, targetFolder)
-        }
-
-    },
-    // Morningstar time series
-    {
-        ...sharedConfiguration,
-
-        // Path to the main file
-        entry: Path.resolve(projectFolder, `${sourceFolder}/TimeSeries/index.js`),
-
-        // Name for the javascript file that is created/compiled in memory
-        output: {
-            filename: 'morningstar-time-series.js',
-            globalObject: 'this',
-            library: {
-                name: {
-                    amd: `${amd}/morningstar-time-series`,
-                    commonjs: `${commonjs}/es-modules/TimeSeries/index`,
-                    root: [root, 'MorningstarConnectors', 'TimeSeries']
-                },
-                type: 'umd',
-                umdNamedDefine: true
-            },
-            path: Path.resolve(projectFolder, targetFolder)
-        }
-
+    performance: {
+        hints: 'error',
+        maxAssetSize: 200000,
+        maxEntrypointSize: 200000
     }
-];
+
+}));
+
 
 
 /* *
