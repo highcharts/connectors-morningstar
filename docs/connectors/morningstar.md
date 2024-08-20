@@ -11,7 +11,7 @@ requires a Highcharts license and a Morningstar subscription.
 * Morningstar credentials: You will need credentials to access the services.
   This can be either:
   - Access token from your server
-  - Usernam and password
+  - Username and password
 
 * Morningstar standalone for Highcharts:
   `@highcharts/morningstar-connectors/morningstar-standalone`

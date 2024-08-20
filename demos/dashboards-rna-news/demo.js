@@ -9,7 +9,7 @@ function displayRNANews (postmanJSON) {
                 options: {
                     security: {
                         id: 'GB00BLGZ9862',
-                        idType: 'MSID'
+                        idType: 'ISIN'
                     },
                     postman: {
                         environmentJSON: postmanJSON
