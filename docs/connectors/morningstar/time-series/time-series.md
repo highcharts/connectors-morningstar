@@ -47,7 +47,7 @@ await dividendConnector.load();
 Highcharts.stockChart('container', {
     series: [{
         type: 'line',
-        table: dividendConnector.dataTable
+        table: dividendConnector.table.getRows(0, undefined)
     }]
 });
 ```

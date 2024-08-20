@@ -30,4 +30,5 @@ const dividendConnector = new Connectors.Morningstar.TimeSeriesConnector({
 ## Relevant demos
 
 - **Highcharts Stock + Morningstar TimeSeries**: Shows how to use 
-TimeSeriesConnector to retrieve Dividend time series.
+TimeSeriesConnector to retrieve Price time series. Specify type 
+`Dividend`.

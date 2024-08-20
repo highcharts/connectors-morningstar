@@ -32,5 +32,5 @@ const growthConnector = new Connectors.Morningstar.TimeSeriesConnector({
 ## Relevant demos
 
 - **Highcharts Stock + Morningstar TimeSeries**: Shows how to use 
-TimeSeriesConnector to retrieve Dividend time series. Specify type 
+TimeSeriesConnector to retrieve Price time series. Specify type 
 `Growth`.
