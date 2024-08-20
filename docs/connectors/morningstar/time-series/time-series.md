@@ -12,9 +12,12 @@ period.
 - [Price](price.md)
 - [Regulatory News Announcements](../rna-news/regulatory-news-announcements.md)
 
-## Examples
+## How to use Time Series
 
-You may find examples of how to use the timeseries connector in our demos. 
+You can fetch time series data of various kinds. Specify the securities and type 
+to retrieve in the options along with a postman environment file for 
+authentication, and other parameters such as `startDate`, `endDate` 
+or `currencyId`.
 
 ### Time Series with Morningstar standalone for Highcharts:
 
@@ -87,3 +90,10 @@ Dashboards.board('container', {
     ]
 });
 ```
+
+## Relevant demos
+
+You will find examples of how to use the time series connector in our demos.
+
+- **Highcharts Stock + Morningstar TimeSeries**: Shows how to use 
+TimeSeriesConnector to retrieve Dividend time series.
