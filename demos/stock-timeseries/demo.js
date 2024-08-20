@@ -33,8 +33,15 @@ document.getElementById('postman-json').addEventListener(
                 text: 'Apple Share Price in EUR for 2020'
             },
             series: [{
-                type: 'line',
-                data: priceConnector.table.getRows(0, undefined)
+                type: 'area',
+                data: priceConnector.table.getRows(0, undefined),
+                fillColor: {
+                    linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, 'rgba(255, 255, 255, 0)']
+                    ]
+                }
             }]
         });
     });
