@@ -42,7 +42,7 @@ export async function priceLoad (
     Assert.strictEqual(
         connector.table.getRowCount(),
         12,
-        'Connector table should have 12 expected rating rows.'
+        'Connector table should have 12 expected price rows.'
     );
 
 }
