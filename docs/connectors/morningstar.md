@@ -1,8 +1,8 @@
 # Morningstar Connectors
 
-With the Highcharts Morningstar Connectors you can access the Morningstar Direct
-Web Services. These services provide finance-related information to different
-kinds of financial assets.
+With the Highcharts Connectors for the Morningstar Direct Web Services you can
+access finance-related information to different kinds of financial assets. This
+requires a Highcharts license and a Morningstar subscription.
 
 
 

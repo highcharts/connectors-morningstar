@@ -2,7 +2,7 @@ document.getElementById('postman-json').addEventListener(
     'change',
     async function (evt) {
         const target = evt.target;
-        const postmanJSON = await getPostmanJSON(evt.target);
+        const postmanJSON = await getPostmanJSON(target);
 
         if (!postmanJSON) {
             return;
