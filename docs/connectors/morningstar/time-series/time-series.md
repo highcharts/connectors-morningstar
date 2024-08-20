@@ -14,6 +14,10 @@ period.
 
 ## How to use Time Series
 
+Use the `TimeSeriesConnector` to load time series data.
+
+In dashboards, this connector is called `MorningstarTimeSeries`
+
 You can fetch time series data of various kinds. Specify the securities and type 
 to retrieve in the options along with a postman environment file for 
 authentication, and other parameters such as `startDate`, `endDate` 
@@ -54,15 +58,22 @@ Highcharts.stockChart('container', {
 Dashboards.board('container', {
     dataPool: {
         connectors: [{
-            id: 'rna',
-            type: 'MorningstarRNANews',
+            id: 'time-series',
+            type: 'MorningstarTimeSeries',
             options: {
-                security: {
-                    id: 'US0378331005'
-                },
                 postman: {
                     environmentURL: '/tmp/Environment.json'
-                }
+                },
+                series: {
+                    type: 'Dividend'
+                },
+                securities: [{
+                    id: 'F0GBR04S23',
+                    idType: 'MSID'
+                }],
+                startDate: '2000-01-01',
+                endDate: '2020-12-31',
+                currencyId: 'EUR'
             }
         }]
     },
@@ -70,14 +81,14 @@ Dashboards.board('container', {
         {
             renderTo: 'dashboard-col-0',
             connector: {
-                id: 'rna'
+                id: 'time-series'
             },
             type: 'DataGrid',
-            title: 'News',
+            title: 'Dividends',
             dataGridOptions: {
                 editable: false,
                 columns: {
-                    Day: {
+                    Date: {
                         cellFormatter: function () {
                             return new Date(this.value)
                                 .toISOString()
