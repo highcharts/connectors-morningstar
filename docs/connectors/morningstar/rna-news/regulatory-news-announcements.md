@@ -56,7 +56,7 @@ Dashboards.board('container', {
             type: 'MorningstarRNANews',
             options: {
                 postman: {
-                    environmentURL: '/tmp/Environment.json'
+                    environmentJSON: postmanJSON
                 },
                 security: {
                     id: 'GB00BLGZ9862',

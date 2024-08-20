@@ -62,7 +62,7 @@ Dashboards.board('container', {
             type: 'MorningstarTimeSeries',
             options: {
                 postman: {
-                    environmentURL: '/tmp/Environment.json'
+                    environmentJSON: postmanJSON
                 },
                 series: {
                     type: 'Dividend'
