@@ -22,7 +22,7 @@
  * */
 
 
-import MorningstarConverter from '../../Shared/MorningstarConverter';
+import TimeSeriesConverter from '../TimeSeriesConverter';
 import { CumulativeReturnSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
 
@@ -48,7 +48,7 @@ interface CumulativeReturn {
  * */
 
 
-export class CumulativeReturnSeriesConverter extends MorningstarConverter {
+export class CumulativeReturnSeriesConverter extends TimeSeriesConverter {
 
 
     /* *
@@ -75,6 +75,8 @@ export class CumulativeReturnSeriesConverter extends MorningstarConverter {
 
 
     public override readonly options: Required<CumulativeReturnSeriesOptions>;
+
+    public override path: string = 'timeseries/cumulativereturn';
 
 
     /* *

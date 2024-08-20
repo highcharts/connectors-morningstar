@@ -26,12 +26,13 @@ import External from '../Shared/External';
 import GrowthSeriesConverter from './Converters/GrowthSeriesConverter';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
-import MorningstarConverter from '../Shared/MorningstarConverter';
 import MorningstarURL from '../Shared/MorningstarURL';
 import CumulativeReturnSeriesConverter from './Converters/CumulativeReturnSeriesConverter';
 import DividendSeriesConverter from './Converters/DividendSeriesConverter';
 import TimeSeriesOptions from './TimeSeriesOptions';
 import TimeSeriesRatingConverter from './Converters/RatingSeriesConverter';
+import PriceSeriesConverter from './Converters/PriceSeriesConverter';
+import TimeSeriesConverter from './TimeSeriesConverter';
 
 
 /* *
@@ -63,7 +64,6 @@ export class TimeSeriesConnector extends MorningstarConnector {
                     ...options.converter,
                     ...options.series
                 });
-                this.path = 'timeseries/cumulativereturn';
                 break;
 
             case 'Dividend':
@@ -71,7 +71,6 @@ export class TimeSeriesConnector extends MorningstarConnector {
                     ...options.converter,
                     ...options.series
                 });
-                this.path = 'timeseries/dividend';
                 break;
 
             case 'Growth':
@@ -79,7 +78,6 @@ export class TimeSeriesConnector extends MorningstarConnector {
                     ...options.converter,
                     ...options.series
                 });
-                this.path = 'timeseries/growth';
                 break;
 
             case 'Rating':
@@ -87,7 +85,13 @@ export class TimeSeriesConnector extends MorningstarConnector {
                     ...options.converter,
                     ...options.series
                 });
-                this.path = 'timeseries/rating';
+                break;
+
+            case 'Price':
+                this.converter = new PriceSeriesConverter({
+                    ...options.converter,
+                    ...options.series
+                });
                 break;
 
             default:
@@ -107,13 +111,10 @@ export class TimeSeriesConnector extends MorningstarConnector {
      * */
 
 
-    public override readonly converter: MorningstarConverter;
+    public override readonly converter: TimeSeriesConverter;
 
 
     public override readonly options: TimeSeriesOptions;
-
-
-    public readonly path: string;
 
 
     /* *
@@ -138,7 +139,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
         }
 
         const api = this.api = this.api || new MorningstarAPI(options.api);
-        const url = new MorningstarURL('/ecint/v1/' + this.path, api.baseURL);
+        const url = new MorningstarURL('/ecint/v1/' + this.converter.path, api.baseURL);
 
         url.setSecuritiesOptions(securities);
 
@@ -157,6 +158,8 @@ export class TimeSeriesConnector extends MorningstarConnector {
         if (tax) {
             url.searchParams.set('tax', tax);
         }
+
+        this.converter.decorateURL(url);
 
         const response = await api.fetch(url);
         const json = await response.json() as unknown;

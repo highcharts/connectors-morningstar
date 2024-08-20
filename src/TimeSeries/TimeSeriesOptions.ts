@@ -76,17 +76,24 @@ export interface GrowthSeriesOptions extends TimeSeriesConverterOptions {
 }
 
 
-export interface PriceSeriesOptions extends TimeSeriesConverterOptions{
+export interface PriceSeriesOptions extends TimeSeriesConverterOptions {
 
     /**
      * Series type to retrieve.
      */
     type: 'Price';
 
+    /**
+     * The type of price to retrieve.
+     * 
+     * `SPLITADJ` is the default when instrument type is `CEF`.
+     */
+    priceType?: PriceType;
+
 }
 
 
-export interface RatingSeriesOptions extends TimeSeriesConverterOptions{
+export interface RatingSeriesOptions extends TimeSeriesConverterOptions {
 
     /**
      * Series type to retrieve.
@@ -158,6 +165,14 @@ export type TimeSeriesType = (
     | RatingSeriesOptions
 );
 
+export type PriceType = (
+    | 'PRICE'
+    | 'NAV-CF'
+    | 'SPLITADJ'
+    | 'BONDCLEANPRICE'
+    | 'BONDACCRUEDINTEREST'
+    | 'TAXADJNAV'
+);
 
 /* *
  *

@@ -71,6 +71,7 @@ namespace TimeSeriesJSON {
         GrowthSeries?: Array<History>;
         Id: string;
         RatingSeries?: Array<History>;
+        HistoryDetail?: Array<HistoryDetail>;
     }
 
     export interface TimeSeriesResponse {
@@ -143,6 +144,10 @@ namespace TimeSeriesJSON {
             (
                 typeof (json as Security).RatingSeries === 'undefined' ||
                 (json as Security).RatingSeries instanceof Array
+            ) &&
+            (
+                typeof (json as Security).HistoryDetail === 'undefined' ||
+                (json as Security).HistoryDetail instanceof Array
             )
         );
     }
