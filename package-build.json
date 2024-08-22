@@ -1,9 +1,9 @@
 {
     "private": true,
-    "version": "0.2.0",
-    "name": "@highcharts/morningstar-connectors",
+    "version": "0.2.1",
+    "name": "@highcharts/connectors-morningstar",
     "license": "UNLICENSED",
-    "description": "Highcharts Dashboards connectors for Morningstar Direct Web Services",
+    "description": "Highcharts connectors for Morningstar Direct Web Services",
     "author": "Highsoft AS",
     "bugs": "https://www.highcharts.com/support/",
     "homepage": "https://www.highcharts.com/",
