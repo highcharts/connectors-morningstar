@@ -27,7 +27,6 @@ import DividendSeriesConverter from './DividendSeriesConverter';
 import GrowthSeriesConverter from './GrowthSeriesConverter';
 import PriceSeriesConverter from './PriceSeriesConverter';
 import RatingSeriesConverter from './RatingSeriesConverter';
-import PriceSeriesConverter from './PriceSeriesConverter';
 
 
 /* *
@@ -42,7 +41,6 @@ export * from './DividendSeriesConverter';
 export * from './GrowthSeriesConverter';
 export * from './PriceSeriesConverter';
 export * from './RatingSeriesConverter';
-export * from './PriceSeriesConverter';
 
 
 /* *
