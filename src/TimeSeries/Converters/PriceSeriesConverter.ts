@@ -7,7 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Sophie Bremer
+ *  - Eskil Gjerde Sviggum
  *
  * */
 
@@ -23,8 +23,9 @@
 
 
 import TimeSeriesConverter from '../TimeSeriesConverter';
-import { GrowthSeriesOptions } from '../TimeSeriesOptions';
+import { PriceSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
+import MorningstarURL from '../../Shared/MorningstarURL';
 
 
 /* *
@@ -34,7 +35,7 @@ import TimeSeriesJSON from '../TimeSeriesJSON';
  * */
 
 
-interface Growth {
+interface Price {
     Id: string;
     EndDate: number;
     Value: number;
@@ -48,7 +49,7 @@ interface Growth {
  * */
 
 
-export class GrowthSeriesConverter extends TimeSeriesConverter {
+export class PriceSeriesConverter extends TimeSeriesConverter {
 
 
     /* *
@@ -59,11 +60,11 @@ export class GrowthSeriesConverter extends TimeSeriesConverter {
 
 
     public constructor (
-        options: GrowthSeriesOptions = { type: 'Growth' }
+        options: PriceSeriesOptions = { type: 'Price' }
     ) {
         super(options);
 
-        this.options = options as Required<GrowthSeriesOptions>;
+        this.options = options as Required<PriceSeriesOptions>;
     }
 
 
@@ -74,9 +75,9 @@ export class GrowthSeriesConverter extends TimeSeriesConverter {
      * */
 
 
-    public override readonly options: Required<GrowthSeriesOptions>;
+    public override readonly options: Required<PriceSeriesOptions>;
 
-    public override path: string = 'timeseries/growth';
+    public override path: string = 'timeseries/price';
 
 
     /* *
@@ -87,7 +88,7 @@ export class GrowthSeriesConverter extends TimeSeriesConverter {
 
 
     public parse (
-        options: GrowthSeriesOptions
+        options: PriceSeriesOptions
     ): void {
         const table = this.table;
         const userOptions = {
@@ -97,39 +98,36 @@ export class GrowthSeriesConverter extends TimeSeriesConverter {
         const json = userOptions.json;
 
         // Validate JSON
-
         if (!TimeSeriesJSON.isResponse(json)) {
             throw new Error('Invalid data');
         }
 
-        // Cumulate security growth by date
+        // Cumulate prices by date
 
         const securityIds: Array<string> = [];
-        const sortedGrowths: Array<Growth> = [];
+        const sortedPrices: Array<Price> = [];
 
         for (const security of json.TimeSeries.Security) {
 
-            if (!security.GrowthSeries) {
+            if (!security.HistoryDetail) {
                 continue;
             }
 
             securityIds.push(security.Id);
 
-            for (const history of security.GrowthSeries) {
-                for (const detail of history.HistoryDetail) {
-                    sortedGrowths.push({
-                        EndDate: Date.parse(detail.EndDate),
-                        Id: security.Id,
-                        Value: parseFloat(detail.Value)
-                    });
-                }
+            for (const detail of security.HistoryDetail) {
+                sortedPrices.push({
+                    EndDate: Date.parse(detail.EndDate),
+                    Id: security.Id,
+                    Value: parseFloat(detail.Value)
+                });
             }
 
         }
 
-        // Sort growths by date
+        // Sort prices by date
 
-        sortedGrowths.sort((a, b) => (
+        sortedPrices.sort((a, b) => (
             a.EndDate === b.EndDate ?
                 0 :
                 a.EndDate < b.EndDate ? -1 : 1
@@ -144,19 +142,25 @@ export class GrowthSeriesConverter extends TimeSeriesConverter {
             table.setColumn(securityId);
         }
 
-        // Add growths to table
+        // Add prices to table
 
         let currentTableDate: number = 0;
         let currentTableIndex: number = -1;
 
-        for (const growth of sortedGrowths) {
-            if (currentTableDate !== growth.EndDate) {
-                currentTableDate = growth.EndDate;
+        for (const price of sortedPrices) {
+            if (currentTableDate !== price.EndDate) {
+                currentTableDate = price.EndDate;
                 table.setCell('Date', ++currentTableIndex, currentTableDate);
             }
-            table.setCell(growth.Id, currentTableIndex, growth.Value);
+            table.setCell(price.Id, currentTableIndex, price.Value);
         }
 
+    }
+
+    public override decorateURL (url: MorningstarURL) {
+        if (this.options.priceType !== undefined) {
+            url.searchParams.set('priceType', this.options.priceType);
+        }
     }
 
 
@@ -170,4 +174,4 @@ export class GrowthSeriesConverter extends TimeSeriesConverter {
  * */
 
 
-export default GrowthSeriesConverter;
+export default PriceSeriesConverter;

@@ -22,7 +22,7 @@
  * */
 
 
-import MorningstarConverter from '../../Shared/MorningstarConverter';
+import TimeSeriesConverter from '../TimeSeriesConverter';
 import { DividendSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
 
@@ -49,7 +49,7 @@ interface Dividend {
  * */
 
 
-export class DividendSeriesConverter extends MorningstarConverter {
+export class DividendSeriesConverter extends TimeSeriesConverter {
 
 
     /* *
@@ -76,6 +76,8 @@ export class DividendSeriesConverter extends MorningstarConverter {
 
 
     public override readonly options: Required<DividendSeriesOptions>;
+
+    public override path: string = 'timeseries/dividend';
 
 
     /* *

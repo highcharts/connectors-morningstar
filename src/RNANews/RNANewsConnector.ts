@@ -101,7 +101,7 @@ export class RNANewsConnector extends MorningstarConnector {
     ) {
         super(options);
 
-        this.converter = new RNANewsConverter(options);
+        this.converter = new RNANewsConverter(options.converter);
         this.options = options;
     }
 

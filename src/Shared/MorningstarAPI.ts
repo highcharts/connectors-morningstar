@@ -156,7 +156,7 @@ export class MorningstarAPI {
 
         const contentType = response.headers.get('Content-Type');
 
-        if (contentType !== 'application/json') {
+        if (!contentType?.startsWith('application/json')) {
             throw new Error(`Unexpected data: ${contentType}`);
         }
 

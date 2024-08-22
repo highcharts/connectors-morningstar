@@ -22,7 +22,7 @@
  * */
 
 
-import MorningstarConverter from '../../Shared/MorningstarConverter';
+import TimeSeriesConverter from '../TimeSeriesConverter';
 import { RatingSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
 
@@ -48,7 +48,7 @@ interface Rating {
  * */
 
 
-export class RatingSeriesConverter extends MorningstarConverter {
+export class RatingSeriesConverter extends TimeSeriesConverter {
 
 
     /* *
@@ -75,6 +75,8 @@ export class RatingSeriesConverter extends MorningstarConverter {
 
 
     public override readonly options: Required<RatingSeriesOptions>;
+
+    public override path: string = 'timeseries/rating';
 
 
     /* *
