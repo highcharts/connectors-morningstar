@@ -23,10 +23,10 @@
 
 
 import CumulativeReturnSeriesConverter from './CumulativeReturnSeriesConverter';
-import GrowthSeriesConverter from './GrowthSeriesConverter';
 import DividendSeriesConverter from './DividendSeriesConverter';
-import RatingSeriesConverter from './RatingSeriesConverter';
+import GrowthSeriesConverter from './GrowthSeriesConverter';
 import PriceSeriesConverter from './PriceSeriesConverter';
+import RatingSeriesConverter from './RatingSeriesConverter';
 
 
 /* *
@@ -37,10 +37,10 @@ import PriceSeriesConverter from './PriceSeriesConverter';
 
 
 export * from './CumulativeReturnSeriesConverter';
-export * from './GrowthSeriesConverter';
 export * from './DividendSeriesConverter';
-export * from './RatingSeriesConverter';
+export * from './GrowthSeriesConverter';
 export * from './PriceSeriesConverter';
+export * from './RatingSeriesConverter';
 
 
 /* *
@@ -52,8 +52,8 @@ export * from './PriceSeriesConverter';
 
 export default {
     CumulativeReturnSeriesConverter,
-    GrowthSeriesConverter,
     DividendSeriesConverter,
-    RatingSeriesConverter,
-    PriceSeriesConverter
+    GrowthSeriesConverter,
+    PriceSeriesConverter,
+    RatingSeriesConverter
 };
