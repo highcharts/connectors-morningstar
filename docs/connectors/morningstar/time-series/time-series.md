@@ -12,6 +12,9 @@ period.
 - [Price](price.md)
 - [Regulatory News Announcements](../rna-news/regulatory-news-announcements.md)
 
+
+For more details, see [Morningstar’s Time Series API].
+
 ## How to use Time Series
 
 Use the `TimeSeriesConnector` to load time series data.
@@ -108,3 +111,5 @@ You will find examples of how to use the time series connector in our demos.
 
 - **Highcharts Stock + Morningstar TimeSeries**: Shows how to use 
 TimeSeriesConnector to retrieve Dividend time series.
+
+[Morningstar’s Time Series API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/time-series/overview

@@ -92,9 +92,13 @@ Dashboards.board('container', {
 });
 ```
 
+For more details, see [Morningstar’s RNANews API].
+
 ## Relevant demos
 
 You will find examples of how to use RNANewsConnector in our demos.
 
 - **Highcharts Dashboards + Morningstar RNA News**: Shows how to use 
 RNANewsConnector in dashboards to retrieve RNANews for Tesco.
+
+[Morningstar’s RNANews API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/time-series/regulatory-news-announcements

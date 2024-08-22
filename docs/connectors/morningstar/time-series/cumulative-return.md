@@ -30,8 +30,12 @@ const cumulReturnConnector = new Connectors.Morningstar.TimeSeriesConnector({
 });
 ```
 
+For more details, see [Morningstar’s Time Series API].
+
 ## Relevant demos
 
 - **Highcharts Stock + Morningstar TimeSeries**: Shows how to use 
 TimeSeriesConnector to retrieve Price time series. Specify type 
 `CumulativeReturn`.
+
+[Morningstar’s Time Series API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/time-series/cumulative-return
