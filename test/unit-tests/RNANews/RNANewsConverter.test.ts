@@ -37,7 +37,7 @@ export async function rnaNewsLoad (
     Assert.strictEqual(
         connector.table.getRowCount(),
         10,
-        'Connector table should have one expected dividend row.'
+        'Connector table should have ten expected RNANews rows.'
     );
 
 }
