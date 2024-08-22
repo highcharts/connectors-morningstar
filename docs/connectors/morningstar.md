@@ -14,10 +14,10 @@ requires a Highcharts license and a Morningstar subscription.
   - Username and password
 
 * Morningstar standalone for Highcharts:
-  `@highcharts/morningstar-connectors/morningstar-standalone`
+  `@highcharts/connectors-morningstar/connectors-morningstar.js`
 
 * Morningstar connectors for Dashboards:
-  `@highcharts/morningstar-connectors`
+  `@highcharts/connectors-morningstar`
 
 * Package bundler like Webpack.
 
@@ -32,15 +32,15 @@ products and Highcharts Dashboards.
 
 ### Highcharts Quick Start
 
-You can connect Highcharts core products with Morningstar by using the
-`morningstar-standalone` bundle. You have to manually create the connector and
+You can connect Highcharts core products with Morningstar by using
+`connectors-morningstar.js` in the `connectors-morningstar` bundle. You have to manually create the connector and
 assing the resulting table to your series options.
 
 
 
 ### Highcharts Dashboards Quick Start
 
-For Highcharts Dashboards you just need to load the `morningstar-connectors`
+For Highcharts Dashboards you just need to load the `connectors-morningstar`
 bundle, which will register all connectors to the Dashboards registry. All
 Morningstar connectors are then available in the data pool as other connector
 types.
