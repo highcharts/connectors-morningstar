@@ -40,6 +40,7 @@ import { RNANewsConverterOptions } from './RNANewsOptions';
  */
 export class RNANewsConverter extends MorningstarConverter {
 
+
     /* *
      *
      *  Constructor

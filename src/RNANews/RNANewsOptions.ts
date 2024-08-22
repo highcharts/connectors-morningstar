@@ -32,7 +32,17 @@ import RNANewsJSON from './RNANewsJSON';
  * */
 
 
-export interface RNANewsOptions extends RNANewsConverterOptions, MorningstarOptions {
+export interface RNANewsConverterOptions extends MorningstarConverterOptions {
+    json?: RNANewsJSON.Response
+}
+
+
+export interface RNANewsOptions extends MorningstarOptions {
+
+    /**
+     * Converter options.
+     */
+    converter?: RNANewsConverterOptions;
 
     /**
      * Security to retrieve.
@@ -63,11 +73,6 @@ export interface RNANewsOptions extends RNANewsConverterOptions, MorningstarOpti
      */
     localization?: LocalizationOptions;
 
-}
-
-
-export interface RNANewsConverterOptions extends MorningstarConverterOptions {
-    json?: RNANewsJSON.Response
 }
 
 

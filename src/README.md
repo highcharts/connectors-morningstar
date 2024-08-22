@@ -23,7 +23,7 @@ Do the following steps in order:
 
 * Run `npm run build`.
 
-* Release `build/highcharts-morningstar-connectors-x.x.x.tgz`.
+* Release `build/highcharts-connectors-morningstar-x.x.x.tgz`.
 
 
 

@@ -10,28 +10,38 @@ document.getElementById('postman-json').addEventListener(
 
         target.parentNode.style.display = 'none';
 
-        const dividendConnector = new Connectors.Morningstar.TimeSeriesConnector({
+        const priceConnector = new Connectors.Morningstar.TimeSeriesConnector({
             postman: {
                 environmentJSON: postmanJSON
             },
             series: {
-                type: 'Dividend'
+                type: 'Price'
             },
             securities: [{
-                id: 'F0GBR04S23',
-                idType: 'MSID'
+                id: 'US0378331005',
+                idType: 'ISIN'
             }],
-            startDate: '2000-01-01',
+            startDate: '2020-01-01',
             endDate: '2020-12-31',
             currencyId: 'EUR'
         });
 
-        await dividendConnector.load();
+        await priceConnector.load();
 
         Highcharts.stockChart('container', {
+            title: {
+                text: 'Apple Share Price in EUR for 2020'
+            },
             series: [{
-                type: 'line',
-                table: dividendConnector.dataTable
+                type: 'area',
+                data: priceConnector.table.getRows(0, undefined),
+                fillColor: {
+                    linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, 'rgba(255, 255, 255, 0)']
+                    ]
+                }
             }]
         });
     });

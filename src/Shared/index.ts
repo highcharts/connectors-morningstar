@@ -22,11 +22,11 @@
  * */
 
 
+import { isPostmanEnvironmentJSON } from './PostmanEnvironment';
+import MorningstarAccess from './MorningstarAccess';
 import MorningstarAPI from './MorningstarAPI';
 import MorningstarError from './MorningstarError';
-import MorningstarAccess from './MorningstarAccess';
 import MorningstarRegion from './MorningstarRegion';
-import { isPostmanEnvironmentJSON } from './PostmanEnvironment';
 
 
 /* *
@@ -36,12 +36,12 @@ import { isPostmanEnvironmentJSON } from './PostmanEnvironment';
  * */
 
 
+export { isPostmanEnvironmentJSON } from './PostmanEnvironment';
+export * from './MorningstarAccess';
 export * from './MorningstarAPI';
 export * from './MorningstarError';
-export * from './MorningstarAccess';
 export * from './MorningstarOptions';
 export * from './MorningstarRegion';
-export { isPostmanEnvironmentJSON } from './PostmanEnvironment';
 
 
 /* *
@@ -52,9 +52,9 @@ export { isPostmanEnvironmentJSON } from './PostmanEnvironment';
 
 
 export default {
+    isPostmanEnvironmentJSON,
+    MorningstarAccess,
     MorningstarAPI,
     MorningstarError,
-    MorningstarAccess,
-    MorningstarRegion,
-    isPostmanEnvironmentJSON
+    MorningstarRegion
 };

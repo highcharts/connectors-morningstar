@@ -93,6 +93,16 @@ export interface PriceSeriesOptions extends TimeSeriesConverterOptions {
 }
 
 
+export type PriceType = (
+    | 'PRICE'
+    | 'NAV-CF'
+    | 'SPLITADJ'
+    | 'BONDCLEANPRICE'
+    | 'BONDACCRUEDINTEREST'
+    | 'TAXADJNAV'
+);
+
+
 export interface RatingSeriesOptions extends TimeSeriesConverterOptions {
 
     /**
@@ -165,14 +175,6 @@ export type TimeSeriesType = (
     | RatingSeriesOptions
 );
 
-export type PriceType = (
-    | 'PRICE'
-    | 'NAV-CF'
-    | 'SPLITADJ'
-    | 'BONDCLEANPRICE'
-    | 'BONDACCRUEDINTEREST'
-    | 'TAXADJNAV'
-);
 
 /* *
  *
