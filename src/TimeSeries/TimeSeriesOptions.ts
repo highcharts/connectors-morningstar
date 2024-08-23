@@ -112,6 +112,15 @@ export interface RatingSeriesOptions extends TimeSeriesConverterOptions {
 
 }
 
+export interface OHLCVSeriesOptions extends TimeSeriesConverterOptions {
+
+    /**
+     * Series type to retrieve.
+     */
+    type: 'OHLCV';
+
+}
+
 
 export interface TimeSeriesConverterOptions extends MorningstarConverterOptions {
 
