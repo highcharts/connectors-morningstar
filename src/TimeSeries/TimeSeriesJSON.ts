@@ -78,6 +78,17 @@ namespace TimeSeriesJSON {
         Security: Array<Security>;
     }
 
+    export type OHLCVItem = [
+        date: number, 
+        open: number, 
+        high: number, 
+        low: number, 
+        close: number, 
+        value: number
+    ];
+
+    export type OHLCVResponse = OHLCVItem[];
+
 
     /* *
      *
@@ -165,6 +176,29 @@ namespace TimeSeriesJSON {
                 (json as TimeSeriesResponse).Security.length === 0 ||
                 isSecurity((json as TimeSeriesResponse).Security[0])
             )
+        );
+    }
+
+    export function isOHLCVSeriesResponse (
+        json?: unknown
+    ): json is OHLCVResponse {
+        return (
+            !!json &&
+            Array.isArray(json) &&
+            (
+                json.length === 0 ||
+                isOHLCVItem(json[0])
+            )
+        );
+    }
+
+    function isOHLCVItem (
+        json?: unknown
+    ): json is OHLCVItem {
+        return (
+            !!json &&
+            Array.isArray(json) &&
+            json.length === 6
         );
     }
 
