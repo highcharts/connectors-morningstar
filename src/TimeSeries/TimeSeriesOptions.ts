@@ -182,6 +182,7 @@ export type TimeSeriesType = (
     | GrowthSeriesOptions
     | PriceSeriesOptions
     | RatingSeriesOptions
+    | OHLCVSeriesOptions
 );
 
 

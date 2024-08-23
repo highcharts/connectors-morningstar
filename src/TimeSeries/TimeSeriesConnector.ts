@@ -34,6 +34,7 @@ import TimeSeriesRatingConverter from './Converters/RatingSeriesConverter';
 import PriceSeriesConverter from './Converters/PriceSeriesConverter';
 import TimeSeriesConverter, { FetchMultipleBehaviour } from './TimeSeriesConverter';
 import { MorningstarSecurityOptions } from '../Shared';
+import { OHLCVSeriesConverter } from './Converters';
 
 
 /* *
@@ -95,6 +96,13 @@ export class TimeSeriesConnector extends MorningstarConnector {
                 });
                 break;
 
+            case 'OHLCV':
+                this.converter = new OHLCVSeriesConverter({
+                    ...options.converter,
+                    ...options.series
+                });
+                break;
+
             default:
                 throw new Error('Invalid series type');
 
@@ -141,7 +149,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
 
         const securitiesFetchBehaviour = converter.securitiesFetchBehaviour;
        
-        const json = this.fetchTimeseries(api, url, securities, securitiesFetchBehaviour);
+        const json = await this.fetchTimeseries(api, url, securities, securitiesFetchBehaviour);
 
         this.converter.parse({ json });
 
@@ -170,6 +178,18 @@ export class TimeSeriesConnector extends MorningstarConnector {
         url: MorningstarURL,
         securities: MorningstarSecurityOptions[]
     ): Promise<unknown> {
+        url.setSecuritiesOptions(securities);
+        this.applyOptionsToUrl(this.options, url);
+        const response = await api.fetch(url);
+        const value = await response.json() as unknown;
+        return value;
+    }
+
+    private async fetchTimeseriesWithIterate (
+        api: MorningstarAPI,
+        url: MorningstarURL,
+        securities: MorningstarSecurityOptions[]
+    ): Promise<unknown> {
         const requests = securities.map(async (security) => {
             url.setSecuritiesOptions([security]);
             this.applyOptionsToUrl(this.options, url);
@@ -182,17 +202,6 @@ export class TimeSeriesConnector extends MorningstarConnector {
             };
         });
         return Promise.all(requests);
-    }
-
-    private async fetchTimeseriesWithIterate (
-        api: MorningstarAPI,
-        url: MorningstarURL,
-        securities: MorningstarSecurityOptions[]
-    ): Promise<unknown> {
-        url.setSecuritiesOptions(securities);
-        this.applyOptionsToUrl(this.options, url);
-        const response = await api.fetch(url);
-        return await response.json() as unknown;
     }
 
     private applyOptionsToUrl (options: TimeSeriesOptions, url: MorningstarURL) {
