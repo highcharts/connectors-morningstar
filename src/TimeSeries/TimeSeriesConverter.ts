@@ -43,6 +43,8 @@ export abstract class TimeSeriesConverter extends MorningstarConverter {
 
     public abstract path: string;
 
+    public securitiesFetchBehaviour: FetchMultipleBehaviour = 'pipe';
+
     /* *
      *
      *  Functions
@@ -53,6 +55,14 @@ export abstract class TimeSeriesConverter extends MorningstarConverter {
     public decorateURL (url: MorningstarURL) {}
 
 }
+
+/* *
+ *
+ *  Types
+ *
+ * */
+
+export type FetchMultipleBehaviour = 'pipe' | 'iterate';
 
 
 /* *
