@@ -32,7 +32,8 @@ import DividendSeriesConverter from './Converters/DividendSeriesConverter';
 import TimeSeriesOptions from './TimeSeriesOptions';
 import TimeSeriesRatingConverter from './Converters/RatingSeriesConverter';
 import PriceSeriesConverter from './Converters/PriceSeriesConverter';
-import TimeSeriesConverter from './TimeSeriesConverter';
+import TimeSeriesConverter, { FetchMultipleBehaviour } from './TimeSeriesConverter';
+import { MorningstarSecurityOptions } from '../Shared';
 
 
 /* *
@@ -128,20 +129,77 @@ export class TimeSeriesConnector extends MorningstarConnector {
         await super.load();
 
         const options = this.options;
-        const currencyId = options.currencyId;
-        const endDate = options.endDate;
+        const converter = this.converter;
         const securities = options.securities;
-        const startDate = options.startDate;
-        const tax = options.tax;
-
+        
         if (!securities) {
             return this;
         }
 
         const api = this.api = this.api || new MorningstarAPI(options.api);
-        const url = new MorningstarURL('/ecint/v1/' + this.converter.path, api.baseURL);
+        const url = new MorningstarURL('/ecint/v1/' + converter.path, api.baseURL);
 
+        const securitiesFetchBehaviour = converter.securitiesFetchBehaviour;
+       
+        const json = this.fetchTimeseries(api, url, securities, securitiesFetchBehaviour);
+
+        this.converter.parse({ json });
+
+        this.table.deleteColumns();
+        this.table.setColumns(this.converter.getTable().getColumns());
+
+        return this;
+    }
+
+    private async fetchTimeseries (
+        api: MorningstarAPI,
+        url: MorningstarURL,
+        securities: MorningstarSecurityOptions[],
+        securitiesFetchBehaviour: FetchMultipleBehaviour
+    ): Promise<unknown> {
+        switch (securitiesFetchBehaviour) {
+            case 'pipe':
+                return this.fetchTimeseriesWithPipe(api, url, securities);
+            case 'iterate':
+                return this.fetchTimeseriesWithIterate(api, url, securities);
+        }
+    }
+
+    private async fetchTimeseriesWithPipe (
+        api: MorningstarAPI,
+        url: MorningstarURL,
+        securities: MorningstarSecurityOptions[]
+    ): Promise<unknown> {
+        const requests = securities.map(async (security) => {
+            url.setSecuritiesOptions([security]);
+            this.applyOptionsToUrl(this.options, url);
+            const response = await api.fetch(url);
+            const value = await response.json() as unknown;
+
+            return {
+                id: security,
+                value: value
+            };
+        });
+        return Promise.all(requests);
+    }
+
+    private async fetchTimeseriesWithIterate (
+        api: MorningstarAPI,
+        url: MorningstarURL,
+        securities: MorningstarSecurityOptions[]
+    ): Promise<unknown> {
         url.setSecuritiesOptions(securities);
+        this.applyOptionsToUrl(this.options, url);
+        const response = await api.fetch(url);
+        return await response.json() as unknown;
+    }
+
+    private applyOptionsToUrl (options: TimeSeriesOptions, url: MorningstarURL) {
+        const currencyId = options.currencyId;
+        const endDate = options.endDate;
+        const startDate = options.startDate;
+        const tax = options.tax;
 
         if (currencyId) {
             url.searchParams.set('currencyId', currencyId);
@@ -160,16 +218,6 @@ export class TimeSeriesConnector extends MorningstarConnector {
         }
 
         this.converter.decorateURL(url);
-
-        const response = await api.fetch(url);
-        const json = await response.json() as unknown;
-
-        this.converter.parse({ json });
-
-        this.table.deleteColumns();
-        this.table.setColumns(this.converter.getTable().getColumns());
-
-        return this;
     }
 
 

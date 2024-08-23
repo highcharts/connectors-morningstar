@@ -89,6 +89,11 @@ namespace TimeSeriesJSON {
 
     export type OHLCVResponse = OHLCVItem[];
 
+    export type MultipleSeriesResponse<T> = {
+        id: string;
+        value: T;
+    }[];
+
 
     /* *
      *
@@ -175,6 +180,19 @@ namespace TimeSeriesJSON {
             (
                 (json as TimeSeriesResponse).Security.length === 0 ||
                 isSecurity((json as TimeSeriesResponse).Security[0])
+            )
+        );
+    }
+
+    export function isMultipleSeriesOHLCVSeriesResponse (
+        json?: unknown
+    ): json is MultipleSeriesResponse<OHLCVResponse> {
+        return (
+            !!json &&
+            Array.isArray(json) &&
+            (
+                json.length === 0 ||
+                isOHLCVSeriesResponse(json[0])
             )
         );
     }
