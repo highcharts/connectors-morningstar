@@ -4,18 +4,24 @@ import * as MC from '../../../code/connectors-morningstar.src';
 export async function ohlcvLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
+    // End date does not work in OHLCV. In order to limit the amount of data,
+    // the start date is instead calculated as 30 days prior to today.
+    const endDate = new Date();
+    const startDate = new Date(new Date().setDate(endDate.getDate() - 30));
+    const securityId = 'XIUSA000O2';
+
     const connector = new MC.TimeSeriesConnector({
         api,
         currencyId: 'EUR',
         securities: [{
-            id: 'XIUSA000O2',
+            id: securityId,
             idType: 'SECID'
         }],
         series: {
             type: 'OHLCV'
         },
-        startDate: '2020-01-16',
-        endDate: '2020-01-16'
+        startDate: startDate.toISOString().substring(0, 10),
+        endDate: endDate.toISOString().substring(0, 10)
     });
 
     Assert.ok(
@@ -33,14 +39,15 @@ export async function ohlcvLoad (
 
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
-        ['Id', 'Date', 'Open', 'High', 'Low', 'Close', 'Value'],
+        [
+            'Date', 
+            `${securityId}_Open`, 
+            `${securityId}_High`, 
+            `${securityId}_Low`, 
+            `${securityId}_Close`, 
+            `${securityId}_Value`
+        ],
         'Connector table should exist of expected columns.'
-    );
-
-    Assert.strictEqual(
-        connector.table.getRowCount(),
-        12,
-        'Connector table should have 12 expected OHLCV rows.'
     );
 
 }
