@@ -159,6 +159,8 @@ export interface TimeSeriesOptions extends MorningstarOptions {
 
     /**
      * Security to retrieve.
+     * 
+     * **NOTE: When series type is `OHLCV`, only one security is supported.**
      */
     securities?: Array<MorningstarSecurityOptions>;
 
