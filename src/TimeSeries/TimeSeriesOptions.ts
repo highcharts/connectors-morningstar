@@ -119,6 +119,11 @@ export interface OHLCVSeriesOptions extends TimeSeriesConverterOptions {
      */
     type: 'OHLCV';
 
+    /**
+     * Security to retrieve.
+     */
+    securities?: Array<MorningstarSecurityOptions>;
+
 }
 
 

@@ -98,31 +98,21 @@ export class OHLCVSeriesConverter extends TimeSeriesConverter {
 
         // Validate JSON
 
-        if (!TimeSeriesJSON.isMultipleSeriesOHLCVSeriesResponse(json)) {
+        if (!TimeSeriesJSON.isCompactJSONOHLCVResponse(json)) {
             throw new Error('Invalid data');
         }
 
         // Cumulate OHLCV items by date
 
-        const securityIds: Array<string> = [];
+        const securityIds: Array<string> = userOptions.securities?.map(security => security.id) ?? [];
         const sortedOHLCVItems: Array<OHLCV> = [];
 
-        for (const security of json) {
-
-            if (!security.value) {
-                continue;
-            }
-
-            securityIds.push(security.id);
-
-            for (const ohlcvItem of security.value) {
-                sortedOHLCVItems.push({
-                    Id: security.id,
-                    Date: ohlcvItem[0],
-                    Value: [ohlcvItem[1], ohlcvItem[2], ohlcvItem[3], ohlcvItem[4], ohlcvItem[5]]
-                });
-            }
-
+        for (const ohlcvItem of json) {
+            sortedOHLCVItems.push({
+                Id: securityIds[0],
+                Date: ohlcvItem[0],
+                Value: [ohlcvItem[1], ohlcvItem[2], ohlcvItem[3], ohlcvItem[4], ohlcvItem[5]]
+            });
         }
 
         // Sort OHLCV items by date
@@ -137,15 +127,30 @@ export class OHLCVSeriesConverter extends TimeSeriesConverter {
 
         table.deleteColumns();
 
-        ['Id', 'Date', 'Open', 'High', 'Low', 'Close', 'Value']
-            .forEach(columnName => table.setColumn(columnName));
+        const valueColumns = ['Open', 'High', 'Low', 'Close', 'Value'];
+
+        table.setColumn('Date');
+
+        securityIds.forEach(securityId => {
+            valueColumns.forEach(columnName => table.setColumn(`${securityId}_${columnName}`));
+        });
+            
 
         // Add OHLCV items to table
 
+        let currentTableDate: number = 0;
+        let currentTableIndex: number = -1;
+
         for (const ohlcvItem of sortedOHLCVItems) {
-            table.setRow(
-                [ohlcvItem.Id, ohlcvItem.Date, ...ohlcvItem.Value]
-            );
+            if (currentTableDate !== ohlcvItem.Date) {
+                currentTableDate = ohlcvItem.Date;
+                table.setCell('Date', ++currentTableIndex, currentTableDate);
+            }
+            for (const i in ohlcvItem.Value) {
+                const column = `${ohlcvItem.Id}_${valueColumns[i]}`;
+                const value = ohlcvItem.Value[i];
+                table.setCell(column, currentTableIndex, value);
+            }
         }
 
     }

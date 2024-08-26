@@ -98,7 +98,8 @@ export class TimeSeriesConnector extends MorningstarConnector {
             case 'OHLCV':
                 this.converter = new OHLCVSeriesConverter({
                     ...options.converter,
-                    ...options.series
+                    ...options.series,
+                    securities: options.securities
                 });
                 break;
 
