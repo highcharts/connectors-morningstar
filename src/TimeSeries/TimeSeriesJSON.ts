@@ -78,21 +78,19 @@ namespace TimeSeriesJSON {
         Security: Array<Security>;
     }
 
-    export type OHLCVItem = [
-        date: number, 
-        open: number, 
-        high: number, 
-        low: number, 
-        close: number, 
+    export type CompactJSON = Array<CompactHistoryDetail>;
+
+    export type CompactHistoryDetail = 
+        | CompactHistoryOHLCV;
+
+    export type CompactHistoryOHLCV = [
+        date: number,
+        open: number,
+        high: number,
+        low: number,
+        close: number,
         value: number
     ];
-
-    export type OHLCVResponse = OHLCVItem[];
-
-    export type MultipleSeriesResponse<T> = {
-        id: string;
-        value: T;
-    }[];
 
 
     /* *
@@ -184,37 +182,30 @@ namespace TimeSeriesJSON {
         );
     }
 
-    export function isMultipleSeriesOHLCVSeriesResponse (
+    export function isCompactJSONOHLCVResponse (
         json?: unknown
-    ): json is MultipleSeriesResponse<OHLCVResponse> {
+    ): json is CompactJSON {
         return (
-            !!json &&
-            Array.isArray(json) &&
-            json.length === 0 ||
-            (
-                typeof (json as MultipleSeriesResponse<unknown>)[0] === 'object' &&
-                typeof (json as MultipleSeriesResponse<unknown>)[0].id === 'string' &&
-                isOHLCVSeriesResponse((json as MultipleSeriesResponse<unknown>)[0].value)
-            )
-        );
-    }
-
-    export function isOHLCVSeriesResponse (
-        json?: unknown
-    ): json is OHLCVResponse {
-        return (
-            !!json &&
-            Array.isArray(json) &&
+            isCompactJSONResponse(json) &&
             (
                 json.length === 0 ||
-                isOHLCVItem(json[0])
+                isCompactHistoryOHLCV(json[0])
             )
         );
     }
 
-    function isOHLCVItem (
+    function isCompactJSONResponse (
         json?: unknown
-    ): json is OHLCVItem {
+    ): json is CompactJSON {
+        return (
+            !!json &&
+            Array.isArray(json)
+        );
+    }
+
+    function isCompactHistoryOHLCV (
+        json?: unknown
+    ): json is CompactHistoryOHLCV {
         return (
             !!json &&
             Array.isArray(json) &&
