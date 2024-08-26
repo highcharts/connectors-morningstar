@@ -22,7 +22,7 @@
  * */
 
 
-import TimeSeriesConverter, { FetchMultipleBehaviour } from '../TimeSeriesConverter';
+import TimeSeriesConverter from '../TimeSeriesConverter';
 import { OHLCVSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
 import MorningstarURL from '../../Shared/MorningstarURL';
@@ -78,8 +78,6 @@ export class OHLCVSeriesConverter extends TimeSeriesConverter {
     public override readonly options: Required<OHLCVSeriesOptions>;
 
     public override path: string = 'timeseries/ohlcv';
-
-    public override securitiesFetchBehaviour: FetchMultipleBehaviour = 'iterate';
 
     /* *
      *
