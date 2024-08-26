@@ -197,7 +197,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
             const value = await response.json() as unknown;
 
             return {
-                id: security,
+                id: security.id,
                 value: value
             };
         });

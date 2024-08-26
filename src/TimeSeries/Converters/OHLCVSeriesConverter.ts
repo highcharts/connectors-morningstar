@@ -25,6 +25,7 @@
 import TimeSeriesConverter, { FetchMultipleBehaviour } from '../TimeSeriesConverter';
 import { OHLCVSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
+import MorningstarURL from '../../Shared/MorningstarURL';
 
 
 /* *
@@ -141,10 +142,6 @@ export class OHLCVSeriesConverter extends TimeSeriesConverter {
         ['Id', 'Date', 'Open', 'High', 'Low', 'Close', 'Value']
             .forEach(columnName => table.setColumn(columnName));
 
-        for (const securityId of securityIds) {
-            table.setColumn(securityId);
-        }
-
         // Add OHLCV items to table
 
         for (const ohlcvItem of sortedOHLCVItems) {
@@ -153,6 +150,10 @@ export class OHLCVSeriesConverter extends TimeSeriesConverter {
             );
         }
 
+    }
+
+    public override decorateURL (url: MorningstarURL) {
+        url.searchParams.set('outputType', 'compactjson');
     }
 
 

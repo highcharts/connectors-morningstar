@@ -190,9 +190,11 @@ namespace TimeSeriesJSON {
         return (
             !!json &&
             Array.isArray(json) &&
+            json.length === 0 ||
             (
-                json.length === 0 ||
-                isOHLCVSeriesResponse(json[0])
+                typeof (json as MultipleSeriesResponse<unknown>)[0] === 'object' &&
+                typeof (json as MultipleSeriesResponse<unknown>)[0].id === 'string' &&
+                isOHLCVSeriesResponse((json as MultipleSeriesResponse<unknown>)[0].value)
             )
         );
     }

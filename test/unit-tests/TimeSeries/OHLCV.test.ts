@@ -15,7 +15,7 @@ export async function ohlcvLoad (
             type: 'OHLCV'
         },
         startDate: '2020-01-16',
-        endDate: '2020-01-31'
+        endDate: '2020-01-16'
     });
 
     Assert.ok(
@@ -33,7 +33,7 @@ export async function ohlcvLoad (
 
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
-        ['Date', 'Id', 'Open', 'High', 'Low', 'Close', 'Value'],
+        ['Id', 'Date', 'Open', 'High', 'Low', 'Close', 'Value'],
         'Connector table should exist of expected columns.'
     );
 
