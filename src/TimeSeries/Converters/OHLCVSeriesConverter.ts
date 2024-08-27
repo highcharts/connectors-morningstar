@@ -131,10 +131,12 @@ export class OHLCVSeriesConverter extends TimeSeriesConverter {
 
         table.setColumn('Date');
 
-        securityIds.forEach(securityId => {
-            valueColumns.forEach(columnName => table.setColumn(`${securityId}_${columnName}`));
-        });
-            
+        for (const securityId of securityIds) {
+            for (const columnName of valueColumns) {
+                table.setColumn(`${securityId}_${columnName}`);
+            }
+        }
+
 
         // Add OHLCV items to table
 
