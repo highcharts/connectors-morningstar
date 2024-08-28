@@ -112,6 +112,20 @@ export interface RatingSeriesOptions extends TimeSeriesConverterOptions {
 
 }
 
+export interface OHLCVSeriesOptions extends TimeSeriesConverterOptions {
+
+    /**
+     * Series type to retrieve.
+     */
+    type: 'OHLCV';
+
+    /**
+     * Security to retrieve.
+     */
+    securities?: Array<MorningstarSecurityOptions>;
+
+}
+
 
 export interface TimeSeriesConverterOptions extends MorningstarConverterOptions {
 
@@ -145,6 +159,8 @@ export interface TimeSeriesOptions extends MorningstarOptions {
 
     /**
      * Security to retrieve.
+     * 
+     * **NOTE: When series type is `OHLCV`, only one security is supported.**
      */
     securities?: Array<MorningstarSecurityOptions>;
 
@@ -173,6 +189,7 @@ export type TimeSeriesType = (
     | GrowthSeriesOptions
     | PriceSeriesOptions
     | RatingSeriesOptions
+    | OHLCVSeriesOptions
 );
 
 

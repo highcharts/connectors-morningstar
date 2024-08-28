@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <script src="https://code.highcharts.com/stock/highstock.src.js"></script>
+        <script src="../../code/connectors-morningstar.src.js"></script>
+        <title>Highcharts Stock + Morningstar OHLCV TimeSeries</title>
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Highcharts Stock + Morningstar OHLCV TimeSeries</h1>
+        <p>
+            Add your Postman environment file from Morningstar to start the demo:
+            <input type="file" id="postman-json" accept=".json,application/json" />
+        </p>
+        <div id="container"></div>
+        <script src="./demo.js"></script>
+    </body>
+</html>

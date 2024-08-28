@@ -78,6 +78,20 @@ namespace TimeSeriesJSON {
         Security: Array<Security>;
     }
 
+    export type CompactJSON = Array<CompactHistoryDetail>;
+
+    export type CompactHistoryDetail = 
+        | CompactHistoryOHLCV;
+
+    export type CompactHistoryOHLCV = [
+        date: number,
+        open: number,
+        high: number,
+        low: number,
+        close: number,
+        value: number
+    ];
+
 
     /* *
      *
@@ -165,6 +179,37 @@ namespace TimeSeriesJSON {
                 (json as TimeSeriesResponse).Security.length === 0 ||
                 isSecurity((json as TimeSeriesResponse).Security[0])
             )
+        );
+    }
+
+    export function isCompactJSONOHLCVResponse (
+        json?: unknown
+    ): json is CompactJSON {
+        return (
+            isCompactJSONResponse(json) &&
+            (
+                json.length === 0 ||
+                isCompactHistoryOHLCV(json[0])
+            )
+        );
+    }
+
+    function isCompactJSONResponse (
+        json?: unknown
+    ): json is CompactJSON {
+        return (
+            !!json &&
+            Array.isArray(json)
+        );
+    }
+
+    function isCompactHistoryOHLCV (
+        json?: unknown
+    ): json is CompactHistoryOHLCV {
+        return (
+            !!json &&
+            Array.isArray(json) &&
+            json.length === 6
         );
     }
 

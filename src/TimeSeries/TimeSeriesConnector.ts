@@ -33,6 +33,7 @@ import TimeSeriesOptions from './TimeSeriesOptions';
 import TimeSeriesRatingConverter from './Converters/RatingSeriesConverter';
 import PriceSeriesConverter from './Converters/PriceSeriesConverter';
 import TimeSeriesConverter from './TimeSeriesConverter';
+import { OHLCVSeriesConverter } from './Converters';
 
 
 /* *
@@ -91,6 +92,14 @@ export class TimeSeriesConnector extends MorningstarConnector {
                 this.converter = new PriceSeriesConverter({
                     ...options.converter,
                     ...options.series
+                });
+                break;
+
+            case 'OHLCV':
+                this.converter = new OHLCVSeriesConverter({
+                    ...options.converter,
+                    ...options.series,
+                    securities: options.securities
                 });
                 break;
 
