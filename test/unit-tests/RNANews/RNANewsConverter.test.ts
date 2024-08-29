@@ -8,7 +8,7 @@ export async function rnaNewsLoad (
     const connector = new MC.RNANewsConnector({
       api,
       security: {
-        id: 'GB00B019KW72',
+        id: 'GB00BLGZ9862',
         idType: 'ISIN'
       },
       startDate: '2023-05-13',
