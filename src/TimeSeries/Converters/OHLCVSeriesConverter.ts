@@ -38,7 +38,7 @@ import MorningstarURL from '../../Shared/MorningstarURL';
 interface OHLCV {
     Id: string;
     Date: number;
-    Value: [open: number, high: number, low: number, close: number, value: number];
+    Value: [open: number, high: number, low: number, close: number, volume: number];
 }
 
 
@@ -127,7 +127,7 @@ export class OHLCVSeriesConverter extends TimeSeriesConverter {
 
         table.deleteColumns();
 
-        const valueColumns = ['Open', 'High', 'Low', 'Close', 'Value'];
+        const valueColumns = ['Open', 'High', 'Low', 'Close', 'Volume'];
 
         table.setColumn('Date');
 

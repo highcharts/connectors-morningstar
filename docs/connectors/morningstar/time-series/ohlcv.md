@@ -2,7 +2,7 @@
 
  This type yields OHLCV time series data for a single or multiple securities.
 
- Returns Open, High, Low, Close, Value for the securities specified.
+ Returns Open, High, Low, Close, Volume for the securities specified.
 
  > **NOTE:** At the moment only a single security is supported.
 
