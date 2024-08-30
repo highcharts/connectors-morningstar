@@ -59,3 +59,29 @@ export function rnaNewsValidation () {
     'Mock response should be considered a valid response'
   );
 }
+
+export function rnaNewsUrlShouldBeEMEA () {
+
+  const connector = new MC.RNANewsConnector({});
+
+  Assert.equal(
+      connector.options.api?.url,
+      'https://www.emea-api.morningstar.com/',
+      'Connector options should override url to be emea if api options are not provided'
+  );
+}
+
+export function rnaNewsUrlShouldNotOverrideIfAPIOptionsAreProvided () {
+
+  const connector = new MC.RNANewsConnector({
+    api: {
+      url: 'https://www.us-api.morningstar.com/'
+    }
+  });
+
+  Assert.equal(
+      connector.options.api?.url,
+      'https://www.us-api.morningstar.com/',
+      'Connector options should not override url to be emea if api options are provided'
+  );
+}

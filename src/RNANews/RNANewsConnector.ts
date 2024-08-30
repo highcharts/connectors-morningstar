@@ -29,6 +29,7 @@ import MorningstarURL from '../Shared/MorningstarURL';
 import RNANewsOptions from './RNANewsOptions';
 import RNANewsConverter from './RNANewsConverter';
 import RNANewsJSON from './RNANewsJSON';
+import MorningstarRegion from '../Shared/MorningstarRegion';
 
 
 /* *
@@ -103,6 +104,13 @@ export class RNANewsConnector extends MorningstarConnector {
 
         this.converter = new RNANewsConverter(options.converter);
         this.options = options;
+
+        if (this.options.api?.url === undefined) {
+            this.options.api = {
+                ...(this.options.api ?? {}),
+                url: MorningstarRegion.baseURLs['EMEA']
+            };
+        }
     }
 
 
