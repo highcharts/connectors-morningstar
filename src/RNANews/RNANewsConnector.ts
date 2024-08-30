@@ -107,7 +107,7 @@ export class RNANewsConnector extends MorningstarConnector {
 
         if (this.options.api?.url === undefined) {
             this.options.api = {
-                ...this.options.api ?? {},
+                ...(this.options.api ?? {}),
                 url: MorningstarRegion.baseURLs['EMEA']
             };
         }
