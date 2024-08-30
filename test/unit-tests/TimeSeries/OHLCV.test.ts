@@ -45,7 +45,7 @@ export async function ohlcvLoad (
             `${securityId}_High`, 
             `${securityId}_Low`, 
             `${securityId}_Close`, 
-            `${securityId}_Value`
+            `${securityId}_Volume`
         ],
         'Connector table should exist of expected columns.'
     );
