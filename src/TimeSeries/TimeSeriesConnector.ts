@@ -142,6 +142,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
         const securities = options.securities;
         const startDate = options.startDate;
         const tax = options.tax;
+        const frequency = options.frequency;
 
         if (!securities) {
             return this;
@@ -166,6 +167,10 @@ export class TimeSeriesConnector extends MorningstarConnector {
 
         if (tax) {
             url.searchParams.set('tax', tax);
+        }
+
+        if (frequency) {
+            url.searchParams.set('frequency', frequency);
         }
 
         this.converter.decorateURL(url);
