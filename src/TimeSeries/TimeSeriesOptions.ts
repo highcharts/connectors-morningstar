@@ -153,6 +153,12 @@ export interface TimeSeriesOptions extends MorningstarOptions {
     endDate?: (number|string);
 
     /**
+     * Specifies the frequency of the data.
+     * Default is `daily`.
+     */
+    frequency?: TimeSeriesFrequency;
+
+    /**
      * Localization options.
      */
     localization?: LocalizationOptions;
@@ -181,6 +187,15 @@ export interface TimeSeriesOptions extends MorningstarOptions {
     tax?: ('pretax'|'posttax');
 
 }
+
+
+export type TimeSeriesFrequency = (
+    | 'daily'
+    | 'weekly'
+    | 'monthly'
+    | 'quarterly'
+    | 'annual'
+);
 
 
 export type TimeSeriesType = (
