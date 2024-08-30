@@ -44,3 +44,30 @@ export async function cumulativeReturnLoad (
     );
 
 }
+
+export async function cumulativeReturnLoadWithFrequency (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.TimeSeriesConnector({
+        api,
+        currencyId: 'EUR',
+        endDate: '2020-12-31',
+        frequency: 'weekly',
+        securities: [{
+            id: 'F0GBR04S23',
+            idType: 'MSID'
+        }],
+        series: {
+            type: 'CumulativeReturn'
+        },
+        startDate: '2020-01-01'
+    });
+
+    await connector.load();
+
+    Assert.strictEqual(
+        connector.table.getRowCount(),
+        52,
+        'Connector table should have 52 cumulative return rows when frequency is weekly.'
+    );
+}
