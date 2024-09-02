@@ -112,7 +112,7 @@ export class OHLCVSeriesConverter extends TimeSeriesConverter {
             let [/* Date */, open, high, low] = ohlcvItem;
 
 
-            if (volume === 0 && options.replaceZeroWithCloseValue) {
+            if (volume === 0 && userOptions.replaceZeroWithCloseValue) {
                 open = close;
                 high = close;
                 low  = close;

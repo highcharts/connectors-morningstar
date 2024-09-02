@@ -29,7 +29,7 @@ import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
 import CumulativeReturnSeriesConverter from './Converters/CumulativeReturnSeriesConverter';
 import DividendSeriesConverter from './Converters/DividendSeriesConverter';
-import TimeSeriesOptions from './TimeSeriesOptions';
+import TimeSeriesOptions, { OHLCVSeriesOptions } from './TimeSeriesOptions';
 import TimeSeriesRatingConverter from './Converters/RatingSeriesConverter';
 import PriceSeriesConverter from './Converters/PriceSeriesConverter';
 import TimeSeriesConverter from './TimeSeriesConverter';
@@ -99,7 +99,9 @@ export class TimeSeriesConnector extends MorningstarConnector {
                 this.converter = new OHLCVSeriesConverter({
                     ...options.converter,
                     ...options.series,
-                    securities: options.securities
+                    securities: options.securities,
+                    replaceZeroWithCloseValue: (options as OHLCVSeriesOptions)
+                        .replaceZeroWithCloseValue
                 });
                 break;
 
