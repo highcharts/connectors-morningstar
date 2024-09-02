@@ -108,10 +108,20 @@ export class OHLCVSeriesConverter extends TimeSeriesConverter {
         const sortedOHLCVItems: Array<OHLCV> = [];
 
         for (const ohlcvItem of json) {
+            const [date, /* Open */ , /* High */, /* Low */, close, volume] = ohlcvItem;
+            let [/* Date */, open, high, low] = ohlcvItem;
+
+
+            if (volume === 0 && options.replaceZeroWithCloseValue) {
+                open = close;
+                high = close;
+                low  = close;
+            }
+
             sortedOHLCVItems.push({
                 Id: securityIds[0],
-                Date: ohlcvItem[0],
-                Value: [ohlcvItem[1], ohlcvItem[2], ohlcvItem[3], ohlcvItem[4], ohlcvItem[5]]
+                Date: date,
+                Value: [open, high, low, close, volume]
             });
         }
 
