@@ -1,65 +1,59 @@
-document.getElementById('postman-json').addEventListener(
-    'change',
-    async function (evt) {
-        const target = evt.target;
-        const postmanJSON = await getPostmanJSON(target);
-
-        if (!postmanJSON) {
-            return;
-        }
-
-        target.parentNode.style.display = 'none';
-
-        const priceConnector = new Connectors.Morningstar.TimeSeriesConnector({
-            postman: {
-                environmentJSON: postmanJSON
-            },
-            series: {
-                type: 'Price'
-            },
-            securities: [{
-                id: 'US0378331005',
-                idType: 'ISIN'
-            }],
-            startDate: '2020-01-01',
-            endDate: '2020-12-31',
-            currencyId: 'EUR'
-        });
-
-        await priceConnector.load();
-
-        Highcharts.stockChart('container', {
-            title: {
-                text: 'Apple Share Price in EUR for 2020'
-            },
-            series: [{
-                type: 'area',
-                data: priceConnector.table.getRows(0, undefined),
-                fillColor: {
-                    linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
-                    stops: [
-                        [0, Highcharts.getOptions().colors[0]],
-                        [1, 'rgba(255, 255, 255, 0)']
-                    ]
-                }
-            }]
-        });
-    });
-
-async function getPostmanJSON (htmlInputFile) {
-    let file;
-    let fileJSON;
-
-    for (file of htmlInputFile.files) {
-        try {
-            fileJSON = JSON.parse(await file.text());
-            if (Connectors.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
-                break;
-            }
-        } catch (error) {
-            // fail silently
+const commonOptions = {
+    api : {
+        url: 'https://demo-live-data.highcharts.com',
+        access: {
+            url: 'https://demo-live-data.highcharts.com/token/oauth',
+            username: 'test',
+            password: 'secure'
         }
     }
-
-    return fileJSON
 }
+
+const ISINMap = {
+    Netflix: 'US64110L1061',
+    Apple: 'US0378331005',
+    Intel: 'US4581401001',
+    Nvidia: 'US67066G1040',
+    AMD: 'US0079031078',
+    Microsoft: 'US5949181045',
+    Tesla: 'US88160R1014',
+    Meta: 'US30303M1027',
+    Amazon: 'US0231351067',
+    GoogleClassA: 'US02079K3059',
+    GoogleClassC: 'US02079K1079'
+}
+
+const ApplePriceConnector = new Connectors.Morningstar.TimeSeriesConnector({
+    ...commonOptions,
+    series: {
+        type: 'Price'
+    },
+    securities: [
+        {
+            id: ISINMap.Apple,
+            idType: 'ISIN'
+        }
+    ],
+    startDate: '2020-01-01',
+    endDate: '2020-02-31',
+    currencyId: 'EUR'
+});
+
+Promise.all([
+    ApplePriceConnector.load()
+]).then(() => {
+    const cols = ApplePriceConnector.table.getColumns();
+
+    const data = Array.from(Object.keys(cols).filter(k => k !== 'Date' )
+        .map((k) => (cols[k])
+        ));
+
+    Highcharts.stockChart('container', {
+        title: {
+            text: 'Apple Share Price in EUR for 2020'
+        },
+        series: data.map(d => ({ data: d }))
+
+    });
+});
+
