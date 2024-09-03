@@ -25,6 +25,7 @@
 import RNANews from './RNANews/index';
 import * as Shared from './Shared/index';
 import TimeSeries from './TimeSeries/index';
+import XRay from './XRay/index';
 
 
 /* *
@@ -37,6 +38,7 @@ import TimeSeries from './TimeSeries/index';
 export * from './RNANews/index';
 export * as Shared from './Shared/index';
 export * from './TimeSeries/index';
+export * from './XRay/index';
 
 
 /* *
@@ -49,5 +51,6 @@ export * from './TimeSeries/index';
 export default {
     RNANews,
     Shared,
-    TimeSeries
+    TimeSeries,
+    XRay
 };

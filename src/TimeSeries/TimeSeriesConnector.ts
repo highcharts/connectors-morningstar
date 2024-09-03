@@ -49,7 +49,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: TimeSeriesOptions
+        options: TimeSeriesOptions = {}
     ) {
         super(options);
 
