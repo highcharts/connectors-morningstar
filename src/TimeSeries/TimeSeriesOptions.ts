@@ -120,6 +120,17 @@ export interface OHLCVSeriesOptions extends TimeSeriesConverterOptions {
     type: 'OHLCV';
 
     /**
+     * When this property is `true`, open, high and low are replaced with 
+     * the close value if the volume is zero. 
+     * 
+     * If volume is zero, open high low are zero too. If you do not prefer this
+     * behavior, you can enable this property.
+     * 
+     * @default false
+     */
+    replaceZeroWithCloseValue?: boolean;
+
+    /**
      * Security to retrieve.
      */
     securities?: Array<MorningstarSecurityOptions>;

@@ -51,3 +51,71 @@ export async function ohlcvLoad (
     );
 
 }
+
+export function ohlcvReplaceZeroWithClose () {
+    const data = [
+        [1722816000000, 0, 0, 0, 14754.871, 0],
+        [1722816000001, 0, 0, 0, 14754.871, 1]
+    ];
+
+    const expectedFirstRow = [1722816000000, 14754.871, 14754.871, 14754.871, 14754.871, 0];
+    const expectedSecondRow = [1722816000001, 0, 0, 0, 14754.871, 1];
+
+    const converter = new MC.TimeSeriesConverters.OHLCVSeriesConverter({
+        type: 'OHLCV',
+        replaceZeroWithCloseValue: true,
+        securities: [
+            {
+                id: 'XIUSA000O2',
+                idType: 'SECID'
+            }
+        ],
+        json: data
+    });
+
+    converter.parse({ type: 'OHLCV' });
+
+    const dataTable = converter.getTable();
+
+    Assert.deepEqual(
+        dataTable.getRow(0),
+        expectedFirstRow,
+        'Should replace o, h, l with c when v is 0'
+    );
+
+    Assert.deepEqual(
+        dataTable.getRow(1),
+        expectedSecondRow,
+        'Should not replace o, h, l with c when v is not 0'
+    );
+}
+
+export function ohlcvDoNotReplaceZeroWithClose () {
+    const data = [
+        [1722816000000, 0, 0, 0, 14754.871, 0]
+    ];
+
+    const expectedRow = [1722816000000, 0, 0, 0, 14754.871, 0];
+
+    const converter = new MC.TimeSeriesConverters.OHLCVSeriesConverter({
+        type: 'OHLCV',
+        replaceZeroWithCloseValue: false,
+        securities: [
+            {
+                id: 'XIUSA000O2',
+                idType: 'SECID'
+            }
+        ],
+        json: data
+    });
+
+    converter.parse({ type: 'OHLCV' });
+
+    const dataTable = converter.getTable();
+
+    Assert.deepEqual(
+        dataTable.getRow(0),
+        expectedRow,
+        'Should not replace o, h, l with c when v is 0'
+    );
+}

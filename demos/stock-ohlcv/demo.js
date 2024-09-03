@@ -7,6 +7,7 @@ async function displayOHLCV (postmanJSON) {
         postman: {
             environmentJSON: postmanJSON
         },
+        replaceZeroWithCloseValue: true,
         series: {
             type: 'OHLCV'
         },
