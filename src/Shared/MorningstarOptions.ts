@@ -151,6 +151,38 @@ export interface MorningstarSecurityOptions {
      */
     idType: string;
 
+    /**
+     * Type of security.
+     */
+    type?: (string|MorningstarSecurityType);
+
+}
+
+
+/* *
+ *
+ *  Enums
+ *
+ * */
+
+
+export enum MorningstarSecurityType {
+    'Bond' = 'BD',
+    '529 Portfolio' = 'CT',
+    'Cash' = 'CASH',
+    'Category Average' = 'CA',
+    'Closed-End Fund' = 'FC',
+    'Economics Series' = 'EI',
+    'Exchange-Traded Fund' = 'FE',
+    'Index' = 'XI',
+    'Insurance Product Fund' = 'FV',
+    'Money Market Fund' = 'FM',
+    'Open-End Fund' = 'FO',
+    'Separate Account' = 'SA',
+    'Stock' = 'ST',
+    'UK LP SubAccounts' = 'VA',
+    'Unit Investment Trust' = 'FI',
+    'Variable Annuity' = 'V1'
 }
 
 
