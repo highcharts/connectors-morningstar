@@ -68,6 +68,21 @@ export class XRayConnector extends MorningstarConnector {
     public override readonly options: XRayOptions;
 
 
+    /* *
+     *
+     *  Functions
+     *
+     * */
+
+
+    public override async load (): Promise<this> {
+
+        await super.load();
+
+        return this;
+    }
+
+
 }
 
 

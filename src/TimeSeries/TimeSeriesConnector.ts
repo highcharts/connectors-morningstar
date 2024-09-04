@@ -129,6 +129,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
 
 
     public override async load (): Promise<this> {
+
         await super.load();
 
         const options = this.options;
