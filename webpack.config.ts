@@ -75,6 +75,8 @@ const externals = {
 
 
 const metas: Record<string, Meta> = {
+    /**
+     * @todo fix bridge targets
     dashboards: {
         filename: 'dashboards-morningstar.js',
         umdNames: {
@@ -98,7 +100,7 @@ const metas: Record<string, Meta> = {
             commonjs,
             root: ['Highcharts', 'Morningstar']
         }
-    },
+    }, */
     standalone: {
         filename: 'connectors-morningstar.js',
         noExternals: true,
@@ -115,7 +117,7 @@ const sharedConfiguration: Configuration = {
 
     mode: 'production',
 
-    devtool: 'source-map',
+    devtool: 'hidden-source-map',
 
     performance: {
         hints: 'error',
@@ -136,7 +138,7 @@ const webpacks: Array<Configuration> = Object.keys(metas).map(variant => ({
     // Path to the main file
     entry: Path.resolve(projectFolder, `${sourceFolder}/index.js`),
 
-    externals: (metas[variant].noExternals ? void 0 : externals),
+    externals,
 
     // Name for the javascript file that is created/compiled in memory
     output: {

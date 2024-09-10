@@ -26,7 +26,7 @@
         "jsdom": "^24.1.1",
         "lint-staged": "^15.2.7",
         "ts-node": "^10.9.2",
-        "typescript": "^5.5.4",
+        "typescript": "~5.5.4",
         "webpack": "^5.93.0",
         "webpack-cli": "^5.1.4"
     },
@@ -39,7 +39,7 @@
         ]
     },
     "peerDependencies": {
-        "@highcharts/dashboards": ">=2.2.0",
+        "@highcharts/dashboards": ">=2.3.0",
         "highcharts": ">=11.4.0"
     },
     "scripts": {
@@ -50,6 +50,7 @@
         "build:prepare": "rm -rf build/ ; mkdir -p build/package/",
         "demos": "npm run webpack && npm run demos:server",
         "demos:server": "(sleep 1 ; open http://localhost:8080) & node bin/connectors-morningstar demos",
+        "dryrun": "ts-node tools/dist --dryrun",
         "husky:pre-commit": "npx lint-staged && npm run webpack",
         "prepare": "rm -rf '.husky/_' ; husky",
         "scripts": "npm run scripts:bin && npm run scripts:code",
