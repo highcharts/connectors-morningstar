@@ -22,14 +22,8 @@
  * */
 
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-
 import type * as _Dashboards from '@highcharts/dashboards';
 import type * as _DataGrid from '@highcharts/dashboards/datagrid';
-
-
-/* eslint-enable @typescript-eslint/no-unused-vars */
 
 
 import _DataConnector from '@highcharts/dashboards/es-modules/Data/Connectors/DataConnector';
@@ -60,10 +54,10 @@ export type DataTable = _DataTable;
  * */
 
 
-const Dashboards = globalThis.Dashboards;
+const Dashboards: typeof _Dashboards = globalThis.Dashboards;
 
 
-const DataGrid = globalThis.DataGrid;
+const DataGrid: typeof _DataGrid = globalThis.DataGrid;
 
 
 export const DataConnector = (
