@@ -386,12 +386,12 @@ async function uploadFile (
     maxAge = HTTP_MAX_AGE.oneDay
 ): Promise<void> {
     const fileContent = await FSP.readFile(sourceFile);
-    const isGzip = fileContent.readUInt16BE() === 8075;
-
     const filePath = Path.join(
         targetFolder,
         Path.relative(sourceFolder, sourceFile)
     );
+    const isGzip = fileContent.readUInt16BE() === 8075;
+
 
     await targetStorage.putObject({
         Bucket: targetBucket,
@@ -446,19 +446,21 @@ async function uploadFolder (
     const filePaths = FS
         .readdirSync(sourceFolder, { encoding: 'utf8', recursive: true })
         .filter(sourcePath => Path.basename(sourcePath)[0] !== '.')
-        .map(sourcePath => Path.join(sourceFolder, sourcePath));
+        .map(sourcePath => Path.join(sourceFolder, sourcePath))
+        .filter(sourcePath => FS.lstatSync(sourcePath).isFile());
 
     for (const filePathsChunk of getChunks(filePaths)) {
         await delay(1000);
         await Promise.all(
-            filePathsChunk.map(filePath => uploadFile(
-                sourceFolder,
-                filePath,
-                targetStorage,
-                targetBucket,
-                targetFolder,
-                maxAge
-            ))
+            filePathsChunk
+                .map(filePath => uploadFile(
+                    sourceFolder,
+                    filePath,
+                    targetStorage,
+                    targetBucket,
+                    targetFolder,
+                    maxAge
+                ))
         );
     }
 
@@ -495,7 +497,14 @@ build()
     .then(() => upload())
     .then(() => log('✅', 'DONE'))
     .catch(error => {
+
         log('❌', 'ERROR');
+
         process.stderr.write('' + error + '\n');
+
+        if (error instanceof Error && error.stack) {
+            process.stderr.write(error.stack + '\n');
+        }
+
         process.exit(1);
     });
