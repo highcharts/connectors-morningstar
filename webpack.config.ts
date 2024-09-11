@@ -9,7 +9,6 @@ import type { Configuration } from 'webpack';
 
 import * as FS from 'node:fs';
 import * as Path from 'node:path';
-import BundleDeclarationsWebpackPlugin from 'bundle-declarations-webpack-plugin';
 
 /* *
  *
@@ -43,34 +42,6 @@ const commonjs = '@highcharts/connectors-morningstar';
 const projectFolder = FS.realpathSync(process.cwd());
 const sourceFolder = './code/es-modules/';
 const targetFolder = './code/';
-
-
-/* *
- *
- *  Functions
- *
- * */
-
-
-function createDeclarationsPlugin (
-    sourceFile: string,
-    targetFile: string
-): BundleDeclarationsWebpackPlugin {
-    return new BundleDeclarationsWebpackPlugin({
-        entry: {
-            filePath: sourceFile,
-            output: {
-                sortNodes: false,
-                // dts-bundle-generator comments in output
-                noBanner: false
-            }
-        },
-        outFile: targetFile,
-        compilationOptions: {
-            followSymlinks: false
-        }
-    });
-}
 
 
 /* *
@@ -184,14 +155,7 @@ const webpacks: Array<Configuration> = Object.keys(metas).map(variant => ({
         hints: 'error',
         maxAssetSize: 200000,
         maxEntrypointSize: 200000
-    },
-
-    plugins: [
-        createDeclarationsPlugin(
-            `./${sourceFolder}/index.d.ts`,
-            Path.basename(metas[variant].filename, '.js') + '.d.ts'
-        )
-    ]
+    }
 
 }));
 
@@ -223,13 +187,6 @@ for (let webpack of webpacks.slice()) {
         maxAssetSize: 1000000,
         maxEntrypointSize: 1000000
     };
-
-    webpack.plugins = [
-        createDeclarationsPlugin(
-            `./${sourceFolder}/index.d.ts`,
-            Path.basename(filename, '.js') + '.src.d.ts'
-        )
-    ];
 
     webpacks.push(webpack);
 

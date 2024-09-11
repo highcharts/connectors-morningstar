@@ -17,7 +17,6 @@
         "@typescript-eslint/eslint-plugin": "^7.17.0",
         "@types/jsdom": "^21.1.7",
         "@types/node": "^20.0.0",
-        "bundle-declarations-webpack-plugin": "^5.1.1",
         "eslint": "^8.56.0",
         "eslint-plugin-brackets": "^0.1.3",
         "eslint-plugin-jsdoc": "^48.8.3",
@@ -61,6 +60,11 @@
         "test:morningstar": "npx -y newman run --bail tmp/Collection.json -e tmp/Environment.json",
         "test:unit-tests": "ts-node test/unit-tests/runtime",
         "watch": "tsc -p src/ -w",
-        "webpack": "npm run scripts && webpack"
+        "webpack": "npm run scripts && webpack && npm run webpack:dts",
+        "webpack:dts": "npm run webpack:dts:cm && npm run webpack:dts:dbm && npm run webpack:dts:dgm && npm run webpack:dts:hcm",
+        "webpack:dts:cm": "cp src/webpack.d.ts code/connectors-morningstar.d.ts && cp src/webpack.d.ts code/connectors-morningstar.src.d.ts",
+        "webpack:dts:dbm": "cp src/webpack.d.ts code/dashboards-morningstar.d.ts && cp src/webpack.d.ts code/dashboards-morningstar.src.d.ts",
+        "webpack:dts:dgm": "cp src/webpack.d.ts code/datagrid-morningstar.d.ts && cp src/webpack.d.ts code/datagrid-morningstar.src.d.ts",
+        "webpack:dts:hcm": "cp src/webpack.d.ts code/highcharts-morningstar.d.ts && cp src/webpack.d.ts code/highcharts-morningstar.src.d.ts"
     }
 }
