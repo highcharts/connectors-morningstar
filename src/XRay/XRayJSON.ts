@@ -45,6 +45,7 @@ namespace XRayJSON {
         trailingPerformance?: Array<TrailingPerformance>;
     }
 
+
     export interface Breakdowns {
         assetAllocation: Array<AssetAllocation>;
     }
@@ -57,6 +58,7 @@ namespace XRayJSON {
         startDate: string;
         timePeriod: string;
     }
+
 
     export type HistoricalReturn = [
         date: string,
