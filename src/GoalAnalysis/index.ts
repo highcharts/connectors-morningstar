@@ -22,7 +22,7 @@
  * */
 
 
-import TimeSeriesConnector from './TimeSeriesConnector';
+import GoalAnalysisConnector from './GoalAnalysisConnector';
 
 
 /* *
@@ -32,10 +32,9 @@ import TimeSeriesConnector from './TimeSeriesConnector';
  * */
 
 
-export * from './TimeSeriesConnector';
-export * from './TimeSeriesConverter';
-export * as TimeSeriesConverters from './Converters/index';
-export * from './TimeSeriesOptions';
+export * from './GoalAnalysisConnector';
+export * from './GoalAnalysisConverter';
+export * from './GoalAnalysisOptions';
 
 
 /* *
@@ -45,4 +44,4 @@ export * from './TimeSeriesOptions';
  * */
 
 
-export default TimeSeriesConnector;
+export default GoalAnalysisConnector;
