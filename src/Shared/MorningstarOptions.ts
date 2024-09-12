@@ -233,6 +233,61 @@ export enum MorningstarSecurityType {
 
 /* *
  *
+ *  Functions
+ *
+ * */
+
+
+export function isMorningstarHoldingAmountOptions (
+    options?: unknown
+): options is MorningstarHoldingAmountOptions {
+    return (
+        !!options &&
+        typeof options === 'object' &&
+        (
+            typeof (options as MorningstarHoldingAmountOptions).amount === 'number' ||
+            typeof (options as MorningstarHoldingAmountOptions).amount === 'string'
+        ) &&
+        typeof (options as MorningstarHoldingValueOptions).value === 'undefined' &&
+        typeof (options as MorningstarHoldingWeightOptions).weight === 'undefined'
+    );
+}
+
+
+export function isMorningstarHoldingValueOptions (
+    options?: unknown
+): options is MorningstarHoldingValueOptions {
+    return (
+        !!options &&
+        typeof options === 'object' &&
+        typeof (options as MorningstarHoldingAmountOptions).amount === 'undefined' &&
+        (
+            typeof (options as MorningstarHoldingValueOptions).value === 'number' ||
+            typeof (options as MorningstarHoldingValueOptions).value === 'string'
+        ) &&
+        typeof (options as MorningstarHoldingWeightOptions).weight === 'undefined'
+    );
+}
+
+
+export function isMorningstarHoldingWeightOptions (
+    options?: unknown
+): options is MorningstarHoldingWeightOptions {
+    return (
+        !!options &&
+        typeof options === 'object' &&
+        typeof (options as MorningstarHoldingAmountOptions).amount === 'undefined' &&
+        typeof (options as MorningstarHoldingValueOptions).value === 'undefined' &&
+        (
+            typeof (options as MorningstarHoldingWeightOptions).weight === 'number' ||
+            typeof (options as MorningstarHoldingWeightOptions).weight === 'string'
+        )
+    );
+}
+
+
+/* *
+ *
  *  Default Export
  *
  * */
