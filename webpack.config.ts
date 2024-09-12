@@ -10,7 +10,6 @@ import type { Configuration } from 'webpack';
 import * as FS from 'node:fs';
 import * as Path from 'node:path';
 
-
 /* *
  *
  *  Declarations
@@ -75,6 +74,8 @@ const externals = {
 
 
 const metas: Record<string, Meta> = {
+    /**
+     * @todo fix bridge targets
     dashboards: {
         filename: 'dashboards-morningstar.js',
         umdNames: {
@@ -98,7 +99,7 @@ const metas: Record<string, Meta> = {
             commonjs,
             root: ['Highcharts', 'Morningstar']
         }
-    },
+    }, */
     standalone: {
         filename: 'connectors-morningstar.js',
         noExternals: true,
@@ -115,7 +116,7 @@ const sharedConfiguration: Configuration = {
 
     mode: 'production',
 
-    devtool: 'source-map',
+    devtool: 'hidden-source-map',
 
     performance: {
         hints: 'error',
@@ -136,7 +137,7 @@ const webpacks: Array<Configuration> = Object.keys(metas).map(variant => ({
     // Path to the main file
     entry: Path.resolve(projectFolder, `${sourceFolder}/index.js`),
 
-    externals: (metas[variant].noExternals ? void 0 : externals),
+    externals,
 
     // Name for the javascript file that is created/compiled in memory
     output: {
@@ -168,27 +169,27 @@ const webpacks: Array<Configuration> = Object.keys(metas).map(variant => ({
 
 
 for (let webpack of webpacks.slice()) {
+    const filename = '' + webpack.output?.filename;
+    const path = '' + webpack.output?.path;
+
     webpack = structuredClone(webpack);
+
     webpack.optimization = {
         ...webpack.optimization,
         minimize: false
     };
-    if (
-        typeof webpack.output === 'object' &&
-        typeof webpack.output.filename === 'string' &&
-        typeof webpack.output.path === 'string'
-    ) {
-        webpack.output.filename =
-            Path.basename(webpack.output.filename, '.js') + '.src.js';
-        webpack.output.path =
-            Path.resolve(webpack.output.path, Path.join('..', 'code'));
-    }
+
+    webpack.output!.filename = Path.basename(filename, '.js') + '.src.js';
+    webpack.output!.path = Path.resolve(path, Path.join('..', 'code'));
+
     webpack.performance = {
         ...webpack.performance,
         maxAssetSize: 1000000,
         maxEntrypointSize: 1000000
     };
+
     webpacks.push(webpack);
+
 }
 
 

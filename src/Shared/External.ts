@@ -22,8 +22,13 @@
  * */
 
 
+import type * as _Dashboards from '@highcharts/dashboards';
+import type * as _DataGrid from '@highcharts/dashboards/datagrid';
+
+
+import _DataConnector from '@highcharts/dashboards/es-modules/Data/Connectors/DataConnector';
 import _DataConverter from '@highcharts/dashboards/es-modules/Data/Converters/DataConverter';
-import * as _Dashboards from '@highcharts/dashboards';
+import _DataTable from '@highcharts/dashboards/es-modules/Data/DataTable';
 
 
 /* *
@@ -33,19 +38,13 @@ import * as _Dashboards from '@highcharts/dashboards';
  * */
 
 
-export type DataConnector = _Dashboards.DataConnector;
-
-
-export type DataConnectorOptions = Partial<_Dashboards.DataConnector.UserOptions>;
-
-
-export type DataConveter = _DataConverter;
+export type DataConnectorOptions = Partial<_DataConnector.UserOptions>;
 
 
 export type DataConverterOptions = Partial<_DataConverter.Options>;
 
 
-export type DataTable = _Dashboards.DataTable;
+export type DataTable = _DataTable;
 
 
 /* *
@@ -55,13 +54,31 @@ export type DataTable = _Dashboards.DataTable;
  * */
 
 
-export const DataConnector = _Dashboards.DataConnector;
+const Dashboards: typeof _Dashboards = globalThis.Dashboards;
 
 
-export const DataConverter = _DataConverter;
+const DataGrid: typeof _DataGrid = globalThis.DataGrid;
 
 
-export const DataTable = _Dashboards.DataTable;
+export const DataConnector = (
+    Dashboards?.DataConnector ||
+    DataGrid?.DataConnector ||
+    _DataConnector
+);
+
+
+export const DataConverter = (
+    Dashboards?.DataConverter ||
+    DataGrid?.DataConverter ||
+    _DataConverter
+);
+
+
+export const DataTable = (
+    Dashboards?.DataTable ||
+    DataGrid?.DataTable ||
+    _DataTable
+);
 
 
 /* *

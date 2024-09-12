@@ -99,6 +99,51 @@ export interface MorningstarConverterOptions extends External.DataConverterOptio
 }
 
 
+export interface MorningstarHoldingAmountOptions extends MorningstarSecurityOptions {
+
+    /**
+     * Holding amount.
+     */
+    amount: number;
+
+    /**
+     * Name of holding.
+     */
+    name?: string;
+
+}
+
+
+export interface MorningstarHoldingWeightOptions extends MorningstarSecurityOptions {
+
+    /**
+     * Name of holding.
+     */
+    name?: string;
+
+    /**
+     * Holding weight.
+     */
+    weight: (number|string);
+
+}
+
+
+export interface MorningstarHoldingValueOptions extends MorningstarSecurityOptions {
+
+    /**
+     * Name of holding.
+     */
+    name?: string;
+
+    /**
+     * Holding value.
+     */
+    value: number;
+
+}
+
+
 export interface MorningstarOptions extends External.DataConnectorOptions {
 
     /**
@@ -183,6 +228,61 @@ export enum MorningstarSecurityType {
     'UK LP SubAccounts' = 'VA',
     'Unit Investment Trust' = 'FI',
     'Variable Annuity' = 'V1'
+}
+
+
+/* *
+ *
+ *  Functions
+ *
+ * */
+
+
+export function isMorningstarHoldingAmountOptions (
+    options?: unknown
+): options is MorningstarHoldingAmountOptions {
+    return (
+        !!options &&
+        typeof options === 'object' &&
+        (
+            typeof (options as MorningstarHoldingAmountOptions).amount === 'number' ||
+            typeof (options as MorningstarHoldingAmountOptions).amount === 'string'
+        ) &&
+        typeof (options as MorningstarHoldingValueOptions).value === 'undefined' &&
+        typeof (options as MorningstarHoldingWeightOptions).weight === 'undefined'
+    );
+}
+
+
+export function isMorningstarHoldingValueOptions (
+    options?: unknown
+): options is MorningstarHoldingValueOptions {
+    return (
+        !!options &&
+        typeof options === 'object' &&
+        typeof (options as MorningstarHoldingAmountOptions).amount === 'undefined' &&
+        (
+            typeof (options as MorningstarHoldingValueOptions).value === 'number' ||
+            typeof (options as MorningstarHoldingValueOptions).value === 'string'
+        ) &&
+        typeof (options as MorningstarHoldingWeightOptions).weight === 'undefined'
+    );
+}
+
+
+export function isMorningstarHoldingWeightOptions (
+    options?: unknown
+): options is MorningstarHoldingWeightOptions {
+    return (
+        !!options &&
+        typeof options === 'object' &&
+        typeof (options as MorningstarHoldingAmountOptions).amount === 'undefined' &&
+        typeof (options as MorningstarHoldingValueOptions).value === 'undefined' &&
+        (
+            typeof (options as MorningstarHoldingWeightOptions).weight === 'number' ||
+            typeof (options as MorningstarHoldingWeightOptions).weight === 'string'
+        )
+    );
 }
 
 
