@@ -25,13 +25,15 @@
 import External from '../Shared/External';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
+import {
+    isMorningstarHoldingAmountOptions,
+    isMorningstarHoldingWeightOptions,
+    MorningstarHoldingAmountOptions,
+    MorningstarHoldingWeightOptions
+} from '../Shared/MorningstarOptions';
 import MorningstarURL from '../Shared/MorningstarURL';
 import XRayConverter from './XRayConverter';
-import {
-    XRayHoldingAmountOptions,
-    XRayHoldingWeightOptions,
-    XRayOptions
-} from './XRayOptions';
+import XRayOptions from './XRayOptions';
 
 
 /* *
@@ -44,39 +46,8 @@ import {
 interface XRayPortfolioObject {
     benchmarkId?: string;
     currencyId?: string;
-    holdings?: (Array<XRayHoldingAmountOptions>|Array<XRayHoldingWeightOptions>);
+    holdings?: (Array<MorningstarHoldingAmountOptions>|Array<MorningstarHoldingWeightOptions>);
     type?: (2|3);
-}
-
-
-/* *
- *
- *  Functions
- *
- * */
-
-
-function isXRayHoldingAmountOptions (
-    options?: unknown
-): options is XRayHoldingAmountOptions {
-    return (
-        !!options &&
-        typeof options === 'object' &&
-        typeof (options as XRayHoldingAmountOptions).amount === 'string' &&
-        typeof (options as XRayHoldingWeightOptions).weight === 'undefined'
-    );
-}
-
-
-function isXRayHoldingWeightOptions (
-    options?: unknown
-): options is XRayHoldingAmountOptions {
-    return (
-        !!options &&
-        typeof options === 'object' &&
-        typeof (options as XRayHoldingAmountOptions).amount === 'undefined' &&
-        typeof (options as XRayHoldingWeightOptions).weight === 'string'
-    );
 }
 
 
@@ -139,13 +110,14 @@ export class XRayConnector extends MorningstarConnector {
             return this;
         }
 
-        const amountHoldings: Array<XRayHoldingAmountOptions> = [];
-        const weightHoldings: Array<XRayHoldingWeightOptions> = [];
+        const amountHoldings: Array<MorningstarHoldingAmountOptions> = [];
+        const weightHoldings: Array<MorningstarHoldingWeightOptions> = [];
 
         for (const holding of holdings) {
-            if (isXRayHoldingAmountOptions(holding)) {
+            if (isMorningstarHoldingAmountOptions(holding)) {
                 amountHoldings.push(holding);
-            } else if (isXRayHoldingWeightOptions(holding)) {
+            }
+            if (isMorningstarHoldingWeightOptions(holding)) {
                 weightHoldings.push(holding);
             }
         }

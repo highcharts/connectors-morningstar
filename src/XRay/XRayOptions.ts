@@ -24,8 +24,9 @@
 
 import type {
     MorningstarConverterOptions,
-    MorningstarOptions,
-    MorningstarSecurityOptions
+    MorningstarHoldingAmountOptions,
+    MorningstarHoldingWeightOptions,
+    MorningstarOptions
 } from '../Shared/MorningstarOptions';
 
 
@@ -69,21 +70,6 @@ export type XRayDataPointOptions = (
     | XRayHoldingDataPointOptions
     | XRayPortfolioDataPointOptions
 );
-
-
-export interface XRayHoldingAmountOptions extends MorningstarSecurityOptions {
-
-    /**
-     * Holding amount.
-     */
-    amount: string;
-
-    /**
-     * Name of holding.
-     */
-    name?: string;
-
-}
 
 
 export interface XRayHoldingDataPointOptions {
@@ -148,21 +134,6 @@ export type XRayHoldingDataPoints = (
 );
 
 
-export interface XRayHoldingWeightOptions extends MorningstarSecurityOptions {
-
-    /**
-     * Name of holding.
-     */
-    name?: string;
-
-    /**
-     * Holding weight.
-     */
-    weight: string;
-
-}
-
-
 export interface XRayOptions extends MorningstarOptions {
 
     /**
@@ -183,7 +154,7 @@ export interface XRayOptions extends MorningstarOptions {
     /**
      * Array of portfolio holdings.
      */
-    holdings?: (Array<XRayHoldingAmountOptions>|Array<XRayHoldingWeightOptions>);
+    holdings?: (Array<MorningstarHoldingAmountOptions>|Array<MorningstarHoldingWeightOptions>);
 
 }
 
