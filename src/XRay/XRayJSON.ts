@@ -48,6 +48,7 @@ namespace XRayJSON {
 
     export interface Breakdowns {
         assetAllocation: Array<AssetAllocation>;
+        regionalExposure?: Array<RegionalExposure>;
     }
 
 
@@ -159,6 +160,10 @@ namespace XRayJSON {
             (
                 (json as Breakdowns).assetAllocation.length === 0 ||
                 isAssetAllocation((json as Breakdowns).assetAllocation[0])
+            ) &&
+            (
+                typeof (json as Breakdowns).regionalExposure === 'undefined' ||
+                isRegionalExposure((json as Breakdowns).regionalExposure)
             )
         );
     }
@@ -213,6 +218,18 @@ namespace XRayJSON {
             !!json &&
             typeof json === 'object' &&
             isXRayResponse((json as Response).XRay)
+        );
+    }
+
+
+    function isRegionalExposure (
+        json?: unknown
+    ): json is RegionalExposure {
+        return (
+            !!json &&
+            typeof json === 'object' &&
+            typeof (json as RegionalExposure).salePosition === 'string' &&
+            typeof (json as RegionalExposure).values === 'object'
         );
     }
 

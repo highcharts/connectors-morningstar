@@ -68,6 +68,11 @@ export abstract class MorningstarConnector extends External.DataConnector {
     public abstract override readonly converter: MorningstarConverter;
 
 
+    public get meta (): Record<string, (boolean|number|string)> {
+        return this.converter.meta;
+    }
+
+
     protected readonly options: MorningstarOptions;
 
 

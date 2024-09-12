@@ -48,6 +48,7 @@ export abstract class MorningstarConverter extends External.DataConverter {
     ) {
         super(options);
 
+        this.meta = {};
         this.options = options as Required<MorningstarConverterOptions>;
         this.table = new External.DataTable();
     }
@@ -58,6 +59,9 @@ export abstract class MorningstarConverter extends External.DataConverter {
      *  Properties
      *
      * */
+
+
+    public readonly meta: Record<string, (boolean|number|string)>;
 
 
     public override options: Required<MorningstarConverterOptions>;
