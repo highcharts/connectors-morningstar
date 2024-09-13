@@ -80,6 +80,7 @@
                 "space-before-function-paren": 2,
                 "strict": 0,
                 "eol-last": ["error", "always"],
+                "@typescript-eslint/require-await": 0,
                 "@typescript-eslint/restrict-plus-operands": 0,
                 "@typescript-eslint/restrict-template-expressions": 0,
                 "jsdoc/check-alignment": 1,
