@@ -1,6 +1,6 @@
 {
     "private": true,
-    "version": "0.4.0",
+    "version": "0.4.1",
     "name": "@highcharts/connectors-morningstar",
     "license": "UNLICENSED",
     "description": "Highcharts connectors for Morningstar Direct Web Services",
@@ -27,7 +27,7 @@
         "Morningstar",
         "Time Series"
     ],
-    "peerDependencies": {
-        "@highcharts/dashboards": "^2.2.0"
+    "optionalDependencies": {
+        "@highcharts/dashboards": ">=2.3.0"
     }
 }

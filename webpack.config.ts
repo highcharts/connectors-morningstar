@@ -116,7 +116,7 @@ const sharedConfiguration: Configuration = {
 
     mode: 'production',
 
-    devtool: 'hidden-source-map',
+    devtool: 'source-map',
 
     performance: {
         hints: 'error',
