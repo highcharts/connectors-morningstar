@@ -24,8 +24,7 @@ export async function ratingLoad (
     );
 
     Assert.ok(
-        connector.converter instanceof
-        MC.TimeSeriesConverters.DividendSeriesConverter,
+        connector.converter instanceof MC.TimeSeriesConverters.DividendSeriesConverter,
         'Converter should be instance of TimeSeries DividendSeriesConverter.'
     );
 
