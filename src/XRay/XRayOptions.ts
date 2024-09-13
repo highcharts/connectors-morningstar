@@ -56,6 +56,7 @@ export type XRayBenchmarkDataPoints = (
     | 'GrowthSeries'
     | 'HistoricalPerformanceSeries'
     | 'PerformanceReturn'
+    | ['PerformanceReturn', ...Array<string>]
     | 'ShowBreakdown'
 );
 
@@ -137,6 +138,11 @@ export type XRayHoldingDataPoints = (
 export interface XRayOptions extends MorningstarOptions {
 
     /**
+     * Morningstar-defined unique identifier of a benchmark.
+     */
+    benchmarkId?: string;
+
+    /**
      * Options related to the x-ray data parser.
      */
     converter?: XRayConverterOptions;
@@ -188,12 +194,14 @@ export type XRayPortfolioDataPoints = (
     | 'CalmarRatio'
     | 'Correlation'
     | 'CorrelationMatrix'
+    | ['CorrelationMatrix', ...Array<string>]
     | 'CountryExposure'
     | 'CreditQuality'
     | 'CumulativePerformanceSeries'
     | 'CurrencyId'
     | 'DailyGrowthSeries'
     | 'DailyPerformanceReturn'
+    | ['DailyPerformanceReturn', ...Array<string>]
     | 'DownsideCaptureRatio'
     | 'EffectiveDuration'
     | 'EffectiveMaturity'
@@ -205,6 +213,7 @@ export type XRayPortfolioDataPoints = (
     | 'GlobalStockSector'
     | 'GrowthSeries'
     | 'HistoricalPerformanceSeries'
+    | ['HistoricalPerformanceSeries', ...Array<string>]
     | 'HoldingCount'
     | 'InformationRatio'
     | 'Kurtosis'
@@ -214,6 +223,7 @@ export type XRayPortfolioDataPoints = (
     | 'NegativeHoldingCount'
     | 'OngoingCharge'
     | 'PerformanceReturn'
+    | ['PerformanceReturn', ...Array<string>]
     | 'PortfolioId'
     | 'PositiveHoldingCount'
     | 'ProspectiveBookValueYield'
@@ -227,6 +237,7 @@ export type XRayPortfolioDataPoints = (
     | 'SortinoRatio'
     | 'SRRI'
     | 'StandardDeviation'
+    | ['StandardDeviation', ...Array<string>]
     | 'StyleBox'
     | 'TrackingError'
     | 'TreynorRatio'

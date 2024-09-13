@@ -43,11 +43,70 @@ import XRayOptions from './XRayOptions';
  * */
 
 
+interface XRayHoldingObject {
+    amount?: string;
+    identifier: string;
+    identifierType: string;
+    holdingType: number;
+    name?: string;
+    securityType?: string;
+    weight?: string;
+}
+
+
 interface XRayPortfolioObject {
     benchmarkId?: string;
     currencyId?: string;
-    holdings?: (Array<MorningstarHoldingAmountOptions>|Array<MorningstarHoldingWeightOptions>);
+    holdings?: Array<XRayHoldingObject>;
     type?: (2|3);
+}
+
+
+/* *
+ *
+ *  Functions
+ *
+ * */
+
+
+function convertHoldings (
+    holdings: (Array<MorningstarHoldingAmountOptions>|Array<MorningstarHoldingWeightOptions>),
+    holdingType: number
+): Array<XRayHoldingObject> {
+    return holdings.map(security => {
+        const holding: XRayHoldingObject = {
+            identifier: security.id,
+            identifierType: security.idType,
+            holdingType
+        };
+
+        if (security.name) {
+            holding.name = security.name;
+        }
+
+        if (security.type) {
+            holding.securityType = security.type;
+        }
+
+        return holding;
+    });
+}
+
+function escapeDataPoints (
+    dataPoints: Array<(string|Array<string>)>
+): string {
+
+    dataPoints = dataPoints.map(dataPoint => (
+        dataPoint instanceof Array ?
+            dataPoint.join('|') :
+            dataPoint
+    ));
+
+    if (!dataPoints.length) {
+        return '';
+    }
+
+    return `UseMongoSecurities,RunInThread,${dataPoints.join(',')}`;
 }
 
 
@@ -74,6 +133,7 @@ export class XRayConnector extends MorningstarConnector {
         super(options);
 
         this.converter = new XRayConverter(options?.converter);
+        this.metadata = { columns: {} };
         this.options = options;
     }
 
@@ -86,6 +146,9 @@ export class XRayConnector extends MorningstarConnector {
 
 
     public override readonly converter: XRayConverter;
+
+
+    public override readonly metadata: XRayConnector.MetaData;
 
 
     public override readonly options: XRayOptions;
@@ -123,35 +186,49 @@ export class XRayConnector extends MorningstarConnector {
         }
 
         const bodyJSON: XRayPortfolioObject = {
-            benchmarkId: 'XIUSA0010V',
+            benchmarkId: (options.benchmarkId || 'XIUSA0010V'),
             currencyId: options.currencyId
         };
 
         if (amountHoldings.length > weightHoldings.length) {
-            bodyJSON.type = 2;
-            bodyJSON.holdings = amountHoldings;
-        } else {
             bodyJSON.type = 3;
-            bodyJSON.holdings = weightHoldings;
+            bodyJSON.holdings = convertHoldings(amountHoldings, bodyJSON.type);
+        } else {
+            bodyJSON.type = 2;
+            bodyJSON.holdings = convertHoldings(weightHoldings, bodyJSON.type);
         }
 
+        this.metadata.benchmarkId = bodyJSON.benchmarkId;
+
         const api = this.api = this.api || new MorningstarAPI(options.api);
-        const url = new MorningstarURL('/ecint/v1/xray', api.baseURL);
+        const url = new MorningstarURL('ecint/v1/xray/json', api.baseURL);
 
         switch (dataPoints.type) {
             case 'benchmark':
-                url.searchParams.set('benchmarkDataPoints', dataPoints.dataPoints.join(','));
+                url.searchParams.set(
+                    'benchmarkDataPoints',
+                    escapeDataPoints(dataPoints.dataPoints)
+                );
                 break;
             case 'holding':
-                url.searchParams.set('holdingDataPoints', dataPoints.dataPoints.join(','));
+                url.searchParams.set(
+                    'holdingDataPoints',
+                    escapeDataPoints(dataPoints.dataPoints)
+                );
                 break;
             case 'portfolio':
-                url.searchParams.set('portfolioDataPoints', dataPoints.dataPoints.join(','));
+                url.searchParams.set(
+                    'portfolioDataPoints',
+                    escapeDataPoints(dataPoints.dataPoints)
+                );
                 break;
         }
 
         const response = await api.fetch(url, {
-            body: JSON.stringify(bodyJSON),
+            body: JSON.stringify(JSON.stringify(bodyJSON)),
+            headers: {
+                'Content-Type': 'application/json'
+            },
             method: 'POST'
         });
         const json = await response.json() as unknown;
@@ -162,6 +239,33 @@ export class XRayConnector extends MorningstarConnector {
         this.table.setColumns(this.converter.getTable().getColumns());
 
         return this;
+    }
+
+
+}
+
+
+/* *
+ *
+ *  Class Namespace
+ *
+ * */
+
+
+export namespace XRayConnector {
+
+
+    /* *
+     *
+     *  Declarations
+     *
+     * */
+
+
+    export interface MetaData {
+        benchmarkId?: string;
+        /** @internal */
+        columns: Record<string, object>;
     }
 
 
