@@ -24,6 +24,7 @@
 
 import * as FS from 'node:fs';
 import * as HTTP from 'node:http';
+import * as Marked from 'marked';
 import * as Path from 'node:path';
 
 
@@ -48,6 +49,8 @@ export const MIMES: Record<string, string> = {
     html: 'text/html',
     ico: 'image/x-icon',
     map: 'application/json',
+    markdown: 'text/markdown',
+    md: 'text/markdown',
     png: 'image/png',
     svg: 'image/svg+xml',
     ttf: 'font/ttf',
@@ -106,10 +109,15 @@ export class Server {
 
 
     public constructor (
-        folder: string = process.cwd()
+        folder: string = process.cwd(),
+        defaultFile: string = 'index.html'
     ) {
+        this.defaultFile = defaultFile;
         this.folder = folder;
-        this.http = new HTTP.Server((req, res) => this.handle(req, res));
+        this.http = new HTTP.Server((req, res) => {
+            // eslint-disable-next-line no-console
+            this.handle(req, res).catch(console.error);
+        });
     }
 
 
@@ -118,6 +126,9 @@ export class Server {
      *  Properties
      *
      * */
+
+
+    public defaultFile: string;
 
 
     public folder: string;
@@ -142,12 +153,12 @@ export class Server {
      * @param response 
      * Outgoing HTTP message.
      */
-    public handle (
+    public async handle (
         request: HTTP.IncomingMessage,
         response: HTTP.ServerResponse<HTTP.IncomingMessage>
-    ): void {
+    ): Promise<void> {
         let folder = this.folder;
-        let path = sanitizePath(request.url || '/index.html');
+        let path = sanitizePath(request.url || '/' + this.defaultFile);
 
         if (path.startsWith('/code/')) {
             if (folder.includes('node_modules')) {
@@ -163,7 +174,7 @@ export class Server {
         let file = Path.posix.basename(path);
 
         if (path.endsWith('/')) {
-            file = 'index.html';
+            file = this.defaultFile;
         } else {
             file = Path.posix.basename(path);
             path = Path.posix.dirname(path) + '/';
@@ -184,20 +195,27 @@ export class Server {
             filePath = filePath.substring(1);
         }
 
-        FS.readFile(
-            filePath,
-            (error, data) => {
-                if (error) {
-                    // eslint-disable-next-line no-console
-                    console.error(error.message);
-                    response.writeHead(404);
-                    response.end('404: Path not found', 'utf-8');
-                } else {
-                    response.writeHead(200, { 'Content-Type': MIMES[ext] });
-                    response.end(data);
-                }
+        try {
+            let fileBuffer = FS.readFileSync(filePath);
+
+            if (['', 'markdown', 'md'].includes(ext)) {
+                fileBuffer = Buffer.from(await Marked.marked(fileBuffer.toString('utf8')));
+                ext = 'html';
             }
-        );
+            response.writeHead(200, { 'Content-Type': MIMES[ext] });
+            response.end(fileBuffer);
+
+        } catch (error) {
+
+            if (error instanceof Error) {
+                // eslint-disable-next-line no-console
+                console.error(error.message);
+            }
+
+            response.writeHead(404);
+            response.end('404: Path not found', 'utf-8');
+
+        }
 
     }
 
