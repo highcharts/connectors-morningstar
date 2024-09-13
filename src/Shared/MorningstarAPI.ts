@@ -151,7 +151,7 @@ export class MorningstarAPI {
                 new Headers(requestInit.headers)
         );
 
-        headers.set('User-Agent', 'HighchartsConnectorsMorningstar/' + version);
+        headers.set('User-Agent', `HighchartsConnectorsMorningstar/${version}`);
 
         const response = await window.fetch(url, requestInit);
 
