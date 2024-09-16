@@ -9,6 +9,7 @@ period.
 - [Cumulative Return](cumulative-return.md)
 - [Dividend](dividend.md)
 - [Growth](growth.md)
+- [OHLCV](ohlcv.md)
 - [Price](price.md)
 - [Regulatory News Announcements](../rna-news/regulatory-news-announcements.md)
 

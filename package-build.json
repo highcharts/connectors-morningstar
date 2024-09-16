@@ -27,6 +27,9 @@
         "Morningstar",
         "Time Series"
     ],
+    "dependencies": {
+        "marked": "^14.1.2"
+    },
     "optionalDependencies": {
         "@highcharts/dashboards": ">=2.3.0"
     }
