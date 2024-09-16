@@ -58,6 +58,7 @@ interface XRayPortfolioObject {
     benchmarkId?: string;
     currencyId?: string;
     holdings?: Array<XRayHoldingObject>;
+    /** 1: Value / 2: Weight / 3: Amount */
     type?: (2|3);
 }
 

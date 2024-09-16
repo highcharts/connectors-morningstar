@@ -27,12 +27,12 @@ export async function breakdownLoad (
 
     Assert.ok(
         connector instanceof MC.XRayConnector,
-        'Connector should be instance of TimeSeries class.'
+        'Connector should be instance of XRayConnector class.'
     );
 
     Assert.ok(
         connector.converter instanceof MC.XRayConverter,
-        'Converter should be instance of TimeSeries DividendSeriesConverter.'
+        'Converter should be instance of XRayConverter class.'
     );
 
     await connector.load();

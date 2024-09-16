@@ -135,10 +135,21 @@ export type XRayHoldingDataPoints = (
 );
 
 
+export type XRayHoldingOptions = (
+    | Array<MorningstarHoldingAmountOptions>
+    | Array<MorningstarHoldingWeightOptions>
+);
+
+
 export interface XRayOptions extends MorningstarOptions {
 
     /**
      * Morningstar-defined unique identifier of a benchmark.
+     *
+     * If no benchmark is set, it will default to
+     * `Morningstar US Market TR USD`.
+     *
+     * @default 'XIUSA0010V'
      */
     benchmarkId?: string;
 
@@ -160,7 +171,7 @@ export interface XRayOptions extends MorningstarOptions {
     /**
      * Array of portfolio holdings.
      */
-    holdings?: (Array<MorningstarHoldingAmountOptions>|Array<MorningstarHoldingWeightOptions>);
+    holdings?: XRayHoldingOptions;
 
 }
 
