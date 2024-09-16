@@ -42,22 +42,25 @@ export const DEFAULT_PORT = 8080;
 
 
 export const MIMES: Record<string, string> = {
-    css: 'text/css',
+    css: 'text/css; charset=UTF-8',
     eot: 'application/vnd.ms-fontobject',
-    js: 'application/javascript',
-    json: 'application/json',
-    html: 'text/html',
+    gif: 'image/gif',
+    html: 'text/html; charset=UTF-8',
     ico: 'image/x-icon',
-    map: 'application/json',
+    jpeg: 'image/jpeg',
+    jpg: 'image/jpeg',
+    js: 'application/javascript; charset=UTF-8',
+    json: 'application/json; charset=UTF-8',
+    map: 'application/json; charset=UTF-8',
     markdown: 'text/markdown',
-    md: 'text/markdown',
+    md: 'text/markdown; charset=UTF-8',
     png: 'image/png',
-    svg: 'image/svg+xml',
+    svg: 'image/svg+xml; charset=UTF-8',
     ttf: 'font/ttf',
-    txt: 'text/plain',
+    txt: 'text/plain; charset=UTF-8',
     woff: 'font/woff',
     woff2: 'font/woff2',
-    xml: 'application/xml'
+    xml: 'application/xml; charset=UTF-8'
 };
 
 
@@ -91,6 +94,22 @@ function sanitizePath (path: string) {
 }
 
 
+/**
+ * Removes all non-word characters and capitalize the first character.
+ *
+ * @param text
+ * Text to capitalize.
+ *
+ * @return
+ * Capitalized text.
+ */
+function capitalize (text: string) {
+    return text
+        .replace(/\W/gu, ' ')
+        .replace(/\b\w/gu, (match) => match.toUpperCase());
+}
+
+
 /* *
  *
  *  Class
@@ -110,8 +129,10 @@ export class Server {
 
     public constructor (
         folder: string = process.cwd(),
-        defaultFile: string = 'index.html'
+        defaultFile: string = 'index.html',
+        baseTitle: string = ''
     ) {
+        this.baseTitle = baseTitle;
         this.defaultFile = defaultFile;
         this.folder = folder;
         this.http = new HTTP.Server((req, res) => {
@@ -126,6 +147,9 @@ export class Server {
      *  Properties
      *
      * */
+
+
+    public baseTitle: string;
 
 
     public defaultFile: string;
@@ -199,7 +223,16 @@ export class Server {
             let fileBuffer = FS.readFileSync(filePath);
 
             if (['', 'markdown', 'md'].includes(ext)) {
-                fileBuffer = Buffer.from(await Marked.marked(fileBuffer.toString('utf8')));
+                const title = capitalize(file.substring(0, file.length - ext.length - 1));
+                fileBuffer = Buffer.from([
+                    '<!DOCTYPE html>',
+                    '<html><head>',
+                    '<meta charset="UTF-8" />',
+                    `<title>${title}${this.baseTitle}</title>`,
+                    '</head><body>',
+                    await Marked.marked(fileBuffer.toString('utf8')),
+                    '</body></html>'
+                ].join('\n'));
                 ext = 'html';
             }
             response.writeHead(200, { 'Content-Type': MIMES[ext] });

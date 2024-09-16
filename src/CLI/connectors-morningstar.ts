@@ -133,7 +133,8 @@ export async function main (): Promise<void> {
                             Path.join(__dirname, '..', 'docs', 'connectors')
                         )
                 ),
-                'morningstar.md'
+                'morningstar.md',
+                ' | Highcharts Docs'
             );
             break;
 
