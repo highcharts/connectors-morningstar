@@ -58,8 +58,6 @@ export class MorningstarAPI {
             window.location.href
         );
 
-        this.baseURL.pathname = '/ecint/v1/';
-
         if (this.baseURL.protocol !== 'https:') {
             throw new Error('Insecure API protocol');
         }

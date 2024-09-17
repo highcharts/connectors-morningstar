@@ -80,6 +80,9 @@ export namespace MorningstarPostman {
                 password: password.value,
                 username: username.value
             };
+            if (url) {
+                apiOptions.access.url = `https://${url.value}`;
+            }
         }
 
         if (url) {
