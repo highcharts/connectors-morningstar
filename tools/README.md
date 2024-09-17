@@ -1,7 +1,7 @@
 Highcharts Morningstar Connectors Tools
 =======================================
 
-These scripts are used to prepare distribution of new releases.
+These scripts are used to prepare the distribution of new releases.
 
 
 
