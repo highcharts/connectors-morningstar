@@ -126,11 +126,12 @@ async function runUnitTests () {
     const failures: Array<string> = [];
     const successes: Array<string> = [];
     const stdout = process.stdout;
+    const testFolder = Path.join(__dirname, '..', 'tests');
 
     let test: unknown;
     let unitTests: Record<string, unknown>;
 
-    for (let path of (await FS.readdir('tests', { recursive: true })).sort()) {
+    for (let path of (await FS.readdir(testFolder, { recursive: true })).sort()) {
 
         if (!path.endsWith('.test.ts')) {
             continue;
@@ -138,7 +139,7 @@ async function runUnitTests () {
 
         stdWrite('Start', path.substring(0, path.length - 8), 'tests ...\n');
 
-        path = Path.join(__dirname, '..', 'tests', path.substring(0, path.length - 3));
+        path = Path.join(testFolder, path.substring(0, path.length - 3));
         unitTests = await import(path) as Record<string, unknown>;
 
         for (let testName of Object.keys(unitTests)) {
