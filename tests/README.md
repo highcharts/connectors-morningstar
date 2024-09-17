@@ -20,4 +20,4 @@ You have to define the Morningstar credentials to be able to run the tests.
 
 3. Now you can run the tests with:
 
-   - `npm run test:unit-tests`
+   - `npm run test:tests`
