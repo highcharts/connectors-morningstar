@@ -146,7 +146,9 @@ export async function main (): Promise<void> {
 
     server.start(port);
 
-    console.info(`Content available at http://localhost:${port}.`);
+    if (server.http?.listening) {
+        console.info(`Content available at http://localhost:${port}.`);
+    }
 
     process.stdin.on('data', (data) => {
         const input = data.toString('utf8');
