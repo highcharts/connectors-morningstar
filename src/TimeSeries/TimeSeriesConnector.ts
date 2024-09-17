@@ -22,18 +22,13 @@
  * */
 
 
+import Converters from './Converters';
 import External from '../Shared/External';
-import GrowthSeriesConverter from './Converters/GrowthSeriesConverter';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
-import CumulativeReturnSeriesConverter from './Converters/CumulativeReturnSeriesConverter';
-import DividendSeriesConverter from './Converters/DividendSeriesConverter';
-import TimeSeriesOptions, { OHLCVSeriesOptions } from './TimeSeriesOptions';
-import TimeSeriesRatingConverter from './Converters/RatingSeriesConverter';
-import PriceSeriesConverter from './Converters/PriceSeriesConverter';
 import TimeSeriesConverter from './TimeSeriesConverter';
-import { OHLCVSeriesConverter } from './Converters';
+import TimeSeriesOptions from './TimeSeriesOptions';
 
 
 /* *
@@ -54,54 +49,52 @@ export class TimeSeriesConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: TimeSeriesOptions
+        options: TimeSeriesOptions = {}
     ) {
         super(options);
 
         switch (options.series?.type) {
 
             case 'CumulativeReturn':
-                this.converter = new CumulativeReturnSeriesConverter({
+                this.converter = new Converters.CumulativeReturnSeriesConverter({
                     ...options.converter,
                     ...options.series
                 });
                 break;
 
             case 'Dividend':
-                this.converter = new DividendSeriesConverter({
+                this.converter = new Converters.DividendSeriesConverter({
                     ...options.converter,
                     ...options.series
                 });
                 break;
 
             case 'Growth':
-                this.converter = new GrowthSeriesConverter({
+                this.converter = new Converters.GrowthSeriesConverter({
                     ...options.converter,
                     ...options.series
                 });
                 break;
 
             case 'Rating':
-                this.converter = new TimeSeriesRatingConverter({
+                this.converter = new Converters.RatingSeriesConverter({
                     ...options.converter,
                     ...options.series
                 });
                 break;
 
             case 'Price':
-                this.converter = new PriceSeriesConverter({
+                this.converter = new Converters.PriceSeriesConverter({
                     ...options.converter,
                     ...options.series
                 });
                 break;
 
             case 'OHLCV':
-                this.converter = new OHLCVSeriesConverter({
+                this.converter = new Converters.OHLCVSeriesConverter({
                     ...options.converter,
                     ...options.series,
-                    securities: options.securities,
-                    replaceZeroWithCloseValue: (options as OHLCVSeriesOptions)
-                        .replaceZeroWithCloseValue
+                    securities: options.securities
                 });
                 break;
 
@@ -136,6 +129,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
 
 
     public override async load (): Promise<this> {
+
         await super.load();
 
         const options = this.options;
@@ -151,7 +145,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
         }
 
         const api = this.api = this.api || new MorningstarAPI(options.api);
-        const url = new MorningstarURL('/ecint/v1/' + this.converter.path, api.baseURL);
+        const url = new MorningstarURL('ecint/v1/' + this.converter.path, api.baseURL);
 
         url.setSecuritiesOptions(securities);
 

@@ -127,7 +127,7 @@ export class MorningstarAccess {
         this.url = (
             options.url ?
                 new URL(options.url, window.location.href) :
-                new URL('/token/oauth', MorningstarRegion.baseURLs[MorningstarRegion.detect()])
+                new URL('token/oauth', MorningstarRegion.baseURLs[MorningstarRegion.detect()])
         );
 
         if (this.url.protocol !== 'https:') {

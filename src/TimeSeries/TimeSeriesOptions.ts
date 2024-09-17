@@ -175,7 +175,7 @@ export interface TimeSeriesOptions extends MorningstarOptions {
     localization?: LocalizationOptions;
 
     /**
-     * Security to retrieve.
+     * Securities to retrieve.
      * 
      * **NOTE: When series type is `OHLCV`, only one security is supported.**
      */
