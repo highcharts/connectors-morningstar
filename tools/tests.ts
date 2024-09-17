@@ -25,11 +25,12 @@
  * */
 
 
-import type { Shared } from '../../code/connectors-morningstar.src';
+import type { Shared } from '../code/connectors-morningstar.src';
 
 import * as FS from 'node:fs/promises';
 import * as FSSync from 'node:fs';
 import * as JSDOM from 'jsdom';
+import * as Path from 'node:path';
 
 
 /* *
@@ -129,7 +130,7 @@ async function runUnitTests () {
     let test: unknown;
     let unitTests: Record<string, unknown>;
 
-    for (let path of (await FS.readdir(__dirname, { recursive: true })).sort()) {
+    for (let path of (await FS.readdir('tests', { recursive: true })).sort()) {
 
         if (!path.endsWith('.test.ts')) {
             continue;
@@ -137,7 +138,7 @@ async function runUnitTests () {
 
         stdWrite('Start', path.substring(0, path.length - 8), 'tests ...\n');
 
-        path = './' + path.substring(0, path.length - 3);
+        path = Path.join(__dirname, '..', 'tests', path.substring(0, path.length - 3));
         unitTests = await import(path) as Record<string, unknown>;
 
         for (let testName of Object.keys(unitTests)) {

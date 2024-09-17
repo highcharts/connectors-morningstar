@@ -64,4 +64,4 @@ jobs:
         run: npm run webpack
 
       - name: Run unit-tests
-        run: npx ts-node test/unit-tests/runtime
+        run: npm run test:units

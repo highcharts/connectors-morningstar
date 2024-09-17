@@ -1,5 +1,5 @@
 import * as Assert from 'node:assert/strict';
-import * as MC from '../../../code/connectors-morningstar.src';
+import * as MC from '../../code/connectors-morningstar.src';
 
 export async function ratingLoad (
     api: MC.Shared.MorningstarAPIOptions
@@ -13,7 +13,7 @@ export async function ratingLoad (
             idType: 'MSID'
         }],
         series: {
-            type: 'Rating'
+            type: 'Dividend'
         },
         startDate: '2020-01-01'
     });
@@ -24,9 +24,8 @@ export async function ratingLoad (
     );
 
     Assert.ok(
-        connector.converter instanceof
-        MC.TimeSeriesConverters.RatingSeriesConverter,
-        'Converter should be instance of TimeSeries RatingSeriesConverter.'
+        connector.converter instanceof MC.TimeSeriesConverters.DividendSeriesConverter,
+        'Converter should be instance of TimeSeries DividendSeriesConverter.'
     );
 
     await connector.load();
@@ -39,8 +38,8 @@ export async function ratingLoad (
 
     Assert.strictEqual(
         connector.table.getRowCount(),
-        12,
-        'Connector table should have 12 expected rating rows.'
+        1,
+        'Connector table should have one expected dividend row.'
     );
 
 }
