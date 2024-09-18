@@ -32,15 +32,15 @@ export namespace RiskScoreJSON {
      * */
 
     export type Response = {
-        riskScores: RiskScore[]
+        riskScores: RiskScoreResponse[]
     };
 
-    export type RiskScore = {
-        portfolio: RiskScorePortfolio,
-        metadata: RiskScoreMetadata
+    export type RiskScoreResponse = {
+        portfolio: RiskScorePortfolioResponse,
+        metadata: RiskScoreMetadataResponse
     };
 
-    export type RiskScorePortfolio = {
+    export type RiskScorePortfolioResponse = {
         externalId: string,
         name: string,
         riskScore: number,
@@ -51,7 +51,7 @@ export namespace RiskScoreJSON {
         effectiveDate: string
     };
 
-    export type RiskScoreMetadata = {
+    export type RiskScoreMetadataResponse = {
         requestId: string,
         messages: RiskScoreMetadataMessage[]
     };
@@ -84,49 +84,49 @@ export namespace RiskScoreJSON {
             Array.isArray((json as Response).riskScores) &&
             (
                 (json as Response).riskScores.length === 0 ||
-                isRiskScore((json as Response).riskScores[0])
+                isRiskScoreResponse((json as Response).riskScores[0])
             )
         );
     }
 
-    function isRiskScore (
+    function isRiskScoreResponse (
         json?: unknown
-    ): json is RiskScore {
+    ): json is RiskScoreResponse {
         return (
             !!json &&
             typeof json === 'object' &&
-            typeof (json as RiskScore).portfolio === 'object' &&
-            typeof (json as RiskScore).metadata === 'object' &&
-            isRiskScorePortfolio((json as RiskScore).portfolio) &&
-            isRiskScoreMetadata((json as RiskScore).metadata)
+            typeof (json as RiskScoreResponse).portfolio === 'object' &&
+            typeof (json as RiskScoreResponse).metadata === 'object' &&
+            isRiskScorePortfolioResponse((json as RiskScoreResponse).portfolio) &&
+            isRiskScoreMetadataResponse((json as RiskScoreResponse).metadata)
         );
     }
 
-    function isRiskScorePortfolio (
+    function isRiskScorePortfolioResponse (
         json?: unknown
-    ): json is RiskScorePortfolio {
+    ): json is RiskScorePortfolioResponse {
         return (
             !!json &&
             typeof json === 'object' &&
-            typeof (json as RiskScorePortfolio).externalId              === 'string' &&
-            typeof (json as RiskScorePortfolio).name                    === 'string' &&
-            typeof (json as RiskScorePortfolio).riskScore               === 'number' &&
-            typeof (json as RiskScorePortfolio).alignmentScore          === 'number' &&
-            typeof (json as RiskScorePortfolio).rSquared                === 'number' &&
-            typeof (json as RiskScorePortfolio).retainedWeightProxied   === 'number' &&
-            typeof (json as RiskScorePortfolio).scoringMethodUsed       === 'string' &&
-            typeof (json as RiskScorePortfolio).effectiveDate           === 'string'
+            typeof (json as RiskScorePortfolioResponse).externalId              === 'string' &&
+            typeof (json as RiskScorePortfolioResponse).name                    === 'string' &&
+            typeof (json as RiskScorePortfolioResponse).riskScore               === 'number' &&
+            typeof (json as RiskScorePortfolioResponse).alignmentScore          === 'number' &&
+            typeof (json as RiskScorePortfolioResponse).rSquared                === 'number' &&
+            typeof (json as RiskScorePortfolioResponse).retainedWeightProxied   === 'number' &&
+            typeof (json as RiskScorePortfolioResponse).scoringMethodUsed       === 'string' &&
+            typeof (json as RiskScorePortfolioResponse).effectiveDate           === 'string'
         );
     }
 
-    function isRiskScoreMetadata (
+    function isRiskScoreMetadataResponse (
         json?: unknown
-    ): json is RiskScoreMetadata {
+    ): json is RiskScoreMetadataResponse {
         return (
             !!json &&
             typeof json === 'object' &&
-            typeof (json as RiskScoreMetadata).requestId === 'string' &&
-            isRiskScoreMetadataMessages((json as RiskScoreMetadata).messages)
+            typeof (json as RiskScoreMetadataResponse).requestId === 'string' &&
+            isRiskScoreMetadataMessages((json as RiskScoreMetadataResponse).messages)
         );
     }
 
