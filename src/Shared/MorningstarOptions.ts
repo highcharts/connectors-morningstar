@@ -99,7 +99,7 @@ export interface MorningstarConverterOptions extends External.DataConverterOptio
 }
 
 
-export interface MorningstarHoldingAmountOptions extends MorningstarSecurityOptions {
+export interface MorningstarHoldingAmountOptions extends MorningstarHoldingOptions {
 
     /**
      * Holding amount.
@@ -114,7 +114,7 @@ export interface MorningstarHoldingAmountOptions extends MorningstarSecurityOpti
 }
 
 
-export interface MorningstarHoldingWeightOptions extends MorningstarSecurityOptions {
+export interface MorningstarHoldingWeightOptions extends MorningstarHoldingOptions {
 
     /**
      * Name of holding.
@@ -129,7 +129,7 @@ export interface MorningstarHoldingWeightOptions extends MorningstarSecurityOpti
 }
 
 
-export interface MorningstarHoldingValueOptions extends MorningstarSecurityOptions {
+export interface MorningstarHoldingValueOptions extends MorningstarHoldingOptions {
 
     /**
      * Name of holding.
@@ -184,7 +184,7 @@ export interface MorningstarPostmanOptions {
 }
 
 
-export interface MorningstarSecurityOptions {
+interface MorningstarSecurityOptionsGeneric<IDType> {
 
     /**
      * Security identifier.
@@ -194,7 +194,7 @@ export interface MorningstarSecurityOptions {
     /**
      * Security identifier type.
      */
-    idType: string;
+    idType: IDType;
 
     /**
      * Type of security.
@@ -202,6 +202,20 @@ export interface MorningstarSecurityOptions {
     type?: (string|MorningstarSecurityType);
 
 }
+
+export type MorningstarSecurityOptions = MorningstarSecurityOptionsGeneric<string>;
+
+export type HoldingIdentiferType = (
+    | 'CUSIP'
+    | 'FundCode'
+    | 'ISIN'
+    | 'MSID'
+    | 'PerformanceId'
+    | 'SecurityID'
+    | 'TradingSymbol'
+);
+
+export type MorningstarHoldingOptions = MorningstarSecurityOptionsGeneric<HoldingIdentiferType>;
 
 
 /* *
