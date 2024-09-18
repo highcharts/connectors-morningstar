@@ -20,7 +20,6 @@
 
 import { Currency } from '../Shared/LocalizationOptions';
 import MorningstarOptions, { MorningstarConverterOptions, MorningstarHoldingValueOptions, MorningstarHoldingWeightOptions } from '../Shared/MorningstarOptions';
-import RiskScoreJSON from './RiskScoreJSON';
 
 
 /* *
@@ -31,7 +30,9 @@ import RiskScoreJSON from './RiskScoreJSON';
 
 
 export interface RiskScoreConverterOptions extends MorningstarConverterOptions {
-    json?: RiskScoreJSON.Response
+
+    // Nothing to add yet
+
 }
 
 export interface RiskScorePortfolio {
