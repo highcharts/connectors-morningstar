@@ -45,9 +45,6 @@ interface Data {
  * */
 
 
-const DATABASE_NAME = 'api.json';
-
-
 const KEY_ANTI_PATTERN = /[^\w\- ]+/gsu;
 
 
@@ -144,12 +141,13 @@ export class Database {
 
     public constructor (
         product: string,
-        storageFolder: string = process.cwd()
+        storageFolder: string = process.cwd(),
+        name: string = 'api'
     ) {
-        this.cache = {};
         this.namePrefix = `${product}/`;
         this.product = product;
         this.storageFolder = storageFolder;
+        this.filePath = Path.join(storageFolder, `${sanitizeKey(name)}.json`);
     }
 
 
@@ -160,7 +158,10 @@ export class Database {
      * */
 
 
-    private readonly cache: Record<string, Data>;
+    private dataCache?: Data;
+
+
+    public readonly filePath: string;
 
 
     private readonly namePrefix: string;
@@ -184,18 +185,19 @@ export class Database {
     }
 
 
-    private async getData (
-        name: string = DATABASE_NAME
-    ): Promise<Data> {
-        let data = this.cache[name];
+    private async getData (): Promise<Data> {
+        const filePath = this.filePath;
+
+        let data = this.dataCache;
 
         if (data) {
             return data;
         }
 
-        const filePath = this.getFilePath(name);
-
-        if (!FS.lstatSync(filePath).isFile()) {
+        if (
+            !FS.existsSync(filePath) ||
+            !FS.lstatSync(filePath).isFile()
+        ) {
             await this.saveData({
                 deprecated: [],
                 description: [],
@@ -208,16 +210,9 @@ export class Database {
 
         data = JSON.parse(FS.readFileSync(filePath, 'utf8')) as Data;
 
-        this.cache[name] = data;
+        this.dataCache = data;
 
         return data;
-    }
-
-
-    private getFilePath (
-        name: string
-    ): string {
-        return Path.join(this.storageFolder, `${sanitizeKey(name)}.json`);
     }
 
 
@@ -323,13 +318,10 @@ export class Database {
     private async saveData (
         data: Data
     ): Promise<Data> {
-        const name = DATABASE_NAME;
+        const filePath = this.filePath;
 
-        FS.writeFileSync(
-            this.getFilePath(name),
-            JSON.stringify(data, void 0, '\t'),
-            'utf8'
-        );
+        FS.mkdirSync(Path.dirname(filePath), { recursive: true });
+        FS.writeFileSync(filePath, JSON.stringify(data, void 0, '\t'), 'utf8');
 
         return data;
     }
@@ -380,7 +372,7 @@ export namespace Database {
      * */
 
 
-    export interface Doclet {
+    export interface Doclet extends Record<string, unknown> {
         default?: Array<(boolean|number|string)>;
         example?: Array<string>;
         exclude?: Array<string>;

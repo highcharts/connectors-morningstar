@@ -21,6 +21,7 @@
 
 import RNANewsOptions from './RNANews/RNANewsOptions';
 import TimeSeriesOptions from './TimeSeries/TimeSeriesOptions';
+import XRayOptions from './XRay/XRayOptions';
 
 
 /* *
@@ -32,4 +33,5 @@ import TimeSeriesOptions from './TimeSeries/TimeSeriesOptions';
 interface Options {
     RNANews: RNANewsOptions;
     TimeSeries: TimeSeriesOptions;
+    XRay: XRayOptions;
 }
