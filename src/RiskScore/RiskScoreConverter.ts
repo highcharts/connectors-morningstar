@@ -27,6 +27,25 @@ import { RiskScoreConverterOptions } from './RiskScoreOptions';
 
 /* *
  *
+ *  Declarations
+ *
+ * */
+
+
+type RiskScorePortfolio = {
+    externalId?: string,
+    name: string,
+    riskScore: number,
+    alignmentScore: number,
+    rSquared: number,
+    retainedWeightProxied: number,
+    scoringMethodUsed: string,
+    effectiveDate: number
+};
+
+
+/* *
+ *
  *  Class
  *
  * */
@@ -102,19 +121,53 @@ export class RiskScoreConverter extends MorningstarConverter {
             throw new Error('Invalid data');
         }
 
-        const portfolioNames = json.riskScores.map(riskScore => riskScore.portfolio.name);
+        // Parse and cumulate risk scores by date
+
+        const sortedPortfolios: RiskScorePortfolio[] = [];
+
+        for (const riskScorePortfolio of json.riskScores) {
+            const {
+                externalId,
+                name,
+                effectiveDate,
+                riskScore,
+                alignmentScore,
+                rSquared,
+                retainedWeightProxied,
+                scoringMethodUsed
+            } = riskScorePortfolio.portfolio;
+
+            sortedPortfolios.push({
+                externalId,
+                name,
+                effectiveDate: Date.parse(effectiveDate),
+                riskScore,
+                alignmentScore,
+                rSquared,
+                retainedWeightProxied,
+                scoringMethodUsed
+            });
+        }
+
+        sortedPortfolios.sort((a, b) => (
+            a.effectiveDate === b.effectiveDate ?
+                0 :
+                a.effectiveDate < b.effectiveDate ? -1 : 1
+        ));
+
+        const portfolioNames = sortedPortfolios.map(portfolio => portfolio.name);
 
         // Reset table
 
         table.deleteColumns();
 
         const valueColumns = [
-            'RiskScore', 
-            'AlignmentScore', 
-            'RSquared', 
-            'RetainedWeightProxied', 
-            'ScoringMethodUsed', 
-            'EffectiveDate'
+            'EffectiveDate',
+            'RiskScore',
+            'AlignmentScore',
+            'RSquared',
+            'RetainedWeightProxied',
+            'ScoringMethodUsed'
         ];
 
         for (const portfolioName of portfolioNames) {
@@ -125,17 +178,17 @@ export class RiskScoreConverter extends MorningstarConverter {
 
         // Add risk scores to table
 
-        for (let rowIndex = 0; rowIndex < json.riskScores.length; rowIndex++) {
-            const riskScore = json.riskScores[rowIndex];
-            const portfolio = riskScore.portfolio;
+        for (let rowIndex = 0; rowIndex < sortedPortfolios.length; rowIndex++) {
+            const portfolio = sortedPortfolios[rowIndex];
             const riskScoreValues = [
+                portfolio.effectiveDate,
                 portfolio.riskScore,
                 portfolio.alignmentScore,
                 portfolio.rSquared,
                 portfolio.retainedWeightProxied,
-                portfolio.scoringMethodUsed,
-                portfolio.effectiveDate
+                portfolio.scoringMethodUsed
             ];
+
             for (let columnIndex = 0; columnIndex < riskScoreValues.length; columnIndex++) {
                 const column = `${portfolio.name}_${valueColumns[columnIndex]}`;
                 const value = riskScoreValues[columnIndex];
