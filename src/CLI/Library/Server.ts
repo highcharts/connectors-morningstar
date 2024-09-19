@@ -249,7 +249,7 @@ export class Server {
 
             response.writeHead(200, {
                 'Access-Control-Allow-Origin': '*',
-                'Content-Type': MIMES[ext]
+                'Content-Type': MIME_TYPES[ext]
             });
             response.end(fileBuffer);
 

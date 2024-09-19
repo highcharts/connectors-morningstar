@@ -174,7 +174,7 @@ function treeNode (
 function escape (
     text: string
 ): string {
-    return text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');
+    return text.replace(/&/gu, '&amp;').replace(/</gu, '&lt;').replace(/>/gu, '&gt;');
 }
 
 
