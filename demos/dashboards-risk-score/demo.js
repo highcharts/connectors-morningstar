@@ -41,16 +41,32 @@ function displayRiskScore (postmanJSON) {
                 type: 'DataGrid',
                 title: 'RiskScore',
                 dataGridOptions: {
-                    editable: false
-                    // columns: {
-                    //     Day: {
-                    //         cellFormatter: function () {
-                    //             return new Date(this.value)
-                    //                 .toISOString()
-                    //                 .substring(0, 10);
-                    //         }
-                    //     }
-                    // }
+                    editable: false,
+                    columns: {
+                        'TestPortfolio1_EffectiveDate': {
+                            headerFormat: 'Date',
+                            cellFormatter: function () {
+                                return new Date(this.value)
+                                    .toISOString()
+                                    .substring(0, 10);
+                            }
+                        },
+                        'TestPortfolio1_RiskScore': {
+                            headerFormat: 'RiskScore'
+                        },
+                        'TestPortfolio1_AlignmentScore': {
+                            headerFormat: 'AlignmentScore'
+                        },
+                        'TestPortfolio1_RSquared': {
+                            headerFormat: 'RSquared'
+                        },
+                        'TestPortfolio1_RetainedWeightProxied': {
+                            headerFormat: 'RetainedWeight'
+                        },
+                        'TestPortfolio1_ScoringMethodUsed': {
+                            headerFormat: 'ScoringMethod'
+                        }
+                    }
                 }
             }
         ]
