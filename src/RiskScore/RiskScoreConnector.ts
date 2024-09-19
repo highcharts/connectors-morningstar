@@ -253,6 +253,11 @@ export class RiskScoreConnector extends MorningstarConnector {
                     holding => convertMorningstarHoldingOptionsToMorningstarHoldingRequest(holding)
                 )
             });
+            
+            if (portfolio.currency === undefined) {
+                portfolio.currency = 'BAS';
+            }
+
             return portfolio as unknown as RiskScorePortfolioRequest;
         });
 

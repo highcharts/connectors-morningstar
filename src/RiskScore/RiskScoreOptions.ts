@@ -45,8 +45,6 @@ export interface BaseRiskScorePortfolio {
 
     /**
      * Currency to use for value conversions. Use `BAS` for base currency.
-     * 
-     * FIXME: Required, pass BAS if not provided.
      */
     currency?: Currency;
 
