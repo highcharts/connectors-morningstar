@@ -67,7 +67,7 @@ export interface RiskScorePortfolio extends BaseRiskScorePortfolio {
     /**
      * List of holdings in your portfolio.
      * 
-     * You specify the quantity of a holding using `weight` xor `value`. 
+     * You specify the quantity of a holding using either `weight` or `value`. 
      * If `weight` is used, you must specify `totalValue`.
      */
     holdings: MorningstarHoldingWeightOptions[] | MorningstarHoldingValueOptions[];
