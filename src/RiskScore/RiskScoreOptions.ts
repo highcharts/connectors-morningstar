@@ -35,21 +35,13 @@ export interface RiskScoreConverterOptions extends MorningstarConverterOptions {
 
 }
 
-export interface RiskScorePortfolio {
+export interface BaseRiskScorePortfolio {
     /**
      * The name of the portfolio.
      * 
      * This value is used for the column names in the DataTable.
      */
     name: string;
-
-    /**
-     * List of holdings in your portfolio.
-     * 
-     * You specify the quantity of a holding using `weight` xor `value`. 
-     * If `weight` is used, you must specify `totalValue`.
-     */
-    holdings: MorningstarHoldingWeightOptions[] | MorningstarHoldingValueOptions[];
 
     /**
      * Currency to use for value conversions. Use `BAS` for base currency.
@@ -71,6 +63,16 @@ export interface RiskScorePortfolio {
      * This field is required if the holdings are specified with `weight`
      */
     totalValue?: number;
+}
+
+export interface RiskScorePortfolio extends BaseRiskScorePortfolio {
+    /**
+     * List of holdings in your portfolio.
+     * 
+     * You specify the quantity of a holding using `weight` xor `value`. 
+     * If `weight` is used, you must specify `totalValue`.
+     */
+    holdings: MorningstarHoldingWeightOptions[] | MorningstarHoldingValueOptions[];
 }
 
 
