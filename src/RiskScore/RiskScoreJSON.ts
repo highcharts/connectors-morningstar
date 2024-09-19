@@ -41,7 +41,7 @@ export namespace RiskScoreJSON {
     };
 
     export type RiskScorePortfolioResponse = {
-        externalId: string,
+        externalId?: string,
         name: string,
         riskScore: number,
         alignmentScore: number,
@@ -75,6 +75,7 @@ export namespace RiskScoreJSON {
      *
      * */
 
+
     export function isResponse (
         json?: unknown
     ): json is Response {
@@ -96,9 +97,11 @@ export namespace RiskScoreJSON {
             !!json &&
             typeof json === 'object' &&
             typeof (json as RiskScoreResponse).portfolio === 'object' &&
-            typeof (json as RiskScoreResponse).metadata === 'object' &&
             isRiskScorePortfolioResponse((json as RiskScoreResponse).portfolio) &&
-            isRiskScoreMetadataResponse((json as RiskScoreResponse).metadata)
+            (
+                typeof (json as RiskScoreResponse).metadata === 'undefined' ||
+                isRiskScoreMetadataResponse((json as RiskScoreResponse).metadata)
+            )
         );
     }
 
@@ -108,7 +111,6 @@ export namespace RiskScoreJSON {
         return (
             !!json &&
             typeof json === 'object' &&
-            typeof (json as RiskScorePortfolioResponse).externalId              === 'string' &&
             typeof (json as RiskScorePortfolioResponse).name                    === 'string' &&
             typeof (json as RiskScorePortfolioResponse).riskScore               === 'number' &&
             typeof (json as RiskScorePortfolioResponse).alignmentScore          === 'number' &&
