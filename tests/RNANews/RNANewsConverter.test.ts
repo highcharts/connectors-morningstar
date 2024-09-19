@@ -1,6 +1,6 @@
 import * as Assert from 'node:assert/strict';
-import * as MC from '../../../code/connectors-morningstar.src';
-import RNANewsJSON from '../../../src/RNANews/RNANewsJSON';
+import * as MC from '../../code/connectors-morningstar.src';
+import RNANewsJSON from '../../src/RNANews/RNANewsJSON';
 
 export async function rnaNewsLoad (
     api: MC.Shared.MorningstarAPIOptions

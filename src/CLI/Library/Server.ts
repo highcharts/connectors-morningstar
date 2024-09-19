@@ -42,25 +42,25 @@ export const DEFAULT_PORT = 8080;
 
 
 export const MIME_TYPES: Record<string, string> = {
-    css: 'text/css; charset=UTF-8',
+    css: 'text/css; charset=utf-8',
     eot: 'application/vnd.ms-fontobject',
     gif: 'image/gif',
-    html: 'text/html; charset=UTF-8',
+    html: 'text/html; charset=utf-8',
     ico: 'image/x-icon',
     jpeg: 'image/jpeg',
     jpg: 'image/jpeg',
-    js: 'application/javascript; charset=UTF-8',
-    json: 'application/json; charset=UTF-8',
-    map: 'application/json; charset=UTF-8',
+    js: 'application/javascript',
+    json: 'application/json',
+    map: 'application/json',
     markdown: 'text/markdown',
-    md: 'text/markdown; charset=UTF-8',
+    md: 'text/markdown; charset=utf-8',
     png: 'image/png',
-    svg: 'image/svg+xml; charset=UTF-8',
+    svg: 'image/svg+xml',
     ttf: 'font/ttf',
-    txt: 'text/plain; charset=UTF-8',
+    txt: 'text/plain; charset=utf-8',
     woff: 'font/woff',
     woff2: 'font/woff2',
-    xml: 'application/xml; charset=UTF-8'
+    xml: 'application/xml'
 };
 
 
@@ -235,7 +235,22 @@ export class Server {
                 ].join('\n'));
                 ext = 'html';
             }
-            response.writeHead(200, { 'Content-Type': MIME_TYPES[ext] });
+
+            if (['html', 'js'].includes(ext)) {
+                fileBuffer = Buffer.from(
+                    fileBuffer
+                        .toString('utf8')
+                        .replace(
+                            /https:\/\/code\.highcharts\.com\/connectors\/morningstar\//u,
+                            '/code/'
+                        )
+                );
+            }
+
+            response.writeHead(200, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': MIMES[ext]
+            });
             response.end(fileBuffer);
 
         } catch (error) {
@@ -271,6 +286,7 @@ export class Server {
     ): Server {
 
         this.folder = (folder || this.folder);
+
         this.http.listen(port);
 
         return this;

@@ -1,19 +1,19 @@
 import * as Assert from 'node:assert/strict';
-import * as MC from '../../../code/connectors-morningstar.src';
+import * as MC from '../../code/connectors-morningstar.src';
 
-export async function ratingLoad (
+export async function growthLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.TimeSeriesConnector({
         api,
         currencyId: 'EUR',
-        endDate: '2020-12-31',
+        endDate: '2020-01-31',
         securities: [{
             id: 'F0GBR04S23',
             idType: 'MSID'
         }],
         series: {
-            type: 'Dividend'
+            type: 'Growth'
         },
         startDate: '2020-01-01'
     });
@@ -24,8 +24,9 @@ export async function ratingLoad (
     );
 
     Assert.ok(
-        connector.converter instanceof MC.TimeSeriesConverters.DividendSeriesConverter,
-        'Converter should be instance of TimeSeries DividendSeriesConverter.'
+        connector.converter instanceof
+        MC.TimeSeriesConverters.GrowthSeriesConverter,
+        'Converter should be instance of TimeSeries GrowthSeriesConverter.'
     );
 
     await connector.load();
@@ -38,8 +39,8 @@ export async function ratingLoad (
 
     Assert.strictEqual(
         connector.table.getRowCount(),
-        1,
-        'Connector table should have one expected dividend row.'
+        31,
+        'Connector table should have 31 growth rows.'
     );
 
 }

@@ -1,5 +1,5 @@
 import * as Assert from 'node:assert/strict';
-import * as MC from '../../code/connectors-morningstar.src';
+import * as MC from '../code/connectors-morningstar.src';
 
 export function version (): void {
 
