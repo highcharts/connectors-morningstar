@@ -124,20 +124,17 @@ function validatePortfolioHoldings (
     let holdingType: 'weight' | 'value' | undefined;
 
     for (const holding of (holdings as MorningstarAnyHoldingOptions[])) {
-        let currentHoldingType: 'weight' | 'value' | 'both' | undefined;
+        let currentHoldingType: 'weight' | 'value' | undefined;
+        const holdingName = holding.name ?? holding.id;
+
         if (holding.weight !== undefined && holding.value !== undefined) {
-            currentHoldingType = 'both';
+            throw new Error(`The holding “${holdingName}” in the portfolio “${portfolioName}” cannot have both weight and value.`);
         } else if (holding.weight !== undefined) {
             currentHoldingType = 'weight';
         } else if (holding.value !== undefined) {
             currentHoldingType = 'value';
         } else {
-            const holdingName = holding.name ?? holding.id;
             throw new Error(`The holding “${holdingName}” in the portfolio “${portfolioName}” does not have a value nor a weight.`);
-        }
-        
-        if (currentHoldingType === 'both') {
-            continue;
         }
 
         if (holdingType === undefined) {
@@ -161,10 +158,7 @@ function convertMorningstarHoldingOptionsToMorningstarHoldingRequest (
     
     const typeErasedHolding = holding as MorningstarAnyHoldingOptions;
 
-    if (typeErasedHolding.weight !== undefined && typeErasedHolding.value !== undefined) {
-        holdingRequest.value = typeErasedHolding.value;
-        holdingRequest.weight = typeErasedHolding.weight;
-    } else if (typeErasedHolding.weight !== undefined) {
+    if (typeErasedHolding.weight !== undefined) {
         holdingRequest.weight = typeErasedHolding.weight;
     } else if (typeErasedHolding.value !== undefined) {
         holdingRequest.value = typeErasedHolding.value;
