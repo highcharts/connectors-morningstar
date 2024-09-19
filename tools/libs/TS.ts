@@ -787,8 +787,8 @@ export function autoExtendInfo<T extends (ClassInfo|InterfaceInfo)> (
             // Check if already defined in target
             if (
                 !_name ||
-                extractInfos(infoToExtend.members, _name) ||
-                _member.kind !== 'Property'
+                _member.kind !== 'Property' ||
+                extractInfos(infoToExtend.members, _name)
             ) {
                 continue;
             }

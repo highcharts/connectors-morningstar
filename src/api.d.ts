@@ -30,6 +30,10 @@ import XRayOptions from './XRay/XRayOptions';
  *
  * */
 
+
+/**
+ * Available types of the Highcharts Morningstar Connectors.
+ */
 interface Options {
     RNANews: RNANewsOptions;
     TimeSeries: TimeSeriesOptions;

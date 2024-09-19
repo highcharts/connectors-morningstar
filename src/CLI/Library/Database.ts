@@ -142,7 +142,7 @@ export class Database {
     public constructor (
         product: string,
         storageFolder: string = process.cwd(),
-        name: string = 'api'
+        name: string = 'database'
     ) {
         this.namePrefix = `${product}/`;
         this.product = product;

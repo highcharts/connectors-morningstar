@@ -52,7 +52,8 @@ const REFERENCES: Record<string, true> = {};
 
 async function addOption (
     parentItem: (Database.Item|undefined),
-    codeInfo: (TSLib.CodeInfo|undefined)
+    codeInfo: (TSLib.CodeInfo|undefined),
+    reference: string = ''
 ): Promise<(Database.Item|undefined)> {
 
     if (!codeInfo) {
@@ -72,11 +73,7 @@ async function addOption (
 
     // Skip recursive traps
 
-    const reference = (
-        codeInfo.meta.scope ?
-            `${codeInfo.meta.file}:${codeInfo.meta.scope}.${name}` :
-            `${codeInfo.meta.file}:${name}`
-    );
+    reference += [codeInfo.meta.file, codeInfo.meta.scope, name].join(':');
 
     if (REFERENCES[reference]) {
         return void 0;
@@ -136,7 +133,7 @@ async function addOption (
                         .extractTypes(member.type || [])
                         .some(type => type.endsWith('Options'))
                 ) {
-                    return addOption(void 0, member);
+                    return addOption(void 0, member, reference);
                 }
             }
             break;
@@ -148,7 +145,7 @@ async function addOption (
             value = codeInfo.value;
             return (
                 value && typeof value === 'object' ?
-                    addOption(parentItem, value) :
+                    addOption(parentItem, value, reference) :
                     void 0
             );
 
@@ -170,19 +167,15 @@ async function addOption (
             item = void 0;
             if (codeInfo.name.endsWith('Options')) {
                 TSLib.autoExtendInfo(codeInfo);
-                if (doclet) {
-                    if (parentItem) {
-                        item = void 0;
-                        value =
-                            TSLib.extractTagText(doclet, 'description', true);
-                        if (typeof value === 'string') {
-                            parentItem.description = (
-                                parentItem.description ?
-                                    `${parentItem.description}\n\n${value}` :
-                                    value
-                            );
-                            await DATABASE.setItem(parentItem);
-                        }
+                if (doclet && parentItem) {
+                    value = TSLib.extractTagText(doclet, 'description', true);
+                    if (typeof value === 'string') {
+                        parentItem.description = (
+                            parentItem.description ?
+                                `${parentItem.description}\n\n${value}` :
+                                value
+                        );
+                        await DATABASE.setItem(parentItem);
                     }
                 }
                 moreInfos.push(...codeInfo.members);
@@ -229,10 +222,8 @@ async function addOption (
 
             }
             if (codeInfo.type) {
-                item.doclet.type = TSLib.extractTypes(codeInfo.type, true);
-                for (let type of item.doclet.type) {
-                    type = type.replace(/^Array<(.*)>$/u, '$1');
-                    type = type.replace(/^Partial<(.*)>$/u, '$1');
+                item.doclet.type = TSLib.extractTypes(codeInfo.type);
+                for (const type of item.doclet.type) {
                     if (type.endsWith('Options')) {
                         resolved = TSLib.resolveReference(
                             codeInfo,
@@ -256,7 +247,7 @@ async function addOption (
             );
             return (
                 resolved ?
-                    addOption(parentItem, resolved) :
+                    addOption(parentItem, resolved, reference) :
                     void 0
             );
 
@@ -315,14 +306,14 @@ async function addOption (
 
     if (moreInfos.length) {
         for (const moreInfo of moreInfos) {
-            await addOption(item || parentItem, moreInfo);
+            await addOption(item || parentItem, moreInfo, reference);
         }
     }
 
     // Done
 
     if (item) {
-        console.log('Added', item.name);
+        // console.log('Added', item.name);
     }
 
     return item;
@@ -344,8 +335,6 @@ async function main () {
         .map(sourcePath => Path.join('src', sourcePath));
 
     for (const sourcePath of sourcePaths) {
-        /* eslint-disable-next-line no-console */
-        console.log('Loading', sourcePath, '...');
         if (FS.lstatSync(sourcePath).isFile()) {
             TSLib.getSourceInfo(sourcePath);
         }

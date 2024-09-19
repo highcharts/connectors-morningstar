@@ -1,12 +1,56 @@
+/* *
+ *
+ *  (c) 2009-2024 Highsoft AS
+ *
+ *  License: www.highcharts.com/license
+ *
+ *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
+ *
+ *  Authors:
+ *  - Sophie Bremer
+ *
+ * */
+
+
+/* *
+ *
+ *  Functions
+ *
+ * */
+
+
+function each (
+    obj: (Array<unknown>|Record<string, unknown>),
+    fn: (key: string, ths: any) => string
+): string {
+    const results = [];
+
+    if (obj) {
+        for (const key of Object.keys(obj)) {
+            results.push(fn(key, (obj as Record<string, unknown>)[key]));
+        }
+    }
+
+    return results.join('');
+}
+
+
+/* *
+ *
+ *  Default Export
+ *
+ * */
+
+
 /* eslint-disable */
 export default (ctx: Record<string, any>) => `<!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns#">
+<html>
     <head>
 
+        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+
         <title>${ctx.node.meta.fullname ? ctx.node.meta.fullname + ' | ' : ''}${ctx.productName} ${ctx.platform} API Reference</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-        <link rel="stylesheet" href="/static/style.css" type="text/css" />
 
         <link rel="apple-touch-icon" sizes="57x57" href="/static/apple-touch-icon-57x57.png" />
         <link rel="apple-touch-icon" sizes="114x114" href="/static/apple-touch-icon-114x114.png" />
@@ -23,21 +67,9 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
         <link rel="icon" type="image/png" href="/static/favicon-16x16.png" sizes="16x16" />
         <link rel="icon" type="image/png" href="/static/favicon-32x32.png" sizes="32x32" />
 
-        <meta property="og:description" content="${ctx.opengraph.description}" />
-        <meta property="og:determiner" content="${ctx.opengraph.determiner}" />
-        <meta property="og:image" content="${ctx.opengraph.image}" />
-        <meta property="og:site_name" content="${ctx.opengraph.sitename}" />
-        <meta property="og:title" content="${ctx.opengraph.title}" />
-        <meta property="og:type" content="${ctx.opengraph.type}" />
-        <meta property="og:url" content="${ctx.opengraph.url}" />
-        <meta name="searchboost" content="${ctx.searchBoost}" />
-        <meta name="searchtitle" content="${ctx.searchTitle}" />
-        <meta name="twitter:card" content="${ctx.twitter.card}" />
-        <meta name="twitter:creator" content="${ctx.twitter.creator}" />
-        <meta name="twitter:site" content="${ctx.twitter.site}" />
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="/static/style.css" type="text/css" />
         <script type="text/javascript" src="/static/api.js"></script>
-        <script type="text/javascript" src="/websearch/highsoft-websearch.js"></script>
 
     </head>
     <body>
@@ -49,7 +81,7 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
                 </div>
                 <div id="highcharts-logo" class="cell">
                     <a href="https://www.highcharts.com/" title="Highcharts Home Page">
-                        <img alt="Highcharts Home Page" src="/static/highcharts.svg" border="0">
+                        <img alt="Highcharts Home Page" src="https://api.highcharts.com/highcharts/highcharts.svg" border="0">
                     </a>
                 </div>
                 <div id="page-title" class="cell">
@@ -66,9 +98,9 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
                         <a href="#" class="dropdown-link">${ctx.productName} <i class="fa fa-chevron-down" aria-hidden="true"></i></a>
                         <div class="dropdown-menu">
                             <ul>
-                                ${Object.entries<any>(ctx.toc).map(([key, ths]): string => `
+                                ${each(ctx.toc, (key, ths) => `
                                 <li class="product ${ths.active ? 'highlighted' : ''}">
-                                    <a id="${key}-link" href="${ths.versions.current ? ths.versions.current : '#' }">${ths.displayName}</a>
+                                    <a id="${key}-link" href="${ths.versions?.current ? ths.versions?.current : '#' }">${ths.displayName}</a>
                                 </li>
                                 `)}
                             </ul>
@@ -79,7 +111,7 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
                             <a href="#" class="dropdown-link">${ctx.platform}<i class="fa fa-chevron-down" aria-hidden="true"></i></a>
                             <div class="dropdown-menu">
                                 <ul class="group-list">
-                                    ${Object.entries<any>(ctx.platforms).map(([key, ths]): string => `
+                                    ${each(ctx.platforms, (key, ths) => `
                                     <li class="group ${ths.active ? 'highlighted' : ''}">
                                         <a href="${this}">${key}</a>
                                     </li>
@@ -118,14 +150,7 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
                 </div>
                 <div id="option-trees-wrapper">
                     <h3 id="options-header">Configuration options</h3>
-                    <p>For initial declarative chart setup. Download as <a href="${ctx.downloadUrl}">ZIP</a> or <a href="tree.json">JSON</a>.</p>
-                    ${ctx.product.noGlobalOptions ? '' : `
-                        <div class="global-options options-tree">
-                            <code>${ctx.product.namespace}.setOptions({</code>
-                            <div id="global-options" class="tree"></div>
-                            <code>});</code>
-                        </div>
-                    `}
+                    <p>For initial declarative connector setup.</p>
                     <div class="options-tree">
                         <code>${ctx.product.namespace}.${ctx.constr}({</code>
                         <div id="options" class="tree">
@@ -140,17 +165,17 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
                                     ` : ''}
                             `: ''}
                             ${Object.keys(ctx.node.children).length ? `
-                                ${Object.entries<any>(ctx.node.children).map(([_key, ths]): string => `
+                                ${each(ctx.node.children, (_key, ths) => `
                                     <div class="node collapsed option-${ths.shortName} ${ctx.node.meta.name ? 'leaf' : 'parent'}">
                                         <a class="title" href="${ths.name}">
-                                            ${ths.shortName}:${ths.node.children ? '<i class="fa fa-caret-right"></i>' : ''}
+                                            ${ths.shortName}:${ths.children ? '<i class="fa fa-caret-right"></i>' : ''}
                                         </a>
-                                        ${ths.node.children ? `
+                                        ${ths.node?.children ? `
                                             <span class="bracket start">{</span>
                                             <span class="dots">...</span>
                                             <span class="bracket end first">}</span>
                                         ` : `
-                                            <span class="default type-undefined">${ths.node.doclet.defaultvalue ? ths.node.doclet.defaultvalue : 'null'}</span>
+                                            <span class="default type-undefined">${ths.node?.doclet.defaultvalue ? ths.node?.doclet.defaultvalue : 'null'}</span>
                                         `}
                                     </div>
                                 `)}
@@ -176,7 +201,7 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
                 `}
             </div>
 
-            <div id="body" class="body${ctx.meta.fullname ? ' loaded' : ''}">
+            <div id="body" class="body${ctx.node.meta.fullname ? ' loaded' : ''}">
                 <div id="splashText">
                     <h1>Welcome to the <strong>${ctx.productName} ${ctx.platform}</strong> (${ctx.productModule}) Options Reference</h1>
                     <p>These pages outline the chart configuration options, and the methods and properties of ${ctx.product.namespace} objects.</p>
@@ -188,9 +213,9 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
                         <div class="option highlighted">
                             <h1 class="title">${ctx.node.meta.fullname}</h1>
                             <p class="description">
-                                <p>${escape(ctx.node.doclet.description)}</p>
+                                <p>${ctx.node.doclet.description}</p>
                                 ${ctx.node.doclet.productdesc ? `
-                                    <p>${escape(ctx.node.doclet.productdesc.value)}</p>
+                                    <p>${ctx.node.doclet.productdesc.value}</p>
                                 ` : ''}
                             </p>
                         </div>
@@ -209,10 +234,7 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
             </div>
 
             <p>
-                ${ctx.productName} v${ctx.version} -
-                Generated from branch
-                <a href="https://github.com/highcharts/highcharts/tree/${ctx.versionProps.branch}">${ctx.versionProps.branch}</a>
-                (commit <a href="https://github.com/highcharts/highcharts/commit/${ctx.versionProps.commit}">${ctx.versionProps.commit}</a>), on ${ctx.date}
+                ${ctx.productName} v${ctx.version}
             </p>
         </div>
         <script>

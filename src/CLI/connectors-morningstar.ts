@@ -26,9 +26,11 @@
  * */
 
 
-import Args, { SHORTCUTS as ARGS_SHORTCUTS } from './Library/Args';
 import * as FS from 'node:fs/promises';
 import * as Path from 'node:path';
+
+import Args, { SHORTCUTS as ARGS_SHORTCUTS } from './Library/Args';
+import APIServer from './Library/APIServer';
 import Server, { DEFAULT_PORT } from './Library/Server';
 
 
@@ -110,9 +112,13 @@ export async function main (): Promise<void> {
     switch (args._) {
 
         case 'api':
-            port = port || 9005;
-            console.info('Not implemented yet. Use VSC for inline API information.');
-            return;
+            port = port || 8005;
+            server = new APIServer(
+                Path.join(__dirname, '..', 'Static'),
+                'TimeSeries',
+                ' | Highcharts API'
+            );
+            break;
 
         case 'demo':
         case 'demos':
