@@ -26,9 +26,9 @@ import External from '../Shared/External';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarURL from '../Shared/MorningstarURL';
-import RiskScoreOptions, { RiskScorePortfolio } from './RiskScoreOptions';
+import RiskScoreOptions, { BaseRiskScorePortfolio, RiskScorePortfolio } from './RiskScoreOptions';
 import RiskScoreConverter from './RiskScoreConverter';
-import { MorningstarHoldingOptions, MorningstarHoldingValueOptions, MorningstarHoldingWeightOptions } from '../Shared/MorningstarOptions';
+import { HoldingIdentiferType, MorningstarHoldingOptions, MorningstarHoldingValueOptions, MorningstarHoldingWeightOptions } from '../Shared/MorningstarOptions';
 
 /* *
  * 
@@ -36,8 +36,48 @@ import { MorningstarHoldingOptions, MorningstarHoldingValueOptions, MorningstarH
  * 
  * */
 
+
+interface MorningstarHoldingRequest {
+    /**
+     * Security identifier.
+     */
+    identifier: string;
+
+    /**
+     * Security identifier type.
+     */
+    identifierType: HoldingIdentiferType;
+
+    /**
+     * Holding weight.
+     * Mutually exclusive with value.
+     */
+    weight?: (number | string);
+
+    /**
+     * Holding value.
+     * Mutually exclusive with weight.
+     */
+    value?: (number | string);
+
+    /**
+     * Name of holding.
+     */
+    name?: string;
+}
+
+interface RiskScorePortfolioRequest extends BaseRiskScorePortfolio {
+    /**
+     * List of holdings in your portfolio.
+     * 
+     * You specify the quantity of a holding using `weight` xor `value`. 
+     * If `weight` is used, you must specify `totalValue`.
+     */
+    holdings: MorningstarHoldingRequest;
+}
+
 interface RiskScoreRequestPayload {
-    Portfolios: [RiskScorePortfolio] | [RiskScorePortfolio, RiskScorePortfolio];
+    Portfolios: RiskScorePortfolioRequest[];
 }
 
 interface MorningstarAnyHoldingOptions extends MorningstarHoldingOptions {
@@ -59,7 +99,7 @@ interface MorningstarAnyHoldingOptions extends MorningstarHoldingOptions {
      * 
      * `value` and `weight` are mutually exclusive.
      */
-    value: (number|string);
+    value?: (number|string);
 
 }
 
@@ -108,6 +148,29 @@ function validatePortfolioHoldings (
             throw new Error(`The holdings in the portfolio “${portfolioName}” mix and match between using value and weight. This is not allowed.`);
         }
     }
+}
+
+function convertMorningstarHoldingOptionsToMorningstarHoldingRequest (
+    holding: MorningstarHoldingWeightOptions | MorningstarHoldingValueOptions
+): MorningstarHoldingRequest {
+    const holdingRequest: MorningstarHoldingRequest = {
+        identifier: holding.id,
+        identifierType: holding.idType,
+        name: holding.name
+    };
+    
+    const typeErasedHolding = holding as MorningstarAnyHoldingOptions;
+
+    if (typeErasedHolding.weight !== undefined && typeErasedHolding.value !== undefined) {
+        holdingRequest.value = typeErasedHolding.value;
+        holdingRequest.weight = typeErasedHolding.weight;
+    } else if (typeErasedHolding.weight !== undefined) {
+        holdingRequest.weight = typeErasedHolding.weight;
+    } else if (typeErasedHolding.value !== undefined) {
+        holdingRequest.value = typeErasedHolding.value;
+    }
+
+    return holdingRequest;
 }
 
 
@@ -184,8 +247,17 @@ export class RiskScoreConnector extends MorningstarConnector {
             validatePortfolioHoldings(portfolio.holdings, portfolio.name);
         }
 
+        const requestPortfolios = [...portfolios].map(portfolio => {
+            Object.assign(portfolio, {
+                holdings: portfolio.holdings.map(
+                    holding => convertMorningstarHoldingOptionsToMorningstarHoldingRequest(holding)
+                )
+            });
+            return portfolio as unknown as RiskScorePortfolioRequest;
+        });
+
         const bodyPayload: RiskScoreRequestPayload = {
-            Portfolios: portfolios
+            Portfolios: requestPortfolios
         };
 
         const api = this.api = this.api || new MorningstarAPI(options.api);
