@@ -106,20 +106,10 @@ export interface MorningstarHoldingAmountOptions extends MorningstarHoldingOptio
      */
     amount: number;
 
-    /**
-     * Name of holding.
-     */
-    name?: string;
-
 }
 
 
 export interface MorningstarHoldingWeightOptions extends MorningstarHoldingOptions {
-
-    /**
-     * Name of holding.
-     */
-    name?: string;
 
     /**
      * Holding weight.
@@ -130,11 +120,6 @@ export interface MorningstarHoldingWeightOptions extends MorningstarHoldingOptio
 
 
 export interface MorningstarHoldingValueOptions extends MorningstarHoldingOptions {
-
-    /**
-     * Name of holding.
-     */
-    name?: string;
 
     /**
      * Holding value.
@@ -197,6 +182,11 @@ interface MorningstarSecurityOptionsGeneric<IDType> {
     idType: IDType;
 
     /**
+     * Name of the security.
+     */
+    name?: string;
+
+    /**
      * Type of security.
      */
     type?: (string|MorningstarSecurityType);
@@ -226,22 +216,22 @@ export type MorningstarHoldingOptions = MorningstarSecurityOptionsGeneric<Holdin
 
 
 export enum MorningstarSecurityType {
-    'Bond' = 'BD',
-    '529 Portfolio' = 'CT',
-    'Cash' = 'CASH',
-    'Category Average' = 'CA',
-    'Closed-End Fund' = 'FC',
-    'Economics Series' = 'EI',
-    'Exchange-Traded Fund' = 'FE',
-    'Index' = 'XI',
-    'Insurance Product Fund' = 'FV',
-    'Money Market Fund' = 'FM',
-    'Open-End Fund' = 'FO',
-    'Separate Account' = 'SA',
-    'Stock' = 'ST',
-    'UK LP SubAccounts' = 'VA',
-    'Unit Investment Trust' = 'FI',
-    'Variable Annuity' = 'V1'
+    Bond = 'BD',
+    Cash = 'CASH',
+    CategoryAverage = 'CA',
+    ClosedEndFund = 'FC',
+    EconomicsSeries = 'EI',
+    ExchangeTradedFund = 'FE',
+    Index = 'XI',
+    InsuranceProductFund = 'FV',
+    MoneyMarketFund = 'FM',
+    OpenEndFund = 'FO',
+    Portfolio529 = 'CT',
+    SeparateAccount = 'SA',
+    Stock = 'ST',
+    UKLPSubAccounts = 'VA',
+    UnitInvestmentTrust = 'FI',
+    VariableAnnuity = 'V1'
 }
 
 

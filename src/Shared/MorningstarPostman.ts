@@ -75,18 +75,20 @@ export namespace MorningstarPostman {
         const url = postmanEnvironment.getValueOf(/^Morningstar as a Service \(/u);
         const username = postmanEnvironment.getValueOf('Morningstar as a Service Username');
 
+        if (url) {
+            apiOptions.url = url.value;
+            if (apiOptions.url.startsWith('www.')) {
+                apiOptions.url = `https://${apiOptions.url}`;
+            }
+        }
+
         if (password && username) {
             apiOptions.access = {
                 password: password.value,
                 username: username.value
             };
-        }
-
-        if (url) {
-            apiOptions.url = url.value;
-
-            if (apiOptions.url.startsWith('www.')) {
-                apiOptions.url = `https://${apiOptions.url}`;
+            if (apiOptions.url && url) {
+                apiOptions.access.url = `${apiOptions.url}/token/oauth`;
             }
         }
 

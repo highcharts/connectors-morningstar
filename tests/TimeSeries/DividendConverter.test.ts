@@ -1,5 +1,5 @@
 import * as Assert from 'node:assert/strict';
-import * as MC from '../../../code/connectors-morningstar.src';
+import * as MC from '../../code/connectors-morningstar.src';
 
 export async function ratingLoad (
     api: MC.Shared.MorningstarAPIOptions
@@ -24,8 +24,7 @@ export async function ratingLoad (
     );
 
     Assert.ok(
-        connector.converter instanceof
-        MC.TimeSeriesConverters.DividendSeriesConverter,
+        connector.converter instanceof MC.TimeSeriesConverters.DividendSeriesConverter,
         'Converter should be instance of TimeSeries DividendSeriesConverter.'
     );
 
