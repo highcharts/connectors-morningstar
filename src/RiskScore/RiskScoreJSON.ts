@@ -37,7 +37,7 @@ export namespace RiskScoreJSON {
 
     export type RiskScoreResponse = {
         portfolio: RiskScorePortfolioResponse,
-        metadata: RiskScoreMetadataResponse
+        metadata?: RiskScoreMetadataResponse
     };
 
     export type RiskScorePortfolioResponse = {

@@ -80,5 +80,8 @@ export function riskScoreResponseValidation () {
         }
     };
 
-    Assert.ok(RiskScoreJSON.isResponse(exampleResponse));
+    Assert.ok(
+        RiskScoreJSON.isResponse(exampleResponse),
+        'RiskScoreJSON should validate correct response.'
+    );
 }
