@@ -286,6 +286,18 @@ export class Database {
         return children;
     }
 
+
+    public async getItemNames (): Promise<Array<string>> {
+        const namePrefix = this.namePrefix;
+        const nameIndex = namePrefix.length;
+
+        return (await this.getData())
+            .name
+            .filter(name => name.startsWith(namePrefix))
+            .map(name => name.substring(nameIndex));
+    }
+
+
     public async hasItemChildren (
         itemName: string,
         version?: number

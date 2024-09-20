@@ -46,7 +46,7 @@ npx morningstar-connectors [COMMAND] [OPTIONS]
 
 COMMAND:
 
-    api      Opens API docs in your browser. (not implemented)
+    api      Opens API docs in your browser.
 
     demos    Opens demos in your web browser.
 

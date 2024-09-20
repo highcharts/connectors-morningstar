@@ -1,6 +1,6 @@
 {
     "private": true,
-    "version": "0.0.1-dev",
+    "version": "0.0.1-repository",
     "name": "@highcharts/connectors-morningstar",
     "license": "UNLICENSED",
     "description": "Highcharts connectors for Morningstar Direct Web Services",

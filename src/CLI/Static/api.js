@@ -6,35 +6,6 @@ var hapi = {
 var htmlExtension = '';
 var isLocal = window.location.hostname === 'localhost';
 
-// Support legacy links
-if (location.pathname.indexOf('class-reference') === -1 && location.hash) {
-    var hash = location.hash.replace(/^#/, '').replace(/%23/g, '.');
-
-    // Options: https://api.highcharts.com/highcharts#title.text
-    if (/^[a-z]/.test(hash)) {
-        location.href = '/' + (window.product || 'highcharts').toLowerCase() + '/' + hash + htmlExtension;
-
-        // Object members: https://api.highcharts.com/highcharts#Series.update()
-    } else if (/^[A-Z]/.test(hash)) {
-        hash = hash
-            .replace('Highcharts.', '')
-            .replace('.', '#')
-            .replace('()', '');
-        location.href = '/class-reference/Highcharts.' + hash + htmlExtension;
-    }
-}
-
-// Only have one index
-if (
-    !isLocal &&
-    location.pathname.indexOf('index.html') === location.pathname.length - 10
-) {
-    location.href = (
-        location.pathname.substring(0, location.pathname.length - 10) +
-        (location.hash.length > 1 ? location.hash : '')
-    );
-}
-
 hapi.ajax = function (p) {
     var props = {
         url: p.url || false,
@@ -103,11 +74,9 @@ hapi.ajax = function (p) {
 (function () {
 
     var clearSearch,
-        contentNode,
-        sidebar,
-        splashNode;
+        sidebar;
 
-    function tx(text, asHTML) {
+    function tx(text) {
         return document.createTextNode(text);
     }
 
@@ -179,10 +148,6 @@ hapi.ajax = function (p) {
         return defined;
     }
 
-    function pluralize(value, singular, plural) {
-        return (value.toString() + (value === 1 ? singular : plural));
-    }
-
     function autolinks(s) {
         return s
             .replace(/(styled mode)/i, function (match, p1) {
@@ -190,7 +155,7 @@ hapi.ajax = function (p) {
             })
             .replace(
                 /href="#([\w\.]+)"/g,
-                'href="../' + product.toLowerCase() + '/$1' + htmlExtension + '"'
+                'href="$1' + htmlExtension + '"'
             );
     }
 
@@ -208,20 +173,6 @@ hapi.ajax = function (p) {
             return encodeHTML(def.default.toString());
         }
         return 'undefined';
-    }
-
-    function hideContent() {
-        if (!splashNode) {
-            return;
-        }
-        splashNode.style.display = contentNode.style.display = 'none';
-    }
-
-    function showContent() {
-        if (!splashNode) {
-            return;
-        }
-        splashNode.style.display = contentNode.style.display = '';
     }
 
     function scrollTo(container, target, duration) {
@@ -742,7 +693,7 @@ hapi.ajax = function (p) {
         );
     }
 
-    hapi.createNavigation = function (options, globals, state, product) {
+    hapi.createNavigation = function (options, globals, state) {
         globals = document.querySelector(globals);
         options = document.querySelector(options);
 
@@ -758,9 +709,9 @@ hapi.ajax = function (p) {
             options.innerHTML = '';
             data.children.forEach(function (def) {
                 if (globals && ['global', 'lang'].indexOf(def.fullname) >= 0) {
-                    createNode(globals, def, explodeState(state), state, product);
+                    createNode(globals, def, explodeState(state), state);
                 } else {
-                    createNode(options, def, explodeState(state), state, product);
+                    createNode(options, def, explodeState(state), state);
                 }
             });
         }
@@ -772,32 +723,10 @@ hapi.ajax = function (p) {
             }
         });
 
-        /**
-         * TODO: Update the versions on api.highcharts.com and fix the version
-         * selector. Then remove the following code.
-         *
-        var elSelect = document.querySelector('#version-selector');
-        var elLink = elSelect.children[0];
-        var removeElements = [{
-          parent: elLink,
-          el: elLink.children[0]
-        }, {
-          parent: elSelect,
-          el: elSelect.children[1]
-        }];
-        removeElements.forEach(function (x) {
-          if (x.el && x.parent) {
-            x.parent.removeChild(x.el);
-          }
-        });
-         */
     };
 
     hapi.createBody = function (target, state, hasChildren, callback) {
         target = document.querySelector(target);
-
-        contentNode = document.getElementById('option-list');
-        splashNode = document.getElementById('splashText');
 
         if (state.length > 0) {
             var origState = state;
@@ -955,23 +884,15 @@ hapi.ajax = function (p) {
     };
 
     hapi.initializeSearchBar = function (
-        searchFieldQ, searchButtonQ, resultsQ, textResultsQ, indexUrl, minLength,
-        maxElements
+        searchFieldQ, searchButtonQ, resultsQ, indexUrl, minLength, maxElements
     ) {
         var searchField = document.querySelector(searchFieldQ),
             searchButton = document.querySelector(searchButtonQ),
             sideResults = indexUrl && resultsQ && document.querySelector(resultsQ),
-            textResults = document.querySelector(textResultsQ),
             minLength = minLength || 2,
             maxElements = maxElements || 15,
             members = [],
-            query = '',
-            productPath = '/' + location.pathname.split('/')[1] + '/',
-            webSearch = (
-                typeof HighsoftWebSearch !== 'undefined' ?
-                    new HighsoftWebSearch.Search('../websearch/') :
-                    undefined
-            );
+            query = '';
 
         if (location.pathname.lastIndexOf('/') == (location.pathname.length - 1)) {
             searchField.focus();
@@ -1035,40 +956,7 @@ hapi.ajax = function (p) {
             query = searchField.value;
             if (query.length >= minLength) {
                 showSideResults();
-            } else {
-                clearSideResults();
-                clearTextResults();
-                loadSideSuggestions();
             }
-        }
-
-        function searchText(e) {
-            query = searchField.value;
-            if (
-                typeof webSearch === 'undefined' || (
-                    e.keyCode !== 13 &&
-                    typeof page === 'undefined'
-                )) {
-                return;
-            }
-            webSearch
-                .find(query)
-                .then(function (entries) {
-                    return entries.filter(function (entry) {
-                        return (
-                            entry.url.indexOf('index.html') === -1 &&
-                            (
-                                entry.url.indexOf('/class-reference/') !== -1 ||
-                                entry.url.indexOf(productPath) !== -1
-                            )
-                        );
-                    });
-                })
-                .then(function (entries) {
-                    clearTextResults();
-                    showTextResults(entries);
-                })
-                .catch(console.error);
         }
 
         function clearSideResults() {
@@ -1102,174 +990,11 @@ hapi.ajax = function (p) {
                 }
             }
             if (sideResults.hasChildNodes()) {
-                stopSideSuggestions();
-                sideResults.style.display = 'block';
-                sideResults.scrollTo(1, 0);
-            } else {
-                sideResults.style.display = 'none';
-                loadSideSuggestions();
-            }
-        }
-
-        var loadSideSuggestionsTimeout;
-
-        function stopSideSuggestions() {
-            window.clearTimeout(loadSideSuggestionsTimeout);
-        }
-
-        function loadSideSuggestions() {
-            stopSideSuggestions();
-            if (!sideResults || query === '') {
-                return;
-            }
-            loadSideSuggestionsTimeout = window.setTimeout(hapi.ajax, 500, {
-                dataType: 'json',
-                url: (
-                    'https://api.highcharts.com/search/include/js_suggest/suggest.php' +
-                    '?q=' + encodeURIComponent(query) +
-                    '&type=query'
-                ),
-                success: function (json) {
-                    if (json &&
-                        json.length > 0
-                    ) {
-                        showSideSuggestions(json);
-                    }
-                },
-                error: function () { }
-            });
-        }
-
-        function showSideSuggestions(suggestions) {
-            if (!sideResults) {
-                return;
-            }
-
-            var a,
-                suggestion;
-
-            for (var i = 0, ie = suggestions.length; i < ie; ++i) {
-                suggestion = suggestions[i][0];
-                a = cr('a', null, suggestion);
-                a.setAttribute('href', '#');
-                on(a, 'click', function (e) {
-                    e.preventDefault();
-                    sidebar.setAttribute('expanded', false);
-                    query = this.innerText;
-                    clearSearch();
-                    searchText(e);
-                });
-                ap(sideResults, ap(cr('li', 'match'), a));
-                if (sideResults.childElementCount >= maxElements) {
-                    break;
-                }
-            }
-            if (sideResults.hasChildNodes()) {
                 sideResults.style.display = 'block';
                 sideResults.scrollTo(1, 0);
             } else {
                 sideResults.style.display = 'none';
             }
-        }
-
-        function clearTextResults() {
-            textResults.innerHTML = '';
-            textResults.style.display = 'none';
-            showContent();
-        }
-
-        function showTextResults(entries, skip) {
-            skip = ((skip || 0) + 10);
-            stopSideSuggestions();
-            var a,
-                div,
-                pageEntries = entries.slice((skip - 10), skip),
-                entry,
-                name,
-                total = entries.length,
-                url;
-            for (var i = 0, ie = pageEntries.length; i < ie && i < maxElements; ++i) {
-                entry = pageEntries[i];
-                name = (entry.title || '');
-                url = (entry.url || '/');
-                if (name.indexOf('|') > -1) {
-                    name = name.substr(0, name.indexOf('|'));
-                }
-                if (name.indexOf('Highcharts') === 0) {
-                    name = name.substr(11);
-                }
-                if (name.indexOf(':') === -1) {
-                    name = 'Option: ' + name;
-                }
-                var snippet = cr('p');
-                webSearch.preview(entry).then(function (text) {
-                    if (text.indexOf('Welcome') === 0 ||
-                        text.indexOf('<b>') === -1
-                    ) {
-                        text = '';
-                    }
-                    snippet.innerHTML = text;
-                }).catch(console.error);
-                a = cr('a', null, name, true);
-                a.setAttribute('href', url);
-                a.setAttribute('title', 'Go to ' + url.substr(url.indexOf('//') + 2));
-                div = cr('div', 'match');
-                ap(textResults,
-                    ap(div,
-                        ap(
-                            cr('h2'),
-                            a
-                        ),
-                        snippet,
-                    )
-                );
-            }
-            if (!textResults.firstChild ||
-                textResults.firstChild.nodeName !== 'SPAN'
-            ) {
-                textResults.insertBefore(
-                    cr('h1', 'title', 'Search results for "' + encodeHTML(query) + '"'),
-                    textResults.firstChild
-                );
-                a = cr('span', 'close', 'Close results');
-                on(a, 'click', function (e) {
-                    e.preventDefault();
-                    clearTextResults();
-                });
-                textResults.insertBefore(a, textResults.firstChild);
-                textResults.style.display = 'block';
-                scrollTo(textResults, textResults.firstChild, 200);
-            }
-            var foundText = 'Found ' + pluralize(total, ' result', ' results');
-            if (skip < total) {
-                var divOptions = cr('div', 'options')
-                var aClose = cr('span', 'close', 'Close results');
-                on(aClose, 'click', function (e) {
-                    e.preventDefault();
-                    clearTextResults();
-                });
-                var aMore = cr('span', 'more', 'Show more results');
-                aMore.setAttribute('title', foundText);
-                on(aMore, 'click', function (e) {
-                    e.preventDefault();
-                    textResults.removeChild(divOptions);
-                    showTextResults(entries, skip);
-                });
-                ap(
-                    textResults,
-                    ap(
-                        divOptions,
-                        aClose,
-                        aMore
-                    )
-                );
-            } else {
-                ap(
-                    textResults,
-                    cr('p', null, foundText)
-                );
-            }
-            hideContent();
         }
 
         clearSearch = function () {
@@ -1277,15 +1002,12 @@ hapi.ajax = function (p) {
                 searchField.value = '';
             }
             clearSideResults();
-            clearTextResults();
         }
-
-        on(searchField, 'keydown', searchText);
-        on(searchButton, 'click', searchText);
 
         if (sideResults) {
             on(searchField.parentNode, 'keydown', navigateSearch, true);
             on(searchField, 'input', searchSide);
+            on(searchButton, 'click', clearSearch);
         }
     };
 

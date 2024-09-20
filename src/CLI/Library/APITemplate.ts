@@ -52,21 +52,6 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
 
         <title>${ctx.node.meta.fullname ? ctx.node.meta.fullname + ' | ' : ''}${ctx.productName} ${ctx.platform} API Reference</title>
 
-        <link rel="apple-touch-icon" sizes="57x57" href="/static/apple-touch-icon-57x57.png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="/static/apple-touch-icon-114x114.png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="/static/apple-touch-icon-72x72.png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="/static/apple-touch-icon-144x144.png" />
-        <link rel="apple-touch-icon" sizes="60x60" href="/static/apple-touch-icon-60x60.png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="/static/apple-touch-icon-120x120.png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="/static/apple-touch-icon-76x76.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/static/apple-touch-icon-152x152.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon-180x180.png" />
-        <link rel="icon" type="image/png" href="/static/favicon-192x192.png" sizes="192x192" />
-        <link rel="icon" type="image/png" href="/static/favicon-160x160.png" sizes="160x160" />
-        <link rel="icon" type="image/png" href="/static/favicon-96x96.png" sizes="96x96" />
-        <link rel="icon" type="image/png" href="/static/favicon-16x16.png" sizes="16x16" />
-        <link rel="icon" type="image/png" href="/static/favicon-32x32.png" sizes="32x32" />
-
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
         <link rel="stylesheet" href="/static/style.css" type="text/css" />
         <script type="text/javascript" src="/static/api.js"></script>
@@ -86,7 +71,7 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
                 </div>
                 <div id="page-title" class="cell">
                     <h1>
-                        <a href="/${ctx.productModule}/">
+                        <a href="/">
                             ${ctx.platform} API Reference
                         </a>
                     </h1>
@@ -193,12 +178,6 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
                         <code>});</code>
                     </div>
                 </div>
-                ${ctx.product.noClassReference ? '' : `
-                    <div id="members-wrapper">
-                        <h3>Members and properties</h3>
-                        <p>For modifying the chart at runtime. See the <a href="/class-reference/classes.list">class reference</a>.</p>
-                    </div>
-                `}
             </div>
 
             <div id="body" class="body${ctx.node.meta.fullname ? ' loaded' : ''}">
@@ -207,7 +186,6 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
                     <p>These pages outline the chart configuration options, and the methods and properties of ${ctx.product.namespace} objects.</p>
                     <p>Feel free to search this <a target="_blank" href="https://en.wikipedia.org/wiki/Application_programming_interface">API</a> through the search bar or the navigation tree in the sidebar.</p>
                 </div>
-                <div id="search-text-results" style="display:none;"></div>
                 <div id="option-list">
                     ${ctx.node.meta.fullname ? `
                         <div class="option highlighted">
@@ -239,21 +217,13 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
         </div>
         <script>
             var state = '${ctx.name}',
-                hasChildren = true,
-                product = '${ctx.productModule}';
+                hasChildren = ${!!ctx.node.meta.hasChildren};
 
-            ${ctx.node.meta.hasChildren ? '' : `
-            hasChildren = false;
-            `}
-            hapi.createNavigation('#options', '#global-options', state, product);
+            hapi.createNavigation('#options', '#global-options', state);
             hapi.createBody('#body', state, hasChildren);
             hapi.initializeDropdowns('.menu', '.dropdown-link', '.body');
             hapi.initializeSidebar('.sidebar', '.sidebar-link', '.body');
-            hapi.initializeSearchBar('.search', '#search button', '.results', '#search-text-results', 'search.json', 2, 20);
-            //hapi.simulateHistory();
-
-            // Populate version
-            // hapi.populateVersions();
+            hapi.initializeSearchBar('.search', '#search button', '.results', 'search.json', 2, 20);
 
         </script>
 

@@ -20,6 +20,7 @@
 
 
 import * as FS from 'node:fs/promises';
+import * as FSS from 'node:fs';
 import * as HTTP from 'node:http';
 import * as Marked from 'marked';
 import * as Path from 'node:path';
@@ -38,10 +39,14 @@ import Server, { MIME_TYPES } from './Server';
 
 
 export interface Context extends Record<string, unknown> {
+    name: string;
     node: Option;
     side: Option;
     platform: string;
-    toc: Record<string, ContextTOCItem>
+    productName: string;
+    toc: Record<string, ContextTOCItem>;
+    version?: string;
+    year?: number;
 }
 
 
@@ -101,6 +106,7 @@ export interface OptionDocletSample {
 export interface OptionMeta {
     default?: (boolean|null|number|string);
     fullname: string;
+    hasChildren?: boolean;
     name: string;
 }
 
@@ -189,6 +195,7 @@ async function getContext (
     return {
         constr: 'Morningstar',
         date: (new Date()).toISOString().substring(0, 19).replace('T', ''),
+        name: itemName,
         node,
         side,
         platform: 'JS',
@@ -255,6 +262,7 @@ async function getOption (
 
     for (const child of await database.getItemChildren(itemName, version)) {
 
+        root.meta.hasChildren = true;
         childOption = treeNode(root.children, child.name);
         childOption.doclet.description =
             await Marked.parse(jsdoc2Markdown(child.description));
@@ -414,6 +422,58 @@ export class APIServer extends Server {
 
     /* *
      *
+     *  Constructor
+     *
+     * */
+
+
+    public constructor (
+        folder?: string,
+        defaultFile?: string,
+        baseTitle?: string
+    ) {
+        super(folder, defaultFile, baseTitle);
+
+        this.database = new Database(
+            'connectors-morningstar',
+            Path.join(__dirname, '..', 'Static'),
+            'api'
+        );
+        this.databaseStats = FSS.lstatSync(
+            Path.join(__dirname, '..', 'Static', 'api.json')
+        );
+        this.version = (JSON.parse(
+            FSS.readFileSync(
+                // Path relative to bin folder
+                Path.join(__dirname, '..', '..', 'package.json'),
+                'utf8'
+            )
+        ) as Record<string, string>).version;
+        this.year = this.databaseStats.mtime.getFullYear();
+    }
+
+
+    /* *
+     *
+     *  Properties
+     *
+     * */
+
+
+    private readonly database: Database;
+
+
+    private readonly databaseStats: FSS.Stats;
+
+
+    private readonly version: string;
+
+
+    private readonly year: number;
+
+
+    /* *
+     *
      *  Functions
      *
      * */
@@ -424,35 +484,33 @@ export class APIServer extends Server {
         response: HTTP.ServerResponse<HTTP.IncomingMessage>
     ): Promise<void> {
         const path = sanitizePath(request.url || '').substring(1);
-
+        console.log(path);
         if (request.method !== 'GET') {
             response404(response, path);
             return;
         }
 
         try {
-            const database = new Database(
-                'connectors-morningstar',
-                Path.join(__dirname, '..', 'Static'),
-                'api'
-            );
-
             let file = PPath.basename(path);
 
             const ext = PPath.extname(file).substring(1);
 
             if (ext === 'json') {
+                if (path === 'search.json') {
+                    response200(
+                        response,
+                        JSON.stringify(await this.database.getItemNames()),
+                        'json'
+                    );
+                    return;
+                }
                 if (!path.startsWith('nav/')) {
                     throw new Error();
                 }
                 file = file.substring(0, file.length - ext.length - 1);
                 response200(
                     response,
-                    JSON.stringify(
-                        await getNav(database, file),
-                        void 0,
-                        '\t'
-                    ),
+                    JSON.stringify(await getNav(this.database, file)),
                     'json'
                 );
                 return;
@@ -470,11 +528,16 @@ export class APIServer extends Server {
                 return;
             }
 
-            response200(
-                response,
-                APITemplate(await getContext(database, path)),
-                'html'
-            );
+            const context = await getContext(this.database, path);
+
+            if (!context.node) {
+                throw new Error('Not found');
+            }
+
+            context.version = this.version;
+            context.year = this.year;
+
+            response200(response, APITemplate(context), 'html');
 
         } catch (error) {
             console.error('' + error);
