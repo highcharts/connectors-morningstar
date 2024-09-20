@@ -208,7 +208,7 @@ export default (ctx: Record<string, any>) => `<!DOCTYPE html>
                 <a href="https://www.facebook.com/Highcharts" title="Facebook" class="social-icon"><i class="fa fa-facebook"></i></a>
                 <a href="https://twitter.com/Highcharts" title="Twitter" class="social-icon"><i class="fa fa-twitter"></i></a>
                 <a href="https://www.linkedin.com/company/highsoft-solutions-as" title="LinkedIn" class="social-icon"><i class="fa fa-linkedin"></i></a>
-                <a href="https://github.com/highcharts/highcharts" title="Github" class="social-icon"><i class="fa fa-github"></i></a>
+                <a href="https://github.com/highcharts/connectors-morningstar" title="Github" class="social-icon"><i class="fa fa-github"></i></a>
             </div>
 
             <p>

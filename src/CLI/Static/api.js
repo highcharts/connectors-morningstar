@@ -666,9 +666,11 @@ hapi.ajax = function (p) {
                 'title',
                 'Defined in ' + fileName
             )
-            editLink.href = 'https://github.com/highcharts/highcharts/blob/v' +
-                def.version + '/' + // TODO: version (see dumpNav() version param in index.js)
-                fileName;
+            editLink.href = (
+                'https://github.com/highcharts/connectors-morningstar/blob/' +
+                'main/' +
+                fileName
+            );
         }
 
 
