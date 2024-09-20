@@ -52,7 +52,6 @@ export namespace RiskScoreJSON {
     };
 
     export type RiskScoreMetadataResponse = {
-        requestId: string,
         messages: RiskScoreMetadataMessage[]
     };
 
@@ -127,7 +126,6 @@ export namespace RiskScoreJSON {
         return (
             !!json &&
             typeof json === 'object' &&
-            typeof (json as RiskScoreMetadataResponse).requestId === 'string' &&
             isRiskScoreMetadataMessages((json as RiskScoreMetadataResponse).messages)
         );
     }
