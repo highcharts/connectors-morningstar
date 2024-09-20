@@ -124,6 +124,7 @@ export class RiskScoreConverter extends MorningstarConverter {
         // Parse and cumulate risk scores by date
 
         const sortedPortfolios: RiskScorePortfolio[] = [];
+        const errors: string[] = [];
 
         for (const riskScorePortfolio of json.riskScores) {
             const {
@@ -147,6 +148,21 @@ export class RiskScoreConverter extends MorningstarConverter {
                 retainedWeightProxied,
                 scoringMethodUsed
             });
+
+            if (
+                riskScorePortfolio.metadata !== undefined && 
+                riskScorePortfolio.metadata.messages.length > 0
+            ) {
+                for (const message of riskScorePortfolio.metadata.messages) {
+                    const holdingNames = message.invalidHoldings.map(
+                        invalidHolding => invalidHolding.identifier
+                    );
+
+                    errors.push(
+                        `The holding(s) ${holdingNames.join(', ')} are invalid. ${message.message}`
+                    );
+                }
+            }
         }
 
         sortedPortfolios.sort((a, b) => (
@@ -194,6 +210,10 @@ export class RiskScoreConverter extends MorningstarConverter {
                 const value = riskScoreValues[columnIndex];
                 table.setCell(column, Number(rowIndex), value);
             }
+        }
+
+        if (errors.length > 0) {
+            throw new Error(errors.join('\n'));
         }
 
         return true;
