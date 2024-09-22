@@ -69,6 +69,7 @@
         "valid-jsdoc": 0,
         "eol-last": ["error", "always"],
         "@typescript-eslint/array-type": 0,
+        "@typescript-eslint/require-await": 0,
         "@typescript-eslint/explicit-function-return-type": 0, // covered by TypeScript
         "@typescript-eslint/indent": [
             "error",

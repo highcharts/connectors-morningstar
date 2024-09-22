@@ -41,7 +41,7 @@ export const CWD = process.cwd();
 export const DEFAULT_PORT = 8080;
 
 
-export const MIMES: Record<string, string> = {
+export const MIME_TYPES: Record<string, string> = {
     css: 'text/css; charset=utf-8',
     eot: 'application/vnd.ms-fontobject',
     gif: 'image/gif',
@@ -206,7 +206,7 @@ export class Server {
 
         let ext = Path.posix.extname(file).substring(1);
 
-        if (!MIMES[ext]) {
+        if (!MIME_TYPES[ext]) {
             ext = 'html';
             file += '.html';
         }
@@ -249,7 +249,7 @@ export class Server {
 
             response.writeHead(200, {
                 'Access-Control-Allow-Origin': '*',
-                'Content-Type': MIMES[ext]
+                'Content-Type': MIME_TYPES[ext]
             });
             response.end(fileBuffer);
 
