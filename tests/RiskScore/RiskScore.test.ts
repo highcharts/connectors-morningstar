@@ -1,6 +1,6 @@
 import * as Assert from 'node:assert/strict';
-import * as MC from '../../../code/connectors-morningstar.src';
-import RiskScoreJSON from '../../../src/RiskScore/RiskScoreJSON';
+import * as MC from '../../code/connectors-morningstar.src';
+import RiskScoreJSON from '../../code/es-modules/RiskScore/RiskScoreJSON.js';
 
 export async function riskScoreLoad (
     api: MC.Shared.MorningstarAPIOptions

@@ -1,6 +1,6 @@
 import * as Assert from 'node:assert/strict';
 import * as MC from '../../code/connectors-morningstar.src';
-import MorningstarURL from '../../src/Shared/MorningstarURL';
+import MorningstarURL from '../../code/es-modules/Shared/MorningstarURL';
 
 export async function priceLoad (
     api: MC.Shared.MorningstarAPIOptions
