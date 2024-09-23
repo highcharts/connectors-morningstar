@@ -25,6 +25,7 @@
 import type { MorningstarAccessOptions } from './MorningstarOptions';
 
 import MorningstarRegion from './MorningstarRegion';
+import { version } from '../version';
 
 
 /* *
@@ -126,7 +127,7 @@ export class MorningstarAccess {
         this.url = (
             options.url ?
                 new URL(options.url, window.location.href) :
-                new URL('/token/oauth', MorningstarRegion.baseURLs[MorningstarRegion.detect()])
+                new URL('token/oauth', MorningstarRegion.baseURLs[MorningstarRegion.detect()])
         );
 
         if (this.url.protocol !== 'https:') {
@@ -221,7 +222,8 @@ export class MorningstarAccess {
             cache: 'no-cache',
             credentials: 'omit',
             headers: new Headers({
-                Authorization: `Basic ${payload}`
+                Authorization: `Basic ${payload}`,
+                'User-Agent': `HighchartsConnectorsMorningstar/${version}`
             }),
             method: 'POST',
             redirect: 'error'

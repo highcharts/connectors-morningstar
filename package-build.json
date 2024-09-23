@@ -1,6 +1,6 @@
 {
     "private": true,
-    "version": "0.4.0",
+    "version": "0.5.0",
     "name": "@highcharts/connectors-morningstar",
     "license": "UNLICENSED",
     "description": "Highcharts connectors for Morningstar Direct Web Services",
@@ -15,6 +15,7 @@
         "demos/",
         "docs/",
         "es-modules/",
+        "CHANGELOG.md",
         "LICENSE.md",
         "*-morningstar.d.ts",
         "*-morningstar.js",
@@ -27,7 +28,10 @@
         "Morningstar",
         "Time Series"
     ],
-    "peerDependencies": {
-        "@highcharts/dashboards": "^2.2.0"
+    "dependencies": {
+        "marked": "^14.1.2"
+    },
+    "optionalDependencies": {
+        "@highcharts/dashboards": ">=2.3.0"
     }
 }

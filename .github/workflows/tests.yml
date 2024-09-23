@@ -63,5 +63,5 @@ jobs:
       - name: Build webpack bundles
         run: npm run webpack
 
-      - name: Run unit-tests
-        run: npx ts-node test/unit-tests/runtime
+      - name: Run tests
+        run: npm run test:tests

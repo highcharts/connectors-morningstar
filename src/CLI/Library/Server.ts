@@ -24,6 +24,7 @@
 
 import * as FS from 'node:fs';
 import * as HTTP from 'node:http';
+import * as Marked from 'marked';
 import * as Path from 'node:path';
 
 
@@ -40,18 +41,23 @@ export const CWD = process.cwd();
 export const DEFAULT_PORT = 8080;
 
 
-export const MIMES: Record<string, string> = {
-    css: 'text/css',
+export const MIME_TYPES: Record<string, string> = {
+    css: 'text/css; charset=utf-8',
     eot: 'application/vnd.ms-fontobject',
+    gif: 'image/gif',
+    html: 'text/html; charset=utf-8',
+    ico: 'image/x-icon',
+    jpeg: 'image/jpeg',
+    jpg: 'image/jpeg',
     js: 'application/javascript',
     json: 'application/json',
-    html: 'text/html',
-    ico: 'image/x-icon',
     map: 'application/json',
+    markdown: 'text/markdown',
+    md: 'text/markdown; charset=utf-8',
     png: 'image/png',
     svg: 'image/svg+xml',
     ttf: 'font/ttf',
-    txt: 'text/plain',
+    txt: 'text/plain; charset=utf-8',
     woff: 'font/woff',
     woff2: 'font/woff2',
     xml: 'application/xml'
@@ -88,6 +94,22 @@ function sanitizePath (path: string) {
 }
 
 
+/**
+ * Removes all non-word characters and capitalize the first character.
+ *
+ * @param text
+ * Text to capitalize.
+ *
+ * @return
+ * Capitalized text.
+ */
+function capitalize (text: string) {
+    return text
+        .replace(/\W/gu, ' ')
+        .replace(/\b\w/gu, (match) => match.toUpperCase());
+}
+
+
 /* *
  *
  *  Class
@@ -106,10 +128,17 @@ export class Server {
 
 
     public constructor (
-        folder: string = process.cwd()
+        folder: string = process.cwd(),
+        defaultFile: string = 'index.html',
+        baseTitle: string = ''
     ) {
+        this.baseTitle = baseTitle;
+        this.defaultFile = defaultFile;
         this.folder = folder;
-        this.http = new HTTP.Server((req, res) => this.handle(req, res));
+        this.http = new HTTP.Server((req, res) => {
+            // eslint-disable-next-line no-console
+            this.handle(req, res).catch(console.error);
+        });
     }
 
 
@@ -118,6 +147,12 @@ export class Server {
      *  Properties
      *
      * */
+
+
+    public baseTitle: string;
+
+
+    public defaultFile: string;
 
 
     public folder: string;
@@ -142,12 +177,12 @@ export class Server {
      * @param response 
      * Outgoing HTTP message.
      */
-    public handle (
+    public async handle (
         request: HTTP.IncomingMessage,
         response: HTTP.ServerResponse<HTTP.IncomingMessage>
-    ): void {
+    ): Promise<void> {
         let folder = this.folder;
-        let path = sanitizePath(request.url || '/index.html');
+        let path = sanitizePath(request.url || '/' + this.defaultFile);
 
         if (path.startsWith('/code/')) {
             if (folder.includes('node_modules')) {
@@ -163,7 +198,7 @@ export class Server {
         let file = Path.posix.basename(path);
 
         if (path.endsWith('/')) {
-            file = 'index.html';
+            file = this.defaultFile;
         } else {
             file = Path.posix.basename(path);
             path = Path.posix.dirname(path) + '/';
@@ -171,7 +206,7 @@ export class Server {
 
         let ext = Path.posix.extname(file).substring(1);
 
-        if (!MIMES[ext]) {
+        if (!MIME_TYPES[ext]) {
             ext = 'html';
             file += '.html';
         }
@@ -184,20 +219,51 @@ export class Server {
             filePath = filePath.substring(1);
         }
 
-        FS.readFile(
-            filePath,
-            (error, data) => {
-                if (error) {
-                    // eslint-disable-next-line no-console
-                    console.error(error.message);
-                    response.writeHead(404);
-                    response.end('404: Path not found', 'utf-8');
-                } else {
-                    response.writeHead(200, { 'Content-Type': MIMES[ext] });
-                    response.end(data);
-                }
+        try {
+            let fileBuffer = FS.readFileSync(filePath);
+
+            if (['', 'markdown', 'md'].includes(ext)) {
+                const title = capitalize(file.substring(0, file.length - ext.length - 1));
+                fileBuffer = Buffer.from([
+                    '<!DOCTYPE html>',
+                    '<html><head>',
+                    '<meta charset="UTF-8" />',
+                    `<title>${title}${this.baseTitle}</title>`,
+                    '</head><body>',
+                    await Marked.marked(fileBuffer.toString('utf8')),
+                    '</body></html>'
+                ].join('\n'));
+                ext = 'html';
             }
-        );
+
+            if (['html', 'js'].includes(ext)) {
+                fileBuffer = Buffer.from(
+                    fileBuffer
+                        .toString('utf8')
+                        .replace(
+                            /https:\/\/code\.highcharts\.com\/connectors\/morningstar\//u,
+                            '/code/'
+                        )
+                );
+            }
+
+            response.writeHead(200, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': MIME_TYPES[ext]
+            });
+            response.end(fileBuffer);
+
+        } catch (error) {
+
+            if (error instanceof Error) {
+                // eslint-disable-next-line no-console
+                console.error(error.message);
+            }
+
+            response.writeHead(404);
+            response.end('404: Path not found', 'utf-8');
+
+        }
 
     }
 
@@ -220,6 +286,7 @@ export class Server {
     ): Server {
 
         this.folder = (folder || this.folder);
+
         this.http.listen(port);
 
         return this;

@@ -26,9 +26,11 @@
  * */
 
 
-import Args, { SHORTCUTS as ARGS_SHORTCUTS } from './Library/Args';
 import * as FS from 'node:fs/promises';
 import * as Path from 'node:path';
+
+import Args, { SHORTCUTS as ARGS_SHORTCUTS } from './Library/Args';
+import APIServer from './Library/APIServer';
 import Server, { DEFAULT_PORT } from './Library/Server';
 
 
@@ -44,9 +46,11 @@ npx morningstar-connectors [COMMAND] [OPTIONS]
 
 COMMAND:
 
-    api      Opens API docs in your browser. (not implemented)
+    api      Opens API docs in your browser.
 
     demos    Opens demos in your web browser.
+
+    docs     Opens documentation in your web browser.
 
 OPTIONS:
 
@@ -101,26 +105,44 @@ export async function main (): Promise<void> {
         return;
     }
 
-    const port = parseInt((
-        typeof args.port === 'string' ?
-            args.port :
-            `${DEFAULT_PORT}`
-    ), 10);
+    let port: number = (typeof args.port === 'string' ? parseInt(args.port, 10) : 0);
 
     let server: Server;
 
     switch (args._) {
 
+        case 'api':
+            port = port || 8005;
+            server = new APIServer(
+                Path.join(__dirname, '..', 'Static'),
+                'TimeSeries',
+                ' | Highcharts API'
+            );
+            break;
+
         case 'demo':
         case 'demos':
+            port = port || 8080;
             server = new Server(
                 Path.relative(process.cwd(), Path.join(__dirname, '..', 'demos'))
             );
             break;
 
-        case 'api':
-            console.info('Not implemented yet. Use VSC for inline API information.');
-            return;
+        case 'docs':
+            port = port || 8000;
+            server = new Server(
+                (
+                    __dirname.includes('node_modules') ?
+                        Path.relative(process.cwd(), Path.join(__dirname, '..', 'docs')) :
+                        Path.relative(
+                            process.cwd(),
+                            Path.join(__dirname, '..', 'docs', 'connectors')
+                        )
+                ),
+                'morningstar.md',
+                ' | Highcharts Docs'
+            );
+            break;
 
         default:
             console.info(HELP);
@@ -130,13 +152,16 @@ export async function main (): Promise<void> {
 
     server.start(port);
 
-    console.info(`Content available at http://localhost:${port}.`);
+    if (server.http?.listening) {
+        console.info(`Content available at http://localhost:${port}.`);
+    }
 
     process.stdin.on('data', (data) => {
         const input = data.toString('utf8');
 
         if (
             input.startsWith('exit') ||
+            input.startsWith('q') ||
             input.startsWith('quit') ||
             input.startsWith('stop')
         ) {

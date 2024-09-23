@@ -28,6 +28,7 @@ import MorningstarAuthentication from './MorningstarAccess';
 import MorningstarError from './MorningstarError';
 import MorningstarRegion from './MorningstarRegion';
 import MorningstarURL from './MorningstarURL';
+import { version } from '../version';
 
 
 /* *
@@ -56,8 +57,6 @@ export class MorningstarAPI {
             MorningstarRegion.baseURLs[MorningstarRegion.detect()],
             window.location.href
         );
-
-        this.baseURL.pathname = '/ecint/v1/';
 
         if (this.baseURL.protocol !== 'https:') {
             throw new Error('Insecure API protocol');
@@ -143,6 +142,14 @@ export class MorningstarAPI {
         ) {
             requestInit = this.access.authorizeRequest(requestInit);
         }
+
+        const headers = (
+            requestInit.headers instanceof Headers ?
+                requestInit.headers :
+                new Headers(requestInit.headers)
+        );
+
+        headers.set('User-Agent', `HighchartsConnectorsMorningstar/${version}`);
 
         const response = await window.fetch(url, requestInit);
 

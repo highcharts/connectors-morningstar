@@ -44,3 +44,11 @@ For Highcharts Dashboards you just need to load the `connectors-morningstar`
 bundle, which will register all connectors to the Dashboards registry. All
 Morningstar connectors are then available in the data pool as other connector
 types.
+
+
+
+### Available Connectors
+
+* [RNANews](morningstar/rna-news/regulatory-news-announcements.md)
+* [TimeSeries](morningstar/time-series/time-series.md)
+* [XRay](morningstar/x-ray.md)

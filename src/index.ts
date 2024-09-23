@@ -23,8 +23,11 @@
 
 
 import RNANews from './RNANews/index';
+import RiskScore from './RiskScore/index';
 import * as Shared from './Shared/index';
 import TimeSeries from './TimeSeries/index';
+import { version } from './version';
+import XRay from './XRay/index';
 
 
 /* *
@@ -35,8 +38,11 @@ import TimeSeries from './TimeSeries/index';
 
 
 export * from './RNANews/index';
+export * from './RiskScore/index';
 export * as Shared from './Shared/index';
 export * from './TimeSeries/index';
+export { version } from './version';
+export * from './XRay/index';
 
 
 /* *
@@ -48,6 +54,9 @@ export * from './TimeSeries/index';
 
 export default {
     RNANews,
+    RiskScore,
     Shared,
-    TimeSeries
+    TimeSeries,
+    XRay,
+    version
 };
