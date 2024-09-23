@@ -51,3 +51,4 @@ types.
 
 * [RNANews](morningstar/rna-news/regulatory-news-announcements.md)
 * [TimeSeries](morningstar/time-series/time-series.md)
+* [XRay](morningstar/x-ray.md)

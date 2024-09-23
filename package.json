@@ -49,7 +49,7 @@
         "build:copy": "npm run copy:code && npm run copy:docs && npm run copy:json",
         "build:pack": "npm pack build/package/ --pack-destination build/",
         "build:prepare": "rm -rf build/ ; mkdir -p build/package/",
-        "copy:code": "cp -R bin code/* demos LICENSE.md README.md build/package/",
+        "copy:code": "cp -R bin code/* demos *.md build/package/",
         "copy:docs": "cp -R docs/connectors/ build/package/docs/",
         "copy:json": "cp package-build.json build/package/package.json",
         "demos": "npm run webpack && npm run demos:server",
