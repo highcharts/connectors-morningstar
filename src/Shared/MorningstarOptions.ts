@@ -129,6 +129,11 @@ export interface MorningstarHoldingValueOptions extends MorningstarHoldingOption
 }
 
 
+export interface MorningstarMetadata extends External.DataConnectorMetadata {
+    // Nothing to add yet
+}
+
+
 export interface MorningstarOptions extends External.DataConnectorOptions {
 
     /**

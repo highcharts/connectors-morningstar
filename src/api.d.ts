@@ -19,6 +19,7 @@
  * */
 
 
+import GoalAnalysisOptions from './GoalAnalysis/GoalAnalysisOptions';
 import RNANewsOptions from './RNANews/RNANewsOptions';
 import TimeSeriesOptions from './TimeSeries/TimeSeriesOptions';
 import XRayOptions from './XRay/XRayOptions';
@@ -35,6 +36,7 @@ import XRayOptions from './XRay/XRayOptions';
  * Available types of the Highcharts Morningstar Connectors.
  */
 interface Options {
+    GoalAnalysis: GoalAnalysisOptions;
     RNANews: RNANewsOptions;
     TimeSeries: TimeSeriesOptions;
     XRay: XRayOptions;

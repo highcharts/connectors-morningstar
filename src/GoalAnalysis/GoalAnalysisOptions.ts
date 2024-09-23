@@ -24,6 +24,7 @@
 
 import type {
     MorningstarConverterOptions,
+    MorningstarMetadata,
     MorningstarOptions
 } from '../Shared/MorningstarOptions';
 
@@ -36,7 +37,12 @@ import type {
  * */
 
 
-export interface GoalAnalysisAssetClassWeights {
+export interface GoalAnalysisConverterOptions extends MorningstarConverterOptions {
+    // Nothing to add yet
+}
+
+
+export interface GoalAnalysisMetadata extends MorningstarMetadata {
 
     /**
      * Annualised required return percentage.
@@ -54,12 +60,6 @@ export interface GoalAnalysisAssetClassWeights {
     financialGoal: number;
 
     /**
-     * Value of initial investment at end of time series based on different
-     * probability percentages.
-     */
-    probabilityAccumulate: number;
-
-    /**
      * Probability percentage of reaching investment goal.
      */
     probabilityOfReachingTarget: number;
@@ -73,12 +73,6 @@ export interface GoalAnalysisAssetClassWeights {
      * Required return value.
      */
     requiredReturnValue: number;
-
-    /**
-     * Value of initial investment at end of each year of the time series based
-     * on different probability percentages.
-     */
-    seriesData: number;
 
     /**
      * Standard deviation value.
@@ -107,17 +101,40 @@ export interface GoalAnalysisAssetClassWeights {
 
 }
 
-export interface GoalAnalysisConverterOptions extends MorningstarConverterOptions {
-    // Nothing to add yet
-}
-
 
 export interface GoalAnalysisOptions extends MorningstarOptions {
 
     /**
+     * Amount investor invests yearly.
+     */
+    annualInvestment?: number;
+
+    /**
      * Weight list of individual asset classes.
      */
-    assetClassWeights?: GoalAnalysisAssetClassWeights;
+    assetClassWeights?: Array<number>;
+
+    /**
+     * Investor’s current savings amount.
+     */
+    currentSavings?: number;
+
+    /**
+     * Returns time series data for charting purposes.
+     */
+    includeDetailedInvestmentGrowthGraph?: boolean;
+
+    requestProbability?: number;
+
+    /**
+     * Investor’s target goal amount.
+     */
+    target?: number;
+
+    /**
+     * Time horizon in years.
+     */
+    timeHorizon?: number;
 
 }
 

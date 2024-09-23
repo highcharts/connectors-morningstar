@@ -38,6 +38,9 @@ import _DataTable from '@highcharts/dashboards/es-modules/Data/DataTable';
  * */
 
 
+export type DataConnectorMetadata = _DataConnector['metadata'];
+
+
 export type DataConnectorOptions = Partial<_DataConnector.UserOptions>;
 
 
