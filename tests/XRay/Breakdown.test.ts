@@ -37,8 +37,6 @@ export async function breakdownLoad (
 
     await connector.load();
 
-    process.stdout.write(JSON.stringify(connector.table.getColumnNames()));
-
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
         ['XRay_TotalReturn_TimePeriod', 'XRay_TotalReturn_Value'],

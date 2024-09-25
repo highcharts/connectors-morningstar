@@ -30,8 +30,6 @@ export async function goalAnalysisConnector (
 
     await connector.load();
 
-    process.stdout.write(JSON.stringify(connector.table.getColumnNames()));
-
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
         [
