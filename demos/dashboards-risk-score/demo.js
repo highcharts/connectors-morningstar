@@ -1,30 +1,107 @@
 const loadingLabel = document.getElementById('loading-label');
 
 function displayRiskScore (postmanJSON) {
-    Dashboards.board('container', {
+
+    const highRiskRetirementPortfolio = {
+        name: 'HighRisk',
+        currency: 'USD',
+        totalValue: 100,
+        holdings: [
+            {
+                id: 'VTIAX',
+                idType: 'TradingSymbol',
+                weight: 33
+            },
+            {
+                id: 'POGRX',
+                idType: 'TradingSymbol',
+                weight: 20
+            },
+            {
+                id: 'OAKMX',
+                idType: 'TradingSymbol',
+                weight: 20
+            },
+            {
+                id: 'VEXAX',
+                idType: 'TradingSymbol',
+                weight: 15
+            },
+            {
+                id: 'OAKEX',
+                idType: 'TradingSymbol',
+                weight: 7
+            },
+            {
+                id: 'MWTRX',
+                idType: 'TradingSymbol',
+                weight: 5
+            }
+        ]
+    };
+
+    const lowRiskRetirementPortfolio = {
+        name: 'LowRisk',
+        currency: 'USD',
+        totalValue: 100,
+        holdings: [
+            {
+                id: 'VTIAX',
+                idType: 'TradingSymbol',
+                weight: 10
+            },
+            {
+                id: 'POGRX',
+                idType: 'TradingSymbol',
+                weight: 10
+            },
+            {
+                id: 'VDADX',
+                idType: 'TradingSymbol',
+                weight: 10
+            },
+            {
+                id: 'OAKMX',
+                idType: 'TradingSymbol',
+                weight: 10
+            },
+            {
+                id: 'VEXAX',
+                idType: 'TradingSymbol',
+                weight: 5
+            },
+            {
+                id: 'OAKEX',
+                idType: 'TradingSymbol',
+                weight: 5
+            },
+            {
+                id: 'MWTRX',
+                idType: 'TradingSymbol',
+                weight: 30
+            },
+            {
+                id: 'FSHBX',
+                idType: 'TradingSymbol',
+                weight: 10
+            },
+            {
+                id: 'VTAPX',
+                idType: 'TradingSymbol',
+                weight: 10
+            }
+        ]
+    }
+
+    const board = Dashboards.board('container', {
         dataPool: {
             connectors: [{
                 id: 'risk-score',
                 type: 'MorningstarRiskScore',
                 options: {
                     portfolios: [
-                        {
-                            name: 'TestPortfolio1',
-                            currency: 'USD',
-                            totalValue: 100,
-                            holdings: [
-                                {
-                                    id: 'F00000VCTT',
-                                    idType: 'SecurityID',
-                                    weight: 50
-                                },
-                                {
-                                    id: 'AAPL',
-                                    idType: 'TradingSymbol',
-                                    weight: 50
-                                }
-                            ]
-                        }
+                        lowRiskRetirementPortfolio,
+                        highRiskRetirementPortfolio
                     ],
                     postman: {
                         environmentJSON: postmanJSON
@@ -36,43 +113,91 @@ function displayRiskScore (postmanJSON) {
             {
                 renderTo: 'dashboard-col-0',
                 connector: {
-                    id: 'risk-score'
+                    id: 'risk-score',
+                    columnAssignment: [
+                        {
+                            seriesId: 'low-risk',
+                            data: ['LowRisk_RiskScore']
+                        },
+                        {
+                            seriesId: 'high-risk',
+                            data: ['HighRisk_RiskScore']
+                        }
+                    ]
+                },
+                type: 'Highcharts',
+                chartOptions: {
+                    chart: {
+                        animation: false,
+                        type: 'column'
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    title: {
+                        text: 'Risk score for each portfolio'
+                    },
+                    subtitle: {
+                        text: 'Conservative is a low risk portfolio,' + 
+                        'while Aggressive is a high risk portfolio'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Risk Score'
+                        }
+                    },
+                    xAxis: {
+                        categories: ['Conservative', 'Aggressive']
+                    },
+                    series: [
+                        {
+                            id: 'low-risk',
+                            name: 'Conservative',
+                            tooltip: {
+                                headerFormat: 'Stock/Bond ratio: 50/50<br>',
+                                useHTML: true
+                            }
+                        },
+                        {
+                            id: 'high-risk',
+                            name: 'Aggressive',
+                            tooltip: {
+                                headerFormat: 'Stock/Bond ratio: 95/5<br>',
+                                useHTML: true
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                renderTo: 'dashboard-col-1',
+                connector: {
+                    id: 'risk-score',
+                    columnAssignment: [
+                        {
+                            seriesId: 'low-risk',
+                            data: ['LowRisk_RiskScore']
+                        },
+                        {
+                            seriesId: 'high-risk',
+                            data: ['HighRisk_RiskScore']
+                        }
+                    ]
                 },
                 type: 'DataGrid',
                 title: 'RiskScore',
                 dataGridOptions: {
-                    editable: false,
-                    columns: {
-                        'TestPortfolio1_EffectiveDate': {
-                            headerFormat: 'Date',
-                            cellFormatter: function () {
-                                return new Date(this.value)
-                                    .toISOString()
-                                    .substring(0, 10);
-                            }
-                        },
-                        'TestPortfolio1_RiskScore': {
-                            headerFormat: 'RiskScore'
-                        },
-                        'TestPortfolio1_AlignmentScore': {
-                            headerFormat: 'AlignmentScore'
-                        },
-                        'TestPortfolio1_RSquared': {
-                            headerFormat: 'RSquared'
-                        },
-                        'TestPortfolio1_RetainedWeightProxied': {
-                            headerFormat: 'RetainedWeight'
-                        },
-                        'TestPortfolio1_ScoringMethodUsed': {
-                            headerFormat: 'ScoringMethod'
-                        }
-                    }
+                    editable: false
                 }
             }
         ]
     });
-    
-    loadingLabel.style.display = 'none';
+
+    board.dataPool
+        .getConnectorTable('risk-score')
+        .then(() => {
+            loadingLabel.style.display = 'none';
+        });
 }
 
 async function handleSelectEnvironment (evt) {
