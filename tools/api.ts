@@ -222,7 +222,7 @@ async function addOption (
 
             }
             if (codeInfo.type) {
-                item.doclet.type = TSLib.extractTypes(codeInfo.type);
+                item.doclet.type = TSLib.extractTypes(codeInfo.type, true);
                 for (const type of item.doclet.type) {
                     if (type.endsWith('Options')) {
                         resolved = TSLib.resolveReference(
