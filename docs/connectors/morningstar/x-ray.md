@@ -17,7 +17,7 @@ You can use the X-Ray Connector to fetch portfolio data points, holding data
 points, or benchmark data points. Depending on the request additional breakdown
 columns might be added to the table.
 
-In order to fetch a benchmark, you can for example 
+In order to fetch a benchmark, you can request for example:
 
 ```js
 const xRayConnector = MC.XRayConnector({
