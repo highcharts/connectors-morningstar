@@ -138,7 +138,7 @@ function displayRiskScore (postmanJSON) {
                         text: 'Risk score for each portfolio'
                     },
                     subtitle: {
-                        text: 'Conservative is a low risk portfolio,' + 
+                        text: 'Conservative is a low risk portfolio, ' + 
                         'while Aggressive is a high risk portfolio'
                     },
                     yAxis: {
@@ -172,22 +172,24 @@ function displayRiskScore (postmanJSON) {
             {
                 renderTo: 'dashboard-col-1',
                 connector: {
-                    id: 'risk-score',
-                    columnAssignment: [
-                        {
-                            seriesId: 'low-risk',
-                            data: ['LowRisk_RiskScore']
-                        },
-                        {
-                            seriesId: 'high-risk',
-                            data: ['HighRisk_RiskScore']
-                        }
-                    ]
+                    id: 'risk-score'
                 },
+                visibleColumns: [
+                    'LowRisk_RiskScore',
+                    'HighRisk_RiskScore'
+                ],
                 type: 'DataGrid',
                 title: 'RiskScore',
                 dataGridOptions: {
-                    editable: false
+                    editable: false,
+                    columns: {
+                        'LowRisk_RiskScore': {
+                            headerFormat: 'RiskScore, Conservative'
+                        },
+                        'HighRisk_RiskScore': {
+                            headerFormat: 'RiskScore, Aggressive'
+                        }
+                    }
                 }
             }
         ]
