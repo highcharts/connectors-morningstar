@@ -14,6 +14,8 @@
 
 'use strict';
 
+import { RiskScoreInvalidHolding, RiskScoreMetadataMessage } from './RiskScoreOptions';
+
 
 /* *
  *
@@ -53,18 +55,6 @@ export namespace RiskScoreJSON {
 
     export type RiskScoreMetadataResponse = {
         messages: RiskScoreMetadataMessage[]
-    };
-
-    export type RiskScoreMetadataMessage = {
-        type: string,
-        message: string,
-        invalidHoldings: RiskScoreInvalidHolding[]
-    };
-
-    export type RiskScoreInvalidHolding = {
-        identifier: string,
-        identifierType: string,
-        status: string
     };
 
 

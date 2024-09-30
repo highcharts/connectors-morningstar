@@ -59,6 +59,49 @@ export async function riskScoreLoad (
       );
 }
 
+export async function riskScoreLoadWithInvalidHoldings (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.RiskScoreConnector({
+        api,
+        portfolios: [
+            {
+                name: 'PortfolioWithInvalidHoldings',
+                currency: 'USD',
+                totalValue: 100,
+                holdings: [
+                    {
+                        id: 'F00000VCTT',
+                        idType: 'SecurityID',
+                        weight: 50
+                    },
+                    {
+                        id: 'AAPLL',
+                        idType: 'TradingSymbol',
+                        weight: 50
+                    }
+                ]
+            }
+        ]
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.metadata.messages,
+        [{
+            type: 'Warning',
+            message: 'Invalid or unentitled holdings',
+            invalidHoldings: [{
+                identifier: 'AAPLL',
+                identifierType: 'TradingSymbol',
+                status: 'Invalid'
+            }]
+        }]
+    );
+
+}
+
 export function riskScoreResponseValidation () {
     const exampleResponse = {
         'riskScores': [

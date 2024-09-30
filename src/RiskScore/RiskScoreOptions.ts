@@ -19,7 +19,7 @@
  * */
 
 import { Currency } from '../Shared/LocalizationOptions';
-import MorningstarOptions, { MorningstarConverterOptions, MorningstarHoldingValueOptions, MorningstarHoldingWeightOptions } from '../Shared/MorningstarOptions';
+import MorningstarOptions, { MorningstarConverterOptions, MorningstarHoldingValueOptions, MorningstarHoldingWeightOptions, MorningstarMetadata } from '../Shared/MorningstarOptions';
 
 
 /* *
@@ -33,6 +33,22 @@ export interface RiskScoreConverterOptions extends MorningstarConverterOptions {
 
     // Nothing to add yet
 
+}
+
+export type RiskScoreMetadataMessage = {
+    type: string,
+    message: string,
+    invalidHoldings: RiskScoreInvalidHolding[]
+};
+
+export type RiskScoreInvalidHolding = {
+    identifier: string,
+    identifierType: string,
+    status: string
+};
+
+export interface RiskScoreMetadata extends MorningstarMetadata {
+    messages: RiskScoreMetadataMessage[]
 }
 
 export interface BaseRiskScorePortfolio {

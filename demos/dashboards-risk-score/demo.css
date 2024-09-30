@@ -31,10 +31,6 @@ body {
     border-bottom: none;
 }
 
-#dashboard-col-1 .highcharts-dashboards-component-title {
-    background-color: #336;
-}
-
 @media screen and (max-width: 1000px) {
     .row {
         flex-direction: column;
