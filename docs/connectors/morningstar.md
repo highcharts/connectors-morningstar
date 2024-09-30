@@ -49,6 +49,8 @@ types.
 
 ### Available Connectors
 
-* [RNANews](morningstar/rna-news/regulatory-news-announcements.md)
+* [Goal Analysis](morningstar/goal-analysis.md)
+* [RNANews](morningstar/regulatory-news-announcements.md)
+* [Risk Score](morningstar/risk-score.md)
 * [TimeSeries](morningstar/time-series/time-series.md)
 * [XRay](morningstar/x-ray.md)

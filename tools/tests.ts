@@ -197,6 +197,8 @@ async function runUnitTests () {
             'failed.\n'
         );
 
+        process.exit(1);
+
     }
 
 }
