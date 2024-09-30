@@ -6,6 +6,7 @@ Changelog
 v0.6.0
 ------
 
+* Added goal analysis connector
 * Added risk score connector
 * Added x-ray connector
 * Added CLI command for API docs
