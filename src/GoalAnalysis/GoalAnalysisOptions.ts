@@ -106,6 +106,9 @@ export interface GoalAnalysisOptions extends MorningstarOptions {
 
     /**
      * Amount investor invests yearly.
+     *
+     * **Note:** Required when `includeDetailedInvestmentGrowthGraph`option is
+     * set to `true`.
      */
     annualInvestment?: number;
 
@@ -116,6 +119,9 @@ export interface GoalAnalysisOptions extends MorningstarOptions {
 
     /**
      * Investor’s current savings amount.
+     *
+     * **Note:** Required when `includeDetailedInvestmentGrowthGraph`option is
+     * set to `true`.
      */
     currentSavings?: number;
 
@@ -128,11 +134,17 @@ export interface GoalAnalysisOptions extends MorningstarOptions {
 
     /**
      * Investor’s target goal amount.
+     *
+     * **Note:** Required when `includeDetailedInvestmentGrowthGraph`option is
+     * set to `true`.
      */
     target?: number;
 
     /**
      * Time horizon in years.
+     *
+     * **Note:** Required when `includeDetailedInvestmentGrowthGraph`option is
+     * set to `true`.
      */
     timeHorizon?: number;
 
