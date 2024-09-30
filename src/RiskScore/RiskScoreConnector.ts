@@ -26,7 +26,7 @@ import External from '../Shared/External';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarURL from '../Shared/MorningstarURL';
-import RiskScoreOptions, { BaseRiskScorePortfolio, RiskScorePortfolio } from './RiskScoreOptions';
+import RiskScoreOptions, { BaseRiskScorePortfolio, RiskScoreMetadata, RiskScorePortfolio } from './RiskScoreOptions';
 import RiskScoreConverter from './RiskScoreConverter';
 import { HoldingIdentiferType, MorningstarHoldingOptions, MorningstarHoldingValueOptions, MorningstarHoldingWeightOptions } from '../Shared/MorningstarOptions';
 
@@ -197,6 +197,7 @@ export class RiskScoreConnector extends MorningstarConnector {
         super(options);
 
         this.converter = new RiskScoreConverter(options.converter);
+        this.metadata = this.converter.metadata;
         this.options = options;
     }
 
@@ -210,6 +211,10 @@ export class RiskScoreConnector extends MorningstarConnector {
 
     public override readonly converter: RiskScoreConverter;
 
+    /**
+     * Metadata from the previous load.
+     */
+    public override readonly metadata: RiskScoreMetadata;
 
     public override readonly options: RiskScoreOptions;
 

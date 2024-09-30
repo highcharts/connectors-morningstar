@@ -22,7 +22,7 @@
 
 import MorningstarConverter from '../Shared/MorningstarConverter';
 import RiskScoreJSON from './RiskScoreJSON';
-import { RiskScoreConverterOptions } from './RiskScoreOptions';
+import { RiskScoreConverterOptions, RiskScoreMetadata, RiskScoreMetadataMessage } from './RiskScoreOptions';
 
 
 /* *
@@ -78,6 +78,10 @@ export class RiskScoreConverter extends MorningstarConverter {
         super(options);
 
         this.options = options as Required<RiskScoreConverterOptions>;
+        this.metadata = {
+            columns: {},
+            messages: []
+        };
     }
 
     /* *
@@ -91,6 +95,11 @@ export class RiskScoreConverter extends MorningstarConverter {
      * Options for the DataConverter.
      */
     public override readonly options: Required<RiskScoreConverterOptions>;
+
+    /**
+     * Metadata from the previous load.
+     */
+    public readonly metadata: RiskScoreMetadata;
 
     /* *
      *
@@ -124,7 +133,7 @@ export class RiskScoreConverter extends MorningstarConverter {
         // Parse and cumulate risk scores by date
 
         const sortedPortfolios: RiskScorePortfolio[] = [];
-        const errors: string[] = [];
+        const messages: RiskScoreMetadataMessage[] = [];
 
         for (const riskScorePortfolio of json.riskScores) {
             const {
@@ -153,15 +162,7 @@ export class RiskScoreConverter extends MorningstarConverter {
                 riskScorePortfolio.metadata !== undefined && 
                 riskScorePortfolio.metadata.messages.length > 0
             ) {
-                for (const message of riskScorePortfolio.metadata.messages) {
-                    const holdingNames = message.invalidHoldings.map(
-                        invalidHolding => invalidHolding.identifier
-                    );
-
-                    errors.push(
-                        `The holding(s) ${holdingNames.join(', ')} are invalid. ${message.message}`
-                    );
-                }
+                messages.push(...riskScorePortfolio.metadata.messages);
             }
         }
 
@@ -212,9 +213,7 @@ export class RiskScoreConverter extends MorningstarConverter {
             }
         }
 
-        if (errors.length > 0) {
-            throw new Error(errors.join('\n'));
-        }
+        this.metadata.messages = messages;
 
         return true;
     }
