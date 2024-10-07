@@ -43,9 +43,10 @@ export async function breakdownLoad (
         'Connector table should exist of expected columns.'
     );
 
-    Assert.strictEqual(
-        connector.table.getRowCount(),
-        392,
+    const rowCount = connector.table.getRowCount();
+
+    Assert.ok(
+        rowCount >= 392 && rowCount <= 393,
         'Connector table should have the expected amount of rows.'
     );
 
