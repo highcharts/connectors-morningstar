@@ -163,7 +163,33 @@ export class MorningstarAPI {
 
         const contentType = response.headers.get('Content-Type');
 
-        if (!contentType?.startsWith('application/json')) {
+        if (contentType) {
+            const content = await response.blob();
+
+            // Prevent "Body has already been read" error
+            response.blob = async (): Promise<Blob> => content;
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+            response.json = async (): Promise<any> => JSON.parse(await content.text());
+            response.text = (): Promise<string> => content.text();
+        }
+
+        if (contentType?.startsWith('text/xml')) {
+            const xml = await response.text();
+            const exceptionMatch = xml.match(new RegExp([
+                '<StatusCode>([^<>]*)</StatusCode>',
+                '<StatusMessage>([^<>]*)</StatusMessage>'
+            ].join(''), 'su'));
+
+            if (exceptionMatch) {
+                const submessage = exceptionMatch[2].trim();
+                const substatus = parseInt(exceptionMatch[1]);
+                throw new MorningstarError(requestInit, response, substatus, submessage);
+            } else {
+                throw new Error(`Unexpected data: ${contentType}`);
+            }
+        } else if (contentType?.startsWith('application/json')) {
+            // Pass through
+        } else {
             throw new Error(`Unexpected data: ${contentType}`);
         }
 

@@ -34,7 +34,9 @@ export class MorningstarError extends Error {
 
     public constructor (
         request: RequestInit,
-        response: Response
+        response: Response,
+        substatus?: number,
+        submessage?: string
     ) {
         super(
             MorningstarError.errorMessageMap[ response.statusText ] ||
@@ -44,6 +46,8 @@ export class MorningstarError extends Error {
 
         this.request = request;
         this.response = response;
+        this.submessage = submessage;
+        this.substatus = substatus;
     }
 
 
@@ -58,6 +62,12 @@ export class MorningstarError extends Error {
 
 
     public readonly response: Response;
+
+
+    public readonly submessage?: string;
+
+
+    public readonly substatus?: number;
 
 
 }
