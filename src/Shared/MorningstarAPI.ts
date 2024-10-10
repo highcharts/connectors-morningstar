@@ -33,6 +33,20 @@ import { version } from '../version';
 
 /* *
  *
+ *  Constants
+ *
+ * */
+
+
+const webServiceExceptionPattern = new RegExp([
+    '<StatusCode>([^<>]*)</StatusCode>',
+    '.*',
+    '<StatusMessage>([^<>]*)</StatusMessage>'
+].join(''), 'su');
+
+
+/* *
+ *
  *  Class
  *
  * */
@@ -175,10 +189,7 @@ export class MorningstarAPI {
 
         if (contentType?.startsWith('text/xml')) {
             const xml = await response.text();
-            const exceptionMatch = xml.match(new RegExp([
-                '<StatusCode>([^<>]*)</StatusCode>',
-                '<StatusMessage>([^<>]*)</StatusMessage>'
-            ].join(''), 'su'));
+            const exceptionMatch = xml.match(webServiceExceptionPattern);
 
             if (exceptionMatch) {
                 const submessage = exceptionMatch[2].trim();
