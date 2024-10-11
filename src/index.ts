@@ -23,6 +23,7 @@
 
 
 import GoalAnalysis from './GoalAnalysis/index';
+import InvestmentDetails from './InvestmentDetails/index';
 import RNANews from './RNANews/index';
 import RiskScore from './RiskScore/index';
 import * as Shared from './Shared/index';
@@ -39,6 +40,7 @@ import XRay from './XRay/index';
 
 
 export * from './GoalAnalysis/index';
+export * from './InvestmentDetails/index';
 export * from './RNANews/index';
 export * from './RiskScore/index';
 export * as Shared from './Shared/index';
@@ -56,6 +58,7 @@ export * from './XRay/index';
 
 export default {
     GoalAnalysis,
+    InvestmentDetails,
     RNANews,
     RiskScore,
     Shared,
