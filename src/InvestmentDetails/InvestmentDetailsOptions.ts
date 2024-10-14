@@ -8,6 +8,7 @@
  *
  *  Authors:
  *  - Sophie Bremer
+ *  - Pawel Lysy
  *
  * */
 
@@ -43,15 +44,14 @@ export interface InvestmentDetailsConverterOptions extends MorningstarConverterO
 
 
 export interface InvestmentDetailsMetadata extends MorningstarMetadata {
-
-        Id: string;
-        Isin: string;
-        Domicile: string;
-        Currency: string;
-        ReturnType: string;
-        Type: string;
-        CurrencyId: string;
-        Date: string;
+    Id?: string;
+    Isin?: string;
+    Domicile?: string;
+    Currency?: string;
+    ReturnType?: string;
+    Type?: string;
+    CurrencyId?: string;
+    Date?: string;
 }
 
 

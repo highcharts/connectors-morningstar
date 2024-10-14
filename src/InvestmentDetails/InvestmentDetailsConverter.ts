@@ -8,6 +8,8 @@
  *
  *  Authors:
  *  - Sophie Bremer
+ *  - Pawel Lysy
+ *  - Askel Eirik Johansson
  *
  * */
 
@@ -52,7 +54,9 @@ export class InvestmentDetailsConverter extends MorningstarConverter {
     ) {
         super(options);
 
-        // this.mets
+        this.metadata = {
+            columns: {}
+        };
     }
 
 
@@ -63,7 +67,7 @@ export class InvestmentDetailsConverter extends MorningstarConverter {
      * */
 
 
-    // public readonly metadata: InvestmentDetailsMetadata;
+    public readonly metadata: InvestmentDetailsMetadata;
 
 
     /* *
@@ -76,7 +80,7 @@ export class InvestmentDetailsConverter extends MorningstarConverter {
     public parse (
         options: InvestmentDetailsConverterOptions
     ): void {
-        // const metadata = this.metadata;
+        const metadata = this.metadata;
         const table = this.table;
         const userOptions = {
             ...this.options,
@@ -93,64 +97,32 @@ export class InvestmentDetailsConverter extends MorningstarConverter {
         const investmentDetails = json[0];
 
         // Prepare table
-        console.log(investmentDetails.TrailingPerfromance[0].Return[0].Date)
 
         table.deleteColumns();
-        table.setColumn('InvestmentDetails_TrailingPerformance_Date');
         table.setColumn('InvestmentDetails_TrailingPerformance_TimePeriod');
         table.setColumn('InvestmentDetails_TrailingPerformance_Value');
 
-        // let seriesData = json.seriesData?.[0]?.data;
+        // Add trailing performance to table
 
-        // for (let i = 0, iEnd = seriesData.length; i < iEnd; ++i) {
-        //     table.setColumn(`Goal_AssetClass_${i}`);
-        // }
+        const trailingPerformanceReturn = investmentDetails.TrailingPerformance[0].Return;
 
-        // Add analysis to table
-
-        // let assetClassIndex = 0;
-        // let rowIndex = 0;
-
-        // for (const probabilityAccumulate of json.probabilityAccumulate) {
-        //     table.setCell(
-        //         'Goal_Probability',
-        //         rowIndex,
-        //         probabilityAccumulate.probability
-        //     );
-        //     table.setCell(
-        //         'Goal_Amount',
-        //         rowIndex,
-        //         probabilityAccumulate.Amount
-        //     );
-
-        //     assetClassIndex = 0;
-        //     seriesData = json.seriesData?.[rowIndex]?.data;
-
-        //     for (const assetClassData of seriesData) {
-        //         table.setCell(
-        //             `Goal_AssetClass_${assetClassIndex}`,
-        //             rowIndex,
-        //             assetClassData
-        //         );
-        //         ++assetClassIndex;
-        //     }
-
-        //     ++rowIndex;
-        // }
+        for (let i = 0, iEnd = trailingPerformanceReturn.length; i < iEnd; ++i) {
+            table.setCell(
+                'InvestmentDetails_TrailingPerformance_TimePeriod',
+                i,
+                trailingPerformanceReturn[i].TimePeriod
+            );
+            table.setCell(
+                'InvestmentDetails_TrailingPerformance_Value',
+                i,
+                trailingPerformanceReturn[i].Value
+            );
+        }
 
         // Update meta data
 
-        // metadata.annualisedRequiredReturn = json.annualisedRequiredReturn;
-        // metadata.expectedReturn = json.expectedReturn;
-        // metadata.financialGoal = json.financialGoal;
-        // metadata.probabilityOfReachingTarget = json.probabilityOfReachingTarget;
-        // metadata.requiredReturn = json.requiredReturn;
-        // metadata.requiredReturnValue = json.requiredReturnValue;
-        // metadata.standardDeviation = json.standardDeviation;
-        // metadata.totalGain = json.totalGain;
-        // metadata.totalInvestment = json.totalInvestment;
-        // metadata.totalReturn = json.totalReturn;
-        // metadata.years = json.years;
+        metadata.Id = investmentDetails.Id;
+        metadata.Isin = investmentDetails.Isin;
 
     }
 

@@ -28,6 +28,9 @@ import InvestmentDetailsOptions, {
 } from './InvestmentDetailsOptions';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
+import {
+    MorningstarSecurityOptions
+} from '../Shared/MorningstarOptions';
 import MorningstarURL from '../Shared/MorningstarURL';
 
 
@@ -54,7 +57,7 @@ export class InvestmentDetailsConnector extends MorningstarConnector {
         super(options);
 
         this.converter = new InvestmentDetailsConverter(options.converter);
-        // this.metadata = this.converter.metadata;
+        this.metadata = this.converter.metadata;
         this.options = options;
     }
 
@@ -69,7 +72,7 @@ export class InvestmentDetailsConnector extends MorningstarConnector {
     public override readonly converter: InvestmentDetailsConverter;
 
 
-    // public override readonly metadata: InvestmentDetailsMetadata;
+    public override readonly metadata: InvestmentDetailsMetadata;
 
 
     public override readonly options: InvestmentDetailsOptions;
@@ -86,44 +89,25 @@ export class InvestmentDetailsConnector extends MorningstarConnector {
 
         await super.load();
 
+        /* Example:
+        curl 
+        --location --request GET 'https://www.us-api.morningstar.com/ecint/v1/securities/F0GBR050DD?viewId=MFsnapshot&responseViewFormat=json&idtype=msid' \
+        --header 'Authorization: Bearer {token}'
+        */
+
+        const security: MorningstarSecurityOptions = {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        };
         const options = this.options;
         const api = this.api = this.api || new MorningstarAPI(options.api);
-        const url = new MorningstarURL('ecint/v1/goal-analysis', api.baseURL);
-
-        if (!options.assetClassWeights) {
-            throw new Error('Option assetClassWeights is missing.');
-        }
+        const url = new MorningstarURL(`ecint/v1/securities/${security.id}`, api.baseURL);
 
         const searchParams = url.searchParams;
 
-        searchParams.set('AssetClassWeights', options.assetClassWeights.join('|'));
-
-        if (options.annualInvestment) {
-            searchParams.set('annualInvestment', `${options.annualInvestment}`);
-        }
-
-        if (options.currentSavings) {
-            searchParams.set('currentSavings', `${options.currentSavings}`);
-        }
-
-        if (typeof options.includeDetailedInvestmentGrowthGraph === 'boolean') {
-            searchParams.set(
-                'IncludeDetailedInvestmentGrowthGraph',
-                options.includeDetailedInvestmentGrowthGraph ? 'True' : 'False'
-            );
-        }
-
-        if (options.requestProbability) {
-            searchParams.set('RequestProbability', `${options.requestProbability}`);
-        }
-
-        if (options.target) {
-            searchParams.set('target', `${options.target}`);
-        }
-
-        if (options.timeHorizon) {
-            searchParams.set('timeHorizon', `${options.timeHorizon}`);
-        }
+        searchParams.set('idType', security.idType);
+        searchParams.set('responseViewFormat', 'json');
+        searchParams.set('viewId', 'MFsnapshot');
 
         const response = await api.fetch(url);
         const json = await response.json() as unknown;

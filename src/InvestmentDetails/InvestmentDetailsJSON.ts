@@ -8,6 +8,7 @@
  *
  *  Authors:
  *  - Sophie Bremer
+ *  - Pawel Lysy
  *
  * */
 
@@ -33,22 +34,21 @@ namespace InvestmentDetailsJSON {
 
     interface CurrencyType {
         Id: string;
-   }
+    }
 
     export interface InvestmentDetailsResponse {
         Id: string;
         Isin: string;
         Domicile: string;
         Currency: CurrencyType;
-        TrailingPerfromance: InvestmentDetailsTrailingPerformance[];
-        ReturnType: string;
+        TrailingPerformance: InvestmentDetailsTrailingPerformance[];
         Type: string;
         CurrencyId: string;
         Date: string;
     }
 
     interface InvestmentDetailsTrailingPerformance {
-
+        ReturnType: string;
         Return: InvestmentDetailsReturn[];
     }
 
@@ -65,17 +65,17 @@ namespace InvestmentDetailsJSON {
      *
      * */
 
-    export function isInvestmentDetails(json: InvestmentDetailsResponse) {
-
+    export function isInvestmentDetails (
+        json: unknown
+    ) {
         return (
             !!json &&
             typeof json === 'object' &&
             typeof (json as InvestmentDetailsResponse).Id === 'string' &&
             typeof (json as InvestmentDetailsResponse).Currency === 'object' &&
-            typeof (json as InvestmentDetailsResponse).ReturnType === 'string' &&
             (
-                (json as InvestmentDetailsResponse).TrailingPerfromance.length === 0 ||
-                isTrailingPerformance((json as InvestmentDetailsResponse).TrailingPerfromance[0])
+                (json as InvestmentDetailsResponse).TrailingPerformance.length === 0 ||
+                isTrailingPerformance((json as InvestmentDetailsResponse).TrailingPerformance[0])
             )
         );
     }
@@ -90,7 +90,7 @@ namespace InvestmentDetailsJSON {
                 json.length === 0 ||
                 isInvestmentDetails(json[0])
             )
-        )
+        );
     }
 
 
@@ -100,13 +100,16 @@ namespace InvestmentDetailsJSON {
         return (
             !!json &&
             typeof json === 'object' &&
-            Array.isArray((json as InvestmentDetailsTrailingPerformance).Return) &&
-            isReturnType((json as InvestmentDetailsTrailingPerformance).Return[0])
+            typeof (json as InvestmentDetailsTrailingPerformance).ReturnType === 'string' &&
+            (
+                Array.isArray((json as InvestmentDetailsTrailingPerformance).Return) &&
+                isReturn((json as InvestmentDetailsTrailingPerformance).Return[0])
+            )
         );
     }
 
 
-    function isReturnType (
+    function isReturn (
         json?: unknown
     ): json is InvestmentDetailsReturn {
         return (

@@ -8,6 +8,8 @@
  *
  *  Authors:
  *  - Sophie Bremer
+ *  - Eskil Gjerde Sviggum
+ *  - Pawel Lysy
  *
  * */
 

@@ -32,6 +32,7 @@ import * as FSSync from 'node:fs';
 import * as JSDOM from 'jsdom';
 import * as Path from 'node:path';
 
+import Args from '../src/CLI/Library/Args';
 
 /* *
  *
@@ -80,6 +81,7 @@ async function logError (
             );
 
             console.error(error.message);
+            console.error('STATUS', response.status, response.statusText);
             console.error('REQUEST:', new Map(headers.entries()));
             console.error('RESPONSE:', await response.text());
 
@@ -123,6 +125,7 @@ function prepareGlobals () {
 
 
 async function runUnitTests () {
+    const args = Args.getArgs(process.argv);
     const failures: Array<string> = [];
     const successes: Array<string> = [];
     const stdout = process.stdout;
@@ -133,7 +136,13 @@ async function runUnitTests () {
 
     for (let path of (await FS.readdir(testFolder, { recursive: true })).sort()) {
 
-        if (!path.endsWith('.test.ts')) {
+        if (
+            !path.endsWith('.test.ts') ||
+            (
+                typeof args.tests === 'string' &&
+                !path.includes(args.tests)
+            )
+        ) {
             continue;
         }
 
