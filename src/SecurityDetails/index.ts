@@ -22,7 +22,7 @@
  * */
 
 
-import InvestmentDetailsConnector from './InvestmentDetailsConnector';
+import SecurityDetailsConnector from './SecurityDetailsConnector';
 
 
 /* *
@@ -32,9 +32,9 @@ import InvestmentDetailsConnector from './InvestmentDetailsConnector';
  * */
 
 
-export * from './InvestmentDetailsConnector';
-export * from './InvestmentDetailsConverter';
-export * from './InvestmentDetailsOptions';
+export * from './SecurityDetailsConnector';
+export * from './SecurityDetailsConverter';
+export * from './SecurityDetailsOptions';
 
 
 /* *
@@ -44,4 +44,4 @@ export * from './InvestmentDetailsOptions';
  * */
 
 
-export default InvestmentDetailsConnector;
+export default SecurityDetailsConnector;

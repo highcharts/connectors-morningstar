@@ -25,10 +25,10 @@
 
 
 import {
-    InvestmentDetailsConverterOptions,
-    InvestmentDetailsMetadata
-} from './InvestmentDetailsOptions';
-import InvestmentDetailsJSON from './InvestmentDetailsJSON';
+    SecurityDetailsConverterOptions,
+    SecurityDetailsMetadata
+} from './SecurityDetailsOptions';
+import SecurityDetailsJSON from './SecurityDetailsJSON';
 import MorningstarConverter from '../Shared/MorningstarConverter';
 
 
@@ -39,7 +39,7 @@ import MorningstarConverter from '../Shared/MorningstarConverter';
  * */
 
 
-export class InvestmentDetailsConverter extends MorningstarConverter {
+export class SecurityDetailsConverter extends MorningstarConverter {
 
 
     /* *
@@ -50,7 +50,7 @@ export class InvestmentDetailsConverter extends MorningstarConverter {
 
 
     public constructor (
-        options?: InvestmentDetailsConverterOptions
+        options?: SecurityDetailsConverterOptions
     ) {
         super(options);
 
@@ -67,7 +67,7 @@ export class InvestmentDetailsConverter extends MorningstarConverter {
      * */
 
 
-    public readonly metadata: InvestmentDetailsMetadata;
+    public readonly metadata: SecurityDetailsMetadata;
 
 
     /* *
@@ -78,7 +78,7 @@ export class InvestmentDetailsConverter extends MorningstarConverter {
 
 
     public parse (
-        options: InvestmentDetailsConverterOptions
+        options: SecurityDetailsConverterOptions
     ): void {
         const metadata = this.metadata;
         const table = this.table;
@@ -90,30 +90,30 @@ export class InvestmentDetailsConverter extends MorningstarConverter {
 
         // Validate JSON
 
-        if (!InvestmentDetailsJSON.isInvestmentDetailsResponse(json)) {
+        if (!SecurityDetailsJSON.isSecurityDetailsResponse(json)) {
             throw new Error('Invalid data');
         }
 
-        const investmentDetails = json[0];
+        const SecurityDetails = json[0];
 
         // Prepare table
 
         table.deleteColumns();
-        table.setColumn('InvestmentDetails_TrailingPerformance_TimePeriod');
-        table.setColumn('InvestmentDetails_TrailingPerformance_Value');
+        table.setColumn('SecurityDetails_TrailingPerformance_TimePeriod');
+        table.setColumn('SecurityDetails_TrailingPerformance_Value');
 
         // Add trailing performance to table
 
-        const trailingPerformanceReturn = investmentDetails.TrailingPerformance[0].Return;
+        const trailingPerformanceReturn = SecurityDetails.TrailingPerformance[0].Return;
 
         for (let i = 0, iEnd = trailingPerformanceReturn.length; i < iEnd; ++i) {
             table.setCell(
-                'InvestmentDetails_TrailingPerformance_TimePeriod',
+                'SecurityDetails_TrailingPerformance_TimePeriod',
                 i,
                 trailingPerformanceReturn[i].TimePeriod
             );
             table.setCell(
-                'InvestmentDetails_TrailingPerformance_Value',
+                'SecurityDetails_TrailingPerformance_Value',
                 i,
                 trailingPerformanceReturn[i].Value
             );
@@ -121,8 +121,8 @@ export class InvestmentDetailsConverter extends MorningstarConverter {
 
         // Update meta data
 
-        metadata.Id = investmentDetails.Id;
-        metadata.Isin = investmentDetails.Isin;
+        metadata.Id = SecurityDetails.Id;
+        metadata.Isin = SecurityDetails.Isin;
 
     }
 
@@ -137,4 +137,4 @@ export class InvestmentDetailsConverter extends MorningstarConverter {
  * */
 
 
-export default InvestmentDetailsConverter;
+export default SecurityDetailsConverter;

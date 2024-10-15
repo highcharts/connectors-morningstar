@@ -38,12 +38,12 @@ import type {
  * */
 
 
-export interface InvestmentDetailsConverterOptions extends MorningstarConverterOptions {
+export interface SecurityDetailsConverterOptions extends MorningstarConverterOptions {
     // Nothing to add yet
 }
 
 
-export interface InvestmentDetailsMetadata extends MorningstarMetadata {
+export interface SecurityDetailsMetadata extends MorningstarMetadata {
     Id?: string;
     Isin?: string;
     Domicile?: string;
@@ -55,7 +55,7 @@ export interface InvestmentDetailsMetadata extends MorningstarMetadata {
 }
 
 
-export interface InvestmentDetailsOptions extends MorningstarOptions {
+export interface SecurityDetailsOptions extends MorningstarOptions {
 
     /**
      * Amount investor invests yearly.
@@ -111,4 +111,4 @@ export interface InvestmentDetailsOptions extends MorningstarOptions {
  * */
 
 
-export default InvestmentDetailsOptions;
+export default SecurityDetailsOptions;

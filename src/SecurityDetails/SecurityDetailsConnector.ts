@@ -22,10 +22,10 @@
  * */
 
 
-import InvestmentDetailsConverter from './InvestmentDetailsConverter';
-import InvestmentDetailsOptions, {
-    InvestmentDetailsMetadata
-} from './InvestmentDetailsOptions';
+import SecurityDetailsConverter from './SecurityDetailsConverter';
+import SecurityDetailsOptions, {
+    SecurityDetailsMetadata
+} from './SecurityDetailsOptions';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import {
@@ -41,7 +41,7 @@ import MorningstarURL from '../Shared/MorningstarURL';
  * */
 
 
-export class InvestmentDetailsConnector extends MorningstarConnector {
+export class SecurityDetailsConnector extends MorningstarConnector {
 
 
     /* *
@@ -52,11 +52,11 @@ export class InvestmentDetailsConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: InvestmentDetailsOptions = {}
+        options: SecurityDetailsOptions = {}
     ) {
         super(options);
 
-        this.converter = new InvestmentDetailsConverter(options.converter);
+        this.converter = new SecurityDetailsConverter(options.converter);
         this.metadata = this.converter.metadata;
         this.options = options;
     }
@@ -69,13 +69,13 @@ export class InvestmentDetailsConnector extends MorningstarConnector {
      * */
 
 
-    public override readonly converter: InvestmentDetailsConverter;
+    public override readonly converter: SecurityDetailsConverter;
 
 
-    public override readonly metadata: InvestmentDetailsMetadata;
+    public override readonly metadata: SecurityDetailsMetadata;
 
 
-    public override readonly options: InvestmentDetailsOptions;
+    public override readonly options: SecurityDetailsOptions;
 
 
     /* *
@@ -131,4 +131,4 @@ export class InvestmentDetailsConnector extends MorningstarConnector {
  * */
 
 
-export default InvestmentDetailsConnector;
+export default SecurityDetailsConnector;
