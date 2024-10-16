@@ -21,7 +21,7 @@
  *
  * */
 
-
+import External from '../Shared/External';
 import GoalAnalysisConverter from './GoalAnalysisConverter';
 import GoalAnalysisOptions, {
     GoalAnalysisMetadata
@@ -138,6 +138,23 @@ export class GoalAnalysisConnector extends MorningstarConnector {
 
 
 }
+
+
+/* *
+ *
+ *  Registry
+ *
+ * */
+
+
+declare module '@highcharts/dashboards/es-modules/Data/Connectors/DataConnectorType' {
+    interface DataConnectorTypes {
+        MorningstarGoalAnalysis: typeof GoalAnalysisConnector;
+    }
+}
+
+
+External.DataConnector.registerType('MorningstarGoalAnalysis', GoalAnalysisConnector);
 
 
 /* *
