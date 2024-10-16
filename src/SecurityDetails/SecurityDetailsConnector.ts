@@ -28,9 +28,6 @@ import SecurityDetailsOptions, {
 } from './SecurityDetailsOptions';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
-import {
-    MorningstarSecurityOptions
-} from '../Shared/MorningstarOptions';
 import MorningstarURL from '../Shared/MorningstarURL';
 
 
@@ -85,29 +82,23 @@ export class SecurityDetailsConnector extends MorningstarConnector {
      * */
 
 
-    public override async load (): Promise<this> {
+    public override async load (
+        options?: SecurityDetailsOptions
+    ): Promise<this> {
 
         await super.load();
 
-        /* Example:
-        curl 
-        --location --request GET 'https://www.us-api.morningstar.com/ecint/v1/securities/F0GBR050DD?viewId=MFsnapshot&responseViewFormat=json&idtype=msid' \
-        --header 'Authorization: Bearer {token}'
-        */
-
-        const security: MorningstarSecurityOptions = {
-            id: 'F0GBR050DD',
-            idType: 'MSID'
-        };
-        const options = this.options;
-        const api = this.api = this.api || new MorningstarAPI(options.api);
-        const url = new MorningstarURL(`ecint/v1/securities/${security.id}`, api.baseURL);
+        const userOptions = { ...this.options, ...options };
+        const { security, viewId = 'MFsnapshot' } = userOptions;
+        const { id: securityId, idType: securityIdType } = (security || {});
+        const api = this.api = this.api || new MorningstarAPI(userOptions.api);
+        const url = new MorningstarURL(`ecint/v1/securities/${securityId}`, api.baseURL);
 
         const searchParams = url.searchParams;
 
-        searchParams.set('idType', security.idType);
+        searchParams.set('idType', '' + securityIdType);
         searchParams.set('responseViewFormat', 'json');
-        searchParams.set('viewId', 'MFsnapshot');
+        searchParams.set('viewid', viewId);
 
         const response = await api.fetch(url);
         const json = await response.json() as unknown;

@@ -94,8 +94,6 @@ export class SecurityDetailsConverter extends MorningstarConverter {
             throw new Error('Invalid data');
         }
 
-        const SecurityDetails = json[0];
-
         // Prepare table
 
         table.deleteColumns();
@@ -104,25 +102,31 @@ export class SecurityDetailsConverter extends MorningstarConverter {
 
         // Add trailing performance to table
 
-        const trailingPerformanceReturn = SecurityDetails.TrailingPerformance[0].Return;
+        if (json.length) {
 
-        for (let i = 0, iEnd = trailingPerformanceReturn.length; i < iEnd; ++i) {
-            table.setCell(
-                'SecurityDetails_TrailingPerformance_TimePeriod',
-                i,
-                trailingPerformanceReturn[i].TimePeriod
-            );
-            table.setCell(
-                'SecurityDetails_TrailingPerformance_Value',
-                i,
-                trailingPerformanceReturn[i].Value
-            );
+            // Update table
+
+            const securityDetails = json[0];
+            const trailingPerformanceReturn = securityDetails.TrailingPerformance[0].Return;
+    
+            for (let i = 0, iEnd = trailingPerformanceReturn.length; i < iEnd; ++i) {
+                table.setCell(
+                    'SecurityDetails_TrailingPerformance_TimePeriod',
+                    i,
+                    trailingPerformanceReturn[i].TimePeriod
+                );
+                table.setCell(
+                    'SecurityDetails_TrailingPerformance_Value',
+                    i,
+                    trailingPerformanceReturn[i].Value
+                );
+            }
+
+            // Update meta data
+
+            metadata.id = securityDetails.Id;
+            metadata.isin = securityDetails.Isin;
         }
-
-        // Update meta data
-
-        metadata.Id = SecurityDetails.Id;
-        metadata.Isin = SecurityDetails.Isin;
 
     }
 

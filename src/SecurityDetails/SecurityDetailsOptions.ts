@@ -26,7 +26,8 @@
 import type {
     MorningstarConverterOptions,
     MorningstarMetadata,
-    MorningstarOptions
+    MorningstarOptions,
+    MorningstarSecurityOptions
 } from '../Shared/MorningstarOptions';
 
 
@@ -44,63 +45,20 @@ export interface SecurityDetailsConverterOptions extends MorningstarConverterOpt
 
 
 export interface SecurityDetailsMetadata extends MorningstarMetadata {
-    Id?: string;
-    Isin?: string;
-    Domicile?: string;
-    Currency?: string;
-    ReturnType?: string;
-    Type?: string;
-    CurrencyId?: string;
-    Date?: string;
+    id?: string;
+    isin?: string;
+    domicile?: string;
+    currency?: string;
+    returnType?: string;
+    type?: string;
+    currencyId?: string;
+    date?: string;
 }
 
 
 export interface SecurityDetailsOptions extends MorningstarOptions {
-
-    /**
-     * Amount investor invests yearly.
-     *
-     * **Note:** Required when `includeDetailedInvestmentGrowthGraph`option is
-     * set to `true`.
-     */
-    annualInvestment?: number;
-
-    /**
-     * Weight list of individual asset classes.
-     */
-    assetClassWeights?: Array<number>;
-
-    /**
-     * Investor’s current savings amount.
-     *
-     * **Note:** Required when `includeDetailedInvestmentGrowthGraph`option is
-     * set to `true`.
-     */
-    currentSavings?: number;
-
-    /**
-     * Returns time series data for charting purposes.
-     */
-    includeDetailedInvestmentGrowthGraph?: boolean;
-
-    requestProbability?: number;
-
-    /**
-     * Investor’s target goal amount.
-     *
-     * **Note:** Required when `includeDetailedInvestmentGrowthGraph`option is
-     * set to `true`.
-     */
-    target?: number;
-
-    /**
-     * Time horizon in years.
-     *
-     * **Note:** Required when `includeDetailedInvestmentGrowthGraph`option is
-     * set to `true`.
-     */
-    timeHorizon?: number;
-
+    security?: MorningstarSecurityOptions,
+    viewId?: string,
 }
 
 

@@ -5,7 +5,11 @@ export async function securityDetailsLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
-      api
+        api,
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        }
     });
 
     Assert.ok(
@@ -21,18 +25,28 @@ export async function securityDetailsLoad (
 
     await connector.load();
 
-    // console.log(connector.table.getColumns());
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'SecurityDetails_TrailingPerformance_TimePeriod',
+            'SecurityDetails_TrailingPerformance_Value'
+        ],
+        'Connector table should exist of expected columns.'
+    );
 
-    // Assert.deepStrictEqual(
-    //     connector.table.getColumnNames(),
-    //     ['Day', 'Title', 'Source', 'Type'],
-    //     'Connector table should exist of expected columns.'
-    // );
+    Assert.strictEqual(
+        connector.table.getRowCount(),
+        10,
+        'Connector table should have ten expected RNANews rows.'
+    );
 
-    // Assert.strictEqual(
-    //     connector.table.getRowCount(),
-    //     10,
-    //     'Connector table should have ten expected RNANews rows.'
-    // );
+    Assert.deepStrictEqual(
+        connector.metadata,
+        {
+            columns: {},
+            id: 'F0GBR050DD',
+            isin: 'GB0004460357'
+        }
+    )
 
 }
