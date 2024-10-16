@@ -22,6 +22,7 @@
  * */
 
 
+import External from '../Shared/External';
 import SecurityDetailsConverter from './SecurityDetailsConverter';
 import SecurityDetailsOptions, {
     SecurityDetailsMetadata
@@ -113,6 +114,23 @@ export class SecurityDetailsConnector extends MorningstarConnector {
 
 
 }
+
+
+/* *
+ *
+ *  Registry
+ *
+ * */
+
+
+declare module '@highcharts/dashboards/es-modules/Data/Connectors/DataConnectorType' {
+    interface DataConnectorTypes {
+        MorningstarSecurityDetails: typeof SecurityDetailsConnector;
+    }
+}
+
+
+External.DataConnector.registerType('MorningstarSecurityDetails', SecurityDetailsConnector);
 
 
 /* *
