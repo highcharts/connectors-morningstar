@@ -109,14 +109,18 @@ export interface MorningstarHoldingAmountOptions extends MorningstarHoldingOptio
 }
 
 
-export interface MorningstarHoldingWeightOptions extends MorningstarHoldingOptions {
+export type MorningstarHoldingIdentiferType = (
+    | 'CUSIP'
+    | 'FundCode'
+    | 'ISIN'
+    | 'MSID'
+    | 'PerformanceId'
+    | 'SecurityID'
+    | 'TradingSymbol'
+);
 
-    /**
-     * Holding weight.
-     */
-    weight: (number|string);
 
-}
+export type MorningstarHoldingOptions = MorningstarSecurityOptionsGeneric<MorningstarHoldingIdentiferType>;
 
 
 export interface MorningstarHoldingValueOptions extends MorningstarHoldingOptions {
@@ -125,6 +129,16 @@ export interface MorningstarHoldingValueOptions extends MorningstarHoldingOption
      * Holding value.
      */
     value: number;
+
+}
+
+
+export interface MorningstarHoldingWeightOptions extends MorningstarHoldingOptions {
+
+    /**
+     * Holding weight.
+     */
+    weight: (number|string);
 
 }
 
@@ -198,19 +212,8 @@ interface MorningstarSecurityOptionsGeneric<IDType> {
 
 }
 
+
 export type MorningstarSecurityOptions = MorningstarSecurityOptionsGeneric<string>;
-
-export type HoldingIdentiferType = (
-    | 'CUSIP'
-    | 'FundCode'
-    | 'ISIN'
-    | 'MSID'
-    | 'PerformanceId'
-    | 'SecurityID'
-    | 'TradingSymbol'
-);
-
-export type MorningstarHoldingOptions = MorningstarSecurityOptionsGeneric<HoldingIdentiferType>;
 
 
 /* *

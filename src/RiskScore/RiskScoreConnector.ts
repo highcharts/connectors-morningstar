@@ -28,7 +28,7 @@ import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarURL from '../Shared/MorningstarURL';
 import RiskScoreOptions, { BaseRiskScorePortfolio, RiskScoreMetadata, RiskScorePortfolio } from './RiskScoreOptions';
 import RiskScoreConverter from './RiskScoreConverter';
-import { HoldingIdentiferType, MorningstarHoldingOptions, MorningstarHoldingValueOptions, MorningstarHoldingWeightOptions } from '../Shared/MorningstarOptions';
+import { MorningstarHoldingIdentiferType, MorningstarHoldingOptions, MorningstarHoldingValueOptions, MorningstarHoldingWeightOptions } from '../Shared/MorningstarOptions';
 
 /* *
  * 
@@ -46,7 +46,7 @@ interface MorningstarHoldingRequest {
     /**
      * Security identifier type.
      */
-    identifierType: HoldingIdentiferType;
+    identifierType: MorningstarHoldingIdentiferType;
 
     /**
      * Holding weight.
