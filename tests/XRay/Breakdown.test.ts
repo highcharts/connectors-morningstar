@@ -43,10 +43,18 @@ export async function breakdownLoad (
         'Connector table should exist of expected columns.'
     );
 
+    const now = new Date();
+    const then = new Date(2024, 8 /* September */, 1);
     const rowCount = connector.table.getRowCount();
+    const shouldCount = (
+        384 + // January 2024
+        ((now.getFullYear() - then.getFullYear()) * 12) +
+        now.getMonth()
+    );
 
-    Assert.ok(
-        rowCount >= 392 && rowCount <= 393,
+    Assert.strictEqual(
+        rowCount,
+        shouldCount,
         'Connector table should have the expected amount of rows.'
     );
 
