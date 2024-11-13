@@ -106,7 +106,7 @@ const metas: Record<string, Meta> = {
         umdNames: {
             amd: 'highcharts/connectors-morningstar',
             commonjs,
-            root: ['Highcharts', 'Connectors', 'Morningstar']
+            root: ['HighchartsConnectors', 'Morningstar']
         }
     }
 };
