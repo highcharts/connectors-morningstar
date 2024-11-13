@@ -30,7 +30,7 @@ or `currencyId`.
 ### Time Series with Morningstar standalone for Highcharts:
 
 ```js
-const dividendConnector = new Connectors.Morningstar.TimeSeriesConnector({
+const dividendConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
     postman: {
         environmentJSON: postmanJSON
     },

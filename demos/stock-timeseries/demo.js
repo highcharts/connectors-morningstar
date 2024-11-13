@@ -10,7 +10,7 @@ document.getElementById('postman-json').addEventListener(
 
         target.parentNode.style.display = 'none';
 
-        const priceConnector = new Connectors.Morningstar.TimeSeriesConnector({
+        const priceConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
             postman: {
                 environmentJSON: postmanJSON
             },
@@ -53,7 +53,7 @@ async function getPostmanJSON (htmlInputFile) {
     for (file of htmlInputFile.files) {
         try {
             fileJSON = JSON.parse(await file.text());
-            if (Connectors.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
+            if (HighchartsConnectors.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
                 break;
             }
         } catch (error) {

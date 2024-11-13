@@ -15,7 +15,7 @@ In order to fetch time series for growth, specify series type `Growth` in
 the Time Series Connector options.
 
 ```js
-const growthConnector = new Connectors.Morningstar.TimeSeriesConnector({
+const growthConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
     postman: {
         environmentJSON: postmanJSON
     },
