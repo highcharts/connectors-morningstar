@@ -25,6 +25,6 @@ The connectors are available as
 
 <!-- Link References -->
 
-[Highcharts Connectors]: https://highcharts.com/connectors/
+[Highcharts Connectors]: https://www.highcharts.com/products/morningstar-data/
 
 [Morningstar Direct Web Services]: https://developer.morningstar.com/direct-web-services/
