@@ -1,0 +1,81 @@
+/* *
+ *
+ *  (c) 2009-2024 Highsoft AS
+ *
+ *  License: www.highcharts.com/license
+ *
+ *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
+ *
+ *  Authors:
+ *  - Pawel Lysy
+ *
+ * */
+
+'use strict';
+
+/* *
+ *
+ *  Namespace
+ *
+ * */
+
+namespace InvestmentScreenerJSON {
+    export interface Response {
+        InvestmentScreener: InvestmentScreenerResponse;
+    }
+
+    export interface InvestmentScreenerResponse {
+        total: number;
+        page: number;
+        pageSize: number;
+        rows: InvestmentScreenerRow[];
+    }
+
+    export interface InvestmentScreenerRow {
+        [key: string]: any;
+    }
+
+    /* *
+     *
+     *  Functions
+     *
+     * */
+
+    export function isResponse (json?: unknown): json is Response {
+        return (
+            !!json &&
+            typeof json === 'object' &&
+            typeof (json as Response).InvestmentScreener === 'object' &&
+            isInvestmentScreenerResponse((json as Response).InvestmentScreener)
+        );
+    }
+
+    export function isInvestmentScreenerResponse (
+        json?: unknown
+    ): json is InvestmentScreenerResponse {
+        return (
+            !!json &&
+            typeof json === 'object' &&
+            typeof (json as InvestmentScreenerResponse).rows === 'object' &&
+            (json as InvestmentScreenerResponse).rows instanceof Array &&
+            ((json as InvestmentScreenerResponse).rows.length === 0 ||
+                isInvestmentScreenerRow(
+                    (json as InvestmentScreenerResponse).rows[0]
+                ))
+        );
+    }
+
+    export function isInvestmentScreenerRow (
+        json?: unknown
+    ): json is InvestmentScreenerRow {
+        return !!json && typeof json === 'object';
+    }
+}
+
+/* *
+ *
+ *  Default Export
+ *
+ * */
+
+export default InvestmentScreenerJSON;
