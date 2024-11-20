@@ -12,7 +12,7 @@
  `OHLCV` in the Time Series Connector options.
 
  ```js
- const ohlcvConnector = new Connectors.Morningstar.TimeSeriesConnector({
+ const ohlcvConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
      postman: {
          environmentJSON: postmanJSON
      },

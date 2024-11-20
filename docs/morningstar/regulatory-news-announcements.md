@@ -17,7 +17,7 @@ or `maxStories`.
 ### RNANews with Morningstar standalone for Highcharts:
 
 ```js
-const rnaNewsConnector = new Connectors.Morningstar.RNANewsConnector({
+const rnaNewsConnector = new HighchartsConnectors.Morningstar.RNANewsConnector({
     postman: {
         environmentJSON: postmanJSON
     },

@@ -11,7 +11,7 @@ period.
 - [Growth](growth.md)
 - [OHLCV](ohlcv.md)
 - [Price](price.md)
-- [Regulatory News Announcements](../rna-news/regulatory-news-announcements.md)
+- [Regulatory News Announcements](../../regulatory-news-announcements.md)
 
 
 For more details, see [Morningstar’s Time Series API].
@@ -30,7 +30,7 @@ or `currencyId`.
 ### Time Series with Morningstar standalone for Highcharts:
 
 ```js
-const dividendConnector = new Connectors.Morningstar.TimeSeriesConnector({
+const dividendConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
     postman: {
         environmentJSON: postmanJSON
     },

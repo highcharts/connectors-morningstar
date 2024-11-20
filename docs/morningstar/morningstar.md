@@ -34,7 +34,7 @@ products and Highcharts Dashboards.
 
 You can connect Highcharts core products with Morningstar by using
 `connectors-morningstar.js` in the `connectors-morningstar` bundle. You have to manually create the connector and
-assing the resulting table to your series options.
+assign the resulting table to your series options.
 
 
 
@@ -49,8 +49,9 @@ types.
 
 ### Available Connectors
 
-* [Goal Analysis](morningstar/goal-analysis.md)
-* [RNANews](morningstar/regulatory-news-announcements.md)
-* [Risk Score](morningstar/risk-score.md)
-* [TimeSeries](morningstar/time-series/time-series.md)
-* [XRay](morningstar/x-ray.md)
+* [Goal Analysis](./goal-analysis.md)
+* [RNANews](./regulatory-news-announcements.md)
+* [Risk Score](./risk-score.md)
+* [TimeSeries](./time-series/time-series.md)
+* [XRay](./x-ray.md)
+* [Security Details](./security-details.md)
