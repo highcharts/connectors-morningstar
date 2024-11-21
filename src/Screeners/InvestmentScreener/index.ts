@@ -31,8 +31,8 @@ import InvestmentScreenerConnector from './InvestmentScreenerConnector';
 
 export * from './InvestmentScreenerConnector';
 export * from './InvestmentScreenerConverter';
-export * as InvestmentScreenerConverters from './Converters/index';
 export * from './InvestmentScreenerOptions';
+
 
 
 /* *

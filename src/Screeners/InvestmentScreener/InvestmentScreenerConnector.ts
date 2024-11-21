@@ -20,7 +20,10 @@
  * */
 
 import type InvestmentScreenerOptions from './InvestmentScreenerOptions';
-import type { InvestmentScreenerFilter, InvestmentScreenerMetadata } from './InvestmentScreenerOptions';
+import type {
+    InvestmentScreenerFilter,
+    InvestmentScreenerMetadata
+} from './InvestmentScreenerOptions';
 import External from '../../Shared/External';
 import MorningstarAPI from '../../Shared/MorningstarAPI';
 import MorningstarConnector from '../../Shared/MorningstarConnector';
@@ -33,8 +36,8 @@ import MorningstarURL from '../../Shared/MorningstarURL';
  *
  * */
 
-const UTF_PIPE = '%7C';
-const UTF_COLON = '%3A';
+const UTF_PIPE = '|';
+const UTF_COLON = ':';
 
 /* *
  *
@@ -75,13 +78,16 @@ export class InvestmentScreenerConnector extends MorningstarConnector {
         if (userOptions.securityDataPoints) {
             searchParams.set(
                 'securityDataPoints',
-                userOptions.securityDataPoints.join(UTF_PIPE)
+                userOptions.securityDataPoints.join(',')
             );
         }
 
         if (userOptions.filters) {
             const filters = userOptions.filters.reduce(
-                (prev, curr) => prev + UTF_PIPE + this.getFilter(curr),
+                (prev, curr) =>
+                    prev === '' ?
+                        this.getFilter(curr) :
+                        prev + UTF_PIPE + this.getFilter(curr),
                 ''
             );
             searchParams.set('filters', filters);

@@ -20,6 +20,7 @@
  * */
 
 import type { InvestmentScreenerConverterOptions, InvestmentScreenerMetadata } from './InvestmentScreenerOptions';
+import type { DataTable } from '@highcharts/dashboards';
 
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 import InvestmentScreenerJSON from './InvestmentScreenerJSON';
@@ -44,8 +45,6 @@ export class InvestmentScreenerConverter extends MorningstarConverter {
      *
      * */
 
-    public path: string;
-
     public readonly metadata: InvestmentScreenerMetadata;
 
     /* *
@@ -64,27 +63,23 @@ export class InvestmentScreenerConverter extends MorningstarConverter {
         };
         const json = userOptions.json;
 
-        // Validate JSON
-
         if (!InvestmentScreenerJSON.isInvestmentScreenerResponse(json)) {
             throw new Error('Invalid data');
         }
-
-        // Prepare table
         table.deleteColumns();
         const rows = json.rows;
         if (rows.length > 0) {
             const row = rows[0];
             for (const element of Object.keys(row)) {
-                table.setColumn(`InvestmentScreeeer_${element}`);
+                table.setColumn(`InvestmentScreener_${element}`);
             }
 
             for (let i = 0; i < rows.length; i++) {
                 for (const [key, val] of Object.entries(rows[i])) {
                     table.setCell(
-                        `InvestmentScreeeer_${key}`,
+                        `InvestmentScreener_${key}`,
                         i,
-                        `InvestmentScreeeer_${val}`
+                        val as DataTable.CellType
                     );
                 }
             }
