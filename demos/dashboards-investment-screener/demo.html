@@ -8,10 +8,10 @@
         <script src="https://code.highcharts.com/dashboards/dashboards.src.js"></script>
         <script src="../../code/connectors-morningstar.src.js"></script>
 
-        <title>Highcharts Dashboards + Morningstar Portfolio Risk Score</title>
+        <title>Highcharts Dashboards + Morningstar Portfolio Investment Details</title>
     </head>
     <body>
-        <h1>Highcharts Dashboards + Morningstar Portfolio Risk Score</h1>
+        <h1>Highcharts Dashboards + Morningstar Portfolio Investment Details</h1>
         <p>
             Add your Postman environment file from Morningstar to start the demo:
             <input type="file" id="postman-json" accept=".json,application/json" />
@@ -22,6 +22,10 @@
             <button class="cell" id='filter-2'>Top Performer funds</button>
             <button class="cell" id='filter-3'>Highly Sustainalble</button>
             <button class="cell" id='filter-4'>Low Expenses</button>
+        </div>
+        <div>
+            Current filter: 
+            <span id='current-filter'></span>
         </div>
         <div class="row" id="container">
             <div class="cell" id="dashboard-col-1"></div>

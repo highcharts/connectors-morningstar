@@ -1,6 +1,6 @@
 const loadingLabel = document.getElementById('loading-label');
 
-function displayInvestmentScreener (postmanJSON) {
+function displayInvestmentScreener(postmanJSON) {
     const secIds = [
         'secId',
         'tenforeId',
@@ -15,10 +15,13 @@ function displayInvestmentScreener (postmanJSON) {
         'holdingTypeId',
         'universe'
     ];
-    const cols = {};
-    for (const id of secIds) {
-        cols[`InvestmentScreener_${id}`] = { headerFormat: id };
-    }
+
+    const columns = secIds.map(id => ({
+        id: `InvestmentScreener_${id}`,
+        header: {
+            format: id
+        }
+    }));
 
     const board = Dashboards.board('container', {
         dataPool: {
@@ -50,7 +53,7 @@ function displayInvestmentScreener (postmanJSON) {
 
                 dataGridOptions: {
                     editable: false,
-                    columns: cols
+                    columns
                 },
                 title: 'Investment Screener'
             }
@@ -67,7 +70,7 @@ function displayInvestmentScreener (postmanJSON) {
             `out of ${Math.ceil(connector.metadata.total / connector.metadata.pageSize)}`;
     });
 
-    function setFilter (filters) {
+    function setFilter(filters) {
         loadingLabel.style.display = 'block';
         board.dataPool.getConnector('investment-screener').then(connector => {
             const options = {
@@ -75,17 +78,20 @@ function displayInvestmentScreener (postmanJSON) {
             };
             connector.load(options).then(() => {
                 loadingLabel.style.display = 'none';
+                document.getElementById('total').innerHTML =
+                    `total - ${connector.metadata.total}`;
+                document.getElementById('page').innerHTML =
+                    `page - ${connector.metadata.page}`;
+                document.getElementById('total-pages').innerHTML =
+                    `out of ${Math.ceil(connector.metadata.total / connector.metadata.pageSize)}`;
             });
-            document.getElementById('total').innerHTML =
-                `total - ${connector.metadata.total}`;
-            document.getElementById('page').innerHTML =
-                `page - ${connector.metadata.page}`;
-            document.getElementById('total-pages').innerHTML =
-                `out of ${Math.ceil(connector.metadata.total / connector.metadata.pageSize)}`;
         });
     }
 
-    document.getElementById('filter-1').addEventListener('click', () => {
+    document.getElementById('filter-1').addEventListener('click', e => {
+        e.target.classList.add('button-active');
+        document.getElementById('current-filter').innerHTML =
+            e.target.innerHTML;
         setFilter([
             {
                 dataPointId: 'StarRatingM255',
@@ -100,7 +106,9 @@ function displayInvestmentScreener (postmanJSON) {
         ]);
     });
 
-    document.getElementById('filter-2').addEventListener('click', () => {
+    document.getElementById('filter-2').addEventListener('click', e => {
+        document.getElementById('current-filter').innerHTML =
+            e.target.innerHTML;
         setFilter([
             {
                 dataPointId: 'GBRReturnM0',
@@ -110,7 +118,9 @@ function displayInvestmentScreener (postmanJSON) {
         ]);
     });
 
-    document.getElementById('filter-3').addEventListener('click', () => {
+    document.getElementById('filter-3').addEventListener('click', e => {
+        document.getElementById('current-filter').innerHTML =
+            e.target.innerHTML;
         setFilter([
             {
                 dataPointId: 'LowCarbonDesignation',
@@ -130,7 +140,9 @@ function displayInvestmentScreener (postmanJSON) {
         ]);
     });
 
-    document.getElementById('filter-4').addEventListener('click', () => {
+    document.getElementById('filter-4').addEventListener('click', e => {
+        document.getElementById('current-filter').innerHTML =
+            e.target.innerHTML;
         setFilter([
             {
                 dataPointId: 'StarRatingM255',
@@ -149,7 +161,7 @@ function displayInvestmentScreener (postmanJSON) {
     });
 }
 
-async function handleSelectEnvironment (evt) {
+async function handleSelectEnvironment(evt) {
     const target = evt.target;
     const postmanJSON = await getPostmanJSON(target);
 
@@ -173,7 +185,7 @@ document
     .getElementById('postman-json')
     .addEventListener('change', handleSelectEnvironment);
 
-async function getPostmanJSON (htmlInputFile) {
+async function getPostmanJSON(htmlInputFile) {
     let file;
     let fileJSON;
 
