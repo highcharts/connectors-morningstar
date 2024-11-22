@@ -1,6 +1,6 @@
 const loadingLabel = document.getElementById('loading-label');
 
-function displayInvestmentScreener(postmanJSON) {
+function displayInvestmentScreener (postmanJSON) {
     const secIds = [
         'secId',
         'tenforeId',
@@ -70,7 +70,7 @@ function displayInvestmentScreener(postmanJSON) {
             `out of ${Math.ceil(connector.metadata.total / connector.metadata.pageSize)}`;
     });
 
-    function setFilter(filters) {
+    function setFilter (filters) {
         loadingLabel.style.display = 'block';
         board.dataPool.getConnector('investment-screener').then(connector => {
             const options = {
@@ -161,7 +161,7 @@ function displayInvestmentScreener(postmanJSON) {
     });
 }
 
-async function handleSelectEnvironment(evt) {
+async function handleSelectEnvironment (evt) {
     const target = evt.target;
     const postmanJSON = await getPostmanJSON(target);
 
@@ -185,7 +185,7 @@ document
     .getElementById('postman-json')
     .addEventListener('change', handleSelectEnvironment);
 
-async function getPostmanJSON(htmlInputFile) {
+async function getPostmanJSON (htmlInputFile) {
     let file;
     let fileJSON;
 
