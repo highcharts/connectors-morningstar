@@ -1,6 +1,6 @@
 import * as Assert from 'node:assert/strict';
 import * as MC from '../../code/connectors-morningstar.src';
-import InvestmentScreenerJSON from 
+import InvestmentScreenerJSON from
 '../../code/es-modules/Screeners/InvestmentScreener/InvestmentScreenerJSON';
 
 export async function investmentScreenerLoad (
@@ -8,17 +8,15 @@ export async function investmentScreenerLoad (
 ) {
     const secIds = [
         'secId',
-        'tenforeId',
         'name',
+        'investmentType',
+        'holdingTypeId',
+        'universe',
+        'tenforeId',
         'closePrice',
         'ongoingCharge',
         'initialPurchase',
-        'maxFrontEndLoad',
-        'analystRatingScale',
-        'average12MonthCarbonInvestmentScreener',
-        'investmentType',
-        'holdingTypeId',
-        'universe'
+        'maxFrontEndLoad'
     ];
     const connector = new MC.InvestmentScreenerConnector({
         api,
@@ -49,22 +47,22 @@ export async function investmentScreenerLoad (
 
     Assert.strictEqual(
         connector.table.getRowCount(),
-        20,
-        'Connector table should have 20 row.'
+        15,
+        'Connector table should have 15 rows.'
     );
 }
 
 export function InvestmentScreenerResponseValidation () {
     const exampleResponse = {
-        total: 3000,
+        total: 18238,
         page: 1,
         pageSize: 20,
         rows: [
             {
-                secId: 'F00000VCTT',
-                Name: 'TestPortfolio1',
-                riskRating: 4,
-                rating: 3
+                SecId: 'F000002PLH',
+                Name: '(LF)-Flexi Allocation Greece Eurobank',
+                riskrating: 4,
+                rating: 4
             }
         ]
     };
