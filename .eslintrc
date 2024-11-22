@@ -34,6 +34,7 @@
         "operator-linebreak": [2, "after"],
         "quotes": [2, "single"],
         "require-unicode-regexp": 1,
+        "space-before-function-paren": 2,
         "strict": 0
     },
     "overrides": [

@@ -41,15 +41,6 @@ namespace InvestmentScreenerJSON {
      *
      * */
 
-    export function isResponse (json?: unknown): json is Response {
-        return (
-            !!json &&
-            typeof json === 'object' &&
-            typeof (json as Response).InvestmentScreener === 'object' &&
-            isInvestmentScreenerResponse((json as Response).InvestmentScreener)
-        );
-    }
-
     export function isInvestmentScreenerResponse (
         json?: unknown
     ): json is InvestmentScreenerResponse {

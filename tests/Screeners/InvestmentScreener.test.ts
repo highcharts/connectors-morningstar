@@ -1,6 +1,6 @@
 import * as Assert from 'node:assert/strict';
 import * as MC from '../../code/connectors-morningstar.src';
-import InvestmentScreenerJSON from
+import InvestmentScreenerJSON from 
 '../../code/es-modules/Screeners/InvestmentScreener/InvestmentScreenerJSON';
 
 export async function investmentScreenerLoad (
@@ -68,7 +68,7 @@ export function InvestmentScreenerResponseValidation () {
     };
 
     Assert.ok(
-        InvestmentScreenerJSON.isResponse(exampleResponse),
+        InvestmentScreenerJSON.isInvestmentScreenerResponse(exampleResponse),
         'InvestmentScreenerJSON should validate correct response.'
     );
 }
