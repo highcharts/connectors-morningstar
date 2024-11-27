@@ -42,10 +42,27 @@ namespace SecurityDetailsJSON {
         Domicile: string;
         Currency: CurrencyType;
         TrailingPerformance: SecurityDetailsTrailingPerformance[];
+        Portfolios:PortfoliosType[]
         Type: string;
         CurrencyId: string;
         Date: string;
     }
+
+    export type PortfoliosType = {
+        AssetAllocations: AssetAllocationType[]
+
+    };
+
+    export type AssetAllocationType = {
+        BreakdownValues: BreakDownValues[]
+        SalePosition: string
+        Type: string
+    };
+
+    export type BreakDownValues = {
+        Value: number;
+        Type: string;
+    };
 
     interface SecurityDetailsTrailingPerformance {
         ReturnType: string;

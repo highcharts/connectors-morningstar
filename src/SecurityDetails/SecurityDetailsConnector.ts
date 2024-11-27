@@ -23,14 +23,14 @@
 
 
 import External from '../Shared/External';
-import SecurityDetailsConverter from './SecurityDetailsConverter';
+import { AssetsAllocationsConverter, TrailingPerformanceConverter } from './Converters';
 import SecurityDetailsOptions, {
     SecurityDetailsMetadata
 } from './SecurityDetailsOptions';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
-
+import SecurityDetailsConverter from './SecurityDetailsConverter';
 
 /* *
  *
@@ -49,16 +49,39 @@ export class SecurityDetailsConnector extends MorningstarConnector {
      * */
 
 
+    // public constructor (
+    //     options: SecurityDetailsOptions = {}
+    // ) {
+    //     super(options);
+
+    //     this.converter = new SecurityDetailsConverter(options.converter);
+    //     this.options = optons;
+    // }
+
+
     public constructor (
         options: SecurityDetailsOptions = {}
     ) {
         super(options);
 
-        this.converter = new SecurityDetailsConverter(options.converter);
+        switch (options.type) {
+            case 'trailingPerformance':
+            default:
+                this.converter = new TrailingPerformanceConverter({
+                    ...options.converter
+                });
+                break;
+
+            case 'assetsAllocations':
+                this.converter = new AssetsAllocationsConverter({
+                    ...options.converter
+                });
+                break;
+        }
+
         this.metadata = this.converter.metadata;
         this.options = options;
     }
-
 
     /* *
      *

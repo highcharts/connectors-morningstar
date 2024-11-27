@@ -58,8 +58,14 @@ export interface SecurityDetailsMetadata extends MorningstarMetadata {
 
 export interface SecurityDetailsOptions extends MorningstarOptions {
     security?: MorningstarSecurityOptions,
+    type?: SecurityDetailsConverterType
     viewId?: string,
 }
+
+export type SecurityDetailsConverterType  = (
+   | 'trailingPerformance'
+   | 'assetsAllocations'
+ );
 
 
 /* *
