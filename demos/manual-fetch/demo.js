@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // Wait for postman json file input 
 const handleSelectEnvironment = async (evt) => {
     const target = evt.target;
@@ -21,7 +22,7 @@ const getPostmanJSON = async (htmlInputFile) => {
         try {
             fileJSON = JSON.parse(await file.text());
         } catch (error) {
-            // fail silently
+            console.log(error);
         }
     }
 
@@ -46,7 +47,7 @@ const decode = ({ username, password }) => {
 };
 
 
-const  getToken = async (url, payload) => {
+const getToken = async (url, payload) => {
     const response = await fetch(url, payload);
     const responseJSON = await response.json();
     if (response.status === 200) { 
@@ -113,7 +114,7 @@ const displayChart = async (postmanJSON) => {
         resJson = await res.json();
 
     } catch (error) {
-        // Fail silently
+        console.log(error);
     }
 
     // Transform to Highcharts format
@@ -128,7 +129,6 @@ const displayChart = async (postmanJSON) => {
             text: 'Manually fetched data'
         },
         xAxis: {
-            type: 'datetime',
             title: {
                 text: 'Date'
             }
