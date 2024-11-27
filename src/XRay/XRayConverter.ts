@@ -125,12 +125,18 @@ export class XRayConverter extends MorningstarConverter {
     ): void {
         const table = this.table;
 
+        table.setColumn(`${benchmarkId}_Values`);
+
         for (const asset of json.assetAllocation) {
-            const rowId = `${benchmarkId}_${asset.type}_${asset.salePosition}`;
+            const columnName = `${benchmarkId}_${asset.type}_${asset.salePosition}`;
+            table.setColumn(columnName);
             const values = asset.values;
 
-            for (let i = 1; i < 100; ++i) {
-                table.setCell(rowId, i - 1, values[i]);
+            const valueIndex = Object.keys(values);
+
+            for (let i = 0; i < valueIndex.length; i++) {
+                table.setCell(`${benchmarkId}_Values`, i, valueIndex[i]);
+                table.setCell(columnName, i, values[parseInt(valueIndex[i])]);
             }
         }
 
