@@ -3,34 +3,41 @@ Investment Screener connector
 
 Using Morningstar Investment Screener endpoint you are able filter Morningstar's database of global investments using hundreds of data points including Morningstar prorietary data.
 
-
 How to use Investment Screener
 ----------------
 
 Data can be filtered on any data point which is comprehensively covered by Morningstar, including proprietary data such as:
 
-Morningstar Sustainability Ratings
-Analyst Rating
-Fair Value
-Style Box
-With the solution, you can develop a sophisticated screening tool offering dozens of filters for advanced users.
+ * Morningstar Sustainability Ratings
+ * Analyst Rating
+ * Fair Value
+ * Style Box
+ * With the solution, you can develop a sophisticated screening tool offering dozens of filters for advanced users.
 
 You can also use it to power predefined screeners for common investment research interests such as Top Fixed Income Funds, Top Rated US Bond Index Funds, Sustainable Investments, and so on.
 
 For more details, see [Morningstar's Investment Screener API].
 
 <!-- Links -->
-[Morningstar's Investment Screener API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/investment-screener
+[Morningstar's Investment Screener API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/screener/investment-screener
 
 this connector is designed to be interacted with using some external buttons, that might filter data on the backend, provide pagiantion as well as sorting.
 
 Here is an example of how to use the Investment Screener connector:
+
 ```js
 const screenerConnector = MC.InvestmentScreenerConnector({
     page: 1,
     pageSize: 20,
     langageId: 'en-GB',
     currencyId: 'USD',
+    filters: [
+        {
+            dataPointId: 'StarRatingM255',
+            comparatorCode: 'IN',
+            value: 5
+        }
+    ],
     securityDataPoints: [
         'secId',
         'tenforeId',
@@ -53,6 +60,4 @@ const screenerConnector = MC.InvestmentScreenerConnector({
 ```
 
 For details see [Morningstar's Investment Screener API].
-
-
 
