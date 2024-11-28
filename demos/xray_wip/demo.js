@@ -22,7 +22,9 @@ async function displaySecurityDetails (postmanJSON) {
                         id: 'F0GBR052QA',
                         idType: 'MSID',
                         type: 'FO',
-                        weight: '100'
+                        weight: '100',
+                        name: 'BlackRock Income and Growth Ord',
+                        holdingType: 'weight'
                     }
                 ]
             }
