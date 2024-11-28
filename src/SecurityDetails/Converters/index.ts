@@ -16,6 +16,7 @@
 
 import TrailingPerformanceConverter from './TrailingPerformanceConverter';
 import AssetsAllocationsConverter from './AssetsAllocationsConverter';
+import RegionalExposureConverter from './RegionalExposureConverter';
 
 
 /* *
@@ -36,6 +37,7 @@ import AssetsAllocationsConverter from './AssetsAllocationsConverter';
 
 export * from './TrailingPerformanceConverter';
 export * from './AssetsAllocationsConverter';
+export * from './RegionalExposureConverter';
 
 /* *
  *
@@ -46,5 +48,6 @@ export * from './AssetsAllocationsConverter';
 
 export default {
     TrailingPerformanceConverter,
-    AssetsAllocationsConverter
+    AssetsAllocationsConverter,
+    RegionalExposureConverter
 };

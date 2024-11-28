@@ -50,7 +50,7 @@ namespace SecurityDetailsJSON {
 
     export type PortfoliosType = {
         AssetAllocations: AssetAllocationType[]
-
+        RegionalExposure: RegionalExposureType[]
     };
 
     export type AssetAllocationType = {
@@ -62,6 +62,12 @@ namespace SecurityDetailsJSON {
     export type BreakDownValues = {
         Value: number;
         Type: string;
+    };
+
+    export type RegionalExposureType = {
+        BreakdownValues: BreakDownValues[]
+        SalePosition: string
+        NotClassified: number
     };
 
     interface SecurityDetailsTrailingPerformance {

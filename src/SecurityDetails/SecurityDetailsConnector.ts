@@ -23,7 +23,11 @@
 
 
 import External from '../Shared/External';
-import { AssetsAllocationsConverter, TrailingPerformanceConverter } from './Converters';
+import {
+    AssetsAllocationsConverter,
+    TrailingPerformanceConverter,
+    RegionalExposureConverter
+} from './Converters';
 import SecurityDetailsOptions, {
     SecurityDetailsMetadata
 } from './SecurityDetailsOptions';
@@ -65,15 +69,21 @@ export class SecurityDetailsConnector extends MorningstarConnector {
         super(options);
 
         switch (options.type) {
-            case 'trailingPerformance':
+            case 'TrailingPerformance':
             default:
                 this.converter = new TrailingPerformanceConverter({
                     ...options.converter
                 });
                 break;
 
-            case 'assetsAllocations':
+            case 'AssetsAllocations':
                 this.converter = new AssetsAllocationsConverter({
+                    ...options.converter
+                });
+                break;
+
+            case 'RegionalExposure':
+                this.converter = new RegionalExposureConverter({
                     ...options.converter
                 });
                 break;

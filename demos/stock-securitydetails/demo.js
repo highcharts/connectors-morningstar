@@ -9,7 +9,7 @@ async function displaySecurityDetails (postmanJSON) {
             id: securityId,
             idType: 'MSID'
         },
-        type: 'assetsAllocations'
+        type: 'RegionalExposure'
     });
 
     await connector.load();
