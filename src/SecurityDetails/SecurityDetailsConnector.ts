@@ -24,7 +24,7 @@
 
 import External from '../Shared/External';
 import {
-    AssetsAllocationsConverter,
+    AssetAllocationsConverter,
     TrailingPerformanceConverter,
     RegionalExposureConverter,
     GlobalStockSectorBreakdownConverter,
@@ -55,16 +55,6 @@ export class SecurityDetailsConnector extends MorningstarConnector {
      * */
 
 
-    // public constructor (
-    //     options: SecurityDetailsOptions = {}
-    // ) {
-    //     super(options);
-
-    //     this.converter = new SecurityDetailsConverter(options.converter);
-    //     this.options = optons;
-    // }
-
-
     public constructor (
         options: SecurityDetailsOptions = {}
     ) {
@@ -78,8 +68,8 @@ export class SecurityDetailsConnector extends MorningstarConnector {
                 });
                 break;
 
-            case 'AssetsAllocations':
-                this.converter = new AssetsAllocationsConverter({
+            case 'AssetAllocations':
+                this.converter = new AssetAllocationsConverter({
                     ...options.converter
                 });
                 break;

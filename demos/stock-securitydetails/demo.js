@@ -8,8 +8,7 @@ async function displaySecurityDetails (postmanJSON) {
         security: {
             id: securityId,
             idType: 'MSID'
-        },
-        type: 'CountryExposure'
+        }
     });
 
     await connector.load();

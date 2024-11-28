@@ -140,4 +140,4 @@ export class TrailingPerformanceConverter extends SecurityDetailsConverter {
  * */
 
 
-export default SecurityDetailsConverter;
+export default TrailingPerformanceConverter;

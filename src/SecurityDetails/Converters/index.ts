@@ -15,7 +15,7 @@
 'use strict';
 
 import TrailingPerformanceConverter from './TrailingPerformanceConverter';
-import AssetsAllocationsConverter from './AssetsAllocationsConverter';
+import AssetAllocationsConverter from './AssetAllocationsConverter';
 import RegionalExposureConverter from './RegionalExposureConverter';
 import GlobalStockSectorBreakdownConverter from './GlobalStockSectorBreakdownConverter';
 import CountryExposureConverter from './CountryExposureConverter';
@@ -38,7 +38,7 @@ import CountryExposureConverter from './CountryExposureConverter';
 
 
 export * from './TrailingPerformanceConverter';
-export * from './AssetsAllocationsConverter';
+export * from './AssetAllocationsConverter';
 export * from './RegionalExposureConverter';
 export * from './GlobalStockSectorBreakdownConverter';
 export * from './CountryExposureConverter';
@@ -52,7 +52,7 @@ export * from './CountryExposureConverter';
 
 export default {
     TrailingPerformanceConverter,
-    AssetsAllocationsConverter,
+    AssetAllocationsConverter,
     RegionalExposureConverter,
     GlobalStockSectorBreakdownConverter,
     CountryExposureConverter

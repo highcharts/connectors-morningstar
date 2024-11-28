@@ -64,7 +64,7 @@ export interface SecurityDetailsOptions extends MorningstarOptions {
 
 export type SecurityDetailsConverterType  = (
    | 'TrailingPerformance'
-   | 'AssetsAllocations'
+   | 'AssetAllocations'
    | 'RegionalExposure'
    | 'GlobalStockSectorBreakdown'
    | 'CountryExposure'

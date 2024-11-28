@@ -33,7 +33,6 @@ import SecurityDetailsConnector from './SecurityDetailsConnector';
 
 
 export * from './SecurityDetailsConnector';
-export * from './Converters/TrailingPerformanceConverter';
 export * from './SecurityDetailsOptions';
 
 

@@ -38,7 +38,7 @@ import SecurityDetailsConverter from '../SecurityDetailsConverter';
  * */
 
 
-export class AssetsAllocationsConverter extends SecurityDetailsConverter {
+export class AssetAllocationsConverter extends SecurityDetailsConverter {
 
 
     /* *
@@ -96,7 +96,7 @@ export class AssetsAllocationsConverter extends SecurityDetailsConverter {
         // Prepare table
 
         table.deleteColumns();
-        table.setColumn('AssetsAllocations_Type');
+        table.setColumn('AssetAllocations_Type');
 
         // Add asset allocations to table
 
@@ -105,24 +105,24 @@ export class AssetsAllocationsConverter extends SecurityDetailsConverter {
             // Update table
 
             const securityDetails = json[0];
-            const assetsAllocations = securityDetails.Portfolios[0].AssetAllocations;
+            const assetAllocations = securityDetails.Portfolios[0].AssetAllocations;
 
-            table.setColumn('AssetsAllocations_Type');
+            table.setColumn('AssetAllocations_Type');
 
-            for (let i = 0; i < assetsAllocations.length; i++) {
-                const asset = assetsAllocations[i];
+            for (let i = 0; i < assetAllocations.length; i++) {
+                const asset = assetAllocations[i];
 
-                table.setColumn(`AssetsAllocations_${asset.Type}_${asset.SalePosition}`);
+                table.setColumn(`AssetAllocations_${asset.Type}_${asset.SalePosition}`);
 
                 for (let j = 0; j < asset.BreakdownValues.length; j++) {
                     table.setCell(
-                        `AssetsAllocations_${asset.Type}_${asset.SalePosition}`,
+                        `AssetAllocations_${asset.Type}_${asset.SalePosition}`,
                         j,
                         asset.BreakdownValues[j].Value
                     );
 
                     table.setCell(
-                        'AssetsAllocations_Type',
+                        'AssetAllocations_Type',
                         j,
                         asset.BreakdownValues[j].Type
                     );
@@ -148,4 +148,4 @@ export class AssetsAllocationsConverter extends SecurityDetailsConverter {
  * */
 
 
-export default AssetsAllocationsConverter;
+export default AssetAllocationsConverter;
