@@ -27,7 +27,8 @@ import {
     AssetsAllocationsConverter,
     TrailingPerformanceConverter,
     RegionalExposureConverter,
-    GlobalStockSectorBreakdownConverter
+    GlobalStockSectorBreakdownConverter,
+    CountryExposureConverter
 } from './Converters';
 import SecurityDetailsOptions, {
     SecurityDetailsMetadata
@@ -91,6 +92,12 @@ export class SecurityDetailsConnector extends MorningstarConnector {
 
             case 'GlobalStockSectorBreakdown':
                 this.converter = new GlobalStockSectorBreakdownConverter({
+                    ...options.converter
+                });
+                break;
+
+            case 'CountryExposure':
+                this.converter = new CountryExposureConverter({
                     ...options.converter
                 });
                 break;
