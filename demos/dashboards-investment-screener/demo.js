@@ -70,6 +70,11 @@ function displayInvestmentScreener (postmanJSON) {
             `out of ${Math.ceil(connector.metadata.total / connector.metadata.pageSize)}`;
     });
 
+    /**
+     * Add filter to a connector
+     *
+     * @param {InvestmentScreenerFilter[]} filters
+     */
     function setFilter (filters) {
         loadingLabel.style.display = 'block';
         board.dataPool.getConnector('investment-screener').then(connector => {
@@ -92,6 +97,8 @@ function displayInvestmentScreener (postmanJSON) {
         e.target.classList.add('button-active');
         document.getElementById('current-filter').innerHTML =
             e.target.innerHTML;
+        // Create a filter that will check if the star rating is equal to 5
+        // and if the analyst rating is equal to 5
         setFilter([
             {
                 dataPointId: 'StarRatingM255',
@@ -109,6 +116,8 @@ function displayInvestmentScreener (postmanJSON) {
     document.getElementById('filter-2').addEventListener('click', e => {
         document.getElementById('current-filter').innerHTML =
             e.target.innerHTML;
+        // Create a filter that will check if the GBR return is between
+        // 39 and 60
         setFilter([
             {
                 dataPointId: 'GBRReturnM0',
@@ -121,6 +130,9 @@ function displayInvestmentScreener (postmanJSON) {
     document.getElementById('filter-3').addEventListener('click', e => {
         document.getElementById('current-filter').innerHTML =
             e.target.innerHTML;
+        // Create a filter that will filter on the Low Carbon Designation
+        // and Carbon Risk Score. These Investments are considered highly
+        // sustainable
         setFilter([
             {
                 dataPointId: 'LowCarbonDesignation',
@@ -143,6 +155,8 @@ function displayInvestmentScreener (postmanJSON) {
     document.getElementById('filter-4').addEventListener('click', e => {
         document.getElementById('current-filter').innerHTML =
             e.target.innerHTML;
+        // Create a filter that will check if the investment is considered
+        // as "low expenses"
         setFilter([
             {
                 dataPointId: 'StarRatingM255',
