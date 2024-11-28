@@ -51,6 +51,7 @@ namespace SecurityDetailsJSON {
     export type PortfoliosType = {
         AssetAllocations: AssetAllocationType[]
         RegionalExposure: RegionalExposureType[]
+        GlobalStockSectorBreakdown: GlobalStockSectorBreakdownType[]
     };
 
     export type AssetAllocationType = {
@@ -65,6 +66,12 @@ namespace SecurityDetailsJSON {
     };
 
     export type RegionalExposureType = {
+        BreakdownValues: BreakDownValues[]
+        SalePosition: string
+        NotClassified: number
+    };
+
+    export type GlobalStockSectorBreakdownType = {
         BreakdownValues: BreakDownValues[]
         SalePosition: string
         NotClassified: number

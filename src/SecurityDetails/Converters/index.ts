@@ -17,6 +17,7 @@
 import TrailingPerformanceConverter from './TrailingPerformanceConverter';
 import AssetsAllocationsConverter from './AssetsAllocationsConverter';
 import RegionalExposureConverter from './RegionalExposureConverter';
+import GlobalStockSectorBreakdownConverter from './GlobalStockSectorBreakdownConverter';
 
 
 /* *
@@ -38,6 +39,7 @@ import RegionalExposureConverter from './RegionalExposureConverter';
 export * from './TrailingPerformanceConverter';
 export * from './AssetsAllocationsConverter';
 export * from './RegionalExposureConverter';
+export * from './GlobalStockSectorBreakdownConverter';
 
 /* *
  *
@@ -49,5 +51,6 @@ export * from './RegionalExposureConverter';
 export default {
     TrailingPerformanceConverter,
     AssetsAllocationsConverter,
-    RegionalExposureConverter
+    RegionalExposureConverter,
+    GlobalStockSectorBreakdownConverter
 };

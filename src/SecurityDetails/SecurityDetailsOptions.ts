@@ -66,6 +66,7 @@ export type SecurityDetailsConverterType  = (
    | 'TrailingPerformance'
    | 'AssetsAllocations'
    | 'RegionalExposure'
+   | 'GlobalStockSectorBreakdown'
  );
 
 
