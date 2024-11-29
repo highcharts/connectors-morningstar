@@ -26,7 +26,7 @@ This connector is designed to be interacted with using external buttons, that mi
 Here is an example of how to use the Investment Screener connector:
 
 ```js
-const screenerConnector = HighchartsConnectors.Morningstar.InvestmentScreenerConnector({
+const screenerConnector = new HighchartsConnectors.Morningstar.InvestmentScreenerConnector({
     page: 1,
     pageSize: 20,
     languageId: 'en-GB',
