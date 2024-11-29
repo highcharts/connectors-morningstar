@@ -1,4 +1,4 @@
-Investment Screener connector
+Investment Screener
 =============================
 
 Using Morningstar Investment Screener endpoint allows you to filter Morningstar's database of global investments using hundreds of data points including Morningstar proprietary data.
@@ -21,7 +21,7 @@ For more details, see [Morningstar's Investment Screener API].
 <!-- Links -->
 [Morningstar's Investment Screener API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/screener/investment-screener
 
-This connector is designed to be interacted with using some external buttons, that might filter data on the backend, provide pagiantion as well as sorting.
+This connector is designed to be interacted with using external buttons, that might filter data on the backend, provide pagination as well as sorting.
 
 Here is an example of how to use the Investment Screener connector:
 
@@ -29,7 +29,7 @@ Here is an example of how to use the Investment Screener connector:
 const screenerConnector = MC.InvestmentScreenerConnector({
     page: 1,
     pageSize: 20,
-    langageId: 'en-GB',
+    languageId: 'en-GB',
     currencyId: 'USD',
     filters: [
         {
