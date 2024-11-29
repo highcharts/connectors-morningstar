@@ -36,7 +36,7 @@ For more details, see [Morningstar’s RiskScore API].
 ### Risk Score with Morningstar standalone for Highcharts:
 
 ```js
-const riskScoreConnector = new Connectors.Morningstar.RiskScoreConnector({
+const riskScoreConnector = new HighchartsConnectors.Morningstar.RiskScoreConnector({
     postman: {
         environmentJSON: postmanJSON
     },

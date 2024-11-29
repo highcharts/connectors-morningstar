@@ -14,7 +14,7 @@ In order to fetch price time series, specify series type `Price` in
 the Time Series Connector options.
 
 ```js
-const priceConnector = new Connectors.Morningstar.TimeSeriesConnector({
+const priceConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
     postman: {
         environmentJSON: postmanJSON
     },

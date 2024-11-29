@@ -34,7 +34,7 @@ products and Highcharts Dashboards.
 
 You can connect Highcharts core products with Morningstar by using
 `connectors-morningstar.js` in the `connectors-morningstar` bundle. You have to manually create the connector and
-assing the resulting table to your series options.
+assign the resulting table to your series options.
 
 
 
