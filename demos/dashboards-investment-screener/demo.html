@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="demo.css" />
+        <script src="https://code.highcharts.com/dashboards/datagrid.src.js"></script>
+        <script src="https://code.highcharts.com/highcharts.src.js"></script>
+        <script src="https://code.highcharts.com/dashboards/dashboards.src.js"></script>
+        <script src="../../code/connectors-morningstar.src.js"></script>
+
+        <title>Highcharts Dashboards + Morningstar Portfolio Investment Details</title>
+    </head>
+    <body>
+        <h1>Highcharts Dashboards + Morningstar Portfolio Investment Details</h1>
+        <p>
+            Add your Postman environment file from Morningstar to start the demo:
+            <input type="file" id="postman-json" accept=".json,application/json" />
+        </p>
+        <p id="loading-label" style="display: none;">Loading data…</p>
+        <div class="filters-row">
+            <button class="cell" id='filter-1'>Highly Rated</button>
+            <button class="cell" id='filter-2'>Top Performer funds</button>
+            <button class="cell" id='filter-3'>Highly Sustainalble</button>
+            <button class="cell" id='filter-4'>Low Expenses</button>
+        </div>
+        <div>
+            Current filter: 
+            <span id='current-filter'></span>
+        </div>
+        <div class="row" id="container">
+            <div class="cell" id="dashboard-col-1"></div>
+        </div>
+        <span id='total'>-</span>
+        <span id='page'>-</span>
+        <span id='total-pages'>-</span>
+        <script src="./demo.js"></script>
+    </body>
+</html>
