@@ -23,7 +23,7 @@ For more details, see [Morningstar’s Security Details API].
 ### Security Details with Morningstar standalone for Highcharts:
 
 ```js
-const securityDetailsConnector = new Connectors.Morningstar.SecurityDetailsConnector({
+const securityDetailsConnector = new HighchartsConnectors.Morningstar.SecurityDetailsConnector({
     postman: {
         environmentJSON: postmanJSON
     },
