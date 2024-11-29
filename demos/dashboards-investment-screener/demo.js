@@ -210,7 +210,8 @@ async function getPostmanJSON (htmlInputFile) {
                 break;
             }
         } catch (error) {
-            // fail silently
+            // eslint-disable-next-line no-console
+            console.warn(error);
         }
     }
 
