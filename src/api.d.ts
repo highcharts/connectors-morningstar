@@ -24,7 +24,7 @@ import RiskScoreOptions from './RiskScore/RiskScoreOptions';
 import RNANewsOptions from './RNANews/RNANewsOptions';
 import TimeSeriesOptions from './TimeSeries/TimeSeriesOptions';
 import XRayOptions from './XRay/XRayOptions';
-
+import InvestmentScreenerOptions from './Screeners/InvestmentScreener/InvestmentScreenerOptions';
 
 /* *
  *
@@ -42,4 +42,5 @@ interface Options {
     RNANews: RNANewsOptions;
     TimeSeries: TimeSeriesOptions;
     XRay: XRayOptions;
+    InvestmentScreener: InvestmentScreenerOptions;
 }

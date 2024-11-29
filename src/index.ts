@@ -13,9 +13,7 @@
  *
  * */
 
-
 'use strict';
-
 
 /* *
  *
@@ -23,16 +21,15 @@
  *
  * */
 
-
 import GoalAnalysis from './GoalAnalysis/index';
 import SecurityDetails from './SecurityDetails/index';
 import RNANews from './RNANews/index';
+import InvestmentScreener from './Screeners/InvestmentScreener/index';
 import RiskScore from './RiskScore/index';
 import * as Shared from './Shared/index';
 import TimeSeries from './TimeSeries/index';
 import { version } from './version';
 import XRay from './XRay/index';
-
 
 /* *
  *
@@ -40,8 +37,8 @@ import XRay from './XRay/index';
  *
  * */
 
-
 export * from './GoalAnalysis/index';
+export * from './Screeners/InvestmentScreener/index';
 export * from './SecurityDetails/index';
 export * from './RNANews/index';
 export * from './RiskScore/index';
@@ -50,13 +47,11 @@ export * from './TimeSeries/index';
 export { version } from './version';
 export * from './XRay/index';
 
-
 /* *
  *
  *  Default Export
  *
  * */
-
 
 export default {
     GoalAnalysis,
@@ -66,5 +61,6 @@ export default {
     Shared,
     TimeSeries,
     XRay,
+    InvestmentScreener,
     version
 };
