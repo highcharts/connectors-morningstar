@@ -55,3 +55,4 @@ types.
 * [TimeSeries](morningstar/time-series/time-series.md)
 * [XRay](morningstar/x-ray.md)
 * [Investment Screener](morningstar/screeners/investment-screener.md)
+* [Security Details](morningstar/security-details.md)
