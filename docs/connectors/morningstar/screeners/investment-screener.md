@@ -1,7 +1,7 @@
 Investment Screener connector
 =============================
 
-Using Morningstar Investment Screener endpoint you are able filter Morningstar's database of global investments using hundreds of data points including Morningstar prorietary data.
+Using Morningstar Investment Screener endpoint allows you to filter Morningstar's database of global investments using hundreds of data points including Morningstar proprietary data.
 
 How to use Investment Screener
 ----------------
