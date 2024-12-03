@@ -142,11 +142,14 @@ export class XRayConverter extends MorningstarConverter {
 
         if (json.regionalExposure) {
             for (const exposure of json.regionalExposure) {
-                const rowId = `${benchmarkId}_RegionalExposure_${exposure.salePosition}`;
+                const columnName = `${benchmarkId}_RegionalExposure_${exposure.salePosition}`;
+                table.setColumn(columnName);
                 const values = exposure.values;
+                const valueIndex = Object.keys(values);
 
-                for (let i = 1; i < 100; ++i) {
-                    table.setCell(rowId, i - 1, values[i] || 0);
+                for (let i = 0; i < valueIndex.length; i++) {
+                    table.setCell(`${benchmarkId}_Values`, i, valueIndex[i]);
+                    table.setCell(columnName, i, values[parseInt(valueIndex[i])]);
                 }
             }
         }

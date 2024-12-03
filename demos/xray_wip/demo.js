@@ -32,7 +32,7 @@ async function displaySecurityDetails (postmanJSON) {
     },
     components: [
         {
-            renderTo: 'dashboard-col-1',
+            renderTo: 'dashboard-col-0',
             connector: {
                 id: 'xray'
             },
