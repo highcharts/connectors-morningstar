@@ -3,6 +3,27 @@ Changelog
 
 
 
+v1.0.0
+------
+
+## What's Changed
+* bugfix/44-rna-test-failing by @DJTechnoo in https://github.com/highcharts/connectors-morningstar/pull/48
+* docs/docs-titles by @kamil-musialowski in https://github.com/highcharts/connectors-morningstar/pull/50
+* fetch-demo by @DJTechnoo in https://github.com/highcharts/connectors-morningstar/pull/53
+* Corrected URLs. by @bm64 in https://github.com/highcharts/connectors-morningstar/pull/47
+* Added security details docs by @bm64 in https://github.com/highcharts/connectors-morningstar/pull/49
+* Feature/investment screener by @pawellysy in https://github.com/highcharts/connectors-morningstar/pull/52
+* Added Morningstar to HC namespace. by @kamil-musialowski in https://github.com/highcharts/connectors-morningstar/pull/46
+
+## New Contributors
+* @kamil-musialowski made their first contribution in https://github.com/highcharts/connectors-morningstar/pull/50
+* @bm64 made their first contribution in https://github.com/highcharts/connectors-morningstar/pull/47
+* @pawellysy made their first contribution in https://github.com/highcharts/connectors-morningstar/pull/52
+
+**Full Changelog**: https://github.com/highcharts/connectors-morningstar/compare/v0.7.0...v1.0.0
+
+
+
 v0.7.0
 ------
 * Added security details connector
