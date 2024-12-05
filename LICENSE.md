@@ -1,4 +1,4 @@
-This is the source code repository of the Highcharts Connectors for Morningstar Direct Web Services.
+This is the source code repository for Highsoft’s Highcharts Data Connector for Morningstar Direct Web Services, a tool designed to integrate Highcharts with Morningstar’s API services.
 
-Read more on licensing alternatives here:
-- https://shop.highcharts.com/
+Read more on licensing here:
+- https://www.highcharts.com/blog/products/morningstar-data/
