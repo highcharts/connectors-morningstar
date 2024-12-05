@@ -9,7 +9,7 @@
         "jasmine": true
     },
     "globals": {
-        "Connectors": true,
+        "HighchartsConnectors": true,
         "Dashboards": true,
         "Highcharts": true
     },

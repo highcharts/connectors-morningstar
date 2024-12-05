@@ -13,7 +13,7 @@ In order to fetch a dividend time series, specify series type
 `Dividend` in the Time Series Connector options.
 
 ```js
-const dividendConnector = new Connectors.Morningstar.TimeSeriesConnector({
+const dividendConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
     postman: {
         environmentJSON: postmanJSON
     },

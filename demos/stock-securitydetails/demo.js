@@ -1,7 +1,7 @@
 async function displaySecurityDetails (postmanJSON) {
     const securityId = 'F0GBR050DD';
 
-    const connector = new Connectors.Morningstar.SecurityDetailsConnector({
+    const connector = new HighchartsConnectors.Morningstar.SecurityDetailsConnector({
         postman: {
             environmentJSON: postmanJSON
         },
@@ -50,7 +50,7 @@ async function getPostmanJSON (htmlInputFile) {
     for (file of htmlInputFile.files) {
         try {
             fileJSON = JSON.parse(await file.text());
-            if (Connectors.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
+            if (HighchartsConnectors.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
                 break;
             }
         } catch (error) {

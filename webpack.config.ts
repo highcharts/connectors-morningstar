@@ -95,7 +95,7 @@ const metas: Record<string, Meta> = {
     highcharts: {
         filename: 'highcharts-morningstar.js',
         umdNames: {
-            amd: 'highcharts/highcarts',
+            amd: 'highcharts/highcharts',
             commonjs,
             root: ['Highcharts', 'Morningstar']
         }
@@ -106,7 +106,7 @@ const metas: Record<string, Meta> = {
         umdNames: {
             amd: 'highcharts/connectors-morningstar',
             commonjs,
-            root: ['Connectors', 'Morningstar']
+            root: ['HighchartsConnectors', 'Morningstar']
         }
     }
 };

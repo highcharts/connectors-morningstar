@@ -155,7 +155,7 @@ async function getContext (
         side,
         platform: 'JS',
         product: {
-            namespace: 'Connectors'
+            namespace: 'HighchartsConnectors'
         },
         productModule: 'connectors-morningstar',
         productName: 'Highcharts Connectors',

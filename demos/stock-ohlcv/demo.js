@@ -3,7 +3,7 @@ async function displayOHLCV (postmanJSON) {
     const startDate = new Date(new Date().setDate(endDate.getDate() - 30));
     const securityId = 'XIUSA000O2';
 
-    const ohlcvConnector = new Connectors.Morningstar.TimeSeriesConnector({
+    const ohlcvConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
         postman: {
             environmentJSON: postmanJSON
         },
@@ -54,7 +54,7 @@ async function getPostmanJSON (htmlInputFile) {
     for (file of htmlInputFile.files) {
         try {
             fileJSON = JSON.parse(await file.text());
-            if (Connectors.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
+            if (HighchartsConnectors.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
                 break;
             }
         } catch (error) {
