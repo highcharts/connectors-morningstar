@@ -176,7 +176,10 @@ namespace XRayJSON {
             (
                 (json as Breakdowns).assetAllocation.length === 0 ||
                 isAssetAllocation((json as Breakdowns).assetAllocation[0])
-            ) && checkRegionalExposure((json as Breakdowns).regionalExposure)
+            ) && (
+                !(json as Breakdowns).regionalExposure ||
+                checkRegionalExposure((json as Breakdowns).regionalExposure)
+            )
         );
     }
 
