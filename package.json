@@ -17,6 +17,7 @@
         "@typescript-eslint/eslint-plugin": "^7.17.0",
         "@types/jsdom": "^21.1.7",
         "@types/node": "^20.0.0",
+        "cspell": "^8.16.0",
         "eslint": "^8.56.0",
         "eslint-plugin-brackets": "^0.1.3",
         "eslint-plugin-jsdoc": "^48.8.3",
@@ -35,6 +36,9 @@
         ],
         "*.ts": [
             "eslint"
+        ],
+        "./docs/**/*.md": [
+            "npx cspell -c ./tools/cspell/cspell.json"
         ]
     },
     "peerDependencies": {
@@ -56,6 +60,7 @@
         "demos:server": "(sleep 1 ; open http://localhost:8080) & node bin/connectors-morningstar demos",
         "docs": "npm run webpack && npm run docs:server",
         "docs:server": "(sleep 1 ; open http://localhost:8000) & node bin/connectors-morningstar docs",
+        "docs:lint": "npx cspell -c ./tools/cspell/cspell.json \"docs/**/*.md\"",
         "dryrun": "ts-node tools/dist --dryrun",
         "husky:pre-commit": "npx lint-staged && npm run webpack",
         "prepare": "rm -rf '.husky/_' ; husky",
