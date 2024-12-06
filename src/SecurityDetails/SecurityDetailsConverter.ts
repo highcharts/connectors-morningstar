@@ -7,9 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Sophie Bremer
- *  - Pawel Lysy
- *  - Askel Eirik Johansson
+ *  - Eskil Gjerde Sviggum
  *
  * */
 
@@ -24,12 +22,8 @@
  * */
 
 
-import {
-    SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
-} from './SecurityDetailsOptions';
-import SecurityDetailsJSON from './SecurityDetailsJSON';
 import MorningstarConverter from '../Shared/MorningstarConverter';
+import { SecurityDetailsConverterOptions, SecurityDetailsMetadata } from './SecurityDetailsOptions';
 
 
 /* *
@@ -39,26 +33,7 @@ import MorningstarConverter from '../Shared/MorningstarConverter';
  * */
 
 
-export class SecurityDetailsConverter extends MorningstarConverter {
-
-
-    /* *
-     *
-     *  Constructor
-     *
-     * */
-
-
-    public constructor (
-        options?: SecurityDetailsConverterOptions
-    ) {
-        super(options);
-
-        this.metadata = {
-            columns: {}
-        };
-    }
-
+export abstract class SecurityDetailsConverter extends MorningstarConverter {
 
     /* *
      *
@@ -66,9 +41,7 @@ export class SecurityDetailsConverter extends MorningstarConverter {
      *
      * */
 
-
-    public readonly metadata: SecurityDetailsMetadata;
-
+    public abstract metadata: SecurityDetailsMetadata;
 
     /* *
      *
@@ -76,60 +49,8 @@ export class SecurityDetailsConverter extends MorningstarConverter {
      *
      * */
 
-
-    public parse (
-        options: SecurityDetailsConverterOptions
-    ): void {
-        const metadata = this.metadata;
-        const table = this.table;
-        const userOptions = {
-            ...this.options,
-            ...options
-        };
-        const json = userOptions.json;
-
-        // Validate JSON
-
-        if (!SecurityDetailsJSON.isSecurityDetailsResponse(json)) {
-            throw new Error('Invalid data');
-        }
-
-        // Prepare table
-
-        table.deleteColumns();
-        table.setColumn('SecurityDetails_TrailingPerformance_TimePeriod');
-        table.setColumn('SecurityDetails_TrailingPerformance_Value');
-
-        // Add trailing performance to table
-
-        if (json.length) {
-
-            // Update table
-
-            const securityDetails = json[0];
-            const trailingPerformanceReturn = securityDetails.TrailingPerformance[0].Return;
-    
-            for (let i = 0, iEnd = trailingPerformanceReturn.length; i < iEnd; ++i) {
-                table.setCell(
-                    'SecurityDetails_TrailingPerformance_TimePeriod',
-                    i,
-                    trailingPerformanceReturn[i].TimePeriod
-                );
-                table.setCell(
-                    'SecurityDetails_TrailingPerformance_Value',
-                    i,
-                    trailingPerformanceReturn[i].Value
-                );
-            }
-
-            // Update meta data
-
-            metadata.id = securityDetails.Id;
-            metadata.isin = securityDetails.Isin;
-        }
-
-    }
-
+    // eslint-disable-next-line  @typescript-eslint/no-unused-vars
+    public parse (options: SecurityDetailsConverterOptions) {}
 
 }
 

@@ -49,4 +49,90 @@ export async function securityDetailsLoad (
         }
     )
 
+    const AssetAllocationsConnector = new MC.SecurityDetailsConnector({
+        api,
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        }
+    });
+
+    await AssetAllocationsConnector.load();
+
+    Assert.deepStrictEqual(
+        AssetAllocationsConnector.table.getColumnNames(),
+        [
+            'AssetAllocations_Type',
+            'AssetAllocations_MorningstarEUR3_L',
+            'AssetAllocations_MorningstarEUR3_S',
+            'AssetAllocations_MorningstarEUR3_N'
+        ],
+        'Asset allocations table should exist of expected columns.'
+    );
+
+    const RegionalExposureConnector = new MC.SecurityDetailsConnector({
+        api,
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        }
+    });
+
+    await RegionalExposureConnector.load();
+
+    Assert.deepStrictEqual(
+        RegionalExposureConnector.table.getColumnNames(),
+        [
+            'RegionalExposure_Type',
+            'RegionalExposure_L_0.64368',
+            'RegionalExposure_S_100',
+            'RegionalExposure_N_0.64368'
+        ],
+        'Regional exposure table should exist of expected columns.'
+    );
+
+    const GlobalStockSectorBreakdownConnector = new MC.SecurityDetailsConnector({
+        api,
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        }
+    });
+
+    await GlobalStockSectorBreakdownConnector.load();
+
+    Assert.deepStrictEqual(
+        GlobalStockSectorBreakdownConnector.table.getColumnNames(),
+        [
+            'GlobalStockSectorBreakdown_Type',
+            'GlobalStockSectorBreakdown_L_0.64369',
+            'GlobalStockSectorBreakdown_S_100',
+            'GlobalStockSectorBreakdown_N_0.64369'
+        ],
+        'Global stock sector breakdown table should exist of expected columns.'
+    );
+
+    const CountryExposureConnector = new MC.SecurityDetailsConnector({
+        api,
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        }
+    });
+
+    await CountryExposureConnector.load();
+
+    Assert.deepStrictEqual(
+        CountryExposureConnector.table.getColumnNames(),
+        [
+            'CountryExposure_Type',
+            'CountryExposure_Bond_L_99.98311',
+            'CountryExposure_Bond_S_100',
+            'CountryExposure_Bond_N_99.98311',
+            'CountryExposure_Equity_L_0.64368',
+            'CountryExposure_Equity_S_100',
+            'CountryExposure_Equity_N_0.64368'
+        ],
+        'Country exposure table should exist of expected columns.'
+    );
 }
