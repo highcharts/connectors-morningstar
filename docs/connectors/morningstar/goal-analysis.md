@@ -1,4 +1,4 @@
-Goal Analysis Connector
+Goal Analysis
 =======================
 
 The Morningstar Goal Analysis service calculates the probabilities of an
@@ -17,7 +17,7 @@ and dashboards.
 In order to fetch the analysis, you can request for example:
 
 ```js
-const goalAnalysisConnector = MC.GoalAnalysisConnector({
+const goalAnalysisConnector = new HighchartsConnectors.Morningstar.GoalAnalysisConnector({
     postman: {
         environmentJSON: postmanJSON
     },

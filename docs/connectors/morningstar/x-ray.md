@@ -1,4 +1,4 @@
-X-Ray Connector
+X-Ray
 ===============
 
 The Morningstar X-Ray capability enables you to quickly analyze a portfolio's
@@ -20,7 +20,7 @@ columns might be added to the table.
 In order to fetch a benchmark, you can request for example:
 
 ```js
-const xRayConnector = MC.XRayConnector({
+const xRayConnector = new HighchartsConnectors.Morningstar.XRayConnector({
     postman: {
         environmentJSON: postmanJSON
     },

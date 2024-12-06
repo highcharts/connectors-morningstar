@@ -16,7 +16,7 @@ In order to fetch a cumulative return, specify series type `CumulativeReturn` in
 the Time Series Connector options.
 
 ```js
-const cumulReturnConnector = new Connectors.Morningstar.TimeSeriesConnector({
+const cumulReturnConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
     postman: {
         environmentJSON: postmanJSON
     },
