@@ -2,7 +2,7 @@ name: Linting docs
 
 on:
   pull_request:
-    branches: [ 'master' ]
+    branches: [ 'main' ]
     paths:
       - 'docs/**'
       - 'tools/cspell/*'
@@ -36,4 +36,4 @@ jobs:
         run: npm i
 
       - name: Check spelling
-        run: npm run lint-docs
+        run: npm run docs:lint
