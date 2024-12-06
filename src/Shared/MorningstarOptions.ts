@@ -210,6 +210,16 @@ interface MorningstarSecurityOptionsGeneric<IDType> {
      */
     type?: (string|MorningstarSecurityType);
 
+    /**
+     * Type of holding.
+     */
+    holdingType?: string;
+
+    /**
+     * Weight of holding.
+     */
+    weight?: (number|string);
+
 }
 
 

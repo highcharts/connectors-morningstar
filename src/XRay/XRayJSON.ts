@@ -149,6 +149,21 @@ namespace XRayJSON {
         );
     }
 
+    function checkRegionalExposure (
+        regionalExposureArray?: unknown
+    ): regionalExposureArray is Array<RegionalExposure> {
+        return (
+            !!regionalExposureArray &&
+            typeof regionalExposureArray === 'object' &&
+            regionalExposureArray instanceof Array &&
+            (
+                regionalExposureArray &&
+                regionalExposureArray.length === 0 ||
+                isRegionalExposure(regionalExposureArray[0])
+            )
+        );
+    }
+
 
     function isBreakdowns (
         json?: unknown
@@ -156,14 +171,14 @@ namespace XRayJSON {
         return (
             !!json &&
             typeof json === 'object' &&
+
             (json as Breakdowns).assetAllocation instanceof Array &&
             (
                 (json as Breakdowns).assetAllocation.length === 0 ||
                 isAssetAllocation((json as Breakdowns).assetAllocation[0])
-            ) &&
-            (
-                typeof (json as Breakdowns).regionalExposure === 'undefined' ||
-                isRegionalExposure((json as Breakdowns).regionalExposure)
+            ) && (
+                !(json as Breakdowns).regionalExposure ||
+                checkRegionalExposure((json as Breakdowns).regionalExposure)
             )
         );
     }
