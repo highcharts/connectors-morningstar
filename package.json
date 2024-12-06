@@ -2,7 +2,7 @@
     "private": true,
     "version": "0.0.1-repository",
     "name": "@highcharts/connectors-morningstar",
-    "license": "UNLICENSED",
+    "license": "https://shop.highcharts.com/contact/partner-data",
     "description": "Highcharts connectors for Morningstar Direct Web Services",
     "author": "Highsoft AS",
     "bugs": "https://github.com/highcharts/morningstar-connectors/issues",
