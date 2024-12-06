@@ -1,7 +1,7 @@
 async function displayAssetAllocations (postmanJSON) {
     const securityId = 'US4642898674';
 
-    const connector = new Connectors.Morningstar.SecurityDetailsConnector({
+    const connector = new HighchartsConnectors.Morningstar.SecurityDetailsConnector({
         postman: {
             environmentJSON: postmanJSON
         },
@@ -61,7 +61,7 @@ async function getPostmanJSON (htmlInputFile) {
     for (file of htmlInputFile.files) {
         try {
             fileJSON = JSON.parse(await file.text());
-            if (Connectors.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
+            if (HighchartsConnectors.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
                 break;
             }
         } catch (error) {
