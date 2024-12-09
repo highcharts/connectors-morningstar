@@ -9,6 +9,9 @@ import type { Configuration } from 'webpack';
 
 import * as FS from 'node:fs';
 import * as Path from 'node:path';
+import * as Webpack from 'webpack';
+import * as TerserPlugin from 'terser-webpack-plugin';
+import { version } from './package-build.json';
 
 /* *
  *
@@ -43,6 +46,15 @@ const projectFolder = FS.realpathSync(process.cwd());
 const sourceFolder = './code/es-modules/';
 const targetFolder = './code/';
 
+
+
+const banner = `/**
+* Highcharts Connectors for Morningstar Direct Web Services ` +
+`v${version} (${new Date().toISOString().split('T')[0]})
+* (c) 2009-2024 Highsoft AS
+* License: https://shop.highcharts.com/contact/partner-data
+**/`;
+const license = /License: https:\/\/shop.highcharts.com\/contact\/partner-data/;
 
 /* *
  *
@@ -130,7 +142,6 @@ const sharedConfiguration: Configuration = {
 
 };
 
-
 const webpacks: Array<Configuration> = Object.keys(metas).map(variant => ({
     ...sharedConfiguration,
 
@@ -192,6 +203,31 @@ for (let webpack of webpacks.slice()) {
 
 }
 
+// Enable header for all production builds. This is used to add the license
+// header to the minified files too.
+webpacks.forEach(webpack => {
+    webpack.plugins = [
+        new Webpack.BannerPlugin({
+            banner: banner,
+            raw: true
+        })
+    ];
+
+    if (!webpack.optimization) {
+        webpack.optimization = {};
+    }
+
+    webpack.optimization.minimizer = [
+        new TerserPlugin({
+            terserOptions: {
+                format: {
+                    comments: license // Keep comments that include "License:"
+                }
+            },
+            extractComments: false
+        })
+    ];
+});
 
 /* *
  *
