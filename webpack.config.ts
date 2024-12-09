@@ -54,7 +54,7 @@ const banner = `/**
 * (c) 2009-2024 Highsoft AS
 * License: https://shop.highcharts.com/contact/partner-data
 **/`;
-const license = /License: https:\/\/shop.highcharts.com\/contact\/partner-data/;
+const license = /License: https:\/\/shop.highcharts.com\/contact\/partner-data/u;
 
 /* *
  *
