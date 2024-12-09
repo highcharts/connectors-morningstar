@@ -47,20 +47,25 @@ export async function securityDetailsLoad (
             id: 'F0GBR050DD',
             isin: 'GB0004460357'
         }
-    )
+    );
+}
 
-    const AssetAllocationsConnector = new MC.SecurityDetailsConnector({
+export async function assetAllocationsLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
         api,
         security: {
             id: 'F0GBR050DD',
             idType: 'MSID'
-        }
+        },
+        type: 'AssetAllocations'
     });
 
-    await AssetAllocationsConnector.load();
+    await connector.load();
 
     Assert.deepStrictEqual(
-        AssetAllocationsConnector.table.getColumnNames(),
+        connector.table.getColumnNames(),
         [
             'AssetAllocations_Type',
             'AssetAllocations_MorningstarEUR3_L',
@@ -69,19 +74,24 @@ export async function securityDetailsLoad (
         ],
         'Asset allocations table should exist of expected columns.'
     );
+}
 
-    const RegionalExposureConnector = new MC.SecurityDetailsConnector({
+export async function regionalExposureLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
         api,
         security: {
             id: 'F0GBR050DD',
             idType: 'MSID'
-        }
+        },
+        type: 'RegionalExposure'
     });
 
-    await RegionalExposureConnector.load();
+    await connector.load();
 
     Assert.deepStrictEqual(
-        RegionalExposureConnector.table.getColumnNames(),
+        connector.table.getColumnNames(),
         [
             'RegionalExposure_Type',
             'RegionalExposure_L_0.64368',
@@ -90,19 +100,24 @@ export async function securityDetailsLoad (
         ],
         'Regional exposure table should exist of expected columns.'
     );
+}
 
-    const GlobalStockSectorBreakdownConnector = new MC.SecurityDetailsConnector({
+export async function globalStockSectorBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
         api,
         security: {
             id: 'F0GBR050DD',
             idType: 'MSID'
-        }
+        },
+        type: 'GlobalStockSectorBreakdown'
     });
 
-    await GlobalStockSectorBreakdownConnector.load();
+    await connector.load();
 
     Assert.deepStrictEqual(
-        GlobalStockSectorBreakdownConnector.table.getColumnNames(),
+        connector.table.getColumnNames(),
         [
             'GlobalStockSectorBreakdown_Type',
             'GlobalStockSectorBreakdown_L_0.64369',
@@ -111,19 +126,24 @@ export async function securityDetailsLoad (
         ],
         'Global stock sector breakdown table should exist of expected columns.'
     );
+}
 
-    const CountryExposureConnector = new MC.SecurityDetailsConnector({
+export async function countryExposureLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
         api,
         security: {
             id: 'F0GBR050DD',
             idType: 'MSID'
-        }
+        },
+        type: 'CountryExposure'
     });
 
-    await CountryExposureConnector.load();
+    await connector.load();
 
     Assert.deepStrictEqual(
-        CountryExposureConnector.table.getColumnNames(),
+        connector.table.getColumnNames(),
         [
             'CountryExposure_Type',
             'CountryExposure_Bond_L_99.98311',
