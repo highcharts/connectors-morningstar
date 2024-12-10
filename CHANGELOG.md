@@ -3,6 +3,20 @@ Changelog
 
 
 
+v1.0.1
+------
+
+## What's Changed
+* Updated license by @pawelfus in https://github.com/highcharts/connectors-morningstar/pull/58
+* Added license header to dist files. by @pawelfus in https://github.com/highcharts/connectors-morningstar/pull/60
+
+## New Contributors
+* @pawelfus made their first contribution in https://github.com/highcharts/connectors-morningstar/pull/58
+
+**Full Changelog**: https://github.com/highcharts/connectors-morningstar/compare/v1.0.0...v1.0.1
+
+
+
 v1.0.0
 ------
 
