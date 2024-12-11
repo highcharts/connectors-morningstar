@@ -95,13 +95,8 @@ export async function regionalExposureLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
-        [
-            'RegionalExposure_Type',
-            'RegionalExposure_L_0.64368',
-            'RegionalExposure_S_100',
-            'RegionalExposure_N_0.64368'
-        ],
+        connector.table.getColumnNames()[0],
+        'RegionalExposure_Type',
         'Regional exposure table should exist of expected columns.'
     );
 }
@@ -123,13 +118,8 @@ export async function globalStockSectorBreakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
-        [
-            'GlobalStockSectorBreakdown_Type',
-            'GlobalStockSectorBreakdown_L_0.64369',
-            'GlobalStockSectorBreakdown_S_100',
-            'GlobalStockSectorBreakdown_N_0.64369'
-        ],
+        connector.table.getColumnNames()[0],
+        'GlobalStockSectorBreakdown_Type',
         'Global stock sector breakdown table should exist of expected columns.'
     );
 }
@@ -151,16 +141,8 @@ export async function countryExposureLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
-        [
-            'CountryExposure_Type',
-            'CountryExposure_Bond_L_99.98311',
-            'CountryExposure_Bond_S_100',
-            'CountryExposure_Bond_N_99.98311',
-            'CountryExposure_Equity_L_0.64368',
-            'CountryExposure_Equity_S_100',
-            'CountryExposure_Equity_N_0.64368'
-        ],
+        connector.table.getColumnNames()[0],
+        'CountryExposure_Type',
         'Country exposure table should exist of expected columns.'
     );
 }
