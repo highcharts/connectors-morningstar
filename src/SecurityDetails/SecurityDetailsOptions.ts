@@ -40,7 +40,16 @@ import type {
 
 
 export interface SecurityDetailsConverterOptions extends MorningstarConverterOptions {
+
+    /**
+     * Specifies the type of data to retrieve for the security details.
+     * Available types: 'TrailingPerformance', 'AssetAllocations',
+     * 'RegionalExposure', 'GlobalStockSectorBreakdown', 'CountryExposure'.
+     *
+     * @default 'TrailingPerformance'
+     */
     type?: SecurityDetailsConverterType
+
 }
 
 
