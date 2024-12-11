@@ -60,7 +60,7 @@ export class SecurityDetailsConnector extends MorningstarConnector {
     ) {
         super(options);
 
-        switch (options.type) {
+        switch (options.converter?.type) {
             case 'TrailingPerformance':
             default:
                 this.converter = new TrailingPerformanceConverter({
