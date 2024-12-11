@@ -35,12 +35,12 @@ import type {
  *
  *  API Options
  *
- * 
+ *
  * */
 
 
 export interface SecurityDetailsConverterOptions extends MorningstarConverterOptions {
-    // Nothing to add yet
+    type?: SecurityDetailsConverterType
 }
 
 
@@ -59,7 +59,16 @@ export interface SecurityDetailsMetadata extends MorningstarMetadata {
 export interface SecurityDetailsOptions extends MorningstarOptions {
     security?: MorningstarSecurityOptions,
     viewId?: string,
+    converter?: SecurityDetailsConverterOptions
 }
+
+export type SecurityDetailsConverterType  = (
+   | 'TrailingPerformance'
+   | 'AssetAllocations'
+   | 'RegionalExposure'
+   | 'GlobalStockSectorBreakdown'
+   | 'CountryExposure'
+ );
 
 
 /* *

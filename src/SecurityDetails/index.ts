@@ -33,8 +33,9 @@ import SecurityDetailsConnector from './SecurityDetailsConnector';
 
 
 export * from './SecurityDetailsConnector';
-export * from './SecurityDetailsConverter';
 export * from './SecurityDetailsOptions';
+export * from './SecurityDetailsConverter';
+export * from './Converters';
 
 
 /* *
