@@ -59,7 +59,9 @@ export async function assetAllocationsLoad (
             id: 'F0GBR050DD',
             idType: 'MSID'
         },
-        type: 'AssetAllocations'
+        converter: {
+            type: 'AssetAllocations'
+        }
     });
 
     await connector.load();
@@ -85,7 +87,9 @@ export async function regionalExposureLoad (
             id: 'F0GBR050DD',
             idType: 'MSID'
         },
-        type: 'RegionalExposure'
+        converter: {
+            type: 'RegionalExposure'
+        }
     });
 
     await connector.load();
@@ -111,7 +115,9 @@ export async function globalStockSectorBreakdownLoad (
             id: 'F0GBR050DD',
             idType: 'MSID'
         },
-        type: 'GlobalStockSectorBreakdown'
+        converter: {
+            type: 'GlobalStockSectorBreakdown'
+        }
     });
 
     await connector.load();
@@ -137,7 +143,9 @@ export async function countryExposureLoad (
             id: 'F0GBR050DD',
             idType: 'MSID'
         },
-        type: 'CountryExposure'
+        converter: {
+            type: 'CountryExposure'
+        }
     });
 
     await connector.load();
