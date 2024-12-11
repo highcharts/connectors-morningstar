@@ -39,7 +39,9 @@ const securityDetailsConnector = new HighchartsConnectors.Morningstar.SecurityDe
         id: 'F0GBR050DD',
         idType: 'MSID'
     },
-    type: 'AssetAllocations' // Specify the type of data to retrieve
+    converter: {
+        type: 'AssetAllocations' // Specify the type of data to retrieve
+    }
 });
 ```
 
