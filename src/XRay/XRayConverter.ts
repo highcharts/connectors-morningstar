@@ -125,18 +125,17 @@ export class XRayConverter extends MorningstarConverter {
     ): void {
         const table = this.table;
 
-        table.setColumn(`${benchmarkId}_Values`);
-
         if (json.assetAllocation) {
             for (const asset of json.assetAllocation) {
                 const columnName = `${benchmarkId}_${asset.type}_${asset.salePosition}`;
+                table.setColumn(`${columnName}_Values`);
                 table.setColumn(columnName);
                 const values = asset.values;
 
                 const valueIndex = Object.keys(values);
 
                 for (let i = 0; i < valueIndex.length; i++) {
-                    table.setCell(`${benchmarkId}_Values`, i, valueIndex[i]);
+                    table.setCell(`${columnName}_Values`, i, valueIndex[i]);
                     table.setCell(columnName, i, values[parseInt(valueIndex[i])]);
                 }
             }
@@ -145,12 +144,13 @@ export class XRayConverter extends MorningstarConverter {
         if (json.regionalExposure) {
             for (const exposure of json.regionalExposure) {
                 const columnName = `${benchmarkId}_RegionalExposure_${exposure.salePosition}`;
+                table.setColumn(`${columnName}_Values`);
                 table.setColumn(columnName);
                 const values = exposure.values;
                 const valueIndex = Object.keys(values);
 
                 for (let i = 0; i < valueIndex.length; i++) {
-                    table.setCell(`${benchmarkId}_Values`, i, valueIndex[i]);
+                    table.setCell(`${columnName}_Values`, i, valueIndex[i]);
                     table.setCell(columnName, i, values[parseInt(valueIndex[i])]);
                 }
             }
@@ -159,12 +159,13 @@ export class XRayConverter extends MorningstarConverter {
         if (json.globalStockSector) {
             for (const sector of json.globalStockSector) {
                 const columnName = `${benchmarkId}_GlobalStockSector_${sector.salePosition}`;
+                table.setColumn(`${columnName}_Values`);
                 table.setColumn(columnName);
                 const values = sector.values;
                 const valueIndex = Object.keys(values);
 
                 for (let i = 0; i < valueIndex.length; i++) {
-                    table.setCell(`${benchmarkId}_Values`, i, valueIndex[i]);
+                    table.setCell(`${columnName}_Values`, i, valueIndex[i]);
                     table.setCell(columnName, i, values[parseInt(valueIndex[i])]);
                 }
             }
