@@ -37,7 +37,34 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray'
             },
             type: 'DataGrid',
-            title: 'RiskScore'
+            title: 'GlobalStockSector',
+            dataGridOptions: {
+                header: ['XRay_GlobalStockSector_N_Values', 'XRay_GlobalStockSector_N']
+            }
+        }, {
+            renderTo: 'dashboard-col-1',
+            connector: {
+                id: 'xray'
+            },
+            type: 'DataGrid',
+            title: 'MorningstarEUR3',
+            dataGridOptions: {
+                header: [
+                    'XRay_MorningstarEUR3_L_Values', 'XRay_MorningstarEUR3_L',
+                    'XRay_MorningstarEUR3_N_Values', 'XRay_MorningstarEUR3_N',
+                    'XRay_MorningstarEUR3_S_Values', 'XRay_MorningstarEUR3_S'
+                ]
+            }
+        }, {
+            renderTo: 'dashboard-col-2',
+            connector: {
+                id: 'xray'
+            },
+            type: 'DataGrid',
+            title: 'RegionalExposure',
+            dataGridOptions: {
+                header: ['XRay_RegionalExposure_N_Values', 'XRay_RegionalExposure_N']
+            }
         }
     ]
 });
@@ -67,7 +94,7 @@ async function getPostmanJSON (htmlInputFile) {
    for (file of htmlInputFile.files) {
        try {
            fileJSON = JSON.parse(await file.text());
-           if (HighchartsConnectors.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
+           if (HighchartsConnectors.Shared.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
                break;
            }
        } catch (error) {
