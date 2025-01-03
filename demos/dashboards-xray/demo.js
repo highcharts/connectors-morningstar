@@ -39,7 +39,13 @@ async function displaySecurityDetails (postmanJSON) {
             type: 'DataGrid',
             title: 'GlobalStockSector',
             dataGridOptions: {
-                header: ['XRay_GlobalStockSector_N_Values', 'XRay_GlobalStockSector_N']
+                header: [{
+                    format: 'Net',
+                    columnId: 'XRay_GlobalStockSector_N_Categories'
+                }, {
+                    format: 'Values',
+                    columnId: 'XRay_GlobalStockSector_N_Values'
+                }]
             }
         }, {
             renderTo: 'dashboard-col-1',
@@ -49,11 +55,25 @@ async function displaySecurityDetails (postmanJSON) {
             type: 'DataGrid',
             title: 'MorningstarEUR3',
             dataGridOptions: {
-                header: [
-                    'XRay_MorningstarEUR3_L_Values', 'XRay_MorningstarEUR3_L',
-                    'XRay_MorningstarEUR3_N_Values', 'XRay_MorningstarEUR3_N',
-                    'XRay_MorningstarEUR3_S_Values', 'XRay_MorningstarEUR3_S'
-                ]
+                header: [{
+                    format: 'Long',
+                    columnId: 'XRay_MorningstarEUR3_L_Categories'
+                }, {
+                    format: 'Values',
+                    columnId: 'XRay_MorningstarEUR3_L_Values'
+                }, {
+                    format: 'Net',
+                    columnId: 'XRay_MorningstarEUR3_N_Categories'
+                }, {
+                    format: 'Values',
+                    columnId: 'XRay_MorningstarEUR3_N_Values'
+                }, {
+                    format: 'Short',
+                    columnId: 'XRay_MorningstarEUR3_S_Categories'
+                }, {
+                    format: 'Values',
+                    columnId: 'XRay_MorningstarEUR3_S_Values'
+                }]
             }
         }, {
             renderTo: 'dashboard-col-2',
@@ -63,7 +83,13 @@ async function displaySecurityDetails (postmanJSON) {
             type: 'DataGrid',
             title: 'RegionalExposure',
             dataGridOptions: {
-                header: ['XRay_RegionalExposure_N_Values', 'XRay_RegionalExposure_N']
+                header: [{
+                    format: 'Net',
+                    columnId: 'XRay_RegionalExposure_N_Categories'
+                }, {
+                    format: 'Values',
+                    columnId: 'XRay_RegionalExposure_N_Values'
+                }]
             }
         }
     ]
