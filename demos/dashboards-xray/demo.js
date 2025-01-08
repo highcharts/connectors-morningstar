@@ -1,3 +1,46 @@
+const globalStockSectorMap = {
+    99: 'Other', // ??
+    101: 'Basic Materials',
+    102: 'Consumer Staples',
+    103: 'Financial Services',
+    104: 'Real Estate',
+    205: 'Consumer Defensive',
+    206: 'Healthcare',
+    207: 'Utilities',
+    308: 'Communication Services',
+    309: 'Energy',
+    310: 'Industrials',
+    311: 'Technology'
+};
+
+const assetAllocationMap = {
+    1: 'Equity',
+    2: 'Property',
+    3: 'Cash',
+    4: 'Other',
+    99: 'Fixed Income'
+};
+
+const regionalExposureMap = {
+    1: 'United States',
+    2: 'Canada',
+    3: 'Latin America',
+    4: 'United Kingdom',
+    5: 'Eurozone',
+    6: 'Europe - ex Euro',
+    7: 'Europe - Emerging',
+    8: 'Africa',
+    9: 'Middle East',
+    10: 'Japan',
+    11: 'Australasia',
+    12: 'Asia - Developed',
+    13: 'Asia - Emerging',
+    14: 'Emerging Market',
+    15: 'Developed Country',
+    16: 'Not Classified',
+    99: 'Other' // ??
+}
+
 async function displaySecurityDetails (postmanJSON) {
    const board = Dashboards.board('container', {
     dataPool: {
@@ -37,7 +80,7 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray'
             },
             type: 'DataGrid',
-            title: 'GlobalStockSector',
+            title: 'Global Stock Sector',
             dataGridOptions: {
                 header: [{
                     format: 'Net',
@@ -45,6 +88,14 @@ async function displaySecurityDetails (postmanJSON) {
                 }, {
                     format: 'Values',
                     columnId: 'XRay_GlobalStockSector_N_Values'
+                }],
+                columns: [{
+                    id: 'XRay_GlobalStockSector_N_Categories',
+                    cells: {
+                        formatter: function () {
+                            return globalStockSectorMap[this.value]
+                        }
+                    }
                 }]
             }
         }, {
@@ -53,7 +104,7 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray'
             },
             type: 'DataGrid',
-            title: 'MorningstarEUR3',
+            title: 'Morningstar EUR3',
             dataGridOptions: {
                 header: [{
                     format: 'Long',
@@ -73,6 +124,28 @@ async function displaySecurityDetails (postmanJSON) {
                 }, {
                     format: 'Values',
                     columnId: 'XRay_MorningstarEUR3_S_Values'
+                }],
+                columns: [{
+                    id: 'XRay_MorningstarEUR3_L_Categories',
+                    cells: {
+                        formatter: function () {
+                            return assetAllocationMap[this.value]
+                        }
+                    }
+                }, {
+                    id: 'XRay_MorningstarEUR3_N_Categories',
+                    cells: {
+                        formatter: function () {
+                            return assetAllocationMap[this.value]
+                        }
+                    }
+                }, {
+                    id: 'XRay_MorningstarEUR3_S_Categories',
+                    cells: {
+                        formatter: function () {
+                            return assetAllocationMap[this.value]
+                        }
+                    }
                 }]
             }
         }, {
@@ -81,7 +154,7 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray'
             },
             type: 'DataGrid',
-            title: 'RegionalExposure',
+            title: 'Regional Exposure',
             dataGridOptions: {
                 header: [{
                     format: 'Net',
@@ -89,6 +162,14 @@ async function displaySecurityDetails (postmanJSON) {
                 }, {
                     format: 'Values',
                     columnId: 'XRay_RegionalExposure_N_Values'
+                }],
+                columns: [{
+                    id: 'XRay_RegionalExposure_N_Categories',
+                    cells: {
+                        formatter: function () {
+                            return regionalExposureMap[this.value]
+                        }
+                    }
                 }]
             }
         }
