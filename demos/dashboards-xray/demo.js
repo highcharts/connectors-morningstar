@@ -1,5 +1,5 @@
 const globalStockSectorMap = {
-    99: 'Other', // ??
+    99: 'Not Classified',
     101: 'Basic Materials',
     102: 'Consumer Staples',
     103: 'Financial Services',
@@ -14,11 +14,11 @@ const globalStockSectorMap = {
 };
 
 const assetAllocationMap = {
-    1: 'Equity',
-    2: 'Property',
+    1: 'Stock',
+    2: 'Bond',
     3: 'Cash',
     4: 'Other',
-    99: 'Fixed Income'
+    99: 'Not Classified'
 };
 
 const regionalExposureMap = {
@@ -38,7 +38,7 @@ const regionalExposureMap = {
     14: 'Emerging Market',
     15: 'Developed Country',
     16: 'Not Classified',
-    99: 'Other' // ??
+    99: 'Other'
 }
 
 async function displaySecurityDetails (postmanJSON) {
@@ -93,7 +93,8 @@ async function displaySecurityDetails (postmanJSON) {
                     id: 'XRay_GlobalStockSector_N_Categories',
                     cells: {
                         formatter: function () {
-                            return globalStockSectorMap[this.value]
+                            return this.value !== void 0 ?
+                                globalStockSectorMap[this.value] : '';
                         }
                     }
                 }]
@@ -129,21 +130,24 @@ async function displaySecurityDetails (postmanJSON) {
                     id: 'XRay_MorningstarEUR3_L_Categories',
                     cells: {
                         formatter: function () {
-                            return assetAllocationMap[this.value]
+                            return this.value !== void 0 ?
+                                assetAllocationMap[this.value] : '';
                         }
                     }
                 }, {
                     id: 'XRay_MorningstarEUR3_N_Categories',
                     cells: {
                         formatter: function () {
-                            return assetAllocationMap[this.value]
+                            return this.value !== void 0 ?
+                                assetAllocationMap[this.value] : '';
                         }
                     }
                 }, {
                     id: 'XRay_MorningstarEUR3_S_Categories',
                     cells: {
                         formatter: function () {
-                            return assetAllocationMap[this.value]
+                            return this.value !== void 0 ?
+                                assetAllocationMap[this.value] : '';
                         }
                     }
                 }]
@@ -167,7 +171,8 @@ async function displaySecurityDetails (postmanJSON) {
                     id: 'XRay_RegionalExposure_N_Categories',
                     cells: {
                         formatter: function () {
-                            return regionalExposureMap[this.value]
+                            return this.value !== void 0 ?
+                                regionalExposureMap[this.value] : '';
                         }
                     }
                 }]
@@ -176,9 +181,7 @@ async function displaySecurityDetails (postmanJSON) {
     ]
 });
 
-board.dataPool
-    .getConnectorTable('xray')
-    .then(() => {});
+    board.dataPool.getConnectorTable('xray');
 
 }
 
