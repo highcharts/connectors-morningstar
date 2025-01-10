@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -11,9 +11,7 @@
  *
  * */
 
-
 'use strict';
-
 
 /* *
  *
@@ -27,26 +25,21 @@ import type {
     MorningstarOptions
 } from '../../Shared/MorningstarOptions';
 
-
 /* *
  *
  *  API Options
  *
  * */
 
-
 export interface InvestorPreferencesConverterOptions extends MorningstarConverterOptions {
-
     // Nothing to add yet.
-
 }
-
 
 export interface InvestorPreferencesOptions extends MorningstarOptions {
     /**
      *
      * When true, returns are calculated using extended performance/Track Record
-     * Extension."
+     * Extension.
      *
      */
     applyTrackRecordExtension?: boolean;
@@ -58,7 +51,7 @@ export interface InvestorPreferencesOptions extends MorningstarOptions {
      */
     calculatedDataPoints?: Array<CalculatedDataPoint>;
 
-    //converter?: InvestorPreferencesConverterOptions;
+    converter?: InvestorPreferencesConverterOptions;
     /**
      *
      * ISO alpha-3 country code.
@@ -89,7 +82,7 @@ export interface InvestorPreferencesOptions extends MorningstarOptions {
      *
      */
     filters?: InvestorPreferencesFilter[];
-     /**
+    /**
      *
      * When true, returns will not be calculated using the restructure date.
      *
@@ -140,7 +133,7 @@ export interface InvestorPreferencesOptions extends MorningstarOptions {
      *
      */
     universeIds: Array<string>;
-};
+}
 
 export interface CalculatedDataPoint {
     /**
@@ -157,7 +150,7 @@ export interface CalculatedDataPoint {
      *
      */
     condition: CalculatedDataPointCondition;
-};
+}
 
 export interface CalculatedDataPointCondition {
     /**
@@ -177,7 +170,7 @@ export interface CalculatedDataPointCondition {
      *
      */
     or: Array<CalculatedDataPointConditionField>;
-};
+}
 
 export interface CalculatedDataPointConditionField {
     /** Data point that condition is applied to. */
@@ -186,7 +179,7 @@ export interface CalculatedDataPointConditionField {
     op: ConditionalOperator;
     /** Value to base condition calculation on.	*/
     value: string|number;
-};
+}
 
 export type ConditionalOperator = (
     | 'eq'
@@ -208,7 +201,8 @@ export interface InvestorPreferencesFilter {
     value: any;
 }
 
-export type ComparatorCode = (
+// TODO: move this type as a shared one in Screener directory
+type ComparatorCode = (
     | 'IN'
     | 'NIN'
     | 'EQ'
@@ -231,14 +225,12 @@ export interface InvestorPreferencesMetadata extends MorningstarMetadata {
     total?: number;
     pageSize?: number;
     calculatedDataPointNames?: string[];
-};
-
+}
 
 /* *
  *
  *  Default Export
  *
  * */
-
 
 export default InvestorPreferencesOptions;

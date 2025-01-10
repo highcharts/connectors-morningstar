@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -25,6 +25,7 @@ import RNANewsOptions from './RNANews/RNANewsOptions';
 import TimeSeriesOptions from './TimeSeries/TimeSeriesOptions';
 import XRayOptions from './XRay/XRayOptions';
 import InvestmentScreenerOptions from './Screeners/InvestmentScreener/InvestmentScreenerOptions';
+import InvestorPreferencesOptions from './Screeners/InvestorPreferences/InvestorPreferencesOptions';
 
 /* *
  *
@@ -43,4 +44,5 @@ interface Options {
     TimeSeries: TimeSeriesOptions;
     XRay: XRayOptions;
     InvestmentScreener: InvestmentScreenerOptions;
+    InvestorPreferences: InvestorPreferencesOptions;
 }

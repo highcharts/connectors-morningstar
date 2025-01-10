@@ -2,16 +2,139 @@ const loadingLabel = document.getElementById('loading-label');
 
 function displayInvestorPreferences (postmanJSON) {
     const secIds = [
-        "SecId",
-        "LegalName",
-        "DomicileId",
-        "EET_PAI_GHGEmissions3Considered",
-        "EET_PAI_GHGEmissions1And2Considered",
-        "EET_PAI_EnergyConsumptionNaceAConsidered",
-        "EET_PAI_EnergyConsumptionNaceBConsidered",
-        "EET_PAI_FossilFuelConsidered",
-        "EET_PAI_SocialViolationsPercentageConsidered"
+        'SecId',
+        'LegalName',
+        'DomicileId',
+        'EET_PAI_GHGEmissions3Considered',
+        'EET_PAI_GHGEmissions1And2Considered',
+        'EET_PAI_EnergyConsumptionNaceAConsidered',
+        'EET_PAI_EnergyConsumptionNaceBConsidered',
+        'EET_PAI_FossilFuelConsidered',
+        'EET_PAI_SocialViolationsPercentageConsidered'
     ];
+
+    const calculatedDataPoints = [
+        {
+            'name': 'UserPref0',
+            'type': 'bool',
+            'condition': {
+                'and': [
+                    {
+                        'fields': [
+                            {
+                                'name': 'StarRatingM255',
+                                'op': 'gt',
+                                'value': 3
+                            },
+                            {
+                                'name': 'StarRatingM255',
+                                'op': 'gt',
+                                'value': 3
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            'name': 'UserPref1',
+            'type': 'bool',
+            'condition': {
+                'and': [
+                    {
+                        'fields': [
+                            {
+                                'name': 'EET_EUSFDRType',
+                                'op': 'eq',
+                                'value': 8
+                            },
+                            {
+                                'name': 'EET_PAI_GHGEmissions1Considered',
+                                'op': 'eq',
+                                'value': 'Y'
+                            }
+                        ],
+                        'or': [
+                            {
+                                'fields': [
+                                    {
+                                        'name': 'EET_EUSFDRType',
+                                        'op': 'gte',
+                                        'value': 9
+                                    },
+                                    {
+                                        'name': 'EET_PAI_GHGEmissions1And2Considered',
+                                        'op': 'eq',
+                                        'value': 'Y'
+                                    }
+                                ],
+                                'and': [
+                                    {
+                                        'fields': [
+                                            {
+                                                'name': 'EET_PAI_EnergyConsumptionNaceAConsidered',
+                                                'op': 'eq',
+                                                'value': 'Y'
+                                            },
+                                            {
+                                                'name': 'EET_PAI_EnergyConsumptionNaceBConsidered',
+                                                'op': 'eq',
+                                                'value': 'Y'
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            'name': 'UserPref2',
+            'type': 'bool',
+            'condition': {
+                'and': [
+                    {
+                        'or': [
+                            {
+                                'fields': [
+                                    {
+                                        'name': 'EET_EUSFDRType',
+                                        'op': 'eq',
+                                        'value': 9
+                                    },
+                                    {
+                                        'name': 'EET_EUSFDRType',
+                                        'op': 'eq',
+                                        'value': 10
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        'or': [
+                            {
+                                'fields': [
+                                    {
+                                        'name': 'EET_PAI_GHGEmissions3Considered',
+                                        'op': 'eq',
+                                        'value': 'Y'
+                                    },
+                                    {
+                                        'name': 'EET_PAI_GHGEmissions1Considered',
+                                        'op': 'eq',
+                                        'value': 'Y'
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
 
     const columns = secIds.map(id => ({
         id: `InvestorPreferences_${id}`,
@@ -33,129 +156,12 @@ function displayInvestorPreferences (postmanJSON) {
                         currencyId: 'USD',
                         securityDataPoints: secIds,
                         universeIds: ['FOGBR$$ALL'],
-                        calculatedDataPoints: [
-                            {
-                                "name": "UserPref0",
-                                "type": "bool",
-                                "condition": {
-                                    "and": [
-                                        {
-                                            "fields": [
-                                                {
-                                                    "name": "StarRatingM255",
-                                                    "op": "gt",
-                                                    "value": 3
-                                                },
-                                                {
-                                                    "name": "StarRatingM255",
-                                                    "op": "gt",
-                                                    "value": 3
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "name": "UserPref1",
-                                "type": "bool",
-                                "condition": {
-                                    "and": [
-                                        {
-                                            "fields": [
-                                                {
-                                                    "name": "EET_EUSFDRType",
-                                                    "op": "eq",
-                                                    "value": 8
-                                                },
-                                                {
-                                                    "name": "EET_PAI_GHGEmissions1Considered",
-                                                    "op": "eq",
-                                                    "value": "Y"
-                                                }
-                                            ],
-                                            "or": [
-                                                {
-                                                    "fields": [
-                                                        {
-                                                            "name": "EET_EUSFDRType",
-                                                            "op": "gte",
-                                                            "value": 9
-                                                        },
-                                                        {
-                                                            "name": "EET_PAI_GHGEmissions1And2Considered",
-                                                            "op": "eq",
-                                                            "value": "Y"
-                                                        }
-                                                    ],
-                                                    "and": [
-                                                        {
-                                                            "fields": [
-                                                                {
-                                                                    "name": "EET_PAI_EnergyConsumptionNaceAConsidered",
-                                                                    "op": "eq",
-                                                                    "value": "Y"
-                                                                },
-                                                                {
-                                                                    "name": "EET_PAI_EnergyConsumptionNaceBConsidered",
-                                                                    "op": "eq",
-                                                                    "value": "Y"
-                                                                }
-                                                            ]
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "name": "UserPref2",
-                                "type": "bool",
-                                "condition": {
-                                    "and": [
-                                        {
-                                            "or": [
-                                                {
-                                                    "fields": [
-                                                        {
-                                                            "name": "EET_EUSFDRType",
-                                                            "op": "eq",
-                                                            "value": 9
-                                                        },
-                                                        {
-                                                            "name": "EET_EUSFDRType",
-                                                            "op": "eq",
-                                                            "value": 10
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "or": [
-                                                {
-                                                    "fields": [
-                                                        {
-                                                            "name": "EET_PAI_GHGEmissions3Considered",
-                                                            "op": "eq",
-                                                            "value": "Y"
-                                                        },
-                                                        {
-                                                            "name": "EET_PAI_GHGEmissions1Considered",
-                                                            "op": "eq",
-                                                            "value": "Y"
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            }
-                        ],
-                        filters: [{dataPointId: 'UserPref0', comparatorCode: 'EQ', value: 'True'}],
+                        calculatedDataPoints,
+                        filters: [{
+                            dataPointId: 'UserPref0',
+                            comparatorCode: 'EQ',
+                            value: 'True'
+                        }],
                         postman: {
                             environmentJSON: postmanJSON
                         }
@@ -282,7 +288,7 @@ function displayInvestorPreferences (postmanJSON) {
             sfdrTypes.forEach(type => {
                 values.push(type.value);
                 types.push(
-                    document.querySelector(`label[for="${type.id}"`).innerHTML
+                    document.querySelector(`label[for='${type.id}'`).innerHTML
                 );
             });
             currentFilter.innerHTML +=

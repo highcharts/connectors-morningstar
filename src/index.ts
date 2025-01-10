@@ -40,6 +40,7 @@ import XRay from './XRay/index';
 
 export * from './GoalAnalysis/index';
 export * from './Screeners/InvestmentScreener/index';
+export * from './Screeners/InvestorPreferences/index';
 export * from './SecurityDetails/index';
 export * from './RNANews/index';
 export * from './RiskScore/index';
