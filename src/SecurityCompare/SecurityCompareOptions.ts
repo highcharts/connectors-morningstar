@@ -45,12 +45,13 @@ export interface SecurityCompareConverterOptions extends MorningstarConverterOpt
 
 export type SecurityCompareConverterType = (
     | 'TrailingPerformance'
+    | 'AssetAllocations'
 );
 
 
 export interface SecurityCompareMetadata extends MorningstarMetadata {
-    id?: string;
-    isin?: string;
+    ids?: string[];
+    isins?: string[];
     domicile?: string;
     currency?: string;
     returnType?: string;
@@ -60,7 +61,7 @@ export interface SecurityCompareMetadata extends MorningstarMetadata {
 }
 
 
-export interface SecurityCompareSecurity extends MorningstarSecurityOptions {
+export interface SecurityCompareSecurity extends Omit<MorningstarSecurityOptions, 'id'> {
     ids: Array<string>
 }
 

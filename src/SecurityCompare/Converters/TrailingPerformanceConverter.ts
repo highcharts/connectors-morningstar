@@ -77,7 +77,7 @@ export class TrailingPerformanceConverter extends SecurityCompareConverter {
     public override parse (
         options: SecurityCompareConverterOptions
     ): void {
-        // Const metadata = this.metadata;
+        const metadata = this.metadata;
         const table = this.table;
         const userOptions = {
             ...this.options,
@@ -97,21 +97,25 @@ export class TrailingPerformanceConverter extends SecurityCompareConverter {
         // Add trailing performance to table
 
         if (json.length) {
-            let timePediodColumnStr,
+            let timePeriodColumnStr,
                 valueColumnStr;
+            const metaIds = [],
+                metaIsins = [];
             // Update table
             for (let i = 0; i < json.length; i++) {
-                timePediodColumnStr = `${i}_TrailingPerformance_TimePeriod`;
-                valueColumnStr = `${i}_TrailingPerformance_Value`;
-                table.setColumn(timePediodColumnStr);
+                const securityCompare = json[i],
+                    id = securityCompare.Id,
+                    isin = securityCompare.Isin;
+                timePeriodColumnStr = `TrailingPerformance_TimePeriod_${id}`;
+                valueColumnStr = `TrailingPerformance_Value_${id}`;
+                table.setColumn(timePeriodColumnStr);
                 table.setColumn(valueColumnStr);
 
-                const securityCompare = json[i];
                 const trailingPerformanceReturn = securityCompare.TrailingPerformance[0].Return;
     
                 for (let j = 0, iEnd = trailingPerformanceReturn.length; j < iEnd; ++j) {
                     table.setCell(
-                        timePediodColumnStr,
+                        timePeriodColumnStr,
                         j,
                         trailingPerformanceReturn[j].TimePeriod
                     );
@@ -121,16 +125,15 @@ export class TrailingPerformanceConverter extends SecurityCompareConverter {
                         trailingPerformanceReturn[j].Value
                     );
                 }
+                metaIds.push(id);
+                metaIsins.push(isin);
             }
 
-            // @todo Update meta data
-            // metadata.id = securityCompare.Id;
-            // metadata.isin = securityCompare.Isin;
+            metadata.ids = metaIds;
+            metadata.isins = metaIsins;
         }
 
     }
-
-
 }
 
 

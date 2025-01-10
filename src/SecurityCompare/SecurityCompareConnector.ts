@@ -25,7 +25,8 @@
 import External from '../Shared/External';
 import SecurityCompareConverter from './SecurityCompareConverter';
 import {
-    TrailingPerformanceConverter
+    TrailingPerformanceConverter,
+    AssetAllocationsConverter
 } from './Converters';
 import SecurityCompareOptions, {
     SecurityCompareMetadata
@@ -61,6 +62,11 @@ export class SecurityCompareConnector extends MorningstarConnector {
             case 'TrailingPerformance':
             default:
                 this.converter = new TrailingPerformanceConverter({
+                    ...options.converter
+                });
+                break;
+            case 'AssetAllocations':
+                this.converter = new AssetAllocationsConverter({
                     ...options.converter
                 });
                 break;

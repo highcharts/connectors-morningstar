@@ -9,7 +9,10 @@ async function displaySecurityDetails (postmanJSON) {
             ids,
             idType: 'msid'
         },
-        viewIds: 'CompareAdditional'
+        _viewIds: 'CompareAdditional',
+        _converter: {
+            type: 'AssetAllocations'
+        }
     });
 
     await connector.load();

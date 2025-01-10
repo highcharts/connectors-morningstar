@@ -42,10 +42,26 @@ namespace SecurityCompareJSON {
         Domicile: string;
         Currency: CurrencyType;
         TrailingPerformance: SecurityCompareTrailingPerformance[];
+        Portfolios:PortfoliosType[];
         Type: string;
         CurrencyId: string;
         Date: string;
     }
+
+    export type PortfoliosType = {
+        AssetAllocations: AssetAllocationType[]
+    };
+
+    export type AssetAllocationType = {
+        BreakdownValues: BreakDownValues[]
+        SalePosition: string
+        Type: string
+    };
+
+    export type BreakDownValues = {
+        Value: number;
+        Type: string;
+    };
 
     interface SecurityCompareTrailingPerformance {
         ReturnType: string;
@@ -68,8 +84,6 @@ namespace SecurityCompareJSON {
     export function isSecurityCompare (
         json: unknown
     ) {
-        // @todo properly validate json
-        return true;
         return (
             !!json &&
             typeof json === 'object' &&
@@ -86,12 +100,8 @@ namespace SecurityCompareJSON {
         json?: unknown
     ): json is Array<SecurityCompareResponse> {
         return (
-            !!json &&
             Array.isArray(json) &&
-            (
-                json.length > 1 &&
-                isSecurityCompare(json[0])
-            )
+            json.every(isSecurityCompare)
         );
     }
 

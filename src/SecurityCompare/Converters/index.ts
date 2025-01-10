@@ -14,6 +14,7 @@
 
 'use strict';
 
+import AssetAllocationsConverter from './AssetAllocationsConverter';
 import TrailingPerformanceConverter from './TrailingPerformanceConverter';
 
 
@@ -34,6 +35,7 @@ import TrailingPerformanceConverter from './TrailingPerformanceConverter';
 
 
 export * from './TrailingPerformanceConverter';
+export * from './AssetAllocationsConverter';
 
 /* *
  *
@@ -43,5 +45,6 @@ export * from './TrailingPerformanceConverter';
 
 
 export default {
-    TrailingPerformanceConverter
+    TrailingPerformanceConverter,
+    AssetAllocationsConverter
 };
