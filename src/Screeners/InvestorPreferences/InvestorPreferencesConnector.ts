@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -11,16 +11,13 @@
  *
  * */
 
-
 'use strict';
-
 
 /* *
  *
  *  Imports
  *
  * */
-
 
 import InvestorPreferencesOptions from './InvestorPreferencesOptions';
 import InvestorPreferencesConverter from './InvestorPreferencesConverter';
@@ -42,6 +39,56 @@ import MorningstarURL from '../../Shared/MorningstarURL';
 const UTF_PIPE = '|';
 const UTF_COLON = ':';
 
+/**
+ *
+ * Declarations
+ *
+ */
+
+type NonStringOptions = (
+    'universeIds' | 'page' | 'pageSize' | 'filters' | 'filterDataPoints'
+);
+
+interface InvestorPreferencesBody extends Omit<InvestorPreferencesOptions, NonStringOptions> {
+    /**
+     *
+     * A list of filter data points. Custom data points can be configured. See
+     * Filters for information about how to get a list of filter data points.
+     *
+     */
+    filterDataPoints?: string;
+    /**
+     *
+     * A list of criteria a security must meet to be included in the results.
+     *
+     */
+    filters?: string;
+    /**
+     *
+     * Output type of the connector response
+     *
+     */
+    outputType: string;
+    /**
+     *
+     * The number of output pages.
+     *
+     */
+    page?: string;
+    /**
+      *
+      *  The number of rows per page.
+      *
+      */
+    pageSize?: string;
+    /**
+     *
+     * A list of investment universe identifiers to query. Values may end with
+     * `:1` to signify that a custom universe is not only client funds.
+     *
+     */
+    universeIds: string;
+}
 
 /* *
  *
@@ -49,16 +96,12 @@ const UTF_COLON = ':';
  *
  * */
 
-
 export class InvestorPreferencesConnector extends MorningstarConnector {
-
-
     /* *
      *
      *  Constructor
      *
      * */
-
 
     public constructor (
         options: InvestorPreferencesOptions = { universeIds: [] }
@@ -68,9 +111,7 @@ export class InvestorPreferencesConnector extends MorningstarConnector {
         this.converter = new InvestorPreferencesConverter(options.converter);
         this.metadata = this.converter.metadata;
         this.options = options;
-
     }
-
 
     /* *
      *
@@ -78,13 +119,11 @@ export class InvestorPreferencesConnector extends MorningstarConnector {
      *
      * */
 
-
     public override readonly converter: InvestorPreferencesConverter;
 
     public override readonly options: InvestorPreferencesOptions;
 
     public override readonly metadata: InvestorPreferencesMetadata;
-
 
     /* *
      *
@@ -92,24 +131,22 @@ export class InvestorPreferencesConnector extends MorningstarConnector {
      *
      * */
 
-
     public override async load (
         options?: InvestorPreferencesOptions
     ): Promise<this> {
-
         await super.load();
 
         const userOptions = { ...this.options, ...options };
-        const api = this.api = this.api || new MorningstarAPI(userOptions.api);
+        const api = (this.api = this.api || new MorningstarAPI(userOptions.api));
         const url = new MorningstarURL('ecint/v1/screener', api.baseURL);
 
-        const body: any = {
+        const body: InvestorPreferencesBody = {
             universeIds: userOptions.universeIds.join(UTF_PIPE),
             outputType: 'json'
         };
 
         if (userOptions.page) {
-            body.page = `${userOptions.page}`
+            body.page = `${userOptions.page}`;
         }
 
         if (userOptions.pageSize) {
@@ -133,12 +170,15 @@ export class InvestorPreferencesConnector extends MorningstarConnector {
         }
 
         if (userOptions.calculatedDataPoints) {
-            this.metadata.calculatedDataPointNames = userOptions.calculatedDataPoints.map(value => value.name);
-            body.calculatedDataPoints = userOptions.calculatedDataPoints.map(value => ({...value, type: 'bool'}));
+            this.metadata.calculatedDataPointNames =
+                userOptions.calculatedDataPoints.map((value) => value.name);
+            body.calculatedDataPoints = userOptions.calculatedDataPoints.map(
+                (value) => ({ ...value, type: 'bool' })
+            );
         }
 
         if (userOptions.filters) {
-            body.filters =  userOptions.filters.reduce(
+            body.filters = userOptions.filters.reduce(
                 (prev, curr) =>
                     prev === '' ?
                         this.getFilter(curr) :
@@ -159,11 +199,11 @@ export class InvestorPreferencesConnector extends MorningstarConnector {
             body.countryId = userOptions.countryId;
         }
 
-        if(userOptions.applyTrackRecordExtension) {
+        if (userOptions.applyTrackRecordExtension) {
             body.applyTrackRecordExtension = userOptions.applyTrackRecordExtension;
         }
 
-        if(userOptions.ignoreRestructure) {
+        if (userOptions.ignoreRestructure) {
             body.ignoreRestructure = userOptions.ignoreRestructure;
         }
 
@@ -182,8 +222,6 @@ export class InvestorPreferencesConnector extends MorningstarConnector {
         this.table.deleteColumns();
         this.table.setColumns(this.converter.getTable().getColumns());
 
-        console.log(this.table);
-
         return this;
     }
 
@@ -192,29 +230,27 @@ export class InvestorPreferencesConnector extends MorningstarConnector {
     }
 }
 
-
 /* *
  *
  *  Registry
  *
  * */
 
-
 declare module '@highcharts/dashboards/es-modules/Data/Connectors/DataConnectorType' {
     interface DataConnectorTypes {
-        MorningstarInvestorPreferences: typeof InvestorPreferencesConnector
+        MorningstarInvestorPreferences: typeof InvestorPreferencesConnector;
     }
 }
 
-
-External.DataConnector.registerType('MorningstarInvestorPreferences', InvestorPreferencesConnector);
-
+External.DataConnector.registerType(
+    'MorningstarInvestorPreferences',
+    InvestorPreferencesConnector
+);
 
 /* *
  *
  *  Default Export
  *
  * */
-
 
 export default InvestorPreferencesConnector;
