@@ -8,7 +8,7 @@
     "bugs": "https://github.com/highcharts/morningstar-connectors/issues",
     "homepage": "https://github.com/highcharts/morningstar-connectors#readme",
     "repository": "https://github.com/highcharts/morningstar-connectors.git",
-    "bin": "bin/morningstar-connectors.js",
+    "bin": "bin/connectors-morningstar.js",
     "main": "code/es-modules/index.js",
     "types": "code/es-modules/index.d.ts",
     "devDependencies": {
