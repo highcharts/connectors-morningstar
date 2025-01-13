@@ -255,7 +255,7 @@ function displayInvestorPreferences (postmanJSON) {
             sfdrTypes = document.querySelectorAll('.sfdr:checked'),
             filters = [];
 
-        currentFilter.innerHTML = '';
+        currentFilter.textContent = '';
 
         // Create a filter that will check if the investment is within EU tax
         // alignment or SFDR classification
@@ -263,10 +263,10 @@ function displayInvestorPreferences (postmanJSON) {
             const minPortion = document.getElementById('min-portion').value,
                 isOptional = document.getElementById('optional');
 
-            currentFilter.innerHTML = 'EU Tax alignment: ' +
-                euTaxAlignment.selectedOptions[0].innerHTML +
+            currentFilter.textContent = 'EU Tax alignment: ' +
+                euTaxAlignment.selectedOptions[0].textContent +
                 ', Minimum portion: ' + minPortion + '%, ' +
-                isOptional.selectedOptions[0].innerHTML + '.';
+                isOptional.selectedOptions[0].textContent + '.';
 
             filters.push(
                 {
@@ -288,10 +288,10 @@ function displayInvestorPreferences (postmanJSON) {
             sfdrTypes.forEach(type => {
                 values.push(type.value);
                 types.push(
-                    document.querySelector(`label[for='${type.id}'`).innerHTML
+                    document.querySelector(`label[for='${type.id}'`).textContent
                 );
             });
-            currentFilter.innerHTML +=
+            currentFilter.textContent +=
                 'SFDR Classification: ' + types.join(', ');
 
             filters.push({
