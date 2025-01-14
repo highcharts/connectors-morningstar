@@ -46,15 +46,19 @@ body {
     height: 500px;
 }
 
-.filters-row>.input-wrapper {
-    display: block;
-    margin-bottom: 0.5rem;
+.filters-row>#slider>span#slider-value {
+    width: 30px;
 }
-.filters-row>.input-wrapper>input, .filters-row>.input-wrapper>select {
-    margin-top: 0.5rem;
+.filters-row>.input-wrapper {
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+.filters-row>#slider {
+    display: inline-flex;
+    align-items: center;
 }
 
-.filters-row>button, .filters-row>select {
+.filters-row>button {
     background: #f2f2f2;
     border: none;
     border-radius: 4px;
@@ -68,4 +72,8 @@ body {
 
 .filters-row>button:hover {
     background: #e6e6e6;
+}
+
+.filters-row>button[disabled]:hover {
+    background: #f2f2f2;
 }

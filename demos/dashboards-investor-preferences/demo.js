@@ -317,6 +317,9 @@ function displayInvestorPreferences (postmanJSON) {
 async function handleSelectEnvironment (evt) {
     const target = evt.target;
     const postmanJSON = await getPostmanJSON(target);
+    const filters = document.querySelectorAll(
+        '.input-wrapper input, .input-wrapper select, button#filter-1'
+    );
 
     if (!postmanJSON) {
         loadingLabel.textContent =
@@ -324,6 +327,10 @@ async function handleSelectEnvironment (evt) {
         loadingLabel.style.display = 'block';
 
         return;
+    }
+
+    for (const filter of filters) {
+        filter.disabled = false;
     }
 
     target.parentNode.style.display = 'none';

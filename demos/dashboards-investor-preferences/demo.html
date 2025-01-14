@@ -8,10 +8,10 @@
         <script src="https://code.highcharts.com/dashboards/dashboards.src.js"></script>
         <script src="../../code/connectors-morningstar.src.js"></script>
 
-        <title>Highcharts Dashboards + Morningstar Portfolio Investment Details</title>
+        <title>Highcharts Dashboards + Morningstar Investor Preferences Screener</title>
     </head>
     <body>
-        <h1>Highcharts Dashboards + Morningstar Portfolio Investment Details</h1>
+        <h1>Highcharts Dashboards + Morningstar Investor Preferences Screener</h1>
         <p>
             Add your Postman environment file from Morningstar to start the demo:
             <input type="file" id="postman-json" accept=".json,application/json" />
@@ -19,8 +19,8 @@
         <p id="loading-label" style="display: none;">Loading data…</p>
         <div class="filters-row">
             <div class="input-wrapper">
-                <label for="tax-alignment">EU Tax alignment</label></br>
-                <select id="tax-alignment">
+                <label for="tax-alignment">EU Tax alignment</label>
+                <select id="tax-alignment" disabled>
                     <option value="EET_SustInvEUTaxonomy_A8">EU Vat 8</option>
                     <option value="EET_SustInvEUTaxonomy_A9">EU Vat 9</option>
                     <option value="" selected>No</option>
@@ -28,28 +28,28 @@
             </div>
             <div class="input-wrapper" id="slider">
                     <label for="min-portion">Minimum portion:</label>
-                    <span id="slider-value">0</span></br>
-                <input type="range" value="0" step="1" id="min-portion" min="0"
-                    max="100"
+                    <span id="slider-value">0</span>
+                    <input type="range" value="0" step="1" id="min-portion" min="0"
+                    max="100" disabled
                     oninput="document.getElementById('slider-value').textContent = this.value" />
             </div>
             <div class="input-wrapper">
-                <label for="optional">Optional or Exclusive</label></br>
-                <select id="optional">
+                <label for="optional">Optional or Exclusive</label>
+                <select id="optional" disabled>
                     <option value="Y">Optional</option>
                     <option value="I">Exclusive</option>
                 </select>
             </div>
             <div class="input-wrapper">
-                <span>SFDR Classification</span></br>
-                <input type="checkbox" value="6" id="art-6" class="sfdr"/>
+                <span>SFDR Classification</span>
+                <input type="checkbox" value="6" id="art-6" class="sfdr" disabled/>
                 <label for="art-6">Art 6</label>
-                <input type="checkbox" value="8" id="art-8" class="sfdr"/>
+                <input type="checkbox" value="8" id="art-8" class="sfdr" disabled/>
                 <label for="art-8">Art 8</label>
-                <input type="checkbox" value="9" id="art-9" class="sfdr"/>
+                <input type="checkbox" value="9" id="art-9" class="sfdr" disabled/>
                 <label for="art-9">Art 9</label>
             </div>
-            <button class="cell" id="filter-1">Apply filter</button>
+            <button class="cell" id="filter-1" disabled>Apply filter</button>
         </div>
         <div>
             Current filter:
