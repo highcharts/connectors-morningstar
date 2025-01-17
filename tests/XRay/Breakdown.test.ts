@@ -59,3 +59,47 @@ export async function breakdownLoad (
     );
 
 }
+
+export async function portfolioBreakdown (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.XRayConnector({
+        api,
+        currencyId: 'GBP',
+        dataPoints: {
+            type: 'portfolio',
+            dataPoints: [
+                'GlobalStockSector',
+                'RegionalExposure'
+            ]
+        },
+        holdings: [
+            {
+                id: 'F0GBR052QA',
+                idType: 'MSID',
+                type: 'FO',
+                weight: '100',
+                name: 'BlackRock Income and Growth Ord',
+                holdingType: 'weight'
+            }
+        ]
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'XRay_RegionalExposure_N_Categories',
+            'XRay_RegionalExposure_N_Values',
+            'XRay_GlobalStockSector_N_Categories',
+            'XRay_GlobalStockSector_N_Values'
+        ],
+        'Connector columns should return expected names.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
