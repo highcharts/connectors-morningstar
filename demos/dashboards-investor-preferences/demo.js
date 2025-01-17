@@ -13,6 +13,33 @@ function displayInvestorPreferences (postmanJSON) {
         'EET_PAI_SocialViolationsPercentageConsidered'
     ];
 
+    const headerFormats = {
+        'SecId': 'Security Id',
+        'LegalName': 'Legal Name',
+        'DomicileId': 'Domicile Id',
+        'EET_PAI_GHGEmissions3Considered':
+            'European ESG Template Principal Adverse Impact Greenhouse Gas Emissions 3 Considered',
+        'EET_PAI_GHGEmissions1And2Considered':
+            `European ESG Template Principal Adverse Impact Greenhouse Gas Emissions
+             1 And 2 Considered`,
+        'EET_PAI_EnergyConsumptionNaceAConsidered':
+            'Energy Consumption Intensity Per High Impact Climate Sector NACE A Considered',
+        'EET_PAI_EnergyConsumptionNaceBConsidered':
+            'Energy Consumption Intensity Per High Impact Climate Sector NACE B Considered',
+        'EET_PAI_FossilFuelConsidered':
+            'European ESG Template Principal Adverse Impact Fossil Fuel Considered',
+        'EET_PAI_SocialViolationsPercentageConsidered':
+            `European ESG Template Principal Adverse Impact Social Violations
+             Percentage Considered`,
+        'StarRatingM255': 'Star Rating M255',
+        'UserPref0': 'UserPref0',
+        'UserPref1': 'UserPref1',
+        'UserPref2': 'UserPref2',
+        'EET_EUSFDRType': 'Financial Instrument SFDR Product Type',
+        'EET_PAI_GHGEmissions1Considered':
+            'European ESG Template Principal Adverse Impact Greenhouse Gas Emissions 1 Considered'
+    };
+
     const calculatedDataPoints = [
         {
             'name': 'UserPref0',
@@ -134,14 +161,17 @@ function displayInvestorPreferences (postmanJSON) {
                 ]
             }
         }
-    ]
+    ];
 
-    const columns = secIds.map(id => ({
-        id: `InvestorPreferences_${id}`,
-        header: {
-            format: id
-        }
-    }));
+    const columns = [];
+    for (const key in headerFormats) {
+        columns.push({
+            id: `InvestorPreferences_${key}`,
+            header: {
+                format: headerFormats[key] || key
+            }
+        });
+    }
 
     const board = Dashboards.board('container', {
         dataPool: {
