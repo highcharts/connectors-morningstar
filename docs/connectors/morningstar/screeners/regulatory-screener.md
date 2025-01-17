@@ -15,6 +15,9 @@ Data can be filtered on any data point comprehensively covered by Morningstar, i
 
 For more details, see [Morningstar's Regulatory Screener API].
 
+<!-- Links -->
+[Morningstar's Regulatory Screener API]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/screener/regulatory-screener
+
 This connector is designed to be interacted with using external buttons, that might filter data on the backend, provide pagination as well as sorting.
 
 Here is an example of how to use the Regulatory Screener connector:
@@ -45,3 +48,6 @@ const screenerConnector = new HighchartsConnectors.Morningstar.RegulatoryScreene
         environmentJSON: postmanJSON
     }
 });
+```
+
+For more details, see [Morningstar's Regulatory Screener API].
