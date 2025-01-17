@@ -47,7 +47,7 @@ interface XRayHoldingObject {
     amount?: string;
     identifier: string;
     identifierType: string;
-    holdingType: number;
+    holdingType: string|number;
     name?: string;
     securityType?: string;
     weight?: string;
@@ -78,7 +78,7 @@ function convertHoldings (
         const holding: XRayHoldingObject = {
             identifier: security.id,
             identifierType: security.idType,
-            holdingType
+            holdingType: security.holdingType || holdingType
         };
 
         if (security.name) {
@@ -87,6 +87,10 @@ function convertHoldings (
 
         if (security.type) {
             holding.securityType = security.type;
+        }
+
+        if (security.weight) {
+            holding.weight = security.weight.toString();
         }
 
         return holding;

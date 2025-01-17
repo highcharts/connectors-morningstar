@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="demo.css" />
+        <script src="https://code.highcharts.com/dashboards/datagrid.js"></script>
+        <script src="https://code.highcharts.com/dashboards/dashboards.js"></script>
+        <script src="../../code/connectors-morningstar.src.js"></script>
+        <title>Highcharts Dashboards DataGrid + Morningstar XRay Connector</title>
+    </head>
+    <body>
+        <h1>Highcharts Dashboards DataGrid + Morningstar XRay Connector</h1>
+        <p>
+            Add your Postman environment file from Morningstar to start the demo:
+            <input type="file" id="postman-json" accept=".json,application/json" />
+        </p>
+        <p id="loading-label" style="display: none;">Loading data…</p>
+        <div class="row" id="container">
+            <div class="cell" id="dashboard-col-0"></div>
+            <div class="cell" id="dashboard-col-1"></div>
+            <div class="cell" id="dashboard-col-2"></div>
+        </div>
+        <script src="./demo.js"></script>
+    </body>
+</html>
