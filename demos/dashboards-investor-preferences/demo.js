@@ -1,10 +1,12 @@
 const loadingLabel = document.getElementById('loading-label');
 
 function displayInvestorPreferences (postmanJSON) {
+    // eslint-disable-next-line
+    DataGrid.AST.allowedAttributes.push('viewBox');
+
     const secIds = [
         'SecId',
         'LegalName',
-        'DomicileId',
         'EET_PAI_GHGEmissions3Considered',
         'EET_PAI_GHGEmissions1And2Considered',
         'EET_PAI_EnergyConsumptionNaceAConsidered',
@@ -13,10 +15,20 @@ function displayInvestorPreferences (postmanJSON) {
         'EET_PAI_SocialViolationsPercentageConsidered'
     ];
 
+    const iconSVG = `<svg x="0px" y="0px" viewBox="0 0 60 60">
+        <path class="st0"
+            d="M28.8,18.7c0.2-0.4,0.7-0.7,1.2-0.7s0.9,0.3,1.2,0.7l2.8,5.6c0.2,0.4,0.6,0.6,1,0.7
+            l6.2,0.9c0.5,0.1,0.9,0.4,1,0.9c0.2,0.5,0,1-0.3,1.3l-4.5,4.3c-0.3,0.3-0.4,0.7-0.4,1.2
+            l1.1,6.1c0.1,0.5-0.1,1-0.5,1.3c-0.4,0.3-0.9,0.3-1.4,0.1l-5.5-2.9c-0.4-0.2-0.8-0.2-1.2,0
+            l-5.5,2.9c-0.4,0.2-1,0.2-1.4-0.1c-0.4-0.3-0.6-0.8-0.5-1.3l1.1-6.1
+            c0.1-0.4-0.1-0.9-0.4-1.2l-4.5-4.3c-0.4-0.3-0.5-0.9-0.3-1.3c0.2-0.5,0.6-0.8,1-0.9l6.2-0.9
+            c0.4-0.1,0.8-0.3,1-0.7L28.8,18.7z"/>
+        <circle class="st0" cx="30" cy="30.5" r="19.5"/>
+    </svg>`;
+
     const headerFormats = {
         'SecId': 'Security Id',
         'LegalName': 'Legal Name',
-        'DomicileId': 'Domicile Id',
         'EET_PAI_GHGEmissions3Considered':
             'European ESG Template Principal Adverse Impact Greenhouse Gas Emissions 3 Considered',
         'EET_PAI_GHGEmissions1And2Considered':
@@ -31,7 +43,7 @@ function displayInvestorPreferences (postmanJSON) {
         'EET_PAI_SocialViolationsPercentageConsidered':
             `European ESG Template Principal Adverse Impact Social Violations
              Percentage Considered`,
-        'StarRatingM255': 'Star Rating M255',
+        'StarRatingM255': iconSVG,
         'UserPref0': 'UserPref0',
         'UserPref1': 'UserPref1',
         'UserPref2': 'UserPref2',
@@ -382,7 +394,7 @@ async function getPostmanJSON (htmlInputFile) {
     for (file of htmlInputFile.files) {
         try {
             fileJSON = JSON.parse(await file.text());
-            if (HighchartsConnectors.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
+            if (HighchartsConnectors.Morningstar.Shared.isPostmanEnvironmentJSON(fileJSON)) {
                 break;
             }
         } catch (error) {
