@@ -101,7 +101,7 @@ export interface InvestmentScreenerConverterOptions
     // Nothing to add yet
 }
 
-export type ComparatorCode =
+export type ComparatorCode = (
     | 'IN'
     | 'NIN'
     | 'EQ'
@@ -116,7 +116,8 @@ export type ComparatorCode =
     | 'LTEN'
     | 'CONTAINS'
     | 'BTW'
-    | 'STARTSWITH';
+    | 'STARTSWITH'
+);
 
 export type SecurityDataPointType = string;
 
