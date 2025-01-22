@@ -2,19 +2,19 @@ const loadingLabel = document.getElementById('loading-label');
 
 function displayRegulatoryScreener (postmanJSON) {
     const secIds = [
-        'SecId',
+        'secId',
         'name',
         'ticker',
-        'EETTemplateDate',
-        'EETGeneralDate'
+        'eetTemplateDate',
+        'eetGeneralDate'
     ];
 
     const headerFormats = {
-        SecId: 'Security ID',
+        secId: 'Security ID',
         name: 'Investment Name',
         ticker: 'Ticker Symbol',
-        EETTemplateDate: 'EET Template Date',
-        EETGeneralDate: 'EET General Date'
+        eetTemplateDate: 'EET Template Date',
+        eetGeneralDate: 'EET General Date'
     };
 
     const columns = secIds.map(id => ({

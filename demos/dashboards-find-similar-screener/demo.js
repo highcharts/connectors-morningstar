@@ -4,13 +4,13 @@ function displayFindSimilarScreener (postmanJSON) {
     const secIds = [
         'secId',
         'name',
-        'riskrating'
+        'riskRating'
     ];
 
     const headerFormats = {
-        SecId: 'Security ID',
-        Name: 'Investment Name',
-        riskrating: 'Risk Rating'
+        secId: 'Security ID',
+        name: 'Investment Name',
+        riskRating: 'Risk Rating'
     };
 
     const columns = secIds.map(id => ({

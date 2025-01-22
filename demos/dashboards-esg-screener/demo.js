@@ -2,29 +2,29 @@ const loadingLabel = document.getElementById('loading-label');
 
 function displayESGScreener (postmanJSON) {
     const secIds = [
-        'secid',
+        'secId',
         'name',
-        'sustainableinvestmentoverall',
-        'historicalsustainabilityscore',
-        'sustainabilitypercentrank',
-        'average12monthcarbonriskscore',
-        'average12monthfossilfuelexposure',
+        'sustainableInvestmentOverall',
+        'historicalSustainabilityScore',
+        'sustainabilityPercentRank',
+        'average12MonthCarbonRiskScore',
+        'average12MonthFossilFuelExposure',
         'tobacco',
-        'controversialweapons',
-        'renewableenergyproductioninvolvement'
+        'controversialWeapons',
+        'renewableEnergyProductionInvolvement'
     ];
 
     const headerFormats = {
-        SecId: 'Security ID',
-        Name: 'Investment Name',
-        SustainableInvestmentOverall: 'Overall Sustainability',
-        HistoricalSustainabilityScore: 'Historical Sustainability Score',
-        SustainabilityPercentRank: 'Sustainability Percent Rank',
-        Average12MonthCarbonRiskScore: '12-Month Avg Carbon Risk',
-        Average12MonthFossilFuelExposure: '12-Month Avg Fossil Fuel Exposure',
-        Tobacco: 'Tobacco Involvement',
-        ControversialWeapons: 'Controversial Weapons',
-        RenewableEnergyProductionInvolvement: 'Renewable Energy Production'
+        secId: 'Security ID',
+        name: 'Investment Name',
+        sustainableInvestmentOverall: 'Overall Sustainability',
+        historicalSustainabilityScore: 'Historical Sustainability Score',
+        sustainabilityPercentRank: 'Sustainability Percent Rank',
+        average12MonthCarbonRiskScore: '12-Month Avg Carbon Risk',
+        average12MonthFossilFuelExposure: '12-Month Avg Fossil Fuel Exposure',
+        tobacco: 'Tobacco Involvement',
+        controversialWeapons: 'Controversial Weapons',
+        renewableEnergyProductionInvolvement: 'Renewable Energy Production'
     };
 
     const columns = secIds.map(id => ({
