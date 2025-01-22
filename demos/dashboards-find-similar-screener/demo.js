@@ -2,8 +2,8 @@ const loadingLabel = document.getElementById('loading-label');
 
 function displayFindSimilarScreener (postmanJSON) {
     const secIds = [
-        'SecId',
-        'Name',
+        'secId',
+        'name',
         'riskrating'
     ];
 
@@ -33,6 +33,21 @@ function displayFindSimilarScreener (postmanJSON) {
                         currencyId: 'USD',
                         securityDataPoints: secIds,
                         universeIds: ['FOALL$$ALL'],
+                        sortOrder: 'Name+Asc',
+                        filters: [
+                            {
+                                dataPointId: 'CategoryId',
+                                comparatorCode: 'EQ',
+                                // The returned list will be similar to the
+                                // chosen fund
+                                value: 'EUCA000591'
+                            },
+                            {
+                                dataPointId: 'OngoingCharge',
+                                comparatorCode: 'LT',
+                                value: '0'
+                            }
+                        ],
                         postman: {
                             environmentJSON: postmanJSON
                         }
