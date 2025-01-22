@@ -15,7 +15,7 @@ function displayInvestorPreferences (postmanJSON) {
         'EET_PAI_SocialViolationsPercentageConsidered'
     ];
 
-    const iconSVG = `<svg x="0px" y="0px" viewBox="0 0 60 60">
+    const starIcon = `<svg x="0px" y="0px" width="30px" height="30px" viewBox="0 0 60 60">
         <path class="st0"
             d="M28.8,18.7c0.2-0.4,0.7-0.7,1.2-0.7s0.9,0.3,1.2,0.7l2.8,5.6c0.2,0.4,0.6,0.6,1,0.7
             l6.2,0.9c0.5,0.1,0.9,0.4,1,0.9c0.2,0.5,0,1-0.3,1.3l-4.5,4.3c-0.3,0.3-0.4,0.7-0.4,1.2
@@ -43,10 +43,10 @@ function displayInvestorPreferences (postmanJSON) {
         'EET_PAI_SocialViolationsPercentageConsidered':
             `European ESG Template Principal Adverse Impact Social Violations
              Percentage Considered`,
-        'StarRatingM255': iconSVG,
-        'UserPref0': 'UserPref0',
-        'UserPref1': 'UserPref1',
-        'UserPref2': 'UserPref2',
+        'StarRatingM255': 'Star Rating M255',
+        'UserPref0': 'User Preference 0',
+        'UserPref1': 'User Preference 1',
+        'UserPref2': 'User Preference 2',
         'EET_EUSFDRType': 'Financial Instrument SFDR Product Type',
         'EET_PAI_GHGEmissions1Considered':
             'European ESG Template Principal Adverse Impact Greenhouse Gas Emissions 1 Considered'
@@ -60,11 +60,6 @@ function displayInvestorPreferences (postmanJSON) {
                 'and': [
                     {
                         'fields': [
-                            {
-                                'name': 'StarRatingM255',
-                                'op': 'gt',
-                                'value': 3
-                            },
                             {
                                 'name': 'StarRatingM255',
                                 'op': 'gt',
@@ -181,6 +176,17 @@ function displayInvestorPreferences (postmanJSON) {
             id: `InvestorPreferences_${key}`,
             header: {
                 format: headerFormats[key] || key
+            },
+            cells: {
+                formatter() {
+                    if (this.column.id === 'InvestorPreferences_StarRatingM255') {
+                        return Array(this.value).fill(starIcon).join('');
+                    }
+                    if (typeof this.value === 'boolean') {
+                        return this.value ? '✅' : '❌';
+                    }
+                    else return this.value ?? '';
+                }
             }
         });
     }
@@ -334,7 +340,7 @@ function displayInvestorPreferences (postmanJSON) {
                 );
             });
             currentFilter.textContent +=
-                'SFDR Classification: ' + types.join(', ');
+                ' SFDR Classification: ' + types.join(', ');
 
             filters.push({
                 dataPointId: 'EET_EUSFDRType',

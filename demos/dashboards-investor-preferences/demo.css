@@ -89,3 +89,33 @@ body {
         stroke: var(--highcharts-neutral-color-100);
     }
 }
+
+.dashboard-legend {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    max-width: fit-content;
+}
+
+.dashboard-legend h4 {
+    margin: 0 0 10px;
+    font-size: 1rem;
+}
+
+.dashboard-legend ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dashboard-legend li {
+    margin-bottom: 8px;
+    font-size: .925rem;
+}
+
+.dashboard-legend li ul {
+    margin-left: 20px;
+    margin-top: 5px;
+}
