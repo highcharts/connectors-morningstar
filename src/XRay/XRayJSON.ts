@@ -133,6 +133,17 @@ namespace XRayJSON {
         );
     }
 
+    function isRegionalExposure (
+        json?: unknown
+    ): json is RegionalExposure {
+        return (
+            !!json &&
+            typeof json === 'object' &&
+            typeof (json as RegionalExposure).salePosition === 'string' &&
+            typeof (json as RegionalExposure).values === 'object'
+        );
+    }
+
     function isGlobalStockSector (
         json?: unknown
     ): json is GlobalStockSector {
@@ -181,6 +192,9 @@ namespace XRayJSON {
             ) || (
                 !(json as Breakdowns).globalStockSector ||
                 isGlobalStockSector((json as Breakdowns).globalStockSector?.[0])
+            ) || (
+                !(json as Breakdowns).regionalExposure ||
+                isRegionalExposure((json as Breakdowns).regionalExposure?.[0])
             )
         );
     }
