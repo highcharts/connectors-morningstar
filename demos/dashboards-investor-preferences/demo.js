@@ -178,14 +178,14 @@ function displayInvestorPreferences (postmanJSON) {
                 format: headerFormats[key] || key
             },
             cells: {
-                formatter() {
+                formatter () {
                     if (this.column.id === 'InvestorPreferences_StarRatingM255') {
                         return Array(this.value).fill(starIcon).join('');
                     }
                     if (typeof this.value === 'boolean') {
                         return this.value ? '✅' : '❌';
                     }
-                    else return this.value ?? '';
+                    return this.value ?? '';
                 }
             }
         });
