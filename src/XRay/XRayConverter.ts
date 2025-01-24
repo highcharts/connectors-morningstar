@@ -171,6 +171,21 @@ export class XRayConverter extends MorningstarConverter {
             }
         }
 
+        if (json.styleBox) {
+            for (const styleBox of json.styleBox) {
+                const columnName = `${benchmarkId}_StyleBox_${styleBox.salePosition}`;
+                table.setColumn(`${columnName}_Categories`);
+                table.setColumn(`${columnName}_Values`);
+                const values = styleBox.values;
+                const valueIndex = Object.keys(values);
+
+                for (let i = 0; i < valueIndex.length; i++) {
+                    table.setCell(`${columnName}_Categories`, i, valueIndex[i]);
+                    table.setCell(`${columnName}_Values`, i, values[parseInt(valueIndex[i])]);
+                }
+            }
+        }
+
     }
 
     protected parseHistoricalPerformance (

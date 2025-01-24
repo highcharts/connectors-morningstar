@@ -70,7 +70,8 @@ export async function portfolioBreakdown (
             type: 'portfolio',
             dataPoints: [
                 'GlobalStockSector',
-                'RegionalExposure'
+                'RegionalExposure',
+                'StyleBox'
             ]
         },
         holdings: [
@@ -93,7 +94,9 @@ export async function portfolioBreakdown (
             'XRay_RegionalExposure_N_Categories',
             'XRay_RegionalExposure_N_Values',
             'XRay_GlobalStockSector_N_Categories',
-            'XRay_GlobalStockSector_N_Values'
+            'XRay_GlobalStockSector_N_Values',
+            'XRay_StyleBox_N_Categories',
+            'XRay_StyleBox_N_Values'
         ],
         'Connector columns should return expected names.'
     );

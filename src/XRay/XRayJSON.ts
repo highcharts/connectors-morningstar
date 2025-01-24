@@ -50,6 +50,7 @@ namespace XRayJSON {
         assetAllocation: Array<AssetAllocation>;
         regionalExposure?: Array<RegionalExposure>;
         globalStockSector?: Array<GlobalStockSector>;
+        styleBox?: Array<StyleBox>;
     }
 
 
@@ -88,6 +89,11 @@ namespace XRayJSON {
         detailedStatusMessage: string;
         statusCode: number;
         statusDescription: string;
+    }
+
+    export interface StyleBox {
+        salePosition: string;
+        values: Record<number, number>;
     }
 
 
@@ -177,6 +183,17 @@ namespace XRayJSON {
         );
     }
 
+    function isStyleBox (
+        json?: unknown
+    ): json is StyleBox {
+        return (
+            !!json &&
+            typeof json === 'object' &&
+            typeof (json as StyleBox).salePosition === 'string' &&
+            typeof (json as StyleBox).values === 'object'
+        );
+    }
+
 
     function isBreakdowns (
         json?: unknown
@@ -195,6 +212,9 @@ namespace XRayJSON {
             ) || (
                 !(json as Breakdowns).regionalExposure ||
                 isRegionalExposure((json as Breakdowns).regionalExposure?.[0])
+            ) || (
+                !(json as Breakdowns).styleBox ||
+                isStyleBox((json as Breakdowns).styleBox?.[0])
             )
         );
     }
