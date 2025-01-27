@@ -61,3 +61,13 @@ body {
 .filters-row>button:hover {
     background: #e6e6e6;
 }
+
+
+.highcharts-datagrid-column {
+    width: 200px;
+}
+
+.highcharts-datagrid-row td {
+    text-align: center;
+    vertical-align: middle;
+}

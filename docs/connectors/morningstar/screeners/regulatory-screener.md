@@ -30,17 +30,17 @@ const screenerConnector = new HighchartsConnectors.Morningstar.InvestmentScreene
     currencyId: 'AUD',
     filters: [
         {
-            dataPointId: 'SustainableInvestmentOverall',
+            dataPointId: 'EET_PAIConsidered',
             comparatorCode: 'EQ',
             value: true
         }
     ],
     securityDataPoints: [
-        'SecId',
+        'secId',
         'name',
-        'ticker',
-        'EET_TemplateDate',
-        'EET_GeneralDate'
+        'EET_SustPreferencesConsidered',
+        'EET_PAIConsidered',
+        'EET_SustInv_A8',
     ],
     universeIds: ['FOEUR$$ALL_5791'],
     sortOrder: 'name asc',

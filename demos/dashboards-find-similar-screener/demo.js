@@ -4,13 +4,15 @@ function displayFindSimilarScreener (postmanJSON) {
     const secIds = [
         'secId',
         'name',
-        'riskRating'
+        'riskRating',
+        'ongoingCharge'
     ];
 
     const headerFormats = {
         secId: 'Security ID',
         name: 'Investment Name',
-        riskRating: 'Risk Rating'
+        riskRating: 'Risk Rating',
+        ongoingCharge: 'Ongoing Charge'
     };
 
     const columns = secIds.map(id => ({
@@ -29,10 +31,10 @@ function displayFindSimilarScreener (postmanJSON) {
                     options: {
                         page: 1,
                         pageSize: 20,
-                        langageId: 'en-GB',
+                        languageId: 'en-GB',
                         currencyId: 'USD',
                         securityDataPoints: secIds,
-                        universeIds: ['FOALL$$ALL'],
+                        universeIds: ['FOESP$$ALL'],
                         sortOrder: 'Name+Asc',
                         filters: [
                             {
@@ -45,7 +47,7 @@ function displayFindSimilarScreener (postmanJSON) {
                             {
                                 dataPointId: 'OngoingCharge',
                                 comparatorCode: 'LT',
-                                value: '0'
+                                value: 3
                             }
                         ],
                         postman: {

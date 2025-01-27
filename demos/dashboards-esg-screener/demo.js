@@ -43,7 +43,7 @@ function displayESGScreener (postmanJSON) {
                     options: {
                         page: 1,
                         pageSize: 20,
-                        langageId: 'en-GB',
+                        languageId: 'en-GB',
                         currencyId: 'USD',
                         securityDataPoints: secIds,
                         universeIds: ['FOALL$$ALL'],

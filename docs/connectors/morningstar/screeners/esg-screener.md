@@ -39,16 +39,16 @@ const screenerConnector = new HighchartsConnectors.Morningstar.InvestmentScreene
         }
     ],
     securityDataPoints: [
-        'secid',
+        'secId',
         'name',
-        'sustainableinvestmentoverall',
-        'historicalsustainabilityscore',
-        'sustainabilitypercentrank',
-        'average12monthcarbonriskscore',
-        'average12monthfossilfuelexposure',
+        'sustainableInvestmentOverall',
+        'historicalSustainabilityScore',
+        'sustainabilityPercentRank',
+        'average12MonthCarbonRiskScore',
+        'average12MonthFossilFuelExposure',
         'tobacco',
-        'controversialweapons',
-        'renewableenergyproductioninvolvement',
+        'controversialWeapons',
+        'renewableEnergyProductionInvolvement'
     ],
     universeIds: ['FOALL$$ALL'],
     postman: {

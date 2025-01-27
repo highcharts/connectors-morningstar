@@ -25,20 +25,21 @@ const screenerConnector = new HighchartsConnectors.Morningstar.InvestmentScreene
         {
             dataPointId: 'CategoryId',
             comparatorCode: 'EQ',
-            value: 'EUCA000591'
+            value: '0P00002D7X'
         },
         {
             dataPointId: 'OngoingCharge',
             comparatorCode: 'LT',
-            value: 0
+            value: 3
         }
     ],
     securityDataPoints: [
-        'SecId',
-        'Name',
-        'riskrating'
+        'secId',
+        'name',
+        'riskRating'
+        'ongoingCharge'
     ],
-    sortOrder: 'Name Asc',
+    sortOrder: 'Name+Asc',
     universeIds: ['FOESP$$ALL'],
     postman: {
         environmentJSON: postmanJSON
