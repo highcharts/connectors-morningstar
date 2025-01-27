@@ -43,6 +43,7 @@ namespace XRayJSON {
         breakdowns?: Breakdowns;
         historicalPerformanceSeries?: Array<HistoricalPerformance>;
         trailingPerformance?: Array<TrailingPerformance>;
+        riskStatistics?: RiskStatistics;
     }
 
 
@@ -60,6 +61,20 @@ namespace XRayJSON {
         returnType: string;
         startDate: string;
         timePeriod: string;
+    }
+
+    export interface RiskStatistics {
+        currencyId: string;
+        endDate: string;
+        sharpeRatio?: Array<RiskStatisticsReturn>;
+        standardDeviation?: Array<RiskStatisticsReturn>;
+        type: string;
+    }
+
+    export interface RiskStatisticsReturn {
+        frequency: string;
+        timePeriod: string;
+        value: number;
     }
 
 

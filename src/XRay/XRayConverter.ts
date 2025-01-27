@@ -98,6 +98,9 @@ export class XRayConverter extends MorningstarConverter {
             if (xray.breakdowns) {
                 this.parseBreakdowns(benchmarkId, xray.breakdowns);
             }
+            if (xray.riskStatistics) {
+                this.parseRiskStatistics(benchmarkId, xray.riskStatistics);
+            }
         }
 
     }
@@ -186,6 +189,27 @@ export class XRayConverter extends MorningstarConverter {
             }
         }
 
+    }
+
+    protected parseRiskStatistics (
+        benchmarkId: string,
+        json: XRayJSON.RiskStatistics
+    ): void {
+        const table = this.table;
+
+        if (json.sharpeRatio) {
+            for (const sharpeRatio of json.sharpeRatio) {
+                const columnName = `${benchmarkId}_SharpeRatio_${sharpeRatio.frequency}_${sharpeRatio.timePeriod}`;
+                table.setCell(columnName, 0, sharpeRatio.value);
+            }
+        }
+
+        if (json.standardDeviation) {
+            for (const standardDeviation of json.standardDeviation) {
+                const columnName = `${benchmarkId}_StandardDeviation_${standardDeviation.frequency}_${standardDeviation.timePeriod}`;
+                table.setCell(columnName, 0, standardDeviation.value);
+            }
+        }
     }
 
     protected parseHistoricalPerformance (
