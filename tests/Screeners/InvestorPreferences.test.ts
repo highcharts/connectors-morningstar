@@ -37,7 +37,7 @@ export async function InvestorPreferencesLoad (
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
         secIds.map(id => `InvestorPreferences_${id}`),
-        'Connector table should exist of expected columns.'
+        'Connector table should have expected column names.'
     );
 
     Assert.strictEqual(

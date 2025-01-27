@@ -29,6 +29,10 @@ function displayInvestorPreferences (postmanJSON) {
     const headerFormats = {
         'SecId': 'Security Id',
         'LegalName': 'Legal Name',
+        'StarRatingM255': 'Star Rating M255',
+        'UserPref0': 'User Preference 1',
+        'UserPref1': 'User Preference 2',
+        'UserPref2': 'User Preference 3',
         'EET_PAI_GHGEmissions3Considered':
             'European ESG Template Principal Adverse Impact Greenhouse Gas Emissions 3 Considered',
         'EET_PAI_GHGEmissions1And2Considered':
@@ -43,10 +47,6 @@ function displayInvestorPreferences (postmanJSON) {
         'EET_PAI_SocialViolationsPercentageConsidered':
             `European ESG Template Principal Adverse Impact Social Violations
              Percentage Considered`,
-        'StarRatingM255': 'Star Rating M255',
-        'UserPref0': 'User Preference 0',
-        'UserPref1': 'User Preference 1',
-        'UserPref2': 'User Preference 2',
         'EET_EUSFDRType': 'Financial Instrument SFDR Product Type',
         'EET_PAI_GHGEmissions1Considered':
             'European ESG Template Principal Adverse Impact Greenhouse Gas Emissions 1 Considered'
@@ -178,6 +178,7 @@ function displayInvestorPreferences (postmanJSON) {
                 format: headerFormats[key] || key
             },
             cells: {
+                className: key.indexOf('UserPref') !== -1 ? 'user-pref' : '',
                 formatter () {
                     if (this.column.id === 'InvestorPreferences_StarRatingM255') {
                         return Array(this.value).fill(starIcon).join('');
@@ -227,7 +228,8 @@ function displayInvestorPreferences (postmanJSON) {
 
                 dataGridOptions: {
                     editable: false,
-                    columns
+                    columns,
+                    header: columns.map(column => column.id)
                 },
                 title: 'Investor Preferences'
             }

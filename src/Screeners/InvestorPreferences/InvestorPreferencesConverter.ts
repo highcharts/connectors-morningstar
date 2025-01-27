@@ -56,7 +56,6 @@ export class InvestorPreferencesConverter extends MorningstarConverter {
      *
      * */
 
-    // eslint-disable-next-line  @typescript-eslint/no-unused-vars
     public parse (options: InvestorPreferencesConverterOptions): void {
         const metadata = this.metadata;
         const table = this.table;
