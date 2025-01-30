@@ -64,12 +64,11 @@ function displayFindSimilarScreener (postmanJSON) {
                     id: 'find-similar-screener'
                 },
                 type: 'DataGrid',
-
                 dataGridOptions: {
                     editable: false,
                     columns
                 },
-                title: 'Find Similar Screener'
+                title: 'Find Similar Investments to EUR Money Market Fund'
             }
         ]
     });
