@@ -83,3 +83,67 @@ export async function assetAllocationsLoad (
         'Asset allocations table should exist of expected columns.'
     );
 }
+
+export async function regionalExposureLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        security: {
+            ids: ['F0GBR050DD', 'F00000Q5PZ'],
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'RegionalExposure'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'RegionalExposure_L_F0GBR050DD',
+            'RegionalExposure_Type_F0GBR050DD',
+            'RegionalExposure_S_F0GBR050DD',
+            'RegionalExposure_N_F0GBR050DD',
+            'RegionalExposure_L_F00000Q5PZ',
+            'RegionalExposure_Type_F00000Q5PZ',
+            'RegionalExposure_S_F00000Q5PZ',
+            'RegionalExposure_N_F00000Q5PZ'
+        ],
+        'RegionalExposure table should exist of expected columns.'
+    );
+}
+
+export async function globalStockSectorBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        security: {
+            ids: ['F0GBR050DD', 'F00000Q5PZ'],
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'GlobalStockSectorBreakdown'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'GlobalStockSectorBreakdown_Type_F0GBR050DD',
+            'GlobalStockSectorBreakdown_L_F0GBR050DD',
+            'GlobalStockSectorBreakdown_S_F0GBR050DD',
+            'GlobalStockSectorBreakdown_N_F0GBR050DD',
+            'GlobalStockSectorBreakdown_Type_F00000Q5PZ',
+            'GlobalStockSectorBreakdown_L_F00000Q5PZ',
+            'GlobalStockSectorBreakdown_S_F00000Q5PZ',
+            'GlobalStockSectorBreakdown_N_F00000Q5PZ'
+        ],
+        'GlobalStockSectorBreakdown table should exist of expected columns.'
+    );
+}

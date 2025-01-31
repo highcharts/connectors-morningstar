@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -77,13 +77,15 @@ export class TrailingPerformanceConverter extends SecurityCompareConverter {
     public override parse (
         options: SecurityCompareConverterOptions
     ): void {
-        const metadata = this.metadata;
-        const table = this.table;
-        const userOptions = {
-            ...this.options,
-            ...options
-        };
-        const json = userOptions.json;
+        const metadata = this.metadata,
+            ids = [],
+            isins = [],
+            table = this.table,
+            userOptions = {
+                ...this.options,
+                ...options
+            },
+            json = userOptions.json;
 
         // Validate JSON
         if (!SecurityCompareJSON.isSecurityCompareResponse(json)) {
@@ -94,44 +96,42 @@ export class TrailingPerformanceConverter extends SecurityCompareConverter {
 
         table.deleteColumns();
 
-        // Add trailing performance to table
-
-        if (json.length) {
-            let timePeriodColumnStr,
-                valueColumnStr;
-            const metaIds = [],
-                metaIsins = [];
-            // Update table
-            for (let i = 0; i < json.length; i++) {
-                const securityCompare = json[i],
-                    id = securityCompare.Id,
-                    isin = securityCompare.Isin;
-                timePeriodColumnStr = `TrailingPerformance_TimePeriod_${id}`;
-                valueColumnStr = `TrailingPerformance_Value_${id}`;
-                table.setColumn(timePeriodColumnStr);
-                table.setColumn(valueColumnStr);
-
-                const trailingPerformanceReturn = securityCompare.TrailingPerformance[0].Return;
-    
-                for (let j = 0, iEnd = trailingPerformanceReturn.length; j < iEnd; ++j) {
-                    table.setCell(
-                        timePeriodColumnStr,
-                        j,
-                        trailingPerformanceReturn[j].TimePeriod
-                    );
-                    table.setCell(
-                        valueColumnStr,
-                        j,
-                        trailingPerformanceReturn[j].Value
-                    );
-                }
-                metaIds.push(id);
-                metaIsins.push(isin);
-            }
-
-            metadata.ids = metaIds;
-            metadata.isins = metaIsins;
+        if (!json.length) {
+            return;
         }
+
+        // Update table
+        for (let i = 0; i < json.length; i++) {
+            const securityCompare = json[i],
+                id = securityCompare.Id,
+                isin = securityCompare.Isin,
+                timePeriodColumnStr = `TrailingPerformance_TimePeriod_${id}`,
+                valueColumnStr = `TrailingPerformance_Value_${id}`;
+
+            table.setColumn(timePeriodColumnStr);
+            table.setColumn(valueColumnStr);
+
+            ids.push(id);
+            isins.push(isin);
+
+            const trailingPerformanceReturn = securityCompare.TrailingPerformance[0].Return;
+
+            for (let j = 0, iEnd = trailingPerformanceReturn.length; j < iEnd; ++j) {
+                table.setCell(
+                    timePeriodColumnStr,
+                    j,
+                    trailingPerformanceReturn[j].TimePeriod
+                );
+                table.setCell(
+                    valueColumnStr,
+                    j,
+                    trailingPerformanceReturn[j].Value
+                );
+            }
+        }
+
+        metadata.ids = ids;
+        metadata.isins = isins;
 
     }
 }

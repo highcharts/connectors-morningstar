@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -26,7 +26,10 @@ import External from '../Shared/External';
 import SecurityCompareConverter from './SecurityCompareConverter';
 import {
     TrailingPerformanceConverter,
-    AssetAllocationsConverter
+    AssetAllocationsConverter,
+    CountryExposureConverter,
+    RegionalExposureConverter,
+    GlobalStockSectorBreakdownConverter
 } from './Converters';
 import SecurityCompareOptions, {
     SecurityCompareMetadata
@@ -67,6 +70,21 @@ export class SecurityCompareConnector extends MorningstarConnector {
                 break;
             case 'AssetAllocations':
                 this.converter = new AssetAllocationsConverter({
+                    ...options.converter
+                });
+                break;
+            case 'CountryExposure':
+                this.converter = new CountryExposureConverter({
+                    ...options.converter
+                });
+                break;
+            case 'RegionalExposure':
+                this.converter = new RegionalExposureConverter({
+                    ...options.converter
+                });
+                break;
+            case 'GlobalStockSectorBreakdown':
+                this.converter = new GlobalStockSectorBreakdownConverter({
                     ...options.converter
                 });
                 break;
@@ -127,8 +145,6 @@ export class SecurityCompareConnector extends MorningstarConnector {
 
         return this;
     }
-
-
 }
 
 

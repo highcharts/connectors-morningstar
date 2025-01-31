@@ -1,5 +1,11 @@
+
 async function displaySecurityDetails (postmanJSON) {
-    const ids = ['F0GBR050DD', 'F00000Q5PZ'];
+    const ids = ['F0GBR050DD', 'F00000Q5PZ'],
+        idNames = {
+            'F0GBR050DD': 'Aviva Investors UK Listed Equity Unconstrained Fund 2',
+            'F00000Q5PZ': 'Mirae Asset Global Discovery Fund'
+        }
+
 
     const connector = new HighchartsConnectors.Morningstar.SecurityCompareConnector({
         postman: {
@@ -8,14 +14,27 @@ async function displaySecurityDetails (postmanJSON) {
         security: {
             ids,
             idType: 'msid'
-        },
-        _viewIds: 'CompareAdditional',
-        _converter: {
-            type: 'AssetAllocations'
         }
     });
 
     await connector.load();
+
+    Highcharts.chart('container', {
+        title: {
+            text: 'Comparing multiple securities (Trailing performance)'
+        },
+        series: ids.map(id => ({
+            type: 'column',
+            name: idNames[id],
+            data: connector.table.getRowObjects().map(obj => [
+                obj['TrailingPerformance_TimePeriod_' + id],
+                obj['TrailingPerformance_Value_' + id]
+            ])
+        })),
+        xAxis: {
+            type: 'category'
+        }
+    });
 }
 
 async function handleSelectEnvironment (evt) {
@@ -24,7 +43,6 @@ async function handleSelectEnvironment (evt) {
 
     target.parentNode.style.display = 'none';
 
-    // @todo Add Chart demo
     displaySecurityDetails(postmanJSON);
 }
 

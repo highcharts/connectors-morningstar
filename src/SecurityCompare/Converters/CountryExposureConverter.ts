@@ -7,6 +7,8 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
+ *  - Sophie Bremer
+ *  - Pawel Lysy
  *  - Askel Eirik Johansson
  *
  * */
@@ -36,7 +38,7 @@ import SecurityCompareConverter from '../SecurityCompareConverter';
  * */
 
 
-export class AssetAllocationsConverter extends SecurityCompareConverter {
+export class CountryExposureConverter extends SecurityCompareConverter {
 
 
     /* *
@@ -88,6 +90,7 @@ export class AssetAllocationsConverter extends SecurityCompareConverter {
             json = userOptions.json;
 
         // Validate JSON
+
         if (!SecurityCompareJSON.isSecurityCompareResponse(json)) {
             throw new Error('Invalid data');
         }
@@ -100,34 +103,37 @@ export class AssetAllocationsConverter extends SecurityCompareConverter {
             return;
         }
 
-        // Create tables
+        // Add country exposure to table
+
         for (const security of json) {
+
+            // Update table
+
             const id = security.Id,
                 isin = security.Isin,
-                assetAllocations = security.Portfolios[0].AssetAllocations,
-                assetAllocationsTypeStr =
-                `AssetAllocations_Type_${id}`;
-
-            table.setColumn(assetAllocationsTypeStr);
+                countryExposure = security.Portfolios[0].CountryExposure,
+                countryExpTypeStr = 'CountryExposure_Type_' + id;
+            table.setColumn(countryExpTypeStr);
 
             ids.push(id);
             isins.push(isin);
 
-            for (let i = 0; i < assetAllocations.length; i++) {
-                const asset = assetAllocations[i],
-                    assetAllocationsAssetStr =
-                    `AssetAllocations_${asset.Type}_${asset.SalePosition}_${id}`;
-                table.setColumn(assetAllocationsAssetStr);
+            for (let i = 0; i < countryExposure.length; i++) {
+                const asset = countryExposure[i];
+                const colStr = 
+                    `CountryExposure_${asset.Type}_${asset.SalePosition}_` +
+                    id;
+                table.setColumn(colStr);
 
                 for (let j = 0; j < asset.BreakdownValues.length; j++) {
                     table.setCell(
-                        assetAllocationsAssetStr,
+                        colStr,
                         j,
                         asset.BreakdownValues[j].Value
                     );
 
                     table.setCell(
-                        assetAllocationsTypeStr,
+                        countryExpTypeStr,
                         j,
                         asset.BreakdownValues[j].Type
                     );
@@ -149,4 +155,4 @@ export class AssetAllocationsConverter extends SecurityCompareConverter {
  * */
 
 
-export default AssetAllocationsConverter;
+export default CountryExposureConverter;

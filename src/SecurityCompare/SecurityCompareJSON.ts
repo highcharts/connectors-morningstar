@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -9,6 +9,7 @@
  *  Authors:
  *  - Sophie Bremer
  *  - Pawel Lysy
+ *  - Askel Eirik Johansson
  *
  * */
 
@@ -49,7 +50,29 @@ namespace SecurityCompareJSON {
     }
 
     export type PortfoliosType = {
-        AssetAllocations: AssetAllocationType[]
+        AssetAllocations: AssetAllocationType[],
+        CountryExposure: CountryExposureType[],
+        RegionalExposure: RegionalExposureType[],
+        GlobalStockSectorBreakdown: GlobalStockSectorBreakdownType[]
+    };
+
+    export type GlobalStockSectorBreakdownType = {
+        BreakdownValues: BreakDownValues[]
+        SalePosition: string
+        NotClassified: number
+    };
+
+    export type CountryExposureType = {
+        BreakdownValues: BreakDownValues[]
+        SalePosition: string
+        NotClassified: number
+        Type: string
+    };
+
+    export type RegionalExposureType = {
+        BreakdownValues: BreakDownValues[]
+        SalePosition: string
+        NotClassified: number
     };
 
     export type AssetAllocationType = {

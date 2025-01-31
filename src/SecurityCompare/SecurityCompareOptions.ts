@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -9,6 +9,7 @@
  *  Authors:
  *  - Sophie Bremer
  *  - Pawel Lysy
+ *  - Askel Eirik Johansson
  *
  * */
 
@@ -46,6 +47,9 @@ export interface SecurityCompareConverterOptions extends MorningstarConverterOpt
 export type SecurityCompareConverterType = (
     | 'TrailingPerformance'
     | 'AssetAllocations'
+    | 'CountryExposure'
+    | 'RegionalExposure'
+    | 'GlobalStockSectorBreakdown'
 );
 
 

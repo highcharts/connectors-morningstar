@@ -7,6 +7,8 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
+ *  - Sophie Bremer
+ *  - Pawel Lysy
  *  - Askel Eirik Johansson
  *
  * */
@@ -36,7 +38,7 @@ import SecurityCompareConverter from '../SecurityCompareConverter';
  * */
 
 
-export class AssetAllocationsConverter extends SecurityCompareConverter {
+export class GlobalStockSectorBreakdownConverter extends SecurityCompareConverter {
 
 
     /* *
@@ -88,6 +90,7 @@ export class AssetAllocationsConverter extends SecurityCompareConverter {
             json = userOptions.json;
 
         // Validate JSON
+
         if (!SecurityCompareJSON.isSecurityCompareResponse(json)) {
             throw new Error('Invalid data');
         }
@@ -100,34 +103,34 @@ export class AssetAllocationsConverter extends SecurityCompareConverter {
             return;
         }
 
-        // Create tables
+        // Add global stock sector breakdown to table
         for (const security of json) {
-            const id = security.Id,
+            const GlobalStockSectorBreakdown =
+                security.Portfolios[0].GlobalStockSectorBreakdown,
+                id = security.Id,
                 isin = security.Isin,
-                assetAllocations = security.Portfolios[0].AssetAllocations,
-                assetAllocationsTypeStr =
-                `AssetAllocations_Type_${id}`;
-
-            table.setColumn(assetAllocationsTypeStr);
+                colStrType = `GlobalStockSectorBreakdown_Type_${id}`;
 
             ids.push(id);
             isins.push(isin);
 
-            for (let i = 0; i < assetAllocations.length; i++) {
-                const asset = assetAllocations[i],
-                    assetAllocationsAssetStr =
-                    `AssetAllocations_${asset.Type}_${asset.SalePosition}_${id}`;
-                table.setColumn(assetAllocationsAssetStr);
+            table.setColumn(colStrType);
+
+            for (let i = 0; i < GlobalStockSectorBreakdown.length; i++) {
+                const asset = GlobalStockSectorBreakdown[i],
+                    colStrAsset = `GlobalStockSectorBreakdown_${asset.SalePosition}_${id}`;
+
+                table.setColumn(colStrAsset);
 
                 for (let j = 0; j < asset.BreakdownValues.length; j++) {
                     table.setCell(
-                        assetAllocationsAssetStr,
+                        colStrAsset,
                         j,
                         asset.BreakdownValues[j].Value
                     );
 
                     table.setCell(
-                        assetAllocationsTypeStr,
+                        colStrType,
                         j,
                         asset.BreakdownValues[j].Type
                     );
@@ -135,10 +138,12 @@ export class AssetAllocationsConverter extends SecurityCompareConverter {
             }
         }
 
+        // Update meta data
         metadata.ids = ids;
         metadata.isins = isins;
 
     }
+
 }
 
 
@@ -149,4 +154,4 @@ export class AssetAllocationsConverter extends SecurityCompareConverter {
  * */
 
 
-export default AssetAllocationsConverter;
+export default GlobalStockSectorBreakdownConverter;

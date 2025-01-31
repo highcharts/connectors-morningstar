@@ -1,13 +1,13 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Sophie Bremer
+ *  - Askel Eirik Johansson
  *
  * */
 
@@ -16,6 +16,9 @@
 
 import AssetAllocationsConverter from './AssetAllocationsConverter';
 import TrailingPerformanceConverter from './TrailingPerformanceConverter';
+import CountryExposureConverter from './CountryExposureConverter';
+import RegionalExposureConverter from './RegionalExposureConverter';
+import GlobalStockSectorBreakdownConverter from './GlobalStockSectorBreakdownConverter';
 
 
 /* *
@@ -36,6 +39,9 @@ import TrailingPerformanceConverter from './TrailingPerformanceConverter';
 
 export * from './TrailingPerformanceConverter';
 export * from './AssetAllocationsConverter';
+export * from './CountryExposureConverter';
+export * from './RegionalExposureConverter';
+export * from './GlobalStockSectorBreakdownConverter';
 
 /* *
  *
@@ -46,5 +52,8 @@ export * from './AssetAllocationsConverter';
 
 export default {
     TrailingPerformanceConverter,
-    AssetAllocationsConverter
+    AssetAllocationsConverter,
+    CountryExposureConverter,
+    RegionalExposureConverter,
+    GlobalStockSectorBreakdownConverter
 };
