@@ -36,8 +36,8 @@ import MorningstarURL from '../../Shared/MorningstarURL';
  *
  * */
 
-const UTF_PIPE = '|';
-const UTF_COLON = ':';
+const UTF_PIPE = '%7C';
+const UTF_COLON = '%3A';
 
 /* *
  *
@@ -90,6 +90,7 @@ export class InvestmentScreenerConnector extends MorningstarConnector {
                         prev + UTF_PIPE + this.getFilter(curr),
                 ''
             );
+
             searchParams.set('filters', filters);
         }
 
