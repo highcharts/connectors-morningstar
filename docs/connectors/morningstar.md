@@ -54,5 +54,5 @@ types.
 * [Risk Score](morningstar/risk-score.md)
 * [TimeSeries](morningstar/time-series/time-series.md)
 * [XRay](morningstar/x-ray.md)
-* [Investment Screener](morningstar/screeners/investment-screener.md)
+* [Screener](morningstar/screeners/screener.md)
 * [Security Details](morningstar/security-details.md)
