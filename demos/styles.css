@@ -133,6 +133,7 @@ iframe {
     border: none;
     font-size: 14px;
     cursor: pointer;
+    text-align: left;
 }
 
 .sidebar button:hover,
