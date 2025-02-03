@@ -4,8 +4,7 @@ async function displaySecurityDetails (postmanJSON) {
         idNames = {
             'F000015CH2': 
                 'Schroder International Selection Fund Global Emerging Market Opportunities',
-            'F0000143IP': 
-                'Mirae Asset ESG Asia Grt Cnsmr Eq A'
+            'F0000143IP': 'Fidelity Funds - Asia Pacific Opportunities Fund I-Acc-USD'
         }
 
 

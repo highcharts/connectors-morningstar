@@ -2,8 +2,9 @@
 async function displaySecurityDetails (postmanJSON) {
     const ids = ['F0GBR050DD', 'F00000Q5PZ'],
         idNames = {
-            'F0GBR050DD': 'Aviva Investors UK Listed Equity Unconstrained Fund 2',
-            'F00000Q5PZ': 'Mirae Asset Global Discovery Fund'
+            'F0GBR050DD': 'Aviva Investors UK Listed Equity Unconstrained Fund 2 GBP Acc',
+            'F00000Q5PZ': 'Mirae Asset Global Discovery Fund - ' +
+                'ESG Asia Great Consumer Equity Fund A EUR Capitalization'
         }
 
 
