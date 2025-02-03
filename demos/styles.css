@@ -1,65 +1,4 @@
-/* ibm-plex-sans-100 - latin */
-@font-face {
-    font-display: swap;
-    font-family: "IBM Plex Sans";
-    font-style: normal;
-    font-weight: 100;
-    src: url("https://www.highcharts.com/samples/graphics/cyber-monday/fonts/ibm-plex-sans-v19-latin-100.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-/* ibm-plex-sans-200 - latin */
-@font-face {
-    font-display: swap;
-    font-family: "IBM Plex Sans";
-    font-style: normal;
-    font-weight: 200;
-    src: url("https://www.highcharts.com/samples/graphics/cyber-monday/fonts/ibm-plex-sans-v19-latin-200.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-/* ibm-plex-sans-300 - latin */
-@font-face {
-    font-display: swap;
-    font-family: "IBM Plex Sans";
-    font-style: normal;
-    font-weight: 300;
-    src: url("https://www.highcharts.com/samples/graphics/cyber-monday/fonts/ibm-plex-sans-v19-latin-300.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-/* ibm-plex-sans-regular - latin */
-@font-face {
-    font-display: swap;
-    font-family: "IBM Plex Sans";
-    font-style: normal;
-    font-weight: 400;
-    src: url("https://www.highcharts.com/samples/graphics/cyber-monday/fonts/ibm-plex-sans-v19-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-/* ibm-plex-sans-500 - latin */
-@font-face {
-    font-display: swap;
-    font-family: "IBM Plex Sans";
-    font-style: normal;
-    font-weight: 500;
-    src: url("https://www.highcharts.com/samples/graphics/cyber-monday/fonts/ibm-plex-sans-v19-latin-500.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-/* ibm-plex-sans-600 - latin */
-@font-face {
-    font-display: swap;
-    font-family: "IBM Plex Sans";
-    font-style: normal;
-    font-weight: 600;
-    src: url("https://www.highcharts.com/samples/graphics/cyber-monday/fonts/ibm-plex-sans-v19-latin-600.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-/* ibm-plex-sans-700 - latin */
-@font-face {
-    font-display: swap;
-    font-family: "IBM Plex Sans";
-    font-style: normal;
-    font-weight: 700;
-    src: url("https://www.highcharts.com/samples/graphics/cyber-monday/fonts/ibm-plex-sans-v19-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Pixelify+Sans:wght@400..700&display=swap');
 
 * {
     box-sizing: border-box;
@@ -74,6 +13,10 @@ body, html {
 
 h1 {
     margin: 0;
+}
+
+iframe {
+    border: none;
 }
 
 .container {
@@ -94,6 +37,7 @@ h1 {
 
     background-color: #E3E3E8;
     padding: 20px;
+    padding-bottom: 55px;
     border-right: 1px solid #E3E3E8;
     overflow-y: auto;
 }
@@ -102,6 +46,11 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    align-self: flex-start;
 }
 
 .header-buttons {
@@ -183,11 +132,13 @@ h1 {
     background: transparent;
     border: none;
     font-size: 14px;
+    cursor: pointer;
 }
 
 .sidebar button:hover,
 .sidebar button.selected {
     background: #F0F1FF;
+    padding-left: 25px;
 }
 
 .iframe {
