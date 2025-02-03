@@ -192,6 +192,12 @@ function displayInvestorPreferences (postmanJSON) {
         });
     }
 
+    const filters = [{
+        dataPointId: 'UserPref0',
+        comparatorCode: 'EQ',
+        value: 'True'
+    }];
+
     const board = Dashboards.board('container', {
         dataPool: {
             connectors: [
@@ -206,11 +212,7 @@ function displayInvestorPreferences (postmanJSON) {
                         securityDataPoints: secIds,
                         universeIds: ['FOGBR$$ALL'],
                         calculatedDataPoints,
-                        filters: [{
-                            dataPointId: 'UserPref0',
-                            comparatorCode: 'EQ',
-                            value: 'True'
-                        }],
+                        filters,
                         postman: {
                             environmentJSON: postmanJSON
                         }
@@ -254,14 +256,17 @@ function displayInvestorPreferences (postmanJSON) {
         loadingLabel.style.display = 'block';
         board.dataPool.getConnector('investor-preferences').then(connector => {
             if (
-                connector.options.page < 1 ||
-                connector.options.page > connector.metadata.total
+                (!next && connector.options.page <= 1) ||
+                (next && connector.options.page >= Math.ceil(
+                    connector.metadata.total / connector.metadata.pageSize
+                ))
             ) {
                 loadingLabel.style.display = 'none';
                 return;
             }
             connector.options.page += next ? 1 : -1;
             const options = {
+                filters,
                 page: connector.options.page
             };
 
@@ -284,8 +289,10 @@ function displayInvestorPreferences (postmanJSON) {
     function setFilter (filters) {
         loadingLabel.style.display = 'block';
         board.dataPool.getConnector('investor-preferences').then(connector => {
+            connector.options.page = 1;
             const options = {
-                filters
+                filters,
+                page: connector.options.page
             };
             connector.load(options).then(() => {
                 loadingLabel.style.display = 'none';
@@ -302,9 +309,10 @@ function displayInvestorPreferences (postmanJSON) {
     document.getElementById('filter-1').addEventListener('click', () => {
         const currentFilter = document.getElementById('current-filter'),
             euTaxAlignment = document.getElementById('tax-alignment'),
-            sfdrTypes = document.querySelectorAll('.sfdr:checked'),
-            filters = [];
+            sfdrTypes = document.querySelectorAll('.sfdr:checked');
 
+        // Clear filters array on each change
+        filters.length = 0;
         currentFilter.textContent = '';
 
         // Create a filter that will check if the investment is within EU tax
@@ -331,7 +339,7 @@ function displayInvestorPreferences (postmanJSON) {
                 }
             );
         }
-        if(sfdrTypes.length) {
+        if (sfdrTypes.length) {
             const values = [],
                 types = [];
 
