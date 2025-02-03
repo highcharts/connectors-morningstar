@@ -1,5 +1,5 @@
-async function displaySecurityDetails (postmanJSON) {
-    const securityId = 'F0GBR050DD';
+async function displayAssetAllocations (postmanJSON) {
+    const securityId = 'US4642898674';
 
     const connector = new HighchartsConnectors.Morningstar.SecurityDetailsConnector({
         postman: {
@@ -7,27 +7,40 @@ async function displaySecurityDetails (postmanJSON) {
         },
         security: {
             id: securityId,
-            idType: 'MSID'
+            idType: 'ISIN'
+        },
+        converter: {
+            type: 'AssetAllocations'
         }
     });
 
     await connector.load();
 
+    const typeMapping = {
+        '1': 'Stocks',
+        '2': 'Bonds',
+        '3': 'Cash',
+        '4': 'Other Instruments',
+        '99': 'Unclassified'
+    };
+
+    const chartData = connector.table.getRowObjects().map(item => ({
+        name: typeMapping[item.AssetAllocations_Type],
+        y: item.AssetAllocations_MorningstarEUR3_N
+    }));
+
     Highcharts.chart('container', {
         title: {
-            text: 'Aviva Investors UK Listed Equity Unconstrained Fund 2 GBP Acc'
+            text: 'iShares Core Growth Allocation ETF (AOR) Asset Allocation'
+        },
+        subtitle: {
+            text: 'Type: MorningstarEUR3 | Sale Position: Net (N)'
         },
         series: [{
-            type: 'column',
-            name: 'F0GBR050DD',
-            data: connector.table.getRowObjects().map(obj => [
-                obj.SecurityDetails_TrailingPerformance_TimePeriod,
-                obj.SecurityDetails_TrailingPerformance_Value
-            ])
-        }],
-        xAxis: {
-            type: 'category'
-        }
+            type: 'pie',
+            name: 'VTI Asset Allocation',
+            data: chartData
+        }]
     });
 }
 
@@ -37,7 +50,7 @@ async function handleSelectEnvironment (evt) {
 
     target.parentNode.style.display = 'none';
 
-    displaySecurityDetails(postmanJSON);
+    displayAssetAllocations(postmanJSON);
 }
 
 document.getElementById('postman-json')

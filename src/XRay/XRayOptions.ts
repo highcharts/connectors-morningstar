@@ -244,6 +244,7 @@ export type XRayPortfolioDataPoints = (
     | 'RegionalExposure'
     | 'RSquared'
     | 'SharpeRatio'
+    | ['SharpeRatio', ...Array<string>]
     | 'Skewness'
     | 'SortinoRatio'
     | 'SRRI'

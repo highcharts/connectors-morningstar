@@ -98,6 +98,9 @@ export class XRayConverter extends MorningstarConverter {
             if (xray.breakdowns) {
                 this.parseBreakdowns(benchmarkId, xray.breakdowns);
             }
+            if (xray.riskStatistics) {
+                this.parseRiskStatistics(benchmarkId, xray.riskStatistics);
+            }
         }
 
     }
@@ -125,26 +128,88 @@ export class XRayConverter extends MorningstarConverter {
     ): void {
         const table = this.table;
 
-        for (const asset of json.assetAllocation) {
-            const rowId = `${benchmarkId}_${asset.type}_${asset.salePosition}`;
-            const values = asset.values;
+        if (json.assetAllocation) {
+            for (const asset of json.assetAllocation) {
+                const columnName = `${benchmarkId}_${asset.type}_${asset.salePosition}`;
+                table.setColumn(`${columnName}_Categories`);
+                table.setColumn(`${columnName}_Values`);
+                const values = asset.values;
 
-            for (let i = 1; i < 100; ++i) {
-                table.setCell(rowId, i - 1, values[i]);
+                const valueIndex = Object.keys(values);
+
+                for (let i = 0; i < valueIndex.length; i++) {
+                    table.setCell(`${columnName}_Categories`, i, valueIndex[i]);
+                    table.setCell(`${columnName}_Values`, i, values[parseInt(valueIndex[i])]);
+                }
             }
         }
 
         if (json.regionalExposure) {
             for (const exposure of json.regionalExposure) {
-                const rowId = `${benchmarkId}_RegionalExposure_${exposure.salePosition}`;
+                const columnName = `${benchmarkId}_RegionalExposure_${exposure.salePosition}`;
+                table.setColumn(`${columnName}_Categories`);
+                table.setColumn(`${columnName}_Values`);
                 const values = exposure.values;
+                const valueIndex = Object.keys(values);
 
-                for (let i = 1; i < 100; ++i) {
-                    table.setCell(rowId, i - 1, values[i] || 0);
+                for (let i = 0; i < valueIndex.length; i++) {
+                    table.setCell(`${columnName}_Categories`, i, valueIndex[i]);
+                    table.setCell(`${columnName}_Values`, i, values[parseInt(valueIndex[i])]);
                 }
             }
         }
 
+        if (json.globalStockSector) {
+            for (const sector of json.globalStockSector) {
+                const columnName = `${benchmarkId}_GlobalStockSector_${sector.salePosition}`;
+                table.setColumn(`${columnName}_Categories`);
+                table.setColumn(`${columnName}_Values`);
+                const values = sector.values;
+                const valueIndex = Object.keys(values);
+
+                for (let i = 0; i < valueIndex.length; i++) {
+                    table.setCell(`${columnName}_Categories`, i, valueIndex[i]);
+                    table.setCell(`${columnName}_Values`, i, values[parseInt(valueIndex[i])]);
+                }
+            }
+        }
+
+        if (json.styleBox) {
+            for (const styleBox of json.styleBox) {
+                const columnName = `${benchmarkId}_StyleBox_${styleBox.salePosition}`;
+                table.setColumn(`${columnName}_Categories`);
+                table.setColumn(`${columnName}_Values`);
+                const values = styleBox.values;
+                const valueIndex = Object.keys(values);
+
+                for (let i = 0; i < valueIndex.length; i++) {
+                    table.setCell(`${columnName}_Categories`, i, valueIndex[i]);
+                    table.setCell(`${columnName}_Values`, i, values[parseInt(valueIndex[i])]);
+                }
+            }
+        }
+
+    }
+
+    protected parseRiskStatistics (
+        benchmarkId: string,
+        json: XRayJSON.RiskStatistics
+    ): void {
+        const table = this.table;
+
+        if (json.sharpeRatio) {
+            for (const sharpeRatio of json.sharpeRatio) {
+                const columnName = `${benchmarkId}_SharpeRatio_${sharpeRatio.frequency}_${sharpeRatio.timePeriod}`;
+                table.setCell(columnName, 0, sharpeRatio.value);
+            }
+        }
+
+        if (json.standardDeviation) {
+            for (const standardDeviation of json.standardDeviation) {
+                const columnName = `${benchmarkId}_StandardDeviation_${standardDeviation.frequency}_${standardDeviation.timePeriod}`;
+                table.setCell(columnName, 0, standardDeviation.value);
+            }
+        }
     }
 
     protected parseHistoricalPerformance (

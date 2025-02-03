@@ -32,7 +32,7 @@ function displayInvestmentScreener (postmanJSON) {
                     options: {
                         page: 1,
                         pageSize: 20,
-                        langageId: 'en-GB',
+                        languageId: 'en-GB',
                         currencyId: 'USD',
                         securityDataPoints: secIds,
                         universeIds: ['FOALL$$ALL'],
@@ -206,7 +206,7 @@ async function getPostmanJSON (htmlInputFile) {
     for (file of htmlInputFile.files) {
         try {
             fileJSON = JSON.parse(await file.text());
-            if (HighchartsConnectors.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
+            if (HighchartsConnectors.Morningstar.Shared.isPostmanEnvironmentJSON(fileJSON)) {
                 break;
             }
         } catch (error) {

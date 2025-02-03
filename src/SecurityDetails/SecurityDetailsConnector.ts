@@ -23,14 +23,20 @@
 
 
 import External from '../Shared/External';
-import SecurityDetailsConverter from './SecurityDetailsConverter';
+import {
+    AssetAllocationsConverter,
+    TrailingPerformanceConverter,
+    RegionalExposureConverter,
+    GlobalStockSectorBreakdownConverter,
+    CountryExposureConverter
+} from './Converters';
 import SecurityDetailsOptions, {
     SecurityDetailsMetadata
 } from './SecurityDetailsOptions';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
-
+import SecurityDetailsConverter from './SecurityDetailsConverter';
 
 /* *
  *
@@ -54,11 +60,42 @@ export class SecurityDetailsConnector extends MorningstarConnector {
     ) {
         super(options);
 
-        this.converter = new SecurityDetailsConverter(options.converter);
+        switch (options.converter?.type) {
+            case 'TrailingPerformance':
+            default:
+                this.converter = new TrailingPerformanceConverter({
+                    ...options.converter
+                });
+                break;
+
+            case 'AssetAllocations':
+                this.converter = new AssetAllocationsConverter({
+                    ...options.converter
+                });
+                break;
+
+            case 'RegionalExposure':
+                this.converter = new RegionalExposureConverter({
+                    ...options.converter
+                });
+                break;
+
+            case 'GlobalStockSectorBreakdown':
+                this.converter = new GlobalStockSectorBreakdownConverter({
+                    ...options.converter
+                });
+                break;
+
+            case 'CountryExposure':
+                this.converter = new CountryExposureConverter({
+                    ...options.converter
+                });
+                break;
+        }
+
         this.metadata = this.converter.metadata;
         this.options = options;
     }
-
 
     /* *
      *
