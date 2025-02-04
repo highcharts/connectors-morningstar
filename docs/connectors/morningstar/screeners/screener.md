@@ -5,6 +5,7 @@ Filter thousands of investments to quickly find those matching your criteria. Ov
 ## Capabilities
 
 - [Investment Screener](investment-screener.md)
+- [Investor Preferences](investor-preferences.md)
 - [ESG Screener](esg-screener.md)
 - [Regulatory Screener](regulatory-screener.md)
 - [Find Similar](find-similar-screener.md)

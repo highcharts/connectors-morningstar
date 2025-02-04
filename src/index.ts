@@ -25,6 +25,7 @@ import GoalAnalysis from './GoalAnalysis/index';
 import SecurityDetails from './SecurityDetails/index';
 import RNANews from './RNANews/index';
 import InvestmentScreener from './Screeners/InvestmentScreener/index';
+import InvestorPreferences from './Screeners/InvestorPreferences/index';
 import RiskScore from './RiskScore/index';
 import * as Shared from './Shared/index';
 import TimeSeries from './TimeSeries/index';
@@ -39,6 +40,7 @@ import XRay from './XRay/index';
 
 export * from './GoalAnalysis/index';
 export * from './Screeners/InvestmentScreener/index';
+export * from './Screeners/InvestorPreferences/index';
 export * from './SecurityDetails/index';
 export * from './RNANews/index';
 export * from './RiskScore/index';
@@ -62,5 +64,6 @@ export default {
     TimeSeries,
     XRay,
     InvestmentScreener,
+    InvestorPreferences,
     version
 };
