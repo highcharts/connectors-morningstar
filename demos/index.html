@@ -3,21 +3,136 @@
     <head>
         <meta charset="UTF-8" />
         <title>Morningstar Connectors Demos</title>
+        <link rel="stylesheet" href="styles.css" />
+        <script>
+            function selectDemo(url, button) {
+                document.getElementById("demoIframe").src = url;
+
+                const buttons = document.querySelectorAll(".sidebar-navigation button");
+                buttons.forEach(btn => btn.classList.remove("selected"));
+
+                button.classList.add("selected");
+            }
+        </script>
     </head>
     <body>
-        <h1>Morningstar Connectors Demos</h1>
-        <ul>
-            <li><a href="dashboards-rna-news/demo.html">Highcharts Dashboards + Morningstar RNA News</a></li>
-            <li><a href="stock-timeseries/demo.html">Highcharts Stock + Morningstar TimeSeries</a></li>
-            <li><a href="stock-ohlcv/demo.html">Highcharts Stock + Morningstar OHLCV TimeSeries</a></li>
-            <li><a href="stock-securitydetails/demo.html">Highcharts Stock + Morningstar Security Details</a></li>
-            <li><a href="dashboards-risk-score/demo.html">Highcharts Dashboards + Morningstar Risk Score</a></li>
-            <li><a href="dashboards-investment-screener/demo.html">Highcharts Dashboards + Morningstar Investment Screener</a></li>
-            <li><a href="dashboards-investor-preferences/demo.html">Highcharts Dashboards + Morningstar Investor Preferences</a></li>
-            <li><a href="dashboards-esg-screener/demo.html">Highcharts Dashboards + Morningstar ESG Screener</a></li>
-            <li><a href="dashboards-find-similar-screener/demo.html">Highcharts Dashboards + Morningstar Find Similar Screener</a></li>
-            <li><a href="dashboards-regulatory-screener/demo.html">Highcharts Dashboards + Morningstar Regulatory Screener</a></li>
-            <li><a href="manual-fetch/demo.html">Using fetch without connectors</a></li>
-        </ul>
+        <div class="container">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h1>
+                        <a href="index.html">
+                            <img src="assets/logo.svg" alt="Logo" class="logo" />
+                        </a>
+                    </h1>
+                    <div class="header-buttons">
+                        <a href="https://www.highcharts.com/docs/morningstar/morningstar" target="_blank">
+                            <div>
+                                <img src="assets/terminal_icon.svg" alt="Docs" class="icon" />
+                                <span>Docs</span>
+                            </div>
+                        </a>
+                        <a href="https://api.highcharts.com/highcharts/" target="_blank">
+                            <div>
+                                <img src="assets/terminal_icon.svg" alt="API" class="icon" />
+                                <span>API</span>
+                            </div>
+                        </a>
+                        <a href="https://shop.highcharts.com/contact/partner-data" target="_blank" class="cart">
+                            <div>
+                                <img src="assets/cart_icon.svg" alt="Cart" class="icon" />
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <h2>Morningstar Connectors Demos</h2>
+                <div class="sidebar-navigation">
+                    <h3>Demos</h3>
+                    <ul>
+                        <li>
+                            <button onclick="selectDemo('dashboards-rna-news/demo.html', this)" class="selected">
+                                Highcharts Dashboards + Morningstar RNA News
+                                <img src="assets/chevron.svg" alt="Logo" class="logo" />
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="selectDemo('dashboards-esg-screener/demo.html', this)">
+                                Highcharts Dashboards + Morningstar ESG Screener
+                                <img src="assets/chevron.svg" alt="Logo" class="logo" />
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="selectDemo('dashboards-find-similar-screener/demo.html', this)">
+                                Highcharts Dashboards + Morningstar Find Similar Screener
+                                <img src="assets/chevron.svg" alt="Logo" class="logo" />
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="selectDemo('dashboards-investment-screener/demo.html', this)">
+                                Highcharts Dashboards + Morningstar Investment Screener
+                                <img src="assets/chevron.svg" alt="Logo" class="logo" />
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="selectDemo('dashboards-investor-preferences/demo.html', this)">
+                                Highcharts Dashboards + Morningstar Investor Preferences Screener
+                                <img src="assets/chevron.svg" alt="Logo" class="logo" />
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="selectDemo('dashboards-regulatory-screener/demo.html', this)">
+                                Highcharts Dashboards + Morningstar Regulatory Screener
+                                <img src="assets/chevron.svg" alt="Logo" class="logo" />
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="selectDemo('dashboards-risk-score/demo.html', this)">
+                                Highcharts Dashboards + Morningstar Risk Score
+                                <img src="assets/chevron.svg" alt="Logo" class="logo" />
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="selectDemo('dashboards-xray/demo.html', this)">
+                                Highcharts Dashboards DataGrid + Morningstar XRay Connector
+                                <img src="assets/chevron.svg" alt="Logo" class="logo" />
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="selectDemo('stock-timeseries/demo.html', this)">
+                                Highcharts Stock + Morningstar TimeSeries
+                                <img src="assets/chevron.svg" alt="Logo" class="logo" />
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="selectDemo('stock-ohlcv/demo.html', this)">
+                                Highcharts Stock + Morningstar OHLCV TimeSeries
+                                <img src="assets/chevron.svg" alt="Logo" class="logo" />
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="selectDemo('stock-securitydetails/demo.html', this)">
+                                Highcharts Stock + Morningstar Security Details
+                                <img src="assets/chevron.svg" alt="Logo" class="logo" />
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="selectDemo('stock-securitydetails-asset-allocations/demo.html', this)">
+                                Morningstar Security Details Asset Allocations
+                                <img src="assets/chevron.svg" alt="Logo" class="logo" />
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="selectDemo('manual-fetch/demo.html', this)">
+                                Manual Fetch
+                                <img src="assets/chevron.svg" alt="Logo" class="logo" />
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebar-footer">
+                    <small>© 2025 Highsoft. All rights reserved.</small>
+                </div>
+            </div>
+            <iframe id="demoIframe" class="iframe" src="dashboards-rna-news/demo.html"></iframe>
+        </div>
     </body>
 </html>

@@ -22,6 +22,7 @@
 import GoalAnalysisOptions from './GoalAnalysis/GoalAnalysisOptions';
 import RiskScoreOptions from './RiskScore/RiskScoreOptions';
 import RNANewsOptions from './RNANews/RNANewsOptions';
+import SecurityDetailsOptions from './SecurityDetails/SecurityDetailsOptions';
 import TimeSeriesOptions from './TimeSeries/TimeSeriesOptions';
 import XRayOptions from './XRay/XRayOptions';
 import InvestmentScreenerOptions from './Screeners/InvestmentScreener/InvestmentScreenerOptions';
@@ -41,6 +42,7 @@ interface Options {
     GoalAnalysis: GoalAnalysisOptions;
     RiskScore: RiskScoreOptions;
     RNANews: RNANewsOptions;
+    SecurityDetails: SecurityDetailsOptions;
     TimeSeries: TimeSeriesOptions;
     XRay: XRayOptions;
     InvestmentScreener: InvestmentScreenerOptions;
