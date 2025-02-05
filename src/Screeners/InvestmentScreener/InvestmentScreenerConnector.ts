@@ -36,8 +36,8 @@ import MorningstarURL from '../../Shared/MorningstarURL';
  *
  * */
 
-const UTF_PIPE = '%7C';
-const UTF_COLON = '%3A';
+const UTF_PIPE = '|';
+const UTF_COLON = ':';
 
 /* *
  *
