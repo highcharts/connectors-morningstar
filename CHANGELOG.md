@@ -1,7 +1,23 @@
 Changelog
 =========
 
+v1.1.0
+------
 
+## What's Changed
+
+### Bugfixes
+* Fixed #57, not a function warning in demos.
+* Fixed #54, XRayConnector invalid response.
+* Fixed #51, SecurityDetails portfolios data.
+
+### Enhancement
+* Made changelog more readable.
+* Added docs for ESG, FindSimilar and Regulatory Screeners.
+* Improved demo page UI.
+* Added InvestorPreferences Screener.
+
+**Full Changelog**: https://github.com/highcharts/connectors-morningstar/compare/v1.0.1...v1.1.0
 
 v1.0.1
 ------
