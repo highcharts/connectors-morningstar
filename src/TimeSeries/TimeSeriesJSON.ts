@@ -57,7 +57,7 @@ namespace TimeSeriesJSON {
 
     export interface CurrencyHistoryDetail {
         EndDate: string;
-        Value: CurrencyValue;
+        Value: Array<CurrencyValue>;
     }
 
 

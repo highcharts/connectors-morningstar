@@ -120,10 +120,10 @@ export class DividendSeriesConverter extends TimeSeriesConverter {
             for (const history of security.DividendSeries) {
                 for (const detail of history.HistoryDetail) {
                     sortedDividends.push({
-                        CurrencyId: detail.Value.CurrencyId,
+                        CurrencyId: detail.Value[0].CurrencyId,
                         EndDate: Date.parse(detail.EndDate),
                         Id: security.Id,
-                        Value: parseFloat(detail.Value.value)
+                        Value: parseFloat(detail.Value[0].value)
                     });
                 }
             }

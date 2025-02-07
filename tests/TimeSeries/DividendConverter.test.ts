@@ -1,5 +1,6 @@
 import * as Assert from 'node:assert/strict';
 import * as MC from '../../code/connectors-morningstar.src';
+import { isNumber } from 'highcharts';
 
 export async function ratingLoad (
     api: MC.Shared.MorningstarAPIOptions
@@ -40,6 +41,12 @@ export async function ratingLoad (
         connector.table.getRowCount(),
         1,
         'Connector table should have one expected dividend row.'
+    );
+
+    Assert.strictEqual(
+        isNumber(connector.table.getCell('F0GBR04S23', 0)),
+        true,
+        'Connector table cell value should be a valid number.'
     );
 
 }
