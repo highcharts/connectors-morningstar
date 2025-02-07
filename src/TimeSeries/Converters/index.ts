@@ -28,6 +28,8 @@ import GrowthSeriesConverter from './GrowthSeriesConverter';
 import OHLCVSeriesConverter from './OHLCVSeriesConverter';
 import PriceSeriesConverter from './PriceSeriesConverter';
 import RatingSeriesConverter from './RatingSeriesConverter';
+import ReturnSeriesConverter from './ReturnSeriesConverter';
+import RollingReturnSeriesConverter from './RollingReturnSeriesConverter';
 
 
 /* *
@@ -43,6 +45,8 @@ export * from './GrowthSeriesConverter';
 export * from './OHLCVSeriesConverter';
 export * from './PriceSeriesConverter';
 export * from './RatingSeriesConverter';
+export * from './ReturnSeriesConverter';
+export * from './RollingReturnSeriesConverter';
 
 
 /* *
@@ -58,5 +62,7 @@ export default {
     GrowthSeriesConverter,
     OHLCVSeriesConverter,
     PriceSeriesConverter,
-    RatingSeriesConverter
+    RatingSeriesConverter,
+    ReturnSeriesConverter,
+    RollingReturnSeriesConverter
 };
