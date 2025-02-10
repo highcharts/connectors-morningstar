@@ -43,12 +43,15 @@ namespace XRayJSON {
         breakdowns?: Breakdowns;
         historicalPerformanceSeries?: Array<HistoricalPerformance>;
         trailingPerformance?: Array<TrailingPerformance>;
+        riskStatistics?: RiskStatistics;
     }
 
 
     export interface Breakdowns {
         assetAllocation: Array<AssetAllocation>;
         regionalExposure?: Array<RegionalExposure>;
+        globalStockSector?: Array<GlobalStockSector>;
+        styleBox?: Array<StyleBox>;
     }
 
 
@@ -58,6 +61,20 @@ namespace XRayJSON {
         returnType: string;
         startDate: string;
         timePeriod: string;
+    }
+
+    export interface RiskStatistics {
+        currencyId: string;
+        endDate: string;
+        sharpeRatio?: Array<RiskStatisticsReturn>;
+        standardDeviation?: Array<RiskStatisticsReturn>;
+        type: string;
+    }
+
+    export interface RiskStatisticsReturn {
+        frequency: string;
+        timePeriod: string;
+        value: number;
     }
 
 
@@ -72,6 +89,11 @@ namespace XRayJSON {
         values: Record<number, number>;
     }
 
+    export interface GlobalStockSector {
+        salePosition: string;
+        values: Record<number, number>;
+    }
+
 
     export interface Response {
         XRay: Array<XRayResponse>;
@@ -82,6 +104,11 @@ namespace XRayJSON {
         detailedStatusMessage: string;
         statusCode: number;
         statusDescription: string;
+    }
+
+    export interface StyleBox {
+        salePosition: string;
+        values: Record<number, number>;
     }
 
 
@@ -127,6 +154,28 @@ namespace XRayJSON {
         );
     }
 
+    function isRegionalExposure (
+        json?: unknown
+    ): json is RegionalExposure {
+        return (
+            !!json &&
+            typeof json === 'object' &&
+            typeof (json as RegionalExposure).salePosition === 'string' &&
+            typeof (json as RegionalExposure).values === 'object'
+        );
+    }
+
+    function isGlobalStockSector (
+        json?: unknown
+    ): json is GlobalStockSector {
+        return (
+            !!json &&
+            typeof json === 'object' &&
+            typeof (json as GlobalStockSector).salePosition === 'string' &&
+            typeof (json as GlobalStockSector).values === 'object'
+        );
+    }
+
 
     function isBenchmark (
         json?: unknown
@@ -149,6 +198,17 @@ namespace XRayJSON {
         );
     }
 
+    function isStyleBox (
+        json?: unknown
+    ): json is StyleBox {
+        return (
+            !!json &&
+            typeof json === 'object' &&
+            typeof (json as StyleBox).salePosition === 'string' &&
+            typeof (json as StyleBox).values === 'object'
+        );
+    }
+
 
     function isBreakdowns (
         json?: unknown
@@ -156,14 +216,20 @@ namespace XRayJSON {
         return (
             !!json &&
             typeof json === 'object' &&
+
             (json as Breakdowns).assetAllocation instanceof Array &&
             (
                 (json as Breakdowns).assetAllocation.length === 0 ||
                 isAssetAllocation((json as Breakdowns).assetAllocation[0])
-            ) &&
-            (
-                typeof (json as Breakdowns).regionalExposure === 'undefined' ||
-                isRegionalExposure((json as Breakdowns).regionalExposure)
+            ) || (
+                !(json as Breakdowns).globalStockSector ||
+                isGlobalStockSector((json as Breakdowns).globalStockSector?.[0])
+            ) || (
+                !(json as Breakdowns).regionalExposure ||
+                isRegionalExposure((json as Breakdowns).regionalExposure?.[0])
+            ) || (
+                !(json as Breakdowns).styleBox ||
+                isStyleBox((json as Breakdowns).styleBox?.[0])
             )
         );
     }
@@ -220,19 +286,6 @@ namespace XRayJSON {
             isXRayResponse((json as Response).XRay)
         );
     }
-
-
-    function isRegionalExposure (
-        json?: unknown
-    ): json is RegionalExposure {
-        return (
-            !!json &&
-            typeof json === 'object' &&
-            typeof (json as RegionalExposure).salePosition === 'string' &&
-            typeof (json as RegionalExposure).values === 'object'
-        );
-    }
-
 
     function isStatus (
         json?: unknown
