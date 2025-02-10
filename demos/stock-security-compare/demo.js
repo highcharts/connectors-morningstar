@@ -14,7 +14,7 @@ async function displaySecurityDetails (postmanJSON) {
         },
         security: {
             ids,
-            idType: 'msid'
+            idType: 'MSID'
         }
     });
 
@@ -34,6 +34,19 @@ async function displaySecurityDetails (postmanJSON) {
         })),
         xAxis: {
             type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Performance'
+            },
+            labels: {
+                format: '{value}%'
+            }
+        },
+
+        tooltip: {
+            valueDecimals: 2,
+            valueSuffix: '%'
         }
     });
 }
