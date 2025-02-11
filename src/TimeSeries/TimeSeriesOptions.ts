@@ -149,6 +149,16 @@ export interface ReturnSeriesOptions extends TimeSeriesConverterOptions {
 export interface RollingReturnSeriesOptions extends TimeSeriesConverterOptions {
 
     /**
+     *
+     * Defines the length of the rolling time window for calculating returns.
+     * It represents the number of days, months, or years, depending on the
+     * selected frequency. By default, the frequency is daily.
+     *
+     * @default 10
+     */
+    rollingPeriod?: number;
+
+    /**
      * Series type to retrieve.
      */
     type: 'RollingReturn';

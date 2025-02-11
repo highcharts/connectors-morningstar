@@ -26,6 +26,7 @@
 import TimeSeriesConverter from '../TimeSeriesConverter';
 import { RollingReturnSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
+import MorningstarURL from '../../Shared/MorningstarURL';
 
 
 /* *
@@ -160,6 +161,11 @@ export class RollingReturnSeriesConverter extends TimeSeriesConverter {
 
     }
 
+    public override decorateURL (url: MorningstarURL) {
+        if (this.options.rollingPeriod !== undefined) {
+            url.searchParams.set('rollingPeriod', `${this.options.rollingPeriod}`);
+        }
+    }
 
 }
 

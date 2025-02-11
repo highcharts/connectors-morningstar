@@ -14,7 +14,8 @@ export async function rollingReturnLoad (
             idType: 'MSID'
         }],
         series: {
-            type: 'RollingReturn'
+            type: 'RollingReturn',
+            rollingPeriod: 15
         },
         startDate: '2020-01-01'
     });
@@ -40,8 +41,8 @@ export async function rollingReturnLoad (
 
     Assert.strictEqual(
         connector.table.getRowCount(),
-        21,
-        'Connector table should have 21 rolling return rows.'
+        16,
+        'Connector table should have 16 rolling return rows.'
     );
 
      Assert.strictEqual(
