@@ -25,10 +25,10 @@
 
 
 import {
-    SecurityCompareConverterOptions,
+    SecurityDetailsConverterOptions,
     SecurityCompareMetadata
-} from '../SecurityCompareOptions';
-import SecurityCompareJSON from '../SecurityCompareJSON';
+} from '../../SecurityDetails/SecurityDetailsOptions';
+import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import SecurityCompareConverter from '../SecurityCompareConverter';
 
 /* *
@@ -49,7 +49,7 @@ export class RegionalExposureConverter extends SecurityCompareConverter {
 
 
     public constructor (
-        options?: SecurityCompareConverterOptions
+        options?: SecurityDetailsConverterOptions
     ) {
         super(options);
 
@@ -77,7 +77,7 @@ export class RegionalExposureConverter extends SecurityCompareConverter {
 
 
     public override parse (
-        options: SecurityCompareConverterOptions
+        options: SecurityDetailsConverterOptions
     ): void {
         const metadata = this.metadata,
             ids = [],
@@ -91,7 +91,7 @@ export class RegionalExposureConverter extends SecurityCompareConverter {
 
         // Validate JSON
 
-        if (!SecurityCompareJSON.isSecurityCompareResponse(json)) {
+        if (!SecurityDetailsJSON.isSecurityCompareResponse(json)) {
             throw new Error('Invalid data');
         }
 

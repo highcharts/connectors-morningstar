@@ -23,7 +23,7 @@
 
 
 import MorningstarConverter from '../Shared/MorningstarConverter';
-import { SecurityCompareConverterOptions, SecurityCompareMetadata } from './SecurityCompareOptions';
+import { SecurityDetailsConverterOptions, SecurityCompareMetadata } from '../SecurityDetails/SecurityDetailsOptions';
 
 
 /* *
@@ -50,7 +50,7 @@ export abstract class SecurityCompareConverter extends MorningstarConverter {
      * */
 
     // eslint-disable-next-line  @typescript-eslint/no-unused-vars
-    public parse (options: SecurityCompareConverterOptions) {}
+    public parse (options: SecurityDetailsConverterOptions) {}
 
 }
 

@@ -31,9 +31,10 @@ import {
     RegionalExposureConverter,
     GlobalStockSectorBreakdownConverter
 } from './Converters';
-import SecurityCompareOptions, {
+import {
+    SecurityCompareOptions,
     SecurityCompareMetadata
-} from './SecurityCompareOptions';
+} from '../SecurityDetails/SecurityDetailsOptions';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';

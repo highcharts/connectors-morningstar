@@ -34,7 +34,7 @@ import SecurityCompareConnector from './SecurityCompareConnector';
 
 export * from './SecurityCompareConnector';
 export * from './SecurityCompareConverter';
-export * from './SecurityCompareOptions';
+export * from '../SecurityDetails/SecurityDetailsOptions';
 
 
 /* *
