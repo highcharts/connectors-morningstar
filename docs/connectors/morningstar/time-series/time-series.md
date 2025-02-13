@@ -12,6 +12,8 @@ period.
 - [OHLCV](ohlcv.md)
 - [Price](price.md)
 - [Regulatory News Announcements](../regulatory-news-announcements.md)
+- [Return](return.md)
+- [Rolling Return](rolling-return.md)
 
 
 For more details, see [Morningstar’s Time Series API].
