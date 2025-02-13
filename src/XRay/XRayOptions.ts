@@ -254,6 +254,7 @@ export type XRayPortfolioDataPoints = (
     | 'TrackingError'
     | 'TreynorRatio'
     | 'Type'
+    | 'UnderlyingHolding'
     | 'UpsideCaptureRatio'
     // Version 2
     | 'portfolioriskscoreV2'

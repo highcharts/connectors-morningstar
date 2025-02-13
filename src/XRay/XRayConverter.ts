@@ -101,6 +101,9 @@ export class XRayConverter extends MorningstarConverter {
             if (xray.riskStatistics) {
                 this.parseRiskStatistics(benchmarkId, xray.riskStatistics);
             }
+            if (xray.underlyHoldings) {
+                this.parseUnderlyHoldings(benchmarkId, xray.underlyHoldings);
+            }
         }
 
     }
@@ -251,6 +254,22 @@ export class XRayConverter extends MorningstarConverter {
             }
         }
 
+    }
+
+    protected parseUnderlyHoldings (
+        benchmarkId: string,
+        json: Array<XRayJSON.UnderlyHolding>
+    ): void {
+        const table = this.table;
+        let rowIndex = 0;
+
+        for (const holding of json) {
+            for (const key in holding) {
+                const columnName = `${benchmarkId}_UnderlyingHoldings_${key}`;
+                table.setCell(columnName, rowIndex, holding[key]);
+            }
+            ++rowIndex;
+        }
     }
 
 

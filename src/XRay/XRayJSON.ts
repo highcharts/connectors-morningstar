@@ -43,6 +43,7 @@ namespace XRayJSON {
         breakdowns?: Breakdowns;
         historicalPerformanceSeries?: Array<HistoricalPerformance>;
         trailingPerformance?: Array<TrailingPerformance>;
+        underlyHoldings?: Array<UnderlyHolding>
         riskStatistics?: RiskStatistics;
     }
 
@@ -77,6 +78,25 @@ namespace XRayJSON {
         value: number;
     }
 
+    export interface UnderlyHolding {
+        [key: string]: string | number;
+        country: string;
+        countryId: string;
+        currencyId: string;
+        currencyName: string;
+        globalIndustryId: string;
+        globalSectorId: string;
+        holdingId: string;
+        iSIN: string;
+        marketValue: number;
+        name: string;
+        performanceId: string;
+        sector: string;
+        sectorId: string;
+        securityId: string;
+        securityType: string;
+        weight: number;
+    }
 
     export type HistoricalReturn = [
         date: string,
