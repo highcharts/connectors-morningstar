@@ -109,18 +109,26 @@ export class GlobalStockSectorBreakdownConverter extends SecurityCompareConverte
                 security.Portfolios[0].GlobalStockSectorBreakdown,
                 id = security.Id,
                 isin = security.Isin,
-                colStrType = `GlobalStockSectorBreakdown_Type_${id}`;
+                colStrType = `GlobalStockSectorBreakdown_Type_${id}`,
+                notClassifiedStr = `GlobalStockSectorBreakdown_NotClassified_${id}`,
+                assetStr = `GlobalStockSectorBreakdown_Assets_${id}`;
 
             ids.push(id);
             isins.push(isin);
 
             table.setColumn(colStrType);
+            table.setColumn(assetStr);
+            table.setColumn(notClassifiedStr);
 
             for (let i = 0; i < GlobalStockSectorBreakdown.length; i++) {
                 const asset = GlobalStockSectorBreakdown[i],
                     colStrAsset = `GlobalStockSectorBreakdown_${asset.SalePosition}_${id}`;
 
                 table.setColumn(colStrAsset);
+
+                // Populate NotClassified for all assets.
+                table.setCell(assetStr, i, asset.SalePosition);
+                table.setCell(notClassifiedStr, i, asset.NotClassified);
 
                 for (let j = 0; j < asset.BreakdownValues.length; j++) {
                     table.setCell(

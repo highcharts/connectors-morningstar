@@ -110,16 +110,26 @@ export class RegionalExposureConverter extends SecurityCompareConverter {
             const id = security.Id,
                 isin = security.Isin,
                 regionalExposure = security.Portfolios[0].RegionalExposure,
-                colStrType = `RegionalExposure_Type_${id}`;
+                colStrType = `RegionalExposure_Type_${id}`,
+                notClassifiedStr = `RegionalExposure_NotClassified_${id}`,
+                assetStr = `RegionalExposure_Assets_${id}`;
 
             ids.push(id);
             isins.push(isin);
+
+            table.setColumn(colStrType);
+            table.setColumn(assetStr);
+            table.setColumn(notClassifiedStr);
 
             for (let i = 0; i < regionalExposure.length; i++) {
                 const asset = regionalExposure[i];
                 const colStrAsset =
                     `RegionalExposure_${asset.SalePosition}_${id}`;
                 table.setColumn(colStrAsset);
+
+                // Populate NotClassified for all assets.
+                table.setCell(assetStr, i, asset.SalePosition);
+                table.setCell(notClassifiedStr, i, asset.NotClassified);
 
                 for (let j = 0; j < asset.BreakdownValues.length; j++) {
                     table.setCell(

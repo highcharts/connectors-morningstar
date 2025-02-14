@@ -112,18 +112,29 @@ export class CountryExposureConverter extends SecurityCompareConverter {
             const id = security.Id,
                 isin = security.Isin,
                 countryExposure = security.Portfolios[0].CountryExposure,
+                assetStr = `CountryExposure_Assets_${id}`,
+                notClassifiedStr = `CountryExposure_NotClassified_${id}`,
                 countryExpTypeStr = 'CountryExposure_Type_' + id;
-            table.setColumn(countryExpTypeStr);
+                
 
             ids.push(id);
             isins.push(isin);
 
+            table.setColumn(assetStr);
+            table.setColumn(notClassifiedStr);
+            table.setColumn(countryExpTypeStr);
+
             for (let i = 0; i < countryExposure.length; i++) {
-                const asset = countryExposure[i];
-                const colStr = 
-                    `CountryExposure_${asset.Type}_${asset.SalePosition}_` +
-                    id;
+                const asset = countryExposure[i],
+                    colStr = 
+                        `CountryExposure_${asset.Type}_${asset.SalePosition}_` +
+                        id;
+                    
                 table.setColumn(colStr);
+
+                // Populate NotClassified for all assets.
+                table.setCell(assetStr, i, `${asset.Type}_${asset.SalePosition}`);
+                table.setCell(notClassifiedStr, i, asset.NotClassified);
 
                 for (let j = 0; j < asset.BreakdownValues.length; j++) {
                     table.setCell(
