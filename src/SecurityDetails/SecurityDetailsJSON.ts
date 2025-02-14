@@ -131,6 +131,15 @@ namespace SecurityDetailsJSON {
         );
     }
 
+    export function isSecurityCompareResponse (
+        json?: unknown
+    ): json is Array<SecurityDetailsResponse> {
+        return (
+            Array.isArray(json) &&
+            json.every(isSecurityDetails)
+        );
+    }
+
 
     function isTrailingPerformance (
         json?: unknown
