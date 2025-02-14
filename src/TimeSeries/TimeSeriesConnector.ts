@@ -98,6 +98,20 @@ export class TimeSeriesConnector extends MorningstarConnector {
                 });
                 break;
 
+            case 'Return':
+                this.converter = new Converters.ReturnSeriesConverter({
+                    ...options.converter,
+                    ...options.series
+                });
+                break;
+
+            case 'RollingReturn':
+                this.converter = new Converters.RollingReturnSeriesConverter({
+                    ...options.converter,
+                    ...options.series
+                });
+                break;
+
             default:
                 throw new Error('Invalid series type');
 

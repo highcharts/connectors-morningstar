@@ -57,7 +57,7 @@ namespace TimeSeriesJSON {
 
     export interface CurrencyHistoryDetail {
         EndDate: string;
-        Value: CurrencyValue;
+        Value: Array<CurrencyValue>;
     }
 
 
@@ -90,6 +90,8 @@ namespace TimeSeriesJSON {
         Id: string;
         RatingSeries?: Array<History>;
         HistoryDetail?: Array<HistoryDetail>;
+        ReturnSeries?: Array<History>;
+        RollingReturn?: Array<History>;
     }
 
     export interface TimeSeriesResponse {
@@ -200,6 +202,14 @@ namespace TimeSeriesJSON {
             (
                 typeof (json as Security).HistoryDetail === 'undefined' ||
                 (json as Security).HistoryDetail instanceof Array
+            ) &&
+            (
+                typeof (json as Security).ReturnSeries === 'undefined' ||
+                (json as Security).ReturnSeries instanceof Array
+            ) &&
+            (
+                typeof (json as Security).RollingReturn === 'undefined' ||
+                (json as Security).RollingReturn instanceof Array
             )
         );
     }
