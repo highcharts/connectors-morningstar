@@ -34,7 +34,7 @@ export async function returnLoad (
 
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
-        ['Date', connector.options.securities?.[0].id],
+        ['Date', 'F0GBR04S23'],
         'Connector table should exist of expected columns.'
     );
 
