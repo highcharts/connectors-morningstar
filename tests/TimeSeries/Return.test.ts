@@ -2,6 +2,8 @@ import * as Assert from 'node:assert/strict';
 import * as MC from '../../code/connectors-morningstar.src';
 import { isNumber } from 'highcharts';
 
+const securityId = 'F0GBR04S23';
+
 export async function returnLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
@@ -10,7 +12,7 @@ export async function returnLoad (
         currencyId: 'EUR',
         endDate: '2020-01-31',
         securities: [{
-            id: 'F0GBR04S23',
+            id: securityId,
             idType: 'MSID'
         }],
         series: {
@@ -34,7 +36,7 @@ export async function returnLoad (
 
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
-        ['Date', 'F0GBR04S23'],
+        ['Date', securityId],
         'Connector table should exist of expected columns.'
     );
 
@@ -45,7 +47,7 @@ export async function returnLoad (
     );
 
      Assert.strictEqual(
-        isNumber(connector.table.getCell('F0GBR04S23', 0)),
+        isNumber(connector.table.getCell(securityId, 0)),
         true,
         'Connector table cell value should be a valid number.'
     );
