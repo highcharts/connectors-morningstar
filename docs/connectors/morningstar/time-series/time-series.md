@@ -11,6 +11,7 @@ period.
 - [Growth](growth.md)
 - [OHLCV](ohlcv.md)
 - [Price](price.md)
+- [Rating](rating.md)
 - [Regulatory News Announcements](../regulatory-news-announcements.md)
 
 
