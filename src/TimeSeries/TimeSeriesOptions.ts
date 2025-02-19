@@ -85,7 +85,7 @@ export interface PriceSeriesOptions extends TimeSeriesConverterOptions {
 
     /**
      * The type of price to retrieve.
-     * 
+     *
      * `SPLITADJ` is the default when instrument type is `CEF`.
      */
     priceType?: PriceType;
@@ -120,12 +120,12 @@ export interface OHLCVSeriesOptions extends TimeSeriesConverterOptions {
     type: 'OHLCV';
 
     /**
-     * When this property is `true`, open, high and low are replaced with 
-     * the close value if the volume is zero. 
-     * 
+     * When this property is `true`, open, high and low are replaced with
+     * the close value if the volume is zero.
+     *
      * If volume is zero, open high low are zero too. If you do not prefer this
      * behavior, you can enable this property.
-     * 
+     *
      * @default false
      */
     replaceZeroWithCloseValue?: boolean;
@@ -137,6 +137,33 @@ export interface OHLCVSeriesOptions extends TimeSeriesConverterOptions {
 
 }
 
+export interface ReturnSeriesOptions extends TimeSeriesConverterOptions {
+
+    /**
+     * Series type to retrieve.
+     */
+    type: 'Return';
+
+}
+
+export interface RollingReturnSeriesOptions extends TimeSeriesConverterOptions {
+
+    /**
+     *
+     * Defines the length of the rolling time window for calculating returns.
+     * It represents the number of days, months, or years, depending on the
+     * selected frequency. By default, the frequency is daily.
+     *
+     * @default 10
+     */
+    rollingPeriod?: number;
+
+    /**
+     * Series type to retrieve.
+     */
+    type: 'RollingReturn';
+
+}
 
 export interface TimeSeriesConverterOptions extends MorningstarConverterOptions {
 
@@ -176,7 +203,7 @@ export interface TimeSeriesOptions extends MorningstarOptions {
 
     /**
      * Securities to retrieve.
-     * 
+     *
      * **NOTE: When series type is `OHLCV`, only one security is supported.**
      */
     securities?: Array<MorningstarSecurityOptions>;
@@ -216,6 +243,8 @@ export type TimeSeriesType = (
     | PriceSeriesOptions
     | RatingSeriesOptions
     | OHLCVSeriesOptions
+    | ReturnSeriesOptions
+    | RollingReturnSeriesOptions
 );
 
 

@@ -8,6 +8,7 @@
  *
  *  Authors:
  *  - Sophie Bremer
+ *  - Jedrzej Ruta
  *
  * */
 
@@ -23,7 +24,7 @@
 
 
 import TimeSeriesConverter from '../TimeSeriesConverter';
-import { GrowthSeriesOptions } from '../TimeSeriesOptions';
+import { ReturnSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
 
 
@@ -34,7 +35,7 @@ import TimeSeriesJSON from '../TimeSeriesJSON';
  * */
 
 
-interface Growth {
+interface Return {
     Id: string;
     EndDate: number;
     Value: number;
@@ -48,7 +49,7 @@ interface Growth {
  * */
 
 
-export class GrowthSeriesConverter extends TimeSeriesConverter {
+export class ReturnSeriesConverter extends TimeSeriesConverter {
 
 
     /* *
@@ -59,11 +60,11 @@ export class GrowthSeriesConverter extends TimeSeriesConverter {
 
 
     public constructor (
-        options: GrowthSeriesOptions = { type: 'Growth' }
+        options: ReturnSeriesOptions = { type: 'Return' }
     ) {
         super(options);
 
-        this.options = options as Required<GrowthSeriesOptions>;
+        this.options = options as Required<ReturnSeriesOptions>;
     }
 
 
@@ -74,9 +75,9 @@ export class GrowthSeriesConverter extends TimeSeriesConverter {
      * */
 
 
-    public override readonly options: Required<GrowthSeriesOptions>;
+    public override readonly options: Required<ReturnSeriesOptions>;
 
-    public override path: string = 'timeseries/growth';
+    public override path: string = 'timeseries/return';
 
 
     /* *
@@ -87,7 +88,7 @@ export class GrowthSeriesConverter extends TimeSeriesConverter {
 
 
     public parse (
-        options: GrowthSeriesOptions
+        options: ReturnSeriesOptions
     ): void {
         const table = this.table;
         const userOptions = {
@@ -102,22 +103,22 @@ export class GrowthSeriesConverter extends TimeSeriesConverter {
             throw new Error('Invalid data');
         }
 
-        // Cumulate security growth by date
+        // Cumulate security returns by date
 
         const securityIds: Array<string> = [];
-        const sortedGrowths: Array<Growth> = [];
+        const sortedReturns: Array<Return> = [];
 
         for (const security of json.TimeSeries.Security) {
 
-            if (!security.GrowthSeries) {
+            if (!security.ReturnSeries) {
                 continue;
             }
 
             securityIds.push(security.Id);
 
-            for (const history of security.GrowthSeries) {
+            for (const history of security.ReturnSeries) {
                 for (const detail of history.HistoryDetail) {
-                    sortedGrowths.push({
+                    sortedReturns.push({
                         EndDate: Date.parse(detail.EndDate),
                         Id: security.Id,
                         Value: parseFloat(detail.Value)
@@ -127,9 +128,9 @@ export class GrowthSeriesConverter extends TimeSeriesConverter {
 
         }
 
-        // Sort growths by date
+        // Sort returns by date
 
-        sortedGrowths.sort((a, b) => (
+        sortedReturns.sort((a, b) => (
             a.EndDate === b.EndDate ?
                 0 :
                 a.EndDate < b.EndDate ? -1 : 1
@@ -144,17 +145,17 @@ export class GrowthSeriesConverter extends TimeSeriesConverter {
             table.setColumn(securityId);
         }
 
-        // Add growths to table
+        // Add returns to table
 
         let currentTableDate: number = 0;
         let currentTableIndex: number = -1;
 
-        for (const growth of sortedGrowths) {
-            if (currentTableDate !== growth.EndDate) {
-                currentTableDate = growth.EndDate;
+        for (const sortedReturn of sortedReturns) {
+            if (currentTableDate !== sortedReturn.EndDate) {
+                currentTableDate = sortedReturn.EndDate;
                 table.setCell('Date', ++currentTableIndex, currentTableDate);
             }
-            table.setCell(growth.Id, currentTableIndex, growth.Value);
+            table.setCell(sortedReturn.Id, currentTableIndex, sortedReturn.Value);
         }
 
     }
@@ -170,4 +171,4 @@ export class GrowthSeriesConverter extends TimeSeriesConverter {
  * */
 
 
-export default GrowthSeriesConverter;
+export default ReturnSeriesConverter;
