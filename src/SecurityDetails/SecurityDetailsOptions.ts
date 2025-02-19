@@ -64,10 +64,31 @@ export interface SecurityDetailsMetadata extends MorningstarMetadata {
     date?: string;
 }
 
+export interface SecurityCompareMetadata extends MorningstarMetadata {
+    ids?: string[];
+    isins?: string[];
+    domicile?: string;
+    currency?: string;
+    returnType?: string;
+    type?: string;
+    currencyId?: string;
+    date?: string;
+}
+
 
 export interface SecurityDetailsOptions extends MorningstarOptions {
     security?: MorningstarSecurityOptions,
     viewId?: string,
+    converter?: SecurityDetailsConverterOptions
+}
+
+export interface SecurityCompareSecurity extends Omit<MorningstarSecurityOptions, 'id'> {
+    ids: Array<string>
+}
+
+export interface SecurityCompareOptions extends MorningstarOptions {
+    security: SecurityCompareSecurity,
+    viewIds?: string,
     converter?: SecurityDetailsConverterOptions
 }
 

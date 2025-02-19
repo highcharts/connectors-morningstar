@@ -56,3 +56,4 @@ types.
 * [XRay](morningstar/x-ray.md)
 * [Screener](morningstar/screeners/screener.md)
 * [Security Details](morningstar/security-details.md)
+* [Security Compare](morningstar/security-compare.md)
