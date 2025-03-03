@@ -26,7 +26,8 @@
 
 import {
     SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
+    SecurityDetailsMetadata,
+    SecurityCompareMetadata
 } from '../SecurityDetailsOptions';
 import SecurityDetailsJSON from '../SecurityDetailsJSON';
 import SecurityDetailsConverter from '../SecurityDetailsConverter';
@@ -79,13 +80,16 @@ export class RegionalExposureConverter extends SecurityDetailsConverter {
     public override parse (
         options: SecurityDetailsConverterOptions
     ): void {
-        const metadata = this.metadata;
-        const table = this.table;
-        const userOptions = {
-            ...this.options,
-            ...options
-        };
-        const json = userOptions.json;
+        const metadata = this.metadata,
+            ids = [],
+            isins = [],
+            table = this.table,
+            userOptions = {
+                ...this.options,
+                ...options
+            },
+            json = userOptions.json;
+        let isCompare = false;
 
         // Validate JSON
 
@@ -96,46 +100,68 @@ export class RegionalExposureConverter extends SecurityDetailsConverter {
         // Prepare table
 
         table.deleteColumns();
-        table.setColumn('RegionalExposure_Type');
+
+        if (!json.length) {
+            return;
+        }
+
+        if (json.length > 1) {
+            isCompare = true;
+        }
 
         // Add regional exposure to table
-
-        if (json.length) {
+        for (const security of json) {
 
             // Update table
+            const id = security.Id,
+                isin = security.Isin,
+                regionalExposure = security.Portfolios[0].RegionalExposure,
+                colStrType = 'RegionalExposure_Type' + (isCompare? `_${id}` : ''),
+                notClassifiedStr = 'RegionalExposure_NotClassified' + (isCompare? `_${id}` : ''),
+                assetStr = 'RegionalExposure_Assets' + (isCompare? `_${id}` : '');
 
-            const securityDetails = json[0];
-            const regionalExposure = securityDetails.Portfolios[0].RegionalExposure;
+            ids.push(id);
+            isins.push(isin);
+
+            table.setColumn(colStrType);
+            table.setColumn(assetStr);
+            table.setColumn(notClassifiedStr);
 
             for (let i = 0; i < regionalExposure.length; i++) {
                 const asset = regionalExposure[i];
+                const colStrAsset =
+                    `RegionalExposure_${asset.SalePosition}` + (isCompare? `_${id}` : '');
+                table.setColumn(colStrAsset);
 
-                table.setColumn(`RegionalExposure_${asset.SalePosition}_${asset.NotClassified}`);
+                // Populate NotClassified for all assets.
+                table.setCell(assetStr, i, asset.SalePosition);
+                table.setCell(notClassifiedStr, i, asset.NotClassified);
 
                 for (let j = 0; j < asset.BreakdownValues.length; j++) {
                     table.setCell(
-                        `RegionalExposure_${asset.SalePosition}_${asset.NotClassified}`,
+                        colStrAsset,
                         j,
                         asset.BreakdownValues[j].Value
                     );
 
                     table.setCell(
-                        'RegionalExposure_Type',
+                        colStrType,
                         j,
                         asset.BreakdownValues[j].Type
                     );
                 }
             }
-
-            // Update meta data
-
-            metadata.id = securityDetails.Id;
-            metadata.isin = securityDetails.Isin;
         }
 
+        // Update meta data
+        if (isCompare){
+            (metadata as SecurityCompareMetadata).ids = ids;
+            (metadata as SecurityCompareMetadata).isins = isins;
+        } else {
+            metadata.id = ids[0];
+            metadata.isin = isins[0];
+        }
     }
-
-
 }
 
 

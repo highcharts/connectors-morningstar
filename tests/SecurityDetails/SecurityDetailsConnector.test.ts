@@ -28,8 +28,8 @@ export async function securityDetailsLoad (
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
         [
-            'SecurityDetails_TrailingPerformance_TimePeriod',
-            'SecurityDetails_TrailingPerformance_Value'
+            'TrailingPerformance_TimePeriod',
+            'TrailingPerformance_Value'
         ],
         'Connector table should exist of expected columns.'
     );
@@ -142,7 +142,7 @@ export async function countryExposureLoad (
 
     Assert.deepStrictEqual(
         connector.table.getColumnNames()[0],
-        'CountryExposure_Type',
+        'CountryExposure_Assets',
         'Country exposure table should exist of expected columns.'
     );
 }

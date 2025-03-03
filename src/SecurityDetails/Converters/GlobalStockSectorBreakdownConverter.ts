@@ -26,7 +26,8 @@
 
 import {
     SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
+    SecurityDetailsMetadata,
+    SecurityCompareMetadata
 } from '../SecurityDetailsOptions';
 import SecurityDetailsJSON from '../SecurityDetailsJSON';
 import SecurityDetailsConverter from '../SecurityDetailsConverter';
@@ -79,13 +80,16 @@ export class GlobalStockSectorBreakdownConverter extends SecurityDetailsConverte
     public override parse (
         options: SecurityDetailsConverterOptions
     ): void {
-        const metadata = this.metadata;
-        const table = this.table;
-        const userOptions = {
-            ...this.options,
-            ...options
-        };
-        const json = userOptions.json;
+        const metadata = this.metadata,
+            ids = [],
+            isins = [],
+            table = this.table,
+            userOptions = {
+                ...this.options,
+                ...options
+            },
+            json = userOptions.json;
+        let isCompare = false;
 
         // Validate JSON
 
@@ -96,44 +100,66 @@ export class GlobalStockSectorBreakdownConverter extends SecurityDetailsConverte
         // Prepare table
 
         table.deleteColumns();
-        table.setColumn('GlobalStockSectorBreakdown_Type');
+
+        if (!json.length) {
+            return;
+        }
+
+        if (json.length > 1) {
+            isCompare = true;
+        }
 
         // Add global stock sector breakdown to table
-
-        if (json.length) {
-
-            // Update table
-
-            const securityDetails = json[0];
+        for (const security of json) {
             const GlobalStockSectorBreakdown =
-                securityDetails.Portfolios[0].GlobalStockSectorBreakdown;
+                security.Portfolios[0].GlobalStockSectorBreakdown,
+                id = security.Id,
+                isin = security.Isin,
+                colStrType = 'GlobalStockSectorBreakdown_Type' + (isCompare? `_${id}` : ''),
+                notClassifiedStr = 'GlobalStockSectorBreakdown_NotClassified' + (isCompare? `_${id}` : ''),
+                assetStr = 'GlobalStockSectorBreakdown_Assets' + (isCompare? `_${id}` : '');
+
+            ids.push(id);
+            isins.push(isin);
+
+            table.setColumn(colStrType);
+            table.setColumn(assetStr);
+            table.setColumn(notClassifiedStr);
 
             for (let i = 0; i < GlobalStockSectorBreakdown.length; i++) {
-                const asset = GlobalStockSectorBreakdown[i];
+                const asset = GlobalStockSectorBreakdown[i],
+                    colStrAsset = `GlobalStockSectorBreakdown_${asset.SalePosition}` + (isCompare? `_${id}` : '');
 
-                table.setColumn(`GlobalStockSectorBreakdown_${asset.SalePosition}_${asset.NotClassified}`);
+                table.setColumn(colStrAsset);
+
+                // Populate NotClassified for all assets.
+                table.setCell(assetStr, i, asset.SalePosition);
+                table.setCell(notClassifiedStr, i, asset.NotClassified);
 
                 for (let j = 0; j < asset.BreakdownValues.length; j++) {
                     table.setCell(
-                        `GlobalStockSectorBreakdown_${asset.SalePosition}_${asset.NotClassified}`,
+                        colStrAsset,
                         j,
                         asset.BreakdownValues[j].Value
                     );
 
                     table.setCell(
-                        'GlobalStockSectorBreakdown_Type',
+                        colStrType,
                         j,
                         asset.BreakdownValues[j].Type
                     );
                 }
             }
-
-            // Update meta data
-
-            metadata.id = securityDetails.Id;
-            metadata.isin = securityDetails.Isin;
         }
 
+        // Update meta data
+        if (isCompare){
+            (metadata as SecurityCompareMetadata).ids = ids;
+            (metadata as SecurityCompareMetadata).isins = isins;
+        } else {
+            metadata.id = ids[0];
+            metadata.isin = isins[0];
+        }
     }
 
 

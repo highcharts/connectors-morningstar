@@ -26,7 +26,8 @@
 
 import {
     SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
+    SecurityDetailsMetadata,
+    SecurityCompareMetadata
 } from '../SecurityDetailsOptions';
 import SecurityDetailsJSON from '../SecurityDetailsJSON';
 import SecurityDetailsConverter from '../SecurityDetailsConverter';
@@ -79,57 +80,72 @@ export class TrailingPerformanceConverter extends SecurityDetailsConverter {
     public override parse (
         options: SecurityDetailsConverterOptions
     ): void {
-        const metadata = this.metadata;
-        const table = this.table;
-        const userOptions = {
-            ...this.options,
-            ...options
-        };
-        const json = userOptions.json;
+        const metadata = this.metadata,
+            ids = [],
+            isins = [],
+            table = this.table,
+            userOptions = {
+                ...this.options,
+                ...options
+            },
+            json = userOptions.json;
+        let isCompare = false;
 
         // Validate JSON
-
         if (!SecurityDetailsJSON.isSecurityDetailsResponse(json)) {
             throw new Error('Invalid data');
         }
-
+        
         // Prepare table
 
         table.deleteColumns();
-        table.setColumn('SecurityDetails_TrailingPerformance_TimePeriod');
-        table.setColumn('SecurityDetails_TrailingPerformance_Value');
 
-        // Add trailing performance to table
-
-        if (json.length) {
-
-            // Update table
-
-            const securityDetails = json[0];
-            const trailingPerformanceReturn = securityDetails.TrailingPerformance[0].Return;
-
-            for (let i = 0, iEnd = trailingPerformanceReturn.length; i < iEnd; ++i) {
-                table.setCell(
-                    'SecurityDetails_TrailingPerformance_TimePeriod',
-                    i,
-                    trailingPerformanceReturn[i].TimePeriod
-                );
-                table.setCell(
-                    'SecurityDetails_TrailingPerformance_Value',
-                    i,
-                    trailingPerformanceReturn[i].Value
-                );
-            }
-
-            // Update meta data
-
-            metadata.id = securityDetails.Id;
-            metadata.isin = securityDetails.Isin;
+        if (!json.length) {
+            return;
         }
 
+        if (json.length > 1) {
+            isCompare = true;
+        }
+
+        // Update table
+        for (let i = 0; i < json.length; i++) {
+            const securityCompare = json[i],
+                id = securityCompare.Id,
+                isin = securityCompare.Isin,
+                timePeriodColumnStr = 'TrailingPerformance_TimePeriod' + (isCompare? `_${id}` : ''),
+                valueColumnStr = 'TrailingPerformance_Value' + (isCompare? `_${id}` : '');
+
+            table.setColumn(timePeriodColumnStr);
+            table.setColumn(valueColumnStr);
+
+            ids.push(id);
+            isins.push(isin);
+
+            const trailingPerformanceReturn = securityCompare.TrailingPerformance[0].Return;
+
+            for (let j = 0, iEnd = trailingPerformanceReturn.length; j < iEnd; ++j) {
+                table.setCell(
+                    timePeriodColumnStr,
+                    j,
+                    trailingPerformanceReturn[j].TimePeriod
+                );
+                table.setCell(
+                    valueColumnStr,
+                    j,
+                    trailingPerformanceReturn[j].Value
+                );
+            }
+        }
+
+        if (isCompare){
+            (metadata as SecurityCompareMetadata).ids = ids;
+            (metadata as SecurityCompareMetadata).isins = isins;
+        } else {
+            metadata.id = ids[0];
+            metadata.isin = isins[0];
+        }
     }
-
-
 }
 
 

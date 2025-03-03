@@ -23,14 +23,14 @@
 
 
 import External from '../Shared/External';
-import SecurityCompareConverter from './SecurityCompareConverter';
+import { SecurityDetailsConverter } from '../SecurityDetails';
 import {
     TrailingPerformanceConverter,
     AssetAllocationsConverter,
     CountryExposureConverter,
     RegionalExposureConverter,
     GlobalStockSectorBreakdownConverter
-} from './Converters';
+} from '../SecurityDetails/Converters';
 import {
     SecurityCompareOptions,
     SecurityCompareMetadata
@@ -103,7 +103,7 @@ export class SecurityCompareConnector extends MorningstarConnector {
      * */
 
 
-    public override readonly converter: SecurityCompareConverter;
+    public override readonly converter: SecurityDetailsConverter;
 
 
     public override readonly metadata: SecurityCompareMetadata;

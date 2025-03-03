@@ -19,8 +19,8 @@ export async function securityCompareLoad (
 
     Assert.ok(
         connector.converter instanceof
-        MC.SecurityCompareConverter,
-        'Converter should be instance of SecurityCompareConverter.'
+        MC.SecurityDetailsConverter,
+        'Converter should be instance of SecurityDetailsConverter.'
     );
 
     await connector.load();
@@ -191,4 +191,3 @@ export async function countryExposureLoad (
         'CountryExposure table should exist of expected columns.'
     );
 }
-

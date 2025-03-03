@@ -26,7 +26,8 @@
 
 import {
     SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
+    SecurityDetailsMetadata,
+    SecurityCompareMetadata
 } from '../SecurityDetailsOptions';
 import SecurityDetailsJSON from '../SecurityDetailsJSON';
 import SecurityDetailsConverter from '../SecurityDetailsConverter';
@@ -79,13 +80,16 @@ export class CountryExposureConverter extends SecurityDetailsConverter {
     public override parse (
         options: SecurityDetailsConverterOptions
     ): void {
-        const metadata = this.metadata;
-        const table = this.table;
-        const userOptions = {
-            ...this.options,
-            ...options
-        };
-        const json = userOptions.json;
+        const metadata = this.metadata,
+            ids = [],
+            isins = [],
+            table = this.table,
+            userOptions = {
+                ...this.options,
+                ...options
+            },
+            json = userOptions.json;
+        let isCompare = false;
 
         // Validate JSON
 
@@ -96,48 +100,72 @@ export class CountryExposureConverter extends SecurityDetailsConverter {
         // Prepare table
 
         table.deleteColumns();
-        table.setColumn('CountryExposure_Type');
+
+        if (!json.length) {
+            return;
+        }
+
+        if (json.length > 1) {
+            isCompare = true;
+        }
 
         // Add country exposure to table
 
-        if (json.length) {
+        for (const security of json) {
 
             // Update table
 
-            const securityDetails = json[0];
-            const CountryExposure = securityDetails.Portfolios[0].CountryExposure;
+            const id = security.Id,
+                isin = security.Isin,
+                countryExposure = security.Portfolios[0].CountryExposure,
+                assetStr = 'CountryExposure_Assets' + (isCompare? `_${id}` : ''),
+                notClassifiedStr = 'CountryExposure_NotClassified' + (isCompare? `_${id}` : ''),
+                countryExpTypeStr = 'CountryExposure_Type' + (isCompare? `_${id}` : '');
+                
 
-            table.setColumn('CountryExposure_Type');
+            ids.push(id);
+            isins.push(isin);
 
-            for (let i = 0; i < CountryExposure.length; i++) {
-                const asset = CountryExposure[i];
+            table.setColumn(assetStr);
+            table.setColumn(notClassifiedStr);
+            table.setColumn(countryExpTypeStr);
 
-                table.setColumn(`CountryExposure_${asset.Type}_${asset.SalePosition}_${asset.NotClassified}`);
+            for (let i = 0; i < countryExposure.length; i++) {
+                const asset = countryExposure[i],
+                    colStr = 
+                        `CountryExposure_${asset.Type}_${asset.SalePosition}` +
+                        (isCompare? `_${id}` : '');
+                    
+                table.setColumn(colStr);
+
+                // Populate NotClassified for all assets.
+                table.setCell(assetStr, i, `${asset.Type}_${asset.SalePosition}`);
+                table.setCell(notClassifiedStr, i, asset.NotClassified);
 
                 for (let j = 0; j < asset.BreakdownValues.length; j++) {
                     table.setCell(
-                        `CountryExposure_${asset.Type}_${asset.SalePosition}_${asset.NotClassified}`,
+                        colStr,
                         j,
                         asset.BreakdownValues[j].Value
                     );
 
                     table.setCell(
-                        'CountryExposure_Type',
+                        countryExpTypeStr,
                         j,
                         asset.BreakdownValues[j].Type
                     );
                 }
             }
-
-            // Update meta data
-
-            metadata.id = securityDetails.Id;
-            metadata.isin = securityDetails.Isin;
         }
 
+        if (isCompare){
+            (metadata as SecurityCompareMetadata).ids = ids;
+            (metadata as SecurityCompareMetadata).isins = isins;
+        } else {
+            metadata.id = ids[0];
+            metadata.isin = isins[0];
+        }
     }
-
-
 }
 
 

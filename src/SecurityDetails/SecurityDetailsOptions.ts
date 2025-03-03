@@ -53,9 +53,13 @@ export interface SecurityDetailsConverterOptions extends MorningstarConverterOpt
 }
 
 
-export interface SecurityDetailsMetadata extends MorningstarMetadata {
+export interface SecurityDetailsMetadata extends Metadata {
     id?: string;
     isin?: string;
+}
+
+
+interface Metadata extends MorningstarMetadata {
     domicile?: string;
     currency?: string;
     returnType?: string;
@@ -64,15 +68,9 @@ export interface SecurityDetailsMetadata extends MorningstarMetadata {
     date?: string;
 }
 
-export interface SecurityCompareMetadata extends MorningstarMetadata {
+export interface SecurityCompareMetadata extends Metadata {
     ids?: string[];
     isins?: string[];
-    domicile?: string;
-    currency?: string;
-    returnType?: string;
-    type?: string;
-    currencyId?: string;
-    date?: string;
 }
 
 
@@ -82,15 +80,18 @@ export interface SecurityDetailsOptions extends MorningstarOptions {
     converter?: SecurityDetailsConverterOptions
 }
 
-export interface SecurityCompareSecurity extends Omit<MorningstarSecurityOptions, 'id'> {
+
+interface SecurityCompareSecurity extends Omit<MorningstarSecurityOptions, 'id'> {
     ids: Array<string>
 }
+
 
 export interface SecurityCompareOptions extends MorningstarOptions {
     security: SecurityCompareSecurity,
     viewIds?: string,
     converter?: SecurityDetailsConverterOptions
 }
+
 
 export type SecurityDetailsConverterType  = (
    | 'TrailingPerformance'
