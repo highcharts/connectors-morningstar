@@ -150,3 +150,9 @@ iframe {
     justify-content: center;
     align-items: center;
 }
+
+@media screen and (max-height: 800px) {
+    .sidebar-navigation {
+        overflow-y: scroll;
+    }
+}
