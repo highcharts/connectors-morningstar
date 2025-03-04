@@ -2,6 +2,8 @@ import * as Assert from 'node:assert/strict';
 import * as MC from '../../code/connectors-morningstar.src';
 import MorningstarURL from '../../code/es-modules/Shared/MorningstarURL';
 
+const securityId = 'F0GBR04S23';
+
 export async function priceLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
@@ -9,7 +11,7 @@ export async function priceLoad (
         api,
         currencyId: 'EUR',
         securities: [{
-            id: 'F0GBR04S23',
+            id: securityId,
             idType: 'MSID'
         }],
         series: {
@@ -35,7 +37,7 @@ export async function priceLoad (
 
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
-        ['Date', connector.options.securities?.[0].id],
+        ['Date', securityId],
         'Connector table should exist of expected columns.'
     );
 
