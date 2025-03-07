@@ -38,6 +38,9 @@ import {
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
+import { 
+    UTF_PIPE
+} from '../Shared/Utilities';
 
 
 /* *
@@ -132,7 +135,7 @@ export class SecurityCompareConnector extends MorningstarConnector {
         const url = new MorningstarURL('ecint/v1/multi-securities/', api.baseURL);
 
         const searchParams = url.searchParams;
-        searchParams.set('ids', '' + securityIds.join('|'));
+        searchParams.set('ids', '' + securityIds.join(UTF_PIPE));
         searchParams.set('idType', '' + securityIdType);
         searchParams.set('responseViewFormat', 'json');
         searchParams.set('viewIds', viewIds);
