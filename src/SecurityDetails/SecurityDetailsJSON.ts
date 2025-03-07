@@ -128,6 +128,12 @@ namespace SecurityDetailsJSON {
         );
     }
 
+    export function isSecurityCompareResponse (
+        json: Array<SecurityDetailsResponse>
+    ): boolean { 
+        return json.length > 1;
+    }
+
 
     function isTrailingPerformance (
         json?: unknown

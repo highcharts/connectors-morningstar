@@ -20,7 +20,7 @@ async function displaySecurityDetails (postmanJSON) {
         };
 
     const commonTooltip = `
-    <span">
+    <span>
         {typeMapping point.name}
     </span>
     <br/>
@@ -75,6 +75,9 @@ async function displaySecurityDetails (postmanJSON) {
                 },
                 renderTo: 'dashboard-col-0',
                 type: 'Highcharts',
+                sync: {
+                    highlight: true
+                },
                 chartOptions: {
                     chart: {
                         animation: false,
@@ -109,6 +112,9 @@ async function displaySecurityDetails (postmanJSON) {
                 },
                 renderTo: 'dashboard-col-1',
                 type: 'Highcharts',
+                sync: {
+                    highlight: true
+                },
                 chartOptions: {
                     chart: {
                         animation: false,
@@ -158,7 +164,8 @@ async function getPostmanJSON (htmlInputFile) {
                 break;
             }
         } catch (error) {
-            // fail silently
+            // eslint-disable-next-line no-console
+            console.log(error);
         }
     }
 

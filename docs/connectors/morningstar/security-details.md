@@ -70,8 +70,8 @@ Highcharts.chart('container', {
         type: 'column',
         name: 'F0GBR050DD',
         data: connector.table.getRowObjects().map(obj => [
-            obj.SecurityDetails_TrailingPerformance_TimePeriod,
-            obj.SecurityDetails_TrailingPerformance_Value
+            obj.TrailingPerformance_TimePeriod,
+            obj.TrailingPerformance_Value
         ])
     }],
     xAxis: {
