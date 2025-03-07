@@ -1,12 +1,19 @@
-async function displaySecurityDetails (postmanJSON) {
-    const securityId = 'F0GBR050DD';
 
-    const connector = new HighchartsConnectors.Morningstar.SecurityDetailsConnector({
+async function displaySecurityDetails (postmanJSON) {
+    const ids = ['F0GBR050DD', 'F00000Q5PZ'],
+        idNames = {
+            'F0GBR050DD': 'Aviva Investors UK Listed Equity Unconstrained Fund 2 GBP Acc',
+            'F00000Q5PZ': 'Mirae Asset Global Discovery Fund - ' +
+                'ESG Asia Great Consumer Equity Fund A EUR Capitalization'
+        }
+
+
+    const connector = new HighchartsConnectors.Morningstar.SecurityCompareConnector({
         postman: {
             environmentJSON: postmanJSON
         },
         security: {
-            id: securityId,
+            ids,
             idType: 'MSID'
         }
     });
@@ -15,18 +22,31 @@ async function displaySecurityDetails (postmanJSON) {
 
     Highcharts.chart('container', {
         title: {
-            text: 'Aviva Investors UK Listed Equity Unconstrained Fund 2 GBP Acc'
+            text: 'Comparing multiple securities (Trailing performance)'
         },
-        series: [{
+        series: ids.map(id => ({
             type: 'column',
-            name: 'F0GBR050DD',
+            name: idNames[id],
             data: connector.table.getRowObjects().map(obj => [
-                obj.TrailingPerformance_TimePeriod,
-                obj.TrailingPerformance_Value
+                obj['TrailingPerformance_TimePeriod_' + id],
+                obj['TrailingPerformance_Value_' + id]
             ])
-        }],
+        })),
         xAxis: {
             type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Performance'
+            },
+            labels: {
+                format: '{value}%'
+            }
+        },
+
+        tooltip: {
+            valueDecimals: 2,
+            valueSuffix: '%'
         }
     });
 }
@@ -54,7 +74,8 @@ async function getPostmanJSON (htmlInputFile) {
                 break;
             }
         } catch (error) {
-            // fail silently
+            // eslint-disable-next-line no-console
+            console.log(error);
         }
     }
 

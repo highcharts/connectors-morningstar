@@ -29,15 +29,11 @@ import MorningstarAPI from '../../Shared/MorningstarAPI';
 import MorningstarConnector from '../../Shared/MorningstarConnector';
 import InvestmentScreenerConverter from './InvestmentScreenerConverter';
 import MorningstarURL from '../../Shared/MorningstarURL';
+import { 
+    UTF_PIPE,
+    UTF_COLON 
+} from '../../Shared/Utilities';
 
-/* *
- *
- *  Constants
- *
- * */
-
-const UTF_PIPE = '|';
-const UTF_COLON = ':';
 
 /* *
  *
