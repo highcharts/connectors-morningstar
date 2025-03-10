@@ -54,7 +54,7 @@ For some converters (Currently MarketCap), it is important to explicitly
 set the `viewIds` property to `'test'` in order to access the relevant data.
 
 ```js
-const securityDetailsConnector = new HighchartsConnectors.Morningstar.SecurityDetailsConnector({
+const connector = new HighchartsConnectors.Morningstar.SecurityCompareConnector({
     postman: {
         environmentJSON: postmanJSON
     },
