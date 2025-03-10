@@ -30,6 +30,7 @@ You can specify the type of data to retrieve by using the `type` option in the c
 - **RegionalExposure**
 - **GlobalStockSectorBreakdown**
 - **CountryExposure**
+- **MarketCap**
 
 Example usage:
 
@@ -44,6 +45,26 @@ const connector = new HighchartsConnectors.Morningstar.SecurityCompareConnector(
     },
     converter: {
         type: 'AssetAllocations' // Specify the type
+    }
+});
+```
+
+### viewIds
+For some converters (Currently MarketCap), it is important to explicitly
+set the `viewIds` property to `'test'` in order to access the relevant data.
+
+```js
+const securityDetailsConnector = new HighchartsConnectors.Morningstar.SecurityDetailsConnector({
+    postman: {
+        environmentJSON: postmanJSON
+    },
+    security: {
+        ids: ['F0GBR050DD', 'F00000Q5PZ'],
+        idType: 'MSID'
+    },
+    viewIds: 'test',
+    converter: {
+        type: 'MarketCap'
     }
 });
 ```
