@@ -67,7 +67,7 @@ export class MarketCapConverter extends SecurityDetailsConverter {
      * */
 
 
-    public readonly metadata: SecurityDetailsMetadata;
+    public readonly metadata: SecurityDetailsMetadata | SecurityCompareMetadata;
 
 
     /* *
@@ -105,9 +105,7 @@ export class MarketCapConverter extends SecurityDetailsConverter {
             return;
         }
 
-        if (json.length > 1) {
-            isCompare = true;
-        }
+        isCompare = SecurityDetailsJSON.isSecurityCompareResponse(json);
 
         // Add regional exposure to table
         for (const security of json) {
@@ -158,8 +156,8 @@ export class MarketCapConverter extends SecurityDetailsConverter {
             (metadata as SecurityCompareMetadata).ids = ids;
             (metadata as SecurityCompareMetadata).isins = isins;
         } else {
-            metadata.id = ids[0];
-            metadata.isin = isins[0];
+            (metadata as SecurityDetailsMetadata).id = ids[0];
+            (metadata as SecurityDetailsMetadata).isin = isins[0];
         }
     }
 }
