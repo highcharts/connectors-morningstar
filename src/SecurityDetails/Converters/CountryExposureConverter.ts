@@ -67,7 +67,7 @@ export class CountryExposureConverter extends SecurityDetailsConverter {
      * */
 
 
-    public readonly metadata: SecurityDetailsMetadata;
+    public readonly metadata: SecurityDetailsMetadata | SecurityCompareMetadata;
 
 
     /* *
@@ -105,9 +105,7 @@ export class CountryExposureConverter extends SecurityDetailsConverter {
             return;
         }
 
-        if (json.length > 1) {
-            isCompare = true;
-        }
+        isCompare = SecurityDetailsJSON.isSecurityCompareResponse(json);
 
         // Add country exposure to table
 
@@ -118,9 +116,9 @@ export class CountryExposureConverter extends SecurityDetailsConverter {
             const id = security.Id,
                 isin = security.Isin,
                 countryExposure = security.Portfolios[0].CountryExposure,
-                assetStr = 'CountryExposure_Assets' + (isCompare? `_${id}` : ''),
-                notClassifiedStr = 'CountryExposure_NotClassified' + (isCompare? `_${id}` : ''),
-                countryExpTypeStr = 'CountryExposure_Type' + (isCompare? `_${id}` : '');
+                assetStr = 'CountryExposure_Assets' + (isCompare ? `_${id}` : ''),
+                notClassifiedStr = 'CountryExposure_NotClassified' + (isCompare ? `_${id}` : ''),
+                countryExpTypeStr = 'CountryExposure_Type' + (isCompare ? `_${id}` : '');
                 
 
             ids.push(id);
@@ -134,7 +132,7 @@ export class CountryExposureConverter extends SecurityDetailsConverter {
                 const asset = countryExposure[i],
                     colStr = 
                         `CountryExposure_${asset.Type}_${asset.SalePosition}` +
-                        (isCompare? `_${id}` : '');
+                        (isCompare ? `_${id}` : '');
                     
                 table.setColumn(colStr);
 
@@ -162,8 +160,8 @@ export class CountryExposureConverter extends SecurityDetailsConverter {
             (metadata as SecurityCompareMetadata).ids = ids;
             (metadata as SecurityCompareMetadata).isins = isins;
         } else {
-            metadata.id = ids[0];
-            metadata.isin = isins[0];
+            (metadata as SecurityDetailsMetadata).id = ids[0];
+            (metadata as SecurityDetailsMetadata).isin = isins[0];
         }
     }
 }

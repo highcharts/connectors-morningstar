@@ -53,12 +53,6 @@ export interface SecurityDetailsConverterOptions extends MorningstarConverterOpt
 }
 
 
-export interface SecurityDetailsMetadata extends Metadata {
-    id?: string;
-    isin?: string;
-}
-
-
 interface Metadata extends MorningstarMetadata {
     domicile?: string;
     currency?: string;
@@ -67,6 +61,13 @@ interface Metadata extends MorningstarMetadata {
     currencyId?: string;
     date?: string;
 }
+
+
+export interface SecurityDetailsMetadata extends Metadata {
+    id?: string;
+    isin?: string;
+}
+
 
 export interface SecurityCompareMetadata extends Metadata {
     ids?: string[];

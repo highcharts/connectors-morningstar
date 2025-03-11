@@ -82,6 +82,11 @@ export async function assetAllocationsLoad (
         ],
         'Asset allocations table should exist of expected columns.'
     );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
 }
 
 export async function regionalExposureLoad (
@@ -117,6 +122,11 @@ export async function regionalExposureLoad (
             'RegionalExposure_N_F00000Q5PZ'
         ],
         'RegionalExposure table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
     );
 }
 
@@ -154,6 +164,11 @@ export async function globalStockSectorBreakdownLoad (
         ],
         'GlobalStockSectorBreakdown table should exist of expected columns.'
     );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
 }
 
 export async function countryExposureLoad (
@@ -189,5 +204,10 @@ export async function countryExposureLoad (
             'CountryExposure_Equity_N_F00000Q5PZ'
         ],
         'CountryExposure table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
     );
 }

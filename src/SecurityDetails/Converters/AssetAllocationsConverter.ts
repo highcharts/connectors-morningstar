@@ -67,7 +67,7 @@ export class AssetAllocationsConverter extends SecurityDetailsConverter {
      * */
 
 
-    public readonly metadata: SecurityDetailsMetadata;
+    public readonly metadata: SecurityDetailsMetadata | SecurityCompareMetadata;
 
 
     /* *
@@ -104,16 +104,16 @@ export class AssetAllocationsConverter extends SecurityDetailsConverter {
         if (!json.length) {
             return;
         }
-        if (json.length > 1){
-            isCompare = true;
-        }
+
+        isCompare = SecurityDetailsJSON.isSecurityCompareResponse(json);
+
         // Create tables
         for (const security of json) {
             const id = security.Id,
                 isin = security.Isin,
                 assetAllocations = security.Portfolios[0].AssetAllocations,
                 assetAllocationsTypeStr =
-                'AssetAllocations_Type' + (isCompare? `_${id}` : '');
+                'AssetAllocations_Type' + (isCompare ? `_${id}` : '');
 
             table.setColumn(assetAllocationsTypeStr);
 
@@ -123,7 +123,8 @@ export class AssetAllocationsConverter extends SecurityDetailsConverter {
             for (let i = 0; i < assetAllocations.length; i++) {
                 const asset = assetAllocations[i],
                     assetAllocationsAssetStr =
-                    `AssetAllocations_${asset.Type}_${asset.SalePosition}` + (isCompare? `_${id}` : '');
+                    `AssetAllocations_${asset.Type}_${asset.SalePosition}` +
+                    (isCompare ? `_${id}` : '');
                 table.setColumn(assetAllocationsAssetStr);
 
                 for (let j = 0; j < asset.BreakdownValues.length; j++) {
@@ -146,8 +147,8 @@ export class AssetAllocationsConverter extends SecurityDetailsConverter {
             (metadata as SecurityCompareMetadata).ids = ids;
             (metadata as SecurityCompareMetadata).isins = isins;
         } else {
-            metadata.id = ids[0];
-            metadata.isin = isins[0];
+            (metadata as SecurityDetailsMetadata).id = ids[0];
+            (metadata as SecurityDetailsMetadata).isin = isins[0];
         }
     }
 }

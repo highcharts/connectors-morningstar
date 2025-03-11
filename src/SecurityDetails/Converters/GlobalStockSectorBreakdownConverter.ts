@@ -67,7 +67,7 @@ export class GlobalStockSectorBreakdownConverter extends SecurityDetailsConverte
      * */
 
 
-    public readonly metadata: SecurityDetailsMetadata;
+    public readonly metadata: SecurityDetailsMetadata | SecurityCompareMetadata;
 
 
     /* *
@@ -105,9 +105,7 @@ export class GlobalStockSectorBreakdownConverter extends SecurityDetailsConverte
             return;
         }
 
-        if (json.length > 1) {
-            isCompare = true;
-        }
+        isCompare = SecurityDetailsJSON.isSecurityCompareResponse(json);
 
         // Add global stock sector breakdown to table
         for (const security of json) {
@@ -115,9 +113,9 @@ export class GlobalStockSectorBreakdownConverter extends SecurityDetailsConverte
                 security.Portfolios[0].GlobalStockSectorBreakdown,
                 id = security.Id,
                 isin = security.Isin,
-                colStrType = 'GlobalStockSectorBreakdown_Type' + (isCompare? `_${id}` : ''),
-                notClassifiedStr = 'GlobalStockSectorBreakdown_NotClassified' + (isCompare? `_${id}` : ''),
-                assetStr = 'GlobalStockSectorBreakdown_Assets' + (isCompare? `_${id}` : '');
+                colStrType = 'GlobalStockSectorBreakdown_Type' + (isCompare ? `_${id}` : ''),
+                notClassifiedStr = 'GlobalStockSectorBreakdown_NotClassified' + (isCompare ? `_${id}` : ''),
+                assetStr = 'GlobalStockSectorBreakdown_Assets' + (isCompare ? `_${id}` : '');
 
             ids.push(id);
             isins.push(isin);
@@ -128,7 +126,8 @@ export class GlobalStockSectorBreakdownConverter extends SecurityDetailsConverte
 
             for (let i = 0; i < GlobalStockSectorBreakdown.length; i++) {
                 const asset = GlobalStockSectorBreakdown[i],
-                    colStrAsset = `GlobalStockSectorBreakdown_${asset.SalePosition}` + (isCompare? `_${id}` : '');
+                    colStrAsset = `GlobalStockSectorBreakdown_${asset.SalePosition}` +
+                    (isCompare ? `_${id}` : '');
 
                 table.setColumn(colStrAsset);
 
@@ -157,8 +156,8 @@ export class GlobalStockSectorBreakdownConverter extends SecurityDetailsConverte
             (metadata as SecurityCompareMetadata).ids = ids;
             (metadata as SecurityCompareMetadata).isins = isins;
         } else {
-            metadata.id = ids[0];
-            metadata.isin = isins[0];
+            (metadata as SecurityDetailsMetadata).id = ids[0];
+            (metadata as SecurityDetailsMetadata).isin = isins[0];
         }
     }
 

@@ -67,7 +67,7 @@ export class RegionalExposureConverter extends SecurityDetailsConverter {
      * */
 
 
-    public readonly metadata: SecurityDetailsMetadata;
+    public readonly metadata: SecurityDetailsMetadata | SecurityCompareMetadata;
 
 
     /* *
@@ -105,9 +105,7 @@ export class RegionalExposureConverter extends SecurityDetailsConverter {
             return;
         }
 
-        if (json.length > 1) {
-            isCompare = true;
-        }
+        isCompare = SecurityDetailsJSON.isSecurityCompareResponse(json);
 
         // Add regional exposure to table
         for (const security of json) {
@@ -116,9 +114,9 @@ export class RegionalExposureConverter extends SecurityDetailsConverter {
             const id = security.Id,
                 isin = security.Isin,
                 regionalExposure = security.Portfolios[0].RegionalExposure,
-                colStrType = 'RegionalExposure_Type' + (isCompare? `_${id}` : ''),
-                notClassifiedStr = 'RegionalExposure_NotClassified' + (isCompare? `_${id}` : ''),
-                assetStr = 'RegionalExposure_Assets' + (isCompare? `_${id}` : '');
+                colStrType = 'RegionalExposure_Type' + (isCompare ? `_${id}` : ''),
+                notClassifiedStr = 'RegionalExposure_NotClassified' + (isCompare ? `_${id}` : ''),
+                assetStr = 'RegionalExposure_Assets' + (isCompare ? `_${id}` : '');
 
             ids.push(id);
             isins.push(isin);
@@ -130,7 +128,7 @@ export class RegionalExposureConverter extends SecurityDetailsConverter {
             for (let i = 0; i < regionalExposure.length; i++) {
                 const asset = regionalExposure[i];
                 const colStrAsset =
-                    `RegionalExposure_${asset.SalePosition}` + (isCompare? `_${id}` : '');
+                    `RegionalExposure_${asset.SalePosition}` + (isCompare ? `_${id}` : '');
                 table.setColumn(colStrAsset);
 
                 // Populate NotClassified for all assets.
@@ -158,8 +156,8 @@ export class RegionalExposureConverter extends SecurityDetailsConverter {
             (metadata as SecurityCompareMetadata).ids = ids;
             (metadata as SecurityCompareMetadata).isins = isins;
         } else {
-            metadata.id = ids[0];
-            metadata.isin = isins[0];
+            (metadata as SecurityDetailsMetadata).id = ids[0];
+            (metadata as SecurityDetailsMetadata).isin = isins[0];
         }
     }
 }
