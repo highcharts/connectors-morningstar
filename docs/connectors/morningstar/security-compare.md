@@ -62,7 +62,7 @@ const connector = new HighchartsConnectors.Morningstar.SecurityCompareConnector(
         ids: ['F0GBR050DD', 'F00000Q5PZ'],
         idType: 'MSID'
     },
-    viewIds: 'test',
+    viewIds: 'HSsnapshot',
     converter: {
         type: 'MarketCap'
     }

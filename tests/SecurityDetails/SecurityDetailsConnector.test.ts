@@ -159,7 +159,7 @@ export async function marketCapLoad (
         converter: {
             type: 'MarketCap'
         },
-        viewId: 'test'
+        viewId: 'HSsnapshot'
     });
 
     await connector.load();

@@ -48,7 +48,7 @@ const securityDetailsConnector = new HighchartsConnectors.Morningstar.SecurityDe
 
 ### viewId
 For some converters (Currently MarketCap), it is important to explicitly
-set the `viewId` property to `'test'` in order to access the relevant data.
+set the `viewId` property to `'HSsnapshot'` in order to access the relevant data.
 
 ```js
 const securityDetailsConnector = new HighchartsConnectors.Morningstar.SecurityDetailsConnector({
@@ -59,7 +59,7 @@ const securityDetailsConnector = new HighchartsConnectors.Morningstar.SecurityDe
         id: 'F0GBR050DD',
         idType: 'MSID'
     },
-    viewId: 'test',
+    viewId: 'HSsnapshot',
     converter: {
         type: 'MarketCap'
     }
