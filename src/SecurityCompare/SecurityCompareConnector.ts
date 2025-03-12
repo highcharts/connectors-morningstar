@@ -29,7 +29,8 @@ import {
     AssetAllocationsConverter,
     CountryExposureConverter,
     RegionalExposureConverter,
-    GlobalStockSectorBreakdownConverter
+    GlobalStockSectorBreakdownConverter,
+    MarketCapConverter
 } from '../SecurityDetails/Converters';
 import {
     SecurityCompareOptions,
@@ -89,6 +90,11 @@ export class SecurityCompareConnector extends MorningstarConnector {
                 break;
             case 'GlobalStockSectorBreakdown':
                 this.converter = new GlobalStockSectorBreakdownConverter({
+                    ...options.converter
+                });
+                break;
+            case 'MarketCap':
+                this.converter = new MarketCapConverter({
                     ...options.converter
                 });
                 break;

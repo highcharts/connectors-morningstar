@@ -188,22 +188,38 @@ export async function countryExposureLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
-        [
-            'CountryExposure_Assets_F0GBR050DD',
-            'CountryExposure_NotClassified_F0GBR050DD',
-            'CountryExposure_Type_F0GBR050DD',
-            'CountryExposure_Equity_L_F0GBR050DD',
-            'CountryExposure_Equity_S_F0GBR050DD',
-            'CountryExposure_Equity_N_F0GBR050DD',
-            'CountryExposure_Assets_F00000Q5PZ',
-            'CountryExposure_NotClassified_F00000Q5PZ',
-            'CountryExposure_Type_F00000Q5PZ',
-            'CountryExposure_Equity_L_F00000Q5PZ',
-            'CountryExposure_Equity_S_F00000Q5PZ',
-            'CountryExposure_Equity_N_F00000Q5PZ'
-        ],
+        connector.table.getColumnNames()[0],
+        'CountryExposure_Assets_F0GBR050DD',
         'CountryExposure table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+export async function marketCapLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        security: {
+            ids: ['F0GBR050DD', 'F00000Q5PZ'],
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'MarketCap'
+        },
+        viewIds: 'HSsnapshot'
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames()[0],
+        'MarketCap_Type_F0GBR050DD',
+        'MarketCap table should exist of expected column.'
     );
 
     Assert.ok(

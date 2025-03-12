@@ -100,6 +100,7 @@ export type SecurityDetailsConverterType  = (
    | 'RegionalExposure'
    | 'GlobalStockSectorBreakdown'
    | 'CountryExposure'
+   | 'MarketCap'
  );
 
 

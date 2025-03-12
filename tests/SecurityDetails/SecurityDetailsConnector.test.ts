@@ -146,3 +146,27 @@ export async function countryExposureLoad (
         'Country exposure table should exist of expected columns.'
     );
 }
+
+export async function marketCapLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'MarketCap'
+        },
+        viewId: 'HSsnapshot'
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames()[0],
+        'MarketCap_Type',
+        'MarketCap table should exist of expected column.'
+    );
+}
