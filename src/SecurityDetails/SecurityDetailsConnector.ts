@@ -28,7 +28,8 @@ import {
     TrailingPerformanceConverter,
     RegionalExposureConverter,
     GlobalStockSectorBreakdownConverter,
-    CountryExposureConverter
+    CountryExposureConverter,
+    MetaConverter
 } from './Converters';
 import SecurityDetailsOptions, {
     SecurityDetailsMetadata
@@ -88,6 +89,11 @@ export class SecurityDetailsConnector extends MorningstarConnector {
 
             case 'CountryExposure':
                 this.converter = new CountryExposureConverter({
+                    ...options.converter
+                });
+                break;
+            case 'Meta':
+                this.converter = new MetaConverter({
                     ...options.converter
                 });
                 break;

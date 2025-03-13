@@ -27,6 +27,7 @@ You can specify the type of data to retrieve by using the `type` option in the c
 - **RegionalExposure**
 - **GlobalStockSectorBreakdown**
 - **CountryExposure**
+- **Meta**
 
 Example usage:
 

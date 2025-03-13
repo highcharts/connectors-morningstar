@@ -146,3 +146,26 @@ export async function countryExposureLoad (
         'Country exposure table should exist of expected columns.'
     );
 }
+
+export async function MetaLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'Meta'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames()[0],
+        'Meta',
+        'Country exposure table should exist of expected columns.'
+    );
+}

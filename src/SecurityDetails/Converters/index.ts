@@ -19,6 +19,7 @@ import AssetAllocationsConverter from './AssetAllocationsConverter';
 import RegionalExposureConverter from './RegionalExposureConverter';
 import GlobalStockSectorBreakdownConverter from './GlobalStockSectorBreakdownConverter';
 import CountryExposureConverter from './CountryExposureConverter';
+import MetaConverter from './MetaConverter';
 
 
 /* *
@@ -42,6 +43,7 @@ export * from './AssetAllocationsConverter';
 export * from './RegionalExposureConverter';
 export * from './GlobalStockSectorBreakdownConverter';
 export * from './CountryExposureConverter';
+export * from './MetaConverter';
 
 /* *
  *
@@ -55,5 +57,6 @@ export default {
     AssetAllocationsConverter,
     RegionalExposureConverter,
     GlobalStockSectorBreakdownConverter,
-    CountryExposureConverter
+    CountryExposureConverter,
+    MetaConverter
 };
