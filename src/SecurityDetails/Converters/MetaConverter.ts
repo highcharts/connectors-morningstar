@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -96,7 +96,7 @@ export class MetaConverter extends SecurityDetailsConverter {
         table.deleteColumns();
         table.setColumn('Meta');
 
-        // Add asset allocations to table
+        // Add meta data to table
 
         if (json.length) {
             const securityDetails = json[0];

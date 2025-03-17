@@ -166,6 +166,12 @@ export async function MetaLoad (
     Assert.deepStrictEqual(
         connector.table.getColumnNames()[0],
         'Meta',
-        'Country exposure table should exist of expected columns.'
+        'Meta table should exist of expected columns.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.table.getRowCount(),
+        1,
+        'Meta table should have singe row for each column'
     );
 }

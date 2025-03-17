@@ -98,7 +98,7 @@ export class AssetAllocationsConverter extends SecurityDetailsConverter {
         table.deleteColumns();
         table.setColumn('AssetAllocations_Type');
 
-        // Add asset allocations to table
+        // Add meta data to table
 
         if (json.length) {
 
