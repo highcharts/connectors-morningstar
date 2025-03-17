@@ -172,6 +172,6 @@ export async function MetaLoad (
     Assert.deepStrictEqual(
         connector.table.getRowCount(),
         1,
-        'Meta table should have singe row for each column'
+        'Meta table should have single row for each column'
     );
 }
