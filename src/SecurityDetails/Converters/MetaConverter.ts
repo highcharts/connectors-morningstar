@@ -95,78 +95,46 @@ export class MetaConverter extends SecurityDetailsConverter {
 
         table.deleteColumns();
         table.setColumn('Meta');
-
-        // Add meta data to table
+        table.setColumn('Value');
 
         if (json.length) {
             const securityDetails = json[0];
 
-            table.setColumn('Meta_Id');
-            table.setCell('Meta_Id', 0, securityDetails.Id);
+            const rows = [
+                ['Meta_Id', securityDetails.Id],
+                ['Meta_InceptionDate', securityDetails.InceptionDate],
+                ['Meta_PerformanceInceptionDate', securityDetails.PerformanceInceptionDate],
+                ['Meta_Isin', securityDetails.Isin],
+                ['Meta_LegalName', securityDetails.LegalName],
+                ['Meta_Domicile', securityDetails.Domicile],
+                ['Meta_OngoingCharge', securityDetails.OngoingCharge],
+                ['Meta_CollectedSRRI_Date', securityDetails.CollectedSRRI?.Date],
+                ['Meta_CollectedSRRI_Rank', securityDetails.CollectedSRRI?.Rank],
+                ['Meta_Currency_Id', securityDetails.Currency?.Id],
+                ['Meta_LastPrice_Date', securityDetails.LastPrice?.Date],
+                ['Meta_LastPrice_Value', securityDetails.LastPrice?.Value],
+                ['Meta_InvestmentStrategy', securityDetails.InvestmentStrategy],
+                ['Meta_ProviderCompany_Name', securityDetails.ProviderCompany?.Name],
+                [
+                    'Meta_ProviderCompany_AddressLine1',
+                    securityDetails.ProviderCompany?.AddressLine1
+                ],
+                ['Meta_ProviderCompany_Phone', securityDetails.ProviderCompany?.Phone],
+                ['Meta_ProviderCompany_City', securityDetails.ProviderCompany?.City],
+                ['Meta_ProviderCompany_Country', securityDetails.ProviderCompany?.Country],
+                ['Meta_ProviderCompany_PostalCode', securityDetails.ProviderCompany?.PostalCode],
+                ['Meta_ProviderCompany_Homepage', securityDetails.ProviderCompany?.Homepage]
+            ];
 
-            table.setColumn('Meta_InceptionDate');
-            table.setCell('Meta_InceptionDate', 0, securityDetails.InceptionDate);
+            // Populate table
+            rows.forEach(([key, value], index) => {
+                if (value === undefined) return;
 
-            table.setColumn('Meta_PerformanceInceptionDate');
-            table.setCell(
-                'Meta_PerformanceInceptionDate',
-                0,
-                securityDetails.PerformanceInceptionDate
-            );
+                table.setCell('Meta', index, key);
+                table.setCell('Value', index, value);
+            });
 
-            table.setColumn('Meta_Isin');
-            table.setCell('Meta_Isin', 0, securityDetails.Isin);
-
-            table.setColumn('Meta_LegalName');
-            table.setCell('Meta_LegalName', 0, securityDetails.LegalName);
-
-            table.setColumn('Meta_Domicile');
-            table.setCell('Meta_Domicile', 0, securityDetails.Domicile);
-
-            table.setColumn('Meta_OngoingCharge');
-            table.setCell('Meta_OngoingCharge', 0, securityDetails.OngoingCharge);
-
-            table.setColumn('Meta_CollectedSRRI_Date');
-            table.setCell('Meta_CollectedSRRI', 0, securityDetails.CollectedSRRI.Date);
-
-            table.setColumn('Meta_CollectedSRRI_Rank');
-            table.setCell('Meta_CollectedSRRI', 0, securityDetails.CollectedSRRI.Rank);
-
-            table.setColumn('Meta_Currency_Id');
-            table.setCell('Meta_Currency_Id', 0, securityDetails.Currency.Id);
-
-            table.setColumn('Meta_LastPrice_Date');
-            table.setCell('Meta_LastPrice', 0, securityDetails.LastPrice.Date);
-
-            table.setColumn('Meta_LastPrice_Value');
-            table.setCell('Meta_LastPrice', 0, securityDetails.LastPrice.Value);
-
-            table.setColumn('Meta_InvestmentStrategy');
-            table.setCell('Meta_InvestmentStrategy', 0, securityDetails.InvestmentStrategy);
-
-            table.setColumn('Meta_ProviderCompany_Name');
-            table.setCell('Meta_ProviderCompany', 0, securityDetails.ProviderCompany.Name);
-
-            table.setColumn('Meta_ProviderCompany_AddressLine1');
-            table.setCell('Meta_ProviderCompany', 0, securityDetails.ProviderCompany.AddressLine1);
-
-            table.setColumn('Meta_ProviderCompany_Phone');
-            table.setCell('Meta_ProviderCompany', 0, securityDetails.ProviderCompany.Phone);
-
-            table.setColumn('Meta_ProviderCompany_City');
-            table.setCell('Meta_ProviderCompany', 0, securityDetails.ProviderCompany.City);
-
-            table.setColumn('Meta_ProviderCompany_Country');
-            table.setCell('Meta_ProviderCompany', 0, securityDetails.ProviderCompany.Country);
-
-            table.setColumn('Meta_ProviderCompany_PostalCode');
-            table.setCell('Meta_ProviderCompany', 0, securityDetails.ProviderCompany.PostalCode);
-
-            table.setColumn('Meta_ProviderCompany_Homepage');
-            table.setCell('Meta_ProviderCompany', 0, securityDetails.ProviderCompany.Homepage);
-
-            // Update meta data
-
+            // Update metadata
             metadata.id = securityDetails.Id;
             metadata.isin = securityDetails.Isin;
         }
