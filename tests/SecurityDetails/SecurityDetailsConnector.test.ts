@@ -164,14 +164,19 @@ export async function MetaLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames()[0],
-        'Meta',
-        'Meta table should exist of expected columns.'
+        connector.table.getColumnNames(),
+        ['Meta', 'Value'],
+        'Meta table should have Meta and Value columns.'
     );
 
     Assert.deepStrictEqual(
-        connector.table.getRowCount(),
-        1,
-        'Meta table should have single row for each column'
+        connector.table.getColumnNames().length,
+        2,
+        'Meta table should have two columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 1,
+        'Meta table should have multi row structure.'
     );
 }
