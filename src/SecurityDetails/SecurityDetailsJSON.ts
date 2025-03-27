@@ -118,17 +118,20 @@ namespace SecurityDetailsJSON {
         );
     }
 
+
     export function isSecurityDetailsResponse (
         json?: unknown
     ): json is Array<SecurityDetailsResponse> {
         return (
-            !!json &&
             Array.isArray(json) &&
-            (
-                json.length === 0 ||
-                isSecurityDetails(json[0])
-            )
+            json.every(isSecurityDetails)
         );
+    }
+
+    export function isSecurityCompareResponse (
+        json: Array<SecurityDetailsResponse>
+    ): boolean { 
+        return json.length > 1;
     }
 
 

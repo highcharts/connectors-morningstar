@@ -26,6 +26,7 @@
 
 import {
     SecurityDetailsConverterOptions,
+    SecurityCompareMetadata,
     SecurityDetailsMetadata
 } from '../SecurityDetailsOptions';
 import SecurityDetailsJSON from '../SecurityDetailsJSON';
@@ -66,7 +67,7 @@ export class AssetAllocationsConverter extends SecurityDetailsConverter {
      * */
 
 
-    public readonly metadata: SecurityDetailsMetadata;
+    public readonly metadata: SecurityDetailsMetadata | SecurityCompareMetadata;
 
 
     /* *
@@ -79,13 +80,16 @@ export class AssetAllocationsConverter extends SecurityDetailsConverter {
     public override parse (
         options: SecurityDetailsConverterOptions
     ): void {
-        const metadata = this.metadata;
-        const table = this.table;
-        const userOptions = {
-            ...this.options,
-            ...options
-        };
-        const json = userOptions.json;
+        const metadata = this.metadata,
+            ids = [],
+            isins = [],
+            table = this.table,
+            userOptions = {
+                ...this.options,
+                ...options
+            },
+            json = userOptions.json;
+        let isCompare = false;
 
         // Validate JSON
 
@@ -96,48 +100,57 @@ export class AssetAllocationsConverter extends SecurityDetailsConverter {
         // Prepare table
 
         table.deleteColumns();
-        table.setColumn('AssetAllocations_Type');
 
-        // Add asset allocations to table
+        if (!json.length) {
+            return;
+        }
 
-        if (json.length) {
+        isCompare = SecurityDetailsJSON.isSecurityCompareResponse(json);
 
-            // Update table
+        // Create tables
+        for (const security of json) {
+            const id = security.Id,
+                isin = security.Isin,
+                assetAllocations = security.Portfolios[0].AssetAllocations,
+                assetAllocationsTypeStr =
+                'AssetAllocations_Type' + (isCompare ? `_${id}` : '');
 
-            const securityDetails = json[0];
-            const assetAllocations = securityDetails.Portfolios[0].AssetAllocations;
+            table.setColumn(assetAllocationsTypeStr);
 
-            table.setColumn('AssetAllocations_Type');
+            ids.push(id);
+            isins.push(isin);
 
             for (let i = 0; i < assetAllocations.length; i++) {
-                const asset = assetAllocations[i];
-
-                table.setColumn(`AssetAllocations_${asset.Type}_${asset.SalePosition}`);
+                const asset = assetAllocations[i],
+                    assetAllocationsAssetStr =
+                    `AssetAllocations_${asset.Type}_${asset.SalePosition}` +
+                    (isCompare ? `_${id}` : '');
+                table.setColumn(assetAllocationsAssetStr);
 
                 for (let j = 0; j < asset.BreakdownValues.length; j++) {
                     table.setCell(
-                        `AssetAllocations_${asset.Type}_${asset.SalePosition}`,
+                        assetAllocationsAssetStr,
                         j,
                         asset.BreakdownValues[j].Value
                     );
 
                     table.setCell(
-                        'AssetAllocations_Type',
+                        assetAllocationsTypeStr,
                         j,
                         asset.BreakdownValues[j].Type
                     );
                 }
             }
-
-            // Update meta data
-
-            metadata.id = securityDetails.Id;
-            metadata.isin = securityDetails.Isin;
         }
 
+        if (isCompare){
+            (metadata as SecurityCompareMetadata).ids = ids;
+            (metadata as SecurityCompareMetadata).isins = isins;
+        } else {
+            (metadata as SecurityDetailsMetadata).id = ids[0];
+            (metadata as SecurityDetailsMetadata).isin = isins[0];
+        }
     }
-
-
 }
 
 
