@@ -146,3 +146,49 @@ export async function countryExposureLoad (
         'Country exposure table should exist of expected columns.'
     );
 }
+
+export async function portfolioHoldingsLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'PortfolioHoldings'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'PortfolioHoldings_Id',
+            'PortfolioHoldings_ExternalId',
+            'PortfolioHoldings_DetailHoldingTypeId',
+            'PortfolioHoldings_ExternalName',
+            'PortfolioHoldings_PerformanceId',
+            'PortfolioHoldings_ISIN',
+            'PortfolioHoldings_CurrencyId',
+            'PortfolioHoldings_CountryId',
+            'PortfolioHoldings_SecurityName',
+            'PortfolioHoldings_Weighting',
+            'PortfolioHoldings_IndustryId',
+            'PortfolioHoldings_MarketValue',
+            'PortfolioHoldings_GlobalSectorId',
+            'PortfolioHoldings_NumberOfShare',
+            'PortfolioHoldings_LocalCurrencyCode',
+            'PortfolioHoldings_GICSIndustryId',
+            'PortfolioHoldings_ShareChange'
+        ],
+        'Portfolio holdings table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
