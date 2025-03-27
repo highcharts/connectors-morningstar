@@ -101,29 +101,26 @@ export class MetaConverter extends SecurityDetailsConverter {
             const securityDetails = json[0];
 
             const rows = [
-                ['Meta_Id', securityDetails.Id],
-                ['Meta_InceptionDate', securityDetails.InceptionDate],
-                ['Meta_PerformanceInceptionDate', securityDetails.PerformanceInceptionDate],
-                ['Meta_Isin', securityDetails.Isin],
-                ['Meta_LegalName', securityDetails.LegalName],
-                ['Meta_Domicile', securityDetails.Domicile],
-                ['Meta_OngoingCharge', securityDetails.OngoingCharge],
-                ['Meta_CollectedSRRI_Date', securityDetails.CollectedSRRI?.Date],
-                ['Meta_CollectedSRRI_Rank', securityDetails.CollectedSRRI?.Rank],
-                ['Meta_Currency_Id', securityDetails.Currency?.Id],
-                ['Meta_LastPrice_Date', securityDetails.LastPrice?.Date],
-                ['Meta_LastPrice_Value', securityDetails.LastPrice?.Value],
-                ['Meta_InvestmentStrategy', securityDetails.InvestmentStrategy],
-                ['Meta_ProviderCompany_Name', securityDetails.ProviderCompany?.Name],
-                [
-                    'Meta_ProviderCompany_AddressLine1',
-                    securityDetails.ProviderCompany?.AddressLine1
-                ],
-                ['Meta_ProviderCompany_Phone', securityDetails.ProviderCompany?.Phone],
-                ['Meta_ProviderCompany_City', securityDetails.ProviderCompany?.City],
-                ['Meta_ProviderCompany_Country', securityDetails.ProviderCompany?.Country],
-                ['Meta_ProviderCompany_PostalCode', securityDetails.ProviderCompany?.PostalCode],
-                ['Meta_ProviderCompany_Homepage', securityDetails.ProviderCompany?.Homepage]
+                ['Id', securityDetails.Id],
+                ['InceptionDate', securityDetails.InceptionDate],
+                ['PerformanceInceptionDate', securityDetails.PerformanceInceptionDate],
+                ['Isin', securityDetails.Isin],
+                ['LegalName', securityDetails.LegalName],
+                ['Domicile', securityDetails.Domicile],
+                ['OngoingCharge', securityDetails.OngoingCharge],
+                ['CollectedSRRI_Date', securityDetails.CollectedSRRI?.Date],
+                ['CollectedSRRI_Rank', securityDetails.CollectedSRRI?.Rank],
+                ['Currency_Id', securityDetails.Currency?.Id],
+                ['LastPrice_Date', securityDetails.LastPrice?.Date],
+                ['LastPrice_Value', securityDetails.LastPrice?.Value],
+                ['InvestmentStrategy', securityDetails.InvestmentStrategy],
+                ['ProviderCompany_Name', securityDetails.ProviderCompany?.Name],
+                ['ProviderCompany_AddressLine1', securityDetails.ProviderCompany?.AddressLine1],
+                ['ProviderCompany_Phone', securityDetails.ProviderCompany?.Phone],
+                ['ProviderCompany_City', securityDetails.ProviderCompany?.City],
+                ['ProviderCompany_Country', securityDetails.ProviderCompany?.Country],
+                ['ProviderCompany_PostalCode', securityDetails.ProviderCompany?.PostalCode],
+                ['ProviderCompany_Homepage', securityDetails.ProviderCompany?.Homepage]
             ];
 
             // Populate table
