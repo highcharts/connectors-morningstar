@@ -49,11 +49,16 @@ export interface SecurityDetailsConverterOptions extends MorningstarConverterOpt
      * @default 'TrailingPerformance'
      */
     type?: SecurityDetailsConverterType
+    hasMultiple?: boolean
 
 }
 
 
-interface Metadata extends MorningstarMetadata {
+export interface SecurityDetailsMetadata extends MorningstarMetadata {
+    id?: string;
+    isin?: string;
+    ids?: string[];
+    isins?: string[];
     domicile?: string;
     currency?: string;
     returnType?: string;
@@ -63,33 +68,22 @@ interface Metadata extends MorningstarMetadata {
 }
 
 
-export interface SecurityDetailsMetadata extends Metadata {
-    id?: string;
-    isin?: string;
-}
-
-
-export interface SecurityCompareMetadata extends Metadata {
-    ids?: string[];
-    isins?: string[];
-}
-
-
 export interface SecurityDetailsOptions extends MorningstarOptions {
+    /**
+     * Security to retrieve.
+     */
     security?: MorningstarSecurityOptions,
+    /**
+     * Unique identifier of a view.
+     * Set of fields representing a data set or scenario.
+     * Defines the data points to return in the response.
+     *
+     * @default 'MFsnapshot'
+     */
     viewId?: string,
-    converter?: SecurityDetailsConverterOptions
-}
-
-
-interface SecurityCompareSecurity extends Omit<MorningstarSecurityOptions, 'id'> {
-    ids: Array<string>
-}
-
-
-export interface SecurityCompareOptions extends MorningstarOptions {
-    security: SecurityCompareSecurity,
-    viewIds?: string,
+    /**
+     * Converter options.
+     */
     converter?: SecurityDetailsConverterOptions
 }
 

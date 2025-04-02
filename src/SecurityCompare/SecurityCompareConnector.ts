@@ -23,21 +23,16 @@
 
 
 import External from '../Shared/External';
-import { SecurityDetailsConverter } from '../SecurityDetails';
 import {
-    TrailingPerformanceConverter,
-    AssetAllocationsConverter,
-    CountryExposureConverter,
-    RegionalExposureConverter,
-    GlobalStockSectorBreakdownConverter
-} from '../SecurityDetails/Converters';
-import {
-    SecurityCompareOptions,
-    SecurityCompareMetadata
-} from '../SecurityDetails/SecurityDetailsOptions';
+    SecurityDetailsConverter,
+    initConverter
+} from '../Shared/SharedSecurityDetails';
+import { SecurityDetailsMetadata } from '../SecurityDetails/SecurityDetailsOptions';
+import { SecurityCompareOptions } from '../SecurityCompare/SecurityCompareOptions';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
+import SecurityDetailsJSON from '../SecurityDetails/SecurityDetailsJSON';
 import { 
     UTF_PIPE
 } from '../Shared/Utilities';
@@ -59,43 +54,16 @@ export class SecurityCompareConnector extends MorningstarConnector {
      *
      * */
 
-
     public constructor (
         options: SecurityCompareOptions
     ) {
         super(options);
 
-        switch (options.converter?.type) {
-            case 'TrailingPerformance':
-            default:
-                this.converter = new TrailingPerformanceConverter({
-                    ...options.converter
-                });
-                break;
-            case 'AssetAllocations':
-                this.converter = new AssetAllocationsConverter({
-                    ...options.converter
-                });
-                break;
-            case 'CountryExposure':
-                this.converter = new CountryExposureConverter({
-                    ...options.converter
-                });
-                break;
-            case 'RegionalExposure':
-                this.converter = new RegionalExposureConverter({
-                    ...options.converter
-                });
-                break;
-            case 'GlobalStockSectorBreakdown':
-                this.converter = new GlobalStockSectorBreakdownConverter({
-                    ...options.converter
-                });
-                break;
-        }
+        this.converter = initConverter(options.converter, true);
 
         this.metadata = this.converter.metadata;
         this.options = options;
+
     }
 
 
@@ -109,7 +77,7 @@ export class SecurityCompareConnector extends MorningstarConnector {
     public override readonly converter: SecurityDetailsConverter;
 
 
-    public override readonly metadata: SecurityCompareMetadata;
+    public override readonly metadata: SecurityDetailsMetadata;
 
 
     public override readonly options: SecurityCompareOptions;
@@ -142,9 +110,18 @@ export class SecurityCompareConnector extends MorningstarConnector {
 
         const response = await api.fetch(url);
         const json = await response.json() as unknown;
-        this.converter.parse({ json });
+        if (!SecurityDetailsJSON.isSecurityDetailsResponse(json)) {
+            throw new Error('Invalid data');
+        }
 
         this.table.deleteColumns();
+
+        for (const security of json) {
+            this.converter.parse({ json: security, hasMultiple: true });
+        }
+
+        this.table.deleteColumns();
+
         this.table.setColumns(this.converter.getTable().getColumns());
 
         return this;

@@ -18,9 +18,8 @@ export async function securityCompareLoad (
     );
 
     Assert.ok(
-        connector.converter instanceof
-        MC.SecurityDetailsConverter,
-        'Converter should be instance of SecurityDetailsConverter.'
+        connector.converter instanceof MC.TrailingPerformanceConverter,
+        'Converter should be instance of TrailingPerformanceConverter.'
     );
 
     await connector.load();
@@ -193,6 +192,9 @@ export async function countryExposureLoad (
             'CountryExposure_Assets_F0GBR050DD',
             'CountryExposure_NotClassified_F0GBR050DD',
             'CountryExposure_Type_F0GBR050DD',
+            'CountryExposure_Bond_L_F0GBR050DD',
+            'CountryExposure_Bond_S_F0GBR050DD',
+            'CountryExposure_Bond_N_F0GBR050DD',
             'CountryExposure_Equity_L_F0GBR050DD',
             'CountryExposure_Equity_S_F0GBR050DD',
             'CountryExposure_Equity_N_F0GBR050DD',

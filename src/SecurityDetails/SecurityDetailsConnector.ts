@@ -23,20 +23,18 @@
 
 
 import External from '../Shared/External';
-import {
-    AssetAllocationsConverter,
-    TrailingPerformanceConverter,
-    RegionalExposureConverter,
-    GlobalStockSectorBreakdownConverter,
-    CountryExposureConverter
-} from './Converters';
 import SecurityDetailsOptions, {
     SecurityDetailsMetadata
 } from './SecurityDetailsOptions';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
-import SecurityDetailsConverter from './SecurityDetailsConverter';
+import SecurityDetailsJSON from './SecurityDetailsJSON';
+import {
+    initConverter,
+    SecurityDetailsConverter
+} from '../Shared/SharedSecurityDetails';
+
 
 /* *
  *
@@ -47,51 +45,18 @@ import SecurityDetailsConverter from './SecurityDetailsConverter';
 
 export class SecurityDetailsConnector extends MorningstarConnector {
 
-
     /* *
      *
      *  Constructor
      *
      * */
 
-
     public constructor (
-        options: SecurityDetailsOptions = {}
+        options: SecurityDetailsOptions
     ) {
         super(options);
 
-        switch (options.converter?.type) {
-            case 'TrailingPerformance':
-            default:
-                this.converter = new TrailingPerformanceConverter({
-                    ...options.converter
-                });
-                break;
-
-            case 'AssetAllocations':
-                this.converter = new AssetAllocationsConverter({
-                    ...options.converter
-                });
-                break;
-
-            case 'RegionalExposure':
-                this.converter = new RegionalExposureConverter({
-                    ...options.converter
-                });
-                break;
-
-            case 'GlobalStockSectorBreakdown':
-                this.converter = new GlobalStockSectorBreakdownConverter({
-                    ...options.converter
-                });
-                break;
-
-            case 'CountryExposure':
-                this.converter = new CountryExposureConverter({
-                    ...options.converter
-                });
-                break;
-        }
+        this.converter = initConverter(options.converter);
 
         this.metadata = this.converter.metadata;
         this.options = options;
@@ -140,16 +105,17 @@ export class SecurityDetailsConnector extends MorningstarConnector {
 
         const response = await api.fetch(url);
         const json = await response.json() as unknown;
+        if (!SecurityDetailsJSON.isSecurityDetailsResponse(json)) {
+            throw new Error('Invalid data');
+        }
 
-        this.converter.parse({ json });
+        this.converter.parse({ json: json[0] });
 
         this.table.deleteColumns();
         this.table.setColumns(this.converter.getTable().getColumns());
 
         return this;
     }
-
-
 }
 
 
