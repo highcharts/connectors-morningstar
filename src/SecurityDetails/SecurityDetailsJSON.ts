@@ -42,10 +42,18 @@ namespace SecurityDetailsJSON {
         Domicile: string;
         Currency: CurrencyType;
         TrailingPerformance: SecurityDetailsTrailingPerformance[];
-        Portfolios:PortfoliosType[]
+        Portfolios: PortfoliosType[];
         Type: string;
         CurrencyId: string;
         Date: string;
+        InceptionDate: string;
+        PerformanceInceptionDate: string;
+        LegalName: string;
+        OngoingCharge: string;
+        CollectedSRRI: CollectedSRRIType;
+        LastPrice: LastPriceType;
+        InvestmentStrategy: string;
+        ProviderCompany: ProviderCompanyType;
     }
 
     export type PortfoliosType = {
@@ -95,6 +103,26 @@ namespace SecurityDetailsJSON {
         Value: number;
         TimePeriod: string;
         Annualized?: boolean;
+    }
+    export interface CollectedSRRIType {
+        Date: string;
+        Rank: number;
+    }
+
+    export interface LastPriceType {
+        Date: string;
+        Value: number;
+        Currency: CurrencyType;
+    }
+
+    export interface ProviderCompanyType {
+        Name: string;
+        AddressLine1: string;
+        Phone: string;
+        City: string;
+        Country: string;
+        PostalCode: string;
+        Homepage: string;
     }
 
     /* *
