@@ -18,9 +18,8 @@ export async function securityDetailsLoad (
     );
 
     Assert.ok(
-        connector.converter instanceof
-        MC.SecurityDetailsConverter,
-        'Converter should be instance of SecurityDetailsConverter.'
+        connector.converter instanceof MC.TrailingPerformanceConverter,
+        'Converter should be instance of TrailingPerformanceConverter.'
     );
 
     await connector.load();
@@ -28,8 +27,8 @@ export async function securityDetailsLoad (
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
         [
-            'SecurityDetails_TrailingPerformance_TimePeriod',
-            'SecurityDetails_TrailingPerformance_Value'
+            'TrailingPerformance_TimePeriod',
+            'TrailingPerformance_Value'
         ],
         'Connector table should exist of expected columns.'
     );
@@ -141,8 +140,18 @@ export async function countryExposureLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames()[0],
-        'CountryExposure_Type',
+        connector.table.getColumnNames(),
+        [
+            'CountryExposure_Assets',
+            'CountryExposure_NotClassified',
+            'CountryExposure_Type',
+            'CountryExposure_Bond_L',
+            'CountryExposure_Bond_S',
+            'CountryExposure_Bond_N',
+            'CountryExposure_Equity_L',
+            'CountryExposure_Equity_S',
+            'CountryExposure_Equity_N'
+        ],
         'Country exposure table should exist of expected columns.'
     );
 }
