@@ -8,7 +8,8 @@ Use the `SecurityDetailsConnector` to load security details.
 
 In dashboards, this connector is called `MorningstarSecurityDetails`.
 
-Specify the securities in the options along with a Postman environment file for authentication and other parameters such as and `currency`.
+Specify the securities in the options along with your credentials or a session token
+for authentication.
 
 ### Securities
 

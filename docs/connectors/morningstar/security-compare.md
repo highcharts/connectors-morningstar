@@ -6,7 +6,8 @@ This type retrieves investment data for multiple securities, making it ideal for
 
 Use the `SecurityCompareConnector` to load the connector.
 
-Specify the securities in the options along with a Postman environment file for authentication and other parameters such as `currency`.
+Specify the security in the options along with your credentials or a session token
+for authentication.
 
 ### Securities
 
