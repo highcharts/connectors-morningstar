@@ -10,16 +10,28 @@ function displayInvestmentScreener (postmanJSON) {
         'initialPurchase',
         'maxFrontEndLoad',
         'analystRatingScale',
-        'average12MonthCarbonRiskScore',
         'investmentType',
-        'holdingTypeId',
-        'universe'
+        'holdingTypeId'
     ];
+
+    const headerFormats = {
+        'secId': 'Security Id',
+        'tenforeId': 'Tenfore Id',
+        'name': 'Name',
+        'closePrice': 'Close Price',
+        'ongoingCharge': 'Annual Report Ongoing Charge',
+        'initialPurchase': 'Initial Purchase',
+        'maxFrontEndLoad': 'Maximum Front-End Load',
+        'analystRatingScale': 'Analyst Rating Scale',
+        'investmentType': 'Investment Type',
+        'holdingTypeId': 'Holding Type Id'
+    };
+
 
     const columns = secIds.map(id => ({
         id: `InvestmentScreener_${id}`,
         header: {
-            format: id
+            format: headerFormats[id] || id
         }
     }));
 
@@ -50,7 +62,6 @@ function displayInvestmentScreener (postmanJSON) {
                     id: 'investment-screener'
                 },
                 type: 'DataGrid',
-
                 dataGridOptions: {
                     editable: false,
                     columns

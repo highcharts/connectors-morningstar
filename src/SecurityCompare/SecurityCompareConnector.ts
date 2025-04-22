@@ -1,13 +1,13 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Sophie Bremer
+ *  - Askel Eirik Johansson
  *
  * */
 
@@ -23,17 +23,19 @@
 
 
 import External from '../Shared/External';
-import SecurityDetailsOptions, {
-    SecurityDetailsMetadata
-} from './SecurityDetailsOptions';
+import {
+    SecurityDetailsConverter,
+    initConverter
+} from '../Shared/SharedSecurityDetails';
+import { SecurityDetailsMetadata } from '../SecurityDetails/SecurityDetailsOptions';
+import { SecurityCompareOptions } from '../SecurityCompare/SecurityCompareOptions';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
-import SecurityDetailsJSON from './SecurityDetailsJSON';
-import {
-    initConverter,
-    SecurityDetailsConverter
-} from '../Shared/SharedSecurityDetails';
+import SecurityDetailsJSON from '../SecurityDetails/SecurityDetailsJSON';
+import { 
+    UTF_PIPE
+} from '../Shared/Utilities';
 
 
 /* *
@@ -43,7 +45,8 @@ import {
  * */
 
 
-export class SecurityDetailsConnector extends MorningstarConnector {
+export class SecurityCompareConnector extends MorningstarConnector {
+
 
     /* *
      *
@@ -52,15 +55,17 @@ export class SecurityDetailsConnector extends MorningstarConnector {
      * */
 
     public constructor (
-        options: SecurityDetailsOptions
+        options: SecurityCompareOptions
     ) {
         super(options);
 
-        this.converter = initConverter(options.converter);
+        this.converter = initConverter(options.converter, true);
 
         this.metadata = this.converter.metadata;
         this.options = options;
+
     }
+
 
     /* *
      *
@@ -75,7 +80,7 @@ export class SecurityDetailsConnector extends MorningstarConnector {
     public override readonly metadata: SecurityDetailsMetadata;
 
 
-    public override readonly options: SecurityDetailsOptions;
+    public override readonly options: SecurityCompareOptions;
 
 
     /* *
@@ -86,22 +91,22 @@ export class SecurityDetailsConnector extends MorningstarConnector {
 
 
     public override async load (
-        options?: SecurityDetailsOptions
+        options?: SecurityCompareOptions
     ): Promise<this> {
 
         await super.load();
 
         const userOptions = { ...this.options, ...options };
-        const { security, viewId = 'MFsnapshot' } = userOptions;
-        const { id: securityId, idType: securityIdType } = (security || {});
+        const { security, viewIds = 'MFsnapshot' } = userOptions;
+        const { ids: securityIds, idType: securityIdType } = (security || {});
         const api = this.api = this.api || new MorningstarAPI(userOptions.api);
-        const url = new MorningstarURL(`ecint/v1/securities/${securityId}`, api.baseURL);
+        const url = new MorningstarURL('ecint/v1/multi-securities/', api.baseURL);
 
         const searchParams = url.searchParams;
-
+        searchParams.set('ids', '' + securityIds.join(UTF_PIPE));
         searchParams.set('idType', '' + securityIdType);
         searchParams.set('responseViewFormat', 'json');
-        searchParams.set('viewid', viewId);
+        searchParams.set('viewIds', viewIds);
 
         const response = await api.fetch(url);
         const json = await response.json() as unknown;
@@ -109,9 +114,14 @@ export class SecurityDetailsConnector extends MorningstarConnector {
             throw new Error('Invalid data');
         }
 
-        this.converter.parse({ json: json[0] });
+        this.table.deleteColumns();
+
+        for (const security of json) {
+            this.converter.parse({ json: security, hasMultiple: true });
+        }
 
         this.table.deleteColumns();
+
         this.table.setColumns(this.converter.getTable().getColumns());
 
         return this;
@@ -128,12 +138,12 @@ export class SecurityDetailsConnector extends MorningstarConnector {
 
 declare module '@highcharts/dashboards/es-modules/Data/Connectors/DataConnectorType' {
     interface DataConnectorTypes {
-        MorningstarSecurityDetails: typeof SecurityDetailsConnector;
+        MorningstarSecurityCompare: typeof SecurityCompareConnector;
     }
 }
 
 
-External.DataConnector.registerType('MorningstarSecurityDetails', SecurityDetailsConnector);
+External.DataConnector.registerType('MorningstarSecurityCompare', SecurityCompareConnector);
 
 
 /* *
@@ -143,4 +153,4 @@ External.DataConnector.registerType('MorningstarSecurityDetails', SecurityDetail
  * */
 
 
-export default SecurityDetailsConnector;
+export default SecurityCompareConnector;
