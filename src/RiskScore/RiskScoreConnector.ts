@@ -252,7 +252,7 @@ export class RiskScoreConnector extends MorningstarConnector {
                     holding => convertMorningstarHoldingOptionsToMorningstarHoldingRequest(holding)
                 )
             });
-            
+
             if (portfolio.currency === undefined) {
                 portfolio.currency = 'BAS';
             }
@@ -281,7 +281,7 @@ export class RiskScoreConnector extends MorningstarConnector {
         this.table.deleteColumns();
         this.table.setColumns(this.converter.getTable().getColumns());
 
-        return this;
+        return this.setModifierOptions(options.dataModifier);
     }
 
 

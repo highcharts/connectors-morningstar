@@ -124,7 +124,7 @@ export class SecurityCompareConnector extends MorningstarConnector {
 
         this.table.setColumns(this.converter.getTable().getColumns());
 
-        return this;
+        return this.setModifierOptions(userOptions.dataModifier);
     }
 }
 
