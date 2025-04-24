@@ -45,9 +45,7 @@ export async function breakdownLoad (
             'XRay_TotalReturn_M3',
             'XRay_TotalReturn_M3_Value',
             'XRay_TotalReturn_M12',
-            'XRay_TotalReturn_M12_Value',
-            'XRay_TotalReturn_TimePeriod',
-            'XRay_TotalReturn_Value'
+            'XRay_TotalReturn_M12_Value'
         ],
         'Connector table should exist of expected columns.'
     );
