@@ -97,9 +97,6 @@ export class PortfolioHoldingsConverter extends MorningstarConverter {
             isin = security.Isin,
             portfolioHoldings = security.Portfolios[0].PortfolioHoldings;
 
-        // Prepare table
-        table.deleteColumns();
-
         // Populate table
         let rowIndex = 0;
 
