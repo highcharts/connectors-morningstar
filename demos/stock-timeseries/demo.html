@@ -9,11 +9,14 @@
             body {
                 font-family: sans-serif;
             }
+            #postman-message {
+                display: none;
+            }
         </style>
     </head>
     <body>
         <h1>Highcharts Stock + Morningstar TimeSeries</h1>
-        <p>
+        <p id="postman-message">
             Add your Postman environment file from Morningstar to start the demo:
             <input type="file" id="postman-json" accept=".json,application/json" />
         </p>
