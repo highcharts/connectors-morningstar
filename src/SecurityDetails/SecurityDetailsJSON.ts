@@ -53,6 +53,7 @@ namespace SecurityDetailsJSON {
         RegionalExposure: RegionalExposureType[]
         GlobalStockSectorBreakdown: GlobalStockSectorBreakdownType[]
         CountryExposure: CountryExposureType[]
+        PortfolioHoldings: PortfolioHoldingsType[]
     };
 
     export type AssetAllocationType = {
@@ -62,8 +63,8 @@ namespace SecurityDetailsJSON {
     };
 
     export type BreakDownValues = {
-        Value: number;
-        Type: string;
+        Value: number
+        Type: string
     };
 
     export type RegionalExposureType = {
@@ -83,6 +84,26 @@ namespace SecurityDetailsJSON {
         SalePosition: string
         NotClassified: number
         Type: string
+    };
+
+    export type PortfolioHoldingsType = {
+        [key: string]: string | number
+        Id: string
+        ExternalId: string
+        DetailHoldingTypeId: string
+        ExternalName: string
+        PerformanceId: string
+        ISIN: string
+        CurrencyId: string
+        CountryId: string
+        SecurityName: string
+        Weighting: number
+        IndustryId: number
+        MarketValue: number
+        GlobalSectorId: string
+        NumberOfShare: number
+        LocalCurrencyCode: string
+        GICSIndustryId: string
     };
 
     interface SecurityDetailsTrailingPerformance {
