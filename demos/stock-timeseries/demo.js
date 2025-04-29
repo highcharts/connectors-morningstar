@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const parsedPostman = JSON.parse(localStorage.getItem('postmanEnvironment')),
         postmanMessage = document.getElementById('postman-message');
 
@@ -28,7 +28,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         }
     } catch (error) {
         // eslint-disable-next-line no-console
-        console.log('Incorrect postman environment file');
+        console.error('Incorrect postman environment file: ', error);
         localStorage.removeItem('postmanEnvironment');
         postmanMessage.style.display = 'block';
     }
