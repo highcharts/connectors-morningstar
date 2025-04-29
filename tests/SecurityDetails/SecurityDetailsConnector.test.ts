@@ -9,8 +9,15 @@ export async function securityDetailsLoad (
         security: {
             id: 'F0GBR050DD',
             idType: 'MSID'
+        },
+        dataModifier: {
+            type: 'Invert'
         }
-    });
+    }),
+    columnNames = [
+        'TrailingPerformance_TimePeriod',
+        'TrailingPerformance_Value'
+    ];
 
     Assert.ok(
         connector instanceof MC.SecurityDetailsConnector,
@@ -26,10 +33,7 @@ export async function securityDetailsLoad (
 
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
-        [
-            'TrailingPerformance_TimePeriod',
-            'TrailingPerformance_Value'
-        ],
+        columnNames,
         'Connector table should exist of expected columns.'
     );
 
@@ -37,6 +41,18 @@ export async function securityDetailsLoad (
         connector.table.getRowCount(),
         10,
         'Connector table should have ten expected RNANews rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.table.modified.getColumn('columnNames'),
+        columnNames,
+        'Connector inverted table should exist of expected columns.'
+    );
+
+    Assert.strictEqual(
+        columnNames.length,
+        connector.table.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
     Assert.deepStrictEqual(

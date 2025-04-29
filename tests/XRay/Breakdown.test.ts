@@ -66,6 +66,9 @@ export async function portfolioBreakdown (
     const connector = new MC.XRayConnector({
         api,
         currencyId: 'GBP',
+        dataModifier: {
+            type: 'Invert'
+        },
         dataPoints: {
             type: 'portfolio',
             dataPoints: [
@@ -84,25 +87,37 @@ export async function portfolioBreakdown (
                 holdingType: 'weight'
             }
         ]
-    });
-
+    }),
+    columnNames = [
+        'XRay_RegionalExposure_N_Categories',
+        'XRay_RegionalExposure_N_Values',
+        'XRay_GlobalStockSector_N_Categories',
+        'XRay_GlobalStockSector_N_Values',
+        'XRay_StyleBox_N_Categories',
+        'XRay_StyleBox_N_Values'
+    ];
     await connector.load();
 
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
-        [
-            'XRay_RegionalExposure_N_Categories',
-            'XRay_RegionalExposure_N_Values',
-            'XRay_GlobalStockSector_N_Categories',
-            'XRay_GlobalStockSector_N_Values',
-            'XRay_StyleBox_N_Categories',
-            'XRay_StyleBox_N_Values'
-        ],
+        columnNames,
         'Connector columns should return expected names.'
     );
 
     Assert.ok(
         connector.table.getRowCount() > 0,
         'Connector should not return empty rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.table.modified.getColumn('columnNames'),
+        columnNames,
+        'Row names of inverted table should be the same as original column names.'
+    );
+
+    Assert.strictEqual(
+        columnNames.length,
+        connector.table.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
     );
 }

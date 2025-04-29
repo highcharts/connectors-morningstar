@@ -24,7 +24,10 @@ export async function investmentScreenerLoad (
         pageSize: 20,
         currencyId: 'USD',
         securityDataPoints: secIds,
-        universeIds: ['FOALL$$ALL']
+        universeIds: ['FOALL$$ALL'],
+        dataModifier: {
+            type: 'Invert'
+        }
     });
 
     Assert.ok(
@@ -49,6 +52,18 @@ export async function investmentScreenerLoad (
         connector.table.getRowCount(),
         15,
         'Connector table should have 15 rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.table.modified.getColumn('columnNames'),
+        connector.table.getColumnNames(),
+        'Connector inverted table should exist of expected columns.'
+    );
+
+    Assert.strictEqual(
+        connector.table.getColumnNames().length,
+        connector.table.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
     );
 }
 
