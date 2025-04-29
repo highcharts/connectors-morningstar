@@ -57,10 +57,10 @@ export type DataTable = _DataTable;
  * */
 
 
-const Dashboards: typeof _Dashboards = globalThis.Dashboards;
+const Dashboards: typeof _Dashboards = globalThis.window.Dashboards;
 
 
-const DataGrid: typeof _DataGrid = globalThis.DataGrid;
+const DataGrid: typeof _DataGrid = globalThis.window.DataGrid;
 
 
 export const DataConnector = (
