@@ -11,7 +11,7 @@ for authentication.
 
 ### Views
 
-To access the desired data, configure the `viewId` option according to your account setup. For more details, see [Getting View IDs].
+To access the desired data, configure the `viewIds` option according to your account setup. For more details, see [Getting View IDs].
 
 ### Securities
 
