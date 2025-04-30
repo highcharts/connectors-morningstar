@@ -23,7 +23,8 @@ import {
     TrailingPerformanceConverter,
     RegionalExposureConverter,
     GlobalStockSectorBreakdownConverter,
-    CountryExposureConverter
+    CountryExposureConverter,
+    MarketCapConverter
 } from './Converters';
 import { 
     SecurityDetailsConverterOptions,
@@ -82,6 +83,12 @@ export function initConverter (
 
         case 'CountryExposure':
             return new CountryExposureConverter({
+                ...converter,
+                hasMultiple
+            });
+
+        case 'MarketCap':
+            return new MarketCapConverter({
                 ...converter,
                 hasMultiple
             });
