@@ -113,6 +113,7 @@ export class MetaConverter extends SecurityDetailsConverter {
                 ['Currency_Id', securityDetails.Currency?.Id],
                 ['LastPrice_Date', securityDetails.LastPrice?.Date],
                 ['LastPrice_Value', securityDetails.LastPrice?.Value],
+                ['LastPrice_Currency_Id', securityDetails.LastPrice?.Currency?.Id],
                 ['InvestmentStrategy', securityDetails.InvestmentStrategy],
                 ['ProviderCompany_Name', securityDetails.ProviderCompany?.Name],
                 ['ProviderCompany_AddressLine1', securityDetails.ProviderCompany?.AddressLine1],
@@ -120,7 +121,20 @@ export class MetaConverter extends SecurityDetailsConverter {
                 ['ProviderCompany_City', securityDetails.ProviderCompany?.City],
                 ['ProviderCompany_Country', securityDetails.ProviderCompany?.Country],
                 ['ProviderCompany_PostalCode', securityDetails.ProviderCompany?.PostalCode],
-                ['ProviderCompany_Homepage', securityDetails.ProviderCompany?.Homepage]
+                ['ProviderCompany_Homepage', securityDetails.ProviderCompany?.Homepage],
+                ['CategoryBroadAssetClass_Id', securityDetails.CategoryBroadAssetClass?.Id],
+                ['CategoryBroadAssetClass_Name', securityDetails.CategoryBroadAssetClass?.Name],
+                ['ActualManagementFee', securityDetails.ActualManagementFee],
+                ['FundAttributes_DerivativeBased', securityDetails.FundAttributes?.DerivativeBased],
+                ['FundAttributes_HedgeFund', securityDetails.FundAttributes?.HedgeFund],
+                ['FundAttributes_MasterFeeder', securityDetails.FundAttributes?.MasterFeeder],
+                ['FundAttributes_PhysicalFull', securityDetails.FundAttributes?.PhysicalFull],
+                ['FundAttributes_PhysicalSample', securityDetails.FundAttributes?.PhysicalSample],
+                [
+                    'FundAttributes_SyntheticReplication',
+                    securityDetails.FundAttributes?.SyntheticReplication
+                ],
+                ['FundAttributes_UCITS', securityDetails.FundAttributes?.UCITS]
             ];
 
             // Populate table

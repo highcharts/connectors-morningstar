@@ -54,6 +54,9 @@ namespace SecurityDetailsJSON {
         LastPrice: LastPriceType;
         InvestmentStrategy: string;
         ProviderCompany: ProviderCompanyType;
+        CategoryBroadAssetClass: CategoryBroadAssetClassType;
+        ActualManagementFee: number;
+        FundAttributes?: FundAttributesType;
     }
 
     export type PortfoliosType = {
@@ -123,6 +126,21 @@ namespace SecurityDetailsJSON {
         Country: string;
         PostalCode: string;
         Homepage: string;
+    }
+
+    export interface CategoryBroadAssetClassType {
+        Id: string;
+        Name: string;
+    }
+
+    export interface FundAttributesType {
+        DerivativeBased?: boolean;
+        HedgeFund?: boolean;
+        MasterFeeder?: boolean;
+        PhysicalFull?: boolean;
+        PhysicalSample?: boolean;
+        SyntheticReplication?: boolean;
+        UCITS?: boolean;
     }
 
     /* *
