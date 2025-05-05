@@ -24,6 +24,7 @@ import {
     RegionalExposureConverter,
     GlobalStockSectorBreakdownConverter,
     CountryExposureConverter,
+    PortfolioHoldingsConverter,
     MarketCapConverter
 } from './Converters';
 import { 
@@ -83,6 +84,12 @@ export function initConverter (
 
         case 'CountryExposure':
             return new CountryExposureConverter({
+                ...converter,
+                hasMultiple
+            });
+
+        case 'PortfolioHoldings':
+            return new PortfolioHoldingsConverter({
                 ...converter,
                 hasMultiple
             });

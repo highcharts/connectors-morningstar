@@ -19,6 +19,7 @@ import AssetAllocationsConverter from './AssetAllocationsConverter';
 import RegionalExposureConverter from './RegionalExposureConverter';
 import GlobalStockSectorBreakdownConverter from './GlobalStockSectorBreakdownConverter';
 import CountryExposureConverter from './CountryExposureConverter';
+import PortfolioHoldingConverter from './PortfolioHoldingsConverter';
 import MarketCapConverter from './MarketCapConverter';
 
 
@@ -43,6 +44,7 @@ export * from './AssetAllocationsConverter';
 export * from './RegionalExposureConverter';
 export * from './GlobalStockSectorBreakdownConverter';
 export * from './CountryExposureConverter';
+export * from './PortfolioHoldingsConverter';
 export * from './MarketCapConverter';
 
 /* *
@@ -58,5 +60,6 @@ export default {
     RegionalExposureConverter,
     GlobalStockSectorBreakdownConverter,
     CountryExposureConverter,
+    PortfolioHoldingConverter,
     MarketCapConverter
 };

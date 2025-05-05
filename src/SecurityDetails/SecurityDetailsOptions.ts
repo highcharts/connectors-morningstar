@@ -94,6 +94,7 @@ export type SecurityDetailsConverterType  = (
    | 'RegionalExposure'
    | 'GlobalStockSectorBreakdown'
    | 'CountryExposure'
+   | 'PortfolioHoldings'
    | 'MarketCap'
 
  );
