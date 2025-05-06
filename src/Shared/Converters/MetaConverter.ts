@@ -136,12 +136,7 @@ export class MetaConverter extends MorningstarConverter {
         ];
 
         // Populate table
-        rows.forEach(([key, value], index) => {
-            if (value === undefined) return;
-
-            table.setCell('Meta', index, key);
-            table.setCell('Value', index, value);
-        });
+        table.setRows(rows);
 
         // Update metadata
         if (hasMultiple) {
