@@ -11,6 +11,10 @@ In dashboards, this connector is called `MorningstarSecurityDetails`.
 Specify the security in the options along with your credentials or a session token
 for authentication.
 
+### Views
+
+To access the desired data, configure the `viewId` option according to your account setup. For more details, see [Getting View IDs].
+
 ### Securities
 
 Securities are the investments whose details are retrieved. They can be specified using various ID types.
@@ -28,6 +32,8 @@ You can specify the type of data to retrieve by using the `type` option in the c
 - **RegionalExposure**
 - **GlobalStockSectorBreakdown**
 - **CountryExposure**
+- **PortfolioHoldings**
+- **MarketCap**
 - **Meta**
 
 The Meta converter extracts essential security details, including identification, pricing, risk metrics, and provider information, ensuring a structured overview of the security.
@@ -89,3 +95,5 @@ Highcharts.chart('container', {
 You will find examples of how to use SecurityDetailsConnector in our demos.
 
 [Morningstar’s Security Details API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/security-details/overview
+
+[Getting View IDs]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/security-details/investment-details#get-views

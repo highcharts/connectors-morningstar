@@ -9,6 +9,10 @@ Use the `SecurityCompareConnector` to load the connector.
 Specify the securities in the options along with your credentials or a session token
 for authentication.
 
+### Views
+
+To access the desired data, configure the `viewIds` option according to your account setup. For more details, see [Getting View IDs].
+
 ### Securities
 
 Securities are the investments whose details are retrieved. They can be specified using various ID types. Unlike in SecurityDetails, the IDs must be stored in an array.
@@ -31,6 +35,8 @@ You can specify the type of data to retrieve by using the `type` option in the c
 - **RegionalExposure**
 - **GlobalStockSectorBreakdown**
 - **CountryExposure**
+- **PortfolioHoldings**
+- **MarketCap**
 
 Example usage:
 
@@ -91,3 +97,5 @@ Highcharts.chart('container', {
 You will find examples of how to use SecurityCompareConnector in our demos.
 
 [Morningstar’s Investment Compare API]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/security-details/investment-compare
+
+[Getting View IDs]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/security-details/investment-details#get-views

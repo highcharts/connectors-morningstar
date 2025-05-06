@@ -1,4 +1,5 @@
 import * as Assert from 'node:assert/strict';
+import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar.src';
 
 export async function goalAnalysisConnector (
@@ -15,8 +16,16 @@ export async function goalAnalysisConnector (
         includeDetailedInvestmentGrowthGraph: true,
         requestProbability: 90,
         target: 9000,
-        timeHorizon: 5
-    });
+        timeHorizon: 5,
+        dataModifier: {
+            type: 'Invert'
+        }
+    }),
+    columnNames = [
+        'Goal_Probability', 'Goal_Amount', 'Goal_AssetClass_0',
+        'Goal_AssetClass_1', 'Goal_AssetClass_2', 'Goal_AssetClass_3',
+        'Goal_AssetClass_4', 'Goal_AssetClass_5'
+    ];
 
     Assert.ok(
         connector instanceof MC.GoalAnalysisConnector,
@@ -32,11 +41,7 @@ export async function goalAnalysisConnector (
 
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
-        [
-            'Goal_Probability', 'Goal_Amount', 'Goal_AssetClass_0',
-            'Goal_AssetClass_1', 'Goal_AssetClass_2', 'Goal_AssetClass_3',
-            'Goal_AssetClass_4', 'Goal_AssetClass_5'
-        ],
+        columnNames,
         'Connector table should exist of expected columns.'
     );
 
@@ -44,6 +49,18 @@ export async function goalAnalysisConnector (
         connector.table.getRowCount(),
         7,
         'Connector table should have the expected amount of rows.'
+    );
+
+     Assert.deepStrictEqual(
+        connector.table.modified.getColumn('columnNames'),
+        columnNames,
+        'Row names of inverted table should be the same as original column names.'
+    );
+
+    Assert.strictEqual(
+        columnNames.length,
+        connector.table.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
 }

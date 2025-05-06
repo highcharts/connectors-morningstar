@@ -191,7 +191,7 @@ export class RNANewsConnector extends MorningstarConnector {
         this.table.deleteColumns();
         this.table.setColumns(this.converter.getTable().getColumns());
 
-        return this;
+        return this.setModifierOptions(options.dataModifier);
     }
 
 

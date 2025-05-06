@@ -135,7 +135,7 @@ export class InvestmentScreenerConnector extends MorningstarConnector {
         this.table.deleteColumns();
         this.table.setColumns(this.converter.getTable().getColumns());
 
-        return this;
+        return this.setModifierOptions(userOptions.dataModifier);
     }
 
     private getFilter (filter: InvestmentScreenerFilter): string {

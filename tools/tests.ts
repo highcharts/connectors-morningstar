@@ -103,6 +103,7 @@ async function logError (
 function prepareGlobals () {
     const jsdom = new JSDOM.JSDOM();
     const window = jsdom.window;
+    const document = window.document
     const originalDispatchEvent = window.dispatchEvent;
 
     window.dispatchEvent = function (e: Event){
@@ -121,6 +122,7 @@ function prepareGlobals () {
     }
 
     globalThis.window = window as unknown as typeof globalThis.window;
+    globalThis.document = document as unknown as typeof globalThis.document;
 }
 
 

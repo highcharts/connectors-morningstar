@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -19,6 +19,8 @@ import AssetAllocationsConverter from './AssetAllocationsConverter';
 import RegionalExposureConverter from './RegionalExposureConverter';
 import GlobalStockSectorBreakdownConverter from './GlobalStockSectorBreakdownConverter';
 import CountryExposureConverter from './CountryExposureConverter';
+import PortfolioHoldingConverter from './PortfolioHoldingsConverter';
+import MarketCapConverter from './MarketCapConverter';
 import MetaConverter from './MetaConverter';
 
 
@@ -43,6 +45,8 @@ export * from './AssetAllocationsConverter';
 export * from './RegionalExposureConverter';
 export * from './GlobalStockSectorBreakdownConverter';
 export * from './CountryExposureConverter';
+export * from './PortfolioHoldingsConverter';
+export * from './MarketCapConverter';
 export * from './MetaConverter';
 
 /* *
@@ -58,5 +62,7 @@ export default {
     RegionalExposureConverter,
     GlobalStockSectorBreakdownConverter,
     CountryExposureConverter,
+    PortfolioHoldingConverter,
+    MarketCapConverter,
     MetaConverter
 };

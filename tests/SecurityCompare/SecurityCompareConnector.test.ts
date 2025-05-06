@@ -9,8 +9,17 @@ export async function securityCompareLoad (
         security: {
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
             idType: 'MSID'
+        },
+        dataModifier: {
+            type: 'Invert'
         }
-    });
+    }),
+    columnNames = [
+        'TrailingPerformance_TimePeriod_F0GBR050DD',
+        'TrailingPerformance_Value_F0GBR050DD',
+        'TrailingPerformance_TimePeriod_F00000Q5PZ',
+        'TrailingPerformance_Value_F00000Q5PZ'
+    ];
 
     Assert.ok(
         connector instanceof MC.SecurityCompareConnector,
@@ -26,12 +35,7 @@ export async function securityCompareLoad (
 
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
-        [
-            'TrailingPerformance_TimePeriod_F0GBR050DD',
-            'TrailingPerformance_Value_F0GBR050DD',
-            'TrailingPerformance_TimePeriod_F00000Q5PZ',
-            'TrailingPerformance_Value_F00000Q5PZ'
-        ],
+        columnNames,
         'Connector table should exist of expected columns.'
     );
 
@@ -39,6 +43,18 @@ export async function securityCompareLoad (
         connector.table.getRowCount(),
         10,
         'Connector table should have row count of 10.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.table.modified.getColumn('columnNames'),
+        columnNames,
+        'Connector inverted table should exist of expected columns.'
+    );
+
+    Assert.strictEqual(
+        columnNames.length,
+        connector.table.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
     Assert.deepStrictEqual(
@@ -206,6 +222,107 @@ export async function countryExposureLoad (
             'CountryExposure_Equity_N_F00000Q5PZ'
         ],
         'CountryExposure table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+export async function portfolioHoldings (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        security: {
+            ids: ['F0GBR050DD', 'F00000Q5PZ'],
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'PortfolioHoldings'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'PortfolioHoldings_Id_F0GBR050DD',
+            'PortfolioHoldings_ExternalId_F0GBR050DD',
+            'PortfolioHoldings_DetailHoldingTypeId_F0GBR050DD',
+            'PortfolioHoldings_ExternalName_F0GBR050DD',
+            'PortfolioHoldings_PerformanceId_F0GBR050DD',
+            'PortfolioHoldings_ISIN_F0GBR050DD',
+            'PortfolioHoldings_CurrencyId_F0GBR050DD',
+            'PortfolioHoldings_CountryId_F0GBR050DD',
+            'PortfolioHoldings_SecurityName_F0GBR050DD',
+            'PortfolioHoldings_Weighting_F0GBR050DD',
+            'PortfolioHoldings_IndustryId_F0GBR050DD',
+            'PortfolioHoldings_MarketValue_F0GBR050DD',
+            'PortfolioHoldings_GlobalSectorId_F0GBR050DD',
+            'PortfolioHoldings_NumberOfShare_F0GBR050DD',
+            'PortfolioHoldings_LocalCurrencyCode_F0GBR050DD',
+            'PortfolioHoldings_GICSIndustryId_F0GBR050DD',
+            'PortfolioHoldings_ShareChange_F0GBR050DD',
+            'PortfolioHoldings_Id_F00000Q5PZ',
+            'PortfolioHoldings_ExternalId_F00000Q5PZ',
+            'PortfolioHoldings_DetailHoldingTypeId_F00000Q5PZ',
+            'PortfolioHoldings_ExternalName_F00000Q5PZ',
+            'PortfolioHoldings_PerformanceId_F00000Q5PZ',
+            'PortfolioHoldings_ISIN_F00000Q5PZ',
+            'PortfolioHoldings_CurrencyId_F00000Q5PZ',
+            'PortfolioHoldings_CountryId_F00000Q5PZ',
+            'PortfolioHoldings_SecurityName_F00000Q5PZ',
+            'PortfolioHoldings_Weighting_F00000Q5PZ',
+            'PortfolioHoldings_IndustryId_F00000Q5PZ',
+            'PortfolioHoldings_MarketValue_F00000Q5PZ',
+            'PortfolioHoldings_GlobalSectorId_F00000Q5PZ',
+            'PortfolioHoldings_NumberOfShare_F00000Q5PZ',
+            'PortfolioHoldings_GICSIndustryId_F00000Q5PZ',
+            'PortfolioHoldings_ShareChange_F00000Q5PZ',
+            'PortfolioHoldings_CUSIP_F00000Q5PZ'
+        ],
+        'PortfolioHoldings table should exist of expected columns'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+export async function marketCapLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        converter: {
+            type: 'MarketCap'
+        },
+        viewIds: 'HSsnapshot',
+        security: {
+            ids: ['F0GBR050DD', 'F00000Q5PZ'],
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'MarketCap_Type_F0GBR050DD',
+            'MarketCap_Assets_F0GBR050DD',
+            'MarketCap_NotClassified_F0GBR050DD',
+            'MarketCap_N_F0GBR050DD',
+            'MarketCap_Type_F00000Q5PZ',
+            'MarketCap_Assets_F00000Q5PZ',
+            'MarketCap_NotClassified_F00000Q5PZ',
+            'MarketCap_N_F00000Q5PZ'
+        ],
+        'MarketCap table should exist of expected columns.'
     );
 
     Assert.ok(
