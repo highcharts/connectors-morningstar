@@ -201,3 +201,37 @@ export async function portfolioHoldingsLoad (
         'Connector should not return empty rows.'
     );
 }
+
+export async function marketCapLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        converter: {
+            type: 'MarketCap'
+        },
+        viewId: 'HSsnapshot',
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'MarketCap_Type',
+            'MarketCap_Assets',
+            'MarketCap_NotClassified',
+            'MarketCap_N'
+        ],
+        'MarketCap table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}

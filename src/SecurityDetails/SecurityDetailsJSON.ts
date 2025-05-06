@@ -54,6 +54,7 @@ namespace SecurityDetailsJSON {
         GlobalStockSectorBreakdown: GlobalStockSectorBreakdownType[]
         CountryExposure: CountryExposureType[]
         PortfolioHoldings: PortfolioHoldingsType[]
+        MarketCapitalBreakdown: MarketCapitalBreakdownType[]
     };
 
     export type AssetAllocationType = {
@@ -104,6 +105,12 @@ namespace SecurityDetailsJSON {
         NumberOfShare: number
         LocalCurrencyCode: string
         GICSIndustryId: string
+    };
+
+    export type MarketCapitalBreakdownType = {
+        BreakdownValues: BreakDownValues[]
+        SalePosition: string
+        NotClassified: number
     };
 
     interface SecurityDetailsTrailingPerformance {
