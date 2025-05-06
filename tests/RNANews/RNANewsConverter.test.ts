@@ -12,8 +12,12 @@ export async function rnaNewsLoad (
         idType: 'ISIN'
       },
       startDate: '2023-05-13',
-      endDate: '2023-05-23'
-    });
+      endDate: '2023-05-23',
+      dataModifier: {
+        type: 'Invert'
+      }
+    }),
+    columnNames = ['Day', 'Title', 'Source', 'Type'];
 
     Assert.ok(
         connector instanceof MC.RNANewsConnector,
@@ -30,7 +34,7 @@ export async function rnaNewsLoad (
 
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
-        ['Day', 'Title', 'Source', 'Type'],
+        columnNames,
         'Connector table should exist of expected columns.'
     );
 
@@ -38,6 +42,18 @@ export async function rnaNewsLoad (
         connector.table.getRowCount(),
         10,
         'Connector table should have ten expected RNANews rows.'
+    );
+
+    Assert.deepStrictEqual(
+      connector.table.modified.getColumn('columnNames'),
+      columnNames,
+      'Connector inverted table should exist of expected columns.'
+    );
+
+    Assert.strictEqual(
+        columnNames.length,
+        connector.table.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
 }

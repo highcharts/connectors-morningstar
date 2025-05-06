@@ -19,7 +19,10 @@ export async function priceLoad (
             priceType: 'PRICE'
         },
         startDate: '2020-01-16',
-        endDate: '2020-01-31'
+        endDate: '2020-01-31',
+        dataModifier: {
+            type: 'Invert'
+        }
     });
 
     Assert.ok(
@@ -45,6 +48,18 @@ export async function priceLoad (
         connector.table.getRowCount(),
         12,
         'Connector table should have 12 expected price rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.table.modified.getColumn('columnNames'),
+        ['Date', securityId],
+        'Connector inverted table should exist of expected columns.'
+    );
+
+    Assert.strictEqual(
+        connector.table.getColumnNames().length,
+        connector.table.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
 }

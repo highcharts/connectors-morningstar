@@ -9,8 +9,17 @@ export async function securityCompareLoad (
         security: {
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
             idType: 'MSID'
+        },
+        dataModifier: {
+            type: 'Invert'
         }
-    });
+    }),
+    columnNames = [
+        'TrailingPerformance_TimePeriod_F0GBR050DD',
+        'TrailingPerformance_Value_F0GBR050DD',
+        'TrailingPerformance_TimePeriod_F00000Q5PZ',
+        'TrailingPerformance_Value_F00000Q5PZ'
+    ];
 
     Assert.ok(
         connector instanceof MC.SecurityCompareConnector,
@@ -26,12 +35,7 @@ export async function securityCompareLoad (
 
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
-        [
-            'TrailingPerformance_TimePeriod_F0GBR050DD',
-            'TrailingPerformance_Value_F0GBR050DD',
-            'TrailingPerformance_TimePeriod_F00000Q5PZ',
-            'TrailingPerformance_Value_F00000Q5PZ'
-        ],
+        columnNames,
         'Connector table should exist of expected columns.'
     );
 
@@ -39,6 +43,18 @@ export async function securityCompareLoad (
         connector.table.getRowCount(),
         10,
         'Connector table should have row count of 10.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.table.modified.getColumn('columnNames'),
+        columnNames,
+        'Connector inverted table should exist of expected columns.'
+    );
+
+    Assert.strictEqual(
+        columnNames.length,
+        connector.table.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
     Assert.deepStrictEqual(
