@@ -35,4 +35,7 @@ Release
 Unit-Tests
 ----------
 
+You need to add an `.env` file in the repository root, that defines
+`MORNINGSTAR_PASSWORD` and `MORNINGSTAR_USERNAME`.
+
 Run `nxp ts-node tools/tests` to run only unit-tests.

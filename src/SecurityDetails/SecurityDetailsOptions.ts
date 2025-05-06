@@ -50,6 +50,7 @@ export interface SecurityDetailsConverterOptions extends MorningstarConverterOpt
      * @default 'TrailingPerformance'
      */
     type?: SecurityDetailsConverterType
+    hasMultiple?: boolean
 
 }
 
@@ -57,6 +58,8 @@ export interface SecurityDetailsConverterOptions extends MorningstarConverterOpt
 export interface SecurityDetailsMetadata extends MorningstarMetadata {
     id?: string;
     isin?: string;
+    ids?: string[];
+    isins?: string[];
     domicile?: string;
     currency?: string;
     returnType?: string;
@@ -67,10 +70,24 @@ export interface SecurityDetailsMetadata extends MorningstarMetadata {
 
 
 export interface SecurityDetailsOptions extends MorningstarOptions {
+    /**
+     * Security to retrieve.
+     */
     security?: MorningstarSecurityOptions,
+    /**
+     * Unique identifier of a view.
+     * Set of fields representing a data set or scenario.
+     * Defines the data points to return in the response.
+     *
+     * @default 'MFsnapshot'
+     */
     viewId?: string,
+    /**
+     * Converter options.
+     */
     converter?: SecurityDetailsConverterOptions
 }
+
 
 export type SecurityDetailsConverterType  = (
    | 'TrailingPerformance'

@@ -8,7 +8,8 @@ Use the `SecurityDetailsConnector` to load security details.
 
 In dashboards, this connector is called `MorningstarSecurityDetails`.
 
-Specify the securities in the options along with a Postman environment file for authentication and other parameters such as and `currency`.
+Specify the security in the options along with your credentials or a session token
+for authentication.
 
 ### Securities
 
@@ -73,8 +74,8 @@ Highcharts.chart('container', {
         type: 'column',
         name: 'F0GBR050DD',
         data: connector.table.getRowObjects().map(obj => [
-            obj.SecurityDetails_TrailingPerformance_TimePeriod,
-            obj.SecurityDetails_TrailingPerformance_Value
+            obj.TrailingPerformance_TimePeriod,
+            obj.TrailingPerformance_Value
         ])
     }],
     xAxis: {
