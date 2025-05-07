@@ -21,6 +21,7 @@ import GlobalStockSectorBreakdownConverter from './GlobalStockSectorBreakdownCon
 import CountryExposureConverter from './CountryExposureConverter';
 import PortfolioHoldingConverter from './PortfolioHoldingsConverter';
 import MarketCapConverter from './MarketCapConverter';
+import MetaConverter from './MetaConverter';
 
 
 /* *
@@ -46,6 +47,7 @@ export * from './GlobalStockSectorBreakdownConverter';
 export * from './CountryExposureConverter';
 export * from './PortfolioHoldingsConverter';
 export * from './MarketCapConverter';
+export * from './MetaConverter';
 
 /* *
  *
@@ -61,5 +63,6 @@ export default {
     GlobalStockSectorBreakdownConverter,
     CountryExposureConverter,
     PortfolioHoldingConverter,
-    MarketCapConverter
+    MarketCapConverter,
+    MetaConverter
 };

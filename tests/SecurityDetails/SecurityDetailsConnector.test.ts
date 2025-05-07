@@ -251,3 +251,37 @@ export async function marketCapLoad (
         'Connector should not return empty rows.'
     );
 }
+
+export async function MetaLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'Meta'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        ['Meta', 'Value'],
+        'Meta table should have Meta and Value columns.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames().length,
+        2,
+        'Meta table should have two columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 1,
+        'Meta table should have multi row structure.'
+    );
+}
