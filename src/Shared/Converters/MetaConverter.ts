@@ -91,12 +91,11 @@ export class MetaConverter extends MorningstarConverter {
         // Prepare table
         const id = securityDetails.Id;
         const isin = securityDetails.Isin;
-        const metaTypeStr =
-            'Meta' + (hasMultiple ? `_${id}` : '');
+        const metaTypeStr = 'Meta' + (hasMultiple ? `_${id}` : '');
+        const valueTypeStr = 'Value' + (hasMultiple ? `_${id}` : '');
 
-        table.deleteColumns();
         table.setColumn(metaTypeStr);
-        table.setColumn('Value');
+        table.setColumn(valueTypeStr);
 
         const rows = [
             ['Id', securityDetails.Id],
