@@ -222,8 +222,8 @@ export class XRayConverter extends MorningstarConverter {
         const table = this.table;
 
         for (const historicalPerformance of json) {
-            const periodRowId = `${benchmarkId}_${historicalPerformance.returnType}_TimePeriod`;
-            const valueRowId = `${benchmarkId}_${historicalPerformance.returnType}_Value`;
+            const periodRowId = `${benchmarkId}_${historicalPerformance.returnType}_${historicalPerformance.timePeriod}`;
+            const valueRowId = `${benchmarkId}_${historicalPerformance.returnType}_${historicalPerformance.timePeriod}_Value`;
 
             let rowIndex = 0;
 
