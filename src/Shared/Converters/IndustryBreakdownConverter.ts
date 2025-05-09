@@ -37,7 +37,7 @@ import { getBreakdown } from '../SharedSecurityDetails';
  * */
 
 
-export class MarketCapConverter extends MorningstarConverter {
+export class IndustryBreakdownConverter extends MorningstarConverter {
 
 
     /* *
@@ -92,13 +92,13 @@ export class MarketCapConverter extends MorningstarConverter {
         // Update table
         const id = security.Id,
             isin = security.Isin,
-            marketCap = security.Portfolios[0].MarketCapitalBreakdown;
+            industryBreakdown = security.Portfolios[0].IndustryBreakdown;
 
         getBreakdown(
             id,
-            marketCap,
+            industryBreakdown,
             table,
-            'MarketCap',
+            'IndustryBreakdown',
             !!hasMultiple
         );
 
@@ -121,5 +121,5 @@ export class MarketCapConverter extends MorningstarConverter {
  * */
 
 
-export default MarketCapConverter;
+export default IndustryBreakdownConverter;
 

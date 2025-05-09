@@ -251,3 +251,111 @@ export async function marketCapLoad (
         'Connector should not return empty rows.'
     );
 }
+
+export async function industryBDCLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        converter: {
+            type: 'IndustryBreakdown'
+        },
+        viewId: 'HSsnapshot',
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'IndustryBreakdown_Type',
+            'IndustryBreakdown_Assets',
+            'IndustryBreakdown_NotClassified',
+            'IndustryBreakdown_N'
+        ],
+        'IndustryBD table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+export async function industryGroupBDCLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        converter: {
+            type: 'IndustryGroupBreakdown'
+        },
+        viewId: 'HSsnapshot',
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'IndustryGroupBreakdown_Type',
+            'IndustryGroupBreakdown_Assets',
+            'IndustryGroupBreakdown_NotClassified',
+            'IndustryGroupBreakdown_N'
+        ],
+        'IndustryGroupBD table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+export async function bondStatisticsLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        converter: {
+            type: 'BondStatistics'
+        },
+        viewId: 'HSsnapshot',
+        security: {
+            id: 'F000015O71',
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'StyleBox',
+            'EffectiveDuration',
+            'AverageCoupon',
+            'AverageCreditQuality',
+            'AverageCreditQualityCode',
+            'AveragePrice',
+            'YieldToMaturity',
+            'ModifiedDuration',
+            'EffectiveMaturity',
+            'CurrentYield'
+        ],
+        'BondStatistics table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}

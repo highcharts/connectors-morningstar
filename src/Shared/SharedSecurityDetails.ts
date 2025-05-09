@@ -25,13 +25,18 @@ import {
     GlobalStockSectorBreakdownConverter,
     CountryExposureConverter,
     PortfolioHoldingsConverter,
-    MarketCapConverter
+    MarketCapConverter,
+    IndustryBreakdownConverter,
+    IndustryGroupBreakdownConverter,
+    BondStatisticsConverter
 } from './Converters';
 import { 
     SecurityDetailsConverterOptions,
     SecurityDetailsMetadata
 } from '../SecurityDetails/SecurityDetailsOptions';
 import MorningstarConverter from './MorningstarConverter';
+import SecurityDetailsJSON from '../SecurityDetails/SecurityDetailsJSON';
+import * as External from './External';
 
 
 /* *
@@ -99,5 +104,66 @@ export function initConverter (
                 ...converter,
                 hasMultiple
             });
+
+        case 'IndustryBreakdown':
+            return new IndustryBreakdownConverter({
+                ...converter,
+                hasMultiple
+            });
+
+        case 'IndustryGroupBreakdown':
+            return new IndustryGroupBreakdownConverter({
+                ...converter,
+                hasMultiple
+            });
+
+        case 'BondStatistics':
+            return new BondStatisticsConverter({
+                ...converter,
+                hasMultiple
+            });
     }
 }
+
+
+export const getBreakdown = (
+    id: string,
+    breakdown: SecurityDetailsJSON.GenericBreakdownType[],
+    table: External.DataTable,
+    colName: string,
+    hasMultiple: boolean 
+) => {
+
+    const colStrType = `${colName}_Type` + (hasMultiple ? `_${id}` : ''),
+        notClassifiedStr = `${colName}_NotClassified` + (hasMultiple ? `_${id}` : ''),
+        assetStr = `${colName}_Assets` + (hasMultiple ? `_${id}` : '');
+
+    table.setColumn(colStrType);
+    table.setColumn(assetStr);
+    table.setColumn(notClassifiedStr);
+
+    for (let i = 0; i < breakdown.length; i++) {
+        const asset = breakdown[i];
+        const colStrAsset =
+            `${colName}_${asset.SalePosition}` + (hasMultiple ? `_${id}` : '');
+        table.setColumn(colStrAsset);
+
+        // Populate NotClassified for all assets.
+        table.setCell(assetStr, i, asset.SalePosition);
+        table.setCell(notClassifiedStr, i, asset.NotClassified);
+
+        for (let j = 0; j < asset.BreakdownValues.length; j++) {
+            table.setCell(
+                colStrAsset,
+                j,
+                asset.BreakdownValues[j].Value
+            );
+
+            table.setCell(
+                colStrType,
+                j,
+                asset.BreakdownValues[j].Type
+            );
+        }
+    }
+};
