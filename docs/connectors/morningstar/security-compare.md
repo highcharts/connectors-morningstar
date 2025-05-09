@@ -37,6 +37,9 @@ You can specify the type of data to retrieve by using the `type` option in the c
 - **CountryExposure**
 - **PortfolioHoldings**
 - **MarketCap**
+- **IndustryBreakdown**
+- **IndustryGroupBreakdown**
+- **BondStatistics**
 
 Example usage:
 

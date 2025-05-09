@@ -28,7 +28,6 @@ import {
 } from '../../SecurityDetails/SecurityDetailsOptions';
 import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
-import { getBreakdown } from '../SharedSecurityDetails';
 
 /* *
  *
@@ -37,7 +36,7 @@ import { getBreakdown } from '../SharedSecurityDetails';
  * */
 
 
-export class MarketCapConverter extends MorningstarConverter {
+export class BondStatisticsConverter extends MorningstarConverter {
 
 
     /* *
@@ -92,15 +91,18 @@ export class MarketCapConverter extends MorningstarConverter {
         // Update table
         const id = security.Id,
             isin = security.Isin,
-            marketCap = security.Portfolios[0].MarketCapitalBreakdown;
+            bondStatistics = security.Portfolios[0].BondStatistics;
 
-        getBreakdown(
-            id,
-            marketCap,
-            table,
-            'MarketCap',
-            !!hasMultiple
-        );
+        if (!bondStatistics) {
+            return;
+        }
+
+        type BondStatisticsKey = keyof SecurityDetailsJSON.BondStatisticsType;
+        for (const key of Object.keys(bondStatistics) as BondStatisticsKey[]) {
+            const colName = key + (hasMultiple ? `_${id}` : '');
+            table.setColumn(colName);
+            table.setCell(colName, 0, bondStatistics[key]);
+        }
 
         // Update meta data
         if (hasMultiple){
@@ -121,5 +123,5 @@ export class MarketCapConverter extends MorningstarConverter {
  * */
 
 
-export default MarketCapConverter;
+export default BondStatisticsConverter;
 

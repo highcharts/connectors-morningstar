@@ -9,6 +9,7 @@
  *  Authors:
  *  - Sophie Bremer
  *  - Pawel Lysy
+ *  - Askel Eirik Johansson
  *
  * */
 
@@ -44,7 +45,9 @@ export interface SecurityDetailsConverterOptions extends MorningstarConverterOpt
     /**
      * Specifies the type of data to retrieve for the security details.
      * Available types: 'TrailingPerformance', 'AssetAllocations',
-     * 'RegionalExposure', 'GlobalStockSectorBreakdown', 'CountryExposure',
+     * 'RegionalExposure', 'GlobalStockSectorBreakdown',
+     * 'CountryExposure', 'MarketCap', 'IndustryBreakdown',
+     * 'IndustryGroupBreakdown, BondStatistics',
      * 'Meta'.
      *
      * @default 'TrailingPerformance'
@@ -97,6 +100,9 @@ export type SecurityDetailsConverterType  = (
    | 'CountryExposure'
    | 'PortfolioHoldings'
    | 'MarketCap'
+   | 'IndustryBreakdown'
+   | 'IndustryGroupBreakdown'
+   | 'BondStatistics'
    | 'Meta'
  );
 
