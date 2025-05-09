@@ -1,3 +1,7 @@
+import { getPostmanFile } from '../utils/postman-localstorage.js';
+
+getPostmanFile(displayRiskScore);
+
 const loadingLabel = document.getElementById('loading-label');
 
 function displayRiskScore (postmanJSON) {
@@ -200,44 +204,4 @@ function displayRiskScore (postmanJSON) {
         .then(() => {
             loadingLabel.style.display = 'none';
         });
-}
-
-async function handleSelectEnvironment (evt) {
-    const target = evt.target;
-    const postmanJSON = await getPostmanJSON(target);
-
-    if (!postmanJSON) {
-        loadingLabel.textContent = 'The provided file is not a Postman Environment Configuration.';
-        loadingLabel.style.display = 'block';
-
-        return;
-    }
-
-    target.parentNode.style.display = 'none';
-
-    loadingLabel.style.display = 'block';
-    loadingLabel.textContent = 'Loading data…';
-
-    displayRiskScore(postmanJSON);
-}
-
-document.getElementById('postman-json')
-    .addEventListener('change', handleSelectEnvironment);
-
-async function getPostmanJSON (htmlInputFile) {
-    let file;
-    let fileJSON;
-
-    for (file of htmlInputFile.files) {
-        try {
-            fileJSON = JSON.parse(await file.text());
-            if (HighchartsConnectors.Morningstar.Shared.isPostmanEnvironmentJSON(fileJSON)) {
-                break;
-            }
-        } catch (error) {
-            // fail silently
-        }
-    }
-
-    return fileJSON;
 }

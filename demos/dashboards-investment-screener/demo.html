@@ -11,11 +11,11 @@
     </head>
     <body>
         <h1>Highcharts Dashboards + Morningstar Investment Screener</h1>
-        <p>
+        <p id="postman-message">
             Add your Postman environment file from Morningstar to start the demo:
             <input type="file" id="postman-json" accept=".json,application/json" />
         </p>
-        <p id="loading-label" style="display: none;">Loading data…</p>
+        <p id="loading-label">Loading data…</p>
         <div class="filters-row">
             <button class="cell" id='filter-1'>Highly Rated</button>
             <button class="cell" id='filter-2'>Top Performer funds</button>
@@ -32,6 +32,6 @@
         <span id='total'>-</span>
         <span id='page'>-</span>
         <span id='total-pages'>-</span>
-        <script src="./demo.js"></script>
+        <script type="module" src="./demo.js"></script>
     </body>
 </html>

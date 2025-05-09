@@ -1,3 +1,9 @@
+import { getPostmanFile } from '../utils/postman-localstorage.js';
+
+getPostmanFile(displayAssetAllocations);
+
+const loadingLabel = document.getElementById('loading-label');
+
 async function displayAssetAllocations (postmanJSON) {
     const securityId = 'US4642898674';
 
@@ -42,34 +48,6 @@ async function displayAssetAllocations (postmanJSON) {
             data: chartData
         }]
     });
-}
 
-async function handleSelectEnvironment (evt) {
-    const target = evt.target;
-    const postmanJSON = await getPostmanJSON(target);
-
-    target.parentNode.style.display = 'none';
-
-    displayAssetAllocations(postmanJSON);
-}
-
-document.getElementById('postman-json')
-    .addEventListener('change', handleSelectEnvironment);
-
-async function getPostmanJSON (htmlInputFile) {
-    let file;
-    let fileJSON;
-
-    for (file of htmlInputFile.files) {
-        try {
-            fileJSON = JSON.parse(await file.text());
-            if (HighchartsConnectors.Morningstar.Shared.isPostmanEnvironmentJSON(fileJSON)) {
-                break;
-            }
-        } catch (error) {
-            // fail silently
-        }
-    }
-
-    return fileJSON;
+    loadingLabel.style.display = 'none';
 }

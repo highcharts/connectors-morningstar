@@ -11,11 +11,11 @@
     </head>
     <body>
         <h1>Highcharts Dashboards + Morningstar Investor Preferences Screener</h1>
-        <p>
+        <p id="postman-message">
             Add your Postman environment file from Morningstar to start the demo:
             <input type="file" id="postman-json" accept=".json,application/json" />
         </p>
-        <p id="loading-label" style="display: none;">Loading data…</p>
+        <p id="loading-label">Loading data…</p>
         <div class="filters-row">
             <div class="input-wrapper">
                 <label for="tax-alignment">EU Tax alignment</label>
@@ -91,6 +91,6 @@
             <span id='total-pages'>-</span>
             <button class="cell" id="next">Next page</button>
         </div>
-        <script src="./demo.js"></script>
+        <script type="module" src="./demo.js"></script>
     </body>
 </html>

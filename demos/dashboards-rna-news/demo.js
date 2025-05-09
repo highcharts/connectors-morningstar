@@ -1,3 +1,7 @@
+import { getPostmanFile } from '../utils/postman-localstorage.js';
+
+getPostmanFile(displayRNANews);
+
 const loadingLabel = document.getElementById('loading-label');
 
 function displayRNANews (postmanJSON) {
@@ -103,7 +107,7 @@ function displayRNANews (postmanJSON) {
             }
         ]
     });
-    
+
     board.dataPool
         .getConnectorTable('rna')
         .then(async table => {
@@ -117,7 +121,7 @@ function displayRNANews (postmanJSON) {
                     return previous;
                 }, 0)
             );
-    
+
             board.dataPool.setConnectorOptions({
                 id: 'rna-type-amount',
                 type: 'JSON',
@@ -131,7 +135,7 @@ function displayRNANews (postmanJSON) {
                     ]
                 }
             });
-    
+
             // Refresh the component after updating the table
             await board.getComponentByCellId('dashboard-col-1').initConnectors();
             await board.getComponentByCellId('dashboard-col-1').update({
@@ -147,44 +151,4 @@ function displayRNANews (postmanJSON) {
         .finally(() => {
             loadingLabel.style.display = 'none';
         });
-}
-
-async function handleSelectEnvironment (evt) {
-    const target = evt.target;
-    const postmanJSON = await getPostmanJSON(target);
-
-    if (!postmanJSON) {
-        loadingLabel.textContent = 'The provided file is not a Postman Environment Configuration.';
-        loadingLabel.style.display = 'block';
-
-        return;
-    }
-
-    target.parentNode.style.display = 'none';
-
-    loadingLabel.style.display = 'block';
-    loadingLabel.textContent = 'Loading data…';
-
-    displayRNANews(postmanJSON);
-}
-
-document.getElementById('postman-json')
-    .addEventListener('change', handleSelectEnvironment);
-
-async function getPostmanJSON (htmlInputFile) {
-    let file;
-    let fileJSON;
-
-    for (file of htmlInputFile.files) {
-        try {
-            fileJSON = JSON.parse(await file.text());
-            if (HighchartsConnectors.Morningstar.Shared.isPostmanEnvironmentJSON(fileJSON)) {
-                break;
-            }
-        } catch (error) {
-            // fail silently
-        }
-    }
-
-    return fileJSON;
 }
