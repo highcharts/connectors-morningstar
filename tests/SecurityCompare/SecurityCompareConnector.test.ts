@@ -456,3 +456,36 @@ export async function bondStatisticsLoad (
         'Connector should not return empty rows.'
     );
 }
+
+export async function MetaLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        converter: {
+            type: 'Meta'
+        },
+        security: {
+            ids: ['F0GBR050DD', 'F00000Q5PZ'],
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'Meta_F0GBR050DD',
+            'Value_F0GBR050DD',
+            'Meta_F00000Q5PZ',
+            'Value_F00000Q5PZ'
+        ],
+        'Meta table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}

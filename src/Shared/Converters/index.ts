@@ -24,6 +24,7 @@ import MarketCapConverter from './MarketCapConverter';
 import IndustryBreakdownConverter from './IndustryBreakdownConverter';
 import IndustryGroupBreakdownConverter from './IndustryGroupBreakdownConverter';
 import BondStatisticsConverter from './BondStatisticsConverter';
+import MetaConverter from './MetaConverter';
 
 
 /* *
@@ -53,6 +54,7 @@ export * from './IndustryBreakdownConverter';
 export * from './IndustryGroupBreakdownConverter';
 export * from './BondStatisticsConverter';
 
+export * from './MetaConverter';
 
 /* *
  *
@@ -71,5 +73,6 @@ export default {
     MarketCapConverter,
     IndustryBreakdownConverter,
     IndustryGroupBreakdownConverter,
-    BondStatisticsConverter
+    BondStatisticsConverter,
+    MetaConverter
 };

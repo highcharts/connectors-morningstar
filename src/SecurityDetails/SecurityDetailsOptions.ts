@@ -47,7 +47,8 @@ export interface SecurityDetailsConverterOptions extends MorningstarConverterOpt
      * Available types: 'TrailingPerformance', 'AssetAllocations',
      * 'RegionalExposure', 'GlobalStockSectorBreakdown',
      * 'CountryExposure', 'MarketCap', 'IndustryBreakdown',
-     * 'IndustryGroupBreakdown, BondStatistics'.
+     * 'IndustryGroupBreakdown, BondStatistics',
+     * 'Meta'.
      *
      * @default 'TrailingPerformance'
      */
@@ -102,7 +103,7 @@ export type SecurityDetailsConverterType  = (
    | 'IndustryBreakdown'
    | 'IndustryGroupBreakdown'
    | 'BondStatistics'
-
+   | 'Meta'
  );
 
 

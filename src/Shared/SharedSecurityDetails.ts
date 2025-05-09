@@ -28,7 +28,8 @@ import {
     MarketCapConverter,
     IndustryBreakdownConverter,
     IndustryGroupBreakdownConverter,
-    BondStatisticsConverter
+    BondStatisticsConverter,
+    MetaConverter
 } from './Converters';
 import { 
     SecurityDetailsConverterOptions,
@@ -122,6 +123,13 @@ export function initConverter (
                 ...converter,
                 hasMultiple
             });
+
+        case 'Meta':
+            return new MetaConverter({
+                ...converter,
+                hasMultiple
+            });
+
     }
 }
 
