@@ -53,7 +53,6 @@ export * from './MarketCapConverter';
 export * from './IndustryBreakdownConverter';
 export * from './IndustryGroupBreakdownConverter';
 export * from './BondStatisticsConverter';
-
 export * from './MetaConverter';
 
 /* *
