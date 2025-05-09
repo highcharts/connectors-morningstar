@@ -46,7 +46,8 @@ export interface SecurityDetailsConverterOptions extends MorningstarConverterOpt
      * Specifies the type of data to retrieve for the security details.
      * Available types: 'TrailingPerformance', 'AssetAllocations',
      * 'RegionalExposure', 'GlobalStockSectorBreakdown',
-     * 'CountryExposure', 'MarketCap', 'IndustryBreakdown'.
+     * 'CountryExposure', 'MarketCap', 'IndustryBreakdown',
+     * 'IndustryGroupBreakdown, BondStatistics'.
      *
      * @default 'TrailingPerformance'
      */
