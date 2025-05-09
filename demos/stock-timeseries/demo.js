@@ -2,6 +2,8 @@ import { getPostmanFile } from '../utils/postman-localstorage.js';
 
 getPostmanFile(initializeChart);
 
+const loadingLabel = document.getElementById('loading-label');
+
 async function initializeChart (postmanJSON) {
     const priceConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
         postman: {
@@ -37,4 +39,6 @@ async function initializeChart (postmanJSON) {
             }
         }]
     });
+
+    loadingLabel.style.display = 'none';
 }

@@ -1,3 +1,7 @@
+import { getPostmanFile } from '../utils/postman-localstorage.js';
+
+getPostmanFile(displayInvestorPreferences);
+
 const loadingLabel = document.getElementById('loading-label');
 
 function displayInvestorPreferences (postmanJSON) {
@@ -370,54 +374,4 @@ function displayInvestorPreferences (postmanJSON) {
         changePage();
     });
 
-}
-
-async function handleSelectEnvironment (evt) {
-    const target = evt.target;
-    const postmanJSON = await getPostmanJSON(target);
-    const filters = document.querySelectorAll(
-        '.input-wrapper input, .input-wrapper select, button#filter-1'
-    );
-
-    if (!postmanJSON) {
-        loadingLabel.textContent =
-            'The provided file is not a Postman Environment Configuration.';
-        loadingLabel.style.display = 'block';
-
-        return;
-    }
-
-    for (const filter of filters) {
-        filter.disabled = false;
-    }
-
-    target.parentNode.style.display = 'none';
-
-    loadingLabel.style.display = 'block';
-    loadingLabel.textContent = 'Loading data…';
-
-    displayInvestorPreferences(postmanJSON);
-}
-
-document
-    .getElementById('postman-json')
-    .addEventListener('change', handleSelectEnvironment);
-
-async function getPostmanJSON (htmlInputFile) {
-    let file;
-    let fileJSON;
-
-    for (file of htmlInputFile.files) {
-        try {
-            fileJSON = JSON.parse(await file.text());
-            if (HighchartsConnectors.Morningstar.Shared.isPostmanEnvironmentJSON(fileJSON)) {
-                break;
-            }
-        } catch (error) {
-            // eslint-disable-next-line no-console
-            console.warn(error);
-        }
-    }
-
-    return fileJSON;
 }

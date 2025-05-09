@@ -1,1 +1,13 @@
 @import url("https://code.highcharts.com/dashboards/css/dashboards.css");
+
+body {
+    font-family: sans-serif;
+}
+
+#postman-message {
+    display: none;
+}
+
+#loading-label {
+    display: none;
+}

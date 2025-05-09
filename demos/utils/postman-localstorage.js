@@ -19,12 +19,15 @@ async function getPostmanJSON (htmlInputFile) {
 export function getPostmanFile (initializeChart) {
     document.addEventListener('DOMContentLoaded', async () => {
         const parsedPostman = JSON.parse(localStorage.getItem('postmanEnvironment')),
-            postmanMessage = document.getElementById('postman-message');
+            postmanMessage = document.getElementById('postman-message'),
+            loadingLabel = document.getElementById('loading-label');
 
         try {
             if (HighchartsConnectors.Morningstar.Shared.isPostmanEnvironmentJSON(parsedPostman)) {
-                initializeChart(parsedPostman);
                 postmanMessage.style.display = 'none';
+                loadingLabel.style.display = 'block';
+
+                initializeChart(parsedPostman);
             } else {
                 localStorage.removeItem('postmanEnvironment');
 
@@ -36,13 +39,20 @@ export function getPostmanFile (initializeChart) {
                     const postmanJSON = await getPostmanJSON(target);
 
                     if (!postmanJSON) {
+                        loadingLabel.textContent =
+                            'The provided file is not a Postman Environment Configuration.';
+                        loadingLabel.style.display = 'block';
+
                         return;
                     }
 
                     localStorage.setItem('postmanEnvironment', JSON.stringify(postmanJSON));
 
-                    initializeChart(postmanJSON);
                     postmanMessage.style.display = 'none';
+                    loadingLabel.style.display = 'block';
+                    loadingLabel.textContent = 'Loading data…';
+
+                    initializeChart(postmanJSON);
                 });
             }
         } catch (error) {
