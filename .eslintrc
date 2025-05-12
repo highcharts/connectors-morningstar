@@ -14,7 +14,8 @@
         "Highcharts": true
     },
     "parserOptions": {
-        "ecmaVersion": 2020
+        "ecmaVersion": 2020,
+        "sourceType": "module"
     },
     "rules": {
         "camelcase": [2, {"properties": "always"}],
