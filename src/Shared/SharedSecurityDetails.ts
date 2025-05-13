@@ -31,7 +31,7 @@ import {
     BondStatisticsConverter,
     MetaConverter
 } from './Converters';
-import { 
+import {
     SecurityDetailsConverterOptions,
     SecurityDetailsMetadata
 } from '../SecurityDetails/SecurityDetailsOptions';
@@ -139,7 +139,7 @@ export const getBreakdown = (
     breakdown: SecurityDetailsJSON.GenericBreakdownType[],
     table: External.DataTable,
     colName: string,
-    hasMultiple: boolean 
+    hasMultiple: boolean
 ) => {
 
     const colStrType = `${colName}_Type` + (hasMultiple ? `_${id}` : ''),

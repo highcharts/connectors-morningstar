@@ -53,8 +53,8 @@ export class BondStatisticsConverter extends MorningstarConverter {
 
         this.metadata = {
             columns: {},
-            ...(options && options.hasMultiple && { ids: [] }),
-            ...(options && options.hasMultiple && { isins: [] })
+            ...(options?.hasMultiple && { ids: [] }),
+            ...(options?.hasMultiple && { isins: [] })
         };
     }
 
