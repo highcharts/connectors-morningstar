@@ -65,7 +65,23 @@ namespace SecurityDetailsJSON {
         GlobalStockSectorBreakdown: GlobalStockSectorBreakdownType[]
         CountryExposure: CountryExposureType[]
         PortfolioHoldings: PortfolioHoldingsType[]
-        MarketCapitalBreakdown: MarketCapitalBreakdownType[]
+        MarketCapitalBreakdown: GenericBreakdownType[]
+        IndustryBreakdown: GenericBreakdownType[]
+        IndustryGroupBreakdown: GenericBreakdownType[]
+        BondStatistics?: BondStatisticsType
+    };
+
+    export type BondStatisticsType = {
+        AverageCoupon?: number
+        AverageCreditQuality?: number
+        AverageCreditQualityCode?: string
+        AveragePrice?: number
+        CurrentYield?: number
+        YieldToMaturity?: number
+        EffectiveDuration?: number
+        ModifiedDuration?: number
+        EffectiveMaturity?: number
+        StyleBox?: number
     };
 
     export type AssetAllocationType = {
@@ -118,7 +134,7 @@ namespace SecurityDetailsJSON {
         GICSIndustryId: string
     };
 
-    export type MarketCapitalBreakdownType = {
+    export type GenericBreakdownType = {
         BreakdownValues: BreakDownValues[]
         SalePosition: string
         NotClassified: number
