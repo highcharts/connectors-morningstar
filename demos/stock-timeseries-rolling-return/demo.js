@@ -1,71 +1,50 @@
-document.getElementById('postman-json').addEventListener(
-    'change',
-    async function (evt) {
-        const target = evt.target;
-        const postmanJSON = await getPostmanJSON(target);
+import { getPostmanFile } from '../utils/postman-localstorage.js';
 
-        if (!postmanJSON) {
-            return;
-        }
+getPostmanFile(initializeChart);
 
-        target.parentNode.style.display = 'none';
+const loadingLabel = document.getElementById('loading-label');
 
-        const rollingReturnConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
-            postman: {
-                environmentJSON: postmanJSON
-            },
-            securities: [{
-                id: 'US0378331005',
-                idType: 'ISIN'
-            }],
-            series: {
-                type: 'RollingReturn',
-                rollingPeriod: 15
-            },
-            startDate: '2020-01-01',
-            endDate: '2020-12-31',
-            currencyId: 'EUR'
-        });
-
-        await rollingReturnConnector.load();
-
-        Highcharts.stockChart('container', {
-            title: {
-                text: 'Apple Share Rolling Return for 2020'
-            },
-            subtitle: {
-                text: 'Performance measured over a 15-day rolling window'
-            },
-            yAxis: {
-                labels: {
-                    format: '{value}%'
-                }
-            },
-            tooltip: {
-                valueDecimals: 2,
-                valueSuffix: '%'
-            },
-            series: [{
-                name: 'AAPL',
-                data: rollingReturnConnector.table.getRows(0)
-            }]
-        });
+async function initializeChart (postmanJSON) {
+    const rollingReturnConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
+        postman: {
+            environmentJSON: postmanJSON
+        },
+        securities: [{
+            id: 'US0378331005',
+            idType: 'ISIN'
+        }],
+        series: {
+            type: 'RollingReturn',
+            rollingPeriod: 15
+        },
+        startDate: '2020-01-01',
+        endDate: '2020-12-31',
+        currencyId: 'EUR'
     });
 
-async function getPostmanJSON (htmlInputFile) {
-    let file;
-    let fileJSON;
+    await rollingReturnConnector.load();
 
-    for (file of htmlInputFile.files) {
-        try {
-            fileJSON = JSON.parse(await file.text());
-            if (HighchartsConnectors.Morningstar.Shared.isPostmanEnvironmentJSON(fileJSON)) {
-                break;
+    Highcharts.stockChart('container', {
+        title: {
+            text: 'Apple Share Rolling Return for 2020'
+        },
+        subtitle: {
+            text: 'Performance measured over a 15-day rolling window'
+        },
+        yAxis: {
+            labels: {
+                format: '{value}%'
             }
-        } catch (error) {
-            // fail silently
-        }
-    }
+        },
+        tooltip: {
+            valueDecimals: 2,
+            valueSuffix: '%'
+        },
+        series: [{
+            name: 'AAPL',
+            data: rollingReturnConnector.table.getRows(0)
+        }]
+    });
 
-    return fileJSON
+    loadingLabel.style.display = 'none';
 }

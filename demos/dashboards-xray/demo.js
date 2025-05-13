@@ -1,3 +1,9 @@
+import { getPostmanFile } from '../utils/postman-localstorage.js';
+
+getPostmanFile(displaySecurityDetails);
+
+const loadingLabel = document.getElementById('loading-label');
+
 const globalStockSectorMap = {
     99: 'Not Classified',
     101: 'Basic Materials',
@@ -181,36 +187,10 @@ async function displaySecurityDetails (postmanJSON) {
     ]
 });
 
-    board.dataPool.getConnectorTable('xray');
+    board.dataPool
+        .getConnectorTable('xray')
+        .then(() => {
+            loadingLabel.style.display = 'none';
+    });
 
-}
-
-async function handleSelectEnvironment (evt) {
-   const target = evt.target;
-   const postmanJSON = await getPostmanJSON(target);
-
-   target.parentNode.style.display = 'none';
-
-   displaySecurityDetails(postmanJSON);
-}
-
-document.getElementById('postman-json')
-   .addEventListener('change', handleSelectEnvironment);
-
-async function getPostmanJSON (htmlInputFile) {
-   let file;
-   let fileJSON;
-
-   for (file of htmlInputFile.files) {
-       try {
-           fileJSON = JSON.parse(await file.text());
-           if (HighchartsConnectors.Shared.Morningstar.isPostmanEnvironmentJSON(fileJSON)) {
-               break;
-           }
-       } catch (error) {
-           // fail silently
-       }
-   }
-
-   return fileJSON;
 }

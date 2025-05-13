@@ -9,15 +9,22 @@
             body {
                 font-family: sans-serif;
             }
+            #postman-message {
+                display: none;
+            }
+            #loading-label {
+                display: none;
+            }
         </style>
     </head>
     <body>
         <h1>Morningstar Security Details Asset Allocations</h1>
-        <p>
+        <p id="postman-message">
             Add your Postman environment file from Morningstar to start the demo:
             <input type="file" id="postman-json" accept=".json,application/json" />
         </p>
+        <p id="loading-label">Loading data…</p>
         <div id="container"></div>
-        <script src="./demo.js"></script>
+        <script type="module" src="./demo.js"></script>
     </body>
 </html>
