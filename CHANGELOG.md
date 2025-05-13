@@ -1,6 +1,34 @@
 Changelog
 =========
 
+v1.2.0
+------
+
+## What's Changed
+
+### Bugfixes
+* Fixed broken links in docs.
+
+### Enhancements
+* Added missing docs for `TimeSeries Rating` endpoint.
+* Added `underlyingHoldings` support to `XRay` connector.
+* Added undocumented `Return` and `RollingReturn` Time Series endpoints.
+* Added scrollbar to the demo list for smaller devices.
+* Improved Investment Screener demo.
+* Added `SecurityCompareConnector`.
+* Added `PortfolioHoldings` to `SecurityDetails` connector response.
+* Added `MarketCap` converter.
+* Added `dataModifier` support to connectors.
+* Added `Metadata` converter for `SecurityDetails`.
+* Added support for loading env file from localstorage in demos.
+* Added the following new converters for `SecurityDetails` and `SecurityCompare`: `IndustryBreakdown`, `IndustryGroupBreakdown`, and `BondStatistics`.
+
+### Upgrade notes
+* Fixed #64, XRay data structure didn't include `timePeriod` which resulted in merging all of the data in one column. Column name `XRay_TotalReturn_TimePeriod` is now changed to `XRay_TotalReturn_M1` and `XRay_TotalReturn_Value` is changed to `XRay_TotalReturn_M1_Value`. Where `M1` is used, it will be automatically changed to returned periods like `M1/M2/M3/M6` etc.
+
+
+**Full Changelog**: https://github.com/highcharts/connectors-morningstar/compare/v1.1.0...v1.2.0
+
 v1.1.0
 ------
 
