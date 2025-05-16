@@ -8,6 +8,14 @@ function displayInvestorPreferences (postmanJSON) {
     // eslint-disable-next-line
     DataGrid.AST.allowedAttributes.push('viewBox');
 
+    const filterButtons = document.querySelectorAll(
+        '.input-wrapper input, .input-wrapper select, button#filter-1'
+    );
+
+    for (const button of filterButtons) {
+        button.disabled = false;
+    }
+
     const secIds = [
         'SecId',
         'LegalName',
