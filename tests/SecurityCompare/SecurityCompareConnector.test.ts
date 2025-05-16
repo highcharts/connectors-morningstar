@@ -208,9 +208,6 @@ export async function countryExposureLoad (
             'CountryExposure_Assets_F0GBR050DD',
             'CountryExposure_NotClassified_F0GBR050DD',
             'CountryExposure_Type_F0GBR050DD',
-            'CountryExposure_Bond_L_F0GBR050DD',
-            'CountryExposure_Bond_S_F0GBR050DD',
-            'CountryExposure_Bond_N_F0GBR050DD',
             'CountryExposure_Equity_L_F0GBR050DD',
             'CountryExposure_Equity_S_F0GBR050DD',
             'CountryExposure_Equity_N_F0GBR050DD',
@@ -323,6 +320,132 @@ export async function marketCapLoad (
             'MarketCap_N_F00000Q5PZ'
         ],
         'MarketCap table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+export async function industryBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        converter: {
+            type: 'IndustryBreakdown'
+        },
+        viewIds: 'HSsnapshot',
+        security: {
+            ids: ['F0GBR050DD', 'F00000Q5PZ'],
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'IndustryBreakdown_Type_F0GBR050DD',
+            'IndustryBreakdown_Assets_F0GBR050DD',
+            'IndustryBreakdown_NotClassified_F0GBR050DD',
+            'IndustryBreakdown_N_F0GBR050DD',
+            'IndustryBreakdown_Type_F00000Q5PZ',
+            'IndustryBreakdown_Assets_F00000Q5PZ',
+            'IndustryBreakdown_NotClassified_F00000Q5PZ',
+            'IndustryBreakdown_N_F00000Q5PZ'
+        ],
+        'IndustryBreakdown table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+export async function industryGroupBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        converter: {
+            type: 'IndustryGroupBreakdown'
+        },
+        viewIds: 'HSsnapshot',
+        security: {
+            ids: ['F0GBR050DD', 'F00000Q5PZ'],
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'IndustryGroupBreakdown_Type_F0GBR050DD',
+            'IndustryGroupBreakdown_Assets_F0GBR050DD',
+            'IndustryGroupBreakdown_NotClassified_F0GBR050DD',
+            'IndustryGroupBreakdown_N_F0GBR050DD',
+            'IndustryGroupBreakdown_Type_F00000Q5PZ',
+            'IndustryGroupBreakdown_Assets_F00000Q5PZ',
+            'IndustryGroupBreakdown_NotClassified_F00000Q5PZ',
+            'IndustryGroupBreakdown_N_F00000Q5PZ'
+        ],
+        'IndustryGroupBreakdown table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+export async function bondStatisticsLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        converter: {
+            type: 'BondStatistics'
+        },
+        viewIds: 'HSsnapshot',
+        security: {
+            ids: ['F000015O71', 'F000015O6Z'],
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'StyleBox_F000015O71',
+            'EffectiveDuration_F000015O71',
+            'AverageCoupon_F000015O71',
+            'AverageCreditQuality_F000015O71',
+            'AverageCreditQualityCode_F000015O71',
+            'AveragePrice_F000015O71',
+            'YieldToMaturity_F000015O71',
+            'ModifiedDuration_F000015O71',
+            'EffectiveMaturity_F000015O71',
+            'CurrentYield_F000015O71',
+            'StyleBox_F000015O6Z',
+            'EffectiveDuration_F000015O6Z',
+            'AverageCoupon_F000015O6Z',
+            'AverageCreditQuality_F000015O6Z',
+            'AverageCreditQualityCode_F000015O6Z',
+            'AveragePrice_F000015O6Z',
+            'YieldToMaturity_F000015O6Z',
+            'ModifiedDuration_F000015O6Z',
+            'EffectiveMaturity_F000015O6Z',
+            'CurrentYield_F000015O6Z'
+        ],
+        'BondStatistics table should exist of expected columns.'
     );
 
     Assert.ok(
