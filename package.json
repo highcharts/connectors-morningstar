@@ -38,8 +38,8 @@
         ]
     },
     "peerDependencies": {
-        "@highcharts/dashboards": ">=2.3.0",
-        "highcharts": ">=11.4.0"
+        "@highcharts/dashboards": "^3.3.0",
+        "highcharts": "^12.2.0"
     },
     "scripts": {
         "api": "npm run webpack && npm run api:server",
