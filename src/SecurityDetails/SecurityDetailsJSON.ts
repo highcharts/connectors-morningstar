@@ -202,7 +202,7 @@ namespace SecurityDetailsJSON {
             typeof (json as SecurityDetailsResponse).Id === 'string' &&
             typeof (json as SecurityDetailsResponse).Currency === 'object' &&
             (
-                (json as SecurityDetailsResponse).TrailingPerformance.length === 0 ||
+                (json as SecurityDetailsResponse).TrailingPerformance?.length &&
                 isTrailingPerformance((json as SecurityDetailsResponse).TrailingPerformance[0])
             )
         );
