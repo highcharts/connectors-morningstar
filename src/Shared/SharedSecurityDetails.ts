@@ -150,6 +150,11 @@ export const getBreakdown = (
     table.setColumn(assetStr);
     table.setColumn(notClassifiedStr);
 
+    // Early return if no breakdown.
+    if (!breakdown || breakdown.length === 0) {
+        return;
+    }
+
     for (let i = 0; i < breakdown.length; i++) {
         const asset = breakdown[i];
         const colStrAsset =
