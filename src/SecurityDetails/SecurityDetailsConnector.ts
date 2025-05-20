@@ -24,23 +24,44 @@
 
 import External from '../Shared/External';
 import SecurityDetailsOptions, {
-    SecurityDetailsMetadata
+    SecurityDetailsConverterType
 } from './SecurityDetailsOptions';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
 import SecurityDetailsJSON from './SecurityDetailsJSON';
 import {
-    initConverter,
-    SecurityDetailsConverter
+    initConverter
 } from '../Shared/SharedSecurityDetails';
 
 
 /* *
  *
- *  Class
+ *  Constants
  *
  * */
+
+
+const DATA_TABLES: { key: SecurityDetailsConverterType }[] = [
+    { key: 'TrailingPerformance' },
+    { key: 'AssetAllocations' },
+    { key: 'RegionalExposure' },
+    { key: 'GlobalStockSectorBreakdown' },
+    { key: 'CountryExposure' },
+    { key: 'PortfolioHoldings' },
+    { key: 'MarketCap' },
+    { key: 'IndustryBreakdown' },
+    { key: 'IndustryGroupBreakdown' },
+    { key: 'BondStatistics' },
+    { key: 'Meta' }
+];
+
+
+/* *
+*
+*  Class
+*
+* */
 
 
 export class SecurityDetailsConnector extends MorningstarConnector {
@@ -54,11 +75,8 @@ export class SecurityDetailsConnector extends MorningstarConnector {
     public constructor (
         options: SecurityDetailsOptions
     ) {
-        super(options);
+        super(options, DATA_TABLES);
 
-        this.converter = initConverter(options.converter);
-
-        this.metadata = this.converter.metadata;
         this.options = options;
     }
 
@@ -67,12 +85,6 @@ export class SecurityDetailsConnector extends MorningstarConnector {
      *  Properties
      *
      * */
-
-
-    public override readonly converter: SecurityDetailsConverter;
-
-
-    public override readonly metadata: SecurityDetailsMetadata;
 
 
     public override readonly options: SecurityDetailsOptions;
@@ -109,10 +121,13 @@ export class SecurityDetailsConnector extends MorningstarConnector {
             throw new Error('Invalid data');
         }
 
-        this.converter.parse({ json: json[0] });
+        for (const { key } of DATA_TABLES) {
+            const converter = initConverter({ type: key });
 
-        this.table.deleteColumns();
-        this.table.setColumns(this.converter.getTable().getColumns());
+            converter.parse({ json: json[0] });
+
+            this.dataTables[key].setColumns(converter.getTable().getColumns());
+        }
 
         return this.setModifierOptions(userOptions.dataModifier);
     }
