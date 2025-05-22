@@ -4,8 +4,8 @@ Filter thousands of investments to quickly find those matching your criteria. Ov
 
 ## Capabilities
 
-- [Investment Screener](investment-screener.md)
-- [Investor Preferences](investor-preferences.md)
-- [ESG Screener](esg-screener.md)
-- [Regulatory Screener](regulatory-screener.md)
-- [Find Similar](find-similar-screener.md)
+- [Investment Screener](https://www.highcharts.com/docs/morningstar/screeners/investment-screener)
+- [Investor Preferences](https://www.highcharts.com/docs/morningstar/screeners/investor-preferences)
+- [ESG Screener](https://www.highcharts.com/docs/morningstar/screeners/esg-screener)
+- [Regulatory Screener](https://www.highcharts.com/docs/morningstar/screeners/regulatory-screener)
+- [Find Similar](https://www.highcharts.com/docs/morningstar/screeners/find-similar-screener)
