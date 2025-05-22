@@ -24,7 +24,6 @@
 
 import * as External from './External';
 import MorningstarAPI from './MorningstarAPI';
-import MorningstarConverter from './MorningstarConverter';
 import MorningstarOptions from './MorningstarOptions';
 import MorningstarPostman from './MorningstarPostman';
 
@@ -47,9 +46,10 @@ export abstract class MorningstarConnector extends External.DataConnector {
 
 
     public constructor (
-        options: MorningstarOptions = {}
+        options: MorningstarOptions = {},
+        dataTables: Array<External.DataTableOptions> = []
     ) {
-        super(options);
+        super(options, dataTables);
 
         this.options = options;
     }
@@ -63,10 +63,6 @@ export abstract class MorningstarConnector extends External.DataConnector {
 
 
     protected api?: MorningstarAPI;
-
-
-    public abstract override readonly converter: MorningstarConverter;
-
 
     protected readonly options: MorningstarOptions;
 

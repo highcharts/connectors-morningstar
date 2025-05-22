@@ -24,6 +24,7 @@
 
 import type * as _Dashboards from '@highcharts/dashboards';
 import type * as _DataGrid from '@highcharts/dashboards/datagrid';
+import type _DataTableOptions from '@highcharts/dashboards/es-modules/Data/DataTableOptions';
 
 
 import _DataConnector from '@highcharts/dashboards/es-modules/Data/Connectors/DataConnector';
@@ -48,6 +49,9 @@ export type DataConverterOptions = Partial<_DataConverter.Options>;
 
 
 export type DataTable = _DataTable;
+
+
+export type DataTableOptions = _DataTableOptions;
 
 
 /* *

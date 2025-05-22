@@ -24,6 +24,7 @@
 
 import MorningstarConverter from '../Shared/MorningstarConverter';
 import { XRayConverterOptions } from './XRayOptions';
+import { DataTable } from '../Shared/External'; // Adjust the path as necessary
 import XRayJSON from './XRayJSON';
 
 
@@ -45,9 +46,11 @@ export class XRayConverter extends MorningstarConverter {
 
 
     public constructor (
+        dataTable: DataTable,
         options?: XRayConverterOptions
     ) {
         super(options);
+        this.table = dataTable;
     }
 
 
@@ -59,7 +62,8 @@ export class XRayConverter extends MorningstarConverter {
 
 
     public parse (
-        options: XRayConverterOptions
+        options: XRayConverterOptions,
+        key?: string
     ): void {
         const table = this.table;
         const userOptions = {
@@ -86,23 +90,42 @@ export class XRayConverter extends MorningstarConverter {
         for (const xray of xrays) {
             const benchmarkId = xray.benchmarkId || 'XRay';
 
-            if (xray.benchmark) {
-                this.parseBenchmark(benchmarkId, xray.benchmark);
-            }
-            if (xray.historicalPerformanceSeries) {
-                this.parseHistoricalPerformance(benchmarkId, xray.historicalPerformanceSeries);
-            }
-            if (xray.trailingPerformance) {
-                this.parseTrailingPerformance(benchmarkId, xray.trailingPerformance);
-            }
-            if (xray.breakdowns) {
-                this.parseBreakdowns(benchmarkId, xray.breakdowns);
-            }
-            if (xray.riskStatistics) {
-                this.parseRiskStatistics(benchmarkId, xray.riskStatistics);
-            }
-            if (xray.underlyHoldings) {
-                this.parseUnderlyHoldings(benchmarkId, xray.underlyHoldings);
+            switch (key) {
+                case 'benchmark':
+                    if (xray.benchmark) {
+                        this.parseBenchmark(benchmarkId, xray.benchmark);
+                    }
+                    break;
+                case 'historicalPerformanceSeries':
+                    if (xray.historicalPerformanceSeries) {
+                        this.parseHistoricalPerformance(
+                            benchmarkId,
+                            xray.historicalPerformanceSeries
+                        );
+                    }
+                    break;
+                case 'trailingPerformance':
+                    if (xray.trailingPerformance) {
+                        this.parseTrailingPerformance(benchmarkId, xray.trailingPerformance);
+                    }
+                    break;
+                case 'breakdowns':
+                    if (xray.breakdowns) {
+                        this.parseBreakdowns(benchmarkId, xray.breakdowns);
+                    }
+                    break;
+                case 'riskStatistics':
+                    if (xray.riskStatistics) {
+                        this.parseRiskStatistics(benchmarkId, xray.riskStatistics);
+                    }
+                    break;
+                case 'underlyHoldings':
+                    if (xray.underlyHoldings) {
+                        this.parseUnderlyHoldings(benchmarkId, xray.underlyHoldings);
+                    }
+                    break;
+                default:
+                    throw new Error(`Unsupported key: ${key}`);
             }
         }
 
