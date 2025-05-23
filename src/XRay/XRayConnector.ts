@@ -114,6 +114,21 @@ function escapeDataPoints (
     return `UseMongoSecurities,RunInThread,${dataPoints.join(',')}`;
 }
 
+/* *
+ *
+ *  Constants
+ *
+ * */
+
+const DATA_TABLES = [
+    { key: 'benchmark' },
+    { key: 'historicalPerformanceSeries' },
+    { key: 'trailingPerformance' },
+    { key: 'breakdowns' },
+    { key: 'riskStatistics' },
+    { key: 'underlyHoldings' }
+];
+
 
 /* *
  *
@@ -135,9 +150,8 @@ export class XRayConnector extends MorningstarConnector {
     public constructor (
         options: XRayOptions = {}
     ) {
-        super(options);
+        super(options, DATA_TABLES);
 
-        this.converter = new XRayConverter(options?.converter);
         this.metadata = { columns: {} };
         this.options = options;
     }
@@ -148,9 +162,6 @@ export class XRayConnector extends MorningstarConnector {
      *  Properties
      *
      * */
-
-
-    public override readonly converter: XRayConverter;
 
 
     public override readonly metadata: XRayConnector.MetaData;
@@ -238,10 +249,13 @@ export class XRayConnector extends MorningstarConnector {
         });
         const json = await response.json() as unknown;
 
-        this.converter.parse({ json });
+        for (const { key } of DATA_TABLES) {
+            const converter = new XRayConverter(this.dataTables[key], options?.converter);
 
-        this.table.deleteColumns();
-        this.table.setColumns(this.converter.getTable().getColumns());
+            converter.parse({ json }, key);
+
+            this.dataTables[key].setColumns(converter.getTable().getColumns());
+        }
 
         return this.setModifierOptions(options.dataModifier);
     }
