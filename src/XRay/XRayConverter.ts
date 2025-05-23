@@ -24,7 +24,7 @@
 
 import MorningstarConverter from '../Shared/MorningstarConverter';
 import { XRayConverterOptions } from './XRayOptions';
-import { DataTable } from '../Shared/External'; // Adjust the path as necessary
+import { DataTable } from '../Shared/External';
 import XRayJSON from './XRayJSON';
 
 
