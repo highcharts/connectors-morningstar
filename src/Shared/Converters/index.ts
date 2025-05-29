@@ -25,6 +25,12 @@ import IndustryBreakdownConverter from './IndustryBreakdownConverter';
 import IndustryGroupBreakdownConverter from './IndustryGroupBreakdownConverter';
 import BondStatisticsConverter from './BondStatisticsConverter';
 import MetaConverter from './MetaConverter';
+import BenchmarkConverter from './BenchmarkConverter';
+import BreakdownsConverter from './BreakdownsConverter';
+import HistoricalPerformanceConverter from './HistoricalPerformanceConverter';
+import RiskStatisticsConverter from './RiskStatisticsConverter';
+import UnderlyHoldingsConverter from './UnderlyHoldingsConverter';
+import XRayTrailingPerformanceConverter from './XRayTrailingPerformanceConverter';
 
 
 /* *
@@ -54,6 +60,12 @@ export * from './IndustryBreakdownConverter';
 export * from './IndustryGroupBreakdownConverter';
 export * from './BondStatisticsConverter';
 export * from './MetaConverter';
+export * from './BenchmarkConverter';
+export * from './BreakdownsConverter';
+export * from './HistoricalPerformanceConverter';
+export * from './RiskStatisticsConverter';
+export * from './UnderlyHoldingsConverter';
+export * from './XRayTrailingPerformanceConverter';
 
 /* *
  *
@@ -73,5 +85,11 @@ export default {
     IndustryBreakdownConverter,
     IndustryGroupBreakdownConverter,
     BondStatisticsConverter,
-    MetaConverter
+    MetaConverter,
+    BenchmarkConverter,
+    BreakdownsConverter,
+    HistoricalPerformanceConverter,
+    RiskStatisticsConverter,
+    UnderlyHoldingsConverter,
+    XRayTrailingPerformanceConverter
 };
