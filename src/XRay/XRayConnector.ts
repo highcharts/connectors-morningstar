@@ -32,7 +32,7 @@ import {
     MorningstarHoldingWeightOptions
 } from '../Shared/MorningstarOptions';
 import MorningstarURL from '../Shared/MorningstarURL';
-import { initConverter } from '../Shared/SharedXray';
+import { initConverter } from '../Shared/SharedXRay';
 import XRayJSON from './XRayJSON';
 import XRayOptions from './XRayOptions';
 
