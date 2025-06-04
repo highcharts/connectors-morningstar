@@ -47,7 +47,7 @@ export abstract class MorningstarConnector extends External.DataConnector {
 
     public constructor (
         options: MorningstarOptions = {},
-        dataTables: Array<{key: string}> = []
+        dataTables: Array<External.DataTableOptions> = []
     ) {
         super(options, dataTables);
 

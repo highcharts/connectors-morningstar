@@ -74,15 +74,13 @@ export async function assetAllocationsLoad (
             id: 'F0GBR050DD',
             idType: 'MSID'
         },
-        converter: {
-            type: 'AssetAllocations'
-        }
+        converters: ['AssetAllocations']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('AssetAllocations').getColumnNames(),
         [
             'AssetAllocations_Type',
             'AssetAllocations_MorningstarEUR3_L',
@@ -102,15 +100,13 @@ export async function regionalExposureLoad (
             id: 'F0GBR050DD',
             idType: 'MSID'
         },
-        converter: {
-            type: 'RegionalExposure'
-        }
+        converters: ['RegionalExposure']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames()[0],
+        connector.getTable('RegionalExposure').getColumnNames()[0],
         'RegionalExposure_Type',
         'Regional exposure table should exist of expected columns.'
     );
@@ -125,15 +121,13 @@ export async function globalStockSectorBreakdownLoad (
             id: 'F0GBR050DD',
             idType: 'MSID'
         },
-        converter: {
-            type: 'GlobalStockSectorBreakdown'
-        }
+        converters: ['GlobalStockSectorBreakdown']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames()[0],
+        connector.getTable('GlobalStockSectorBreakdown').getColumnNames()[0],
         'GlobalStockSectorBreakdown_Type',
         'Global stock sector breakdown table should exist of expected columns.'
     );
@@ -148,15 +142,13 @@ export async function countryExposureLoad (
             id: 'F0GBR050DD',
             idType: 'MSID'
         },
-        converter: {
-            type: 'CountryExposure'
-        }
+        converters: ['CountryExposure']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('CountryExposure').getColumnNames(),
         [
             'CountryExposure_Assets',
             'CountryExposure_NotClassified',
@@ -178,15 +170,13 @@ export async function portfolioHoldingsLoad (
             id: 'F0GBR050DD',
             idType: 'MSID'
         },
-        converter: {
-            type: 'PortfolioHoldings'
-        }
+        converters: ['PortfolioHoldings']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('PortfolioHoldings').getColumnNames(),
         [
             'PortfolioHoldings_Id',
             'PortfolioHoldings_ExternalId',
@@ -220,20 +210,18 @@ export async function marketCapLoad (
 ) {
     const connector = new MC.SecurityDetailsConnector({
         api,
-        converter: {
-            type: 'MarketCap'
-        },
         viewId: 'HSsnapshot',
         security: {
             id: 'F0GBR050DD',
             idType: 'MSID'
-        }
+        },
+        converters: ['MarketCap']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('MarketCap').getColumnNames(),
         [
             'MarketCap_Type',
             'MarketCap_Assets',
@@ -254,14 +242,12 @@ export async function industryBDCLoad (
 ) {
     const connector = new MC.SecurityDetailsConnector({
         api,
-        converter: {
-            type: 'IndustryBreakdown'
-        },
         viewId: 'HSsnapshot',
         security: {
             id: 'F0GBR050DD',
             idType: 'MSID'
-        }
+        },
+        converters: ['IndustryBreakdown']
     });
 
     await connector.load();
@@ -288,20 +274,18 @@ export async function industryGroupBDCLoad (
 ) {
     const connector = new MC.SecurityDetailsConnector({
         api,
-        converter: {
-            type: 'IndustryGroupBreakdown'
-        },
         viewId: 'HSsnapshot',
         security: {
             id: 'F0GBR050DD',
             idType: 'MSID'
-        }
+        },
+        converters: ['IndustryGroupBreakdown']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('IndustryGroupBreakdown').getColumnNames(),
         [
             'IndustryGroupBreakdown_Type',
             'IndustryGroupBreakdown_Assets',
@@ -322,20 +306,18 @@ export async function bondStatisticsLoad (
 ) {
     const connector = new MC.SecurityDetailsConnector({
         api,
-        converter: {
-            type: 'BondStatistics'
-        },
         viewId: 'HSsnapshot',
         security: {
             id: 'F000015O71',
             idType: 'MSID'
-        }
+        },
+        converters: ['BondStatistics']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('BondStatistics').getColumnNames(),
         [
             'StyleBox',
             'EffectiveDuration',
@@ -366,15 +348,13 @@ export async function MetaLoad (
             id: 'F0GBR050DD',
             idType: 'MSID'
         },
-        converter: {
-            type: 'Meta'
-        }
+        converters: ['Meta']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('Meta').getColumnNames(),
         ['Meta', 'Value'],
         'Meta table should have Meta and Value columns.'
     );

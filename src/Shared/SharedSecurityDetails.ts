@@ -43,7 +43,7 @@ import * as External from './External';
 /* *
  *
  * Interfaces
- * 
+ *
  * */
 
 export interface SecurityDetailsConverter extends MorningstarConverter {
@@ -54,7 +54,7 @@ export interface SecurityDetailsConverter extends MorningstarConverter {
 /* *
  *
  * Functions
- * 
+ *
  * */
 
 export function initConverter (

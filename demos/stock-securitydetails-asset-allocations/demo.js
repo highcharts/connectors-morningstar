@@ -14,7 +14,8 @@ async function displayAssetAllocations (postmanJSON) {
         security: {
             id: securityId,
             idType: 'ISIN'
-        }
+        },
+        converters: ['AssetAllocations']
     });
 
     await connector.load();

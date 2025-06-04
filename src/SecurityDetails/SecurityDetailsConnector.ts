@@ -75,8 +75,18 @@ export class SecurityDetailsConnector extends MorningstarConnector {
     public constructor (
         options: SecurityDetailsOptions
     ) {
-        super(options, DATA_TABLES);
+        let convertersToUse;
 
+        // Create multi data table based on user-selected converters,
+        // otherwise use all available
+        if (Array.isArray(options.converters) && options.converters.length > 0) {
+            convertersToUse =
+                DATA_TABLES.filter(dt => (options.converters as string[]).includes(dt.key));
+        } else {
+            convertersToUse = DATA_TABLES;
+        }
+
+        super(options, convertersToUse);
         this.options = options;
     }
 
@@ -117,12 +127,13 @@ export class SecurityDetailsConnector extends MorningstarConnector {
 
         const response = await api.fetch(url);
         const json = await response.json() as unknown;
+
         if (!SecurityDetailsJSON.isSecurityDetailsResponse(json)) {
             throw new Error('Invalid data');
         }
 
-        for (const { key } of DATA_TABLES) {
-            const converter = initConverter({ type: key });
+        for (const key of Object.keys(this.dataTables)) {
+            const converter = initConverter({ type: key as SecurityDetailsConverterType });
 
             converter.parse({ json: json[0] });
 

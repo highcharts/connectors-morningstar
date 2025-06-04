@@ -86,9 +86,10 @@ export interface SecurityDetailsOptions extends MorningstarOptions {
      */
     viewId?: string,
     /**
-     * Converter options.
+     * Retrieves security details based on the specified converter types.
+     * If not specified, returns all available data for security details.
      */
-    converter?: SecurityDetailsConverterOptions
+    converters?: SecurityDetailsConverterType[]
 }
 
 
