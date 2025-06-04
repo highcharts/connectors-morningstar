@@ -1,4 +1,6 @@
-import { SecurityDetailsConverterOptions } from '../SecurityDetails/SecurityDetailsOptions';
+import {
+    SecurityDetailsConverterType
+} from '../SecurityDetails/SecurityDetailsOptions';
 import type {
     MorningstarOptions,
     MorningstarSecurityOptions
@@ -27,5 +29,5 @@ export interface SecurityCompareOptions extends MorningstarOptions {
     /**
      * Converter options.
      */
-    converter?: SecurityDetailsConverterOptions
+    converters?: SecurityDetailsConverterType[]
 }

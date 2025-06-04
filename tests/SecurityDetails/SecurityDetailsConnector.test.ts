@@ -24,27 +24,22 @@ export async function securityDetailsLoad (
         'Connector should be instance of SecurityDetailsConnector class.'
     );
 
-    Assert.ok(
-        connector.converter instanceof MC.TrailingPerformanceConverter,
-        'Converter should be instance of TrailingPerformanceConverter.'
-    );
-
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('TrailingPerformance').getColumnNames(),
         columnNames,
         'Connector table should exist of expected columns.'
     );
 
     Assert.strictEqual(
-        connector.table.getRowCount(),
+        connector.getTable('TrailingPerformance').getRowCount(),
         10,
         'Connector table should have ten expected RNANews rows.'
     );
 
     Assert.deepStrictEqual(
-        connector.table.modified.getColumn('columnNames'),
+        connector.getTable('TrailingPerformance').modified.getColumn('columnNames'),
         columnNames,
         'Connector inverted table should exist of expected columns.'
     );

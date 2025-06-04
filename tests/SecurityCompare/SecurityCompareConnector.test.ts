@@ -26,34 +26,29 @@ export async function securityCompareLoad (
         'Connector should be instance of SecurityCompareConnector class.'
     );
 
-    Assert.ok(
-        connector.converter instanceof MC.TrailingPerformanceConverter,
-        'Converter should be instance of TrailingPerformanceConverter.'
-    );
-
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('TrailingPerformance').getColumnNames(),
         columnNames,
         'Connector table should exist of expected columns.'
     );
 
     Assert.strictEqual(
-        connector.table.getRowCount(),
+        connector.getTable('TrailingPerformance').getRowCount(),
         10,
         'Connector table should have row count of 10.'
     );
 
     Assert.deepStrictEqual(
-        connector.table.modified.getColumn('columnNames'),
+        connector.getTable('TrailingPerformance').modified.getColumn('columnNames'),
         columnNames,
         'Connector inverted table should exist of expected columns.'
     );
 
     Assert.strictEqual(
         columnNames.length,
-        connector.table.modified.getRowCount(),
+        connector.getTable('TrailingPerformance').modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
@@ -76,15 +71,13 @@ export async function assetAllocationsLoad (
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
             idType: 'MSID'
         },
-        converter: {
-            type: 'AssetAllocations'
-        }
+        converters: ['AssetAllocations']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('AssetAllocations').getColumnNames(),
         [
             'AssetAllocations_Type_F0GBR050DD',
             'AssetAllocations_MorningstarEUR3_L_F0GBR050DD',
@@ -113,15 +106,13 @@ export async function regionalExposureLoad (
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
             idType: 'MSID'
         },
-        converter: {
-            type: 'RegionalExposure'
-        }
+        converters: ['RegionalExposure']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('RegionalExposure').getColumnNames(),
         [
             'RegionalExposure_Type_F0GBR050DD',
             'RegionalExposure_Assets_F0GBR050DD',
@@ -154,15 +145,13 @@ export async function globalStockSectorBreakdownLoad (
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
             idType: 'MSID'
         },
-        converter: {
-            type: 'GlobalStockSectorBreakdown'
-        }
+        converters: ['GlobalStockSectorBreakdown']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('GlobalStockSectorBreakdown').getColumnNames(),
         [
             'GlobalStockSectorBreakdown_Type_F0GBR050DD',
             'GlobalStockSectorBreakdown_Assets_F0GBR050DD',
@@ -195,15 +184,13 @@ export async function countryExposureLoad (
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
             idType: 'MSID'
         },
-        converter: {
-            type: 'CountryExposure'
-        }
+        converters: ['CountryExposure']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('CountryExposure').getColumnNames(),
         [
             'CountryExposure_Assets_F0GBR050DD',
             'CountryExposure_NotClassified_F0GBR050DD',
@@ -236,15 +223,13 @@ export async function portfolioHoldings (
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
             idType: 'MSID'
         },
-        converter: {
-            type: 'PortfolioHoldings'
-        }
+        converters: ['PortfolioHoldings']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('PortfolioHoldings').getColumnNames(),
         [
             'PortfolioHoldings_Id_F0GBR050DD',
             'PortfolioHoldings_ExternalId_F0GBR050DD',
@@ -295,9 +280,7 @@ export async function marketCapLoad (
 ) {
     const connector = new MC.SecurityCompareConnector({
         api,
-        converter: {
-            type: 'MarketCap'
-        },
+        converters: ['MarketCap'],
         viewIds: 'HSsnapshot',
         security: {
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
@@ -308,7 +291,7 @@ export async function marketCapLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('MarketCap').getColumnNames(),
         [
             'MarketCap_Type_F0GBR050DD',
             'MarketCap_Assets_F0GBR050DD',
@@ -333,9 +316,7 @@ export async function industryBreakdownLoad (
 ) {
     const connector = new MC.SecurityCompareConnector({
         api,
-        converter: {
-            type: 'IndustryBreakdown'
-        },
+        converters: ['IndustryBreakdown'],
         viewIds: 'HSsnapshot',
         security: {
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
@@ -346,7 +327,7 @@ export async function industryBreakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('IndustryBreakdown').getColumnNames(),
         [
             'IndustryBreakdown_Type_F0GBR050DD',
             'IndustryBreakdown_Assets_F0GBR050DD',
@@ -371,9 +352,7 @@ export async function industryGroupBreakdownLoad (
 ) {
     const connector = new MC.SecurityCompareConnector({
         api,
-        converter: {
-            type: 'IndustryGroupBreakdown'
-        },
+        converters: ['IndustryGroupBreakdown'],
         viewIds: 'HSsnapshot',
         security: {
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
@@ -384,7 +363,7 @@ export async function industryGroupBreakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('IndustryGroupBreakdown').getColumnNames(),
         [
             'IndustryGroupBreakdown_Type_F0GBR050DD',
             'IndustryGroupBreakdown_Assets_F0GBR050DD',
@@ -409,9 +388,7 @@ export async function bondStatisticsLoad (
 ) {
     const connector = new MC.SecurityCompareConnector({
         api,
-        converter: {
-            type: 'BondStatistics'
-        },
+        converters: ['BondStatistics'],
         viewIds: 'HSsnapshot',
         security: {
             ids: ['F000015O71', 'F000015O6Z'],
@@ -422,7 +399,7 @@ export async function bondStatisticsLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('BondStatistics').getColumnNames(),
         [
             'StyleBox_F000015O71',
             'EffectiveDuration_F000015O71',
@@ -459,9 +436,7 @@ export async function MetaLoad (
 ) {
     const connector = new MC.SecurityCompareConnector({
         api,
-        converter: {
-            type: 'Meta'
-        },
+        converters: ['Meta'],
         security: {
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
             idType: 'MSID'
@@ -471,7 +446,7 @@ export async function MetaLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('Meta').getColumnNames(),
         [
             'Meta_F0GBR050DD',
             'Value_F0GBR050DD',

@@ -32,7 +32,7 @@ async function displaySecurityDetails (postmanJSON) {
         series: ids.map(id => ({
             type: 'column',
             name: idNames[id],
-            data: connector.table.getRowObjects().map(obj => [
+            data: connector.getTable('TrailingPerformance').getRowObjects().map(obj => [
                 obj['TrailingPerformance_TimePeriod_' + id],
                 obj['TrailingPerformance_Value_' + id]
             ])

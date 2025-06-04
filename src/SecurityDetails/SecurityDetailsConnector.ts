@@ -140,6 +140,12 @@ export class SecurityDetailsConnector extends MorningstarConnector {
             this.dataTables[key].setColumns(converter.getTable().getColumns());
         }
 
+        this.metadata = {
+            columns: {},
+            id: json[0].Id,
+            isin: json[0].Isin
+        };
+
         return this.setModifierOptions(userOptions.dataModifier);
     }
 }
