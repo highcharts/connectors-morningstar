@@ -32,8 +32,7 @@ import {
     MetaConverter
 } from './Converters';
 import {
-    SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
+    SecurityDetailsConverterOptions
 } from '../SecurityDetails/SecurityDetailsOptions';
 import MorningstarConverter from './MorningstarConverter';
 import SecurityDetailsJSON from '../SecurityDetails/SecurityDetailsJSON';
@@ -47,7 +46,6 @@ import * as External from './External';
  * */
 
 export interface SecurityDetailsConverter extends MorningstarConverter {
-    metadata: SecurityDetailsMetadata;
     parse(options: SecurityDetailsConverterOptions): void;
 }
 

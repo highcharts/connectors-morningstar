@@ -23,8 +23,7 @@
 
 
 import {
-    SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
+    SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
 import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
@@ -51,23 +50,7 @@ export class IndustryGroupBreakdownConverter extends MorningstarConverter {
         options?: SecurityDetailsConverterOptions
     ) {
         super(options);
-
-        this.metadata = {
-            columns: {},
-            ...(options?.hasMultiple && { ids: [] }),
-            ...(options?.hasMultiple && { isins: [] })
-        };
     }
-
-
-    /* *
-     *
-     *  Properties
-     *
-     * */
-
-
-    public readonly metadata: SecurityDetailsMetadata;
 
 
     /* *
@@ -80,8 +63,7 @@ export class IndustryGroupBreakdownConverter extends MorningstarConverter {
     public override parse (
         options: SecurityDetailsConverterOptions
     ): void {
-        const metadata = this.metadata,
-            table = this.table,
+        const table = this.table,
             userOptions = {
                 ...this.options,
                 ...options
@@ -91,7 +73,6 @@ export class IndustryGroupBreakdownConverter extends MorningstarConverter {
 
         // Update table
         const id = security.Id,
-            isin = security.Isin,
             industryGroupBreakdown = security.Portfolios[0].IndustryGroupBreakdown;
 
         getBreakdown(
@@ -101,15 +82,6 @@ export class IndustryGroupBreakdownConverter extends MorningstarConverter {
             'IndustryGroupBreakdown',
             !!hasMultiple
         );
-
-        // Update meta data
-        if (hasMultiple){
-            metadata.ids?.push(id);
-            metadata.isins?.push(isin);
-        } else {
-            metadata.id = id;
-            metadata.isin = isin;
-        }
     }
 }
 

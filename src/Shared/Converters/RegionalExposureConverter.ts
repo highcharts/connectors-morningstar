@@ -25,8 +25,7 @@
 
 
 import {
-    SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
+    SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
 import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
@@ -52,23 +51,7 @@ export class RegionalExposureConverter extends MorningstarConverter {
         options?: SecurityDetailsConverterOptions
     ) {
         super(options);
-
-        this.metadata = {
-            columns: {},
-            ...(options && options.hasMultiple && { ids: [] }),
-            ...(options && options.hasMultiple && { isins: [] })
-        };
     }
-
-
-    /* *
-     *
-     *  Properties
-     *
-     * */
-
-
-    public readonly metadata: SecurityDetailsMetadata;
 
 
     /* *
@@ -81,8 +64,7 @@ export class RegionalExposureConverter extends MorningstarConverter {
     public override parse (
         options: SecurityDetailsConverterOptions
     ): void {
-        const metadata = this.metadata,
-            table = this.table,
+        const table = this.table,
             userOptions = {
                 ...this.options,
                 ...options
@@ -93,7 +75,6 @@ export class RegionalExposureConverter extends MorningstarConverter {
 
         // Create table
         const id = security.Id,
-            isin = security.Isin,
             regionalExposure = security.Portfolios[0].RegionalExposure,
             colStrType = 'RegionalExposure_Type' + (hasMultiple ? `_${id}` : ''),
             notClassifiedStr = 'RegionalExposure_NotClassified' + (hasMultiple ? `_${id}` : ''),
@@ -126,16 +107,6 @@ export class RegionalExposureConverter extends MorningstarConverter {
                     asset.BreakdownValues[j].Type
                 );
             }
-        }
-        
-
-        // Update metadata
-        if (hasMultiple){
-            metadata.ids?.push(id);
-            metadata.isins?.push(isin);
-        } else {
-            metadata.id = id;
-            metadata.isin = isin;
         }
     }
 }
