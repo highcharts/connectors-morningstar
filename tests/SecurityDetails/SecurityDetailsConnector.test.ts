@@ -390,3 +390,29 @@ export async function MetaLoad (
         'Meta table should have multi row structure.'
     );
 }
+
+export async function bondStyleBoxBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        security: {
+            id: 'F00001GPCX',
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'BondStyleBoxBreakdown'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'BondStyleBoxBreakdown_Type',
+            'BondStyleBoxBreakdown_SalePosition_N'
+        ],
+        'Bond Style Box Breakdown table should exist of expected columns.'
+    );
+}
