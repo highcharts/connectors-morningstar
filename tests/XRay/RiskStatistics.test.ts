@@ -29,7 +29,7 @@ export async function portfolioBreakdown (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('riskStatistics').getColumnNames(),
         [
             'XRay_SharpeRatio_M_M36',
             'XRay_StandardDeviation_M_M36'
@@ -38,7 +38,7 @@ export async function portfolioBreakdown (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.getTable('riskStatistics').getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }

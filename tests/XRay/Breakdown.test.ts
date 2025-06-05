@@ -30,15 +30,10 @@ export async function breakdownLoad (
         'Connector should be instance of XRayConnector class.'
     );
 
-    Assert.ok(
-        connector.converter instanceof MC.XRayConverter,
-        'Converter should be instance of XRayConverter class.'
-    );
-
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('benchmark').getColumnNames(),
         [
             'XRay_TotalReturn_M1',
             'XRay_TotalReturn_M1_Value',
@@ -106,25 +101,25 @@ export async function portfolioBreakdown (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable('breakdowns').getColumnNames(),
         columnNames,
         'Connector columns should return expected names.'
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.getTable('breakdowns').getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 
     Assert.deepStrictEqual(
-        connector.table.modified.getColumn('columnNames'),
+        connector.getTable('breakdowns').modified.getColumn('columnNames'),
         columnNames,
         'Row names of inverted table should be the same as original column names.'
     );
 
     Assert.strictEqual(
         columnNames.length,
-        connector.table.modified.getRowCount(),
+        connector.getTable('breakdowns').modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 }
