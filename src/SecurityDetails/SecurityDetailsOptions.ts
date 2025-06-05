@@ -26,7 +26,6 @@
 
 import type {
     MorningstarConverterOptions,
-    MorningstarMetadata,
     MorningstarOptions,
     MorningstarSecurityOptions
 } from '../Shared/MorningstarOptions';
@@ -57,19 +56,6 @@ export interface SecurityDetailsConverterOptions extends MorningstarConverterOpt
 
 }
 
-
-export interface SecurityDetailsMetadata extends MorningstarMetadata {
-    id?: string;
-    isin?: string;
-    ids?: string[];
-    isins?: string[];
-    domicile?: string;
-    currency?: string;
-    returnType?: string;
-    type?: string;
-    currencyId?: string;
-    date?: string;
-}
 
 
 export interface SecurityDetailsOptions extends MorningstarOptions {
