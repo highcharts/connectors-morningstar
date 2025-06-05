@@ -14,7 +14,8 @@ async function displaySecurityDetails (postmanJSON) {
         security: {
             id: securityId,
             idType: 'MSID'
-        }
+        },
+        converters: ['TrailingPerformance']
     });
 
     await connector.load();
@@ -26,7 +27,7 @@ async function displaySecurityDetails (postmanJSON) {
         series: [{
             type: 'column',
             name: 'F0GBR050DD',
-            data: connector.table.getRowObjects().map(obj => [
+            data: connector.getTable('TrailingPerformance').getRowObjects().map(obj => [
                 obj.TrailingPerformance_TimePeriod,
                 obj.TrailingPerformance_Value
             ])
