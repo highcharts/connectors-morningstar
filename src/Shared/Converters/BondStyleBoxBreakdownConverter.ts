@@ -92,6 +92,10 @@ export class BondStyleBoxBreakdownConverter extends MorningstarConverter {
             isin = security.Isin,
             bondStyleBoxBreakdowns = security.Portfolios[0].BondStyleBoxBreakdown;
 
+        if (!bondStyleBoxBreakdowns || !bondStyleBoxBreakdowns.length) {
+            return;
+        }
+
         const typeColumnName =
                 'BondStyleBoxBreakdown_Type' + (hasMultiple ? `_${id}` : '');
 
