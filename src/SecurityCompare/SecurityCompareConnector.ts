@@ -29,7 +29,10 @@ import {
 import {
     initConverter
 } from '../Shared/SharedSecurityDetails';
-import { SecurityCompareOptions } from '../SecurityCompare/SecurityCompareOptions';
+import {
+    SecurityCompareOptions,
+    SecurityCompareMetadata
+} from '../SecurityCompare/SecurityCompareOptions';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
@@ -104,6 +107,12 @@ export class SecurityCompareConnector extends MorningstarConnector {
 
 
     public override readonly options: SecurityCompareOptions;
+
+    public override metadata: SecurityCompareMetadata = {
+        columns: {},
+        ids: [],
+        isins: []
+    };
 
 
     /* *

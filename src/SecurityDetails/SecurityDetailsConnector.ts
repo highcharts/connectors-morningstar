@@ -24,7 +24,8 @@
 
 import External from '../Shared/External';
 import SecurityDetailsOptions, {
-    SecurityDetailsConverterType
+    SecurityDetailsConverterType,
+    SecurityDetailsMetadata
 } from './SecurityDetailsOptions';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarConnector from '../Shared/MorningstarConnector';
@@ -98,6 +99,12 @@ export class SecurityDetailsConnector extends MorningstarConnector {
 
 
     public override readonly options: SecurityDetailsOptions;
+
+    public override metadata: SecurityDetailsMetadata = {
+        columns: {},
+        id: '',
+        isin: ''
+    };
 
 
     /* *

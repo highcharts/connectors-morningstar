@@ -27,7 +27,8 @@
 import type {
     MorningstarConverterOptions,
     MorningstarOptions,
-    MorningstarSecurityOptions
+    MorningstarSecurityOptions,
+    MorningstarMetadata
 } from '../Shared/MorningstarOptions';
 
 
@@ -92,6 +93,11 @@ export type SecurityDetailsConverterType  = (
    | 'BondStatistics'
    | 'Meta'
  );
+
+export interface SecurityDetailsMetadata extends MorningstarMetadata {
+    id?: string;
+    isin?: string;
+}
 
 
 /* *

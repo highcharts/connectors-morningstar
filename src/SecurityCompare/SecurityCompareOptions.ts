@@ -3,7 +3,8 @@ import {
 } from '../SecurityDetails/SecurityDetailsOptions';
 import type {
     MorningstarOptions,
-    MorningstarSecurityOptions
+    MorningstarSecurityOptions,
+    MorningstarMetadata
 } from '../Shared/MorningstarOptions';
 
 interface SecurityCompareSecurity extends Omit <MorningstarSecurityOptions, 'id'> {
@@ -30,4 +31,8 @@ export interface SecurityCompareOptions extends MorningstarOptions {
      * Converter options.
      */
     converters?: SecurityDetailsConverterType[]
+}
+export interface SecurityCompareMetadata extends MorningstarMetadata {
+    ids?: string[];
+    isins?: string[];
 }
