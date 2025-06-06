@@ -59,10 +59,10 @@ const DATA_TABLES: { key: SecurityDetailsConverterType }[] = [
 
 
 /* *
-*
-*  Class
-*
-* */
+ *
+ *  Class
+ *
+ * */
 
 
 export class SecurityDetailsConnector extends MorningstarConnector {
