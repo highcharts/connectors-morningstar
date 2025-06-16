@@ -415,4 +415,9 @@ export async function bondStyleBoxBreakdownLoad (
         ],
         'Bond Style Box Breakdown table should exist of expected columns.'
     );
+
+    Assert.ok(
+        connector.table.columns['BondStyleBoxBreakdown_SalePosition_N'].length >= 9,
+        'Bond Style Box Breakdown should return at least 9 values.'
+    );
 }
