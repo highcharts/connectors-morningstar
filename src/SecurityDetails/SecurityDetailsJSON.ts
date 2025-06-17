@@ -69,6 +69,7 @@ namespace SecurityDetailsJSON {
         IndustryBreakdown: GenericBreakdownType[]
         IndustryGroupBreakdown: GenericBreakdownType[]
         BondStatistics?: BondStatisticsType
+        StyleBoxBreakdown?: GenericBreakdownType[]
     };
 
     export type BondStatisticsType = {

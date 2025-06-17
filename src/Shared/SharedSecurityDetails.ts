@@ -29,7 +29,8 @@ import {
     IndustryBreakdownConverter,
     IndustryGroupBreakdownConverter,
     BondStatisticsConverter,
-    MetaConverter
+    MetaConverter,
+    StyleBoxBreakdownConverter
 } from './Converters';
 import {
     SecurityDetailsConverterOptions,
@@ -130,6 +131,11 @@ export function initConverter (
                 hasMultiple
             });
 
+        case 'StyleBoxBreakdown':
+            return new StyleBoxBreakdownConverter({
+                ...converter,
+                hasMultiple
+            });
     }
 }
 

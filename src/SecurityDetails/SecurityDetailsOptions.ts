@@ -104,6 +104,7 @@ export type SecurityDetailsConverterType  = (
    | 'IndustryGroupBreakdown'
    | 'BondStatistics'
    | 'Meta'
+   | 'StyleBoxBreakdown'
  );
 
 
