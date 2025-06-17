@@ -486,3 +486,44 @@ export async function MetaLoad (
         'Connector should not return empty rows.'
     );
 }
+
+export async function bondStyleBoxBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        converter: {
+            type: 'StyleBoxBreakdown'
+        },
+        security: {
+            ids: ['F0GBR050DD', 'F00000Q5PZ'],
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'StyleBoxBreakdown_Type_F0GBR050DD',
+            'StyleBoxBreakdown_Assets_F0GBR050DD',
+            'StyleBoxBreakdown_NotClassified_F0GBR050DD',
+            'StyleBoxBreakdown_L_F0GBR050DD',
+            'StyleBoxBreakdown_S_F0GBR050DD',
+            'StyleBoxBreakdown_N_F0GBR050DD',
+            'StyleBoxBreakdown_Type_F00000Q5PZ',
+            'StyleBoxBreakdown_Assets_F00000Q5PZ',
+            'StyleBoxBreakdown_NotClassified_F00000Q5PZ',
+            'StyleBoxBreakdown_L_F00000Q5PZ',
+            'StyleBoxBreakdown_S_F00000Q5PZ',
+            'StyleBoxBreakdown_N_F00000Q5PZ'
+        ],
+        'Style Box table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
