@@ -104,7 +104,7 @@ export class BondStyleBoxBreakdownConverter extends MorningstarConverter {
 
             for (let j = 0; j < breakdown.BreakdownValues.length; j++) {
                 const salePositionColumnName =
-                    `BondStyleBoxBreakdown_SalePosition_${breakdown.SalePosition}` +
+                    `BondStyleBoxBreakdown_${breakdown.SalePosition}` +
                     (hasMultiple ? `_${id}` : '');
 
                 // Set up BondStyleBoxBreakdowns Type column only once

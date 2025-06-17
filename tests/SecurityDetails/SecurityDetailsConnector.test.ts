@@ -411,13 +411,13 @@ export async function bondStyleBoxBreakdownLoad (
         connector.table.getColumnNames(),
         [
             'BondStyleBoxBreakdown_Type',
-            'BondStyleBoxBreakdown_SalePosition_N'
+            'BondStyleBoxBreakdown_N'
         ],
         'Bond Style Box Breakdown table should exist of expected columns.'
     );
 
     Assert.ok(
-        connector.table.columns['BondStyleBoxBreakdown_SalePosition_N'].length >= 9,
+        connector.table.columns['BondStyleBoxBreakdown_N'].length >= 9,
         'Bond Style Box Breakdown should return at least 9 values.'
     );
 }
