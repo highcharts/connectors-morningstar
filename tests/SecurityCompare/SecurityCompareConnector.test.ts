@@ -574,7 +574,7 @@ export async function creditQualityLoad (
             type: 'CreditQualityBreakdown'
         },
         security: {
-            ids: ['F00001GPCX'],
+            ids: ['F00001GPCX', 'F00000YG2F'],
             idType: 'MSID'
         }
     });
@@ -589,7 +589,13 @@ export async function creditQualityLoad (
             'CreditQualityBreakdown_NotClassified_F00001GPCX',
             'CreditQualityBreakdown_L_F00001GPCX',
             'CreditQualityBreakdown_S_F00001GPCX',
-            'CreditQualityBreakdown_N_F00001GPCX'
+            'CreditQualityBreakdown_N_F00001GPCX',
+            'CreditQualityBreakdown_Type_F00000YG2F',
+            'CreditQualityBreakdown_Assets_F00000YG2F',
+            'CreditQualityBreakdown_NotClassified_F00000YG2F',
+            'CreditQualityBreakdown_L_F00000YG2F',
+            'CreditQualityBreakdown_S_F00000YG2F',
+            'CreditQualityBreakdown_N_F00000YG2F'
         ],
         'CreditQualityBreakdown table should exist of expected columns.'
     );
