@@ -161,6 +161,9 @@ export async function countryExposureLoad (
             'CountryExposure_Assets',
             'CountryExposure_NotClassified',
             'CountryExposure_Type',
+            'CountryExposure_Bond_L',
+            'CountryExposure_Bond_S',
+            'CountryExposure_Bond_N',
             'CountryExposure_Equity_L',
             'CountryExposure_Equity_S',
             'CountryExposure_Equity_N'
@@ -388,5 +391,41 @@ export async function MetaLoad (
     Assert.ok(
         connector.table.getRowCount() > 1,
         'Meta table should have multi row structure.'
+    );
+}
+
+
+export async function creditQualityLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        converter: {
+            type: 'CreditQualityBreakdown'
+        },
+        security: {
+            id: 'F00001GPCX',
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'CreditQualityBreakdown_Type',
+            'CreditQualityBreakdown_Assets',
+            'CreditQualityBreakdown_NotClassified',
+            'CreditQualityBreakdown_L',
+            'CreditQualityBreakdown_S',
+            'CreditQualityBreakdown_N'
+        ],
+        'CreditQualityBreakdown table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
     );
 }

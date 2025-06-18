@@ -102,6 +102,7 @@ export type SecurityDetailsConverterType  = (
    | 'MarketCap'
    | 'IndustryBreakdown'
    | 'IndustryGroupBreakdown'
+   | 'CreditQualityBreakdown'
    | 'BondStatistics'
    | 'Meta'
  );

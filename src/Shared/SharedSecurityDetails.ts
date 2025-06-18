@@ -29,7 +29,8 @@ import {
     IndustryBreakdownConverter,
     IndustryGroupBreakdownConverter,
     BondStatisticsConverter,
-    MetaConverter
+    MetaConverter,
+    CreditQualityBreakdownConverter
 } from './Converters';
 import {
     SecurityDetailsConverterOptions,
@@ -118,6 +119,12 @@ export function initConverter (
                 hasMultiple
             });
 
+        case 'CreditQualityBreakdown':
+            return new CreditQualityBreakdownConverter({
+                ...converter,
+                hasMultiple
+            });
+
         case 'BondStatistics':
             return new BondStatisticsConverter({
                 ...converter,
@@ -145,6 +152,10 @@ export const getBreakdown = (
     const colStrType = `${colName}_Type` + (hasMultiple ? `_${id}` : ''),
         notClassifiedStr = `${colName}_NotClassified` + (hasMultiple ? `_${id}` : ''),
         assetStr = `${colName}_Assets` + (hasMultiple ? `_${id}` : '');
+    
+    if (!breakdown) {
+        return;
+    }
 
     table.setColumn(colStrType);
     table.setColumn(assetStr);

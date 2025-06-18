@@ -208,6 +208,9 @@ export async function countryExposureLoad (
             'CountryExposure_Assets_F0GBR050DD',
             'CountryExposure_NotClassified_F0GBR050DD',
             'CountryExposure_Type_F0GBR050DD',
+            'CountryExposure_Bond_L_F0GBR050DD',
+            'CountryExposure_Bond_S_F0GBR050DD',
+            'CountryExposure_Bond_N_F0GBR050DD',
             'CountryExposure_Equity_L_F0GBR050DD',
             'CountryExposure_Equity_S_F0GBR050DD',
             'CountryExposure_Equity_N_F0GBR050DD',
@@ -479,6 +482,42 @@ export async function MetaLoad (
             'Value_F00000Q5PZ'
         ],
         'Meta table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+
+export async function creditQualityLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        converter: {
+            type: 'CreditQualityBreakdown'
+        },
+        security: {
+            ids: ['F00001GPCX'],
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'CreditQualityBreakdown_Type_F00001GPCX',
+            'CreditQualityBreakdown_Assets_F00001GPCX',
+            'CreditQualityBreakdown_NotClassified_F00001GPCX',
+            'CreditQualityBreakdown_L_F00001GPCX',
+            'CreditQualityBreakdown_S_F00001GPCX',
+            'CreditQualityBreakdown_N_F00001GPCX'
+        ],
+        'CreditQualityBreakdown table should exist of expected columns.'
     );
 
     Assert.ok(

@@ -23,6 +23,7 @@ import PortfolioHoldingConverter from './PortfolioHoldingsConverter';
 import MarketCapConverter from './MarketCapConverter';
 import IndustryBreakdownConverter from './IndustryBreakdownConverter';
 import IndustryGroupBreakdownConverter from './IndustryGroupBreakdownConverter';
+import CreditQualityBreakdownConverter from './CreditQualityBreakdownConverter';
 import BondStatisticsConverter from './BondStatisticsConverter';
 import MetaConverter from './MetaConverter';
 
@@ -52,6 +53,7 @@ export * from './PortfolioHoldingsConverter';
 export * from './MarketCapConverter';
 export * from './IndustryBreakdownConverter';
 export * from './IndustryGroupBreakdownConverter';
+export * from './CreditQualityBreakdownConverter';
 export * from './BondStatisticsConverter';
 export * from './MetaConverter';
 
@@ -72,6 +74,7 @@ export default {
     MarketCapConverter,
     IndustryBreakdownConverter,
     IndustryGroupBreakdownConverter,
+    CreditQualityBreakdownConverter,
     BondStatisticsConverter,
     MetaConverter
 };
