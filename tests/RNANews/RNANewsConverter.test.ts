@@ -11,8 +11,7 @@ export async function rnaNewsLoad (
         id: 'GB00BLGZ9862',
         idType: 'ISIN'
       },
-      startDate: '2023-05-13',
-      endDate: '2023-05-23',
+      maxStories: 10,
       dataModifier: {
         type: 'Invert'
       }

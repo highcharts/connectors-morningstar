@@ -60,6 +60,7 @@ namespace SecurityDetailsJSON {
     }
 
     export type PortfoliosType = {
+        BondStyleBoxBreakdown: BondStyleBoxBreakdownType[];
         AssetAllocations: AssetAllocationType[]
         RegionalExposure: RegionalExposureType[]
         GlobalStockSectorBreakdown: GlobalStockSectorBreakdownType[]
@@ -70,6 +71,12 @@ namespace SecurityDetailsJSON {
         IndustryGroupBreakdown: GenericBreakdownType[]
         CreditQualityBreakdown: GenericBreakdownType[]
         BondStatistics?: BondStatisticsType
+        StyleBoxBreakdown?: GenericBreakdownType[]
+    };
+
+    export type BondStyleBoxBreakdownType = {
+        BreakdownValues: BreakDownValues[];
+        SalePosition: string;
     };
 
     export type BondStatisticsType = {
