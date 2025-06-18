@@ -424,3 +424,38 @@ export async function bondStyleBoxBreakdownLoad (
         'Bond Style Box Breakdown should return at least 9 values.'
     );
 }
+
+export async function styleBoxBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'StyleBoxBreakdown'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'StyleBoxBreakdown_Type',
+            'StyleBoxBreakdown_Assets',
+            'StyleBoxBreakdown_NotClassified',
+            'StyleBoxBreakdown_L',
+            'StyleBoxBreakdown_S',
+            'StyleBoxBreakdown_N'
+        ],
+        'Style Box Breakdown table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.columns['StyleBoxBreakdown_N'].length >= 9,
+        'Style Box Breakdown should return at least 9 values.'
+    );
+}

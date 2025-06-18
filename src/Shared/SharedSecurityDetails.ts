@@ -30,6 +30,7 @@ import {
     IndustryGroupBreakdownConverter,
     BondStatisticsConverter,
     MetaConverter,
+    StyleBoxBreakdownConverter,
     BondStyleBoxBreakdownConverter
 } from './Converters';
 import {
@@ -131,6 +132,11 @@ export function initConverter (
                 hasMultiple
             });
 
+        case 'StyleBoxBreakdown':
+            return new StyleBoxBreakdownConverter({
+                ...converter,
+                hasMultiple
+            });
         case 'BondStyleBoxBreakdown':
             return new BondStyleBoxBreakdownConverter({
                 ...converter,
