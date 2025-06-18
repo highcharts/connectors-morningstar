@@ -25,6 +25,7 @@ import IndustryBreakdownConverter from './IndustryBreakdownConverter';
 import IndustryGroupBreakdownConverter from './IndustryGroupBreakdownConverter';
 import BondStatisticsConverter from './BondStatisticsConverter';
 import MetaConverter from './MetaConverter';
+import BondStyleBoxBreakdownConverter from './BondStyleBoxBreakdownConverter';
 
 
 /* *
@@ -54,6 +55,7 @@ export * from './IndustryBreakdownConverter';
 export * from './IndustryGroupBreakdownConverter';
 export * from './BondStatisticsConverter';
 export * from './MetaConverter';
+export * from './BondStyleBoxBreakdownConverter';
 
 /* *
  *
@@ -73,5 +75,6 @@ export default {
     IndustryBreakdownConverter,
     IndustryGroupBreakdownConverter,
     BondStatisticsConverter,
-    MetaConverter
+    MetaConverter,
+    BondStyleBoxBreakdownConverter
 };

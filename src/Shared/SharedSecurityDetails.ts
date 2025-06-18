@@ -29,7 +29,8 @@ import {
     IndustryBreakdownConverter,
     IndustryGroupBreakdownConverter,
     BondStatisticsConverter,
-    MetaConverter
+    MetaConverter,
+    BondStyleBoxBreakdownConverter
 } from './Converters';
 import {
     SecurityDetailsConverterOptions,
@@ -43,7 +44,7 @@ import * as External from './External';
 /* *
  *
  * Interfaces
- * 
+ *
  * */
 
 export interface SecurityDetailsConverter extends MorningstarConverter {
@@ -54,7 +55,7 @@ export interface SecurityDetailsConverter extends MorningstarConverter {
 /* *
  *
  * Functions
- * 
+ *
  * */
 
 export function initConverter (
@@ -126,6 +127,12 @@ export function initConverter (
 
         case 'Meta':
             return new MetaConverter({
+                ...converter,
+                hasMultiple
+            });
+
+        case 'BondStyleBoxBreakdown':
+            return new BondStyleBoxBreakdownConverter({
                 ...converter,
                 hasMultiple
             });
