@@ -391,6 +391,37 @@ export async function MetaLoad (
     );
 }
 
+export async function bondStyleBoxBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        security: {
+            id: 'F00001GPCX',
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'BondStyleBoxBreakdown'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'BondStyleBoxBreakdown_Type',
+            'BondStyleBoxBreakdown_N'
+        ],
+        'Bond Style Box Breakdown table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.columns['BondStyleBoxBreakdown_N'].length >= 9,
+        'Bond Style Box Breakdown should return at least 9 values.'
+    );
+}
+
 export async function styleBoxBreakdownLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {

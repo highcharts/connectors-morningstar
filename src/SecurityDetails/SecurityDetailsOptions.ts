@@ -105,6 +105,7 @@ export type SecurityDetailsConverterType  = (
    | 'BondStatistics'
    | 'Meta'
    | 'StyleBoxBreakdown'
+   | 'BondStyleBoxBreakdown'
  );
 
 
