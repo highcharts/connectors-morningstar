@@ -161,6 +161,9 @@ export async function countryExposureLoad (
             'CountryExposure_Assets',
             'CountryExposure_NotClassified',
             'CountryExposure_Type',
+            'CountryExposure_Bond_L',
+            'CountryExposure_Bond_S',
+            'CountryExposure_Bond_N',
             'CountryExposure_Equity_L',
             'CountryExposure_Equity_S',
             'CountryExposure_Equity_N'
