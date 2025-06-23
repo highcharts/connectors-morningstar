@@ -563,3 +563,45 @@ export async function styleBoxBreakdownLoad (
         'Connector should not return empty rows.'
     );
 }
+
+
+export async function creditQualityLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        converter: {
+            type: 'CreditQualityBreakdown'
+        },
+        security: {
+            ids: ['F00001GPCX', 'F00000YG2F'],
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'CreditQualityBreakdown_Type_F00001GPCX',
+            'CreditQualityBreakdown_Assets_F00001GPCX',
+            'CreditQualityBreakdown_NotClassified_F00001GPCX',
+            'CreditQualityBreakdown_L_F00001GPCX',
+            'CreditQualityBreakdown_S_F00001GPCX',
+            'CreditQualityBreakdown_N_F00001GPCX',
+            'CreditQualityBreakdown_Type_F00000YG2F',
+            'CreditQualityBreakdown_Assets_F00000YG2F',
+            'CreditQualityBreakdown_NotClassified_F00000YG2F',
+            'CreditQualityBreakdown_L_F00000YG2F',
+            'CreditQualityBreakdown_S_F00000YG2F',
+            'CreditQualityBreakdown_N_F00000YG2F'
+        ],
+        'CreditQualityBreakdown table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}

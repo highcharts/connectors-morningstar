@@ -459,3 +459,39 @@ export async function styleBoxBreakdownLoad (
         'Style Box Breakdown should return at least 9 values.'
     );
 }
+
+
+export async function creditQualityLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        converter: {
+            type: 'CreditQualityBreakdown'
+        },
+        security: {
+            id: 'F00001GPCX',
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'CreditQualityBreakdown_Type',
+            'CreditQualityBreakdown_Assets',
+            'CreditQualityBreakdown_NotClassified',
+            'CreditQualityBreakdown_L',
+            'CreditQualityBreakdown_S',
+            'CreditQualityBreakdown_N'
+        ],
+        'CreditQualityBreakdown table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
