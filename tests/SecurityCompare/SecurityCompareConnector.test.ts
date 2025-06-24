@@ -62,6 +62,44 @@ export async function securityCompareLoad (
     );
 }
 
+export async function securityCompareBackwardsCompatibility (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        security: {
+            ids: ['F0GBR050DD', 'F00000Q5PZ'],
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'AssetAllocations'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.getTable('AssetAllocations').getColumnNames(),
+        [
+            'AssetAllocations_Type_F0GBR050DD',
+            'AssetAllocations_MorningstarEUR3_L_F0GBR050DD',
+            'AssetAllocations_MorningstarEUR3_S_F0GBR050DD',
+            'AssetAllocations_MorningstarEUR3_N_F0GBR050DD',
+            'AssetAllocations_Type_F00000Q5PZ',
+            'AssetAllocations_MorningstarEUR3_L_F00000Q5PZ',
+            'AssetAllocations_MorningstarEUR3_S_F00000Q5PZ',
+            'AssetAllocations_MorningstarEUR3_N_F00000Q5PZ'
+        ],
+        `Converter type backwards compatibility: Asset allocations table should
+        exist of expected columns.`
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Converter type backwards compatibility: Connector should not return empty rows.'
+    );
+}
+
 export async function assetAllocationsLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {

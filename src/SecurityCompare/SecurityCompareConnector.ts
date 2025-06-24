@@ -83,13 +83,15 @@ export class SecurityCompareConnector extends MorningstarConnector {
     public constructor (
         options: SecurityCompareOptions
     ) {
-        let convertersToUse;
+        let convertersToUse: Array<{ key: SecurityDetailsConverterType }>;
+        const { converter, converters } = options;
 
         // Create multi data table based on user-selected converters,
-        // otherwise use all available
-        if (Array.isArray(options.converters) && options.converters.length > 0) {
-            convertersToUse =
-                DATA_TABLES.filter(dt => (options.converters as string[]).includes(dt.key));
+        // otherwise use all available.
+        if (!converters?.length && converter?.type) { // Backwards compatibility
+            convertersToUse = [{ key: converter.type }];
+        } else if (converters?.length) {
+            convertersToUse = DATA_TABLES.filter(dt => converters?.includes(dt.key));
         } else {
             convertersToUse = DATA_TABLES;
         }

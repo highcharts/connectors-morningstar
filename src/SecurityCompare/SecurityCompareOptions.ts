@@ -1,4 +1,5 @@
 import {
+    SecurityDetailsConverterOptions,
     SecurityDetailsConverterType
 } from '../SecurityDetails/SecurityDetailsOptions';
 import type {
@@ -31,6 +32,10 @@ export interface SecurityCompareOptions extends MorningstarOptions {
      * Converter options.
      */
     converters?: SecurityDetailsConverterType[]
+    /**
+     * Backward compatibility option for the old converter type.
+     */
+    converter?: SecurityDetailsConverterOptions;
 }
 export interface SecurityCompareMetadata extends MorningstarMetadata {
     ids?: string[];

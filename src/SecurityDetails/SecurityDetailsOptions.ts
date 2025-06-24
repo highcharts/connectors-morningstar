@@ -77,6 +77,10 @@ export interface SecurityDetailsOptions extends MorningstarOptions {
      * If not specified, returns all available data for security details.
      */
     converters?: SecurityDetailsConverterType[]
+    /**
+     * Backward compatibility option for the old converter type.
+     */
+    converter?: SecurityDetailsConverterOptions;
 }
 
 
