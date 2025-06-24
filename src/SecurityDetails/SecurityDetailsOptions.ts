@@ -94,8 +94,11 @@ export type SecurityDetailsConverterType  = (
    | 'MarketCap'
    | 'IndustryBreakdown'
    | 'IndustryGroupBreakdown'
+   | 'CreditQualityBreakdown'
    | 'BondStatistics'
    | 'Meta'
+   | 'StyleBoxBreakdown'
+   | 'BondStyleBoxBreakdown'
  );
 
 export interface SecurityDetailsMetadata extends MorningstarMetadata {

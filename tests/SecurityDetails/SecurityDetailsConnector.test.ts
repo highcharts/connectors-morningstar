@@ -182,6 +182,9 @@ export async function countryExposureLoad (
             'CountryExposure_Assets',
             'CountryExposure_NotClassified',
             'CountryExposure_Type',
+            'CountryExposure_Bond_L',
+            'CountryExposure_Bond_S',
+            'CountryExposure_Bond_N',
             'CountryExposure_Equity_L',
             'CountryExposure_Equity_S',
             'CountryExposure_Equity_N'
@@ -397,5 +400,107 @@ export async function MetaLoad (
     Assert.ok(
         connector.table.getRowCount() > 1,
         'Meta table should have multi row structure.'
+    );
+}
+
+export async function bondStyleBoxBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        security: {
+            id: 'F00001GPCX',
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'BondStyleBoxBreakdown'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'BondStyleBoxBreakdown_Type',
+            'BondStyleBoxBreakdown_N'
+        ],
+        'Bond Style Box Breakdown table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.columns['BondStyleBoxBreakdown_N'].length >= 9,
+        'Bond Style Box Breakdown should return at least 9 values.'
+    );
+}
+
+export async function styleBoxBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'StyleBoxBreakdown'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'StyleBoxBreakdown_Type',
+            'StyleBoxBreakdown_Assets',
+            'StyleBoxBreakdown_NotClassified',
+            'StyleBoxBreakdown_L',
+            'StyleBoxBreakdown_S',
+            'StyleBoxBreakdown_N'
+        ],
+        'Style Box Breakdown table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.columns['StyleBoxBreakdown_N'].length >= 9,
+        'Style Box Breakdown should return at least 9 values.'
+    );
+}
+
+
+export async function creditQualityLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        converter: {
+            type: 'CreditQualityBreakdown'
+        },
+        security: {
+            id: 'F00001GPCX',
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'CreditQualityBreakdown_Type',
+            'CreditQualityBreakdown_Assets',
+            'CreditQualityBreakdown_NotClassified',
+            'CreditQualityBreakdown_L',
+            'CreditQualityBreakdown_S',
+            'CreditQualityBreakdown_N'
+        ],
+        'CreditQualityBreakdown table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
     );
 }

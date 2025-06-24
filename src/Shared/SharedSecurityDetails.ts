@@ -29,7 +29,10 @@ import {
     IndustryBreakdownConverter,
     IndustryGroupBreakdownConverter,
     BondStatisticsConverter,
-    MetaConverter
+    MetaConverter,
+    StyleBoxBreakdownConverter,
+    BondStyleBoxBreakdownConverter,
+    CreditQualityBreakdownConverter
 } from './Converters';
 import {
     SecurityDetailsConverterOptions
@@ -116,6 +119,12 @@ export function initConverter (
                 hasMultiple
             });
 
+        case 'CreditQualityBreakdown':
+            return new CreditQualityBreakdownConverter({
+                ...converter,
+                hasMultiple
+            });
+
         case 'BondStatistics':
             return new BondStatisticsConverter({
                 ...converter,
@@ -124,6 +133,17 @@ export function initConverter (
 
         case 'Meta':
             return new MetaConverter({
+                ...converter,
+                hasMultiple
+            });
+
+        case 'StyleBoxBreakdown':
+            return new StyleBoxBreakdownConverter({
+                ...converter,
+                hasMultiple
+            });
+        case 'BondStyleBoxBreakdown':
+            return new BondStyleBoxBreakdownConverter({
                 ...converter,
                 hasMultiple
             });
@@ -143,6 +163,10 @@ export const getBreakdown = (
     const colStrType = `${colName}_Type` + (hasMultiple ? `_${id}` : ''),
         notClassifiedStr = `${colName}_NotClassified` + (hasMultiple ? `_${id}` : ''),
         assetStr = `${colName}_Assets` + (hasMultiple ? `_${id}` : '');
+    
+    if (!breakdown) {
+        return;
+    }
 
     table.setColumn(colStrType);
     table.setColumn(assetStr);

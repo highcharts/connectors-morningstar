@@ -233,6 +233,9 @@ export async function countryExposureLoad (
             'CountryExposure_Assets_F0GBR050DD',
             'CountryExposure_NotClassified_F0GBR050DD',
             'CountryExposure_Type_F0GBR050DD',
+            'CountryExposure_Bond_L_F0GBR050DD',
+            'CountryExposure_Bond_S_F0GBR050DD',
+            'CountryExposure_Bond_N_F0GBR050DD',
             'CountryExposure_Equity_L_F0GBR050DD',
             'CountryExposure_Equity_S_F0GBR050DD',
             'CountryExposure_Equity_N_F0GBR050DD',
@@ -492,6 +495,122 @@ export async function MetaLoad (
             'Value_F00000Q5PZ'
         ],
         'Meta table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+export async function bondStyleBoxBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        security: {
+            ids: ['F00001GPCX', 'FOUSA04AL4'],
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'BondStyleBoxBreakdown'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'BondStyleBoxBreakdown_Type_F00001GPCX',
+            'BondStyleBoxBreakdown_N_F00001GPCX',
+            'BondStyleBoxBreakdown_Type_FOUSA04AL4',
+            'BondStyleBoxBreakdown_N_FOUSA04AL4'
+        ],
+        'Bond Style Box Breakdown table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+export async function styleBoxBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        converter: {
+            type: 'StyleBoxBreakdown'
+        },
+        security: {
+            ids: ['F0GBR050DD', 'F00000Q5PZ'],
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'StyleBoxBreakdown_Type_F0GBR050DD',
+            'StyleBoxBreakdown_Assets_F0GBR050DD',
+            'StyleBoxBreakdown_NotClassified_F0GBR050DD',
+            'StyleBoxBreakdown_L_F0GBR050DD',
+            'StyleBoxBreakdown_S_F0GBR050DD',
+            'StyleBoxBreakdown_N_F0GBR050DD',
+            'StyleBoxBreakdown_Type_F00000Q5PZ',
+            'StyleBoxBreakdown_Assets_F00000Q5PZ',
+            'StyleBoxBreakdown_NotClassified_F00000Q5PZ',
+            'StyleBoxBreakdown_L_F00000Q5PZ',
+            'StyleBoxBreakdown_S_F00000Q5PZ',
+            'StyleBoxBreakdown_N_F00000Q5PZ'
+        ],
+        'Style Box table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.table.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+
+export async function creditQualityLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        converter: {
+            type: 'CreditQualityBreakdown'
+        },
+        security: {
+            ids: ['F00001GPCX', 'F00000YG2F'],
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.table.getColumnNames(),
+        [
+            'CreditQualityBreakdown_Type_F00001GPCX',
+            'CreditQualityBreakdown_Assets_F00001GPCX',
+            'CreditQualityBreakdown_NotClassified_F00001GPCX',
+            'CreditQualityBreakdown_L_F00001GPCX',
+            'CreditQualityBreakdown_S_F00001GPCX',
+            'CreditQualityBreakdown_N_F00001GPCX',
+            'CreditQualityBreakdown_Type_F00000YG2F',
+            'CreditQualityBreakdown_Assets_F00000YG2F',
+            'CreditQualityBreakdown_NotClassified_F00000YG2F',
+            'CreditQualityBreakdown_L_F00000YG2F',
+            'CreditQualityBreakdown_S_F00000YG2F',
+            'CreditQualityBreakdown_N_F00000YG2F'
+        ],
+        'CreditQualityBreakdown table should exist of expected columns.'
     );
 
     Assert.ok(
