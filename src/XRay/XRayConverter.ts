@@ -208,9 +208,14 @@ export class XRayConverter extends MorningstarConverter {
         }
 
         if (json.standardDeviation) {
+            const timePeriodColumn = `${benchmarkId}_StandardDeviation_Timeperiods`,
+                valueColumn = `${benchmarkId}_StandardDeviation_Values`;
+            let i = 0;
             for (const standardDeviation of json.standardDeviation) {
-                const columnName = `${benchmarkId}_StandardDeviation_${standardDeviation.frequency}_${standardDeviation.timePeriod}`;
-                table.setCell(columnName, 0, standardDeviation.value);
+
+                table.setCell(timePeriodColumn, i, `${standardDeviation.timePeriod}`);
+                table.setCell(valueColumn, i, standardDeviation.value);
+                i++;
             }
         }
     }
