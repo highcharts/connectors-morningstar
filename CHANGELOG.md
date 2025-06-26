@@ -1,6 +1,24 @@
 Changelog
 =========
 
+v1.3.0
+------
+
+## What's Changed
+
+### Bugfixes
+* Fixed inactive filter buttons in Investor Preferences demo.
+* Fixed handling of undefined `TrailingPerformance` in Security Details connector.
+
+### Enhancements
+* Updated Highcharts and Dashboards to latest releases.
+* Added `BondStyleBoxBreakdowns` converter for Security Details connector.
+* Added `StyleBox` converter for Security Details connector.
+* Added `CreditQualityBreakdown` for Security Details connector.
+
+
+**Full Changelog**: https://github.com/highcharts/connectors-morningstar/compare/v1.2.0...v1.3.0
+
 v1.2.0
 ------
 
