@@ -208,7 +208,7 @@ export class XRayConverter extends MorningstarConverter {
         }
 
         if (json.standardDeviation) {
-            const timePeriodColumn = `${benchmarkId}_StandardDeviation_Timeperiods`,
+            const timePeriodColumn = `${benchmarkId}_StandardDeviation_TimePeriod`,
                 valueColumn = `${benchmarkId}_StandardDeviation_Values`;
             let i = 0;
             for (const standardDeviation of json.standardDeviation) {

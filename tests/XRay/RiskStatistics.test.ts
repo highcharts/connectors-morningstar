@@ -32,7 +32,7 @@ export async function portfolioBreakdown (
         connector.table.getColumnNames(),
         [
             'XRay_SharpeRatio_M_M36',
-            'XRay_StandardDeviation_Timeperiods',
+            'XRay_StandardDeviation_TimePeriod',
             'XRay_StandardDeviation_Values'
         ],
         'Connector columns should return expected names.'
