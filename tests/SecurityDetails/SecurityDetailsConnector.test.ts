@@ -46,7 +46,7 @@ export async function securityDetailsLoad (
 
     Assert.strictEqual(
         columnNames.length,
-        connector.table.modified.getRowCount(),
+        connector.getTable('TrailingPerformance').modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
