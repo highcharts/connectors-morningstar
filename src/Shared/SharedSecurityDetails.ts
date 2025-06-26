@@ -35,11 +35,35 @@ import {
     CreditQualityBreakdownConverter
 } from './Converters';
 import {
-    SecurityDetailsConverterOptions
+    SecurityDetailsConverterOptions,
+    SecurityDetailsConverterType
 } from '../SecurityDetails/SecurityDetailsOptions';
 import MorningstarConverter from './MorningstarConverter';
 import SecurityDetailsJSON from '../SecurityDetails/SecurityDetailsJSON';
 import * as External from './External';
+
+/* *
+ *
+ * Constants
+ *
+ * */
+
+export const DATA_TABLES: { key: SecurityDetailsConverterType }[] = [
+    { key: 'AssetAllocations' },
+    { key: 'BondStatistics' },
+    { key: 'BondStyleBoxBreakdown' },
+    { key: 'CountryExposure' },
+    { key: 'CreditQualityBreakdown' },
+    { key: 'GlobalStockSectorBreakdown' },
+    { key: 'IndustryBreakdown' },
+    { key: 'IndustryGroupBreakdown' },
+    { key: 'MarketCap' },
+    { key: 'Meta' },
+    { key: 'PortfolioHoldings' },
+    { key: 'RegionalExposure' },
+    { key: 'StyleBoxBreakdown' },
+    { key: 'TrailingPerformance' }
+];
 
 
 /* *

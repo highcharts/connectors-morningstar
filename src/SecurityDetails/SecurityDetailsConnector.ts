@@ -32,6 +32,7 @@ import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
 import SecurityDetailsJSON from './SecurityDetailsJSON';
 import {
+    DATA_TABLES,
     initConverter
 } from '../Shared/SharedSecurityDetails';
 
@@ -41,21 +42,6 @@ import {
  *  Constants
  *
  * */
-
-
-const DATA_TABLES: { key: SecurityDetailsConverterType }[] = [
-    { key: 'TrailingPerformance' },
-    { key: 'AssetAllocations' },
-    { key: 'RegionalExposure' },
-    { key: 'GlobalStockSectorBreakdown' },
-    { key: 'CountryExposure' },
-    { key: 'PortfolioHoldings' },
-    { key: 'MarketCap' },
-    { key: 'IndustryBreakdown' },
-    { key: 'IndustryGroupBreakdown' },
-    { key: 'BondStatistics' },
-    { key: 'Meta' }
-];
 
 
 /* *

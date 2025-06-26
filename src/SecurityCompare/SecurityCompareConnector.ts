@@ -27,6 +27,7 @@ import {
     SecurityDetailsConverterType
 } from './../SecurityDetails/SecurityDetailsOptions';
 import {
+    DATA_TABLES,
     initConverter
 } from '../Shared/SharedSecurityDetails';
 import {
@@ -47,21 +48,6 @@ import {
  *  Constants
  *
  * */
-
-
-const DATA_TABLES: { key: SecurityDetailsConverterType }[] = [
-    { key: 'TrailingPerformance' },
-    { key: 'AssetAllocations' },
-    { key: 'RegionalExposure' },
-    { key: 'GlobalStockSectorBreakdown' },
-    { key: 'CountryExposure' },
-    { key: 'PortfolioHoldings' },
-    { key: 'MarketCap' },
-    { key: 'IndustryBreakdown' },
-    { key: 'IndustryGroupBreakdown' },
-    { key: 'BondStatistics' },
-    { key: 'Meta' }
-];
 
 
 /* *
