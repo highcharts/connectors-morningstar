@@ -27,8 +27,8 @@ import {
     SecurityDetailsConverterType
 } from './../SecurityDetails/SecurityDetailsOptions';
 import {
-    DATA_TABLES,
-    initConverter
+    initConverter,
+    pickConverters
 } from '../Shared/SharedSecurityDetails';
 import {
     SecurityCompareOptions,
@@ -69,18 +69,8 @@ export class SecurityCompareConnector extends MorningstarConnector {
     public constructor (
         options: SecurityCompareOptions
     ) {
-        let convertersToUse: Array<{ key: SecurityDetailsConverterType }>;
         const { converter, converters } = options;
-
-        // Create multi data table based on user-selected converters,
-        // otherwise use all available.
-        if (!converters?.length && converter?.type) { // Backwards compatibility
-            convertersToUse = [{ key: converter.type }];
-        } else if (converters?.length) {
-            convertersToUse = DATA_TABLES.filter(dt => converters?.includes(dt.key));
-        } else {
-            convertersToUse = DATA_TABLES;
-        }
+        const convertersToUse = pickConverters(converter, converters);
 
         super(options, convertersToUse);
         this.options = options;

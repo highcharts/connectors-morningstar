@@ -15,7 +15,7 @@
 /* *
  *
  * Imports
- * 
+ *
  * */
 
 import {
@@ -48,7 +48,7 @@ import * as External from './External';
  *
  * */
 
-export const DATA_TABLES: { key: SecurityDetailsConverterType }[] = [
+const DATA_TABLES: { key: SecurityDetailsConverterType }[] = [
     { key: 'AssetAllocations' },
     { key: 'BondStatistics' },
     { key: 'BondStyleBoxBreakdown' },
@@ -183,23 +183,17 @@ export const getBreakdown = (
     colName: string,
     hasMultiple: boolean
 ) => {
+    if (!breakdown || breakdown.length === 0) {
+        return;
+    }
 
     const colStrType = `${colName}_Type` + (hasMultiple ? `_${id}` : ''),
         notClassifiedStr = `${colName}_NotClassified` + (hasMultiple ? `_${id}` : ''),
         assetStr = `${colName}_Assets` + (hasMultiple ? `_${id}` : '');
-    
-    if (!breakdown) {
-        return;
-    }
 
     table.setColumn(colStrType);
     table.setColumn(assetStr);
     table.setColumn(notClassifiedStr);
-
-    // Early return if no breakdown.
-    if (!breakdown || breakdown.length === 0) {
-        return;
-    }
 
     for (let i = 0; i < breakdown.length; i++) {
         const asset = breakdown[i];
@@ -225,4 +219,23 @@ export const getBreakdown = (
             );
         }
     }
+};
+
+export const pickConverters = (
+    converter?: SecurityDetailsConverterOptions,
+    converters?: SecurityDetailsConverterType[]
+): Array<{ key: SecurityDetailsConverterType }> => {
+    let convertersToUse: Array<{ key: SecurityDetailsConverterType }>;
+
+    // Create multi data table based on user-selected converters,
+    // otherwise use all available.
+    if (converters?.length) {
+        convertersToUse = DATA_TABLES.filter(dt => converters.includes(dt.key));
+    } else if (converter?.type) { // Backwards compatibility
+        convertersToUse = [{ key: converter.type }];
+    } else {
+        convertersToUse = DATA_TABLES;
+    }
+
+    return convertersToUse;
 };
