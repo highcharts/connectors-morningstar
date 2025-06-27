@@ -225,17 +225,12 @@ export const pickConverters = (
     converter?: SecurityDetailsConverterOptions,
     converters?: SecurityDetailsConverterType[]
 ): Array<{ key: SecurityDetailsConverterType }> => {
-    let convertersToUse: Array<{ key: SecurityDetailsConverterType }>;
-
     // Create multi data table based on user-selected converters,
     // otherwise use all available.
-    if (converters?.length) {
-        convertersToUse = DATA_TABLES.filter(dt => converters.includes(dt.key));
-    } else if (converter?.type) { // Backwards compatibility
-        convertersToUse = [{ key: converter.type }];
-    } else {
-        convertersToUse = DATA_TABLES;
-    }
 
-    return convertersToUse;
+    if (converters?.length) return DATA_TABLES.filter(dt => converters.includes(dt.key));
+
+    if (converter?.type) return [{ key: converter.type }]; // Backwards compatibility
+
+    return DATA_TABLES;
 };
