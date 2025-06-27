@@ -23,8 +23,7 @@
 
 
 import {
-    SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
+    SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
 import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
@@ -51,12 +50,6 @@ export class StyleBoxBreakdownConverter extends MorningstarConverter {
         options?: SecurityDetailsConverterOptions
     ) {
         super(options);
-
-        this.metadata = {
-            columns: {},
-            ...(options && options.hasMultiple && { ids: [] }),
-            ...(options && options.hasMultiple && { isins: [] })
-        };
     }
 
 
@@ -65,9 +58,6 @@ export class StyleBoxBreakdownConverter extends MorningstarConverter {
      *  Properties
      *
      * */
-
-
-    public readonly metadata: SecurityDetailsMetadata;
 
 
     /* *
@@ -79,8 +69,7 @@ export class StyleBoxBreakdownConverter extends MorningstarConverter {
     public override parse (
         options: SecurityDetailsConverterOptions
     ): void {
-        const metadata = this.metadata,
-            table = this.table,
+        const table = this.table,
             userOptions = {
                 ...this.options,
                 ...options
@@ -90,7 +79,6 @@ export class StyleBoxBreakdownConverter extends MorningstarConverter {
 
         // Create table
         const id = security.Id,
-            isin = security.Isin,
             StyleBoxBreakdowns = security.Portfolios[0].StyleBoxBreakdown;
 
         if (!StyleBoxBreakdowns || !StyleBoxBreakdowns.length) {
@@ -104,15 +92,6 @@ export class StyleBoxBreakdownConverter extends MorningstarConverter {
             'StyleBoxBreakdown',
             !!hasMultiple
         );
-
-        // Update metadata
-        if (hasMultiple){
-            metadata.ids?.push(id);
-            metadata.isins?.push(isin);
-        } else {
-            metadata.id = id;
-            metadata.isin = isin;
-        }
     }
 }
 

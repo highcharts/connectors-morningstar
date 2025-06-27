@@ -24,6 +24,7 @@
 
 import External from '../Shared/External';
 import SecurityDetailsOptions, {
+    SecurityDetailsConverterType,
     SecurityDetailsMetadata
 } from './SecurityDetailsOptions';
 import MorningstarAPI from '../Shared/MorningstarAPI';
@@ -32,8 +33,15 @@ import MorningstarURL from '../Shared/MorningstarURL';
 import SecurityDetailsJSON from './SecurityDetailsJSON';
 import {
     initConverter,
-    SecurityDetailsConverter
+    pickConverters
 } from '../Shared/SharedSecurityDetails';
+
+
+/* *
+ *
+ *  Constants
+ *
+ * */
 
 
 /* *
@@ -54,11 +62,10 @@ export class SecurityDetailsConnector extends MorningstarConnector {
     public constructor (
         options: SecurityDetailsOptions
     ) {
-        super(options);
+        const { converter, converters } = options;
+        const convertersToUse = pickConverters(converter, converters);
 
-        this.converter = initConverter(options.converter);
-
-        this.metadata = this.converter.metadata;
+        super(options, convertersToUse);
         this.options = options;
     }
 
@@ -69,13 +76,13 @@ export class SecurityDetailsConnector extends MorningstarConnector {
      * */
 
 
-    public override readonly converter: SecurityDetailsConverter;
-
-
-    public override readonly metadata: SecurityDetailsMetadata;
-
-
     public override readonly options: SecurityDetailsOptions;
+
+    public override metadata: SecurityDetailsMetadata = {
+        columns: {},
+        id: '',
+        isin: ''
+    };
 
 
     /* *
@@ -105,14 +112,24 @@ export class SecurityDetailsConnector extends MorningstarConnector {
 
         const response = await api.fetch(url);
         const json = await response.json() as unknown;
+
         if (!SecurityDetailsJSON.isSecurityDetailsResponse(json)) {
             throw new Error('Invalid data');
         }
 
-        this.converter.parse({ json: json[0] });
+        for (const key of Object.keys(this.dataTables)) {
+            const converter = initConverter({ type: key as SecurityDetailsConverterType });
 
-        this.table.deleteColumns();
-        this.table.setColumns(this.converter.getTable().getColumns());
+            converter.parse({ json: json[0] });
+
+            this.dataTables[key].setColumns(converter.getTable().getColumns());
+        }
+
+        this.metadata = {
+            columns: {},
+            id: json[0].Id,
+            isin: json[0].Isin
+        };
 
         return this.setModifierOptions(userOptions.dataModifier);
     }

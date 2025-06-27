@@ -23,8 +23,7 @@
 
 
 import {
-    SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
+    SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
 import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
@@ -50,23 +49,7 @@ export class BondStatisticsConverter extends MorningstarConverter {
         options?: SecurityDetailsConverterOptions
     ) {
         super(options);
-
-        this.metadata = {
-            columns: {},
-            ...(options?.hasMultiple && { ids: [] }),
-            ...(options?.hasMultiple && { isins: [] })
-        };
     }
-
-
-    /* *
-     *
-     *  Properties
-     *
-     * */
-
-
-    public readonly metadata: SecurityDetailsMetadata;
 
 
     /* *
@@ -79,8 +62,7 @@ export class BondStatisticsConverter extends MorningstarConverter {
     public override parse (
         options: SecurityDetailsConverterOptions
     ): void {
-        const metadata = this.metadata,
-            table = this.table,
+        const table = this.table,
             userOptions = {
                 ...this.options,
                 ...options
@@ -90,7 +72,6 @@ export class BondStatisticsConverter extends MorningstarConverter {
 
         // Update table
         const id = security.Id,
-            isin = security.Isin,
             bondStatistics = security.Portfolios[0].BondStatistics;
 
         if (!bondStatistics) {
@@ -102,15 +83,6 @@ export class BondStatisticsConverter extends MorningstarConverter {
             const colName = key + (hasMultiple ? `_${id}` : '');
             table.setColumn(colName);
             table.setCell(colName, 0, bondStatistics[key]);
-        }
-
-        // Update meta data
-        if (hasMultiple){
-            metadata.ids?.push(id);
-            metadata.isins?.push(isin);
-        } else {
-            metadata.id = id;
-            metadata.isin = isin;
         }
     }
 }

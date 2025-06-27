@@ -44,9 +44,7 @@ async function displaySecurityDetails (postmanJSON) {
                     postman: {
                         environmentJSON: postmanJSON
                     },
-                    converter: {
-                        type: 'AssetAllocations'
-                    },
+                    converters: ['AssetAllocations'],
                     security: {
                         ids,
                         idType: 'MSID'
@@ -70,10 +68,11 @@ async function displaySecurityDetails (postmanJSON) {
             {
                 connector: {
                     id: 'asset-allocations',
+                    dataTableKey: 'AssetAllocations',
                     columnAssignment: [{
                         seriesId: ids[0],
                         data: [
-                            'AssetAllocations_Type_' + ids[0], 
+                            'AssetAllocations_Type_' + ids[0],
                             'AssetAllocations_MorningstarEUR3_N_' + ids[0]
                         ]
                     }]
@@ -107,10 +106,11 @@ async function displaySecurityDetails (postmanJSON) {
             {
                 connector: {
                     id: 'asset-allocations',
+                    dataTableKey: 'AssetAllocations',
                     columnAssignment: [{
                         seriesId: ids[1],
                         data: [
-                            'AssetAllocations_Type_' + ids[1], 
+                            'AssetAllocations_Type_' + ids[1],
                             'AssetAllocations_MorningstarEUR3_N_' + ids[1]
                         ]
                     }]
