@@ -29,26 +29,26 @@ export async function securityCompareLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('TrailingPerformance').getColumnNames(),
+        connector.dataTables.TrailingPerformance.getColumnNames(),
         columnNames,
         'Connector table should exist of expected columns.'
     );
 
     Assert.strictEqual(
-        connector.getTable('TrailingPerformance').getRowCount(),
+        connector.dataTables.TrailingPerformance.getRowCount(),
         10,
         'Connector table should have row count of 10.'
     );
 
     Assert.deepStrictEqual(
-        connector.getTable('TrailingPerformance').modified.getColumn('columnNames'),
+        connector.dataTables.TrailingPerformance.modified.getColumn('columnNames'),
         columnNames,
         'Connector inverted table should exist of expected columns.'
     );
 
     Assert.strictEqual(
         columnNames.length,
-        connector.getTable('TrailingPerformance').modified.getRowCount(),
+        connector.dataTables.TrailingPerformance.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
@@ -79,7 +79,7 @@ export async function securityCompareBackwardsCompatibility (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('AssetAllocations').getColumnNames(),
+        connector.dataTables.AssetAllocations.getColumnNames(),
         [
             'AssetAllocations_Type_F0GBR050DD',
             'AssetAllocations_MorningstarEUR3_L_F0GBR050DD',
@@ -95,7 +95,7 @@ export async function securityCompareBackwardsCompatibility (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.AssetAllocations.getRowCount() > 0,
         'Converter type backwards compatibility: Connector should not return empty rows.'
     );
 }
@@ -115,7 +115,7 @@ export async function assetAllocationsLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('AssetAllocations').getColumnNames(),
+        connector.dataTables.AssetAllocations.getColumnNames(),
         [
             'AssetAllocations_Type_F0GBR050DD',
             'AssetAllocations_MorningstarEUR3_L_F0GBR050DD',
@@ -130,7 +130,7 @@ export async function assetAllocationsLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.AssetAllocations.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -150,7 +150,7 @@ export async function regionalExposureLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('RegionalExposure').getColumnNames(),
+        connector.dataTables.RegionalExposure.getColumnNames(),
         [
             'RegionalExposure_Type_F0GBR050DD',
             'RegionalExposure_Assets_F0GBR050DD',
@@ -169,7 +169,7 @@ export async function regionalExposureLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.RegionalExposure.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -189,7 +189,7 @@ export async function globalStockSectorBreakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('GlobalStockSectorBreakdown').getColumnNames(),
+        connector.dataTables.GlobalStockSectorBreakdown.getColumnNames(),
         [
             'GlobalStockSectorBreakdown_Type_F0GBR050DD',
             'GlobalStockSectorBreakdown_Assets_F0GBR050DD',
@@ -208,7 +208,7 @@ export async function globalStockSectorBreakdownLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.GlobalStockSectorBreakdown.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -228,7 +228,7 @@ export async function countryExposureLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('CountryExposure').getColumnNames(),
+        connector.dataTables.CountryExposure.getColumnNames(),
         [
             'CountryExposure_Assets_F0GBR050DD',
             'CountryExposure_NotClassified_F0GBR050DD',
@@ -250,7 +250,7 @@ export async function countryExposureLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.CountryExposure.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -270,7 +270,7 @@ export async function portfolioHoldings (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('PortfolioHoldings').getColumnNames(),
+        connector.dataTables.PortfolioHoldings.getColumnNames(),
         [
             'PortfolioHoldings_Id_F0GBR050DD',
             'PortfolioHoldings_ExternalId_F0GBR050DD',
@@ -311,7 +311,7 @@ export async function portfolioHoldings (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.PortfolioHoldings.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -332,7 +332,7 @@ export async function marketCapLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('MarketCap').getColumnNames(),
+        connector.dataTables.MarketCap.getColumnNames(),
         [
             'MarketCap_Type_F0GBR050DD',
             'MarketCap_Assets_F0GBR050DD',
@@ -347,7 +347,7 @@ export async function marketCapLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.MarketCap.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -368,7 +368,7 @@ export async function industryBreakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('IndustryBreakdown').getColumnNames(),
+        connector.dataTables.IndustryBreakdown.getColumnNames(),
         [
             'IndustryBreakdown_Type_F0GBR050DD',
             'IndustryBreakdown_Assets_F0GBR050DD',
@@ -383,7 +383,7 @@ export async function industryBreakdownLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.IndustryBreakdown.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -404,7 +404,7 @@ export async function industryGroupBreakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('IndustryGroupBreakdown').getColumnNames(),
+        connector.dataTables.IndustryGroupBreakdown.getColumnNames(),
         [
             'IndustryGroupBreakdown_Type_F0GBR050DD',
             'IndustryGroupBreakdown_Assets_F0GBR050DD',
@@ -419,7 +419,7 @@ export async function industryGroupBreakdownLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.IndustryGroupBreakdown.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -440,7 +440,7 @@ export async function bondStatisticsLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('BondStatistics').getColumnNames(),
+        connector.dataTables.BondStatistics.getColumnNames(),
         [
             'StyleBox_F000015O71',
             'EffectiveDuration_F000015O71',
@@ -467,7 +467,7 @@ export async function bondStatisticsLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.BondStatistics.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -487,7 +487,7 @@ export async function MetaLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('Meta').getColumnNames(),
+        connector.dataTables.Meta.getColumnNames(),
         [
             'Meta_F0GBR050DD',
             'Value_F0GBR050DD',
@@ -498,7 +498,7 @@ export async function MetaLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.Meta.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -520,7 +520,7 @@ export async function bondStyleBoxBreakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.BondStyleBoxBreakdown.getColumnNames(),
         [
             'BondStyleBoxBreakdown_Type_F00001GPCX',
             'BondStyleBoxBreakdown_N_F00001GPCX',
@@ -531,7 +531,7 @@ export async function bondStyleBoxBreakdownLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.BondStyleBoxBreakdown.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -553,7 +553,7 @@ export async function styleBoxBreakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.StyleBoxBreakdown.getColumnNames(),
         [
             'StyleBoxBreakdown_Type_F0GBR050DD',
             'StyleBoxBreakdown_Assets_F0GBR050DD',
@@ -572,7 +572,7 @@ export async function styleBoxBreakdownLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.StyleBoxBreakdown.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -595,7 +595,7 @@ export async function creditQualityLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.CreditQualityBreakdown.getColumnNames(),
         [
             'CreditQualityBreakdown_Type_F00001GPCX',
             'CreditQualityBreakdown_Assets_F00001GPCX',
@@ -614,7 +614,7 @@ export async function creditQualityLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.CreditQualityBreakdown.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
