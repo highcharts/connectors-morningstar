@@ -618,3 +618,56 @@ export async function creditQualityLoad (
         'Connector should not return empty rows.'
     );
 }
+
+export async function HistoricalPerformanceSeriesLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        converter: {
+            type: 'HistoricalPerformanceSeries'
+        },
+        security: {
+            ids: ['F00001GPCX', 'F00000YG2F'],
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.dataTables.HistoricalPerformanceSeries.getColumnNames(),
+        [
+            'HistoricalPerformance_Nav_M12_Q_Date_F00001GPCX',
+            'HistoricalPerformance_Nav_M12_Q_Value_F00001GPCX',
+            'HistoricalPerformance_Nav_M12_Y_Date_F00001GPCX',
+            'HistoricalPerformance_Nav_M12_Y_Value_F00001GPCX',
+            'HistoricalPerformance_GbPostTax_M12_Q_Date_F00001GPCX',
+            'HistoricalPerformance_GbPostTax_M12_Q_Value_F00001GPCX',
+            'HistoricalPerformance_GbPostTax_M12_Y_Date_F00001GPCX',
+            'HistoricalPerformance_GbPostTax_M12_Y_Value_F00001GPCX',
+            'HistoricalPerformance_ItPostTax_M12_Q_Date_F00001GPCX',
+            'HistoricalPerformance_ItPostTax_M12_Q_Value_F00001GPCX',
+            'HistoricalPerformance_ItPostTax_M12_Y_Date_F00001GPCX',
+            'HistoricalPerformance_ItPostTax_M12_Y_Value_F00001GPCX',
+            'HistoricalPerformance_Nav_M12_Q_Date_F00000YG2F',
+            'HistoricalPerformance_Nav_M12_Q_Value_F00000YG2F',
+            'HistoricalPerformance_Nav_M12_Y_Date_F00000YG2F',
+            'HistoricalPerformance_Nav_M12_Y_Value_F00000YG2F',
+            'HistoricalPerformance_GbPostTax_M12_Q_Date_F00000YG2F',
+            'HistoricalPerformance_GbPostTax_M12_Q_Value_F00000YG2F',
+            'HistoricalPerformance_GbPostTax_M12_Y_Date_F00000YG2F',
+            'HistoricalPerformance_GbPostTax_M12_Y_Value_F00000YG2F',
+            'HistoricalPerformance_ItPostTax_M12_Q_Date_F00000YG2F',
+            'HistoricalPerformance_ItPostTax_M12_Q_Value_F00000YG2F',
+            'HistoricalPerformance_ItPostTax_M12_Y_Date_F00000YG2F',
+            'HistoricalPerformance_ItPostTax_M12_Y_Value_F00000YG2F'
+],
+        'HistoricalPerformanceSeries table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.dataTables.HistoricalPerformanceSeries.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
