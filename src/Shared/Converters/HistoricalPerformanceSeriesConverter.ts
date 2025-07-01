@@ -87,8 +87,7 @@ export class HistoricalPerformanceSeriesConverter extends MorningstarConverter {
         for (let i = 0, iEnd = HistoricalPerformance.length; i < iEnd; ++i) {
             const { ReturnType, TimePeriod, Frequency } = HistoricalPerformance[i];
 
-            const columnStr =
-                `HistoricalPerformance_${ReturnType}_${TimePeriod}_${Frequency}`;
+            const columnStr = `${ReturnType}_${TimePeriod}_${Frequency}`;
 
             const Return = HistoricalPerformance[i].Return;
 

@@ -524,18 +524,18 @@ export async function HistoricalPerformanceSeriesLoad (
     Assert.deepStrictEqual(
         connector.dataTables.HistoricalPerformanceSeries.getColumnNames(),
         [
-            'HistoricalPerformance_Nav_M12_Q_Date',
-            'HistoricalPerformance_Nav_M12_Q_Value',
-            'HistoricalPerformance_Nav_M12_Y_Date',
-            'HistoricalPerformance_Nav_M12_Y_Value',
-            'HistoricalPerformance_GbPostTax_M12_Q_Date',
-            'HistoricalPerformance_GbPostTax_M12_Q_Value',
-            'HistoricalPerformance_GbPostTax_M12_Y_Date',
-            'HistoricalPerformance_GbPostTax_M12_Y_Value',
-            'HistoricalPerformance_ItPostTax_M12_Q_Date',
-            'HistoricalPerformance_ItPostTax_M12_Q_Value',
-            'HistoricalPerformance_ItPostTax_M12_Y_Date',
-            'HistoricalPerformance_ItPostTax_M12_Y_Value'
+            'Nav_M12_Q_Date',
+            'Nav_M12_Q_Value',
+            'Nav_M12_Y_Date',
+            'Nav_M12_Y_Value',
+            'GbPostTax_M12_Q_Date',
+            'GbPostTax_M12_Q_Value',
+            'GbPostTax_M12_Y_Date',
+            'GbPostTax_M12_Y_Value',
+            'ItPostTax_M12_Q_Date',
+            'ItPostTax_M12_Q_Value',
+            'ItPostTax_M12_Y_Date',
+            'ItPostTax_M12_Y_Value'
         ],
         'HistoricalPerformanceSeries table should exist of expected columns.'
     );
