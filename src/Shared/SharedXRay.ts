@@ -52,17 +52,17 @@ export function initConverter (
     dataPoint: string
 ): XRayConverter {
     switch (dataPoint) {
-        case 'benchmark':
+        case 'Benchmark':
             return new BenchmarkConverter();
-        case 'historicalPerformanceSeries':
+        case 'HistoricalPerformanceSeries':
             return new HistoricalPerformanceConverter();
-        case 'trailingPerformance':
+        case 'TrailingPerformance':
             return new XRayTrailingPerformanceConverter();
-        case 'breakdowns':
+        case 'Breakdowns':
             return new BreakdownsConverter();
-        case 'riskStatistics':
+        case 'RiskStatistics':
             return new RiskStatisticsConverter();
-        case 'underlyHoldings':
+        case 'UnderlyHoldings':
             return new UnderlyHoldingsConverter();
         default:
             throw new Error(`Unsupported key: ${dataPoint}`);

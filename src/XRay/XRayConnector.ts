@@ -122,12 +122,12 @@ function escapeDataPoints (
  * */
 
 const DATA_TABLES = [
-    { key: 'benchmark' },
-    { key: 'historicalPerformanceSeries' },
-    { key: 'trailingPerformance' },
-    { key: 'breakdowns' },
-    { key: 'riskStatistics' },
-    { key: 'underlyHoldings' }
+    { key: 'Benchmark' },
+    { key: 'Breakdowns' },
+    { key: 'HistoricalPerformanceSeries' },
+    { key: 'RiskStatistics' },
+    { key: 'TrailingPerformance' },
+    { key: 'UnderlyHoldings' }
 ];
 
 

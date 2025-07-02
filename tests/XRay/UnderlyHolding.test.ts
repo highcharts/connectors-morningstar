@@ -28,7 +28,7 @@ export async function underlyHoldings (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('underlyHoldings').getColumnNames(),
+        connector.dataTables.UnderlyHoldings.getColumnNames(),
         [
             'XRay_UnderlyingHoldings_holdingId',
             'XRay_UnderlyingHoldings_name',
@@ -51,7 +51,7 @@ export async function underlyHoldings (
     );
 
     Assert.ok(
-        connector.getTable('underlyHoldings').getRowCount() > 0,
+        connector.dataTables.UnderlyHoldings.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }

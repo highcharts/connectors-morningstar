@@ -84,7 +84,7 @@ async function displaySecurityDetails (postmanJSON) {
             renderTo: 'dashboard-col-0',
             connector: {
                 id: 'xray',
-                dataTableKey: 'breakdowns'
+                dataTableKey: 'Breakdowns'
             },
             type: 'DataGrid',
             title: 'Global Stock Sector',
@@ -110,7 +110,7 @@ async function displaySecurityDetails (postmanJSON) {
             renderTo: 'dashboard-col-1',
             connector: {
                 id: 'xray',
-                dataTableKey: 'breakdowns'
+                dataTableKey: 'Breakdowns'
             },
             type: 'DataGrid',
             title: 'Morningstar EUR3',
@@ -164,7 +164,7 @@ async function displaySecurityDetails (postmanJSON) {
             renderTo: 'dashboard-col-2',
             connector: {
                 id: 'xray',
-                dataTableKey: 'breakdowns'
+                dataTableKey: 'Breakdowns'
             },
             type: 'DataGrid',
             title: 'Regional Exposure',

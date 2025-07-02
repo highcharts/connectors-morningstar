@@ -33,7 +33,7 @@ export async function breakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('benchmark').getColumnNames(),
+        connector.dataTables.Benchmark.getColumnNames(),
         [
             'XRay_TotalReturn_M1',
             'XRay_TotalReturn_M1_Value',
@@ -47,7 +47,7 @@ export async function breakdownLoad (
 
     const now = new Date();
     const then = new Date(2024, 8 /* September */, 1);
-    const rowCount = connector.table.getRowCount();
+    const rowCount = connector.dataTables.Benchmark.getRowCount();
     const shouldCount = (
         384 + // January 2024
         ((now.getFullYear() - then.getFullYear()) * 12) +
@@ -101,25 +101,25 @@ export async function portfolioBreakdown (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable('breakdowns').getColumnNames(),
+        connector.dataTables.Breakdowns.getColumnNames(),
         columnNames,
         'Connector columns should return expected names.'
     );
 
     Assert.ok(
-        connector.getTable('breakdowns').getRowCount() > 0,
+        connector.dataTables.Breakdowns.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 
     Assert.deepStrictEqual(
-        connector.getTable('breakdowns').modified.getColumn('columnNames'),
+        connector.dataTables.Breakdowns.modified.getColumn('columnNames'),
         columnNames,
         'Row names of inverted table should be the same as original column names.'
     );
 
     Assert.strictEqual(
         columnNames.length,
-        connector.getTable('breakdowns').modified.getRowCount(),
+        connector.dataTables.Breakdowns.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 }
