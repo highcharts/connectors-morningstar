@@ -246,10 +246,10 @@ export async function portfolioHoldings (
 
     await connector.load();
 
+
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
-        [
-            'PortfolioHoldings_Id_F0GBR050DD',
+        ['PortfolioHoldings_Id_F0GBR050DD',
             'PortfolioHoldings_ExternalId_F0GBR050DD',
             'PortfolioHoldings_DetailHoldingTypeId_F0GBR050DD',
             'PortfolioHoldings_ExternalName_F0GBR050DD',
@@ -281,8 +281,8 @@ export async function portfolioHoldings (
             'PortfolioHoldings_GlobalSectorId_F00000Q5PZ',
             'PortfolioHoldings_NumberOfShare_F00000Q5PZ',
             'PortfolioHoldings_GICSIndustryId_F00000Q5PZ',
-            'PortfolioHoldings_ShareChange_F00000Q5PZ',
-            'PortfolioHoldings_CUSIP_F00000Q5PZ'
+            'PortfolioHoldings_CUSIP_F00000Q5PZ',
+            'PortfolioHoldings_ShareChange_F00000Q5PZ'
         ],
         'PortfolioHoldings table should exist of expected columns'
     );

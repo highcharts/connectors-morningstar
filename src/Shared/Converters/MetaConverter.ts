@@ -94,9 +94,6 @@ export class MetaConverter extends MorningstarConverter {
         const metaTypeStr = 'Meta' + (hasMultiple ? `_${id}` : '');
         const valueTypeStr = 'Value' + (hasMultiple ? `_${id}` : '');
 
-        table.setColumn(metaTypeStr);
-        table.setColumn(valueTypeStr);
-
         const rows = [
             ['Id', securityDetails.Id],
             ['InceptionDate', securityDetails.InceptionDate],
@@ -134,8 +131,18 @@ export class MetaConverter extends MorningstarConverter {
             ['FundAttributes_UCITS', securityDetails.FundAttributes?.UCITS]
         ];
 
+        const metaTypes: string[] = [],
+            metaValues: ( string | number | undefined | boolean )[]  = [];
+
+        // Split metaTypes and values into arrays
+        rows.forEach((row) => {
+            metaTypes.push(row[0] as string);
+            metaValues.push(row[1]);
+        });
+
         // Populate table
-        table.setRows(rows);
+        table.setColumn(metaTypeStr, metaTypes);
+        table.setColumn(valueTypeStr, metaValues);
 
         // Update metadata
         if (hasMultiple) {
