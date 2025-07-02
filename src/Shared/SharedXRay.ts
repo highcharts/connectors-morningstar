@@ -30,6 +30,20 @@ import {
 import MorningstarConverter from './MorningstarConverter';
 import { XRayConverterOptions, XRayMetadata } from '../XRay';
 
+/* *
+ *
+ *  Constants
+ *
+ * */
+
+export const DATA_TABLES = [
+    { key: 'Benchmark' },
+    { key: 'Breakdowns' },
+    { key: 'HistoricalPerformanceSeries' },
+    { key: 'RiskStatistics' },
+    { key: 'TrailingPerformance' },
+    { key: 'UnderlyHoldings' }
+];
 
 /* *
  *

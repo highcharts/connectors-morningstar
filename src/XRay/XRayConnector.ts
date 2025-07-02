@@ -32,7 +32,7 @@ import {
     MorningstarHoldingWeightOptions
 } from '../Shared/MorningstarOptions';
 import MorningstarURL from '../Shared/MorningstarURL';
-import { initConverter } from '../Shared/SharedXRay';
+import { DATA_TABLES, initConverter } from '../Shared/SharedXRay';
 import XRayJSON from './XRayJSON';
 import XRayOptions from './XRayOptions';
 
@@ -120,15 +120,6 @@ function escapeDataPoints (
  *  Constants
  *
  * */
-
-const DATA_TABLES = [
-    { key: 'Benchmark' },
-    { key: 'Breakdowns' },
-    { key: 'HistoricalPerformanceSeries' },
-    { key: 'RiskStatistics' },
-    { key: 'TrailingPerformance' },
-    { key: 'UnderlyHoldings' }
-];
 
 
 /* *

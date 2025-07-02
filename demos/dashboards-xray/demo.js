@@ -91,13 +91,13 @@ async function displaySecurityDetails (postmanJSON) {
             dataGridOptions: {
                 header: [{
                     format: 'Net',
-                    columnId: 'XRay_GlobalStockSector_N_Categories'
+                    columnId: 'GlobalStockSector_N_Categories'
                 }, {
                     format: 'Values',
-                    columnId: 'XRay_GlobalStockSector_N_Values'
+                    columnId: 'GlobalStockSector_N_Values'
                 }],
                 columns: [{
-                    id: 'XRay_GlobalStockSector_N_Categories',
+                    id: 'GlobalStockSector_N_Categories',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -117,25 +117,25 @@ async function displaySecurityDetails (postmanJSON) {
             dataGridOptions: {
                 header: [{
                     format: 'Long',
-                    columnId: 'XRay_MorningstarEUR3_L_Categories'
+                    columnId: 'MorningstarEUR3_L_Categories'
                 }, {
                     format: 'Values',
-                    columnId: 'XRay_MorningstarEUR3_L_Values'
+                    columnId: 'MorningstarEUR3_L_Values'
                 }, {
                     format: 'Net',
-                    columnId: 'XRay_MorningstarEUR3_N_Categories'
+                    columnId: 'MorningstarEUR3_N_Categories'
                 }, {
                     format: 'Values',
-                    columnId: 'XRay_MorningstarEUR3_N_Values'
+                    columnId: 'MorningstarEUR3_N_Values'
                 }, {
                     format: 'Short',
-                    columnId: 'XRay_MorningstarEUR3_S_Categories'
+                    columnId: 'MorningstarEUR3_S_Categories'
                 }, {
                     format: 'Values',
-                    columnId: 'XRay_MorningstarEUR3_S_Values'
+                    columnId: 'MorningstarEUR3_S_Values'
                 }],
                 columns: [{
-                    id: 'XRay_MorningstarEUR3_L_Categories',
+                    id: 'MorningstarEUR3_L_Categories',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -143,7 +143,7 @@ async function displaySecurityDetails (postmanJSON) {
                         }
                     }
                 }, {
-                    id: 'XRay_MorningstarEUR3_N_Categories',
+                    id: 'MorningstarEUR3_N_Categories',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -151,7 +151,7 @@ async function displaySecurityDetails (postmanJSON) {
                         }
                     }
                 }, {
-                    id: 'XRay_MorningstarEUR3_S_Categories',
+                    id: 'MorningstarEUR3_S_Categories',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -171,13 +171,13 @@ async function displaySecurityDetails (postmanJSON) {
             dataGridOptions: {
                 header: [{
                     format: 'Net',
-                    columnId: 'XRay_RegionalExposure_N_Categories'
+                    columnId: 'RegionalExposure_N_Categories'
                 }, {
                     format: 'Values',
-                    columnId: 'XRay_RegionalExposure_N_Values'
+                    columnId: 'RegionalExposure_N_Values'
                 }],
                 columns: [{
-                    id: 'XRay_RegionalExposure_N_Categories',
+                    id: 'RegionalExposure_N_Categories',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
