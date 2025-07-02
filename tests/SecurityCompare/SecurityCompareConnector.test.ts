@@ -249,7 +249,8 @@ export async function portfolioHoldings (
 
     Assert.deepStrictEqual(
         connector.table.getColumnNames(),
-        ['PortfolioHoldings_Id_F0GBR050DD',
+        [
+            'PortfolioHoldings_Id_F0GBR050DD',
             'PortfolioHoldings_ExternalId_F0GBR050DD',
             'PortfolioHoldings_DetailHoldingTypeId_F0GBR050DD',
             'PortfolioHoldings_ExternalName_F0GBR050DD',
