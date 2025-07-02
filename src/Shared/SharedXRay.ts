@@ -39,7 +39,7 @@ import { XRayConverterOptions, XRayMetadata } from '../XRay';
 
 export interface XRayConverter extends MorningstarConverter {
     metadata: XRayMetadata;
-    parse(options: XRayConverterOptions, benchmarkId?: string): void;
+    parse(options: XRayConverterOptions): void;
 }
 
 /* *

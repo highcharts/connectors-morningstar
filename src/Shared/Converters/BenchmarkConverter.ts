@@ -69,22 +69,21 @@ export class BenchmarkConverter extends MorningstarConverter {
 
 
     public override parse (
-        options: XRayConverterOptions,
-        benchmarkId: string = 'XRay'
+        options: XRayConverterOptions
     ): void {
         const json = options.json;
         for (const benchmark of json.benchmark || []) {
             if (benchmark.breakdowns) {
                 const converter = new BreakdownsConverter();
-                converter.parse.call(this, { json: benchmark }, benchmarkId);
+                converter.parse.call(this, { json: benchmark });
             }
             if (benchmark.historicalPerformanceSeries) {
                 const converter = new HistoricalPerformanceConverter();
-                converter.parse.call(this, { json: benchmark }, benchmarkId);
+                converter.parse.call(this, { json: benchmark });
             }
             if (benchmark.trailingPerformance) {
                 const converter = new XRayTrailingPerformanceConverter();
-                converter.parse.call(this, { json: benchmark }, benchmarkId);
+                converter.parse.call(this, { json: benchmark });
             }
         }
     }

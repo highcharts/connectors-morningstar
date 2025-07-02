@@ -65,8 +65,7 @@ export class UnderlyHoldingsConverter extends MorningstarConverter {
 
 
     public override parse (
-        options: XRayConverterOptions,
-        benchmarkId: string = 'XRay'
+        options: XRayConverterOptions
     ): void {
         const table = this.table,
             json = options.json;
@@ -74,7 +73,7 @@ export class UnderlyHoldingsConverter extends MorningstarConverter {
 
         for (const holding of json.underlyHoldings || []) {
             for (const key in holding) {
-                const columnName = `${benchmarkId}_UnderlyingHoldings_${key}`;
+                const columnName = `UnderlyingHoldings_${key}`;
                 table.setCell(columnName, rowIndex, holding[key]);
             }
             ++rowIndex;

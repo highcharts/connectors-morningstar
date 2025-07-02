@@ -30,22 +30,22 @@ export async function underlyHoldings (
     Assert.deepStrictEqual(
         connector.dataTables.UnderlyHoldings.getColumnNames(),
         [
-            'XRay_UnderlyingHoldings_holdingId',
-            'XRay_UnderlyingHoldings_name',
-            'XRay_UnderlyingHoldings_securityId',
-            'XRay_UnderlyingHoldings_securityType',
-            'XRay_UnderlyingHoldings_performanceId',
-            'XRay_UnderlyingHoldings_weight',
-            'XRay_UnderlyingHoldings_marketValue',
-            'XRay_UnderlyingHoldings_sector',
-            'XRay_UnderlyingHoldings_sectorId',
-            'XRay_UnderlyingHoldings_globalSectorId',
-            'XRay_UnderlyingHoldings_country',
-            'XRay_UnderlyingHoldings_countryId',
-            'XRay_UnderlyingHoldings_globalIndustryId',
-            'XRay_UnderlyingHoldings_iSIN',
-            'XRay_UnderlyingHoldings_currencyId',
-            'XRay_UnderlyingHoldings_currencyName'
+            'UnderlyingHoldings_holdingId',
+            'UnderlyingHoldings_name',
+            'UnderlyingHoldings_securityId',
+            'UnderlyingHoldings_securityType',
+            'UnderlyingHoldings_performanceId',
+            'UnderlyingHoldings_weight',
+            'UnderlyingHoldings_marketValue',
+            'UnderlyingHoldings_sector',
+            'UnderlyingHoldings_sectorId',
+            'UnderlyingHoldings_globalSectorId',
+            'UnderlyingHoldings_country',
+            'UnderlyingHoldings_countryId',
+            'UnderlyingHoldings_globalIndustryId',
+            'UnderlyingHoldings_iSIN',
+            'UnderlyingHoldings_currencyId',
+            'UnderlyingHoldings_currencyName'
         ],
         'Connector columns should return expected names.'
     );

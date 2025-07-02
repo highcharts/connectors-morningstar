@@ -256,7 +256,7 @@ export class XRayConnector extends MorningstarConnector {
             const converter = initConverter(key);
 
             for (const xray of xrays) {
-                converter.parse({ json: xray }, xray.benchmarkId);
+                converter.parse({ json: xray });
             }
 
             this.dataTables[key].setColumns(converter.getTable().getColumns());

@@ -65,15 +65,14 @@ export class HistoricalPerformanceConverter extends MorningstarConverter {
 
 
     public override parse (
-        options: XRayConverterOptions,
-        benchmarkId: string = 'XRay'
+        options: XRayConverterOptions
     ): void {
         const table = this.table,
             json = options.json;
 
         for (const historicalPerformance of json.historicalPerformanceSeries || []) {
-            const periodRowId = `${benchmarkId}_${historicalPerformance.returnType}_${historicalPerformance.timePeriod}`;
-            const valueRowId = `${benchmarkId}_${historicalPerformance.returnType}_${historicalPerformance.timePeriod}_Value`;
+            const periodRowId = `${historicalPerformance.returnType}_${historicalPerformance.timePeriod}`;
+            const valueRowId = `${historicalPerformance.returnType}_${historicalPerformance.timePeriod}_Value`;
 
             let rowIndex = 0;
 

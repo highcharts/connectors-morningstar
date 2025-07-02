@@ -35,12 +35,12 @@ export async function breakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.Benchmark.getColumnNames(),
         [
-            'XRay_TotalReturn_M1',
-            'XRay_TotalReturn_M1_Value',
-            'XRay_TotalReturn_M3',
-            'XRay_TotalReturn_M3_Value',
-            'XRay_TotalReturn_M12',
-            'XRay_TotalReturn_M12_Value'
+            'TotalReturn_M1',
+            'TotalReturn_M1_Value',
+            'TotalReturn_M3',
+            'TotalReturn_M3_Value',
+            'TotalReturn_M12',
+            'TotalReturn_M12_Value'
         ],
         'Connector table should exist of expected columns.'
     );
@@ -91,12 +91,12 @@ export async function portfolioBreakdown (
         ]
     }),
     columnNames = [
-        'XRay_RegionalExposure_N_Categories',
-        'XRay_RegionalExposure_N_Values',
-        'XRay_GlobalStockSector_N_Categories',
-        'XRay_GlobalStockSector_N_Values',
-        'XRay_StyleBox_N_Categories',
-        'XRay_StyleBox_N_Values'
+        'RegionalExposure_N_Categories',
+        'RegionalExposure_N_Values',
+        'GlobalStockSector_N_Categories',
+        'GlobalStockSector_N_Values',
+        'StyleBox_N_Categories',
+        'StyleBox_N_Values'
     ];
     await connector.load();
 

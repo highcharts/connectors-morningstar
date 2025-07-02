@@ -31,8 +31,8 @@ export async function portfolioBreakdown (
     Assert.deepStrictEqual(
         connector.dataTables.RiskStatistics.getColumnNames(),
         [
-            'XRay_SharpeRatio_M_M36',
-            'XRay_StandardDeviation_M_M36'
+            'SharpeRatio_M_M36',
+            'StandardDeviation_M_M36'
         ],
         'Connector columns should return expected names.'
     );

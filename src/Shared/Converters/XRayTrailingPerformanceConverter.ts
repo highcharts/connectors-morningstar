@@ -65,15 +65,14 @@ export class XRayTrailingPerformanceConverter extends MorningstarConverter {
 
 
     public override parse (
-        options: XRayConverterOptions,
-        benchmarkId: string = 'XRay'
+        options: XRayConverterOptions
     ): void {
         const table = this.table,
             json = options.json;
 
         for (const trailingPerformance of json.trailingPerformance || []) {
-            const periodRowId = `${benchmarkId}_${trailingPerformance.type}_TimePeriod`;
-            const valueRowId = `${benchmarkId}_${trailingPerformance.type}_Value`;
+            const periodRowId = `${trailingPerformance.type}_TimePeriod`;
+            const valueRowId = `${trailingPerformance.type}_Value`;
 
             let rowIndex = 0;
 

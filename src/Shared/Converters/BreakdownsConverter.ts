@@ -65,15 +65,14 @@ export class BreakdownsConverter extends MorningstarConverter {
 
 
     public override parse (
-        options: XRayConverterOptions,
-        benchmarkId: string = 'XRay'
+        options: XRayConverterOptions
     ): void {
         const table = this.table,
             json = options.json.breakdowns;
 
         if (json?.assetAllocation) {
             for (const asset of json.assetAllocation) {
-                const columnName = `${benchmarkId}_${asset.type}_${asset.salePosition}`;
+                const columnName = `${asset.type}_${asset.salePosition}`;
                 table.setColumn(`${columnName}_Categories`);
                 table.setColumn(`${columnName}_Values`);
                 const values = asset.values;
@@ -89,7 +88,7 @@ export class BreakdownsConverter extends MorningstarConverter {
 
         if (json?.regionalExposure) {
             for (const exposure of json.regionalExposure) {
-                const columnName = `${benchmarkId}_RegionalExposure_${exposure.salePosition}`;
+                const columnName = `RegionalExposure_${exposure.salePosition}`;
                 table.setColumn(`${columnName}_Categories`);
                 table.setColumn(`${columnName}_Values`);
                 const values = exposure.values;
@@ -104,7 +103,7 @@ export class BreakdownsConverter extends MorningstarConverter {
 
         if (json?.globalStockSector) {
             for (const sector of json.globalStockSector) {
-                const columnName = `${benchmarkId}_GlobalStockSector_${sector.salePosition}`;
+                const columnName = `GlobalStockSector_${sector.salePosition}`;
                 table.setColumn(`${columnName}_Categories`);
                 table.setColumn(`${columnName}_Values`);
                 const values = sector.values;
@@ -119,7 +118,7 @@ export class BreakdownsConverter extends MorningstarConverter {
 
         if (json?.styleBox) {
             for (const styleBox of json.styleBox) {
-                const columnName = `${benchmarkId}_StyleBox_${styleBox.salePosition}`;
+                const columnName = `StyleBox_${styleBox.salePosition}`;
                 table.setColumn(`${columnName}_Categories`);
                 table.setColumn(`${columnName}_Values`);
                 const values = styleBox.values;
