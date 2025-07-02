@@ -19,7 +19,7 @@
  * */
 
 import MorningstarConverter from '../MorningstarConverter';
-import { XRayConverterOptions, XRayMetadata } from '../../XRay';
+import { XRayConverterOptions } from '../../XRay';
 import BreakdownsConverter from './BreakdownsConverter';
 import HistoricalPerformanceConverter from './HistoricalPerformanceConverter';
 import XRayTrailingPerformanceConverter from './XRayTrailingPerformanceConverter';
@@ -45,20 +45,7 @@ export class BenchmarkConverter extends MorningstarConverter {
         options?: XRayConverterOptions
     ) {
         super(options);
-
-        this.metadata = {
-            columns: {}
-        };
     }
-
-
-    /* *
-     *
-     *  Properties
-     *
-     * */
-
-    public readonly metadata: XRayMetadata;
 
 
     /* *

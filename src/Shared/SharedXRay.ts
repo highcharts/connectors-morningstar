@@ -28,7 +28,7 @@ import {
 } from './Converters';
 
 import MorningstarConverter from './MorningstarConverter';
-import { XRayConverterOptions, XRayMetadata } from '../XRay';
+import { XRayConverterOptions } from '../XRay';
 
 /* *
  *
@@ -52,7 +52,6 @@ export const DATA_TABLES = [
  * */
 
 export interface XRayConverter extends MorningstarConverter {
-    metadata: XRayMetadata;
     parse(options: XRayConverterOptions): void;
 }
 

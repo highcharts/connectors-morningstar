@@ -19,7 +19,7 @@
  * */
 
 import MorningstarConverter from '../MorningstarConverter';
-import { XRayConverterOptions, XRayMetadata } from '../../XRay';
+import { XRayConverterOptions } from '../../XRay';
 
 /* *
  *
@@ -42,20 +42,8 @@ export class RiskStatisticsConverter extends MorningstarConverter {
         options?: XRayConverterOptions
     ) {
         super(options);
-
-        this.metadata = {
-            columns: {}
-        };
     }
 
-
-    /* *
-     *
-     *  Properties
-     *
-     * */
-
-    public readonly metadata: XRayMetadata;
 
     /* *
      *

@@ -34,7 +34,7 @@ import {
 import MorningstarURL from '../Shared/MorningstarURL';
 import { DATA_TABLES, initConverter } from '../Shared/SharedXRay';
 import XRayJSON from './XRayJSON';
-import XRayOptions from './XRayOptions';
+import XRayOptions, { XRayMetadata } from './XRayOptions';
 
 
 /* *
@@ -156,6 +156,10 @@ export class XRayConnector extends MorningstarConnector {
 
     public override readonly options: XRayOptions;
 
+    public override metadata: XRayMetadata = {
+        columns: {}
+    };
+
 
     /* *
      *
@@ -252,6 +256,10 @@ export class XRayConnector extends MorningstarConnector {
 
             this.dataTables[key].setColumns(converter.getTable().getColumns());
         }
+
+        this.metadata = {
+            columns: {}
+        };
 
         return this.setModifierOptions(options.dataModifier);
     }
