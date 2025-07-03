@@ -27,7 +27,7 @@ async function displaySecurityDetails (postmanJSON) {
         series: [{
             type: 'column',
             name: 'F0GBR050DD',
-            data: connector.getTable('TrailingPerformance').getRowObjects().map(obj => [
+            data: connector.dataTables.TrailingPerformance.getRowObjects().map(obj => [
                 obj.TrailingPerformance_TimePeriod,
                 obj.TrailingPerformance_Value
             ])
