@@ -33,21 +33,21 @@ export async function breakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.Benchmark.getColumnNames(),
+        connector.dataTables.HistoricalPerformanceSeries.getColumnNames(),
         [
-            'TotalReturn_M1',
-            'TotalReturn_M1_Value',
-            'TotalReturn_M3',
-            'TotalReturn_M3_Value',
-            'TotalReturn_M12',
-            'TotalReturn_M12_Value'
+            'TotalReturn_M1_Benchmark',
+            'TotalReturn_M1_Value_Benchmark',
+            'TotalReturn_M3_Benchmark',
+            'TotalReturn_M3_Value_Benchmark',
+            'TotalReturn_M12_Benchmark',
+            'TotalReturn_M12_Value_Benchmark'
         ],
         'Connector table should exist of expected columns.'
     );
 
     const now = new Date();
     const then = new Date(2024, 8 /* September */, 1);
-    const rowCount = connector.dataTables.Benchmark.getRowCount();
+    const rowCount = connector.dataTables.HistoricalPerformanceSeries.getRowCount();
     const shouldCount = (
         384 + // January 2024
         ((now.getFullYear() - then.getFullYear()) * 12) +
@@ -62,7 +62,7 @@ export async function breakdownLoad (
 
 }
 
-export async function portfolioBreakdown (
+export async function globalStockSectorLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.XRayConnector({
@@ -74,9 +74,63 @@ export async function portfolioBreakdown (
         dataPoints: {
             type: 'portfolio',
             dataPoints: [
-                'GlobalStockSector',
-                'RegionalExposure',
-                'StyleBox'
+                'GlobalStockSector'
+            ]
+        },
+        holdings: [
+            {
+                id: 'F0GBR052QA',
+                idType: 'MSID',
+                type: 'FO',
+                weight: '100',
+                name: 'BlackRock Income and Growth Ord',
+                holdingType: 'weight'
+            }
+        ]
+    }),
+    columnNames = [
+        'GlobalStockSector_N_Categories',
+        'GlobalStockSector_N_Values'
+    ];
+    await connector.load();
+
+        Assert.deepStrictEqual(
+        connector.dataTables.GlobalStockSector.getColumnNames(),
+        columnNames,
+        'Connector columns should return expected names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.GlobalStockSector.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.GlobalStockSector.modified.getColumn('columnNames'),
+        columnNames,
+        'Row names of inverted table should be the same as original column names.'
+    );
+
+    Assert.strictEqual(
+        columnNames.length,
+        connector.dataTables.GlobalStockSector.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
+    );
+}
+
+export async function regionalExposureLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.XRayConnector({
+        api,
+        currencyId: 'GBP',
+        dataModifier: {
+            type: 'Invert'
+        },
+        dataPoints: {
+            type: 'portfolio',
+            dataPoints: [
+                'RegionalExposure'
             ]
         },
         holdings: [
@@ -92,34 +146,86 @@ export async function portfolioBreakdown (
     }),
     columnNames = [
         'RegionalExposure_N_Categories',
-        'RegionalExposure_N_Values',
-        'GlobalStockSector_N_Categories',
-        'GlobalStockSector_N_Values',
-        'StyleBox_N_Categories',
-        'StyleBox_N_Values'
+        'RegionalExposure_N_Values'
     ];
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.Breakdowns.getColumnNames(),
+        connector.dataTables.RegionalExposure.getColumnNames(),
         columnNames,
         'Connector columns should return expected names.'
     );
 
     Assert.ok(
-        connector.dataTables.Breakdowns.getRowCount() > 0,
+        connector.dataTables.RegionalExposure.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.Breakdowns.modified.getColumn('columnNames'),
+        connector.dataTables.RegionalExposure.modified.getColumn('columnNames'),
         columnNames,
         'Row names of inverted table should be the same as original column names.'
     );
 
     Assert.strictEqual(
         columnNames.length,
-        connector.dataTables.Breakdowns.modified.getRowCount(),
+        connector.dataTables.RegionalExposure.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
+    );
+}
+
+export async function styleBoxLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.XRayConnector({
+        api,
+        currencyId: 'GBP',
+        dataModifier: {
+            type: 'Invert'
+        },
+        dataPoints: {
+            type: 'portfolio',
+            dataPoints: [
+                'StyleBox'
+            ]
+        },
+        holdings: [
+            {
+                id: 'F0GBR052QA',
+                idType: 'MSID',
+                type: 'FO',
+                weight: '100',
+                name: 'BlackRock Income and Growth Ord',
+                holdingType: 'weight'
+            }
+        ]
+    }),
+    columnNames = [
+        'StyleBox_N_Categories',
+        'StyleBox_N_Values'
+    ];
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.dataTables.StyleBox.getColumnNames(),
+        columnNames,
+        'Connector columns should return expected names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.StyleBox.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.StyleBox.modified.getColumn('columnNames'),
+        columnNames,
+        'Row names of inverted table should be the same as original column names.'
+    );
+
+    Assert.strictEqual(
+        columnNames.length,
+        connector.dataTables.StyleBox.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 }

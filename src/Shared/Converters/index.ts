@@ -25,12 +25,14 @@ import IndustryBreakdownConverter from './IndustryBreakdownConverter';
 import IndustryGroupBreakdownConverter from './IndustryGroupBreakdownConverter';
 import BondStatisticsConverter from './BondStatisticsConverter';
 import MetaConverter from './MetaConverter';
-import BenchmarkConverter from './BenchmarkConverter';
-import BreakdownsConverter from './BreakdownsConverter';
 import HistoricalPerformanceConverter from './HistoricalPerformanceConverter';
 import RiskStatisticsConverter from './RiskStatisticsConverter';
 import UnderlyHoldingsConverter from './UnderlyHoldingsConverter';
 import XRayTrailingPerformanceConverter from './XRayTrailingPerformanceConverter';
+import XRayAssetAllocationsConverter from './XRayAssetAllocationsConverter';
+import XRayRegionalExposureConverter from './XRayRegionalExposureConverter';
+import XRayGlobalStockSectorConverter from './XRayGlobalStockSectorConverter';
+import XRayStyleBoxConverter from './XRayStyleBoxConverter';
 
 
 /* *
@@ -60,12 +62,14 @@ export * from './IndustryBreakdownConverter';
 export * from './IndustryGroupBreakdownConverter';
 export * from './BondStatisticsConverter';
 export * from './MetaConverter';
-export * from './BenchmarkConverter';
-export * from './BreakdownsConverter';
 export * from './HistoricalPerformanceConverter';
 export * from './RiskStatisticsConverter';
 export * from './UnderlyHoldingsConverter';
 export * from './XRayTrailingPerformanceConverter';
+export * from './XRayAssetAllocationsConverter';
+export * from './XRayRegionalExposureConverter';
+export * from './XRayGlobalStockSectorConverter';
+export * from './XRayStyleBoxConverter';
 
 /* *
  *
@@ -86,10 +90,12 @@ export default {
     IndustryGroupBreakdownConverter,
     BondStatisticsConverter,
     MetaConverter,
-    BenchmarkConverter,
-    BreakdownsConverter,
     HistoricalPerformanceConverter,
     RiskStatisticsConverter,
     UnderlyHoldingsConverter,
-    XRayTrailingPerformanceConverter
+    XRayTrailingPerformanceConverter,
+    XRayAssetAllocationsConverter,
+    XRayRegionalExposureConverter,
+    XRayGlobalStockSectorConverter,
+    XRayStyleBoxConverter
 };

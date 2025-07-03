@@ -56,18 +56,21 @@ export class RiskStatisticsConverter extends MorningstarConverter {
         options: XRayConverterOptions
     ): void {
         const table = this.table,
-            json = options.json.riskStatistics;
+            benchmark = options.json.benchmark,
+            isBenchmark = Array.isArray(benchmark),
+            benchmarkSuffix = isBenchmark ? '_Benchmark' : '',
+            json = isBenchmark ? benchmark[0].riskStatistics : options.json.riskStatistics;
 
         if (json?.sharpeRatio) {
             for (const sharpeRatio of json.sharpeRatio) {
-                const columnName = `SharpeRatio_${sharpeRatio.frequency}_${sharpeRatio.timePeriod}`;
+                const columnName = `SharpeRatio_${sharpeRatio.frequency}_${sharpeRatio.timePeriod}` + benchmarkSuffix;
                 table.setCell(columnName, 0, sharpeRatio.value);
             }
         }
 
         if (json?.standardDeviation) {
             for (const standardDeviation of json.standardDeviation) {
-                const columnName = `StandardDeviation_${standardDeviation.frequency}_${standardDeviation.timePeriod}`;
+                const columnName = `StandardDeviation_${standardDeviation.frequency}_${standardDeviation.timePeriod}` + benchmarkSuffix;
                 table.setCell(columnName, 0, standardDeviation.value);
             }
         }

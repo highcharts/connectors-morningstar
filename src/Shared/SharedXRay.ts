@@ -19,12 +19,14 @@
  * */
 
 import {
-    BenchmarkConverter,
     HistoricalPerformanceConverter,
     UnderlyHoldingsConverter,
     XRayTrailingPerformanceConverter,
-    BreakdownsConverter,
-    RiskStatisticsConverter
+    RiskStatisticsConverter,
+    XRayAssetAllocationsConverter,
+    XRayGlobalStockSectorConverter,
+    XRayRegionalExposureConverter,
+    XRayStyleBoxConverter
 } from './Converters';
 
 import MorningstarConverter from './MorningstarConverter';
@@ -37,10 +39,12 @@ import { XRayConverterOptions } from '../XRay';
  * */
 
 export const DATA_TABLES = [
-    { key: 'Benchmark' },
-    { key: 'Breakdowns' },
+    { key: 'AssetAllocation' },
+    { key: 'GlobalStockSector' },
     { key: 'HistoricalPerformanceSeries' },
+    { key: 'RegionalExposure' },
     { key: 'RiskStatistics' },
+    { key: 'StyleBox' },
     { key: 'TrailingPerformance' },
     { key: 'UnderlyHoldings' }
 ];
@@ -65,18 +69,22 @@ export function initConverter (
     dataPoint: string
 ): XRayConverter {
     switch (dataPoint) {
-        case 'Benchmark':
-            return new BenchmarkConverter();
         case 'HistoricalPerformanceSeries':
             return new HistoricalPerformanceConverter();
         case 'TrailingPerformance':
             return new XRayTrailingPerformanceConverter();
-        case 'Breakdowns':
-            return new BreakdownsConverter();
         case 'RiskStatistics':
             return new RiskStatisticsConverter();
         case 'UnderlyHoldings':
             return new UnderlyHoldingsConverter();
+        case 'AssetAllocation':
+            return new XRayAssetAllocationsConverter();
+        case 'GlobalStockSector':
+            return new XRayGlobalStockSectorConverter();
+        case 'RegionalExposure':
+            return new XRayRegionalExposureConverter();
+        case 'StyleBox':
+            return new XRayStyleBoxConverter();
         default:
             throw new Error(`Unsupported key: ${dataPoint}`);
     }

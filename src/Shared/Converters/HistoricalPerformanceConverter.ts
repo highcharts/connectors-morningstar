@@ -56,11 +56,14 @@ export class HistoricalPerformanceConverter extends MorningstarConverter {
         options: XRayConverterOptions
     ): void {
         const table = this.table,
-            json = options.json;
+            benchmark = options.json.benchmark,
+            isBenchmark = Array.isArray(benchmark),
+            benchmarkSuffix = isBenchmark ? '_Benchmark' : '',
+            json = isBenchmark ? benchmark[0] : options.json;
 
         for (const historicalPerformance of json.historicalPerformanceSeries || []) {
-            const periodRowId = `${historicalPerformance.returnType}_${historicalPerformance.timePeriod}`;
-            const valueRowId = `${historicalPerformance.returnType}_${historicalPerformance.timePeriod}_Value`;
+            const periodRowId = `${historicalPerformance.returnType}_${historicalPerformance.timePeriod}` + benchmarkSuffix;
+            const valueRowId = `${historicalPerformance.returnType}_${historicalPerformance.timePeriod}_Value` + benchmarkSuffix;
 
             let rowIndex = 0;
 

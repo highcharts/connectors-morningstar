@@ -28,7 +28,7 @@ import { XRayConverterOptions } from '../../XRay';
  * */
 
 
-export class UnderlyHoldingsConverter extends MorningstarConverter {
+export class XRayRegionalExposureConverter extends MorningstarConverter {
 
 
     /* *
@@ -59,15 +59,21 @@ export class UnderlyHoldingsConverter extends MorningstarConverter {
             benchmark = options.json.benchmark,
             isBenchmark = Array.isArray(benchmark),
             benchmarkSuffix = isBenchmark ? '_Benchmark' : '',
-            json = isBenchmark ? benchmark[0] : options.json;
-        let rowIndex = 0;
+            json = isBenchmark ? benchmark[0].breakdowns : options.json.breakdowns;
 
-        for (const holding of json.underlyHoldings || []) {
-            for (const key in holding) {
-                const columnName = `UnderlyingHoldings_${key}` + benchmarkSuffix;
-                table.setCell(columnName, rowIndex, holding[key]);
+        if (json?.regionalExposure) {
+            for (const exposure of json.regionalExposure) {
+                const columnName = `RegionalExposure_${exposure.salePosition}`,
+                    categoryStr = `${columnName}_Categories` + benchmarkSuffix,
+                    valueStr = `${columnName}_Values` + benchmarkSuffix,
+                    values = exposure.values,
+                    valueIndex = Object.keys(values);
+
+                for (let i = 0; i < valueIndex.length; i++) {
+                    table.setCell(categoryStr, i, valueIndex[i]);
+                    table.setCell(valueStr, i, values[parseInt(valueIndex[i])]);
+                }
             }
-            ++rowIndex;
         }
     }
 }
@@ -80,4 +86,4 @@ export class UnderlyHoldingsConverter extends MorningstarConverter {
  * */
 
 
-export default UnderlyHoldingsConverter;
+export default XRayRegionalExposureConverter;
