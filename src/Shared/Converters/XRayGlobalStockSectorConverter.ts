@@ -63,9 +63,8 @@ export class XRayGlobalStockSectorConverter extends MorningstarConverter {
 
         if (json?.globalStockSector) {
             for (const sector of json.globalStockSector) {
-                const columnName = `GlobalStockSector_${sector.salePosition}`,
-                    categoryStr = `${columnName}_Categories` + benchmarkSuffix,
-                    valueStr = `${columnName}_Values` + benchmarkSuffix,
+                const categoryStr = `${sector.salePosition}_Categories` + benchmarkSuffix,
+                    valueStr = `${sector.salePosition}_Values` + benchmarkSuffix,
                     values = sector.values,
                     valueIndex = Object.keys(values);
 

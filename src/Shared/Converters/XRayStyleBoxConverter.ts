@@ -63,9 +63,8 @@ export class XRayStyleBoxConverter extends MorningstarConverter {
 
         if (json?.styleBox) {
             for (const styleBox of json.styleBox) {
-                const columnName = `StyleBox_${styleBox.salePosition}`,
-                    categoryStr = `${columnName}_Categories` + benchmarkSuffix,
-                    valueStr = `${columnName}_Values` + benchmarkSuffix,
+                const categoryStr = `${styleBox.salePosition}_Categories` + benchmarkSuffix,
+                    valueStr = `${styleBox.salePosition}_Values` + benchmarkSuffix,
                     values = styleBox.values,
                     valueIndex = Object.keys(values);
 

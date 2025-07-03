@@ -30,22 +30,22 @@ export async function underlyHoldings (
     Assert.deepStrictEqual(
         connector.dataTables.UnderlyHoldings.getColumnNames(),
         [
-            'UnderlyingHoldings_holdingId',
-            'UnderlyingHoldings_name',
-            'UnderlyingHoldings_securityId',
-            'UnderlyingHoldings_securityType',
-            'UnderlyingHoldings_performanceId',
-            'UnderlyingHoldings_weight',
-            'UnderlyingHoldings_marketValue',
-            'UnderlyingHoldings_sector',
-            'UnderlyingHoldings_sectorId',
-            'UnderlyingHoldings_globalSectorId',
-            'UnderlyingHoldings_country',
-            'UnderlyingHoldings_countryId',
-            'UnderlyingHoldings_globalIndustryId',
-            'UnderlyingHoldings_iSIN',
-            'UnderlyingHoldings_currencyId',
-            'UnderlyingHoldings_currencyName'
+            'holdingId',
+            'name',
+            'securityId',
+            'securityType',
+            'performanceId',
+            'weight',
+            'marketValue',
+            'sector',
+            'sectorId',
+            'globalSectorId',
+            'country',
+            'countryId',
+            'globalIndustryId',
+            'iSIN',
+            'currencyId',
+            'currencyName'
         ],
         'Connector columns should return expected names.'
     );

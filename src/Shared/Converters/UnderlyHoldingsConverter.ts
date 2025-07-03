@@ -64,7 +64,7 @@ export class UnderlyHoldingsConverter extends MorningstarConverter {
 
         for (const holding of json.underlyHoldings || []) {
             for (const key in holding) {
-                const columnName = `UnderlyingHoldings_${key}` + benchmarkSuffix;
+                const columnName = `${key}` + benchmarkSuffix;
                 table.setCell(columnName, rowIndex, holding[key]);
             }
             ++rowIndex;

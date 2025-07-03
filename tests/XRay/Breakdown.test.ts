@@ -89,8 +89,8 @@ export async function globalStockSectorLoad (
         ]
     }),
     columnNames = [
-        'GlobalStockSector_N_Categories',
-        'GlobalStockSector_N_Values'
+        'N_Categories',
+        'N_Values'
     ];
     await connector.load();
 
@@ -145,8 +145,8 @@ export async function regionalExposureLoad (
         ]
     }),
     columnNames = [
-        'RegionalExposure_N_Categories',
-        'RegionalExposure_N_Values'
+        'N_Categories',
+        'N_Values'
     ];
     await connector.load();
 
@@ -201,8 +201,8 @@ export async function styleBoxLoad (
         ]
     }),
     columnNames = [
-        'StyleBox_N_Categories',
-        'StyleBox_N_Values'
+        'N_Categories',
+        'N_Values'
     ];
     await connector.load();
 
