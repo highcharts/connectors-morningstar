@@ -26,9 +26,9 @@
 
 import type {
     MorningstarConverterOptions,
-    MorningstarMetadata,
     MorningstarOptions,
-    MorningstarSecurityOptions
+    MorningstarSecurityOptions,
+    MorningstarMetadata
 } from '../Shared/MorningstarOptions';
 
 
@@ -58,19 +58,6 @@ export interface SecurityDetailsConverterOptions extends MorningstarConverterOpt
 }
 
 
-export interface SecurityDetailsMetadata extends MorningstarMetadata {
-    id?: string;
-    isin?: string;
-    ids?: string[];
-    isins?: string[];
-    domicile?: string;
-    currency?: string;
-    returnType?: string;
-    type?: string;
-    currencyId?: string;
-    date?: string;
-}
-
 
 export interface SecurityDetailsOptions extends MorningstarOptions {
     /**
@@ -86,9 +73,14 @@ export interface SecurityDetailsOptions extends MorningstarOptions {
      */
     viewId?: string,
     /**
-     * Converter options.
+     * Retrieves security details based on the specified converter types.
+     * If not specified, returns all available data for security details.
      */
-    converter?: SecurityDetailsConverterOptions
+    converters?: SecurityDetailsConverterType[]
+    /**
+     * Backward compatibility option for the old converter type.
+     */
+    converter?: SecurityDetailsConverterOptions;
 }
 
 
@@ -102,9 +94,17 @@ export type SecurityDetailsConverterType  = (
    | 'MarketCap'
    | 'IndustryBreakdown'
    | 'IndustryGroupBreakdown'
+   | 'CreditQualityBreakdown'
    | 'BondStatistics'
    | 'Meta'
+   | 'StyleBoxBreakdown'
+   | 'BondStyleBoxBreakdown'
  );
+
+export interface SecurityDetailsMetadata extends MorningstarMetadata {
+    id?: string;
+    isin?: string;
+}
 
 
 /* *

@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -60,6 +60,7 @@ namespace SecurityDetailsJSON {
     }
 
     export type PortfoliosType = {
+        BondStyleBoxBreakdown: BondStyleBoxBreakdownType[];
         AssetAllocations: AssetAllocationType[]
         RegionalExposure: RegionalExposureType[]
         GlobalStockSectorBreakdown: GlobalStockSectorBreakdownType[]
@@ -68,7 +69,14 @@ namespace SecurityDetailsJSON {
         MarketCapitalBreakdown: GenericBreakdownType[]
         IndustryBreakdown: GenericBreakdownType[]
         IndustryGroupBreakdown: GenericBreakdownType[]
+        CreditQualityBreakdown: GenericBreakdownType[]
         BondStatistics?: BondStatisticsType
+        StyleBoxBreakdown?: GenericBreakdownType[]
+    };
+
+    export type BondStyleBoxBreakdownType = {
+        BreakdownValues: BreakDownValues[];
+        SalePosition: string;
     };
 
     export type BondStatisticsType = {
@@ -202,7 +210,7 @@ namespace SecurityDetailsJSON {
             typeof (json as SecurityDetailsResponse).Id === 'string' &&
             typeof (json as SecurityDetailsResponse).Currency === 'object' &&
             (
-                (json as SecurityDetailsResponse).TrailingPerformance.length === 0 ||
+                (json as SecurityDetailsResponse).TrailingPerformance?.length &&
                 isTrailingPerformance((json as SecurityDetailsResponse).TrailingPerformance[0])
             )
         );

@@ -15,7 +15,7 @@
 /* *
  *
  * Imports
- * 
+ *
  * */
 
 import {
@@ -29,32 +29,57 @@ import {
     IndustryBreakdownConverter,
     IndustryGroupBreakdownConverter,
     BondStatisticsConverter,
-    MetaConverter
+    MetaConverter,
+    StyleBoxBreakdownConverter,
+    BondStyleBoxBreakdownConverter,
+    CreditQualityBreakdownConverter
 } from './Converters';
 import {
     SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
+    SecurityDetailsConverterType
 } from '../SecurityDetails/SecurityDetailsOptions';
 import MorningstarConverter from './MorningstarConverter';
 import SecurityDetailsJSON from '../SecurityDetails/SecurityDetailsJSON';
 import * as External from './External';
 
+/* *
+ *
+ * Constants
+ *
+ * */
+
+const DATA_TABLES: { key: SecurityDetailsConverterType }[] = [
+    { key: 'AssetAllocations' },
+    { key: 'BondStatistics' },
+    { key: 'BondStyleBoxBreakdown' },
+    { key: 'CountryExposure' },
+    { key: 'CreditQualityBreakdown' },
+    { key: 'GlobalStockSectorBreakdown' },
+    { key: 'IndustryBreakdown' },
+    { key: 'IndustryGroupBreakdown' },
+    { key: 'MarketCap' },
+    { key: 'Meta' },
+    { key: 'PortfolioHoldings' },
+    { key: 'RegionalExposure' },
+    { key: 'StyleBoxBreakdown' },
+    { key: 'TrailingPerformance' }
+];
+
 
 /* *
  *
  * Interfaces
- * 
+ *
  * */
 
 export interface SecurityDetailsConverter extends MorningstarConverter {
-    metadata: SecurityDetailsMetadata;
     parse(options: SecurityDetailsConverterOptions): void;
 }
 
 /* *
  *
  * Functions
- * 
+ *
  * */
 
 export function initConverter (
@@ -118,6 +143,12 @@ export function initConverter (
                 hasMultiple
             });
 
+        case 'CreditQualityBreakdown':
+            return new CreditQualityBreakdownConverter({
+                ...converter,
+                hasMultiple
+            });
+
         case 'BondStatistics':
             return new BondStatisticsConverter({
                 ...converter,
@@ -126,6 +157,17 @@ export function initConverter (
 
         case 'Meta':
             return new MetaConverter({
+                ...converter,
+                hasMultiple
+            });
+
+        case 'StyleBoxBreakdown':
+            return new StyleBoxBreakdownConverter({
+                ...converter,
+                hasMultiple
+            });
+        case 'BondStyleBoxBreakdown':
+            return new BondStyleBoxBreakdownConverter({
                 ...converter,
                 hasMultiple
             });
@@ -141,6 +183,9 @@ export const getBreakdown = (
     colName: string,
     hasMultiple: boolean
 ) => {
+    if (!breakdown || breakdown.length === 0) {
+        return;
+    }
 
     const colStrType = `${colName}_Type` + (hasMultiple ? `_${id}` : ''),
         notClassifiedStr = `${colName}_NotClassified` + (hasMultiple ? `_${id}` : ''),
@@ -174,4 +219,18 @@ export const getBreakdown = (
             );
         }
     }
+};
+
+export const pickConverters = (
+    converter?: SecurityDetailsConverterOptions,
+    converters?: SecurityDetailsConverterType[]
+): Array<{ key: SecurityDetailsConverterType }> => {
+    // Create multi data table based on user-selected converters,
+    // otherwise use all available.
+
+    if (converters?.length) return DATA_TABLES.filter(dt => converters.includes(dt.key));
+
+    if (converter?.type) return [{ key: converter.type }]; // Backwards compatibility
+
+    return DATA_TABLES;
 };

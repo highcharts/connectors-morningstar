@@ -26,34 +26,29 @@ export async function securityCompareLoad (
         'Connector should be instance of SecurityCompareConnector class.'
     );
 
-    Assert.ok(
-        connector.converter instanceof MC.TrailingPerformanceConverter,
-        'Converter should be instance of TrailingPerformanceConverter.'
-    );
-
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.TrailingPerformance.getColumnNames(),
         columnNames,
         'Connector table should exist of expected columns.'
     );
 
     Assert.strictEqual(
-        connector.table.getRowCount(),
+        connector.dataTables.TrailingPerformance.getRowCount(),
         10,
         'Connector table should have row count of 10.'
     );
 
     Assert.deepStrictEqual(
-        connector.table.modified.getColumn('columnNames'),
+        connector.dataTables.TrailingPerformance.modified.getColumn('columnNames'),
         columnNames,
         'Connector inverted table should exist of expected columns.'
     );
 
     Assert.strictEqual(
         columnNames.length,
-        connector.table.modified.getRowCount(),
+        connector.dataTables.TrailingPerformance.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
@@ -67,7 +62,7 @@ export async function securityCompareLoad (
     );
 }
 
-export async function assetAllocationsLoad (
+export async function securityCompareBackwardsCompatibility (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityCompareConnector({
@@ -84,7 +79,43 @@ export async function assetAllocationsLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.AssetAllocations.getColumnNames(),
+        [
+            'AssetAllocations_Type_F0GBR050DD',
+            'AssetAllocations_MorningstarEUR3_L_F0GBR050DD',
+            'AssetAllocations_MorningstarEUR3_S_F0GBR050DD',
+            'AssetAllocations_MorningstarEUR3_N_F0GBR050DD',
+            'AssetAllocations_Type_F00000Q5PZ',
+            'AssetAllocations_MorningstarEUR3_L_F00000Q5PZ',
+            'AssetAllocations_MorningstarEUR3_S_F00000Q5PZ',
+            'AssetAllocations_MorningstarEUR3_N_F00000Q5PZ'
+        ],
+        `Converter type backwards compatibility: Asset allocations table should
+        exist of expected columns.`
+    );
+
+    Assert.ok(
+        connector.dataTables.AssetAllocations.getRowCount() > 0,
+        'Converter type backwards compatibility: Connector should not return empty rows.'
+    );
+}
+
+export async function assetAllocationsLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        security: {
+            ids: ['F0GBR050DD', 'F00000Q5PZ'],
+            idType: 'MSID'
+        },
+        converters: ['AssetAllocations']
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.dataTables.AssetAllocations.getColumnNames(),
         [
             'AssetAllocations_Type_F0GBR050DD',
             'AssetAllocations_MorningstarEUR3_L_F0GBR050DD',
@@ -99,7 +130,7 @@ export async function assetAllocationsLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.AssetAllocations.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -113,15 +144,13 @@ export async function regionalExposureLoad (
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
             idType: 'MSID'
         },
-        converter: {
-            type: 'RegionalExposure'
-        }
+        converters: ['RegionalExposure']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.RegionalExposure.getColumnNames(),
         [
             'RegionalExposure_Type_F0GBR050DD',
             'RegionalExposure_Assets_F0GBR050DD',
@@ -140,7 +169,7 @@ export async function regionalExposureLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.RegionalExposure.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -154,15 +183,13 @@ export async function globalStockSectorBreakdownLoad (
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
             idType: 'MSID'
         },
-        converter: {
-            type: 'GlobalStockSectorBreakdown'
-        }
+        converters: ['GlobalStockSectorBreakdown']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.GlobalStockSectorBreakdown.getColumnNames(),
         [
             'GlobalStockSectorBreakdown_Type_F0GBR050DD',
             'GlobalStockSectorBreakdown_Assets_F0GBR050DD',
@@ -181,7 +208,7 @@ export async function globalStockSectorBreakdownLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.GlobalStockSectorBreakdown.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -195,19 +222,20 @@ export async function countryExposureLoad (
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
             idType: 'MSID'
         },
-        converter: {
-            type: 'CountryExposure'
-        }
+        converters: ['CountryExposure']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.CountryExposure.getColumnNames(),
         [
             'CountryExposure_Assets_F0GBR050DD',
             'CountryExposure_NotClassified_F0GBR050DD',
             'CountryExposure_Type_F0GBR050DD',
+            'CountryExposure_Bond_L_F0GBR050DD',
+            'CountryExposure_Bond_S_F0GBR050DD',
+            'CountryExposure_Bond_N_F0GBR050DD',
             'CountryExposure_Equity_L_F0GBR050DD',
             'CountryExposure_Equity_S_F0GBR050DD',
             'CountryExposure_Equity_N_F0GBR050DD',
@@ -222,7 +250,7 @@ export async function countryExposureLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.CountryExposure.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -236,15 +264,13 @@ export async function portfolioHoldings (
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
             idType: 'MSID'
         },
-        converter: {
-            type: 'PortfolioHoldings'
-        }
+        converters: ['PortfolioHoldings']
     });
 
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.PortfolioHoldings.getColumnNames(),
         [
             'PortfolioHoldings_Id_F0GBR050DD',
             'PortfolioHoldings_ExternalId_F0GBR050DD',
@@ -285,7 +311,7 @@ export async function portfolioHoldings (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.PortfolioHoldings.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -295,9 +321,7 @@ export async function marketCapLoad (
 ) {
     const connector = new MC.SecurityCompareConnector({
         api,
-        converter: {
-            type: 'MarketCap'
-        },
+        converters: ['MarketCap'],
         viewIds: 'HSsnapshot',
         security: {
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
@@ -308,7 +332,7 @@ export async function marketCapLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.MarketCap.getColumnNames(),
         [
             'MarketCap_Type_F0GBR050DD',
             'MarketCap_Assets_F0GBR050DD',
@@ -323,7 +347,7 @@ export async function marketCapLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.MarketCap.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -333,9 +357,7 @@ export async function industryBreakdownLoad (
 ) {
     const connector = new MC.SecurityCompareConnector({
         api,
-        converter: {
-            type: 'IndustryBreakdown'
-        },
+        converters: ['IndustryBreakdown'],
         viewIds: 'HSsnapshot',
         security: {
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
@@ -346,7 +368,7 @@ export async function industryBreakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.IndustryBreakdown.getColumnNames(),
         [
             'IndustryBreakdown_Type_F0GBR050DD',
             'IndustryBreakdown_Assets_F0GBR050DD',
@@ -361,7 +383,7 @@ export async function industryBreakdownLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.IndustryBreakdown.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -371,9 +393,7 @@ export async function industryGroupBreakdownLoad (
 ) {
     const connector = new MC.SecurityCompareConnector({
         api,
-        converter: {
-            type: 'IndustryGroupBreakdown'
-        },
+        converters: ['IndustryGroupBreakdown'],
         viewIds: 'HSsnapshot',
         security: {
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
@@ -384,7 +404,7 @@ export async function industryGroupBreakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.IndustryGroupBreakdown.getColumnNames(),
         [
             'IndustryGroupBreakdown_Type_F0GBR050DD',
             'IndustryGroupBreakdown_Assets_F0GBR050DD',
@@ -399,7 +419,7 @@ export async function industryGroupBreakdownLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.IndustryGroupBreakdown.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -409,9 +429,7 @@ export async function bondStatisticsLoad (
 ) {
     const connector = new MC.SecurityCompareConnector({
         api,
-        converter: {
-            type: 'BondStatistics'
-        },
+        converters: ['BondStatistics'],
         viewIds: 'HSsnapshot',
         security: {
             ids: ['F000015O71', 'F000015O6Z'],
@@ -422,7 +440,7 @@ export async function bondStatisticsLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.BondStatistics.getColumnNames(),
         [
             'StyleBox_F000015O71',
             'EffectiveDuration_F000015O71',
@@ -449,7 +467,7 @@ export async function bondStatisticsLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.BondStatistics.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }
@@ -459,9 +477,7 @@ export async function MetaLoad (
 ) {
     const connector = new MC.SecurityCompareConnector({
         api,
-        converter: {
-            type: 'Meta'
-        },
+        converters: ['Meta'],
         security: {
             ids: ['F0GBR050DD', 'F00000Q5PZ'],
             idType: 'MSID'
@@ -471,7 +487,7 @@ export async function MetaLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.Meta.getColumnNames(),
         [
             'Meta_F0GBR050DD',
             'Value_F0GBR050DD',
@@ -482,7 +498,123 @@ export async function MetaLoad (
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.Meta.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+export async function bondStyleBoxBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        security: {
+            ids: ['F00001GPCX', 'FOUSA04AL4'],
+            idType: 'MSID'
+        },
+        converter: {
+            type: 'BondStyleBoxBreakdown'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.dataTables.BondStyleBoxBreakdown.getColumnNames(),
+        [
+            'BondStyleBoxBreakdown_Type_F00001GPCX',
+            'BondStyleBoxBreakdown_N_F00001GPCX',
+            'BondStyleBoxBreakdown_Type_FOUSA04AL4',
+            'BondStyleBoxBreakdown_N_FOUSA04AL4'
+        ],
+        'Bond Style Box Breakdown table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.dataTables.BondStyleBoxBreakdown.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+export async function styleBoxBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        converter: {
+            type: 'StyleBoxBreakdown'
+        },
+        security: {
+            ids: ['F0GBR050DD', 'F00000Q5PZ'],
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.dataTables.StyleBoxBreakdown.getColumnNames(),
+        [
+            'StyleBoxBreakdown_Type_F0GBR050DD',
+            'StyleBoxBreakdown_Assets_F0GBR050DD',
+            'StyleBoxBreakdown_NotClassified_F0GBR050DD',
+            'StyleBoxBreakdown_L_F0GBR050DD',
+            'StyleBoxBreakdown_S_F0GBR050DD',
+            'StyleBoxBreakdown_N_F0GBR050DD',
+            'StyleBoxBreakdown_Type_F00000Q5PZ',
+            'StyleBoxBreakdown_Assets_F00000Q5PZ',
+            'StyleBoxBreakdown_NotClassified_F00000Q5PZ',
+            'StyleBoxBreakdown_L_F00000Q5PZ',
+            'StyleBoxBreakdown_S_F00000Q5PZ',
+            'StyleBoxBreakdown_N_F00000Q5PZ'
+        ],
+        'Style Box table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.dataTables.StyleBoxBreakdown.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+
+export async function creditQualityLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        converter: {
+            type: 'CreditQualityBreakdown'
+        },
+        security: {
+            ids: ['F00001GPCX', 'F00000YG2F'],
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.dataTables.CreditQualityBreakdown.getColumnNames(),
+        [
+            'CreditQualityBreakdown_Type_F00001GPCX',
+            'CreditQualityBreakdown_Assets_F00001GPCX',
+            'CreditQualityBreakdown_NotClassified_F00001GPCX',
+            'CreditQualityBreakdown_L_F00001GPCX',
+            'CreditQualityBreakdown_S_F00001GPCX',
+            'CreditQualityBreakdown_N_F00001GPCX',
+            'CreditQualityBreakdown_Type_F00000YG2F',
+            'CreditQualityBreakdown_Assets_F00000YG2F',
+            'CreditQualityBreakdown_NotClassified_F00000YG2F',
+            'CreditQualityBreakdown_L_F00000YG2F',
+            'CreditQualityBreakdown_S_F00000YG2F',
+            'CreditQualityBreakdown_N_F00000YG2F'
+        ],
+        'CreditQualityBreakdown table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.dataTables.CreditQualityBreakdown.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }

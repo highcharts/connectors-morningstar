@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -25,8 +25,7 @@
 
 
 import {
-    SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
+    SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
 import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
@@ -52,23 +51,7 @@ export class CountryExposureConverter extends MorningstarConverter {
         options?: SecurityDetailsConverterOptions
     ) {
         super(options);
-
-        this.metadata = {
-            columns: {},
-            ...(options && options.hasMultiple && { ids: [] }),
-            ...(options && options.hasMultiple && { isins: [] })
-        };
     }
-
-
-    /* *
-     *
-     *  Properties
-     *
-     * */
-
-
-    public readonly metadata: SecurityDetailsMetadata;
 
 
     /* *
@@ -81,8 +64,7 @@ export class CountryExposureConverter extends MorningstarConverter {
     public override parse (
         options: SecurityDetailsConverterOptions
     ): void {
-        const metadata = this.metadata,
-            table = this.table,
+        const table = this.table,
             userOptions = {
                 ...this.options,
                 ...options
@@ -99,7 +81,6 @@ export class CountryExposureConverter extends MorningstarConverter {
 
         // Create table
         const id = security.Id,
-            isin = security.Isin,
             countryExposure = security.Portfolios[0].CountryExposure,
             assetStr = 'CountryExposure_Assets' + (hasMultiple ? `_${id}` : ''),
             notClassifiedStr = 'CountryExposure_NotClassified' + (hasMultiple ? `_${id}` : ''),
@@ -111,10 +92,10 @@ export class CountryExposureConverter extends MorningstarConverter {
 
         for (let i = 0; i < countryExposure.length; i++) {
             const asset = countryExposure[i],
-                colStr = 
+                colStr =
                     `CountryExposure_${asset.Type}_${asset.SalePosition}` +
                     (hasMultiple ? `_${id}` : '');
-                
+
             table.setColumn(colStr);
 
             // Populate NotClassified for all assets.
@@ -134,15 +115,6 @@ export class CountryExposureConverter extends MorningstarConverter {
                     asset.BreakdownValues[j].Type
                 );
             }
-        }
-
-        // Update metadata
-        if (hasMultiple){
-            metadata.ids?.push(id);
-            metadata.isins?.push(isin);
-        } else {
-            metadata.id = id;
-            metadata.isin = isin;
         }
     }
 }

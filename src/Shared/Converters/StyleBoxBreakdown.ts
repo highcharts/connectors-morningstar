@@ -7,9 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Sophie Bremer
- *  - Pawel Lysy
- *  - Askel Eirik Johansson
+ *  - Kamil Musialowski
  *
  * */
 
@@ -29,6 +27,7 @@ import {
 } from '../../SecurityDetails/SecurityDetailsOptions';
 import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
+import { getBreakdown } from '../SharedSecurityDetails';
 
 /* *
  *
@@ -37,7 +36,7 @@ import MorningstarConverter from '../MorningstarConverter';
  * */
 
 
-export class AssetAllocationsConverter extends MorningstarConverter {
+export class StyleBoxBreakdownConverter extends MorningstarConverter {
 
 
     /* *
@@ -56,10 +55,16 @@ export class AssetAllocationsConverter extends MorningstarConverter {
 
     /* *
      *
-     *  Functions
+     *  Properties
      *
      * */
 
+
+    /* *
+     *
+     *  Functions
+     *
+     * */
 
     public override parse (
         options: SecurityDetailsConverterOptions
@@ -74,33 +79,19 @@ export class AssetAllocationsConverter extends MorningstarConverter {
 
         // Create table
         const id = security.Id,
-            assetAllocations = security.Portfolios[0].AssetAllocations,
-            assetAllocationsTypeStr =
-            'AssetAllocations_Type' + (hasMultiple ? `_${id}` : '');
+            StyleBoxBreakdowns = security.Portfolios[0].StyleBoxBreakdown;
 
-        table.setColumn(assetAllocationsTypeStr);
-
-        for (let i = 0; i < assetAllocations.length; i++) {
-            const asset = assetAllocations[i],
-                assetAllocationsAssetStr =
-                `AssetAllocations_${asset.Type}_${asset.SalePosition}` +
-                (hasMultiple ? `_${id}` : '');
-            table.setColumn(assetAllocationsAssetStr);
-
-            for (let j = 0; j < asset.BreakdownValues.length; j++) {
-                table.setCell(
-                    assetAllocationsAssetStr,
-                    j,
-                    asset.BreakdownValues[j].Value
-                );
-
-                table.setCell(
-                    assetAllocationsTypeStr,
-                    j,
-                    asset.BreakdownValues[j].Type
-                );
-            }
+        if (!StyleBoxBreakdowns || !StyleBoxBreakdowns.length) {
+            return;
         }
+
+        getBreakdown(
+            id,
+            StyleBoxBreakdowns,
+            table,
+            'StyleBoxBreakdown',
+            !!hasMultiple
+        );
     }
 }
 
@@ -112,4 +103,4 @@ export class AssetAllocationsConverter extends MorningstarConverter {
  * */
 
 
-export default AssetAllocationsConverter;
+export default StyleBoxBreakdownConverter;

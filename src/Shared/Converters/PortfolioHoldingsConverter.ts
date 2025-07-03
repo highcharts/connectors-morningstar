@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -26,8 +26,7 @@
 
 
 import {
-    SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
+    SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
 import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
@@ -53,23 +52,7 @@ export class PortfolioHoldingsConverter extends MorningstarConverter {
         options?: SecurityDetailsConverterOptions
     ) {
         super(options);
-
-        this.metadata = {
-            columns: {},
-            ...(options && options.hasMultiple && { ids: [] }),
-            ...(options && options.hasMultiple && { isins: [] })
-        };
     }
-
-
-    /* *
-     *
-     *  Properties
-     *
-     * */
-
-
-    public readonly metadata: SecurityDetailsMetadata;
 
 
     /* *
@@ -82,8 +65,7 @@ export class PortfolioHoldingsConverter extends MorningstarConverter {
     public override parse (
         options: SecurityDetailsConverterOptions
     ): void {
-        const metadata = this.metadata,
-            table = this.table,
+        const table = this.table,
             userOptions = {
                 ...this.options,
                 ...options
@@ -94,7 +76,6 @@ export class PortfolioHoldingsConverter extends MorningstarConverter {
 
         // Create table
         const id = security.Id,
-            isin = security.Isin,
             portfolioHoldings = security.Portfolios[0].PortfolioHoldings;
 
         // Populate table
@@ -107,16 +88,6 @@ export class PortfolioHoldingsConverter extends MorningstarConverter {
             }
             ++rowIndex;
         }
-
-        // Update metadata
-        if (hasMultiple){
-            metadata.ids?.push(id);
-            metadata.isins?.push(isin);
-        } else {
-            metadata.id = id;
-            metadata.isin = isin;
-        }
-
     }
 
 

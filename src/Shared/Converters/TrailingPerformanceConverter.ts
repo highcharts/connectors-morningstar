@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2024 Highsoft AS
+ *  (c) 2009-2025 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -25,8 +25,7 @@
 
 
 import {
-    SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
+    SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
 import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
@@ -52,23 +51,7 @@ export class TrailingPerformanceConverter extends MorningstarConverter {
         options?: SecurityDetailsConverterOptions
     ) {
         super(options);
-
-        this.metadata = {
-            columns: {},
-            ...(options && options.hasMultiple && { ids: [] }),
-            ...(options && options.hasMultiple && { isins: [] })
-        };
     }
-
-
-    /* *
-     *
-     *  Properties
-     *
-     * */
-
-
-    public readonly metadata: SecurityDetailsMetadata;
 
 
     /* *
@@ -81,10 +64,7 @@ export class TrailingPerformanceConverter extends MorningstarConverter {
     public override parse (
         options: SecurityDetailsConverterOptions
     ): void {
-        const metadata = this.metadata,
-            ids = [],
-            isins = [],
-            table = this.table,
+        const table = this.table,
             userOptions = {
                 ...this.options,
                 ...options
@@ -95,15 +75,11 @@ export class TrailingPerformanceConverter extends MorningstarConverter {
 
         // Create table
         const id = security.Id,
-            isin = security.Isin,
             timePeriodColumnStr = 'TrailingPerformance_TimePeriod' + (hasMultiple ? `_${id}` : ''),
             valueColumnStr = 'TrailingPerformance_Value' + (hasMultiple ? `_${id}` : '');
 
         table.setColumn(timePeriodColumnStr);
         table.setColumn(valueColumnStr);
-
-        ids.push(id);
-        isins.push(isin);
 
         const trailingPerformanceReturn = security.TrailingPerformance[0].Return;
 
@@ -118,15 +94,6 @@ export class TrailingPerformanceConverter extends MorningstarConverter {
                 i,
                 trailingPerformanceReturn[i].Value
             );
-        }
-
-        // Update metadata
-        if (hasMultiple){
-            metadata.ids?.push(id);
-            metadata.isins?.push(isin);
-        } else {
-            metadata.id = id;
-            metadata.isin = isin;
         }
     }
 }
