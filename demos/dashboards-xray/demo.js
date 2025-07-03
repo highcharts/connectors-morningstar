@@ -84,20 +84,20 @@ async function displaySecurityDetails (postmanJSON) {
             renderTo: 'dashboard-col-0',
             connector: {
                 id: 'xray',
-                dataTableKey: 'Breakdowns'
+                dataTableKey: 'GlobalStockSector'
             },
             type: 'DataGrid',
             title: 'Global Stock Sector',
             dataGridOptions: {
                 header: [{
                     format: 'Net',
-                    columnId: 'GlobalStockSector_N_Categories'
+                    columnId: 'N_Categories'
                 }, {
                     format: 'Values',
-                    columnId: 'GlobalStockSector_N_Values'
+                    columnId: 'N_Values'
                 }],
                 columns: [{
-                    id: 'GlobalStockSector_N_Categories',
+                    id: 'N_Categories',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -110,7 +110,7 @@ async function displaySecurityDetails (postmanJSON) {
             renderTo: 'dashboard-col-1',
             connector: {
                 id: 'xray',
-                dataTableKey: 'Breakdowns'
+                dataTableKey: 'AssetAllocation'
             },
             type: 'DataGrid',
             title: 'Morningstar EUR3',
@@ -164,20 +164,20 @@ async function displaySecurityDetails (postmanJSON) {
             renderTo: 'dashboard-col-2',
             connector: {
                 id: 'xray',
-                dataTableKey: 'Breakdowns'
+                dataTableKey: 'RegionalExposure'
             },
             type: 'DataGrid',
             title: 'Regional Exposure',
             dataGridOptions: {
                 header: [{
                     format: 'Net',
-                    columnId: 'RegionalExposure_N_Categories'
+                    columnId: 'N_Categories'
                 }, {
                     format: 'Values',
-                    columnId: 'RegionalExposure_N_Values'
+                    columnId: 'N_Values'
                 }],
                 columns: [{
-                    id: 'RegionalExposure_N_Categories',
+                    id: 'N_Categories',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
