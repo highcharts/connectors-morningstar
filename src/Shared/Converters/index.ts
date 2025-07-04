@@ -28,6 +28,7 @@ import BondStatisticsConverter from './BondStatisticsConverter';
 import MetaConverter from './MetaConverter';
 import StyleBoxConverter from './StyleBoxBreakdown';
 import BondStyleBoxBreakdownConverter from './BondStyleBoxBreakdownConverter';
+import HistoricalPerformanceSeriesConverter from './HistoricalPerformanceSeriesConverter';
 
 
 /* *
@@ -60,6 +61,7 @@ export * from './BondStatisticsConverter';
 export * from './MetaConverter';
 export * from './StyleBoxBreakdown';
 export * from './BondStyleBoxBreakdownConverter';
+export * from './HistoricalPerformanceSeriesConverter';
 
 /* *
  *
@@ -82,5 +84,6 @@ export default {
     BondStatisticsConverter,
     MetaConverter,
     StyleBoxConverter,
-    BondStyleBoxBreakdownConverter
+    BondStyleBoxBreakdownConverter,
+    HistoricalPerformanceSeriesConverter
 };

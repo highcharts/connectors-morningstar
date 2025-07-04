@@ -32,7 +32,8 @@ import {
     MetaConverter,
     StyleBoxBreakdownConverter,
     BondStyleBoxBreakdownConverter,
-    CreditQualityBreakdownConverter
+    CreditQualityBreakdownConverter,
+    HistoricalPerformanceSeriesConverter
 } from './Converters';
 import {
     SecurityDetailsConverterOptions,
@@ -55,6 +56,7 @@ const DATA_TABLES: { key: SecurityDetailsConverterType }[] = [
     { key: 'CountryExposure' },
     { key: 'CreditQualityBreakdown' },
     { key: 'GlobalStockSectorBreakdown' },
+    { key: 'HistoricalPerformanceSeries' },
     { key: 'IndustryBreakdown' },
     { key: 'IndustryGroupBreakdown' },
     { key: 'MarketCap' },
@@ -168,6 +170,11 @@ export function initConverter (
             });
         case 'BondStyleBoxBreakdown':
             return new BondStyleBoxBreakdownConverter({
+                ...converter,
+                hasMultiple
+            });
+        case 'HistoricalPerformanceSeries':
+            return new HistoricalPerformanceSeriesConverter({
                 ...converter,
                 hasMultiple
             });

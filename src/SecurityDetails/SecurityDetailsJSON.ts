@@ -57,6 +57,7 @@ namespace SecurityDetailsJSON {
         CategoryBroadAssetClass: CategoryBroadAssetClassType;
         ActualManagementFee: number;
         FundAttributes?: FundAttributesType;
+        HistoricalPerformanceSeries?: SecurityDetailsHistoricalPerformance[];
     }
 
     export type PortfoliosType = {
@@ -151,6 +152,13 @@ namespace SecurityDetailsJSON {
     interface SecurityDetailsTrailingPerformance {
         ReturnType: string;
         Return: SecurityDetailsReturn[];
+    }
+
+    interface SecurityDetailsHistoricalPerformance {
+        ReturnType: string;
+        Return: SecurityDetailsReturn[];
+        TimePeriod: string;
+        Frequency: string;
     }
 
     interface SecurityDetailsReturn {

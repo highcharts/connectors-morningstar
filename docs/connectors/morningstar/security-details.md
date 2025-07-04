@@ -41,6 +41,7 @@ You can specify the type of data to retrieve by using the `type` option in the c
 - **StyleBoxBreakdown**
 - **BondStyleBoxBreakdown**
 - **CreditQualityBreakdown**
+- **HistoricalPerformanceSeries**
 
 The Meta converter extracts essential security details, including identification, pricing, risk metrics, and provider information, ensuring a structured overview of the security.
 
