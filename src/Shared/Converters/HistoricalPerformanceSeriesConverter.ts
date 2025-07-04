@@ -84,14 +84,14 @@ export class HistoricalPerformanceSeriesConverter extends MorningstarConverter {
             return;
         }
 
-        for (let i = 0, iEnd = HistoricalPerformance.length; i < iEnd; ++i) {
+        for (let i = 0, iEnd = HistoricalPerformance.length; i < iEnd; i++) {
             const { ReturnType, TimePeriod, Frequency } = HistoricalPerformance[i];
 
             const columnStr = `${ReturnType}_${TimePeriod}_${Frequency}`;
 
             const Return = HistoricalPerformance[i].Return;
 
-            for (let i = 0, iEnd = Return.length; i < iEnd; ++i) {
+            for (let j = 0, iEnd = Return.length; j < iEnd; j++) {
                 table.setCell(
                     columnStr + '_Date' + (hasMultiple ? `_${id}` : ''),
                     i,
