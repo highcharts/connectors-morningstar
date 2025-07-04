@@ -33,7 +33,6 @@ import XRayConnector from './XRayConnector';
 
 
 export * from './XRayConnector';
-export * from './XRayConverter';
 export * from './XRayOptions';
 
 

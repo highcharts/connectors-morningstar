@@ -64,7 +64,6 @@ export abstract class MorningstarConnector extends External.DataConnector {
 
     protected api?: MorningstarAPI;
 
-
     protected readonly options: MorningstarOptions;
 
 
