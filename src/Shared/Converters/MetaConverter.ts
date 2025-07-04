@@ -23,8 +23,7 @@
 
 
 import {
-    SecurityDetailsConverterOptions,
-    SecurityDetailsMetadata
+    SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
 import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
@@ -50,23 +49,7 @@ export class MetaConverter extends MorningstarConverter {
         options?: SecurityDetailsConverterOptions
     ) {
         super(options);
-
-        this.metadata = {
-            columns: {},
-            ...(options && options.hasMultiple && { ids: [] }),
-            ...(options && options.hasMultiple && { isins: [] })
-        };
     }
-
-
-    /* *
-     *
-     *  Properties
-     *
-     * */
-
-
-    public readonly metadata: SecurityDetailsMetadata;
 
 
     /* *
@@ -79,7 +62,6 @@ export class MetaConverter extends MorningstarConverter {
     public override parse (
         options: SecurityDetailsConverterOptions
     ): void {
-        const metadata = this.metadata;
         const table = this.table;
         const userOptions = {
             ...this.options,
@@ -90,7 +72,6 @@ export class MetaConverter extends MorningstarConverter {
 
         // Prepare table
         const id = securityDetails.Id;
-        const isin = securityDetails.Isin;
         const metaTypeStr = 'Meta' + (hasMultiple ? `_${id}` : '');
         const valueTypeStr = 'Value' + (hasMultiple ? `_${id}` : '');
 
@@ -132,7 +113,7 @@ export class MetaConverter extends MorningstarConverter {
         ];
 
         const metaTypes: string[] = [],
-            metaValues: ( string | number | undefined | boolean )[]  = [];
+            metaValues: ( string | number | undefined | boolean )[] = [];
 
         // Split metaTypes and values into arrays
         rows.forEach((row) => {
@@ -143,15 +124,6 @@ export class MetaConverter extends MorningstarConverter {
         // Populate table
         table.setColumn(metaTypeStr, metaTypes);
         table.setColumn(valueTypeStr, metaValues);
-
-        // Update metadata
-        if (hasMultiple) {
-            metadata.ids?.push(id);
-            metadata.isins?.push(isin);
-        } else {
-            metadata.id = id;
-            metadata.isin = isin;
-        }
     }
 
 

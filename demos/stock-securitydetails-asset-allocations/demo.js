@@ -15,9 +15,7 @@ async function displayAssetAllocations (postmanJSON) {
             id: securityId,
             idType: 'ISIN'
         },
-        converter: {
-            type: 'AssetAllocations'
-        }
+        converters: ['AssetAllocations']
     });
 
     await connector.load();
@@ -30,7 +28,7 @@ async function displayAssetAllocations (postmanJSON) {
         '99': 'Unclassified'
     };
 
-    const chartData = connector.table.getRowObjects().map(item => ({
+    const chartData = connector.dataTables['AssetAllocations'].getRowObjects().map(item => ({
         name: typeMapping[item.AssetAllocations_Type],
         y: item.AssetAllocations_MorningstarEUR3_N
     }));
