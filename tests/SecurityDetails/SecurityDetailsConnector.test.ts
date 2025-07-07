@@ -504,3 +504,44 @@ export async function creditQualityLoad (
         'Connector should not return empty rows.'
     );
 }
+
+export async function HistoricalPerformanceSeriesLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        converter: {
+            type: 'HistoricalPerformanceSeries'
+        },
+        security: {
+            id: 'F00001GPCX',
+            idType: 'MSID'
+        }
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.dataTables.HistoricalPerformanceSeries.getColumnNames(),
+        [
+            'Nav_M12_Q_Date',
+            'Nav_M12_Q_Value',
+            'Nav_M12_Y_Date',
+            'Nav_M12_Y_Value',
+            'GbPostTax_M12_Q_Date',
+            'GbPostTax_M12_Q_Value',
+            'GbPostTax_M12_Y_Date',
+            'GbPostTax_M12_Y_Value',
+            'ItPostTax_M12_Q_Date',
+            'ItPostTax_M12_Q_Value',
+            'ItPostTax_M12_Y_Date',
+            'ItPostTax_M12_Y_Value'
+        ],
+        'HistoricalPerformanceSeries table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.dataTables.HistoricalPerformanceSeries.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}

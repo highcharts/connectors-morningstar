@@ -99,6 +99,7 @@ export type SecurityDetailsConverterType  = (
    | 'Meta'
    | 'StyleBoxBreakdown'
    | 'BondStyleBoxBreakdown'
+   | 'HistoricalPerformanceSeries'
  );
 
 export interface SecurityDetailsMetadata extends MorningstarMetadata {
