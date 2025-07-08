@@ -173,10 +173,13 @@ export class XRayConnector extends MorningstarConnector {
         await super.load();
 
         const options = this.options;
-        const dataPoints = options.dataPoints;
+        const dataPoints = !options.dataPoints ? [] :
+            // Backward compat: if `dataPoints` is an object, make in an array:
+            Array.isArray(options.dataPoints) ?
+                options.dataPoints : [options.dataPoints];
         const holdings = options.holdings || [];
 
-        if (!dataPoints || !holdings.length) {
+        if (!dataPoints[0] || !holdings.length) {
             return this;
         }
 
@@ -208,26 +211,28 @@ export class XRayConnector extends MorningstarConnector {
         const api = this.api = this.api || new MorningstarAPI(options.api);
         const url = new MorningstarURL('ecint/v1/xray/json', api.baseURL);
 
-        switch (dataPoints.type) {
-            case 'benchmark':
-                url.searchParams.set(
-                    'benchmarkDataPoints',
-                    escapeDataPoints(dataPoints.dataPoints)
-                );
-                break;
-            case 'holding':
-                url.searchParams.set(
-                    'holdingDataPoints',
-                    escapeDataPoints(dataPoints.dataPoints)
-                );
-                break;
-            case 'portfolio':
-                url.searchParams.set(
-                    'portfolioDataPoints',
-                    escapeDataPoints(dataPoints.dataPoints)
-                );
-                break;
-        }
+        dataPoints.forEach(dataPoint => {
+            switch (dataPoint.type) {
+                case 'benchmark':
+                    url.searchParams.set(
+                        'benchmarkDataPoints',
+                        escapeDataPoints(dataPoint.dataPoints)
+                    );
+                    break;
+                case 'holding':
+                    url.searchParams.set(
+                        'holdingDataPoints',
+                        escapeDataPoints(dataPoint.dataPoints)
+                    );
+                    break;
+                case 'portfolio':
+                    url.searchParams.set(
+                        'portfolioDataPoints',
+                        escapeDataPoints(dataPoint.dataPoints)
+                    );
+                    break;
+            }
+        });
 
         const response = await api.fetch(url, {
             body: JSON.stringify(JSON.stringify(bodyJSON)),
@@ -251,7 +256,19 @@ export class XRayConnector extends MorningstarConnector {
             const converter = initConverter(key);
 
             for (const xray of xrays) {
-                converter.parse({ json: xray });
+                // First parse the portfolio
+                converter.parse({
+                    json: {
+                        ...xray,
+                        benchmark: void 0
+                    }
+                });
+
+                // Then parse the benchmark
+                if (xray.benchmark) {
+                    converter.parse({ json: xray });
+                }
+
             }
 
             this.dataTables[key].setColumns(converter.getTable().getColumns());

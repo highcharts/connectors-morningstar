@@ -1,7 +1,136 @@
 import * as Assert from 'node:assert/strict';
 import * as MC from '../../code/connectors-morningstar.src';
 
-export async function breakdownLoad (
+
+export async function benchmarkBreakdownLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.XRayConnector({
+        api,
+        benchmarkId: 'EUCA000812',
+        currencyId: 'GBP',
+        dataPoints: [{
+            type: 'portfolio',
+            dataPoints: [
+                'AssetAllocationMorningstarEUR3',
+                'GlobalStockSector',
+                'RegionalExposure',
+                'HistoricalPerformanceSeries',
+                ['PerformanceReturn', 'M0', 'M1', 'M2', 'M3', 'M6', 'M12'],
+                'StyleBox',
+                ['StandardDeviation', 'M', 'M36'],
+                ['SharpeRatio', 'M', 'M36']
+            ]
+        }, {
+            type: 'benchmark',
+            dataPoints: [
+                'HistoricalPerformanceSeries',
+                ['PerformanceReturn', 'M0', 'M1', 'M2', 'M3', 'M6', 'M12'],
+                'ShowBreakdown'
+            ]
+        }],
+        holdings: [
+            {
+                id: 'F0GBR052QA',
+                idType: 'MSID',
+                type: MC.Shared.MorningstarSecurityType.OpenEndFund,
+                weight: 50,
+                holdingType: 'weight'
+            }, {
+                id: 'GB00BWDBJF10',
+                idType: 'ISIN',
+                type: MC.Shared.MorningstarSecurityType.OpenEndFund,
+                weight: 50
+            }
+        ]
+    });
+
+    Assert.ok(
+        connector instanceof MC.XRayConnector,
+        'Connector should be instance of XRayConnector class.'
+    );
+
+    await connector.load();
+
+    // Only Portfolio data:
+    Assert.deepStrictEqual(
+        connector.dataTables.GlobalStockSector.getColumnNames(),
+        [
+            'N_Categories',
+            'N_Values'
+        ],
+        'GlobalStockSector table should contain only Portfolio columns.'
+    );
+
+
+    // Both, Portfolio and Benchmark
+    ['RegionalExposure', 'StyleBox'].forEach(tableName => {
+        Assert.deepStrictEqual(
+            connector.dataTables[tableName].getColumnNames(),
+            [
+                'N_Categories',
+                'N_Values',
+                'N_Categories_Benchmark',
+                'N_Values_Benchmark'
+            ],
+            `${tableName} table should contain both,
+            Portfolio and Benchmark, columns.`
+        );
+    });
+
+    Assert.deepStrictEqual(
+        connector.dataTables.TrailingPerformance.getColumnNames(),
+        [
+            'MonthEnd_TimePeriod',
+            'MonthEnd_Value',
+            'MonthEnd_TimePeriod_Benchmark',
+            'MonthEnd_Value_Benchmark'
+        ],
+        `TrailingPerformance table should contain both,
+        Portfolio and Benchmark, columns.`
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.AssetAllocation.getColumnNames(),
+        [
+            'MorningstarEUR3_N_Categories',
+            'MorningstarEUR3_N_Values',
+            'MorningstarEUR3_L_Categories',
+            'MorningstarEUR3_L_Values',
+            'MorningstarEUR3_S_Categories',
+            'MorningstarEUR3_S_Values',
+            'MorningstarEUR3_N_Categories_Benchmark',
+            'MorningstarEUR3_N_Values_Benchmark',
+            'MorningstarEUR3_L_Categories_Benchmark',
+            'MorningstarEUR3_L_Values_Benchmark',
+            'MorningstarEUR3_S_Categories_Benchmark',
+            'MorningstarEUR3_S_Values_Benchmark',
+            'Default1_N_Categories_Benchmark',
+            'Default1_N_Values_Benchmark',
+            'Default1_L_Categories_Benchmark',
+            'Default1_L_Values_Benchmark',
+            'Default1_S_Categories_Benchmark',
+            'Default1_S_Values_Benchmark'
+        ],
+        `TrailingPerformance table should contain both,
+        Portfolio and Benchmark, columns.`
+    );
+
+    // Only Benchmark data:
+    Assert.deepStrictEqual(
+        connector.dataTables.TrailingPerformance.getColumnNames(),
+        [
+            'MonthEnd_TimePeriod',
+            'MonthEnd_Value',
+            'MonthEnd_TimePeriod_Benchmark',
+            'MonthEnd_Value_Benchmark'
+        ],
+        'TrailingPerformance table should contain only Benchmark columns.'
+    );
+}
+
+
+export async function totalReturnLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.XRayConnector({

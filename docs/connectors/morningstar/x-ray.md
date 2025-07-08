@@ -21,24 +21,37 @@ In order to fetch a benchmark, you can request for example:
 
 ```js
 const xRayConnector = new HighchartsConnectors.Morningstar.XRayConnector({
-    postman: {
-        environmentJSON: postmanJSON
+    api: {
+        access: {
+            token: 'JWT token'
+        }
     },
-    dataPoints: {
+    benchmarkId: 'EUCA000812',
+    currencyId: 'GBP',
+    dataPoints: [{
+        type: 'portfolio',
+        dataPoints: [
+            'AssetAllocation',
+            'GlobalStockSector',
+            'RegionalExposure'
+        ]
+    }, {
         type: 'benchmark',
         dataPoints: [
             'HistoricalPerformanceSeries',
             ['PerformanceReturn', 'M0', 'M1', 'M2', 'M3', 'M6', 'M12'],
             'ShowBreakdown'
         ]
-    },
-    holdings: [
-        {
-            id: 'GB00BWDBJF10',
-            idType: 'ISIN',
-            weight: 100
-        }
-    ]
+    }],
+    holdings: [{
+        id: 'F0GBR052QA',
+        idType: 'MSID',
+        weight: 50
+    }, {
+        id: 'GB00BWDBJF10',
+        idType: 'ISIN',
+        weight: 50
+    }]
 });
 ```
 

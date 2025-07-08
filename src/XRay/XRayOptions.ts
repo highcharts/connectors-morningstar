@@ -174,7 +174,7 @@ export interface XRayOptions extends MorningstarOptions {
     /**
      * Data points for the x-ray.
      */
-    dataPoints?: XRayDataPointOptions;
+    dataPoints?: XRayDataPointOptions | Array<XRayDataPointOptions>;
 
     /**
      * Array of portfolio holdings.
@@ -205,6 +205,7 @@ export type XRayPortfolioDataPoints = (
     | 'Alpha'
     | 'ArithmeticMean'
     | 'AssetAllocation'
+    | 'AssetAllocationMorningstarEUR3'
     | 'BenchmarkId'
     | 'BenchmarkName'
     | 'BestWorstPeriods'
