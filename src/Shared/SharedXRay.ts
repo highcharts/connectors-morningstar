@@ -26,7 +26,8 @@ import {
     XRayAssetAllocationsConverter,
     XRayGlobalStockSectorConverter,
     XRayRegionalExposureConverter,
-    XRayStyleBoxConverter
+    XRayStyleBoxConverter,
+    XRayCreditQualityConverter
 } from './Converters';
 
 import MorningstarConverter from './MorningstarConverter';
@@ -40,6 +41,7 @@ import { XRayConverterOptions } from '../XRay';
 
 export const DATA_TABLES = [
     { key: 'AssetAllocation' },
+    { key: 'CreditQuality' },
     { key: 'GlobalStockSector' },
     { key: 'HistoricalPerformanceSeries' },
     { key: 'RegionalExposure' },
@@ -79,6 +81,8 @@ export function initConverter (
             return new UnderlyHoldingsConverter();
         case 'AssetAllocation':
             return new XRayAssetAllocationsConverter();
+        case 'CreditQuality':
+            return new XRayCreditQualityConverter();
         case 'GlobalStockSector':
             return new XRayGlobalStockSectorConverter();
         case 'RegionalExposure':
