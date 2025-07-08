@@ -174,7 +174,7 @@ export class XRayConnector extends MorningstarConnector {
 
         const options = this.options;
         const dataPoints = !options.dataPoints ? [] :
-            // Backward compat: if `dataPoints` is an object, make in an array:
+            // Backward compat: if `dataPoints` is an object, make it an array:
             Array.isArray(options.dataPoints) ?
                 options.dataPoints : [options.dataPoints];
         const holdings = options.holdings || [];
