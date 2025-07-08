@@ -25,9 +25,9 @@ If any securities are invalid, the connector will still yield results. The inval
 
 #### Security Details Types
 
-You can specify the type of data to retrieve by using the `type` option in the connector. The following types are available:
+You can specify the type of data to retrieve by using the `type` option in the connector or by providing an array of types: `converters: ['AssetAllocations', 'RegionalExposure']`. The following types are available:
 
-- **TrailingPerformance** (default)
+- **TrailingPerformance**
 - **AssetAllocations**
 - **RegionalExposure**
 - **GlobalStockSectorBreakdown**
@@ -42,6 +42,8 @@ You can specify the type of data to retrieve by using the `type` option in the c
 - **BondStyleBoxBreakdown**
 - **CreditQualityBreakdown**
 - **HistoricalPerformanceSeries**
+
+If no converter types are provided or the converter type doesn't exist, all types will be returned in the Security Details connector.
 
 The Meta converter extracts essential security details, including identification, pricing, risk metrics, and provider information, ensuring a structured overview of the security.
 
@@ -74,7 +76,8 @@ const securityDetailsConnector = new HighchartsConnectors.Morningstar.SecurityDe
     security: {
         id: 'F0GBR050DD',
         idType: 'MSID'
-    }
+    },
+    converters: ['TrailingPerformance']
 });
 
 await securityDetailsConnector.load();
@@ -86,9 +89,9 @@ Highcharts.chart('container', {
     series: [{
         type: 'column',
         name: 'F0GBR050DD',
-        data: connector.table.getRowObjects().map(obj => [
-            obj.TrailingPerformance_TimePeriod,
-            obj.TrailingPerformance_Value
+        data: connector.dataTables.TrailingPerformance.getRowObjects().map(obj => [
+            obj.TimePeriod,
+            obj.Value
         ])
     }],
     xAxis: {

@@ -82,9 +82,9 @@ export class CountryExposureConverter extends MorningstarConverter {
         // Create table
         const id = security.Id,
             countryExposure = security.Portfolios[0].CountryExposure,
-            assetStr = 'CountryExposure_Assets' + (hasMultiple ? `_${id}` : ''),
-            notClassifiedStr = 'CountryExposure_NotClassified' + (hasMultiple ? `_${id}` : ''),
-            countryExpTypeStr = 'CountryExposure_Type' + (hasMultiple ? `_${id}` : '');
+            assetStr = 'Assets' + (hasMultiple ? `_${id}` : ''),
+            notClassifiedStr = 'NotClassified' + (hasMultiple ? `_${id}` : ''),
+            countryExpTypeStr = 'Type' + (hasMultiple ? `_${id}` : '');
 
         table.setColumn(assetStr);
         table.setColumn(notClassifiedStr);
@@ -93,7 +93,7 @@ export class CountryExposureConverter extends MorningstarConverter {
         for (let i = 0; i < countryExposure.length; i++) {
             const asset = countryExposure[i],
                 colStr =
-                    `CountryExposure_${asset.Type}_${asset.SalePosition}` +
+                    `${asset.Type}_${asset.SalePosition}` +
                     (hasMultiple ? `_${id}` : '');
 
             table.setColumn(colStr);

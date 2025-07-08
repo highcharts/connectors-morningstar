@@ -75,8 +75,8 @@ export class TrailingPerformanceConverter extends MorningstarConverter {
 
         // Create table
         const id = security.Id,
-            timePeriodColumnStr = 'TrailingPerformance_TimePeriod' + (hasMultiple ? `_${id}` : ''),
-            valueColumnStr = 'TrailingPerformance_Value' + (hasMultiple ? `_${id}` : '');
+            timePeriodColumnStr = 'TimePeriod' + (hasMultiple ? `_${id}` : ''),
+            valueColumnStr = 'Value' + (hasMultiple ? `_${id}` : '');
 
         table.setColumn(timePeriodColumnStr);
         table.setColumn(valueColumnStr);

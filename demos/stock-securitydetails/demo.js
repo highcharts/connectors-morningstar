@@ -28,8 +28,8 @@ async function displaySecurityDetails (postmanJSON) {
             type: 'column',
             name: 'F0GBR050DD',
             data: connector.dataTables.TrailingPerformance.getRowObjects().map(obj => [
-                obj.TrailingPerformance_TimePeriod,
-                obj.TrailingPerformance_Value
+                obj.TimePeriod,
+                obj.Value
             ])
         }],
         xAxis: {

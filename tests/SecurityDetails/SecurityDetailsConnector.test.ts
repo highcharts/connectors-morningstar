@@ -15,8 +15,8 @@ export async function securityDetailsLoad (
         }
     }),
     columnNames = [
-        'TrailingPerformance_TimePeriod',
-        'TrailingPerformance_Value'
+        'TimePeriod',
+        'Value'
     ];
 
     Assert.ok(
@@ -79,10 +79,10 @@ export async function securityDetailsBackwardsCompatibility (
     Assert.deepStrictEqual(
         connector.dataTables.AssetAllocations.getColumnNames(),
         [
-            'AssetAllocations_Type',
-            'AssetAllocations_MorningstarEUR3_L',
-            'AssetAllocations_MorningstarEUR3_S',
-            'AssetAllocations_MorningstarEUR3_N'
+            'Type',
+            'MorningstarEUR3_L',
+            'MorningstarEUR3_S',
+            'MorningstarEUR3_N'
         ],
         `Converter type backwards compatibility: Asset allocations table should
         exist of expected columns.`
@@ -111,10 +111,10 @@ export async function assetAllocationsLoad (
     Assert.deepStrictEqual(
         connector.dataTables.AssetAllocations.getColumnNames(),
         [
-            'AssetAllocations_Type',
-            'AssetAllocations_MorningstarEUR3_L',
-            'AssetAllocations_MorningstarEUR3_S',
-            'AssetAllocations_MorningstarEUR3_N'
+            'Type',
+            'MorningstarEUR3_L',
+            'MorningstarEUR3_S',
+            'MorningstarEUR3_N'
         ],
         'Asset allocations table should exist of expected columns.'
     );
@@ -136,7 +136,7 @@ export async function regionalExposureLoad (
 
     Assert.deepStrictEqual(
         connector.dataTables.RegionalExposure.getColumnNames()[0],
-        'RegionalExposure_Type',
+        'Type',
         'Regional exposure table should exist of expected columns.'
     );
 }
@@ -157,7 +157,7 @@ export async function globalStockSectorBreakdownLoad (
 
     Assert.deepStrictEqual(
         connector.dataTables.GlobalStockSectorBreakdown.getColumnNames()[0],
-        'GlobalStockSectorBreakdown_Type',
+        'Type',
         'Global stock sector breakdown table should exist of expected columns.'
     );
 }
@@ -179,15 +179,15 @@ export async function countryExposureLoad (
     Assert.deepStrictEqual(
         connector.dataTables.CountryExposure.getColumnNames(),
         [
-            'CountryExposure_Assets',
-            'CountryExposure_NotClassified',
-            'CountryExposure_Type',
-            'CountryExposure_Bond_L',
-            'CountryExposure_Bond_S',
-            'CountryExposure_Bond_N',
-            'CountryExposure_Equity_L',
-            'CountryExposure_Equity_S',
-            'CountryExposure_Equity_N'
+            'Assets',
+            'NotClassified',
+            'Type',
+            'Bond_L',
+            'Bond_S',
+            'Bond_N',
+            'Equity_L',
+            'Equity_S',
+            'Equity_N'
         ],
         'Country exposure table should exist of expected columns.'
     );
@@ -210,23 +210,23 @@ export async function portfolioHoldingsLoad (
     Assert.deepStrictEqual(
         connector.dataTables.PortfolioHoldings.getColumnNames(),
         [
-            'PortfolioHoldings_Id',
-            'PortfolioHoldings_ExternalId',
-            'PortfolioHoldings_DetailHoldingTypeId',
-            'PortfolioHoldings_ExternalName',
-            'PortfolioHoldings_PerformanceId',
-            'PortfolioHoldings_ISIN',
-            'PortfolioHoldings_CurrencyId',
-            'PortfolioHoldings_CountryId',
-            'PortfolioHoldings_SecurityName',
-            'PortfolioHoldings_Weighting',
-            'PortfolioHoldings_IndustryId',
-            'PortfolioHoldings_MarketValue',
-            'PortfolioHoldings_GlobalSectorId',
-            'PortfolioHoldings_NumberOfShare',
-            'PortfolioHoldings_LocalCurrencyCode',
-            'PortfolioHoldings_GICSIndustryId',
-            'PortfolioHoldings_ShareChange'
+            'Id',
+            'ExternalId',
+            'DetailHoldingTypeId',
+            'ExternalName',
+            'PerformanceId',
+            'ISIN',
+            'CurrencyId',
+            'CountryId',
+            'SecurityName',
+            'Weighting',
+            'IndustryId',
+            'MarketValue',
+            'GlobalSectorId',
+            'NumberOfShare',
+            'LocalCurrencyCode',
+            'GICSIndustryId',
+            'ShareChange'
         ],
         'Portfolio holdings table should exist of expected columns.'
     );
@@ -255,10 +255,10 @@ export async function marketCapLoad (
     Assert.deepStrictEqual(
         connector.dataTables.MarketCap.getColumnNames(),
         [
-            'MarketCap_Type',
-            'MarketCap_Assets',
-            'MarketCap_NotClassified',
-            'MarketCap_N'
+            'Type',
+            'Assets',
+            'NotClassified',
+            'N'
         ],
         'MarketCap table should exist of expected columns.'
     );
@@ -287,10 +287,10 @@ export async function industryBDCLoad (
     Assert.deepStrictEqual(
         connector.dataTables.IndustryBreakdown.getColumnNames(),
         [
-            'IndustryBreakdown_Type',
-            'IndustryBreakdown_Assets',
-            'IndustryBreakdown_NotClassified',
-            'IndustryBreakdown_N'
+            'Type',
+            'Assets',
+            'NotClassified',
+            'N'
         ],
         'IndustryBD table should exist of expected columns.'
     );
@@ -319,10 +319,10 @@ export async function industryGroupBDCLoad (
     Assert.deepStrictEqual(
         connector.dataTables.IndustryGroupBreakdown.getColumnNames(),
         [
-            'IndustryGroupBreakdown_Type',
-            'IndustryGroupBreakdown_Assets',
-            'IndustryGroupBreakdown_NotClassified',
-            'IndustryGroupBreakdown_N'
+            'Type',
+            'Assets',
+            'NotClassified',
+            'N'
         ],
         'IndustryGroupBD table should exist of expected columns.'
     );
@@ -371,7 +371,7 @@ export async function bondStatisticsLoad (
     );
 }
 
-export async function MetaLoad (
+export async function metaLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
@@ -422,14 +422,14 @@ export async function bondStyleBoxBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.BondStyleBoxBreakdown.getColumnNames(),
         [
-            'BondStyleBoxBreakdown_Type',
-            'BondStyleBoxBreakdown_N'
+            'Type',
+            'N'
         ],
         'Bond Style Box Breakdown table should exist of expected columns.'
     );
 
     Assert.ok(
-        connector.dataTables.BondStyleBoxBreakdown.columns['BondStyleBoxBreakdown_N'].length >= 9,
+        connector.dataTables.BondStyleBoxBreakdown.columns['N'].length >= 9,
         'Bond Style Box Breakdown should return at least 9 values.'
     );
 }
@@ -453,18 +453,18 @@ export async function styleBoxBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.StyleBoxBreakdown.getColumnNames(),
         [
-            'StyleBoxBreakdown_Type',
-            'StyleBoxBreakdown_Assets',
-            'StyleBoxBreakdown_NotClassified',
-            'StyleBoxBreakdown_L',
-            'StyleBoxBreakdown_S',
-            'StyleBoxBreakdown_N'
+            'Type',
+            'Assets',
+            'NotClassified',
+            'L',
+            'S',
+            'N'
         ],
         'Style Box Breakdown table should exist of expected columns.'
     );
 
     Assert.ok(
-        connector.dataTables.StyleBoxBreakdown.columns['StyleBoxBreakdown_N'].length >= 9,
+        connector.dataTables.StyleBoxBreakdown.columns['N'].length >= 9,
         'Style Box Breakdown should return at least 9 values.'
     );
 }
@@ -489,12 +489,12 @@ export async function creditQualityLoad (
     Assert.deepStrictEqual(
         connector.dataTables.CreditQualityBreakdown.getColumnNames(),
         [
-            'CreditQualityBreakdown_Type',
-            'CreditQualityBreakdown_Assets',
-            'CreditQualityBreakdown_NotClassified',
-            'CreditQualityBreakdown_L',
-            'CreditQualityBreakdown_S',
-            'CreditQualityBreakdown_N'
+            'Type',
+            'Assets',
+            'NotClassified',
+            'L',
+            'S',
+            'N'
         ],
         'CreditQualityBreakdown table should exist of expected columns.'
     );
@@ -505,7 +505,7 @@ export async function creditQualityLoad (
     );
 }
 
-export async function HistoricalPerformanceSeriesLoad (
+export async function historicalPerformanceSeriesLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
