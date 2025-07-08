@@ -31,7 +31,7 @@ const xRayConnector = new HighchartsConnectors.Morningstar.XRayConnector({
     dataPoints: [{
         type: 'portfolio',
         dataPoints: [
-            'AssetAllocation',
+            'AssetAllocationMorningstarEUR3',
             'GlobalStockSector',
             'RegionalExposure'
         ]
