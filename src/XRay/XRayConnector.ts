@@ -212,26 +212,10 @@ export class XRayConnector extends MorningstarConnector {
         const url = new MorningstarURL('ecint/v1/xray/json', api.baseURL);
 
         dataPoints.forEach(dataPoint => {
-            switch (dataPoint.type) {
-                case 'benchmark':
-                    url.searchParams.set(
-                        'benchmarkDataPoints',
-                        escapeDataPoints(dataPoint.dataPoints)
-                    );
-                    break;
-                case 'holding':
-                    url.searchParams.set(
-                        'holdingDataPoints',
-                        escapeDataPoints(dataPoint.dataPoints)
-                    );
-                    break;
-                case 'portfolio':
-                    url.searchParams.set(
-                        'portfolioDataPoints',
-                        escapeDataPoints(dataPoint.dataPoints)
-                    );
-                    break;
-            }
+            url.searchParams.set(
+                dataPoint.type + 'DataPoints',
+                escapeDataPoints(dataPoint.dataPoints)
+            );
         });
 
         const response = await api.fetch(url, {
