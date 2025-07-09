@@ -96,7 +96,7 @@ async function displaySecurityDetails (postmanJSON) {
                     {
                         id: 'F0GBR052QA',
                         idType: 'MSID',
-                        type:HighchartsConnectors.Morningstar.Shared
+                        type: HighchartsConnectors.Morningstar.Shared
                             .MorningstarSecurityType.OpenEndFund,
                         weight: 50,
                         holdingType: 'weight'
