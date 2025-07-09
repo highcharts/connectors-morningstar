@@ -81,11 +81,11 @@ export async function securityCompareBackwardsCompatibility (
     Assert.deepStrictEqual(
         connector.dataTables.AssetAllocations.getColumnNames(),
         [
-            'Type_F0GBR050DD',
+            'MorningstarEUR3_Type_F0GBR050DD',
             'MorningstarEUR3_L_F0GBR050DD',
             'MorningstarEUR3_S_F0GBR050DD',
             'MorningstarEUR3_N_F0GBR050DD',
-            'Type_F00000Q5PZ',
+            'MorningstarEUR3_Type_F00000Q5PZ',
             'MorningstarEUR3_L_F00000Q5PZ',
             'MorningstarEUR3_S_F00000Q5PZ',
             'MorningstarEUR3_N_F00000Q5PZ'
@@ -117,11 +117,11 @@ export async function assetAllocationsLoad (
     Assert.deepStrictEqual(
         connector.dataTables.AssetAllocations.getColumnNames(),
         [
-            'Type_F0GBR050DD',
+            'MorningstarEUR3_Type_F0GBR050DD',
             'MorningstarEUR3_L_F0GBR050DD',
             'MorningstarEUR3_S_F0GBR050DD',
             'MorningstarEUR3_N_F0GBR050DD',
-            'Type_F00000Q5PZ',
+            'MorningstarEUR3_Type_F00000Q5PZ',
             'MorningstarEUR3_L_F00000Q5PZ',
             'MorningstarEUR3_S_F00000Q5PZ',
             'MorningstarEUR3_N_F00000Q5PZ'
@@ -153,13 +153,11 @@ export async function regionalExposureLoad (
         connector.dataTables.RegionalExposure.getColumnNames(),
         [
             'Type_F0GBR050DD',
-            'Assets_F0GBR050DD',
             'NotClassified_F0GBR050DD',
             'L_F0GBR050DD',
             'S_F0GBR050DD',
             'N_F0GBR050DD',
             'Type_F00000Q5PZ',
-            'Assets_F00000Q5PZ',
             'NotClassified_F00000Q5PZ',
             'L_F00000Q5PZ',
             'S_F00000Q5PZ',
@@ -192,13 +190,11 @@ export async function globalStockSectorBreakdownLoad (
         connector.dataTables.GlobalStockSectorBreakdown.getColumnNames(),
         [
             'Type_F0GBR050DD',
-            'Assets_F0GBR050DD',
             'NotClassified_F0GBR050DD',
             'L_F0GBR050DD',
             'S_F0GBR050DD',
             'N_F0GBR050DD',
             'Type_F00000Q5PZ',
-            'Assets_F00000Q5PZ',
             'NotClassified_F00000Q5PZ',
             'L_F00000Q5PZ',
             'S_F00000Q5PZ',
@@ -230,7 +226,6 @@ export async function countryExposureLoad (
     Assert.deepStrictEqual(
         connector.dataTables.CountryExposure.getColumnNames(),
         [
-            'Assets_F0GBR050DD',
             'NotClassified_F0GBR050DD',
             'Type_F0GBR050DD',
             'Bond_L_F0GBR050DD',
@@ -239,7 +234,6 @@ export async function countryExposureLoad (
             'Equity_L_F0GBR050DD',
             'Equity_S_F0GBR050DD',
             'Equity_N_F0GBR050DD',
-            'Assets_F00000Q5PZ',
             'NotClassified_F00000Q5PZ',
             'Type_F00000Q5PZ',
             'Equity_L_F00000Q5PZ',
@@ -336,11 +330,9 @@ export async function marketCapLoad (
         connector.dataTables.MarketCap.getColumnNames(),
         [
             'Type_F0GBR050DD',
-            'Assets_F0GBR050DD',
             'NotClassified_F0GBR050DD',
             'N_F0GBR050DD',
             'Type_F00000Q5PZ',
-            'Assets_F00000Q5PZ',
             'NotClassified_F00000Q5PZ',
             'N_F00000Q5PZ'
         ],
@@ -372,11 +364,9 @@ export async function industryBreakdownLoad (
         connector.dataTables.IndustryBreakdown.getColumnNames(),
         [
             'Type_F0GBR050DD',
-            'Assets_F0GBR050DD',
             'NotClassified_F0GBR050DD',
             'N_F0GBR050DD',
             'Type_F00000Q5PZ',
-            'Assets_F00000Q5PZ',
             'NotClassified_F00000Q5PZ',
             'N_F00000Q5PZ'
         ],
@@ -408,11 +398,9 @@ export async function industryGroupBreakdownLoad (
         connector.dataTables.IndustryGroupBreakdown.getColumnNames(),
         [
             'Type_F0GBR050DD',
-            'Assets_F0GBR050DD',
             'NotClassified_F0GBR050DD',
             'N_F0GBR050DD',
             'Type_F00000Q5PZ',
-            'Assets_F00000Q5PZ',
             'NotClassified_F00000Q5PZ',
             'N_F00000Q5PZ'
         ],
@@ -557,13 +545,11 @@ export async function styleBoxBreakdownLoad (
         connector.dataTables.StyleBoxBreakdown.getColumnNames(),
         [
             'Type_F0GBR050DD',
-            'Assets_F0GBR050DD',
             'NotClassified_F0GBR050DD',
             'L_F0GBR050DD',
             'S_F0GBR050DD',
             'N_F0GBR050DD',
             'Type_F00000Q5PZ',
-            'Assets_F00000Q5PZ',
             'NotClassified_F00000Q5PZ',
             'L_F00000Q5PZ',
             'S_F00000Q5PZ',
@@ -599,13 +585,11 @@ export async function creditQualityLoad (
         connector.dataTables.CreditQualityBreakdown.getColumnNames(),
         [
             'Type_F00001GPCX',
-            'Assets_F00001GPCX',
             'NotClassified_F00001GPCX',
             'L_F00001GPCX',
             'S_F00001GPCX',
             'N_F00001GPCX',
             'Type_F00000YG2F',
-            'Assets_F00000YG2F',
             'NotClassified_F00000YG2F',
             'L_F00000YG2F',
             'S_F00000YG2F',

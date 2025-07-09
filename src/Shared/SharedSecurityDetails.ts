@@ -194,11 +194,9 @@ export const getBreakdown = (
     }
 
     const colStrType = 'Type' + (hasMultiple ? `_${id}` : ''),
-        notClassifiedStr = 'NotClassified' + (hasMultiple ? `_${id}` : ''),
-        assetStr = 'Assets' + (hasMultiple ? `_${id}` : '');
+        notClassifiedStr = 'NotClassified' + (hasMultiple ? `_${id}` : '');
 
     table.setColumn(colStrType);
-    table.setColumn(assetStr);
     table.setColumn(notClassifiedStr);
 
     for (let i = 0; i < breakdown.length; i++) {
@@ -208,7 +206,6 @@ export const getBreakdown = (
         table.setColumn(colStrAsset);
 
         // Populate NotClassified for all assets.
-        table.setCell(assetStr, i, asset.SalePosition);
         table.setCell(notClassifiedStr, i, asset.NotClassified);
 
         for (let j = 0; j < asset.BreakdownValues.length; j++) {

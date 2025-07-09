@@ -74,17 +74,17 @@ export class AssetAllocationsConverter extends MorningstarConverter {
 
         // Create table
         const id = security.Id,
-            assetAllocations = security.Portfolios[0].AssetAllocations,
-            assetAllocationsTypeStr =
-            'Type' + (hasMultiple ? `_${id}` : '');
-
-        table.setColumn(assetAllocationsTypeStr);
+            assetAllocations = security.Portfolios[0].AssetAllocations;
 
         for (let i = 0; i < assetAllocations.length; i++) {
             const asset = assetAllocations[i],
                 assetAllocationsAssetStr =
-                `${asset.Type}_${asset.SalePosition}` +
-                (hasMultiple ? `_${id}` : '');
+                    `${asset.Type}_${asset.SalePosition}` +
+                    (hasMultiple ? `_${id}` : ''),
+                assetAllocationsTypeStr =
+                    `${asset.Type}_` + 'Type' + (hasMultiple ? `_${id}` : '');
+
+            table.setColumn(assetAllocationsTypeStr);
             table.setColumn(assetAllocationsAssetStr);
 
             for (let j = 0; j < asset.BreakdownValues.length; j++) {

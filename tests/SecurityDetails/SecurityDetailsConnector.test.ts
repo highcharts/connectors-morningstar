@@ -79,7 +79,7 @@ export async function securityDetailsBackwardsCompatibility (
     Assert.deepStrictEqual(
         connector.dataTables.AssetAllocations.getColumnNames(),
         [
-            'Type',
+            'MorningstarEUR3_Type',
             'MorningstarEUR3_L',
             'MorningstarEUR3_S',
             'MorningstarEUR3_N'
@@ -111,7 +111,7 @@ export async function assetAllocationsLoad (
     Assert.deepStrictEqual(
         connector.dataTables.AssetAllocations.getColumnNames(),
         [
-            'Type',
+            'MorningstarEUR3_Type',
             'MorningstarEUR3_L',
             'MorningstarEUR3_S',
             'MorningstarEUR3_N'
@@ -179,7 +179,6 @@ export async function countryExposureLoad (
     Assert.deepStrictEqual(
         connector.dataTables.CountryExposure.getColumnNames(),
         [
-            'Assets',
             'NotClassified',
             'Type',
             'Bond_L',
@@ -256,7 +255,6 @@ export async function marketCapLoad (
         connector.dataTables.MarketCap.getColumnNames(),
         [
             'Type',
-            'Assets',
             'NotClassified',
             'N'
         ],
@@ -288,7 +286,6 @@ export async function industryBDCLoad (
         connector.dataTables.IndustryBreakdown.getColumnNames(),
         [
             'Type',
-            'Assets',
             'NotClassified',
             'N'
         ],
@@ -320,7 +317,6 @@ export async function industryGroupBDCLoad (
         connector.dataTables.IndustryGroupBreakdown.getColumnNames(),
         [
             'Type',
-            'Assets',
             'NotClassified',
             'N'
         ],
@@ -454,7 +450,6 @@ export async function styleBoxBreakdownLoad (
         connector.dataTables.StyleBoxBreakdown.getColumnNames(),
         [
             'Type',
-            'Assets',
             'NotClassified',
             'L',
             'S',
@@ -490,7 +485,6 @@ export async function creditQualityLoad (
         connector.dataTables.CreditQualityBreakdown.getColumnNames(),
         [
             'Type',
-            'Assets',
             'NotClassified',
             'L',
             'S',

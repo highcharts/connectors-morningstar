@@ -77,11 +77,9 @@ export class RegionalExposureConverter extends MorningstarConverter {
         const id = security.Id,
             regionalExposure = security.Portfolios[0].RegionalExposure,
             colStrType = 'Type' + (hasMultiple ? `_${id}` : ''),
-            notClassifiedStr = 'NotClassified' + (hasMultiple ? `_${id}` : ''),
-            assetStr = 'Assets' + (hasMultiple ? `_${id}` : '');
+            notClassifiedStr = 'NotClassified' + (hasMultiple ? `_${id}` : '');
 
         table.setColumn(colStrType);
-        table.setColumn(assetStr);
         table.setColumn(notClassifiedStr);
 
         for (let i = 0; i < regionalExposure.length; i++) {
@@ -91,7 +89,6 @@ export class RegionalExposureConverter extends MorningstarConverter {
             table.setColumn(colStrAsset);
 
             // Populate NotClassified for all assets.
-            table.setCell(assetStr, i, asset.SalePosition);
             table.setCell(notClassifiedStr, i, asset.NotClassified);
 
             for (let j = 0; j < asset.BreakdownValues.length; j++) {
