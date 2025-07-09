@@ -82,7 +82,8 @@ async function displaySecurityDetails (postmanJSON) {
                         ['PerformanceReturn', 'M0', 'M1', 'M2', 'M3', 'M6', 'M12'],
                         'StyleBox',
                         ['StandardDeviation', 'M', 'M36'],
-                        ['SharpeRatio', 'M', 'M36']
+                        ['SharpeRatio', 'M', 'M36'],
+                        'UnderlyingHolding'
                     ]
                 }, {
                     type: 'benchmark',
@@ -157,12 +158,27 @@ async function displaySecurityDetails (postmanJSON) {
                         format: '{value:.2f}%'
                     }
                 }, {
+                    id: 'MorningstarEUR3_L_Values_Benchmark',
+                    cells: {
+                        format: '{value:.2f}%'
+                    }
+                }, {
                     id: 'MorningstarEUR3_N_Values',
                     cells: {
                         format: '{value:.2f}%'
                     }
                 }, {
+                    id: 'MorningstarEUR3_N_Values_Benchmark',
+                    cells: {
+                        format: '{value:.2f}%'
+                    }
+                }, {
                     id: 'MorningstarEUR3_S_Values',
+                    cells: {
+                        format: '{value:.2f}%'
+                    }
+                }, {
+                    id: 'MorningstarEUR3_S_Values_Benchmark',
                     cells: {
                         format: '{value:.2f}%'
                     }
@@ -307,10 +323,10 @@ async function displaySecurityDetails (postmanJSON) {
                     format: 'Time Period',
                     columnId: 'MonthEnd_TimePeriod'
                 }, {
-                    format: 'Value',
+                    format: 'Value (£)',
                     columnId: 'MonthEnd_Value'
                 }, {
-                    format: 'Value (Benchmark)',
+                    format: 'Value (Benchmark, £)',
                     columnId: 'MonthEnd_Value_Benchmark'
                 }]
             }
@@ -327,20 +343,52 @@ async function displaySecurityDetails (postmanJSON) {
                     format: 'M1 (Date)',
                     columnId: 'TotalReturn_M1_Benchmark'
                 }, {
-                    format: 'Value',
+                    format: 'Value (£)',
                     columnId: 'TotalReturn_M1_Value_Benchmark'
                 }, {
                     format: 'M3 (Date)',
                     columnId: 'TotalReturn_M3_Benchmark'
                 }, {
-                    format: 'Value',
+                    format: 'Value (£)',
                     columnId: 'TotalReturn_M3_Value_Benchmark'
                 }, {
                     format: 'M12 (Date)',
                     columnId: 'TotalReturn_M12_Benchmark'
                 }, {
-                    format: 'Value',
+                    format: 'Value (£)',
                     columnId: 'TotalReturn_M12_Value_Benchmark'
+                }]
+            }
+        }, {
+            renderTo: 'dashboard-col-7',
+            connector: {
+                id: 'xray',
+                dataTableKey: 'UnderlyHoldings'
+            },
+            type: 'DataGrid',
+            title: 'Underlying Holdings',
+            dataGridOptions: {
+                header: [{
+                    format: 'Holding ID',
+                    columnId: 'holdingId'
+                }, {
+                    format: 'Name',
+                    columnId: 'name'
+                }, {
+                    format: 'Security Type',
+                    columnId: 'securityType'
+                }, {
+                    format: 'Weight',
+                    columnId: 'weight'
+                }, {
+                    format: 'Market Value',
+                    columnId: 'marketValue'
+                }, {
+                    format: 'Currency',
+                    columnId: 'currencyId'
+                }, {
+                    format: 'Country',
+                    columnId: 'country'
                 }]
             }
         }

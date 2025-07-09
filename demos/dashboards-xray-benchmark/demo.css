@@ -44,7 +44,7 @@ body {
     border-bottom: none;
 }
 
-#dashboard-col-0, #dashboard-col-6 {
+#dashboard-col-0, #dashboard-col-6, #dashboard-col-7 {
     height: 370px;
 }
 
