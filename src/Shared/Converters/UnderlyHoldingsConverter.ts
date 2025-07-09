@@ -19,7 +19,7 @@
  * */
 
 import MorningstarConverter from '../MorningstarConverter';
-import { XRayConverterOptions } from '../../XRay';
+import type { XRayConverterOptions } from '../../XRay';
 
 /* *
  *
