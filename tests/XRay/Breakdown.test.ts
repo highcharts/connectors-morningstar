@@ -74,6 +74,7 @@ export async function portfolioDataPoints (
         dataPoints: {
             type: 'portfolio',
             dataPoints: [
+                'AssetAllocationMorningstarEUR3',
                 'GlobalStockSector',
                 'RegionalExposure',
                 'StyleBox'
@@ -93,10 +94,42 @@ export async function portfolioDataPoints (
     columnNames = [
         'N_Categories',
         'N_Values'
+    ],
+    assetAllocationColumnNames = [
+        'MorningstarEUR3_N_Categories',
+        'MorningstarEUR3_N_Values',
+        'MorningstarEUR3_L_Categories',
+        'MorningstarEUR3_L_Values',
+        'MorningstarEUR3_S_Categories',
+        'MorningstarEUR3_S_Values'
     ];
     await connector.load();
 
-        Assert.deepStrictEqual(
+    Assert.deepStrictEqual(
+        connector.dataTables.AssetAllocation.getColumnNames(),
+        assetAllocationColumnNames,
+        'Connector columns should return expected names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.AssetAllocation.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.AssetAllocation.modified.getColumn('columnNames'),
+        assetAllocationColumnNames,
+        'Row names of inverted table should be the same as original column names.'
+    );
+
+    Assert.strictEqual(
+        columnNames.length,
+        connector.dataTables.AssetAllocation.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
+    );
+
+
+    Assert.deepStrictEqual(
         connector.dataTables.GlobalStockSector.getColumnNames(),
         columnNames,
         'Connector columns should return expected names.'
