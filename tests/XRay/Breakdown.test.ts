@@ -62,7 +62,7 @@ export async function breakdownLoad (
 
 }
 
-export async function globalStockSectorLoad (
+export async function portfolioDataPoints (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.XRayConnector({
@@ -74,7 +74,9 @@ export async function globalStockSectorLoad (
         dataPoints: {
             type: 'portfolio',
             dataPoints: [
-                'GlobalStockSector'
+                'GlobalStockSector',
+                'RegionalExposure',
+                'StyleBox'
             ]
         },
         holdings: [
@@ -116,39 +118,6 @@ export async function globalStockSectorLoad (
         connector.dataTables.GlobalStockSector.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
-}
-
-export async function regionalExposureLoad (
-    api: MC.Shared.MorningstarAPIOptions
-) {
-    const connector = new MC.XRayConnector({
-        api,
-        currencyId: 'GBP',
-        dataModifier: {
-            type: 'Invert'
-        },
-        dataPoints: {
-            type: 'portfolio',
-            dataPoints: [
-                'RegionalExposure'
-            ]
-        },
-        holdings: [
-            {
-                id: 'F0GBR052QA',
-                idType: 'MSID',
-                type: 'FO',
-                weight: '100',
-                name: 'BlackRock Income and Growth Ord',
-                holdingType: 'weight'
-            }
-        ]
-    }),
-    columnNames = [
-        'N_Categories',
-        'N_Values'
-    ];
-    await connector.load();
 
     Assert.deepStrictEqual(
         connector.dataTables.RegionalExposure.getColumnNames(),
@@ -172,39 +141,6 @@ export async function regionalExposureLoad (
         connector.dataTables.RegionalExposure.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
-}
-
-export async function styleBoxLoad (
-    api: MC.Shared.MorningstarAPIOptions
-) {
-    const connector = new MC.XRayConnector({
-        api,
-        currencyId: 'GBP',
-        dataModifier: {
-            type: 'Invert'
-        },
-        dataPoints: {
-            type: 'portfolio',
-            dataPoints: [
-                'StyleBox'
-            ]
-        },
-        holdings: [
-            {
-                id: 'F0GBR052QA',
-                idType: 'MSID',
-                type: 'FO',
-                weight: '100',
-                name: 'BlackRock Income and Growth Ord',
-                holdingType: 'weight'
-            }
-        ]
-    }),
-    columnNames = [
-        'N_Categories',
-        'N_Values'
-    ];
-    await connector.load();
 
     Assert.deepStrictEqual(
         connector.dataTables.StyleBox.getColumnNames(),
