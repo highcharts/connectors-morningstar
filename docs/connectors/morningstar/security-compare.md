@@ -24,7 +24,7 @@ If any securities are invalid, the connector will still yield results. The inval
 
 ### Column Names
 
-Columns are named based on the values they represent, followed by their respective security ID (MSID), for example: `TrailingPerformance_TimePeriod_F0GBR050DD`. This naming convention distinguishes the columns and enables quick comparison when inspecting the table. Below is an example of how the columns may be used in practice.
+Columns are named based on the values they represent, followed by their respective security ID (MSID), for example: `Nav_DayEnd_TimePeriod_F0GBR050DD`. This naming convention distinguishes the columns and enables quick comparison when inspecting the table. Below is an example of how the columns may be used in practice.
 
 #### Security Compare Types
 
@@ -89,8 +89,8 @@ Highcharts.chart('container', {
         type: 'column',
         name: id,
         data: connector.dataTables.TrailingPerformance.getRowObjects().map(obj => [
-            obj['TimePeriod_' + id],
-            obj['Value_' + id]
+            obj['Nav_DayEnd_TimePeriod_' + id],
+            obj['Nav_DayEnd_Value_' + id]
         ])
     })),
     xAxis: {

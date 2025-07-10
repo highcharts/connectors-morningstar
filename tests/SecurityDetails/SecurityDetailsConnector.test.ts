@@ -15,8 +15,15 @@ export async function securityDetailsLoad (
         }
     }),
     columnNames = [
-        'TimePeriod',
-        'Value'
+        'Nav_DayEnd_TimePeriod',
+        'Nav_DayEnd_Date',
+        'Nav_DayEnd_Value',
+        'GbPostTax_DayEnd_TimePeriod',
+        'GbPostTax_DayEnd_Date',
+        'GbPostTax_DayEnd_Value',
+        'ItPostTax_DayEnd_TimePeriod',
+        'ItPostTax_DayEnd_Date',
+        'ItPostTax_DayEnd_Value'
     ];
 
     Assert.ok(

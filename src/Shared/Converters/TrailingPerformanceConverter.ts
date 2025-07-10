@@ -10,6 +10,7 @@
  *  - Sophie Bremer
  *  - Pawel Lysy
  *  - Askel Eirik Johansson
+ *  - Jedrzej Ruta
  *
  * */
 
@@ -72,28 +73,41 @@ export class TrailingPerformanceConverter extends MorningstarConverter {
             security = userOptions.json as SecurityDetailsJSON.SecurityDetailsResponse,
             hasMultiple = options.hasMultiple;
 
-
         // Create table
         const id = security.Id,
-            timePeriodColumnStr = 'TimePeriod' + (hasMultiple ? `_${id}` : ''),
-            valueColumnStr = 'Value' + (hasMultiple ? `_${id}` : '');
+            columnStrPostfix = hasMultiple ? `_${id}` : '';
 
-        table.setColumn(timePeriodColumnStr);
-        table.setColumn(valueColumnStr);
+        const trailingPerformance = security.TrailingPerformance;
 
-        const trailingPerformanceReturn = security.TrailingPerformance[0].Return;
+        for (let i = 0, iEnd = trailingPerformance.length; i < iEnd; i++) {
+            const trailingPerformanceReturn = trailingPerformance[i].Return;
+            const columnStrPrefix =
+                `${trailingPerformance[i].ReturnType}_${trailingPerformance[i].Type}_`,
+                timePeriodColumnStr = columnStrPrefix + 'TimePeriod' + columnStrPostfix,
+                dateColumnStr = columnStrPrefix + 'Date' + columnStrPostfix,
+                valueColumnStr = columnStrPrefix + 'Value' + columnStrPostfix;
 
-        for (let i = 0, iEnd = trailingPerformanceReturn.length; i < iEnd; ++i) {
-            table.setCell(
-                timePeriodColumnStr,
-                i,
-                trailingPerformanceReturn[i].TimePeriod
-            );
-            table.setCell(
-                valueColumnStr,
-                i,
-                trailingPerformanceReturn[i].Value
-            );
+            table.setColumn(timePeriodColumnStr);
+            table.setColumn(dateColumnStr);
+            table.setColumn(valueColumnStr);
+
+            for (let j = 0, iEnd = trailingPerformanceReturn.length; j < iEnd; ++j) {
+                table.setCell(
+                    timePeriodColumnStr,
+                    j,
+                    trailingPerformanceReturn[j].TimePeriod
+                );
+                table.setCell(
+                    dateColumnStr,
+                    j,
+                    trailingPerformanceReturn[j].Date
+                );
+                table.setCell(
+                    valueColumnStr,
+                    j,
+                    trailingPerformanceReturn[j].Value
+                );
+            }
         }
     }
 }

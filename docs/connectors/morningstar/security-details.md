@@ -88,8 +88,8 @@ Highcharts.chart('container', {
         type: 'column',
         name: 'F0GBR050DD',
         data: connector.dataTables.TrailingPerformance.getRowObjects().map(obj => [
-            obj.TimePeriod,
-            obj.Value
+            obj.Nav_DayEnd_TimePeriod,
+            obj.Nav_DayEnd_Value
         ])
     }],
     xAxis: {

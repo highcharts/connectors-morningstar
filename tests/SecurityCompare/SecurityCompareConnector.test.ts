@@ -15,10 +15,24 @@ export async function securityCompareLoad (
         }
     }),
     columnNames = [
-        'TimePeriod_F0GBR050DD',
-        'Value_F0GBR050DD',
-        'TimePeriod_F00000Q5PZ',
-        'Value_F00000Q5PZ'
+        'Nav_DayEnd_TimePeriod_F0GBR050DD',
+        'Nav_DayEnd_Date_F0GBR050DD',
+        'Nav_DayEnd_Value_F0GBR050DD',
+        'GbPostTax_DayEnd_TimePeriod_F0GBR050DD',
+        'GbPostTax_DayEnd_Date_F0GBR050DD',
+        'GbPostTax_DayEnd_Value_F0GBR050DD',
+        'ItPostTax_DayEnd_TimePeriod_F0GBR050DD',
+        'ItPostTax_DayEnd_Date_F0GBR050DD',
+        'ItPostTax_DayEnd_Value_F0GBR050DD',
+        'Nav_DayEnd_TimePeriod_F00000Q5PZ',
+        'Nav_DayEnd_Date_F00000Q5PZ',
+        'Nav_DayEnd_Value_F00000Q5PZ',
+        'GbPostTax_DayEnd_TimePeriod_F00000Q5PZ',
+        'GbPostTax_DayEnd_Date_F00000Q5PZ',
+        'GbPostTax_DayEnd_Value_F00000Q5PZ',
+        'ItPostTax_DayEnd_TimePeriod_F00000Q5PZ',
+        'ItPostTax_DayEnd_Date_F00000Q5PZ',
+        'ItPostTax_DayEnd_Value_F00000Q5PZ'
     ];
 
     Assert.ok(
