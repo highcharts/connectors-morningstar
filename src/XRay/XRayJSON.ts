@@ -53,6 +53,7 @@ namespace XRayJSON {
         regionalExposure?: Array<RegionalExposure>;
         globalStockSector?: Array<GlobalStockSector>;
         styleBox?: Array<StyleBox>;
+        creditQuality?: Array<CreditQuality>;
     }
 
 
@@ -127,6 +128,12 @@ namespace XRayJSON {
     }
 
     export interface StyleBox {
+        salePosition: string;
+        values: Record<number, number>;
+    }
+
+
+    export interface CreditQuality {
         salePosition: string;
         values: Record<number, number>;
     }
