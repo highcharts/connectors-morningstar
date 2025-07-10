@@ -30,8 +30,8 @@ import {
     XRayCreditQualityConverter
 } from './Converters';
 
-import MorningstarConverter from './MorningstarConverter';
-import { XRayConverterOptions } from '../XRay';
+import type MorningstarConverter from './MorningstarConverter';
+import type { XRayConverterOptions } from '../XRay';
 
 /* *
  *

@@ -19,7 +19,7 @@
  * */
 
 import MorningstarConverter from '../MorningstarConverter';
-import { XRayConverterOptions } from '../../XRay';
+import type { XRayConverterOptions } from '../../XRay';
 
 /* *
  *
@@ -69,9 +69,11 @@ export class RiskStatisticsConverter extends MorningstarConverter {
         }
 
         if (json?.standardDeviation) {
+            let i = 0;
             for (const standardDeviation of json.standardDeviation) {
-                const columnName = `StandardDeviation_${standardDeviation.frequency}_${standardDeviation.timePeriod}` + benchmarkSuffix;
-                table.setCell(columnName, 0, standardDeviation.value);
+                table.setCell('StandardDeviation_TimePeriod', i, standardDeviation.timePeriod);
+                table.setCell('StandardDeviation_Values', i, standardDeviation.value);
+                i++;
             }
         }
     }
