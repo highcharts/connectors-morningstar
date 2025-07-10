@@ -191,7 +191,7 @@ export async function totalReturnLoad (
 
 }
 
-export async function globalStockSectorLoad (
+export async function portfolioDataPoints (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.XRayConnector({
@@ -203,7 +203,10 @@ export async function globalStockSectorLoad (
         dataPoints: {
             type: 'portfolio',
             dataPoints: [
-                'GlobalStockSector'
+                'AssetAllocationMorningstarEUR3',
+                'GlobalStockSector',
+                'RegionalExposure',
+                'StyleBox'
             ]
         },
         holdings: [
@@ -220,10 +223,42 @@ export async function globalStockSectorLoad (
     columnNames = [
         'N_Categories',
         'N_Values'
+    ],
+    assetAllocationColumnNames = [
+        'MorningstarEUR3_N_Categories',
+        'MorningstarEUR3_N_Values',
+        'MorningstarEUR3_L_Categories',
+        'MorningstarEUR3_L_Values',
+        'MorningstarEUR3_S_Categories',
+        'MorningstarEUR3_S_Values'
     ];
     await connector.load();
 
-        Assert.deepStrictEqual(
+    Assert.deepStrictEqual(
+        connector.dataTables.AssetAllocation.getColumnNames(),
+        assetAllocationColumnNames,
+        'Connector columns should return expected names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.AssetAllocation.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.AssetAllocation.modified.getColumn('columnNames'),
+        assetAllocationColumnNames,
+        'Row names of inverted table should be the same as original column names.'
+    );
+
+    Assert.strictEqual(
+        assetAllocationColumnNames.length,
+        connector.dataTables.AssetAllocation.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
+    );
+
+
+    Assert.deepStrictEqual(
         connector.dataTables.GlobalStockSector.getColumnNames(),
         columnNames,
         'Connector columns should return expected names.'
@@ -245,39 +280,6 @@ export async function globalStockSectorLoad (
         connector.dataTables.GlobalStockSector.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
-}
-
-export async function regionalExposureLoad (
-    api: MC.Shared.MorningstarAPIOptions
-) {
-    const connector = new MC.XRayConnector({
-        api,
-        currencyId: 'GBP',
-        dataModifier: {
-            type: 'Invert'
-        },
-        dataPoints: {
-            type: 'portfolio',
-            dataPoints: [
-                'RegionalExposure'
-            ]
-        },
-        holdings: [
-            {
-                id: 'F0GBR052QA',
-                idType: 'MSID',
-                type: 'FO',
-                weight: '100',
-                name: 'BlackRock Income and Growth Ord',
-                holdingType: 'weight'
-            }
-        ]
-    }),
-    columnNames = [
-        'N_Categories',
-        'N_Values'
-    ];
-    await connector.load();
 
     Assert.deepStrictEqual(
         connector.dataTables.RegionalExposure.getColumnNames(),
@@ -301,39 +303,6 @@ export async function regionalExposureLoad (
         connector.dataTables.RegionalExposure.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
-}
-
-export async function styleBoxLoad (
-    api: MC.Shared.MorningstarAPIOptions
-) {
-    const connector = new MC.XRayConnector({
-        api,
-        currencyId: 'GBP',
-        dataModifier: {
-            type: 'Invert'
-        },
-        dataPoints: {
-            type: 'portfolio',
-            dataPoints: [
-                'StyleBox'
-            ]
-        },
-        holdings: [
-            {
-                id: 'F0GBR052QA',
-                idType: 'MSID',
-                type: 'FO',
-                weight: '100',
-                name: 'BlackRock Income and Growth Ord',
-                holdingType: 'weight'
-            }
-        ]
-    }),
-    columnNames = [
-        'N_Categories',
-        'N_Values'
-    ];
-    await connector.load();
 
     Assert.deepStrictEqual(
         connector.dataTables.StyleBox.getColumnNames(),

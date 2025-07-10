@@ -32,7 +32,8 @@ export async function portfolioBreakdown (
         connector.dataTables.RiskStatistics.getColumnNames(),
         [
             'SharpeRatio_M_M36',
-            'StandardDeviation_M_M36'
+            'StandardDeviation_TimePeriod',
+            'StandardDeviation_Values'
         ],
         'Connector columns should return expected names.'
     );

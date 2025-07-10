@@ -267,8 +267,11 @@ async function displaySecurityDetails (postmanJSON) {
                     format: 'Sharpe Ratio M36',
                     columnId: 'SharpeRatio_M_M36'
                 }, {
-                    format: 'Standard Deviation M36',
-                    columnId: 'StandardDeviation_M_M36'
+                    format: 'Standard Deviation Period',
+                    columnId: 'StandardDeviation_TimePeriod'
+                }, {
+                    format: 'Standard Deviation',
+                    columnId: 'StandardDeviation_Values'
                 }]
             }
         }, {
