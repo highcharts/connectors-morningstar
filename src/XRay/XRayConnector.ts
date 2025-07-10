@@ -32,8 +32,9 @@ import {
     MorningstarHoldingWeightOptions
 } from '../Shared/MorningstarOptions';
 import MorningstarURL from '../Shared/MorningstarURL';
-import XRayConverter from './XRayConverter';
-import XRayOptions from './XRayOptions';
+import { DATA_TABLES, initConverter } from '../Shared/SharedXRay';
+import XRayJSON from './XRayJSON';
+import XRayOptions, { XRayMetadata } from './XRayOptions';
 
 
 /* *
@@ -114,6 +115,12 @@ function escapeDataPoints (
     return `UseMongoSecurities,RunInThread,${dataPoints.join(',')}`;
 }
 
+/* *
+ *
+ *  Constants
+ *
+ * */
+
 
 /* *
  *
@@ -135,10 +142,8 @@ export class XRayConnector extends MorningstarConnector {
     public constructor (
         options: XRayOptions = {}
     ) {
-        super(options);
+        super(options, DATA_TABLES);
 
-        this.converter = new XRayConverter(options?.converter);
-        this.metadata = { columns: {} };
         this.options = options;
     }
 
@@ -149,14 +154,11 @@ export class XRayConnector extends MorningstarConnector {
      *
      * */
 
-
-    public override readonly converter: XRayConverter;
-
-
-    public override readonly metadata: XRayConnector.MetaData;
-
-
     public override readonly options: XRayOptions;
+
+    public override metadata: XRayMetadata = {
+        columns: {}
+    };
 
 
     /* *
@@ -203,8 +205,6 @@ export class XRayConnector extends MorningstarConnector {
             bodyJSON.holdings = convertHoldings(weightHoldings, bodyJSON.type);
         }
 
-        this.metadata.benchmarkId = bodyJSON.benchmarkId;
-
         const api = this.api = this.api || new MorningstarAPI(options.api);
         const url = new MorningstarURL('ecint/v1/xray/json', api.baseURL);
 
@@ -237,45 +237,35 @@ export class XRayConnector extends MorningstarConnector {
             method: 'POST'
         });
         const json = await response.json() as unknown;
+        const xrays: Array<XRayJSON.XRayResponse> = [];
 
-        this.converter.parse({ json });
+        if (XRayJSON.isResponse(json)) {
+            xrays.push(...json.XRay);
+        } else if (XRayJSON.isXRayResponse(json)) {
+            xrays.push(json);
+        } else {
+            throw new Error('Invalid data');
+        }
 
-        this.table.deleteColumns();
-        this.table.setColumns(this.converter.getTable().getColumns());
+        for (const { key } of DATA_TABLES) {
+            const converter = initConverter(key);
+
+            for (const xray of xrays) {
+                converter.parse({ json: xray });
+            }
+
+            this.dataTables[key].setColumns(converter.getTable().getColumns());
+        }
+
+        this.metadata = {
+            columns: {}
+        };
 
         return this.setModifierOptions(options.dataModifier);
     }
 
 
 }
-
-
-/* *
- *
- *  Class Namespace
- *
- * */
-
-
-export namespace XRayConnector {
-
-
-    /* *
-     *
-     *  Declarations
-     *
-     * */
-
-
-    export interface MetaData {
-        benchmarkId?: string;
-        /** @internal */
-        columns: Record<string, object>;
-    }
-
-
-}
-
 
 /* *
  *

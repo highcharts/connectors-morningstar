@@ -26,8 +26,10 @@ import type {
     MorningstarConverterOptions,
     MorningstarHoldingAmountOptions,
     MorningstarHoldingWeightOptions,
+    MorningstarMetadata,
     MorningstarOptions
 } from '../Shared/MorningstarOptions';
+import XRayJSON from './XRayJSON';
 
 
 /* *
@@ -35,6 +37,10 @@ import type {
  *  API Options
  *
  * */
+
+export interface XRayMetadata extends MorningstarMetadata {
+
+}
 
 
 export interface XRayBenchmarkDataPointOptions {
@@ -62,6 +68,8 @@ export type XRayBenchmarkDataPoints = (
 
 
 export interface XRayConverterOptions extends MorningstarConverterOptions {
+
+    json: XRayJSON.XRayResponse;
 
 }
 
@@ -197,6 +205,20 @@ export type XRayPortfolioDataPoints = (
     | 'Alpha'
     | 'ArithmeticMean'
     | 'AssetAllocation'
+    | 'AssetAllocationMorningstarEUR3'
+    | 'AssetAllocationMorningstarUK6'
+    | 'AssetAllocationMorningstarUK5'
+    | 'AssetAllocationMorningstarUK4'
+    | 'AssetAllocationMorningstarEUR6'
+    | 'AssetAllocationMorningstarUK7'
+    | 'AssetAllocationMorningstarUSA5'
+    | 'AssetAllocationMorningstarEUR4Com'
+    | 'AssetAllocationMorningstarSA12'
+    | 'AssetAllocationFrenchEuroFunds5'
+    | 'AssetAllocationMorningstarSA8'
+    | 'AssetAllocationMorningstarNZL12'
+    | 'AssetAllocationMorningstarMYS8'
+    | 'AssetAllocationMorningstarAUS10'
     | 'BenchmarkId'
     | 'BenchmarkName'
     | 'BestWorstPeriods'

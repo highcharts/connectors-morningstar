@@ -53,7 +53,7 @@ types.
 * [RNANews](https://www.highcharts.com/docs/morningstar/regulatory-news-announcements)
 * [Risk Score](https://www.highcharts.com/docs/morningstar/risk-score)
 * [TimeSeries](https://www.highcharts.com/docs/morningstar/time-series/time-series)
-* [XRay](https://www.highcharts.com/docs/morningstar/x-ray)
+* [X-Ray](https://www.highcharts.com/docs/morningstar/x-ray)
 * [Screener](https://www.highcharts.com/docs/morningstar/screeners/screener)
 * [Security Details](https://www.highcharts.com/docs/morningstar/security-details)
 * [Security Compare](https://www.highcharts.com/docs/morningstar/security-compare)

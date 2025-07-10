@@ -30,29 +30,24 @@ export async function breakdownLoad (
         'Connector should be instance of XRayConnector class.'
     );
 
-    Assert.ok(
-        connector.converter instanceof MC.XRayConverter,
-        'Converter should be instance of XRayConverter class.'
-    );
-
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.HistoricalPerformanceSeries.getColumnNames(),
         [
-            'XRay_TotalReturn_M1',
-            'XRay_TotalReturn_M1_Value',
-            'XRay_TotalReturn_M3',
-            'XRay_TotalReturn_M3_Value',
-            'XRay_TotalReturn_M12',
-            'XRay_TotalReturn_M12_Value'
+            'TotalReturn_M1_Benchmark',
+            'TotalReturn_M1_Value_Benchmark',
+            'TotalReturn_M3_Benchmark',
+            'TotalReturn_M3_Value_Benchmark',
+            'TotalReturn_M12_Benchmark',
+            'TotalReturn_M12_Value_Benchmark'
         ],
         'Connector table should exist of expected columns.'
     );
 
     const now = new Date();
     const then = new Date(2024, 8 /* September */, 1);
-    const rowCount = connector.table.getRowCount();
+    const rowCount = connector.dataTables.HistoricalPerformanceSeries.getRowCount();
     const shouldCount = (
         384 + // January 2024
         ((now.getFullYear() - then.getFullYear()) * 12) +
@@ -67,7 +62,7 @@ export async function breakdownLoad (
 
 }
 
-export async function portfolioBreakdown (
+export async function portfolioDataPoints (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.XRayConnector({
@@ -79,6 +74,7 @@ export async function portfolioBreakdown (
         dataPoints: {
             type: 'portfolio',
             dataPoints: [
+                'AssetAllocationMorningstarEUR3',
                 'GlobalStockSector',
                 'RegionalExposure',
                 'StyleBox'
@@ -96,35 +92,109 @@ export async function portfolioBreakdown (
         ]
     }),
     columnNames = [
-        'XRay_RegionalExposure_N_Categories',
-        'XRay_RegionalExposure_N_Values',
-        'XRay_GlobalStockSector_N_Categories',
-        'XRay_GlobalStockSector_N_Values',
-        'XRay_StyleBox_N_Categories',
-        'XRay_StyleBox_N_Values'
+        'N_Categories',
+        'N_Values'
+    ],
+    assetAllocationColumnNames = [
+        'MorningstarEUR3_N_Categories',
+        'MorningstarEUR3_N_Values',
+        'MorningstarEUR3_L_Categories',
+        'MorningstarEUR3_L_Values',
+        'MorningstarEUR3_S_Categories',
+        'MorningstarEUR3_S_Values'
     ];
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.AssetAllocation.getColumnNames(),
+        assetAllocationColumnNames,
+        'Connector columns should return expected names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.AssetAllocation.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.AssetAllocation.modified.getColumn('columnNames'),
+        assetAllocationColumnNames,
+        'Row names of inverted table should be the same as original column names.'
+    );
+
+    Assert.strictEqual(
+        columnNames.length,
+        connector.dataTables.AssetAllocation.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
+    );
+
+
+    Assert.deepStrictEqual(
+        connector.dataTables.GlobalStockSector.getColumnNames(),
         columnNames,
         'Connector columns should return expected names.'
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.GlobalStockSector.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 
     Assert.deepStrictEqual(
-        connector.table.modified.getColumn('columnNames'),
+        connector.dataTables.GlobalStockSector.modified.getColumn('columnNames'),
         columnNames,
         'Row names of inverted table should be the same as original column names.'
     );
 
     Assert.strictEqual(
         columnNames.length,
-        connector.table.modified.getRowCount(),
+        connector.dataTables.GlobalStockSector.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.RegionalExposure.getColumnNames(),
+        columnNames,
+        'Connector columns should return expected names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.RegionalExposure.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.RegionalExposure.modified.getColumn('columnNames'),
+        columnNames,
+        'Row names of inverted table should be the same as original column names.'
+    );
+
+    Assert.strictEqual(
+        columnNames.length,
+        connector.dataTables.RegionalExposure.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.StyleBox.getColumnNames(),
+        columnNames,
+        'Connector columns should return expected names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.StyleBox.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.StyleBox.modified.getColumn('columnNames'),
+        columnNames,
+        'Row names of inverted table should be the same as original column names.'
+    );
+
+    Assert.strictEqual(
+        columnNames.length,
+        connector.dataTables.StyleBox.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 }
