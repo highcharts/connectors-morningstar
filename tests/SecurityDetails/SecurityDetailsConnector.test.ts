@@ -142,8 +142,14 @@ export async function regionalExposureLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.RegionalExposure.getColumnNames()[0],
-        'Type',
+        connector.dataTables.RegionalExposure.getColumnNames(),
+        [
+            'NotClassified',
+            'Type',
+            'L',
+            'S',
+            'N'
+        ],
         'Regional exposure table should exist of expected columns.'
     );
 }
@@ -163,8 +169,14 @@ export async function globalStockSectorBreakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.GlobalStockSectorBreakdown.getColumnNames()[0],
-        'Type',
+        connector.dataTables.GlobalStockSectorBreakdown.getColumnNames(),
+        [
+            'NotClassified',
+            'Type',
+            'L',
+            'S',
+            'N'
+        ],
         'Global stock sector breakdown table should exist of expected columns.'
     );
 }
@@ -230,9 +242,9 @@ export async function portfolioHoldingsLoad (
             'MarketValue',
             'GlobalSectorId',
             'NumberOfShare',
+            'ShareChange',
             'LocalCurrencyCode',
-            'GICSIndustryId',
-            'ShareChange'
+            'GICSIndustryId'
         ],
         'Portfolio holdings table should exist of expected columns.'
     );
@@ -261,8 +273,8 @@ export async function marketCapLoad (
     Assert.deepStrictEqual(
         connector.dataTables.MarketCap.getColumnNames(),
         [
-            'Type',
             'NotClassified',
+            'Type',
             'N'
         ],
         'MarketCap table should exist of expected columns.'
@@ -292,8 +304,8 @@ export async function industryBDCLoad (
     Assert.deepStrictEqual(
         connector.dataTables.IndustryBreakdown.getColumnNames(),
         [
-            'Type',
             'NotClassified',
+            'Type',
             'N'
         ],
         'IndustryBD table should exist of expected columns.'
@@ -323,8 +335,8 @@ export async function industryGroupBDCLoad (
     Assert.deepStrictEqual(
         connector.dataTables.IndustryGroupBreakdown.getColumnNames(),
         [
-            'Type',
             'NotClassified',
+            'Type',
             'N'
         ],
         'IndustryGroupBD table should exist of expected columns.'
@@ -456,8 +468,8 @@ export async function styleBoxBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.StyleBoxBreakdown.getColumnNames(),
         [
-            'Type',
             'NotClassified',
+            'Type',
             'L',
             'S',
             'N'
@@ -491,8 +503,8 @@ export async function creditQualityLoad (
     Assert.deepStrictEqual(
         connector.dataTables.CreditQualityBreakdown.getColumnNames(),
         [
-            'Type',
             'NotClassified',
+            'Type',
             'L',
             'S',
             'N'

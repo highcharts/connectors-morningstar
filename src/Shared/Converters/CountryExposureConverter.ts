@@ -85,31 +85,25 @@ export class CountryExposureConverter extends MorningstarConverter {
             notClassifiedStr = 'NotClassified' + (hasMultiple ? `_${id}` : ''),
             countryExpTypeStr = 'Type' + (hasMultiple ? `_${id}` : '');
 
-        table.setColumn(notClassifiedStr);
-        table.setColumn(countryExpTypeStr);
-
         for (let i = 0; i < countryExposure.length; i++) {
             const asset = countryExposure[i],
                 colStr =
                     `${asset.Type}_${asset.SalePosition}` +
                     (hasMultiple ? `_${id}` : '');
 
-            table.setColumn(colStr);
-
             // Populate NotClassified for all assets.
             table.setCell(notClassifiedStr, i, asset.NotClassified);
 
             for (let j = 0; j < asset.BreakdownValues.length; j++) {
                 table.setCell(
-                    colStr,
-                    j,
-                    asset.BreakdownValues[j].Value
-                );
-
-                table.setCell(
                     countryExpTypeStr,
                     j,
                     asset.BreakdownValues[j].Type
+                );
+                table.setCell(
+                    colStr,
+                    j,
+                    asset.BreakdownValues[j].Value
                 );
             }
         }

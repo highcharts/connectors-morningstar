@@ -166,13 +166,13 @@ export async function regionalExposureLoad (
     Assert.deepStrictEqual(
         connector.dataTables.RegionalExposure.getColumnNames(),
         [
-            'Type_F0GBR050DD',
             'NotClassified_F0GBR050DD',
+            'Type_F0GBR050DD',
             'L_F0GBR050DD',
             'S_F0GBR050DD',
             'N_F0GBR050DD',
-            'Type_F00000Q5PZ',
             'NotClassified_F00000Q5PZ',
+            'Type_F00000Q5PZ',
             'L_F00000Q5PZ',
             'S_F00000Q5PZ',
             'N_F00000Q5PZ'
@@ -203,13 +203,13 @@ export async function globalStockSectorBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.GlobalStockSectorBreakdown.getColumnNames(),
         [
-            'Type_F0GBR050DD',
             'NotClassified_F0GBR050DD',
+            'Type_F0GBR050DD',
             'L_F0GBR050DD',
             'S_F0GBR050DD',
             'N_F0GBR050DD',
-            'Type_F00000Q5PZ',
             'NotClassified_F00000Q5PZ',
+            'Type_F00000Q5PZ',
             'L_F00000Q5PZ',
             'S_F00000Q5PZ',
             'N_F00000Q5PZ'
@@ -295,9 +295,9 @@ export async function portfolioHoldings (
             'MarketValue_F0GBR050DD',
             'GlobalSectorId_F0GBR050DD',
             'NumberOfShare_F0GBR050DD',
+            'ShareChange_F0GBR050DD',
             'LocalCurrencyCode_F0GBR050DD',
             'GICSIndustryId_F0GBR050DD',
-            'ShareChange_F0GBR050DD',
             'Id_F00000Q5PZ',
             'ExternalId_F00000Q5PZ',
             'DetailHoldingTypeId_F00000Q5PZ',
@@ -343,11 +343,11 @@ export async function marketCapLoad (
     Assert.deepStrictEqual(
         connector.dataTables.MarketCap.getColumnNames(),
         [
-            'Type_F0GBR050DD',
             'NotClassified_F0GBR050DD',
+            'Type_F0GBR050DD',
             'N_F0GBR050DD',
-            'Type_F00000Q5PZ',
             'NotClassified_F00000Q5PZ',
+            'Type_F00000Q5PZ',
             'N_F00000Q5PZ'
         ],
         'MarketCap table should exist of expected columns.'
@@ -377,11 +377,11 @@ export async function industryBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.IndustryBreakdown.getColumnNames(),
         [
-            'Type_F0GBR050DD',
             'NotClassified_F0GBR050DD',
+            'Type_F0GBR050DD',
             'N_F0GBR050DD',
-            'Type_F00000Q5PZ',
             'NotClassified_F00000Q5PZ',
+            'Type_F00000Q5PZ',
             'N_F00000Q5PZ'
         ],
         'IndustryBreakdown table should exist of expected columns.'
@@ -411,11 +411,11 @@ export async function industryGroupBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.IndustryGroupBreakdown.getColumnNames(),
         [
-            'Type_F0GBR050DD',
             'NotClassified_F0GBR050DD',
+            'Type_F0GBR050DD',
             'N_F0GBR050DD',
-            'Type_F00000Q5PZ',
             'NotClassified_F00000Q5PZ',
+            'Type_F00000Q5PZ',
             'N_F00000Q5PZ'
         ],
         'IndustryGroupBreakdown table should exist of expected columns.'
@@ -558,13 +558,13 @@ export async function styleBoxBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.StyleBoxBreakdown.getColumnNames(),
         [
-            'Type_F0GBR050DD',
             'NotClassified_F0GBR050DD',
+            'Type_F0GBR050DD',
             'L_F0GBR050DD',
             'S_F0GBR050DD',
             'N_F0GBR050DD',
-            'Type_F00000Q5PZ',
             'NotClassified_F00000Q5PZ',
+            'Type_F00000Q5PZ',
             'L_F00000Q5PZ',
             'S_F00000Q5PZ',
             'N_F00000Q5PZ'
@@ -598,13 +598,13 @@ export async function creditQualityLoad (
     Assert.deepStrictEqual(
         connector.dataTables.CreditQualityBreakdown.getColumnNames(),
         [
-            'Type_F00001GPCX',
             'NotClassified_F00001GPCX',
+            'Type_F00001GPCX',
             'L_F00001GPCX',
             'S_F00001GPCX',
             'N_F00001GPCX',
-            'Type_F00000YG2F',
             'NotClassified_F00000YG2F',
+            'Type_F00000YG2F',
             'L_F00000YG2F',
             'S_F00000YG2F',
             'N_F00000YG2F'
@@ -661,7 +661,7 @@ export async function historicalPerformanceSeriesLoad (
             'ItPostTax_M12_Q_Value_F00000YG2F',
             'ItPostTax_M12_Y_Date_F00000YG2F',
             'ItPostTax_M12_Y_Value_F00000YG2F'
-],
+        ],
         'HistoricalPerformanceSeries table should exist of expected columns.'
     );
 
