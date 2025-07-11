@@ -426,7 +426,9 @@ export async function bondStyleBoxBreakdownLoad (
         connector.dataTables.BondStyleBoxBreakdown.getColumnNames(),
         [
             'Type',
-            'N'
+            'N',
+            'Term',
+            'Quality'
         ],
         'Bond Style Box Breakdown table should exist of expected columns.'
     );
@@ -460,7 +462,9 @@ export async function styleBoxBreakdownLoad (
             'NotClassified',
             'L',
             'S',
-            'N'
+            'N',
+            'Style',
+            'Size'
         ],
         'Style Box Breakdown table should exist of expected columns.'
     );

@@ -28,6 +28,7 @@ import {
 import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
 import { getBreakdown } from '../SharedSecurityDetails';
+import { STYLE_BOX_VALUES } from '../Utilities';
 
 /* *
  *
@@ -91,6 +92,10 @@ export class StyleBoxBreakdownConverter extends MorningstarConverter {
             table,
             !!hasMultiple
         );
+
+        // Set destructured x & y values
+        table.setColumn('Style' + (hasMultiple ? `_${id}` : ''), STYLE_BOX_VALUES.X);
+        table.setColumn('Size' + (hasMultiple ? `_${id}` : ''), STYLE_BOX_VALUES.Y);
     }
 }
 
