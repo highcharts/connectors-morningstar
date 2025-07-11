@@ -240,16 +240,16 @@ export async function countryExposureLoad (
     Assert.deepStrictEqual(
         connector.dataTables.CountryExposure.getColumnNames(),
         [
-            'NotClassified_F0GBR050DD',
             'Type_F0GBR050DD',
+            'NotClassified_F0GBR050DD',
             'Bond_L_F0GBR050DD',
             'Bond_S_F0GBR050DD',
             'Bond_N_F0GBR050DD',
             'Equity_L_F0GBR050DD',
             'Equity_S_F0GBR050DD',
             'Equity_N_F0GBR050DD',
-            'NotClassified_F00000Q5PZ',
             'Type_F00000Q5PZ',
+            'NotClassified_F00000Q5PZ',
             'Equity_L_F00000Q5PZ',
             'Equity_S_F00000Q5PZ',
             'Equity_N_F00000Q5PZ'
