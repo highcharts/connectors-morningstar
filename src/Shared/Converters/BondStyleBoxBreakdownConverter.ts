@@ -27,6 +27,7 @@ import {
 } from '../../SecurityDetails/SecurityDetailsOptions';
 import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
+import { STYLE_BOX_VALUES } from '../Utilities';
 
 /* *
  *
@@ -84,8 +85,7 @@ export class BondStyleBoxBreakdownConverter extends MorningstarConverter {
             return;
         }
 
-        const typeColumnName =
-            'Type' + (hasMultiple ? `_${id}` : '');
+        const typeColumnName = 'Type' + (hasMultiple ? `_${id}` : '');
 
         for (let i = 0; i < bondStyleBoxBreakdowns.length; i++) {
             const breakdown = bondStyleBoxBreakdowns[i];
@@ -113,6 +113,10 @@ export class BondStyleBoxBreakdownConverter extends MorningstarConverter {
 
             }
         }
+
+        // Set destructured x & y values
+        table.setColumn('Term' + (hasMultiple ? `_${id}` : ''), STYLE_BOX_VALUES.X);
+        table.setColumn('Quality' + (hasMultiple ? `_${id}` : ''), STYLE_BOX_VALUES.Y);
     }
 }
 
