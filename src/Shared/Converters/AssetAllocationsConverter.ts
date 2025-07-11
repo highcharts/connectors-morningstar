@@ -84,16 +84,20 @@ export class AssetAllocationsConverter extends MorningstarConverter {
                 assetAllocationsTypeStr =
                     `${asset.Type}_` + 'Type' + (hasMultiple ? `_${id}` : '');
 
+            table.setColumn(assetAllocationsTypeStr);
+            table.setColumn(assetAllocationsAssetStr);
+
             for (let j = 0; j < asset.BreakdownValues.length; j++) {
-                table.setCell(
-                    assetAllocationsTypeStr,
-                    j,
-                    asset.BreakdownValues[j].Type
-                );
                 table.setCell(
                     assetAllocationsAssetStr,
                     j,
                     asset.BreakdownValues[j].Value
+                );
+
+                table.setCell(
+                    assetAllocationsTypeStr,
+                    j,
+                    asset.BreakdownValues[j].Type
                 );
             }
         }

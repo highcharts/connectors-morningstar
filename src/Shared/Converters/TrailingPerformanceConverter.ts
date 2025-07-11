@@ -87,6 +87,10 @@ export class TrailingPerformanceConverter extends MorningstarConverter {
                 dateColumnStr = columnStrPrefix + 'Date' + columnStrPostfix,
                 valueColumnStr = columnStrPrefix + 'Value' + columnStrPostfix;
 
+            table.setColumn(timePeriodColumnStr);
+            table.setColumn(dateColumnStr);
+            table.setColumn(valueColumnStr);
+
             for (let j = 0, iEnd = trailingPerformanceReturn.length; j < iEnd; ++j) {
                 table.setCell(
                     timePeriodColumnStr,
