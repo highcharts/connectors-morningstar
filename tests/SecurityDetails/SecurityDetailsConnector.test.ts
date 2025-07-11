@@ -230,9 +230,9 @@ export async function portfolioHoldingsLoad (
             'MarketValue',
             'GlobalSectorId',
             'NumberOfShare',
+            'ShareChange',
             'LocalCurrencyCode',
-            'GICSIndustryId',
-            'ShareChange'
+            'GICSIndustryId'
         ],
         'Portfolio holdings table should exist of expected columns.'
     );

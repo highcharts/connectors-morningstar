@@ -81,7 +81,6 @@ export class BondStatisticsConverter extends MorningstarConverter {
         type BondStatisticsKey = keyof SecurityDetailsJSON.BondStatisticsType;
         for (const key of Object.keys(bondStatistics) as BondStatisticsKey[]) {
             const colName = key + (hasMultiple ? `_${id}` : '');
-            table.setColumn(colName);
             table.setCell(colName, 0, bondStatistics[key]);
         }
     }

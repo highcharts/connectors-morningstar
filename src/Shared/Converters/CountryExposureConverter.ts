@@ -72,13 +72,6 @@ export class CountryExposureConverter extends MorningstarConverter {
             security = userOptions.json as SecurityDetailsJSON.SecurityDetailsResponse,
             hasMultiple = options.hasMultiple;
 
-
-        // Prepare table
-
-        // Add country exposure to table
-
-
-
         // Create table
         const id = security.Id,
             countryExposure = security.Portfolios[0].CountryExposure,
@@ -101,15 +94,14 @@ export class CountryExposureConverter extends MorningstarConverter {
 
             for (let j = 0; j < asset.BreakdownValues.length; j++) {
                 table.setCell(
-                    colStr,
-                    j,
-                    asset.BreakdownValues[j].Value
-                );
-
-                table.setCell(
                     countryExpTypeStr,
                     j,
                     asset.BreakdownValues[j].Type
+                );
+                table.setCell(
+                    colStr,
+                    j,
+                    asset.BreakdownValues[j].Value
                 );
             }
         }

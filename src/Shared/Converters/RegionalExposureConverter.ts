@@ -93,15 +93,14 @@ export class RegionalExposureConverter extends MorningstarConverter {
 
             for (let j = 0; j < asset.BreakdownValues.length; j++) {
                 table.setCell(
-                    colStrAsset,
-                    j,
-                    asset.BreakdownValues[j].Value
-                );
-
-                table.setCell(
                     colStrType,
                     j,
                     asset.BreakdownValues[j].Type
+                );
+                table.setCell(
+                    colStrAsset,
+                    j,
+                    asset.BreakdownValues[j].Value
                 );
             }
         }
