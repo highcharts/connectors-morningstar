@@ -89,7 +89,6 @@ export class StyleBoxBreakdownConverter extends MorningstarConverter {
             id,
             StyleBoxBreakdowns,
             table,
-            'StyleBoxBreakdown',
             !!hasMultiple
         );
     }

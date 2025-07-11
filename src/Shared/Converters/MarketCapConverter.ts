@@ -79,7 +79,6 @@ export class MarketCapConverter extends MorningstarConverter {
             id,
             marketCap,
             table,
-            'MarketCap',
             !!hasMultiple
         );
     }

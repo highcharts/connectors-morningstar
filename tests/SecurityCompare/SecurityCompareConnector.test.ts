@@ -15,10 +15,24 @@ export async function securityCompareLoad (
         }
     }),
     columnNames = [
-        'TrailingPerformance_TimePeriod_F0GBR050DD',
-        'TrailingPerformance_Value_F0GBR050DD',
-        'TrailingPerformance_TimePeriod_F00000Q5PZ',
-        'TrailingPerformance_Value_F00000Q5PZ'
+        'Nav_DayEnd_TimePeriod_F0GBR050DD',
+        'Nav_DayEnd_Date_F0GBR050DD',
+        'Nav_DayEnd_Value_F0GBR050DD',
+        'GbPostTax_DayEnd_TimePeriod_F0GBR050DD',
+        'GbPostTax_DayEnd_Date_F0GBR050DD',
+        'GbPostTax_DayEnd_Value_F0GBR050DD',
+        'ItPostTax_DayEnd_TimePeriod_F0GBR050DD',
+        'ItPostTax_DayEnd_Date_F0GBR050DD',
+        'ItPostTax_DayEnd_Value_F0GBR050DD',
+        'Nav_DayEnd_TimePeriod_F00000Q5PZ',
+        'Nav_DayEnd_Date_F00000Q5PZ',
+        'Nav_DayEnd_Value_F00000Q5PZ',
+        'GbPostTax_DayEnd_TimePeriod_F00000Q5PZ',
+        'GbPostTax_DayEnd_Date_F00000Q5PZ',
+        'GbPostTax_DayEnd_Value_F00000Q5PZ',
+        'ItPostTax_DayEnd_TimePeriod_F00000Q5PZ',
+        'ItPostTax_DayEnd_Date_F00000Q5PZ',
+        'ItPostTax_DayEnd_Value_F00000Q5PZ'
     ];
 
     Assert.ok(
@@ -81,14 +95,14 @@ export async function securityCompareBackwardsCompatibility (
     Assert.deepStrictEqual(
         connector.dataTables.AssetAllocations.getColumnNames(),
         [
-            'AssetAllocations_Type_F0GBR050DD',
-            'AssetAllocations_MorningstarEUR3_L_F0GBR050DD',
-            'AssetAllocations_MorningstarEUR3_S_F0GBR050DD',
-            'AssetAllocations_MorningstarEUR3_N_F0GBR050DD',
-            'AssetAllocations_Type_F00000Q5PZ',
-            'AssetAllocations_MorningstarEUR3_L_F00000Q5PZ',
-            'AssetAllocations_MorningstarEUR3_S_F00000Q5PZ',
-            'AssetAllocations_MorningstarEUR3_N_F00000Q5PZ'
+            'MorningstarEUR3_Type_F0GBR050DD',
+            'MorningstarEUR3_L_F0GBR050DD',
+            'MorningstarEUR3_S_F0GBR050DD',
+            'MorningstarEUR3_N_F0GBR050DD',
+            'MorningstarEUR3_Type_F00000Q5PZ',
+            'MorningstarEUR3_L_F00000Q5PZ',
+            'MorningstarEUR3_S_F00000Q5PZ',
+            'MorningstarEUR3_N_F00000Q5PZ'
         ],
         `Converter type backwards compatibility: Asset allocations table should
         exist of expected columns.`
@@ -117,14 +131,14 @@ export async function assetAllocationsLoad (
     Assert.deepStrictEqual(
         connector.dataTables.AssetAllocations.getColumnNames(),
         [
-            'AssetAllocations_Type_F0GBR050DD',
-            'AssetAllocations_MorningstarEUR3_L_F0GBR050DD',
-            'AssetAllocations_MorningstarEUR3_S_F0GBR050DD',
-            'AssetAllocations_MorningstarEUR3_N_F0GBR050DD',
-            'AssetAllocations_Type_F00000Q5PZ',
-            'AssetAllocations_MorningstarEUR3_L_F00000Q5PZ',
-            'AssetAllocations_MorningstarEUR3_S_F00000Q5PZ',
-            'AssetAllocations_MorningstarEUR3_N_F00000Q5PZ'
+            'MorningstarEUR3_Type_F0GBR050DD',
+            'MorningstarEUR3_L_F0GBR050DD',
+            'MorningstarEUR3_S_F0GBR050DD',
+            'MorningstarEUR3_N_F0GBR050DD',
+            'MorningstarEUR3_Type_F00000Q5PZ',
+            'MorningstarEUR3_L_F00000Q5PZ',
+            'MorningstarEUR3_S_F00000Q5PZ',
+            'MorningstarEUR3_N_F00000Q5PZ'
         ],
         'Asset allocations table should exist of expected columns.'
     );
@@ -152,18 +166,16 @@ export async function regionalExposureLoad (
     Assert.deepStrictEqual(
         connector.dataTables.RegionalExposure.getColumnNames(),
         [
-            'RegionalExposure_Type_F0GBR050DD',
-            'RegionalExposure_Assets_F0GBR050DD',
-            'RegionalExposure_NotClassified_F0GBR050DD',
-            'RegionalExposure_L_F0GBR050DD',
-            'RegionalExposure_S_F0GBR050DD',
-            'RegionalExposure_N_F0GBR050DD',
-            'RegionalExposure_Type_F00000Q5PZ',
-            'RegionalExposure_Assets_F00000Q5PZ',
-            'RegionalExposure_NotClassified_F00000Q5PZ',
-            'RegionalExposure_L_F00000Q5PZ',
-            'RegionalExposure_S_F00000Q5PZ',
-            'RegionalExposure_N_F00000Q5PZ'
+            'Type_F0GBR050DD',
+            'NotClassified_F0GBR050DD',
+            'L_F0GBR050DD',
+            'S_F0GBR050DD',
+            'N_F0GBR050DD',
+            'Type_F00000Q5PZ',
+            'NotClassified_F00000Q5PZ',
+            'L_F00000Q5PZ',
+            'S_F00000Q5PZ',
+            'N_F00000Q5PZ'
         ],
         'RegionalExposure table should exist of expected columns.'
     );
@@ -191,18 +203,16 @@ export async function globalStockSectorBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.GlobalStockSectorBreakdown.getColumnNames(),
         [
-            'GlobalStockSectorBreakdown_Type_F0GBR050DD',
-            'GlobalStockSectorBreakdown_Assets_F0GBR050DD',
-            'GlobalStockSectorBreakdown_NotClassified_F0GBR050DD',
-            'GlobalStockSectorBreakdown_L_F0GBR050DD',
-            'GlobalStockSectorBreakdown_S_F0GBR050DD',
-            'GlobalStockSectorBreakdown_N_F0GBR050DD',
-            'GlobalStockSectorBreakdown_Type_F00000Q5PZ',
-            'GlobalStockSectorBreakdown_Assets_F00000Q5PZ',
-            'GlobalStockSectorBreakdown_NotClassified_F00000Q5PZ',
-            'GlobalStockSectorBreakdown_L_F00000Q5PZ',
-            'GlobalStockSectorBreakdown_S_F00000Q5PZ',
-            'GlobalStockSectorBreakdown_N_F00000Q5PZ'
+            'Type_F0GBR050DD',
+            'NotClassified_F0GBR050DD',
+            'L_F0GBR050DD',
+            'S_F0GBR050DD',
+            'N_F0GBR050DD',
+            'Type_F00000Q5PZ',
+            'NotClassified_F00000Q5PZ',
+            'L_F00000Q5PZ',
+            'S_F00000Q5PZ',
+            'N_F00000Q5PZ'
         ],
         'GlobalStockSectorBreakdown table should exist of expected columns.'
     );
@@ -230,21 +240,19 @@ export async function countryExposureLoad (
     Assert.deepStrictEqual(
         connector.dataTables.CountryExposure.getColumnNames(),
         [
-            'CountryExposure_Assets_F0GBR050DD',
-            'CountryExposure_NotClassified_F0GBR050DD',
-            'CountryExposure_Type_F0GBR050DD',
-            'CountryExposure_Bond_L_F0GBR050DD',
-            'CountryExposure_Bond_S_F0GBR050DD',
-            'CountryExposure_Bond_N_F0GBR050DD',
-            'CountryExposure_Equity_L_F0GBR050DD',
-            'CountryExposure_Equity_S_F0GBR050DD',
-            'CountryExposure_Equity_N_F0GBR050DD',
-            'CountryExposure_Assets_F00000Q5PZ',
-            'CountryExposure_NotClassified_F00000Q5PZ',
-            'CountryExposure_Type_F00000Q5PZ',
-            'CountryExposure_Equity_L_F00000Q5PZ',
-            'CountryExposure_Equity_S_F00000Q5PZ',
-            'CountryExposure_Equity_N_F00000Q5PZ'
+            'Type_F0GBR050DD',
+            'NotClassified_F0GBR050DD',
+            'Bond_L_F0GBR050DD',
+            'Bond_S_F0GBR050DD',
+            'Bond_N_F0GBR050DD',
+            'Equity_L_F0GBR050DD',
+            'Equity_S_F0GBR050DD',
+            'Equity_N_F0GBR050DD',
+            'Type_F00000Q5PZ',
+            'NotClassified_F00000Q5PZ',
+            'Equity_L_F00000Q5PZ',
+            'Equity_S_F00000Q5PZ',
+            'Equity_N_F00000Q5PZ'
         ],
         'CountryExposure table should exist of expected columns.'
     );
@@ -273,40 +281,40 @@ export async function portfolioHoldings (
     Assert.deepStrictEqual(
         connector.dataTables.PortfolioHoldings.getColumnNames(),
         [
-            'PortfolioHoldings_Id_F0GBR050DD',
-            'PortfolioHoldings_ExternalId_F0GBR050DD',
-            'PortfolioHoldings_DetailHoldingTypeId_F0GBR050DD',
-            'PortfolioHoldings_ExternalName_F0GBR050DD',
-            'PortfolioHoldings_PerformanceId_F0GBR050DD',
-            'PortfolioHoldings_ISIN_F0GBR050DD',
-            'PortfolioHoldings_CurrencyId_F0GBR050DD',
-            'PortfolioHoldings_CountryId_F0GBR050DD',
-            'PortfolioHoldings_SecurityName_F0GBR050DD',
-            'PortfolioHoldings_Weighting_F0GBR050DD',
-            'PortfolioHoldings_IndustryId_F0GBR050DD',
-            'PortfolioHoldings_MarketValue_F0GBR050DD',
-            'PortfolioHoldings_GlobalSectorId_F0GBR050DD',
-            'PortfolioHoldings_NumberOfShare_F0GBR050DD',
-            'PortfolioHoldings_LocalCurrencyCode_F0GBR050DD',
-            'PortfolioHoldings_GICSIndustryId_F0GBR050DD',
-            'PortfolioHoldings_ShareChange_F0GBR050DD',
-            'PortfolioHoldings_Id_F00000Q5PZ',
-            'PortfolioHoldings_ExternalId_F00000Q5PZ',
-            'PortfolioHoldings_DetailHoldingTypeId_F00000Q5PZ',
-            'PortfolioHoldings_ExternalName_F00000Q5PZ',
-            'PortfolioHoldings_PerformanceId_F00000Q5PZ',
-            'PortfolioHoldings_ISIN_F00000Q5PZ',
-            'PortfolioHoldings_CurrencyId_F00000Q5PZ',
-            'PortfolioHoldings_CountryId_F00000Q5PZ',
-            'PortfolioHoldings_SecurityName_F00000Q5PZ',
-            'PortfolioHoldings_Weighting_F00000Q5PZ',
-            'PortfolioHoldings_IndustryId_F00000Q5PZ',
-            'PortfolioHoldings_MarketValue_F00000Q5PZ',
-            'PortfolioHoldings_GlobalSectorId_F00000Q5PZ',
-            'PortfolioHoldings_NumberOfShare_F00000Q5PZ',
-            'PortfolioHoldings_GICSIndustryId_F00000Q5PZ',
-            'PortfolioHoldings_CUSIP_F00000Q5PZ',
-            'PortfolioHoldings_ShareChange_F00000Q5PZ'
+            'Id_F0GBR050DD',
+            'ExternalId_F0GBR050DD',
+            'DetailHoldingTypeId_F0GBR050DD',
+            'ExternalName_F0GBR050DD',
+            'PerformanceId_F0GBR050DD',
+            'ISIN_F0GBR050DD',
+            'CurrencyId_F0GBR050DD',
+            'CountryId_F0GBR050DD',
+            'SecurityName_F0GBR050DD',
+            'Weighting_F0GBR050DD',
+            'IndustryId_F0GBR050DD',
+            'MarketValue_F0GBR050DD',
+            'GlobalSectorId_F0GBR050DD',
+            'NumberOfShare_F0GBR050DD',
+            'ShareChange_F0GBR050DD',
+            'LocalCurrencyCode_F0GBR050DD',
+            'GICSIndustryId_F0GBR050DD',
+            'Id_F00000Q5PZ',
+            'ExternalId_F00000Q5PZ',
+            'DetailHoldingTypeId_F00000Q5PZ',
+            'ExternalName_F00000Q5PZ',
+            'PerformanceId_F00000Q5PZ',
+            'ISIN_F00000Q5PZ',
+            'CurrencyId_F00000Q5PZ',
+            'CountryId_F00000Q5PZ',
+            'SecurityName_F00000Q5PZ',
+            'Weighting_F00000Q5PZ',
+            'IndustryId_F00000Q5PZ',
+            'MarketValue_F00000Q5PZ',
+            'GlobalSectorId_F00000Q5PZ',
+            'NumberOfShare_F00000Q5PZ',
+            'GICSIndustryId_F00000Q5PZ',
+            'CUSIP_F00000Q5PZ',
+            'ShareChange_F00000Q5PZ'
         ],
         'PortfolioHoldings table should exist of expected columns'
     );
@@ -335,14 +343,12 @@ export async function marketCapLoad (
     Assert.deepStrictEqual(
         connector.dataTables.MarketCap.getColumnNames(),
         [
-            'MarketCap_Type_F0GBR050DD',
-            'MarketCap_Assets_F0GBR050DD',
-            'MarketCap_NotClassified_F0GBR050DD',
-            'MarketCap_N_F0GBR050DD',
-            'MarketCap_Type_F00000Q5PZ',
-            'MarketCap_Assets_F00000Q5PZ',
-            'MarketCap_NotClassified_F00000Q5PZ',
-            'MarketCap_N_F00000Q5PZ'
+            'Type_F0GBR050DD',
+            'NotClassified_F0GBR050DD',
+            'N_F0GBR050DD',
+            'Type_F00000Q5PZ',
+            'NotClassified_F00000Q5PZ',
+            'N_F00000Q5PZ'
         ],
         'MarketCap table should exist of expected columns.'
     );
@@ -371,14 +377,12 @@ export async function industryBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.IndustryBreakdown.getColumnNames(),
         [
-            'IndustryBreakdown_Type_F0GBR050DD',
-            'IndustryBreakdown_Assets_F0GBR050DD',
-            'IndustryBreakdown_NotClassified_F0GBR050DD',
-            'IndustryBreakdown_N_F0GBR050DD',
-            'IndustryBreakdown_Type_F00000Q5PZ',
-            'IndustryBreakdown_Assets_F00000Q5PZ',
-            'IndustryBreakdown_NotClassified_F00000Q5PZ',
-            'IndustryBreakdown_N_F00000Q5PZ'
+            'Type_F0GBR050DD',
+            'NotClassified_F0GBR050DD',
+            'N_F0GBR050DD',
+            'Type_F00000Q5PZ',
+            'NotClassified_F00000Q5PZ',
+            'N_F00000Q5PZ'
         ],
         'IndustryBreakdown table should exist of expected columns.'
     );
@@ -407,14 +411,12 @@ export async function industryGroupBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.IndustryGroupBreakdown.getColumnNames(),
         [
-            'IndustryGroupBreakdown_Type_F0GBR050DD',
-            'IndustryGroupBreakdown_Assets_F0GBR050DD',
-            'IndustryGroupBreakdown_NotClassified_F0GBR050DD',
-            'IndustryGroupBreakdown_N_F0GBR050DD',
-            'IndustryGroupBreakdown_Type_F00000Q5PZ',
-            'IndustryGroupBreakdown_Assets_F00000Q5PZ',
-            'IndustryGroupBreakdown_NotClassified_F00000Q5PZ',
-            'IndustryGroupBreakdown_N_F00000Q5PZ'
+            'Type_F0GBR050DD',
+            'NotClassified_F0GBR050DD',
+            'N_F0GBR050DD',
+            'Type_F00000Q5PZ',
+            'NotClassified_F00000Q5PZ',
+            'N_F00000Q5PZ'
         ],
         'IndustryGroupBreakdown table should exist of expected columns.'
     );
@@ -473,7 +475,7 @@ export async function bondStatisticsLoad (
     );
 }
 
-export async function MetaLoad (
+export async function metaLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityCompareConnector({
@@ -523,10 +525,10 @@ export async function bondStyleBoxBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.BondStyleBoxBreakdown.getColumnNames(),
         [
-            'BondStyleBoxBreakdown_Type_F00001GPCX',
-            'BondStyleBoxBreakdown_N_F00001GPCX',
-            'BondStyleBoxBreakdown_Type_FOUSA04AL4',
-            'BondStyleBoxBreakdown_N_FOUSA04AL4'
+            'Type_F00001GPCX',
+            'N_F00001GPCX',
+            'Type_FOUSA04AL4',
+            'N_FOUSA04AL4'
         ],
         'Bond Style Box Breakdown table should exist of expected columns.'
     );
@@ -556,18 +558,16 @@ export async function styleBoxBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.StyleBoxBreakdown.getColumnNames(),
         [
-            'StyleBoxBreakdown_Type_F0GBR050DD',
-            'StyleBoxBreakdown_Assets_F0GBR050DD',
-            'StyleBoxBreakdown_NotClassified_F0GBR050DD',
-            'StyleBoxBreakdown_L_F0GBR050DD',
-            'StyleBoxBreakdown_S_F0GBR050DD',
-            'StyleBoxBreakdown_N_F0GBR050DD',
-            'StyleBoxBreakdown_Type_F00000Q5PZ',
-            'StyleBoxBreakdown_Assets_F00000Q5PZ',
-            'StyleBoxBreakdown_NotClassified_F00000Q5PZ',
-            'StyleBoxBreakdown_L_F00000Q5PZ',
-            'StyleBoxBreakdown_S_F00000Q5PZ',
-            'StyleBoxBreakdown_N_F00000Q5PZ'
+            'Type_F0GBR050DD',
+            'NotClassified_F0GBR050DD',
+            'L_F0GBR050DD',
+            'S_F0GBR050DD',
+            'N_F0GBR050DD',
+            'Type_F00000Q5PZ',
+            'NotClassified_F00000Q5PZ',
+            'L_F00000Q5PZ',
+            'S_F00000Q5PZ',
+            'N_F00000Q5PZ'
         ],
         'Style Box table should exist of expected columns.'
     );
@@ -598,18 +598,16 @@ export async function creditQualityLoad (
     Assert.deepStrictEqual(
         connector.dataTables.CreditQualityBreakdown.getColumnNames(),
         [
-            'CreditQualityBreakdown_Type_F00001GPCX',
-            'CreditQualityBreakdown_Assets_F00001GPCX',
-            'CreditQualityBreakdown_NotClassified_F00001GPCX',
-            'CreditQualityBreakdown_L_F00001GPCX',
-            'CreditQualityBreakdown_S_F00001GPCX',
-            'CreditQualityBreakdown_N_F00001GPCX',
-            'CreditQualityBreakdown_Type_F00000YG2F',
-            'CreditQualityBreakdown_Assets_F00000YG2F',
-            'CreditQualityBreakdown_NotClassified_F00000YG2F',
-            'CreditQualityBreakdown_L_F00000YG2F',
-            'CreditQualityBreakdown_S_F00000YG2F',
-            'CreditQualityBreakdown_N_F00000YG2F'
+            'Type_F00001GPCX',
+            'NotClassified_F00001GPCX',
+            'L_F00001GPCX',
+            'S_F00001GPCX',
+            'N_F00001GPCX',
+            'Type_F00000YG2F',
+            'NotClassified_F00000YG2F',
+            'L_F00000YG2F',
+            'S_F00000YG2F',
+            'N_F00000YG2F'
         ],
         'CreditQualityBreakdown table should exist of expected columns.'
     );
@@ -620,7 +618,7 @@ export async function creditQualityLoad (
     );
 }
 
-export async function HistoricalPerformanceSeriesLoad (
+export async function historicalPerformanceSeriesLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityCompareConnector({

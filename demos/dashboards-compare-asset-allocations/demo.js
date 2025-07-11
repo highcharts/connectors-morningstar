@@ -19,7 +19,7 @@ async function displaySecurityDetails (postmanJSON) {
 
     const ids = ['F000015CH2', 'F0000143IP'],
         idNames = {
-            'F000015CH2': 
+            'F000015CH2':
                 'Schroder International Selection Fund Global Emerging Market Opportunities',
             'F0000143IP': 'Fidelity Funds - Asia Pacific Opportunities Fund I-Acc-USD'
         };
@@ -72,8 +72,8 @@ async function displaySecurityDetails (postmanJSON) {
                     columnAssignment: [{
                         seriesId: ids[0],
                         data: [
-                            'AssetAllocations_Type_' + ids[0],
-                            'AssetAllocations_MorningstarEUR3_N_' + ids[0]
+                            'Type_' + ids[0],
+                            'MorningstarEUR3_N_' + ids[0]
                         ]
                     }]
                 },
@@ -110,8 +110,8 @@ async function displaySecurityDetails (postmanJSON) {
                     columnAssignment: [{
                         seriesId: ids[1],
                         data: [
-                            'AssetAllocations_Type_' + ids[1],
-                            'AssetAllocations_MorningstarEUR3_N_' + ids[1]
+                            'Type_' + ids[1],
+                            'MorningstarEUR3_N_' + ids[1]
                         ]
                     }]
                 },

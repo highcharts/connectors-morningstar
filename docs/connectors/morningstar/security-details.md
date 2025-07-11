@@ -25,9 +25,9 @@ If any securities are invalid, the connector will still yield results. The inval
 
 #### Security Details Types
 
-You can specify the type of data to retrieve by using the `type` option in the connector. The following types are available:
+You can specify the type of data to retrieve by using an array of types: `converters: ['AssetAllocations', 'RegionalExposure']` in the connector. The following types are available:
 
-- **TrailingPerformance** (default)
+- **TrailingPerformance**
 - **AssetAllocations**
 - **RegionalExposure**
 - **GlobalStockSectorBreakdown**
@@ -43,6 +43,8 @@ You can specify the type of data to retrieve by using the `type` option in the c
 - **CreditQualityBreakdown**
 - **HistoricalPerformanceSeries**
 
+If no converter types are provided or the converter type doesn't exist, all available types will be returned for the Security Details connector.
+
 The Meta converter extracts essential security details, including identification, pricing, risk metrics, and provider information, ensuring a structured overview of the security.
 
 Example usage:
@@ -56,9 +58,7 @@ const securityDetailsConnector = new HighchartsConnectors.Morningstar.SecurityDe
         id: 'F0GBR050DD',
         idType: 'MSID'
     },
-    converter: {
-        type: 'AssetAllocations' // Specify the type of data to retrieve
-    }
+    converters: ['AssetAllocations'] // Specify the types of data to retrieve
 });
 ```
 
@@ -74,7 +74,8 @@ const securityDetailsConnector = new HighchartsConnectors.Morningstar.SecurityDe
     security: {
         id: 'F0GBR050DD',
         idType: 'MSID'
-    }
+    },
+    converters: ['TrailingPerformance']
 });
 
 await securityDetailsConnector.load();
@@ -86,9 +87,9 @@ Highcharts.chart('container', {
     series: [{
         type: 'column',
         name: 'F0GBR050DD',
-        data: connector.table.getRowObjects().map(obj => [
-            obj.TrailingPerformance_TimePeriod,
-            obj.TrailingPerformance_Value
+        data: connector.dataTables.TrailingPerformance.getRowObjects().map(obj => [
+            obj.Nav_DayEnd_TimePeriod,
+            obj.Nav_DayEnd_Value
         ])
     }],
     xAxis: {

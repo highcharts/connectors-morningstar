@@ -86,7 +86,6 @@ export class CreditQualityBreakdownConverter extends MorningstarConverter {
             id,
             creditQualityBD,
             table,
-            'CreditQualityBreakdown',
             !!hasMultiple
         );
     }

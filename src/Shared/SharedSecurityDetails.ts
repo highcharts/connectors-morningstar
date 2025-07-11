@@ -187,42 +187,37 @@ export const getBreakdown = (
     id: string,
     breakdown: SecurityDetailsJSON.GenericBreakdownType[],
     table: External.DataTable,
-    colName: string,
     hasMultiple: boolean
 ) => {
     if (!breakdown || breakdown.length === 0) {
         return;
     }
 
-    const colStrType = `${colName}_Type` + (hasMultiple ? `_${id}` : ''),
-        notClassifiedStr = `${colName}_NotClassified` + (hasMultiple ? `_${id}` : ''),
-        assetStr = `${colName}_Assets` + (hasMultiple ? `_${id}` : '');
+    const colStrType = 'Type' + (hasMultiple ? `_${id}` : ''),
+        notClassifiedStr = 'NotClassified' + (hasMultiple ? `_${id}` : '');
 
     table.setColumn(colStrType);
-    table.setColumn(assetStr);
     table.setColumn(notClassifiedStr);
 
     for (let i = 0; i < breakdown.length; i++) {
         const asset = breakdown[i];
         const colStrAsset =
-            `${colName}_${asset.SalePosition}` + (hasMultiple ? `_${id}` : '');
+            `${asset.SalePosition}` + (hasMultiple ? `_${id}` : '');
         table.setColumn(colStrAsset);
 
         // Populate NotClassified for all assets.
-        table.setCell(assetStr, i, asset.SalePosition);
         table.setCell(notClassifiedStr, i, asset.NotClassified);
 
         for (let j = 0; j < asset.BreakdownValues.length; j++) {
             table.setCell(
-                colStrAsset,
-                j,
-                asset.BreakdownValues[j].Value
-            );
-
-            table.setCell(
                 colStrType,
                 j,
                 asset.BreakdownValues[j].Type
+            );
+            table.setCell(
+                colStrAsset,
+                j,
+                asset.BreakdownValues[j].Value
             );
         }
     }
@@ -235,8 +230,10 @@ export const pickConverters = (
     // Create multi data table based on user-selected converters,
     // otherwise use all available.
 
-    if (converters?.length) return DATA_TABLES.filter(dt => converters.includes(dt.key));
-
+    if (converters?.length) {
+        const matchingTables = DATA_TABLES.filter(dt => converters.includes(dt.key));
+        return matchingTables.length ? matchingTables : DATA_TABLES;
+    }
     if (converter?.type) return [{ key: converter.type }]; // Backwards compatibility
 
     return DATA_TABLES;
