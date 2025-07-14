@@ -63,9 +63,8 @@ export class XRayAssetAllocationsConverter extends MorningstarConverter {
 
         if (json?.assetAllocation) {
             for (const asset of json.assetAllocation) {
-                const columnName = `${asset.type}_${asset.salePosition}`,
-                    categoryStr = `${columnName}_Categories` + benchmarkSuffix,
-                    valueStr = `${columnName}_Values` + benchmarkSuffix,
+                const categoryStr = `${asset.type}_Type` + benchmarkSuffix,
+                    valueStr = `${asset.type}_${asset.salePosition}` + benchmarkSuffix,
                     values = asset.values,
                     valueIndex = Object.keys(values);
 

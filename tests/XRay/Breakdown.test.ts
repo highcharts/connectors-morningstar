@@ -35,12 +35,12 @@ export async function breakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.HistoricalPerformanceSeries.getColumnNames(),
         [
-            'TotalReturn_M1_Benchmark',
-            'TotalReturn_M1_Value_Benchmark',
-            'TotalReturn_M3_Benchmark',
-            'TotalReturn_M3_Value_Benchmark',
-            'TotalReturn_M12_Benchmark',
-            'TotalReturn_M12_Value_Benchmark'
+             'TotalReturn_M1_Monthly_Date_Benchmark',
+             'TotalReturn_M1_Monthly_Value_Benchmark',
+             'TotalReturn_M3_Quarterly_Date_Benchmark',
+             'TotalReturn_M3_Quarterly_Value_Benchmark',
+             'TotalReturn_M12_Annual_Date_Benchmark',
+             'TotalReturn_M12_Annual_Value_Benchmark'
         ],
         'Connector table should exist of expected columns.'
     );
@@ -92,16 +92,14 @@ export async function portfolioDataPoints (
         ]
     }),
     columnNames = [
-        'N_Categories',
-        'N_Values'
+        'Type',
+        'N'
     ],
     assetAllocationColumnNames = [
-        'MorningstarEUR3_N_Categories',
-        'MorningstarEUR3_N_Values',
-        'MorningstarEUR3_L_Categories',
-        'MorningstarEUR3_L_Values',
-        'MorningstarEUR3_S_Categories',
-        'MorningstarEUR3_S_Values'
+        'MorningstarEUR3_Type',
+        'MorningstarEUR3_N',
+        'MorningstarEUR3_L',
+        'MorningstarEUR3_S'
     ];
     await connector.load();
 
@@ -123,7 +121,7 @@ export async function portfolioDataPoints (
     );
 
     Assert.strictEqual(
-        columnNames.length,
+        assetAllocationColumnNames.length,
         connector.dataTables.AssetAllocation.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
