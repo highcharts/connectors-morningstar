@@ -77,7 +77,8 @@ export async function portfolioDataPoints (
                 'AssetAllocationMorningstarEUR3',
                 'GlobalStockSector',
                 'RegionalExposure',
-                'StyleBox'
+                'StyleBox',
+                ['PerformanceReturn', 'M0', 'M1', 'M2', 'M3', 'M6', 'M12']
             ]
         },
         holdings: [
@@ -100,6 +101,10 @@ export async function portfolioDataPoints (
         'MorningstarEUR3_N',
         'MorningstarEUR3_L',
         'MorningstarEUR3_S'
+    ],
+    trailingPerformanceColumnNames = [
+        'TotalReturn_MonthEnd_TimePeriod',
+        'TotalReturn_MonthEnd_Value'
     ];
     await connector.load();
 
@@ -193,6 +198,35 @@ export async function portfolioDataPoints (
     Assert.strictEqual(
         columnNames.length,
         connector.dataTables.StyleBox.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
+    );
+
+        Assert.strictEqual(
+        columnNames.length,
+        connector.dataTables.RegionalExposure.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.TrailingPerformance.getColumnNames(),
+        trailingPerformanceColumnNames,
+        'Connector columns should return expected names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.TrailingPerformance.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.TrailingPerformance.modified.getColumn('columnNames'),
+        trailingPerformanceColumnNames,
+        'Row names of inverted table should be the same as original column names.'
+    );
+
+    Assert.strictEqual(
+        trailingPerformanceColumnNames.length,
+        connector.dataTables.TrailingPerformance.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 }
