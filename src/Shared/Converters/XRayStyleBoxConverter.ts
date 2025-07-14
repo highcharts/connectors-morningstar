@@ -20,6 +20,7 @@
 
 import MorningstarConverter from '../MorningstarConverter';
 import type { XRayConverterOptions } from '../../XRay';
+import { STYLE_BOX_VALUES } from '../Utilities';
 
 /* *
  *
@@ -72,6 +73,10 @@ export class XRayStyleBoxConverter extends MorningstarConverter {
                     table.setCell(categoryStr, i, valueIndex[i]);
                     table.setCell(valueStr, i, values[parseInt(valueIndex[i])]);
                 }
+
+                // Set destructured x & y values
+                table.setColumn('Style' + benchmarkSuffix, STYLE_BOX_VALUES.X);
+                table.setColumn('Size' + benchmarkSuffix, STYLE_BOX_VALUES.Y);
             }
         }
     }

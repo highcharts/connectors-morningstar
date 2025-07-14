@@ -105,6 +105,12 @@ export async function portfolioDataPoints (
     trailingPerformanceColumnNames = [
         'TotalReturn_MonthEnd_TimePeriod',
         'TotalReturn_MonthEnd_Value'
+    ],
+    styleBoxColumnNames = [
+        'Type',
+        'N',
+        'Style',
+        'Size'
     ];
     await connector.load();
 
@@ -180,7 +186,7 @@ export async function portfolioDataPoints (
 
     Assert.deepStrictEqual(
         connector.dataTables.StyleBox.getColumnNames(),
-        columnNames,
+        styleBoxColumnNames,
         'Connector columns should return expected names.'
     );
 
@@ -191,12 +197,12 @@ export async function portfolioDataPoints (
 
     Assert.deepStrictEqual(
         connector.dataTables.StyleBox.modified.getColumn('columnNames'),
-        columnNames,
+        styleBoxColumnNames,
         'Row names of inverted table should be the same as original column names.'
     );
 
     Assert.strictEqual(
-        columnNames.length,
+        styleBoxColumnNames.length,
         connector.dataTables.StyleBox.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
