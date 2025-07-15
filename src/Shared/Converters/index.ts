@@ -26,10 +26,18 @@ import IndustryGroupBreakdownConverter from './IndustryGroupBreakdownConverter';
 import CreditQualityBreakdownConverter from './CreditQualityBreakdownConverter';
 import BondStatisticsConverter from './BondStatisticsConverter';
 import MetaConverter from './MetaConverter';
+import HistoricalPerformanceConverter from './HistoricalPerformanceConverter';
+import RiskStatisticsConverter from './RiskStatisticsConverter';
+import UnderlyHoldingsConverter from './UnderlyHoldingsConverter';
+import XRayTrailingPerformanceConverter from './XRayTrailingPerformanceConverter';
+import XRayAssetAllocationsConverter from './XRayAssetAllocationsConverter';
+import XRayRegionalExposureConverter from './XRayRegionalExposureConverter';
+import XRayGlobalStockSectorConverter from './XRayGlobalStockSectorConverter';
+import XRayStyleBoxConverter from './XRayStyleBoxConverter';
 import StyleBoxConverter from './StyleBoxBreakdown';
 import BondStyleBoxBreakdownConverter from './BondStyleBoxBreakdownConverter';
 import HistoricalPerformanceSeriesConverter from './HistoricalPerformanceSeriesConverter';
-
+import XRayCreditQualityConverter from './XRayCreditQualityConverter';
 
 /* *
  *
@@ -59,9 +67,18 @@ export * from './IndustryGroupBreakdownConverter';
 export * from './CreditQualityBreakdownConverter';
 export * from './BondStatisticsConverter';
 export * from './MetaConverter';
+export * from './HistoricalPerformanceConverter';
+export * from './RiskStatisticsConverter';
+export * from './UnderlyHoldingsConverter';
+export * from './XRayTrailingPerformanceConverter';
+export * from './XRayAssetAllocationsConverter';
+export * from './XRayRegionalExposureConverter';
+export * from './XRayGlobalStockSectorConverter';
+export * from './XRayStyleBoxConverter';
 export * from './StyleBoxBreakdown';
 export * from './BondStyleBoxBreakdownConverter';
 export * from './HistoricalPerformanceSeriesConverter';
+export * from './XRayCreditQualityConverter';
 
 /* *
  *
@@ -83,7 +100,16 @@ export default {
     CreditQualityBreakdownConverter,
     BondStatisticsConverter,
     MetaConverter,
+    HistoricalPerformanceConverter,
+    RiskStatisticsConverter,
+    UnderlyHoldingsConverter,
+    XRayTrailingPerformanceConverter,
+    XRayAssetAllocationsConverter,
+    XRayRegionalExposureConverter,
+    XRayGlobalStockSectorConverter,
+    XRayStyleBoxConverter,
     StyleBoxConverter,
     BondStyleBoxBreakdownConverter,
-    HistoricalPerformanceSeriesConverter
+    HistoricalPerformanceSeriesConverter,
+    XRayCreditQualityConverter
 };

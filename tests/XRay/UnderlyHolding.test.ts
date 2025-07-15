@@ -28,30 +28,30 @@ export async function underlyHoldings (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.dataTables.UnderlyHoldings.getColumnNames(),
         [
-            'XRay_UnderlyingHoldings_holdingId',
-            'XRay_UnderlyingHoldings_name',
-            'XRay_UnderlyingHoldings_securityId',
-            'XRay_UnderlyingHoldings_securityType',
-            'XRay_UnderlyingHoldings_performanceId',
-            'XRay_UnderlyingHoldings_weight',
-            'XRay_UnderlyingHoldings_marketValue',
-            'XRay_UnderlyingHoldings_sector',
-            'XRay_UnderlyingHoldings_sectorId',
-            'XRay_UnderlyingHoldings_globalSectorId',
-            'XRay_UnderlyingHoldings_country',
-            'XRay_UnderlyingHoldings_countryId',
-            'XRay_UnderlyingHoldings_globalIndustryId',
-            'XRay_UnderlyingHoldings_iSIN',
-            'XRay_UnderlyingHoldings_currencyId',
-            'XRay_UnderlyingHoldings_currencyName'
+            'holdingId',
+            'name',
+            'securityId',
+            'securityType',
+            'performanceId',
+            'weight',
+            'marketValue',
+            'sector',
+            'sectorId',
+            'globalSectorId',
+            'country',
+            'countryId',
+            'globalIndustryId',
+            'iSIN',
+            'currencyId',
+            'currencyName'
         ],
         'Connector columns should return expected names.'
     );
 
     Assert.ok(
-        connector.table.getRowCount() > 0,
+        connector.dataTables.UnderlyHoldings.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }

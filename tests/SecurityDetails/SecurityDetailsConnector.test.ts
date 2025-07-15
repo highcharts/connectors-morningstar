@@ -186,8 +186,8 @@ export async function countryExposureLoad (
     Assert.deepStrictEqual(
         connector.dataTables.CountryExposure.getColumnNames(),
         [
-            'NotClassified',
             'Type',
+            'NotClassified',
             'Bond_L',
             'Bond_S',
             'Bond_N',

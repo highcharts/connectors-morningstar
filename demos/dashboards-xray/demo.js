@@ -83,20 +83,21 @@ async function displaySecurityDetails (postmanJSON) {
         {
             renderTo: 'dashboard-col-0',
             connector: {
-                id: 'xray'
+                id: 'xray',
+                dataTableKey: 'GlobalStockSector'
             },
             type: 'DataGrid',
             title: 'Global Stock Sector',
             dataGridOptions: {
                 header: [{
                     format: 'Net',
-                    columnId: 'XRay_GlobalStockSector_N_Categories'
+                    columnId: 'Type'
                 }, {
                     format: 'Values',
-                    columnId: 'XRay_GlobalStockSector_N_Values'
+                    columnId: 'N'
                 }],
                 columns: [{
-                    id: 'XRay_GlobalStockSector_N_Categories',
+                    id: 'Type',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -108,32 +109,33 @@ async function displaySecurityDetails (postmanJSON) {
         }, {
             renderTo: 'dashboard-col-1',
             connector: {
-                id: 'xray'
+                id: 'xray',
+                dataTableKey: 'AssetAllocation'
             },
             type: 'DataGrid',
             title: 'Morningstar EUR3',
             dataGridOptions: {
                 header: [{
                     format: 'Long',
-                    columnId: 'XRay_MorningstarEUR3_L_Categories'
+                    columnId: 'MorningstarEUR3_Type'
                 }, {
                     format: 'Values',
-                    columnId: 'XRay_MorningstarEUR3_L_Values'
+                    columnId: 'MorningstarEUR3_L'
                 }, {
                     format: 'Net',
-                    columnId: 'XRay_MorningstarEUR3_N_Categories'
+                    columnId: 'MorningstarEUR3_Type'
                 }, {
                     format: 'Values',
-                    columnId: 'XRay_MorningstarEUR3_N_Values'
+                    columnId: 'MorningstarEUR3_N'
                 }, {
                     format: 'Short',
-                    columnId: 'XRay_MorningstarEUR3_S_Categories'
+                    columnId: 'MorningstarEUR3_Type'
                 }, {
                     format: 'Values',
-                    columnId: 'XRay_MorningstarEUR3_S_Values'
+                    columnId: 'MorningstarEUR3_S'
                 }],
                 columns: [{
-                    id: 'XRay_MorningstarEUR3_L_Categories',
+                    id: 'MorningstarEUR3_Type',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -141,7 +143,7 @@ async function displaySecurityDetails (postmanJSON) {
                         }
                     }
                 }, {
-                    id: 'XRay_MorningstarEUR3_N_Categories',
+                    id: 'MorningstarEUR3_Type',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -149,7 +151,7 @@ async function displaySecurityDetails (postmanJSON) {
                         }
                     }
                 }, {
-                    id: 'XRay_MorningstarEUR3_S_Categories',
+                    id: 'MorningstarEUR3_Type',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -161,20 +163,21 @@ async function displaySecurityDetails (postmanJSON) {
         }, {
             renderTo: 'dashboard-col-2',
             connector: {
-                id: 'xray'
+                id: 'xray',
+                dataTableKey: 'RegionalExposure'
             },
             type: 'DataGrid',
             title: 'Regional Exposure',
             dataGridOptions: {
                 header: [{
                     format: 'Net',
-                    columnId: 'XRay_RegionalExposure_N_Categories'
+                    columnId: 'Type'
                 }, {
                     format: 'Values',
-                    columnId: 'XRay_RegionalExposure_N_Values'
+                    columnId: 'N'
                 }],
                 columns: [{
-                    id: 'XRay_RegionalExposure_N_Categories',
+                    id: 'Type',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?

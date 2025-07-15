@@ -85,7 +85,8 @@ export class BondStyleBoxBreakdownConverter extends MorningstarConverter {
             return;
         }
 
-        const typeColumnName = 'Type' + (hasMultiple ? `_${id}` : '');
+        const typeColumnName =
+            'Type' + (hasMultiple ? `_${id}` : '');
 
         for (let i = 0; i < bondStyleBoxBreakdowns.length; i++) {
             const breakdown = bondStyleBoxBreakdowns[i];
