@@ -527,8 +527,12 @@ export async function bondStyleBoxBreakdownLoad (
         [
             'Type_F00001GPCX',
             'N_F00001GPCX',
+            'Term_F00001GPCX',
+            'Quality_F00001GPCX',
             'Type_FOUSA04AL4',
-            'N_FOUSA04AL4'
+            'N_FOUSA04AL4',
+            'Term_FOUSA04AL4',
+            'Quality_FOUSA04AL4'
         ],
         'Bond Style Box Breakdown table should exist of expected columns.'
     );
@@ -563,11 +567,15 @@ export async function styleBoxBreakdownLoad (
             'L_F0GBR050DD',
             'S_F0GBR050DD',
             'N_F0GBR050DD',
+            'Style_F0GBR050DD',
+            'Size_F0GBR050DD',
             'Type_F00000Q5PZ',
             'NotClassified_F00000Q5PZ',
             'L_F00000Q5PZ',
             'S_F00000Q5PZ',
-            'N_F00000Q5PZ'
+            'N_F00000Q5PZ',
+            'Style_F00000Q5PZ',
+            'Size_F00000Q5PZ'
         ],
         'Style Box table should exist of expected columns.'
     );
