@@ -123,7 +123,7 @@ export async function portfolioDataPoints (
     );
 
     Assert.strictEqual(
-        columnNames.length,
+        assetAllocationColumnNames.length,
         connector.dataTables.AssetAllocation.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
@@ -195,6 +195,61 @@ export async function portfolioDataPoints (
     Assert.strictEqual(
         columnNames.length,
         connector.dataTables.StyleBox.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
+    );
+}
+
+export async function creditQualityLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.XRayConnector({
+        api,
+        currencyId: 'GBP',
+        dataModifier: {
+            type: 'Invert'
+        },
+        dataPoints: {
+            type: 'portfolio',
+            dataPoints: [
+                'CreditQuality'
+            ]
+        },
+        holdings: [
+            {
+                id: 'F00001GPCX',
+                idType: 'MSID',
+                type: 'FO',
+                weight: '100',
+                holdingType: 'weight'
+            }
+        ]
+    }),
+    columnNames = [
+        'N_Categories',
+        'N_Values'
+    ];
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.dataTables.CreditQuality.getColumnNames(),
+        columnNames,
+        'Connector columns should return expected names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.CreditQuality.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.CreditQuality.modified.getColumn('columnNames'),
+        columnNames,
+        'Row names of inverted table should be the same as original column names.'
+    );
+
+    Assert.strictEqual(
+        columnNames.length,
+        connector.dataTables.CreditQuality.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 }
