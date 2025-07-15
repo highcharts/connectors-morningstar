@@ -51,8 +51,10 @@ Example usage:
 
 ```js
 const securityDetailsConnector = new HighchartsConnectors.Morningstar.SecurityDetailsConnector({
-    postman: {
-        environmentJSON: postmanJSON
+    api: {
+        access: {
+            token: 'your_access_token'
+        }
     },
     security: {
         id: 'F0GBR050DD',
@@ -68,8 +70,10 @@ For more details, see [Morningstar’s Security Details API].
 
 ```js
 const securityDetailsConnector = new HighchartsConnectors.Morningstar.SecurityDetailsConnector({
-    postman: {
-        environmentJSON: postmanJSON
+    api: {
+        access: {
+            token: 'your_access_token'
+        }
     },
     security: {
         id: 'F0GBR050DD',
@@ -87,10 +91,12 @@ Highcharts.chart('container', {
     series: [{
         type: 'column',
         name: 'F0GBR050DD',
-        data: connector.dataTables.TrailingPerformance.getRowObjects().map(obj => [
-            obj.Nav_DayEnd_TimePeriod,
-            obj.Nav_DayEnd_Value
-        ])
+        data: connector.dataTables.TrailingPerformance.getRows(
+            void 0,
+            void 0,
+            // Get X and Y data for the chart:
+            ['Nav_DayEnd_TimePeriod', 'Nav_DayEnd_Value']
+        )
     }],
     xAxis: {
         type: 'category'
