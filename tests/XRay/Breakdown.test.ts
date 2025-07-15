@@ -56,35 +56,47 @@ export async function benchmarkBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.GlobalStockSector.getColumnNames(),
         [
-            'N_Categories',
-            'N_Values'
+            'Type',
+            'N'
         ],
         'GlobalStockSector table should contain only Portfolio columns.'
     );
 
+    Assert.deepStrictEqual(
+        connector.dataTables.RegionalExposure.getColumnNames(),
+        [
+            'Type',
+            'N',
+            'Type_Benchmark',
+            'N_Benchmark'
+        ],
+        `RegionalExposure table should contain both,
+        Portfolio and Benchmark, columns.`
+    );
 
-    // Both, Portfolio and Benchmark
-    ['RegionalExposure', 'StyleBox'].forEach(tableName => {
-        Assert.deepStrictEqual(
-            connector.dataTables[tableName].getColumnNames(),
-            [
-                'N_Categories',
-                'N_Values',
-                'N_Categories_Benchmark',
-                'N_Values_Benchmark'
-            ],
-            `${tableName} table should contain both,
-            Portfolio and Benchmark, columns.`
-        );
-    });
+    Assert.deepStrictEqual(
+        connector.dataTables.StyleBox.getColumnNames(),
+        [
+            'Type',
+            'N',
+            'Style',
+            'Size',
+            'Type_Benchmark',
+            'N_Benchmark',
+            'Style_Benchmark',
+            'Size_Benchmark'
+        ],
+        `StyleBox table should contain both,
+        Portfolio and Benchmark, columns.`
+    );
 
     Assert.deepStrictEqual(
         connector.dataTables.TrailingPerformance.getColumnNames(),
         [
-            'MonthEnd_TimePeriod',
-            'MonthEnd_Value',
-            'MonthEnd_TimePeriod_Benchmark',
-            'MonthEnd_Value_Benchmark'
+            'TotalReturn_MonthEnd_TimePeriod',
+            'TotalReturn_MonthEnd_Value',
+            'TotalReturn_MonthEnd_TimePeriod_Benchmark',
+            'TotalReturn_MonthEnd_Value_Benchmark'
         ],
         `TrailingPerformance table should contain both,
         Portfolio and Benchmark, columns.`
@@ -93,24 +105,18 @@ export async function benchmarkBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.AssetAllocation.getColumnNames(),
         [
-            'MorningstarEUR3_N_Categories',
-            'MorningstarEUR3_N_Values',
-            'MorningstarEUR3_L_Categories',
-            'MorningstarEUR3_L_Values',
-            'MorningstarEUR3_S_Categories',
-            'MorningstarEUR3_S_Values',
-            'MorningstarEUR3_N_Categories_Benchmark',
-            'MorningstarEUR3_N_Values_Benchmark',
-            'MorningstarEUR3_L_Categories_Benchmark',
-            'MorningstarEUR3_L_Values_Benchmark',
-            'MorningstarEUR3_S_Categories_Benchmark',
-            'MorningstarEUR3_S_Values_Benchmark',
-            'Default1_N_Categories_Benchmark',
-            'Default1_N_Values_Benchmark',
-            'Default1_L_Categories_Benchmark',
-            'Default1_L_Values_Benchmark',
-            'Default1_S_Categories_Benchmark',
-            'Default1_S_Values_Benchmark'
+            'MorningstarEUR3_Type',
+            'MorningstarEUR3_N',
+            'MorningstarEUR3_L',
+            'MorningstarEUR3_S',
+            'MorningstarEUR3_Type_Benchmark',
+            'MorningstarEUR3_N_Benchmark',
+            'MorningstarEUR3_L_Benchmark',
+            'MorningstarEUR3_S_Benchmark',
+            'Default1_Type_Benchmark',
+            'Default1_N_Benchmark',
+            'Default1_L_Benchmark',
+            'Default1_S_Benchmark'
         ],
         `TrailingPerformance table should contain both,
         Portfolio and Benchmark, columns.`
@@ -120,10 +126,10 @@ export async function benchmarkBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.TrailingPerformance.getColumnNames(),
         [
-            'MonthEnd_TimePeriod',
-            'MonthEnd_Value',
-            'MonthEnd_TimePeriod_Benchmark',
-            'MonthEnd_Value_Benchmark'
+            'TotalReturn_MonthEnd_TimePeriod',
+            'TotalReturn_MonthEnd_Value',
+            'TotalReturn_MonthEnd_TimePeriod_Benchmark',
+            'TotalReturn_MonthEnd_Value_Benchmark'
         ],
         'TrailingPerformance table should contain only Benchmark columns.'
     );
@@ -392,8 +398,8 @@ export async function creditQualityLoad (
         ]
     }),
     columnNames = [
-        'N_Categories',
-        'N_Values'
+        'Type',
+        'N'
     ];
     await connector.load();
 

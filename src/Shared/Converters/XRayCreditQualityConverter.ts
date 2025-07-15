@@ -66,8 +66,8 @@ export class XRayCreditQualityConverter extends MorningstarConverter {
 
         if (json?.creditQuality) {
             for (const creditQuality of json.creditQuality) {
-                const categoryStr = `${creditQuality.salePosition}_Categories` + benchmarkSuffix,
-                    valueStr = `${creditQuality.salePosition}_Values` + benchmarkSuffix,
+                const categoryStr = 'Type' + benchmarkSuffix,
+                    valueStr = creditQuality.salePosition + benchmarkSuffix,
                     values = creditQuality.values,
                     valueIndex = Object.keys(values);
 
