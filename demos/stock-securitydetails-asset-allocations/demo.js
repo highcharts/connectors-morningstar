@@ -28,8 +28,8 @@ async function displayAssetAllocations (postmanJSON) {
         '99': 'Unclassified'
     };
 
-    const chartData = connector.dataTables['AssetAllocations'].getRowObjects().map(item => ({
-        name: typeMapping[item.Type],
+    const chartData = connector.dataTables.AssetAllocations.getRowObjects().map(item => ({
+        name: typeMapping[item.MorningstarEUR3_Type],
         y: item.MorningstarEUR3_N
     }));
 
