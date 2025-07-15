@@ -91,13 +91,13 @@ async function displaySecurityDetails (postmanJSON) {
             dataGridOptions: {
                 header: [{
                     format: 'Net',
-                    columnId: 'N_Categories'
+                    columnId: 'Type'
                 }, {
                     format: 'Values',
-                    columnId: 'N_Values'
+                    columnId: 'N'
                 }],
                 columns: [{
-                    id: 'N_Categories',
+                    id: 'Type',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -117,25 +117,25 @@ async function displaySecurityDetails (postmanJSON) {
             dataGridOptions: {
                 header: [{
                     format: 'Long',
-                    columnId: 'MorningstarEUR3_L_Categories'
+                    columnId: 'MorningstarEUR3_Type'
                 }, {
                     format: 'Values',
-                    columnId: 'MorningstarEUR3_L_Values'
+                    columnId: 'MorningstarEUR3_L'
                 }, {
                     format: 'Net',
-                    columnId: 'MorningstarEUR3_N_Categories'
+                    columnId: 'MorningstarEUR3_Type'
                 }, {
                     format: 'Values',
-                    columnId: 'MorningstarEUR3_N_Values'
+                    columnId: 'MorningstarEUR3_N'
                 }, {
                     format: 'Short',
-                    columnId: 'MorningstarEUR3_S_Categories'
+                    columnId: 'MorningstarEUR3_Type'
                 }, {
                     format: 'Values',
-                    columnId: 'MorningstarEUR3_S_Values'
+                    columnId: 'MorningstarEUR3_S'
                 }],
                 columns: [{
-                    id: 'MorningstarEUR3_L_Categories',
+                    id: 'MorningstarEUR3_Type',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -143,7 +143,7 @@ async function displaySecurityDetails (postmanJSON) {
                         }
                     }
                 }, {
-                    id: 'MorningstarEUR3_N_Categories',
+                    id: 'MorningstarEUR3_Type',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -151,7 +151,7 @@ async function displaySecurityDetails (postmanJSON) {
                         }
                     }
                 }, {
-                    id: 'MorningstarEUR3_S_Categories',
+                    id: 'MorningstarEUR3_Type',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -171,13 +171,13 @@ async function displaySecurityDetails (postmanJSON) {
             dataGridOptions: {
                 header: [{
                     format: 'Net',
-                    columnId: 'N_Categories'
+                    columnId: 'Type'
                 }, {
                     format: 'Values',
-                    columnId: 'N_Values'
+                    columnId: 'N'
                 }],
                 columns: [{
-                    id: 'N_Categories',
+                    id: 'Type',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?

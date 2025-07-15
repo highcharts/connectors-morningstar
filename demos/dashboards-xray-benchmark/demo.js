@@ -124,28 +124,28 @@ async function displaySecurityDetails (postmanJSON) {
             dataGridOptions: {
                 header: [{
                     format: 'Type',
-                    columnId: 'MorningstarEUR3_L_Categories'
+                    columnId: 'MorningstarEUR3_Type'
                 }, {
                     format: 'Long',
-                    columnId: 'MorningstarEUR3_L_Values'
+                    columnId: 'MorningstarEUR3_L'
                 }, {
                     format: 'Long (Benchmark)',
-                    columnId: 'MorningstarEUR3_L_Values_Benchmark'
+                    columnId: 'MorningstarEUR3_L_Benchmark'
                 }, { 
                     format: 'Net',
-                    columnId: 'MorningstarEUR3_N_Values'
+                    columnId: 'MorningstarEUR3_N'
                 },  {
                     format: 'Net (Benchmark)',
-                    columnId: 'MorningstarEUR3_N_Values_Benchmark'
+                    columnId: 'MorningstarEUR3_N_Benchmark'
                 }, {
                     format: 'Short',
-                    columnId: 'MorningstarEUR3_S_Values'
+                    columnId: 'MorningstarEUR3_S'
                 }, {
                     format: 'Short (Benchmark)',
-                    columnId: 'MorningstarEUR3_S_Values_Benchmark'
+                    columnId: 'MorningstarEUR3_S_Benchmark'
                 }],
                 columns: [{
-                    id: 'MorningstarEUR3_L_Categories',
+                    id: 'MorningstarEUR3_Type',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -153,32 +153,32 @@ async function displaySecurityDetails (postmanJSON) {
                         }
                     }
                 }, {
-                    id: 'MorningstarEUR3_L_Values',
+                    id: 'MorningstarEUR3_L',
                     cells: {
                         format: '{value:.2f}%'
                     }
                 }, {
-                    id: 'MorningstarEUR3_L_Values_Benchmark',
+                    id: 'MorningstarEUR3_L_Benchmark',
                     cells: {
                         format: '{value:.2f}%'
                     }
                 }, {
-                    id: 'MorningstarEUR3_N_Values',
+                    id: 'MorningstarEUR3_N',
                     cells: {
                         format: '{value:.2f}%'
                     }
                 }, {
-                    id: 'MorningstarEUR3_N_Values_Benchmark',
+                    id: 'MorningstarEUR3_N_Benchmark',
                     cells: {
                         format: '{value:.2f}%'
                     }
                 }, {
-                    id: 'MorningstarEUR3_S_Values',
+                    id: 'MorningstarEUR3_S',
                     cells: {
                         format: '{value:.2f}%'
                     }
                 }, {
-                    id: 'MorningstarEUR3_S_Values_Benchmark',
+                    id: 'MorningstarEUR3_S_Benchmark',
                     cells: {
                         format: '{value:.2f}%'
                     }
@@ -194,14 +194,14 @@ async function displaySecurityDetails (postmanJSON) {
             title: 'Global Stock Sector',
             dataGridOptions: {
                 header: [{
-                    format: 'Net',
-                    columnId: 'N_Categories'
+                    format: 'Category',
+                    columnId: 'Type'
                 }, {
-                    format: 'Values',
-                    columnId: 'N_Values'
+                    format: 'Value',
+                    columnId: 'N'
                 }],
                 columns: [{
-                    id: 'N_Categories',
+                    id: 'Type',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -209,7 +209,7 @@ async function displaySecurityDetails (postmanJSON) {
                         }
                     }
                 }, {
-                    id: 'N_Values',
+                    id: 'N',
                     cells: {
                         format: '{value:.2f}%'
                     }
@@ -225,17 +225,17 @@ async function displaySecurityDetails (postmanJSON) {
             title: 'Regional Exposure',
             dataGridOptions: {
                 header: [{
-                    format: 'Net',
-                    columnId: 'N_Categories'
+                    format: 'Category',
+                    columnId: 'Type'
                 }, {
-                    format: 'Values',
-                    columnId: 'N_Values'
+                    format: 'Value',
+                    columnId: 'N'
                 }, {
-                    format: 'Values (Benchmark)',
-                    columnId: 'N_Values_Benchmark'
+                    format: 'Value (Benchmark)',
+                    columnId: 'N_Benchmark'
                 }],
                 columns: [{
-                    id: 'N_Categories',
+                    id: 'Type',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -243,12 +243,12 @@ async function displaySecurityDetails (postmanJSON) {
                         }
                     }
                 }, {
-                    id: 'N_Values',
+                    id: 'N',
                     cells: {
                         format: '{value:.2f}%'
                     }
                 }, {
-                    id: 'N_Values_Benchmark',
+                    id: 'N_Benchmark',
                     cells: {
                         format: '{value:.2f}%'
                     }
@@ -264,14 +264,17 @@ async function displaySecurityDetails (postmanJSON) {
             title: 'Risk Statistics',
             dataGridOptions: {
                 header: [{
-                    format: 'Sharpe Ratio M36',
-                    columnId: 'SharpeRatio_M_M36'
+                    format: 'Sharpe Ratio Period',
+                    columnId: 'SharpeRatio_TimePeriod'
+                }, {
+                    format: 'Sharpe Ratio',
+                    columnId: 'SharpeRatio'
                 }, {
                     format: 'Standard Deviation Period',
                     columnId: 'StandardDeviation_TimePeriod'
                 }, {
                     format: 'Standard Deviation',
-                    columnId: 'StandardDeviation_Values'
+                    columnId: 'StandardDeviation'
                 }]
             }
         }, {
@@ -285,16 +288,16 @@ async function displaySecurityDetails (postmanJSON) {
             dataGridOptions: {
                 header: [{
                     format: 'Category',
-                    columnId: 'N_Categories'
+                    columnId: 'Type'
                 }, {
                     format: 'Value',
-                    columnId: 'N_Values'
+                    columnId: 'N'
                 }, {
                     format: 'Value (Benchmark)',
-                    columnId: 'N_Values_Benchmark'
+                    columnId: 'N_Benchmark'
                 }],
                 columns: [{
-                    id: 'N_Categories',
+                    id: 'Type',
                     cells: {
                         formatter: function () {
                             return this.value !== void 0 ?
@@ -302,12 +305,12 @@ async function displaySecurityDetails (postmanJSON) {
                         }
                     }
                 }, {
-                    id: 'N_Values',
+                    id: 'N',
                     cells: {
                         format: '{value:.2f}%'
                     }
                 }, {
-                    id: 'N_Values_Benchmark',
+                    id: 'N_Benchmark',
                     cells: {
                         format: '{value:.2f}%'
                     }
@@ -324,13 +327,13 @@ async function displaySecurityDetails (postmanJSON) {
             dataGridOptions: {
                 header: [{
                     format: 'Time Period',
-                    columnId: 'MonthEnd_TimePeriod'
+                    columnId: 'TotalReturn_MonthEnd_TimePeriod'
                 }, {
                     format: 'Value (£)',
-                    columnId: 'MonthEnd_Value'
+                    columnId: 'TotalReturn_MonthEnd_Value'
                 }, {
-                    format: 'Value (Benchmark, £)',
-                    columnId: 'MonthEnd_Value_Benchmark'
+                    format: 'Value (£, Benchmark)',
+                    columnId: 'TotalReturn_MonthEnd_Value_Benchmark'
                 }]
             }
         }, {
@@ -344,22 +347,22 @@ async function displaySecurityDetails (postmanJSON) {
             dataGridOptions: {
                 header: [{
                     format: 'M1 (Date)',
-                    columnId: 'TotalReturn_M1_Benchmark'
+                    columnId: 'TotalReturn_M1_Monthly_Date_Benchmark'
                 }, {
                     format: 'Value (£)',
-                    columnId: 'TotalReturn_M1_Value_Benchmark'
+                    columnId: 'TotalReturn_M1_Monthly_Value_Benchmark'
                 }, {
                     format: 'M3 (Date)',
-                    columnId: 'TotalReturn_M3_Benchmark'
+                    columnId: 'TotalReturn_M3_Quarterly_Date_Benchmark'
                 }, {
                     format: 'Value (£)',
-                    columnId: 'TotalReturn_M3_Value_Benchmark'
+                    columnId: 'TotalReturn_M3_Quarterly_Value_Benchmark'
                 }, {
                     format: 'M12 (Date)',
-                    columnId: 'TotalReturn_M12_Benchmark'
+                    columnId: 'TotalReturn_M12_Annual_Date_Benchmark'
                 }, {
                     format: 'Value (£)',
-                    columnId: 'TotalReturn_M12_Value_Benchmark'
+                    columnId: 'TotalReturn_M12_Annual_Value_Benchmark'
                 }]
             }
         }, {

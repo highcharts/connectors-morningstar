@@ -56,35 +56,47 @@ export async function benchmarkBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.GlobalStockSector.getColumnNames(),
         [
-            'N_Categories',
-            'N_Values'
+            'Type',
+            'N'
         ],
         'GlobalStockSector table should contain only Portfolio columns.'
     );
 
+    Assert.deepStrictEqual(
+        connector.dataTables.RegionalExposure.getColumnNames(),
+        [
+            'Type',
+            'N',
+            'Type_Benchmark',
+            'N_Benchmark'
+        ],
+        `RegionalExposure table should contain both,
+        Portfolio and Benchmark, columns.`
+    );
 
-    // Both, Portfolio and Benchmark
-    ['RegionalExposure', 'StyleBox'].forEach(tableName => {
-        Assert.deepStrictEqual(
-            connector.dataTables[tableName].getColumnNames(),
-            [
-                'N_Categories',
-                'N_Values',
-                'N_Categories_Benchmark',
-                'N_Values_Benchmark'
-            ],
-            `${tableName} table should contain both,
-            Portfolio and Benchmark, columns.`
-        );
-    });
+    Assert.deepStrictEqual(
+        connector.dataTables.StyleBox.getColumnNames(),
+        [
+            'Type',
+            'N',
+            'Style',
+            'Size',
+            'Type_Benchmark',
+            'N_Benchmark',
+            'Style_Benchmark',
+            'Size_Benchmark'
+        ],
+        `StyleBox table should contain both,
+        Portfolio and Benchmark, columns.`
+    );
 
     Assert.deepStrictEqual(
         connector.dataTables.TrailingPerformance.getColumnNames(),
         [
-            'MonthEnd_TimePeriod',
-            'MonthEnd_Value',
-            'MonthEnd_TimePeriod_Benchmark',
-            'MonthEnd_Value_Benchmark'
+            'TotalReturn_MonthEnd_TimePeriod',
+            'TotalReturn_MonthEnd_Value',
+            'TotalReturn_MonthEnd_TimePeriod_Benchmark',
+            'TotalReturn_MonthEnd_Value_Benchmark'
         ],
         `TrailingPerformance table should contain both,
         Portfolio and Benchmark, columns.`
@@ -93,24 +105,18 @@ export async function benchmarkBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.AssetAllocation.getColumnNames(),
         [
-            'MorningstarEUR3_N_Categories',
-            'MorningstarEUR3_N_Values',
-            'MorningstarEUR3_L_Categories',
-            'MorningstarEUR3_L_Values',
-            'MorningstarEUR3_S_Categories',
-            'MorningstarEUR3_S_Values',
-            'MorningstarEUR3_N_Categories_Benchmark',
-            'MorningstarEUR3_N_Values_Benchmark',
-            'MorningstarEUR3_L_Categories_Benchmark',
-            'MorningstarEUR3_L_Values_Benchmark',
-            'MorningstarEUR3_S_Categories_Benchmark',
-            'MorningstarEUR3_S_Values_Benchmark',
-            'Default1_N_Categories_Benchmark',
-            'Default1_N_Values_Benchmark',
-            'Default1_L_Categories_Benchmark',
-            'Default1_L_Values_Benchmark',
-            'Default1_S_Categories_Benchmark',
-            'Default1_S_Values_Benchmark'
+            'MorningstarEUR3_Type',
+            'MorningstarEUR3_N',
+            'MorningstarEUR3_L',
+            'MorningstarEUR3_S',
+            'MorningstarEUR3_Type_Benchmark',
+            'MorningstarEUR3_N_Benchmark',
+            'MorningstarEUR3_L_Benchmark',
+            'MorningstarEUR3_S_Benchmark',
+            'Default1_Type_Benchmark',
+            'Default1_N_Benchmark',
+            'Default1_L_Benchmark',
+            'Default1_S_Benchmark'
         ],
         `TrailingPerformance table should contain both,
         Portfolio and Benchmark, columns.`
@@ -120,10 +126,10 @@ export async function benchmarkBreakdownLoad (
     Assert.deepStrictEqual(
         connector.dataTables.TrailingPerformance.getColumnNames(),
         [
-            'MonthEnd_TimePeriod',
-            'MonthEnd_Value',
-            'MonthEnd_TimePeriod_Benchmark',
-            'MonthEnd_Value_Benchmark'
+            'TotalReturn_MonthEnd_TimePeriod',
+            'TotalReturn_MonthEnd_Value',
+            'TotalReturn_MonthEnd_TimePeriod_Benchmark',
+            'TotalReturn_MonthEnd_Value_Benchmark'
         ],
         'TrailingPerformance table should contain only Benchmark columns.'
     );
@@ -164,12 +170,12 @@ export async function totalReturnLoad (
     Assert.deepStrictEqual(
         connector.dataTables.HistoricalPerformanceSeries.getColumnNames(),
         [
-            'TotalReturn_M1_Benchmark',
-            'TotalReturn_M1_Value_Benchmark',
-            'TotalReturn_M3_Benchmark',
-            'TotalReturn_M3_Value_Benchmark',
-            'TotalReturn_M12_Benchmark',
-            'TotalReturn_M12_Value_Benchmark'
+             'TotalReturn_M1_Monthly_Date_Benchmark',
+             'TotalReturn_M1_Monthly_Value_Benchmark',
+             'TotalReturn_M3_Quarterly_Date_Benchmark',
+             'TotalReturn_M3_Quarterly_Value_Benchmark',
+             'TotalReturn_M12_Annual_Date_Benchmark',
+             'TotalReturn_M12_Annual_Value_Benchmark'
         ],
         'Connector table should exist of expected columns.'
     );
@@ -206,7 +212,8 @@ export async function portfolioDataPoints (
                 'AssetAllocationMorningstarEUR3',
                 'GlobalStockSector',
                 'RegionalExposure',
-                'StyleBox'
+                'StyleBox',
+                ['PerformanceReturn', 'M0', 'M1', 'M2', 'M3', 'M6', 'M12']
             ]
         },
         holdings: [
@@ -221,16 +228,24 @@ export async function portfolioDataPoints (
         ]
     }),
     columnNames = [
-        'N_Categories',
-        'N_Values'
+        'Type',
+        'N'
     ],
     assetAllocationColumnNames = [
-        'MorningstarEUR3_N_Categories',
-        'MorningstarEUR3_N_Values',
-        'MorningstarEUR3_L_Categories',
-        'MorningstarEUR3_L_Values',
-        'MorningstarEUR3_S_Categories',
-        'MorningstarEUR3_S_Values'
+        'MorningstarEUR3_Type',
+        'MorningstarEUR3_N',
+        'MorningstarEUR3_L',
+        'MorningstarEUR3_S'
+    ],
+    trailingPerformanceColumnNames = [
+        'TotalReturn_MonthEnd_TimePeriod',
+        'TotalReturn_MonthEnd_Value'
+    ],
+    styleBoxColumnNames = [
+        'Type',
+        'N',
+        'Style',
+        'Size'
     ];
     await connector.load();
 
@@ -306,7 +321,7 @@ export async function portfolioDataPoints (
 
     Assert.deepStrictEqual(
         connector.dataTables.StyleBox.getColumnNames(),
-        columnNames,
+        styleBoxColumnNames,
         'Connector columns should return expected names.'
     );
 
@@ -317,13 +332,42 @@ export async function portfolioDataPoints (
 
     Assert.deepStrictEqual(
         connector.dataTables.StyleBox.modified.getColumn('columnNames'),
-        columnNames,
+        styleBoxColumnNames,
         'Row names of inverted table should be the same as original column names.'
     );
 
     Assert.strictEqual(
-        columnNames.length,
+        styleBoxColumnNames.length,
         connector.dataTables.StyleBox.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
+    );
+
+        Assert.strictEqual(
+        columnNames.length,
+        connector.dataTables.RegionalExposure.modified.getRowCount(),
+        'Original and inverted table should have an inverted amount of columns and rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.TrailingPerformance.getColumnNames(),
+        trailingPerformanceColumnNames,
+        'Connector columns should return expected names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.TrailingPerformance.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.TrailingPerformance.modified.getColumn('columnNames'),
+        trailingPerformanceColumnNames,
+        'Row names of inverted table should be the same as original column names.'
+    );
+
+    Assert.strictEqual(
+        trailingPerformanceColumnNames.length,
+        connector.dataTables.TrailingPerformance.modified.getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 }
@@ -354,8 +398,8 @@ export async function creditQualityLoad (
         ]
     }),
     columnNames = [
-        'N_Categories',
-        'N_Values'
+        'Type',
+        'N'
     ];
     await connector.load();
 
