@@ -79,7 +79,6 @@ export class IndustryBreakdownConverter extends MorningstarConverter {
             id,
             industryBreakdown,
             table,
-            'IndustryBreakdown',
             !!hasMultiple
         );
     }

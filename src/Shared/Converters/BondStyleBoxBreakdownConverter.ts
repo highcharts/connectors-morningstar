@@ -85,14 +85,14 @@ export class BondStyleBoxBreakdownConverter extends MorningstarConverter {
         }
 
         const typeColumnName =
-                'BondStyleBoxBreakdown_Type' + (hasMultiple ? `_${id}` : '');
+            'Type' + (hasMultiple ? `_${id}` : '');
 
         for (let i = 0; i < bondStyleBoxBreakdowns.length; i++) {
             const breakdown = bondStyleBoxBreakdowns[i];
 
             for (let j = 0; j < breakdown.BreakdownValues.length; j++) {
                 const salePositionColumnName =
-                    `BondStyleBoxBreakdown_${breakdown.SalePosition}` +
+                    `${breakdown.SalePosition}` +
                     (hasMultiple ? `_${id}` : '');
 
                 // Set up BondStyleBoxBreakdowns Type column only once

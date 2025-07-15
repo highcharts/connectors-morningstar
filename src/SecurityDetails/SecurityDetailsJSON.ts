@@ -152,6 +152,7 @@ namespace SecurityDetailsJSON {
     interface SecurityDetailsTrailingPerformance {
         ReturnType: string;
         Return: SecurityDetailsReturn[];
+        Type: string;
     }
 
     interface SecurityDetailsHistoricalPerformance {
