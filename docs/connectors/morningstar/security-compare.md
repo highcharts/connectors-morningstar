@@ -24,13 +24,13 @@ If any securities are invalid, the connector will still yield results. The inval
 
 ### Column Names
 
-Columns are named based on the values they represent, followed by their respective security ID (MSID), for example: `TrailingPerformance_TimePeriod_F0GBR050DD`. This naming convention distinguishes the columns and enables quick comparison when inspecting the table. Below is an example of how the columns may be used in practice.
+Columns are named based on the values they represent, followed by their respective security ID (MSID), for example: `Nav_DayEnd_TimePeriod_F0GBR050DD`. This naming convention distinguishes the columns and enables quick comparison when inspecting the table. Below is an example of how the columns may be used in practice.
 
 #### Security Compare Types
 
-You can specify the type of data to retrieve by using the `type` option in the connector. The following types are available:
+You can specify the type of data to retrieve by using an array of types: `converters: ['AssetAllocations', 'RegionalExposure']` in the connector. The following types are available:
 
-- **TrailingPerformance** (default)
+- **TrailingPerformance**
 - **AssetAllocations**
 - **RegionalExposure**
 - **GlobalStockSectorBreakdown**
@@ -45,6 +45,8 @@ You can specify the type of data to retrieve by using the `type` option in the c
 - **CreditQualityBreakdown**
 - **HistoricalPerformanceSeries**
 
+If no converter types are provided or the converter type doesn't exist, all available types will be returned for the Security Compare connector.
+
 Example usage:
 
 ```js
@@ -56,9 +58,7 @@ const connector = new HighchartsConnectors.Morningstar.SecurityCompareConnector(
         ids: ['F0GBR050DD', 'F00000Q5PZ'],
         idType: 'MSID'
     },
-    converter: {
-        type: 'AssetAllocations' // Specify the type
-    }
+    converters: ['AssetAllocation'] // Specify the types of data to retrieve
 });
 ```
 
@@ -88,9 +88,9 @@ Highcharts.chart('container', {
     series: ids.map(id => ({
         type: 'column',
         name: id,
-        data: connector.table.getRowObjects().map(obj => [
-            obj['TrailingPerformance_TimePeriod_' + id],
-            obj['TrailingPerformance_Value_' + id]
+        data: connector.dataTables.TrailingPerformance.getRowObjects().map(obj => [
+            obj['Nav_DayEnd_TimePeriod_' + id],
+            obj['Nav_DayEnd_Value_' + id]
         ])
     })),
     xAxis: {

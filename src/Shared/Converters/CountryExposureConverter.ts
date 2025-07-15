@@ -72,47 +72,36 @@ export class CountryExposureConverter extends MorningstarConverter {
             security = userOptions.json as SecurityDetailsJSON.SecurityDetailsResponse,
             hasMultiple = options.hasMultiple;
 
-
-        // Prepare table
-
-        // Add country exposure to table
-
-
-
         // Create table
         const id = security.Id,
             countryExposure = security.Portfolios[0].CountryExposure,
-            assetStr = 'CountryExposure_Assets' + (hasMultiple ? `_${id}` : ''),
-            notClassifiedStr = 'CountryExposure_NotClassified' + (hasMultiple ? `_${id}` : ''),
-            countryExpTypeStr = 'CountryExposure_Type' + (hasMultiple ? `_${id}` : '');
+            notClassifiedStr = 'NotClassified' + (hasMultiple ? `_${id}` : ''),
+            countryExpTypeStr = 'Type' + (hasMultiple ? `_${id}` : '');
 
-        table.setColumn(assetStr);
-        table.setColumn(notClassifiedStr);
         table.setColumn(countryExpTypeStr);
+        table.setColumn(notClassifiedStr);
 
         for (let i = 0; i < countryExposure.length; i++) {
             const asset = countryExposure[i],
                 colStr =
-                    `CountryExposure_${asset.Type}_${asset.SalePosition}` +
+                    `${asset.Type}_${asset.SalePosition}` +
                     (hasMultiple ? `_${id}` : '');
 
             table.setColumn(colStr);
 
             // Populate NotClassified for all assets.
-            table.setCell(assetStr, i, `${asset.Type}_${asset.SalePosition}`);
             table.setCell(notClassifiedStr, i, asset.NotClassified);
 
             for (let j = 0; j < asset.BreakdownValues.length; j++) {
                 table.setCell(
-                    colStr,
-                    j,
-                    asset.BreakdownValues[j].Value
-                );
-
-                table.setCell(
                     countryExpTypeStr,
                     j,
                     asset.BreakdownValues[j].Type
+                );
+                table.setCell(
+                    colStr,
+                    j,
+                    asset.BreakdownValues[j].Value
                 );
             }
         }
