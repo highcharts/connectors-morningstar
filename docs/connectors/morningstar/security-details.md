@@ -104,6 +104,28 @@ Highcharts.chart('container', {
 });
 ```
 
+Alternatively, it is possible to use [DataTable.getRowObjects()] method, to get
+the rows and map them:
+
+```js
+Highcharts.chart('container', {
+    title: {
+        text: 'Aviva Investors UK Listed Equity Unconstrained Fund 2 GBP Acc'
+    },
+    series: [{
+        type: 'column',
+        name: 'F0GBR050DD',
+        data: connector.dataTables.TrailingPerformance.getRowObjects().map(obj => [
+            obj.Nav_DayEnd_TimePeriod,
+            obj.Nav_DayEnd_Value
+        ])
+    }],
+    xAxis: {
+        type: 'category'
+    }
+});
+```
+
 ## Relevant demo
 
 You will find examples of how to use SecurityDetailsConnector in our demos.
@@ -111,3 +133,5 @@ You will find examples of how to use SecurityDetailsConnector in our demos.
 [Morningstar’s Security Details API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/security-details/overview
 
 [Getting View IDs]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/security-details/investment-details#get-views
+
+[DataTable.getRowObjects()]: https://api.highcharts.com/dashboards/#classes/Data_DataTable.DataTable-1#getRowObjects
