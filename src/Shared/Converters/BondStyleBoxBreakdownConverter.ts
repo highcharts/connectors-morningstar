@@ -27,6 +27,7 @@ import {
 } from '../../SecurityDetails/SecurityDetailsOptions';
 import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
+import { STYLE_BOX_VALUES } from '../Utilities';
 
 /* *
  *
@@ -113,6 +114,10 @@ export class BondStyleBoxBreakdownConverter extends MorningstarConverter {
 
             }
         }
+
+        // Set destructured x & y values
+        table.setColumn('Term' + (hasMultiple ? `_${id}` : ''), STYLE_BOX_VALUES.X);
+        table.setColumn('Quality' + (hasMultiple ? `_${id}` : ''), STYLE_BOX_VALUES.Y);
     }
 }
 
