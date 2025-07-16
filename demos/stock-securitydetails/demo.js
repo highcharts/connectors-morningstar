@@ -14,8 +14,8 @@ async function displaySecurityDetails (postmanJSON) {
         security: {
             id: securityId,
             idType: 'MSID'
-        },
-        converters: ['TrailingPerformance']
+        }
+        //converters: ['TrailingPerformance']
     });
 
     await connector.load();

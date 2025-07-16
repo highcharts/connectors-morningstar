@@ -25,10 +25,10 @@
  * */
 
 
-import {
+import type {
     SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
-import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
+import type SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
 
 /* *
@@ -71,38 +71,24 @@ export class TrailingPerformanceConverter extends MorningstarConverter {
                 ...options
             },
             security = userOptions.json as SecurityDetailsJSON.SecurityDetailsResponse,
-            hasMultiple = options.hasMultiple;
-
-        // Create table
-        const id = security.Id,
-            columnStrPostfix = hasMultiple ? `_${id}` : '';
-
-        const trailingPerformance = security.TrailingPerformance;
+            hasMultiple = options.hasMultiple,
+            id = security.Id,
+            columnStrPostfix = hasMultiple ? `_${id}` : '',
+            trailingPerformance = security.TrailingPerformance || [];
 
         for (let i = 0, iEnd = trailingPerformance.length; i < iEnd; i++) {
-            const trailingPerformanceReturn = trailingPerformance[i].Return;
-            const columnStrPrefix =
-                `${trailingPerformance[i].ReturnType}_${trailingPerformance[i].Type}_`,
+            const { Return, ReturnType, Type } = trailingPerformance[i],
+                columnStrPrefix = `${ReturnType}_${Type}_`,
                 timePeriodColumnStr = columnStrPrefix + 'TimePeriod' + columnStrPostfix,
                 dateColumnStr = columnStrPrefix + 'Date' + columnStrPostfix,
                 valueColumnStr = columnStrPrefix + 'Value' + columnStrPostfix;
 
-            for (let j = 0, iEnd = trailingPerformanceReturn.length; j < iEnd; ++j) {
-                table.setCell(
-                    timePeriodColumnStr,
-                    j,
-                    trailingPerformanceReturn[j].TimePeriod
-                );
-                table.setCell(
-                    dateColumnStr,
-                    j,
-                    trailingPerformanceReturn[j].Date
-                );
-                table.setCell(
-                    valueColumnStr,
-                    j,
-                    trailingPerformanceReturn[j].Value
-                );
+            for (let j = 0, iEnd = Return.length; j < iEnd; ++j) {
+                const { TimePeriod, Date, Value } = Return[j];
+
+                table.setCell(timePeriodColumnStr, j, TimePeriod);
+                table.setCell(dateColumnStr, j, Date);
+                table.setCell(valueColumnStr, j, Value);
             }
         }
     }
