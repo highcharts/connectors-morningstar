@@ -104,8 +104,10 @@ Highcharts.chart('container', {
 });
 ```
 
-Alternatively, it is possible to use [DataTable.getRowObjects()] method, to get
-the rows and map them:
+Alternatively, you can pass all rows from the DataTable directly to the chart
+and use the [series.keys] option to define which fields should be used,
+typically `x`, `name`, and `y`. This approach is especially useful when
+additional columns are needed elsewhere, such as in a detailed tooltip.
 
 ```js
 Highcharts.chart('container', {
@@ -115,10 +117,18 @@ Highcharts.chart('container', {
     series: [{
         type: 'column',
         name: 'F0GBR050DD',
-        data: connector.dataTables.TrailingPerformance.getRowObjects().map(obj => [
-            obj.Nav_DayEnd_TimePeriod,
-            obj.Nav_DayEnd_Value
-        ])
+        keys: [
+            'name', // 'Nav_DayEnd_TimePeriod'
+            'Nav_DayEnd_Date',
+            'y', // 'Nav_DayEnd_Value'
+            'GbPostTax_DayEnd_TimePeriod',
+            'GbPostTax_DayEnd_Date',
+            'GbPostTax_DayEnd_Value',
+            'ItPostTax_DayEnd_TimePeriod',
+            'ItPostTax_DayEnd_Date',
+            'ItPostTax_DayEnd_Value'
+        ],
+        data: connector.dataTables.TrailingPerformance.getRows()
     }],
     xAxis: {
         type: 'category'
@@ -134,4 +144,4 @@ You will find examples of how to use SecurityDetailsConnector in our demos.
 
 [Getting View IDs]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/security-details/investment-details#get-views
 
-[DataTable.getRowObjects()]: https://api.highcharts.com/dashboards/#classes/Data_DataTable.DataTable-1#getRowObjects
+[series.keys]: https://api.highcharts.com/highcharts/plotOptions.series.keys
