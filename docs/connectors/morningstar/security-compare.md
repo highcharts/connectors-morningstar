@@ -51,8 +51,10 @@ Example usage:
 
 ```js
 const connector = new HighchartsConnectors.Morningstar.SecurityCompareConnector({
-    postman: {
-        environmentJSON: postmanJSON
+    api: {
+        access: {
+            token: 'your_access_token'
+        }
     },
     security: {
         ids: ['F0GBR050DD', 'F00000Q5PZ'],
@@ -70,8 +72,10 @@ For more details, see [Morningstar’s Investment Compare API].
 const ids = ['F0GBR050DD', 'F00000Q5PZ'];
 
 const connector = new HighchartsConnectors.Morningstar.SecurityCompareConnector({
-    postman: {
-        environmentJSON: postmanJSON
+    api: {
+        access: {
+            token: 'your_access_token'
+        }
     },
     security: {
         ids,
@@ -88,10 +92,16 @@ Highcharts.chart('container', {
     series: ids.map(id => ({
         type: 'column',
         name: id,
-        data: connector.dataTables.TrailingPerformance.getRowObjects().map(obj => [
-            obj['Nav_DayEnd_TimePeriod_' + id],
-            obj['Nav_DayEnd_Value_' + id]
-        ])
+        data: connector.dataTables.TrailingPerformance.getRows(
+            void 0,
+            void 0,
+            [
+                // Categories on x-axis
+                'Nav_DayEnd_TimePeriod_' + id,
+                // Values on y-axis
+                'Nav_DayEnd_Value_' + id
+            ]
+        )
     })),
     xAxis: {
         type: 'category'

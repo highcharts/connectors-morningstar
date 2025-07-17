@@ -72,7 +72,7 @@ async function displaySecurityDetails (postmanJSON) {
                     columnAssignment: [{
                         seriesId: ids[0],
                         data: [
-                            'Type_' + ids[0],
+                            'MorningstarEUR3_Type_' + ids[0],
                             'MorningstarEUR3_N_' + ids[0]
                         ]
                     }]
@@ -110,7 +110,7 @@ async function displaySecurityDetails (postmanJSON) {
                     columnAssignment: [{
                         seriesId: ids[1],
                         data: [
-                            'Type_' + ids[1],
+                            'MorningstarEUR3_Type_' + ids[1],
                             'MorningstarEUR3_N_' + ids[1]
                         ]
                     }]
