@@ -32,10 +32,14 @@ async function displaySecurityDetails (postmanJSON) {
         series: ids.map(id => ({
             type: 'column',
             name: idNames[id],
-            data: connector.dataTables.TrailingPerformance.getRowObjects().map(obj => [
-                obj['TrailingPerformance_TimePeriod_' + id],
-                obj['TrailingPerformance_Value_' + id]
-            ])
+            data: connector.dataTables.TrailingPerformance.getRows(
+                void 0,
+                void 0,
+                [
+                    'Nav_DayEnd_TimePeriod_' + id,
+                    'Nav_DayEnd_Value_' + id
+                ]
+            )
         })),
         xAxis: {
             type: 'category'
