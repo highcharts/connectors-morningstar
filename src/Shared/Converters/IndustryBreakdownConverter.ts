@@ -22,10 +22,10 @@
  * */
 
 
-import {
+import type {
     SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
-import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
+import type SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
 import { getBreakdown } from '../SharedSecurityDetails';
 
@@ -69,11 +69,9 @@ export class IndustryBreakdownConverter extends MorningstarConverter {
                 ...options
             },
             security = userOptions.json as SecurityDetailsJSON.SecurityDetailsResponse,
-            hasMultiple = options.hasMultiple;
-
-        // Update table
-        const id = security.Id,
-            industryBreakdown = security.Portfolios[0].IndustryBreakdown;
+            hasMultiple = options.hasMultiple,
+            id = security.Id,
+            industryBreakdown = security.Portfolios[0].IndustryBreakdown || [];
 
         getBreakdown(
             id,

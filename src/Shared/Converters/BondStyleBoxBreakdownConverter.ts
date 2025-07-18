@@ -22,10 +22,10 @@
  * */
 
 
-import {
+import type {
     SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
-import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
+import type SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
 import { STYLE_BOX_VALUES } from '../Utilities';
 
@@ -75,42 +75,21 @@ export class BondStyleBoxBreakdownConverter extends MorningstarConverter {
                 ...options
             },
             security = userOptions.json as SecurityDetailsJSON.SecurityDetailsResponse,
-            hasMultiple = options.hasMultiple;
-
-        // Create table
-        const id = security.Id,
-            bondStyleBoxBreakdowns = security.Portfolios[0].BondStyleBoxBreakdown;
-
-        if (!bondStyleBoxBreakdowns || !bondStyleBoxBreakdowns.length) {
-            return;
-        }
-
-        const typeColumnName =
-            'Type' + (hasMultiple ? `_${id}` : '');
+            hasMultiple = options.hasMultiple,
+            id = security.Id,
+            columnStrPostfix = hasMultiple ? `_${id}` : '',
+            bondStyleBoxBreakdowns = security.Portfolios[0].BondStyleBoxBreakdown || [],
+            typeColumnName = 'Type' + columnStrPostfix;
 
         for (let i = 0; i < bondStyleBoxBreakdowns.length; i++) {
-            const breakdown = bondStyleBoxBreakdowns[i];
+            const { SalePosition, BreakdownValues } = bondStyleBoxBreakdowns[i],
+                salePositionColumnName = `${SalePosition}` + columnStrPostfix;
 
-            for (let j = 0; j < breakdown.BreakdownValues.length; j++) {
-                const salePositionColumnName =
-                    `${breakdown.SalePosition}` +
-                    (hasMultiple ? `_${id}` : '');
+            for (let j = 0; j < BreakdownValues.length; j++) {
+                const { Type, Value } = BreakdownValues[j];
 
-                // Set up BondStyleBoxBreakdowns Type column only once
-                if (i === 0) {
-                    table.setCell(
-                        typeColumnName,
-                        j,
-                        breakdown.BreakdownValues[j].Type
-                    );
-                }
-
-                // Set up BondStyleBoxBreakdowns SalePosition values
-                table.setCell(
-                    salePositionColumnName,
-                    j,
-                    breakdown.BreakdownValues[j].Value
-                );
+                table.setCell(typeColumnName, j, Type);
+                table.setCell(salePositionColumnName, j, Value);
 
             }
         }

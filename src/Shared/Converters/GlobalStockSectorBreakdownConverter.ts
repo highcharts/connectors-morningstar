@@ -24,11 +24,12 @@
  * */
 
 
-import {
+import type {
     SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
-import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
+import type SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
+import { getBreakdown } from '../SharedSecurityDetails';
 
 /* *
  *
@@ -70,42 +71,16 @@ export class GlobalStockSectorBreakdownConverter extends MorningstarConverter {
                 ...options
             },
             security = userOptions.json as SecurityDetailsJSON.SecurityDetailsResponse,
-            hasMultiple = options.hasMultiple;
-
-
-        // Create table
-        const GlobalStockSectorBreakdown =
-            security.Portfolios[0].GlobalStockSectorBreakdown,
+            hasMultiple = options.hasMultiple,
             id = security.Id,
-            colStrType = 'Type' + (hasMultiple ? `_${id}` : ''),
-            notClassifiedStr = 'NotClassified' + (hasMultiple ? `_${id}` : '');
+            globalStockSectorBreakdown = security.Portfolios[0].GlobalStockSectorBreakdown || [];
 
-        table.setColumn(colStrType);
-        table.setColumn(notClassifiedStr);
-
-        for (let i = 0; i < GlobalStockSectorBreakdown.length; i++) {
-            const asset = GlobalStockSectorBreakdown[i],
-                colStrAsset = `${asset.SalePosition}` +
-                (hasMultiple ? `_${id}` : '');
-
-            table.setColumn(colStrAsset);
-
-            // Populate NotClassified for all assets.
-            table.setCell(notClassifiedStr, i, asset.NotClassified);
-
-            for (let j = 0; j < asset.BreakdownValues.length; j++) {
-                table.setCell(
-                    colStrType,
-                    j,
-                    asset.BreakdownValues[j].Type
-                );
-                table.setCell(
-                    colStrAsset,
-                    j,
-                    asset.BreakdownValues[j].Value
-                );
-            }
-        }
+        getBreakdown(
+            id,
+            globalStockSectorBreakdown,
+            table,
+            !!hasMultiple
+        );
     }
 }
 

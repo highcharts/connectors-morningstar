@@ -61,16 +61,16 @@ namespace SecurityDetailsJSON {
     }
 
     export type PortfoliosType = {
-        BondStyleBoxBreakdown: BondStyleBoxBreakdownType[];
-        AssetAllocations: AssetAllocationType[]
-        RegionalExposure: RegionalExposureType[]
-        GlobalStockSectorBreakdown: GlobalStockSectorBreakdownType[]
-        CountryExposure: CountryExposureType[]
-        PortfolioHoldings: PortfolioHoldingsType[]
-        MarketCapitalBreakdown: GenericBreakdownType[]
-        IndustryBreakdown: GenericBreakdownType[]
-        IndustryGroupBreakdown: GenericBreakdownType[]
-        CreditQualityBreakdown: GenericBreakdownType[]
+        BondStyleBoxBreakdown?: BondStyleBoxBreakdownType[];
+        AssetAllocations?: AssetAllocationType[]
+        RegionalExposure?: RegionalExposureType[]
+        GlobalStockSectorBreakdown?: GlobalStockSectorBreakdownType[]
+        CountryExposure?: CountryExposureType[]
+        PortfolioHoldings?: PortfolioHoldingsType[]
+        MarketCapitalBreakdown?: GenericBreakdownType[]
+        IndustryBreakdown?: GenericBreakdownType[]
+        IndustryGroupBreakdown?: GenericBreakdownType[]
+        CreditQualityBreakdown?: GenericBreakdownType[]
         BondStatistics?: BondStatisticsType
         StyleBoxBreakdown?: GenericBreakdownType[]
     };

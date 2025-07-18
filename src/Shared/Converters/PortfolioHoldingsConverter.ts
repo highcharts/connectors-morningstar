@@ -76,7 +76,7 @@ export class PortfolioHoldingsConverter extends MorningstarConverter {
 
         // Create table
         const id = security.Id,
-            portfolioHoldings = security.Portfolios[0].PortfolioHoldings;
+            portfolioHoldings = security.Portfolios[0].PortfolioHoldings || [];
 
         // Populate table
         let rowIndex = 0;
