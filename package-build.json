@@ -1,6 +1,6 @@
 {
     "private": true,
-    "version": "1.2.0",
+    "version": "2.0.0",
     "name": "@highcharts/connectors-morningstar",
     "license": "https://shop.highcharts.com/contact/partner-data",
     "description": "Highcharts connectors for Morningstar Direct Web Services",
