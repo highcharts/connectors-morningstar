@@ -23,9 +23,12 @@
 
 
 import type {
-    MorningstarOptions
-} from '../Shared/MorningstarOptions';
-import PerformanceJSON from './PerformanceJSON';
+    PAUSConnectorOptions,
+    PAUSPayload,
+    RequestSettings,
+    Portfolio,
+    Holding
+} from '../Shared/PAUSConnectorOptions';
 
 
 /* *
@@ -34,19 +37,44 @@ import PerformanceJSON from './PerformanceJSON';
  *
  * */
 
-export interface PerformanceOptions extends MorningstarOptions {
-    portfolios?: any;
-    requestSettings?: any;
-    viewId?: string;
+export interface PerformanceOptions extends PAUSConnectorOptions {
+    configId: string;
 }
 
-export interface PerformanceRequestPayload {
-    Portfolios: any[];
-    RequestSettings: {}
-    View?: {
+export interface PerformanceRequestPayload extends PAUSPayload {
+    Config?: {
         Id: string;
     };
+    RequestSettings: PerformanceRequestSettings;
 }
+
+export interface PerformanceRequestSettings extends RequestSettings {
+    includePortfolioCorrelationMatrix?: boolean;
+    initialValue?: number;
+    analysisDateTimePeriod?: string;
+    portfolioPerformanceStartDate?: string;
+    portfolioPerformanceEndDate?: string;
+    enablePerformanceCommonEndDate?: boolean;
+}
+
+export interface PerformancePortfolio extends Portfolio {
+    fees: fees;
+    irrFees: number;
+    holdings: Array<PerformanceHolding>;
+}
+
+export interface fees {
+    annualFeePercent: number;
+    annualFeeFrequency: string;
+}
+
+export interface PerformanceHolding extends Holding {
+    units?: number;
+    value?: number;
+    annualFeePercent?: number;
+    annualFeeFrequency?: string;
+}
+
 
 /* *
  *

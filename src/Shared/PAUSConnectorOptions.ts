@@ -25,10 +25,7 @@
 
 
 import type {
-    MorningstarConverterOptions,
-    MorningstarOptions,
-    MorningstarSecurityOptions,
-    MorningstarMetadata
+    MorningstarOptions
 } from './MorningstarOptions';
 
 
@@ -46,16 +43,16 @@ export interface PAUSConnectorOptions extends MorningstarOptions {
      * Set of fields representing a data set or scenario.
      * Defines the data points to return in the response.
      *
-     * @default 'MFsnapshot'
+     * @default 'All'
      */
-    viewId?: string,
-    requestSettings?: RequestSettings;
-    portfolios?: Array<Portfolio>;
+    viewId: string,
+    requestSettings: RequestSettings;
+    portfolios: Array<Portfolio>;
 }
 
 
 export interface RequestSettings {
-    outputCurrency: string;
+    outputCurrency?: string;
     outputReturnsFrequency: string;
     assetClassGroupConfigs: {
         assetClassGroupConfig: Array<{
@@ -83,6 +80,13 @@ export interface Benchmark {
     holdings: Array<Holding>;
 }
 
+export interface PAUSPayload {
+    Portfolios: Array<Portfolio>;
+    RequestSettings: RequestSettings;
+    View?: {
+        Id: string;
+    };
+}
 
 /* *
  *

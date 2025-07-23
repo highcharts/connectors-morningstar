@@ -45,7 +45,7 @@ export abstract class PAUSConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: PAUSConnectorOptions = {},
+        options: PAUSConnectorOptions,
         dataTables: Array<External.DataTableOptions> = []
     ) {
         super(options, dataTables);
@@ -60,8 +60,6 @@ export abstract class PAUSConnector extends MorningstarConnector {
      *
      * */
 
-
-    // protected api?: MorningstarAPI;
 
     public override readonly options: PAUSConnectorOptions;
 

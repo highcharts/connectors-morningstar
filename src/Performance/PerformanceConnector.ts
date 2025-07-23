@@ -26,7 +26,6 @@ import External from '../Shared/External';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import PAUSConnector from '../Shared/PAUSConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
-import PerformanceJSON from './PerformanceJSON';
 import PerformanceOptions, {
     PerformanceRequestPayload
 } from './PerformanceOptions';
@@ -53,7 +52,7 @@ import PerformanceOptions, {
  * */
 
 // export const DATA_TABLES = [
-//     { key: 'AssetAllocation' },
+//     { key: 'TrailingReturns' },
 // ];
 
 
@@ -75,7 +74,7 @@ export class PerformanceConnector extends PAUSConnector {
 
 
     public constructor (
-        options: PerformanceOptions = {}
+        options: PerformanceOptions
     ) {
         super(
             options
@@ -102,18 +101,22 @@ export class PerformanceConnector extends PAUSConnector {
 
     public override async load (
         options?: PerformanceOptions
-    ): Promise<this> {
+    ): Promise<any> {
         await super.load();
         const userOptions = { ...this.options, ...options };
         const api = this.api = this.api || new MorningstarAPI(userOptions.api);
-        const url = new MorningstarURL(`/portfolioanalysis/v1/performance?langcult=en-US`, api.baseURL);
+        const url =
+            new MorningstarURL('/portfolioanalysis/v1/performance?langcult=en-US', api.baseURL);
 
         const bodyPayload: PerformanceRequestPayload = {
-            Portfolios: userOptions.portfolios || [],
-            RequestSettings: userOptions.requestSettings || {},
             View: {
-                Id: userOptions.viewId || 'default',
-            }
+                Id: this.options.viewId || 'All'
+            },
+            Config: {
+                Id: this.options.configId || 'QuickPortfolio'
+            },
+            RequestSettings: this.options.requestSettings,
+            Portfolios: this.options.portfolios
         };
 
         const response = await api.fetch(url, {
@@ -126,6 +129,7 @@ export class PerformanceConnector extends PAUSConnector {
 
         const json = await response.json() as unknown;
 
+        // eslint-disable-next-line no-console
         console.log('Performance', json);
 
         return this.setModifierOptions(userOptions.dataModifier);

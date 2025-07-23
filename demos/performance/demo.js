@@ -9,9 +9,8 @@ async function displaySecurityDetails (postmanJSON) {
         postman: {
             environmentJSON: postmanJSON
         },
-        view: {
-            id: 'Default'
-        },
+        configId: 'Hypothetical',
+        viewId: 'CorrelationMatrix',
         requestSettings: {
             outputCurrency: 'USD',
             assetClassGroupConfigs: {
