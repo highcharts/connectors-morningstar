@@ -86,4 +86,4 @@ Example:
 
 ## Architecture
 This is a visualization of the Highcharts Morningstar Data Connector:
-![Highcharts Morningstar Data Connector Architecture](../connectors/assets/morningstar-architecture.png)
+![Highcharts Morningstar Data Connector Architecture](architecture.png)
