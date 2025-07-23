@@ -63,7 +63,7 @@ types.
 By default the region of the Morningstar API defaults to the nearest region of
 the Morningstar Direct Web Services based on the browser localization settings.
 If you would like to change the region that is used for data fetching from the API,
-you can define the `url` by setting the `api.options.url` property to Morningstar
+you can define the `url` by setting the `api.url` property to Morningstar
 compatible URL.
 
 Example:
