@@ -23,7 +23,7 @@
 
 
 import type {
-    PAUSConnectorOptions,
+    PAUSOptions,
     PAUSPayload,
     RequestSettings,
     Portfolio,
@@ -37,8 +37,11 @@ import type {
  *
  * */
 
-export interface PerformanceOptions extends PAUSConnectorOptions {
+export interface PerformanceOptions extends PAUSOptions {
     configId: string;
+    langcult?: string;
+    portfolios: Array<PerformancePortfolio>;
+    requestSettings: PerformanceRequestSettings;
 }
 
 export interface PerformanceRequestPayload extends PAUSPayload {
@@ -46,6 +49,7 @@ export interface PerformanceRequestPayload extends PAUSPayload {
         Id: string;
     };
     RequestSettings: PerformanceRequestSettings;
+    Portfolios: Array<PerformancePortfolio>;
 }
 
 export interface PerformanceRequestSettings extends RequestSettings {

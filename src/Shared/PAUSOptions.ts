@@ -37,7 +37,7 @@ import type {
  * */
 
 
-export interface PAUSConnectorOptions extends MorningstarOptions {
+export interface PAUSOptions extends MorningstarOptions {
     /**
      * Unique identifier of a view.
      * Set of fields representing a data set or scenario.
@@ -95,4 +95,4 @@ export interface PAUSPayload {
  * */
 
 
-export default PAUSConnectorOptions;
+export default PAUSOptions;

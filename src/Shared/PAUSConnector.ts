@@ -23,7 +23,7 @@
 
 
 import MorningstarConnector from './MorningstarConnector';
-import PAUSConnectorOptions from './PAUSOptions';
+import PAUSOptions from './PAUSOptions';
 import * as External from './External';
 
 
@@ -45,7 +45,7 @@ export abstract class PAUSConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: PAUSConnectorOptions,
+        options: PAUSOptions,
         dataTables: Array<External.DataTableOptions> = []
     ) {
         super(options, dataTables);
@@ -61,7 +61,7 @@ export abstract class PAUSConnector extends MorningstarConnector {
      * */
 
 
-    public override readonly options: PAUSConnectorOptions;
+    public override readonly options: PAUSOptions;
 
 
     /* *

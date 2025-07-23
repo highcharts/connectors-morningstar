@@ -106,8 +106,9 @@ export class PerformanceConnector extends PAUSConnector {
 
         const userOptions = { ...this.options, ...options };
         const api = this.api = this.api || new MorningstarAPI(userOptions.api);
+        const langcult = userOptions.langcult || 'en-US';
         const url =
-            new MorningstarURL('/portfolioanalysis/v1/performance?langcult=en-US', api.baseURL);
+            new MorningstarURL(`/portfolioanalysis/v1/performance?langcult=${langcult}`, api.baseURL);
 
         const bodyPayload: PerformanceRequestPayload = {
             View: {
