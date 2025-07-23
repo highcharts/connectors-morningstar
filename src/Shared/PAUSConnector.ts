@@ -23,7 +23,7 @@
 
 
 import MorningstarConnector from './MorningstarConnector';
-import PAUSConnectorOptions from './PAUSConnectorOptions';
+import PAUSConnectorOptions from './PAUSOptions';
 import * as External from './External';
 
 

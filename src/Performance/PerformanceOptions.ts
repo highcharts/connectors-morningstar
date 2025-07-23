@@ -7,7 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Sophie Bremer
+ *  - Mateusz Bernacik
  *
  * */
 
@@ -28,7 +28,7 @@ import type {
     RequestSettings,
     Portfolio,
     Holding
-} from '../Shared/PAUSConnectorOptions';
+} from '../Shared/PAUSOptions';
 
 
 /* *

@@ -7,7 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Sophie Bremer
+ *  - Mateusz Bernacik
  *
  * */
 
@@ -103,6 +103,7 @@ export class PerformanceConnector extends PAUSConnector {
         options?: PerformanceOptions
     ): Promise<any> {
         await super.load();
+
         const userOptions = { ...this.options, ...options };
         const api = this.api = this.api || new MorningstarAPI(userOptions.api);
         const url =
