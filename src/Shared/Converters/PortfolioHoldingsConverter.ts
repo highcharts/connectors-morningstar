@@ -76,14 +76,14 @@ export class PortfolioHoldingsConverter extends MorningstarConverter {
 
         // Create table
         const id = security.Id,
-            portfolioHoldings = security.Portfolios[0].PortfolioHoldings;
+            portfolioHoldings = security.Portfolios[0].PortfolioHoldings || [];
 
         // Populate table
         let rowIndex = 0;
 
         for (const holding of portfolioHoldings) {
             for (const key in holding) {
-                const columnName = `PortfolioHoldings_${key}` + (hasMultiple ? `_${id}` : '');
+                const columnName = `${key}` + (hasMultiple ? `_${id}` : '');
                 table.setCell(columnName, rowIndex, holding[key]);
             }
             ++rowIndex;

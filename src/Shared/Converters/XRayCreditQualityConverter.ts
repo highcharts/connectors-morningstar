@@ -6,6 +6,9 @@
  *
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
+ *  Authors:
+ *  - Kamil Musialowski
+ *
  * */
 
 
@@ -19,7 +22,7 @@
  * */
 
 import MorningstarConverter from '../MorningstarConverter';
-import type { XRayConverterOptions } from '../../XRay';
+import { XRayConverterOptions } from '../../XRay';
 
 /* *
  *
@@ -28,7 +31,7 @@ import type { XRayConverterOptions } from '../../XRay';
  * */
 
 
-export class XRayGlobalStockSectorConverter extends MorningstarConverter {
+export class XRayCreditQualityConverter extends MorningstarConverter {
 
 
     /* *
@@ -61,11 +64,11 @@ export class XRayGlobalStockSectorConverter extends MorningstarConverter {
             benchmarkSuffix = isBenchmark ? '_Benchmark' : '',
             json = isBenchmark ? benchmark[0].breakdowns : options.json.breakdowns;
 
-        if (json?.globalStockSector) {
-            for (const sector of json.globalStockSector) {
+        if (json?.creditQuality) {
+            for (const creditQuality of json.creditQuality) {
                 const categoryStr = 'Type' + benchmarkSuffix,
-                    valueStr = `${sector.salePosition}` + benchmarkSuffix,
-                    values = sector.values,
+                    valueStr = creditQuality.salePosition + benchmarkSuffix,
+                    values = creditQuality.values,
                     valueIndex = Object.keys(values);
 
                 for (let i = 0; i < valueIndex.length; i++) {
@@ -85,4 +88,4 @@ export class XRayGlobalStockSectorConverter extends MorningstarConverter {
  * */
 
 
-export default XRayGlobalStockSectorConverter;
+export default XRayCreditQualityConverter;

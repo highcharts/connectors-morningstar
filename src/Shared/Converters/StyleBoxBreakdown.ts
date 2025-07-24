@@ -22,12 +22,13 @@
  * */
 
 
-import {
+import type {
     SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
-import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
+import type SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
 import { getBreakdown } from '../SharedSecurityDetails';
+import { STYLE_BOX_VALUES } from '../Utilities';
 
 /* *
  *
@@ -75,23 +76,21 @@ export class StyleBoxBreakdownConverter extends MorningstarConverter {
                 ...options
             },
             security = userOptions.json as SecurityDetailsJSON.SecurityDetailsResponse,
-            hasMultiple = options.hasMultiple;
-
-        // Create table
-        const id = security.Id,
-            StyleBoxBreakdowns = security.Portfolios[0].StyleBoxBreakdown;
-
-        if (!StyleBoxBreakdowns || !StyleBoxBreakdowns.length) {
-            return;
-        }
+            hasMultiple = options.hasMultiple,
+            id = security.Id,
+            columnStrPostfix = hasMultiple ? `_${id}` : '',
+            StyleBoxBreakdowns = security.Portfolios[0].StyleBoxBreakdown || [];
 
         getBreakdown(
             id,
             StyleBoxBreakdowns,
             table,
-            'StyleBoxBreakdown',
             !!hasMultiple
         );
+
+        // Set destructured x & y values
+        table.setColumn('Style' + columnStrPostfix, STYLE_BOX_VALUES.X);
+        table.setColumn('Size' + columnStrPostfix, STYLE_BOX_VALUES.Y);
     }
 }
 

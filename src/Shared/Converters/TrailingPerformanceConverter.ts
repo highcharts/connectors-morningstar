@@ -10,6 +10,7 @@
  *  - Sophie Bremer
  *  - Pawel Lysy
  *  - Askel Eirik Johansson
+ *  - Jedrzej Ruta
  *
  * */
 
@@ -24,10 +25,10 @@
  * */
 
 
-import {
+import type {
     SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
-import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
+import type SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
 
 /* *
@@ -70,30 +71,25 @@ export class TrailingPerformanceConverter extends MorningstarConverter {
                 ...options
             },
             security = userOptions.json as SecurityDetailsJSON.SecurityDetailsResponse,
-            hasMultiple = options.hasMultiple;
+            hasMultiple = options.hasMultiple,
+            id = security.Id,
+            columnStrPostfix = hasMultiple ? `_${id}` : '',
+            trailingPerformance = security.TrailingPerformance || [];
 
+        for (let i = 0, iEnd = trailingPerformance.length; i < iEnd; i++) {
+            const { Return, ReturnType, Type } = trailingPerformance[i],
+                columnStrPrefix = `${ReturnType}_${Type}_`,
+                timePeriodColumnStr = columnStrPrefix + 'TimePeriod' + columnStrPostfix,
+                dateColumnStr = columnStrPrefix + 'Date' + columnStrPostfix,
+                valueColumnStr = columnStrPrefix + 'Value' + columnStrPostfix;
 
-        // Create table
-        const id = security.Id,
-            timePeriodColumnStr = 'TrailingPerformance_TimePeriod' + (hasMultiple ? `_${id}` : ''),
-            valueColumnStr = 'TrailingPerformance_Value' + (hasMultiple ? `_${id}` : '');
+            for (let j = 0, iEnd = Return.length; j < iEnd; ++j) {
+                const { TimePeriod, Date, Value } = Return[j];
 
-        table.setColumn(timePeriodColumnStr);
-        table.setColumn(valueColumnStr);
-
-        const trailingPerformanceReturn = security.TrailingPerformance[0].Return;
-
-        for (let i = 0, iEnd = trailingPerformanceReturn.length; i < iEnd; ++i) {
-            table.setCell(
-                timePeriodColumnStr,
-                i,
-                trailingPerformanceReturn[i].TimePeriod
-            );
-            table.setCell(
-                valueColumnStr,
-                i,
-                trailingPerformanceReturn[i].Value
-            );
+                table.setCell(timePeriodColumnStr, j, TimePeriod);
+                table.setCell(dateColumnStr, j, Date);
+                table.setCell(valueColumnStr, j, Value);
+            }
         }
     }
 }

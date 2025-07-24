@@ -22,10 +22,10 @@
  * */
 
 
-import {
+import type {
     SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
-import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
+import type SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
 import { getBreakdown } from '../SharedSecurityDetails';
 
@@ -76,17 +76,14 @@ export class CreditQualityBreakdownConverter extends MorningstarConverter {
                 ...options
             },
             security = userOptions.json as SecurityDetailsJSON.SecurityDetailsResponse,
-            hasMultiple = options.hasMultiple;
-
-        // Update table
-        const id = security.Id,
-            creditQualityBD = security.Portfolios[0].CreditQualityBreakdown;
+            hasMultiple = options.hasMultiple,
+            id = security.Id,
+            creditQualityBD = security.Portfolios[0].CreditQualityBreakdown || [];
 
         getBreakdown(
             id,
             creditQualityBD,
             table,
-            'CreditQualityBreakdown',
             !!hasMultiple
         );
     }
