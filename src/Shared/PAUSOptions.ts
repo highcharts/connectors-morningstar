@@ -53,7 +53,7 @@ export interface PAUSOptions extends MorningstarOptions {
 
 export interface RequestSettings {
     outputCurrency?: string;
-    outputReturnsFrequency: string;
+    outputReturnsFrequency?: string;
     assetClassGroupConfigs: {
         assetClassGroupConfig: Array<{
             id: string;
@@ -73,6 +73,9 @@ export interface Holding {
     securityId?: string;
     type?: string;
     weight?: number;
+    tradingSymbol?: string;
+    isin?: string;
+    cusip?: string;
 }
 
 export interface Benchmark {
