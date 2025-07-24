@@ -32,6 +32,7 @@ import * as Shared from './Shared/index';
 import TimeSeries from './TimeSeries/index';
 import { version } from './version';
 import XRay from './XRay/index';
+import Performance from './Performance/index';
 
 /* *
  *
@@ -50,6 +51,7 @@ export * as Shared from './Shared/index';
 export * from './TimeSeries/index';
 export { version } from './version';
 export * from './XRay/index';
+export * from './Performance/index';
 
 /* *
  *
@@ -68,5 +70,6 @@ export default {
     XRay,
     InvestmentScreener,
     InvestorPreferences,
+    Performance,
     version
 };
