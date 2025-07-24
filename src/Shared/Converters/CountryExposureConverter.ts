@@ -24,10 +24,10 @@
  * */
 
 
-import {
+import type {
     SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
-import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
+import type SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
 
 /* *
@@ -70,50 +70,30 @@ export class CountryExposureConverter extends MorningstarConverter {
                 ...options
             },
             security = userOptions.json as SecurityDetailsJSON.SecurityDetailsResponse,
-            hasMultiple = options.hasMultiple;
+            hasMultiple = options.hasMultiple,
+            id = security.Id,
+            columnStrPostfix = hasMultiple ? `_${id}` : '',
+            countryExposure = security.Portfolios[0].CountryExposure || [],
+            notClassifiedStr = 'NotClassified' + columnStrPostfix,
+            countryExpTypeStr = 'Type' + columnStrPostfix;
 
-
-        // Prepare table
-
-        // Add country exposure to table
-
-
-
-        // Create table
-        const id = security.Id,
-            countryExposure = security.Portfolios[0].CountryExposure,
-            assetStr = 'CountryExposure_Assets' + (hasMultiple ? `_${id}` : ''),
-            notClassifiedStr = 'CountryExposure_NotClassified' + (hasMultiple ? `_${id}` : ''),
-            countryExpTypeStr = 'CountryExposure_Type' + (hasMultiple ? `_${id}` : '');
-
-        table.setColumn(assetStr);
-        table.setColumn(notClassifiedStr);
         table.setColumn(countryExpTypeStr);
+        table.setColumn(notClassifiedStr);
 
         for (let i = 0; i < countryExposure.length; i++) {
-            const asset = countryExposure[i],
-                colStr =
-                    `CountryExposure_${asset.Type}_${asset.SalePosition}` +
-                    (hasMultiple ? `_${id}` : '');
+            const { SalePosition, BreakdownValues, NotClassified, Type } = countryExposure[i],
+                colStr = `${Type}_${SalePosition}` + columnStrPostfix;
 
             table.setColumn(colStr);
 
             // Populate NotClassified for all assets.
-            table.setCell(assetStr, i, `${asset.Type}_${asset.SalePosition}`);
-            table.setCell(notClassifiedStr, i, asset.NotClassified);
+            table.setCell(notClassifiedStr, i, NotClassified);
 
-            for (let j = 0; j < asset.BreakdownValues.length; j++) {
-                table.setCell(
-                    colStr,
-                    j,
-                    asset.BreakdownValues[j].Value
-                );
+            for (let j = 0; j < BreakdownValues.length; j++) {
+                const { Type, Value } = BreakdownValues[j];
 
-                table.setCell(
-                    countryExpTypeStr,
-                    j,
-                    asset.BreakdownValues[j].Type
-                );
+                table.setCell(countryExpTypeStr, j, Type);
+                table.setCell(colStr, j, Value);
             }
         }
     }

@@ -63,8 +63,8 @@ export class XRayRegionalExposureConverter extends MorningstarConverter {
 
         if (json?.regionalExposure) {
             for (const exposure of json.regionalExposure) {
-                const categoryStr = `${exposure.salePosition}_Categories` + benchmarkSuffix,
-                    valueStr = `${exposure.salePosition}_Values` + benchmarkSuffix,
+                const categoryStr = 'Type' + benchmarkSuffix,
+                    valueStr = `${exposure.salePosition}` + benchmarkSuffix,
                     values = exposure.values,
                     valueIndex = Object.keys(values);
 

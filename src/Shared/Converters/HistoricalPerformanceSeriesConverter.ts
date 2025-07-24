@@ -22,10 +22,10 @@
  * */
 
 
-import {
+import type {
     SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
-import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
+import type SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
 
 /* *
@@ -74,34 +74,24 @@ export class HistoricalPerformanceSeriesConverter extends MorningstarConverter {
                 ...options
             },
             security = userOptions.json as SecurityDetailsJSON.SecurityDetailsResponse,
-            hasMultiple = options.hasMultiple;
+            hasMultiple = options.hasMultiple,
+            id = security.Id,
+            columnStrPostfix = hasMultiple ? `_${id}` : '',
+            historicalPerformance = security.HistoricalPerformanceSeries || [];
 
-        // Create table
-        const id = security.Id,
-            HistoricalPerformance = security.HistoricalPerformanceSeries;
-
-        if (!HistoricalPerformance || !HistoricalPerformance.length) {
-            return;
-        }
-
-        for (let i = 0, iEnd = HistoricalPerformance.length; i < iEnd; i++) {
-            const { ReturnType, TimePeriod, Frequency } = HistoricalPerformance[i],
+        for (let i = 0, iEnd = historicalPerformance.length; i < iEnd; i++) {
+            const { ReturnType, TimePeriod, Frequency, Return } = historicalPerformance[i],
                 columnStr = `${ReturnType}_${TimePeriod}_${Frequency}`,
-                Return = HistoricalPerformance[i].Return;
+                dateColumnStr = columnStr + '_Date' + columnStrPostfix,
+                valueColumnStr = columnStr + '_Value' + columnStrPostfix;
 
+            // Run loop backwards due to descending order of dates
             for (let j = Return.length - 1; j >= 0; j--) {
-                table.setCell(
-                    columnStr + '_Date' + (hasMultiple ? `_${id}` : ''),
-                    Return.length - 1 - j,
-                    Return[j].Date
-                );
-                table.setCell(
-                    columnStr + '_Value' + (hasMultiple ? `_${id}` : ''),
-                    Return.length - 1 - j,
-                    Return[j].Value
-                );
-            }
+                const { Date, Value } = Return[j];
 
+                table.setCell(dateColumnStr, Return.length - 1 - j, Date);
+                table.setCell(valueColumnStr, Return.length - 1 - j, Value);
+            }
         }
     }
 }

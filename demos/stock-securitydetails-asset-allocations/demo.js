@@ -28,9 +28,9 @@ async function displayAssetAllocations (postmanJSON) {
         '99': 'Unclassified'
     };
 
-    const chartData = connector.dataTables['AssetAllocations'].getRowObjects().map(item => ({
-        name: typeMapping[item.AssetAllocations_Type],
-        y: item.AssetAllocations_MorningstarEUR3_N
+    const chartData = connector.dataTables.AssetAllocations.getRowObjects().map(item => ({
+        name: typeMapping[item.MorningstarEUR3_Type],
+        y: item.MorningstarEUR3_N
     }));
 
     Highcharts.chart('container', {

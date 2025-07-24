@@ -1,6 +1,46 @@
 Changelog
 =========
 
+v2.0.0
+------
+
+## What's Changed
+
+### Bugfixes
+* Security Details (SD): Fixed empty columns in `MetaConverter` in https://github.com/highcharts/connectors-morningstar/pull/105
+
+### Enhancements
+* Refactored Security details (SD) and compare to support multi data table in https://github.com/highcharts/connectors-morningstar/pull/95
+* Refactored Portfolio Analysis XRay (EMEA/APAC) to support multiple converters and multi data tables in https://github.com/highcharts/connectors-morningstar/pull/96
+* Portfolio Analysis XRay (EMEA/APAC): Added `CreditQuality` converter in https://github.com/highcharts/connectors-morningstar/pull/107
+* Portfolio Analysis XRay (EMEA/APAC): Added respective columns for std. dev periods and values in https://github.com/highcharts/connectors-morningstar/pull/102
+* Portfolio Analysis XRay (EMEA/APAC): Added support for multiple types of `DataPoints` in https://github.com/highcharts/connectors-morningstar/pull/108
+* Portfolio Analysis XRay (EMEA/APAC):   Added mapped `x` & `y` categories to all `StyleBox` converters in https://github.com/highcharts/connectors-morningstar/pull/110
+* Security Details (SD): Added Historical Performance Converter in https://github.com/highcharts/connectors-morningstar/pull/104
+* Security Details (SD): Added mapped `x` & `y` categories to all `StyleBox` converters in https://github.com/highcharts/connectors-morningstar/pull/110
+
+### Upgrade notes
+
+1. Security Details (SD): Adjusted `SecurityDetails` & `SecurityCompare` connectors' column names to match the naming convention.
+Previously, connectors could return only one data type. This has now been updated to support multiple data tables per connector, reducing number of requests and improving flexibility. Key changes include:
+
+    - Added support for multiple converter types available in one connector: `converters: ['AssetAllocations', 'RegionalExposure']`. Setting converter.type is still available for backwards compatibility.
+    - Each returned converter type is now accessible via a key in the `dataTables`, so in order to access data use `connector.dataTables['AssetAllocations']` or `connector.dataTables.AssetAllocations`, instead of the `connector.table`
+    - Full list of renamed column names for converters: https://github.com/highcharts/connectors-morningstar/pull/109
+
+2. Portfolio Analysis XRay (EMEA/APAC): Adjusted `XRay` column names to match the naming convention.
+Previously, all of the returned data points were stored in one table. This has now been updated to support multiple data tables per connector, reducing number of requests and improving flexibility. Key changes include:
+
+    - Added splitting returned data points from connectors to multiple data tables.
+    - Added missing properties like `Type/ReturnType/Date/...`  to column names.
+    - Added `_Benchmark` suffix for all columns generated from benchmark data point type.
+    - Each returned data point is now accessible via a key in the `dataTables`, so in order to access data use `connector.dataTables['StyleBox']` or `connector.dataTables.StyleBox`, instead of the `connector.table`
+    - Removed connector and converter name from column name.
+    - Full list of renamed column names for converters: https://github.com/highcharts/connectors-morningstar/pull/111 
+
+
+**Full Changelog**: https://github.com/highcharts/connectors-morningstar/compare/v1.3.0...v2.0.0
+
 v1.3.0
 ------
 

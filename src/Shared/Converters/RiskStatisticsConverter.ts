@@ -62,17 +62,35 @@ export class RiskStatisticsConverter extends MorningstarConverter {
             json = isBenchmark ? benchmark[0].riskStatistics : options.json.riskStatistics;
 
         if (json?.sharpeRatio) {
+            let i = 0;
             for (const sharpeRatio of json.sharpeRatio) {
-                const columnName = `SharpeRatio_${sharpeRatio.frequency}_${sharpeRatio.timePeriod}` + benchmarkSuffix;
-                table.setCell(columnName, 0, sharpeRatio.value);
+                table.setCell(
+                    'SharpeRatio_TimePeriod' + benchmarkSuffix,
+                    i,
+                    sharpeRatio.timePeriod
+                );
+                table.setCell(
+                    'SharpeRatio' + benchmarkSuffix,
+                    i,
+                    sharpeRatio.value
+                );
+                i++;
             }
         }
 
         if (json?.standardDeviation) {
             let i = 0;
             for (const standardDeviation of json.standardDeviation) {
-                table.setCell('StandardDeviation_TimePeriod', i, standardDeviation.timePeriod);
-                table.setCell('StandardDeviation_Values', i, standardDeviation.value);
+                table.setCell(
+                    'StandardDeviation_TimePeriod' + benchmarkSuffix,
+                    i,
+                    standardDeviation.timePeriod
+                );
+                table.setCell(
+                    'StandardDeviation' + benchmarkSuffix,
+                    i,
+                    standardDeviation.value
+                );
                 i++;
             }
         }

@@ -20,6 +20,7 @@
 
 import MorningstarConverter from '../MorningstarConverter';
 import type { XRayConverterOptions } from '../../XRay';
+import { STYLE_BOX_VALUES } from '../Utilities';
 
 /* *
  *
@@ -63,8 +64,8 @@ export class XRayStyleBoxConverter extends MorningstarConverter {
 
         if (json?.styleBox) {
             for (const styleBox of json.styleBox) {
-                const categoryStr = `${styleBox.salePosition}_Categories` + benchmarkSuffix,
-                    valueStr = `${styleBox.salePosition}_Values` + benchmarkSuffix,
+                const categoryStr = 'Type' + benchmarkSuffix,
+                    valueStr = `${styleBox.salePosition}` + benchmarkSuffix,
                     values = styleBox.values,
                     valueIndex = Object.keys(values);
 
@@ -72,6 +73,10 @@ export class XRayStyleBoxConverter extends MorningstarConverter {
                     table.setCell(categoryStr, i, valueIndex[i]);
                     table.setCell(valueStr, i, values[parseInt(valueIndex[i])]);
                 }
+
+                // Set destructured x & y values
+                table.setColumn('Style' + benchmarkSuffix, STYLE_BOX_VALUES.X);
+                table.setColumn('Size' + benchmarkSuffix, STYLE_BOX_VALUES.Y);
             }
         }
     }

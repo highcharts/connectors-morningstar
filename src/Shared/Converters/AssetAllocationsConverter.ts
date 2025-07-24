@@ -24,10 +24,10 @@
  * */
 
 
-import {
+import type {
     SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
-import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
+import type SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
 
 /* *
@@ -70,35 +70,21 @@ export class AssetAllocationsConverter extends MorningstarConverter {
                 ...options
             },
             security = userOptions.json as SecurityDetailsJSON.SecurityDetailsResponse,
-            hasMultiple = options.hasMultiple;
-
-        // Create table
-        const id = security.Id,
-            assetAllocations = security.Portfolios[0].AssetAllocations,
-            assetAllocationsTypeStr =
-            'AssetAllocations_Type' + (hasMultiple ? `_${id}` : '');
-
-        table.setColumn(assetAllocationsTypeStr);
+            hasMultiple = options.hasMultiple,
+            id = security.Id,
+            columnStrPostfix = hasMultiple ? `_${id}` : '',
+            assetAllocations = security.Portfolios[0].AssetAllocations || [];
 
         for (let i = 0; i < assetAllocations.length; i++) {
-            const asset = assetAllocations[i],
-                assetAllocationsAssetStr =
-                `AssetAllocations_${asset.Type}_${asset.SalePosition}` +
-                (hasMultiple ? `_${id}` : '');
-            table.setColumn(assetAllocationsAssetStr);
+            const { Type, SalePosition, BreakdownValues } = assetAllocations[i],
+                assetAllocationsAssetStr = `${Type}_${SalePosition}` + columnStrPostfix,
+                assetAllocationsTypeStr = `${Type}_` + 'Type' + columnStrPostfix;
 
-            for (let j = 0; j < asset.BreakdownValues.length; j++) {
-                table.setCell(
-                    assetAllocationsAssetStr,
-                    j,
-                    asset.BreakdownValues[j].Value
-                );
+            for (let j = 0; j < BreakdownValues.length; j++) {
+                const { Type, Value } = BreakdownValues[j];
 
-                table.setCell(
-                    assetAllocationsTypeStr,
-                    j,
-                    asset.BreakdownValues[j].Type
-                );
+                table.setCell(assetAllocationsTypeStr, j, Type);
+                table.setCell(assetAllocationsAssetStr, j, Value);
             }
         }
     }

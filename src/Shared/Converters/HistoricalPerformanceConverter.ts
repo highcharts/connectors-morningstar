@@ -62,8 +62,10 @@ export class HistoricalPerformanceConverter extends MorningstarConverter {
             json = isBenchmark ? benchmark[0] : options.json;
 
         for (const historicalPerformance of json.historicalPerformanceSeries || []) {
-            const periodRowId = `${historicalPerformance.returnType}_${historicalPerformance.timePeriod}` + benchmarkSuffix;
-            const valueRowId = `${historicalPerformance.returnType}_${historicalPerformance.timePeriod}_Value` + benchmarkSuffix;
+            const { returnType, timePeriod, frequency } = historicalPerformance,
+                columnString = `${returnType}_${timePeriod}_${frequency}`,
+                periodRowId = `${columnString}_Date` + benchmarkSuffix,
+                valueRowId = `${columnString}_Value` + benchmarkSuffix;
 
             let rowIndex = 0;
 

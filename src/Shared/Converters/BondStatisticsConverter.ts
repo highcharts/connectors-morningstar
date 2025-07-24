@@ -22,10 +22,10 @@
  * */
 
 
-import {
+import type {
     SecurityDetailsConverterOptions
 } from '../../SecurityDetails/SecurityDetailsOptions';
-import SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
+import type SecurityDetailsJSON from '../../SecurityDetails/SecurityDetailsJSON';
 import MorningstarConverter from '../MorningstarConverter';
 
 /* *
@@ -68,20 +68,15 @@ export class BondStatisticsConverter extends MorningstarConverter {
                 ...options
             },
             security = userOptions.json as SecurityDetailsJSON.SecurityDetailsResponse,
-            hasMultiple = options.hasMultiple;
-
-        // Update table
-        const id = security.Id,
-            bondStatistics = security.Portfolios[0].BondStatistics;
-
-        if (!bondStatistics) {
-            return;
-        }
+            hasMultiple = options.hasMultiple,
+            id = security.Id,
+            columnStrPostfix = hasMultiple ? `_${id}` : '',
+            bondStatistics = security.Portfolios[0].BondStatistics || {};
 
         type BondStatisticsKey = keyof SecurityDetailsJSON.BondStatisticsType;
+
         for (const key of Object.keys(bondStatistics) as BondStatisticsKey[]) {
-            const colName = key + (hasMultiple ? `_${id}` : '');
-            table.setColumn(colName);
+            const colName = key + columnStrPostfix;
             table.setCell(colName, 0, bondStatistics[key]);
         }
     }
