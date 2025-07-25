@@ -56,8 +56,10 @@ export class TestConverter extends MorningstarConverter {
 
 
     public override parse (
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        options: XRayUSConverterOptions
+        // eslint-disable-next-line
+        options: XRayUSConverterOptions,
+        // eslint-disable-next-line
+        hasMultiple?: boolean
     ): void {
         const table = this.table;
 

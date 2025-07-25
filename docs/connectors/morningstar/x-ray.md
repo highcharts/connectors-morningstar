@@ -146,6 +146,8 @@ const americasXRayConnector = new HighchartsConnectors.Morningstar.XRayUSConnect
 });
 ```
 
+Americas X-Ray API supports multiple portfolios return. Simply add more portfolio objects to `portfolios` array to utilize multiple X-Ray returns in one API request.
+
 ## How to get data from the connector above
 ```js
 await americasXRayConnector.load();

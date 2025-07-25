@@ -130,11 +130,13 @@ export class XRayUSConnector extends PAUSConnector {
         const json = await response.json() as XRayUSJSON.XRayUSResponse;
 
         for (const { key } of DATA_TABLES) {
-            const converter = initConverter(key);
+            const converter = initConverter(key),
+                hasMultiple = json.XRay.length > 1;
 
             for (const XRay of json.XRay) {
                 converter.parse({
-                    json: XRay
+                    json: XRay,
+                    hasMultiple
                 });
             }
 

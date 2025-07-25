@@ -61,6 +61,7 @@ export interface XRayUSPortfolio extends Portfolio {
 
 export interface XRayUSConverterOptions extends MorningstarConverterOptions {
     json: XRayUSJSON.XRayUS;
+    hasMultiple?: boolean;
 }
 
 /* *
