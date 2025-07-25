@@ -46,14 +46,16 @@ export interface PAUSOptions extends MorningstarOptions {
      * @default 'All'
      */
     viewId: string,
+    configId: string;
     requestSettings: RequestSettings;
     portfolios: Array<Portfolio>;
+    langcult?: string;
 }
 
 
 export interface RequestSettings {
     outputCurrency?: string;
-    outputReturnsFrequency: string;
+    outputReturnsFrequency?: string;
     assetClassGroupConfigs: {
         assetClassGroupConfig: Array<{
             id: string;
@@ -73,6 +75,11 @@ export interface Holding {
     securityId?: string;
     type?: string;
     weight?: number;
+    value?: number;
+    units?: number;
+    tradingSymbol?: string;
+    isin?: string;
+    cusip?: string;
 }
 
 export interface Benchmark {
@@ -81,11 +88,14 @@ export interface Benchmark {
 }
 
 export interface PAUSPayload {
-    Portfolios: Array<Portfolio>;
-    RequestSettings: RequestSettings;
-    View?: {
-        Id: string;
+    view?: {
+        id: string;
     };
+    config: {
+        id: string;
+    };
+    requestSettings: RequestSettings;
+    portfolios: Array<Portfolio>;
 }
 
 /* *

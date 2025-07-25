@@ -39,17 +39,13 @@ import type {
 
 export interface PerformanceOptions extends PAUSOptions {
     configId: string;
-    langcult?: string;
     portfolios: Array<PerformancePortfolio>;
     requestSettings: PerformanceRequestSettings;
 }
 
 export interface PerformanceRequestPayload extends PAUSPayload {
-    Config?: {
-        Id: string;
-    };
-    RequestSettings: PerformanceRequestSettings;
-    Portfolios: Array<PerformancePortfolio>;
+    requestSettings: PerformanceRequestSettings;
+    portfolios: Array<PerformancePortfolio>;
 }
 
 export interface PerformanceRequestSettings extends RequestSettings {

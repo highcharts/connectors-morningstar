@@ -7,7 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Mateusz Bernacik
+ *  - Kamil Musialowski
  *
  * */
 
@@ -26,10 +26,10 @@ import External from '../Shared/External';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import PAUSConnector from '../Shared/PAUSConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
-import PerformanceOptions, {
-    PerformanceRequestPayload
-} from './PerformanceOptions';
+import { DATA_TABLES, initConverter } from '../Shared/SharedXRayUS';
 
+import type XRayUSJSON from './XRayUSJSON';
+import type { XRayUSOptions, XRayUSMetadata, XRayUSRequestPayload } from './XRayUSOptions';
 
 /* *
  *
@@ -51,10 +51,6 @@ import PerformanceOptions, {
  *
  * */
 
-// export const DATA_TABLES = [
-//     { key: 'TrailingReturns' },
-// ];
-
 
 /* *
  *
@@ -63,7 +59,7 @@ import PerformanceOptions, {
  * */
 
 
-export class PerformanceConnector extends PAUSConnector {
+export class XRayUSConnector extends PAUSConnector {
 
 
     /* *
@@ -74,11 +70,9 @@ export class PerformanceConnector extends PAUSConnector {
 
 
     public constructor (
-        options: PerformanceOptions
+        options: XRayUSOptions
     ) {
-        super(
-            options
-        );
+        super(options, DATA_TABLES);
 
         this.options = options;
     }
@@ -90,7 +84,11 @@ export class PerformanceConnector extends PAUSConnector {
      *
      * */
 
-    public override readonly options: PerformanceOptions;
+    public override readonly options: XRayUSOptions;
+
+    public override metadata: XRayUSMetadata = {
+        columns: {}
+    };
 
     /* *
      *
@@ -100,7 +98,7 @@ export class PerformanceConnector extends PAUSConnector {
 
 
     public override async load (
-        options?: PerformanceOptions
+        options?: XRayUSOptions
     ): Promise<any> {
         await super.load();
 
@@ -108,14 +106,14 @@ export class PerformanceConnector extends PAUSConnector {
         const api = this.api = this.api || new MorningstarAPI(userOptions.api);
         const langcult = userOptions.langcult || 'en-US';
         const url =
-            new MorningstarURL(`/portfolioanalysis/v1/performance?langcult=${langcult}`, api.baseURL);
+            new MorningstarURL(`/portfolioanalysis/v1/xray?langcult=${langcult}`, api.baseURL);
 
-        const bodyPayload: PerformanceRequestPayload = {
+        const bodyPayload: XRayUSRequestPayload = {
             view: {
                 id: this.options.viewId || 'All'
             },
             config: {
-                id: this.options.configId || 'QuickPortfolio'
+                id: this.options.configId || 'Default'
             },
             requestSettings: this.options.requestSettings,
             portfolios: this.options.portfolios
@@ -129,10 +127,25 @@ export class PerformanceConnector extends PAUSConnector {
             method: 'POST'
         });
 
-        const json = await response.json() as unknown;
+        const json = await response.json() as XRayUSJSON.XRayUSResponse;
 
-        // eslint-disable-next-line no-console
-        console.log('Performance', json);
+        for (const { key } of DATA_TABLES) {
+            const converter = initConverter(key),
+                hasMultiple = json.XRay.length > 1;
+
+            for (const XRay of json.XRay) {
+                converter.parse({
+                    json: XRay,
+                    hasMultiple
+                });
+            }
+
+            this.dataTables[key].setColumns(converter.getTable().getColumns());
+        }
+
+        this.metadata = {
+            columns: {}
+        };
 
         return this.setModifierOptions(userOptions.dataModifier);
     }
@@ -149,12 +162,12 @@ export class PerformanceConnector extends PAUSConnector {
 
 declare module '@highcharts/dashboards/es-modules/Data/Connectors/DataConnectorType' {
     interface DataConnectorTypes {
-        MorningstarPerformance: typeof PerformanceConnector
+        MorningstarXRayUS: typeof XRayUSConnector
     }
 }
 
 
-External.DataConnector.registerType('MorningstarPerformance', PerformanceConnector);
+External.DataConnector.registerType('MorningstarXRayUS', XRayUSConnector);
 
 
 /* *
@@ -164,4 +177,4 @@ External.DataConnector.registerType('MorningstarPerformance', PerformanceConnect
  * */
 
 
-export default PerformanceConnector;
+export default XRayUSConnector;
