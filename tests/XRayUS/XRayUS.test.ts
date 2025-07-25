@@ -5,7 +5,10 @@ export async function somethingLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.XRayUSConnector({
-        api,
+        api: {
+            ...api,
+            url: 'https://www.us-api.morningstar.com/'
+        },
         viewId: 'Snapshot',
         configId: 'Default',
         requestSettings: {
