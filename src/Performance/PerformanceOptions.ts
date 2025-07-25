@@ -39,7 +39,6 @@ import type {
 
 export interface PerformanceOptions extends PAUSOptions {
     configId: string;
-    langcult?: string;
     portfolios: Array<PerformancePortfolio>;
     requestSettings: PerformanceRequestSettings;
 }

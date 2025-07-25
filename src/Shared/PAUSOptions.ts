@@ -46,8 +46,10 @@ export interface PAUSOptions extends MorningstarOptions {
      * @default 'All'
      */
     viewId: string,
+    configId: string;
     requestSettings: RequestSettings;
     portfolios: Array<Portfolio>;
+    langcult?: string;
 }
 
 
@@ -73,6 +75,8 @@ export interface Holding {
     securityId?: string;
     type?: string;
     weight?: number;
+    value?: number;
+    units?: number;
     tradingSymbol?: string;
     isin?: string;
     cusip?: string;

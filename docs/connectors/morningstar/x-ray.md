@@ -88,8 +88,10 @@ Example request:
 
 ```js
 const americasXRayConnector = new HighchartsConnectors.Morningstar.XRayUSConnector({
-    postman: {
-        environmentJSON: postmanJSON
+    api: {
+        access: {
+            token: 'JWT token'
+        }
     },
     viewId: 'Snapshot',
     configId: 'Default',
