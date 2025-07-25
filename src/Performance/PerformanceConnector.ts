@@ -111,14 +111,14 @@ export class PerformanceConnector extends PAUSConnector {
             new MorningstarURL(`/portfolioanalysis/v1/performance?langcult=${langcult}`, api.baseURL);
 
         const bodyPayload: PerformanceRequestPayload = {
-            View: {
-                Id: this.options.viewId || 'All'
+            view: {
+                id: this.options.viewId || 'All'
             },
-            Config: {
-                Id: this.options.configId || 'QuickPortfolio'
+            config: {
+                id: this.options.configId || 'QuickPortfolio'
             },
-            RequestSettings: this.options.requestSettings,
-            Portfolios: this.options.portfolios
+            requestSettings: this.options.requestSettings,
+            portfolios: this.options.portfolios
         };
 
         const response = await api.fetch(url, {

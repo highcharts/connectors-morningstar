@@ -88,11 +88,14 @@ export interface Benchmark {
 }
 
 export interface PAUSPayload {
-    Portfolios: Array<Portfolio>;
-    RequestSettings: RequestSettings;
-    View?: {
-        Id: string;
+    view?: {
+        id: string;
     };
+    config: {
+        id: string;
+    };
+    requestSettings: RequestSettings;
+    portfolios: Array<Portfolio>;
 }
 
 /* *

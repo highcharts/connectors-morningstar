@@ -44,11 +44,8 @@ export interface PerformanceOptions extends PAUSOptions {
 }
 
 export interface PerformanceRequestPayload extends PAUSPayload {
-    Config?: {
-        Id: string;
-    };
-    RequestSettings: PerformanceRequestSettings;
-    Portfolios: Array<PerformancePortfolio>;
+    requestSettings: PerformanceRequestSettings;
+    portfolios: Array<PerformancePortfolio>;
 }
 
 export interface PerformanceRequestSettings extends RequestSettings {

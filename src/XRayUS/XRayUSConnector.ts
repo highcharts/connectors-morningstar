@@ -109,14 +109,14 @@ export class XRayUSConnector extends PAUSConnector {
             new MorningstarURL(`/portfolioanalysis/v1/xray?langcult=${langcult}`, api.baseURL);
 
         const bodyPayload: XRayUSRequestPayload = {
-            View: {
-                Id: this.options.viewId || 'All'
+            view: {
+                id: this.options.viewId || 'All'
             },
-            Config: {
-                Id: this.options.configId || 'Default'
+            config: {
+                id: this.options.configId || 'Default'
             },
-            RequestSettings: this.options.requestSettings,
-            Portfolios: this.options.portfolios
+            requestSettings: this.options.requestSettings,
+            portfolios: this.options.portfolios
         };
 
         const response = await api.fetch(url, {

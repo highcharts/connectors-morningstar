@@ -42,11 +42,8 @@ export interface XRayUSOptions extends PAUSOptions {
 }
 
 export interface XRayUSRequestPayload extends PAUSPayload {
-    Config?: {
-        Id: string;
-    };
-    Portfolios: Array<XRayUSPortfolio>;
-    RequestSettings: XRayUSRequestSettings;
+    portfolios: Array<XRayUSPortfolio>;
+    requestSettings: XRayUSRequestSettings;
 }
 
 export interface XRayUSRequestSettings extends RequestSettings {
@@ -54,19 +51,19 @@ export interface XRayUSRequestSettings extends RequestSettings {
      * Currency used to calculate output values.
      * @default 'USD'
      */
-    OutputCurrency: 'USD' | 'CAD' | 'EUR' | 'GBP' | 'AUD';
+    outputCurrency: 'USD' | 'CAD' | 'EUR' | 'GBP' | 'AUD';
 
     /**
      * End date period for the analysis.
      * @default 'MonthEnd'
      */
-    AnalysisDateTimePeriod?: 'MonthEnd' | 'QuarterEnd' | 'YearEnd' | 'CustomDate';
+    analysisDateTimePeriod?: 'MonthEnd' | 'QuarterEnd' | 'YearEnd' | 'CustomDate';
 
     /**
      * Start date of the analysis.
      * @default 'EarliestCommon'
      */
-    PortfolioPerformanceStartDate?:
+    portfolioPerformanceStartDate?:
     | 'EarliestCommon'
     | 'EarliestAvailable'
     | 'EarliestCommonExtended'
@@ -76,49 +73,40 @@ export interface XRayUSRequestSettings extends RequestSettings {
 
     /**
      * End date passed for the analysis. Required when
-     * AnalysisDateTimePeriod is set to CustomDate.
+     * analysisDateTimePeriod is set to CustomDate.
      * @example '2022-10-31'
      */
-    PortfolioPerformanceEndDate?: string;
+    portfolioPerformanceEndDate?: string;
 
     /**
      * When true, if more than one portfolio is being queried, the most recent
      * common end date for the portfolios is passed in the request.
      * @default false
      */
-    EnablePerformanceCommonEndDate?: boolean;
+    enablePerformanceCommonEndDate?: boolean;
 
     /**
      * Month End or Quarter End performance returns and risks.
      * @default 'Monthly'
      */
-    PerformanceFrequency?: 'Monthly' | 'Quarterly';
-
-    /**
-     * Asset class group configs.
-     */
-    AssetClassGroupConfigs?: {
-        assetClassGroupConfig: Array<{
-            id: 'ACG-USBROAD' | 'ACG-USDETAILED-15' | 'ACG-CABROAD';
-        }>;
-    };
+    performanceFrequency?: 'Monthly' | 'Quarterly';
 
     /**
      * Return the specified data sections in the response.
      */
-    ReturnDataSections?: 'CorrelationMatrix' | 'RollingReturns';
+    returnDataSections?: 'CorrelationMatrix' | 'RollingReturns';
 
     /**
      * Enable to include portfolio in correlation matrix.
      * @default false
      */
-    IncludePortfolioInCorrelationMatrix?: boolean;
+    includePortfolioInCorrelationMatrix?: boolean;
 
     /**
      * Frequency of rolling return data. Only works and is the required field
-     * when ReturnDataSections=RollingReturns.
+     * when returnDataSections=RollingReturns.
      */
-    RollingReturnFrequencies?:
+    rollingReturnFrequencies?:
     | 'Month3'
     | 'Month6'
     | 'Year1'
@@ -127,43 +115,43 @@ export interface XRayUSRequestSettings extends RequestSettings {
     | 'Year10';
 
     /**
-     * Rolling return step. Only works when ReturnDataSections=RollingReturns.
+     * Rolling return step. Only works when returnDataSections=RollingReturns.
      * @default 1
      */
-    RollingReturnStep?: number;
+    rollingReturnStep?: number;
 
     /**
      * Maximum number of correlation matrix holdings to return in the response.
      * @default 50
      */
-    MaxCorrelationMatrixHoldingNumber?: number;
+    maxCorrelationMatrixHoldingNumber?: number;
 
     /**
      * Initial value of the portfolio.
      * @default 10000
      */
-    InitialValue?: number;
+    initialValue?: number;
 
     /**
      * When true, both gross and net values are included in the response for
      * trailing returns, MPTStatistics and PerformanceHistory.
      * @default false
      */
-    IncludeGrossNetReturns?: boolean;
+    includeGrossNetReturns?: boolean;
 
     /**
      * This will pick up the latest PerformanceStartDate across the portfolios
      * and set the same against all the portfolios.
      * @default false
      */
-    SynchronizePortfolioStartDate?: boolean;
+    synchronizePortfolioStartDate?: boolean;
 
     /**
      * Custom Start date of the analysis. Required when
      * PortfolioPerformanceStartDate is set to CustomDate.
      * @example '2022-10-31'
      */
-    PortfolioPerformanceCustomStartDate?: string;
+    portfolioPerformanceCustomStartDate?: string;
 }
 
 export interface XRayUSPortfolio extends Portfolio {
