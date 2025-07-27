@@ -23,9 +23,7 @@
 
 
 import External from '../Shared/External';
-import MorningstarAPI from '../Shared/MorningstarAPI';
 import PAUSConnector from '../Shared/PAUSConnector';
-import MorningstarURL from '../Shared/MorningstarURL';
 import PerformanceOptions, {
     PerformanceRequestPayload
 } from './PerformanceOptions';
@@ -97,44 +95,25 @@ export class PerformanceConnector extends PAUSConnector {
      * */
 
 
-    public override async load (
-        options?: PerformanceOptions
-    ): Promise<any> {
-        await super.load();
+    public override async load (): Promise<any> {
+        const url = `/portfolioanalysis/v1/performance?langcult=${this.options.langcult || 'en-US'}`;
+        const response = await super.load(url);
 
-        const userOptions = { ...this.options, ...options };
-        const api = this.api = this.api || new MorningstarAPI(userOptions.api);
-        const langcult = userOptions.langcult || 'en-US';
-        const url =
-            new MorningstarURL(`/portfolioanalysis/v1/performance?langcult=${langcult}`, api.baseURL);
+        // eslint-disable-next-line no-console
+        console.log('Performance', response);
 
-        const bodyPayload: PerformanceRequestPayload = {
-            View: {
-                Id: this.options.viewId || 'All'
-            },
-            Config: {
-                Id: this.options.configId || 'QuickPortfolio'
-            },
+        return this.setModifierOptions(this.options.dataModifier);
+    }
+
+
+    protected getPayload (): PerformanceRequestPayload {
+        return {
+            View: { Id: this.options.viewId || 'All' },
+            Config: { Id: this.options.configId || 'QuickPortfolio' },
             RequestSettings: this.options.requestSettings,
             Portfolios: this.options.portfolios
         };
-
-        const response = await api.fetch(url, {
-            body: JSON.stringify(bodyPayload),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: 'POST'
-        });
-
-        const json = await response.json() as unknown;
-
-        // eslint-disable-next-line no-console
-        console.log('Performance', json);
-
-        return this.setModifierOptions(userOptions.dataModifier);
     }
-
 
 }
 

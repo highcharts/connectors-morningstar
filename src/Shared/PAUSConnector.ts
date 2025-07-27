@@ -23,8 +23,10 @@
 
 
 import MorningstarConnector from './MorningstarConnector';
+import MorningstarURL from './MorningstarURL';
 import type PAUSOptions from './PAUSOptions';
 import * as External from './External';
+import { PAUSPayload } from './PAUSOptions';
 
 
 /* *
@@ -71,11 +73,24 @@ export abstract class PAUSConnector extends MorningstarConnector {
      * */
 
 
-    public override async load (): Promise<any> {
+    public override async load (url?: string): Promise<this> {
         await super.load();
+
+        if (url && this.api) {
+            const fullUrl = new MorningstarURL(url, this.api.baseURL);
+            const bodyPayload = this.getPayload();
+
+            await this.api.fetch(fullUrl, {
+                body: JSON.stringify(bodyPayload),
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST'
+            });
+        }
+
+        return this;
     }
 
-
+    protected abstract getPayload(): PAUSPayload;
 }
 
 
