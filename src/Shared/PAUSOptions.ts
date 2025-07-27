@@ -7,9 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Sophie Bremer
- *  - Pawel Lysy
- *  - Askel Eirik Johansson
+ *  - Mateusz Bernacik
  *
  * */
 

@@ -7,7 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Sophie Bremer
+ *  - Mateusz Bernacik
  *
  * */
 
@@ -23,7 +23,7 @@
 
 
 import MorningstarConnector from './MorningstarConnector';
-import PAUSOptions from './PAUSOptions';
+import type PAUSOptions from './PAUSOptions';
 import * as External from './External';
 
 

@@ -52,7 +52,7 @@ async function displaySecurityDetails (postmanJSON) {
         ]
     });
 
-    connector.load();
+    await connector.load();
 
     loadingLabel.style.display = 'none';
 }

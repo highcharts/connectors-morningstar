@@ -76,9 +76,7 @@ export class PerformanceConnector extends PAUSConnector {
     public constructor (
         options: PerformanceOptions
     ) {
-        super(
-            options
-        );
+        super(options);
 
         this.options = options;
     }
