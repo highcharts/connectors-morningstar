@@ -84,6 +84,7 @@ export class PerformanceConnector extends PAUSConnector {
         super(options, DATA_TABLES);
 
         this.options = options;
+        this.url = `/portfolioanalysis/v1/performance?langcult=${this.options.langcult || 'en-US'}`;
     }
 
 
@@ -95,6 +96,9 @@ export class PerformanceConnector extends PAUSConnector {
 
     public override readonly options: PerformanceOptions;
 
+    protected url: string;
+
+
     /* *
      *
      *  Functions
@@ -103,9 +107,7 @@ export class PerformanceConnector extends PAUSConnector {
 
 
     public override async load (): Promise<any> {
-        const url = `/portfolioanalysis/v1/performance?langcult=${this.options.langcult || 'en-US'}`;
-
-        await super.load(url);
+        await super.load();
 
         const json = await this.response?.json() as PerformanceJSON.PerformanceResponse;
 

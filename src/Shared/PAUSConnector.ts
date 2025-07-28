@@ -68,6 +68,8 @@ export abstract class PAUSConnector extends MorningstarConnector {
 
     public response?: Response;
 
+    protected abstract url: string;
+
 
     /* *
      *
@@ -76,23 +78,21 @@ export abstract class PAUSConnector extends MorningstarConnector {
      * */
 
 
-    public override async load (url?: string): Promise<this> {
+    public override async load (): Promise<this> {
         await super.load();
 
         const api = this.api = this.api || new MorningstarAPI(this.options.api);
 
-        if (url) {
-            const fullUrl = new MorningstarURL(url, this.api.baseURL);
-            const bodyPayload = this.getPayload();
+        const fullUrl = new MorningstarURL(this.url, this.api.baseURL);
+        const bodyPayload = this.getPayload();
 
-            const response = await api.fetch(fullUrl, {
-                body: JSON.stringify(bodyPayload),
-                headers: { 'Content-Type': 'application/json' },
-                method: 'POST'
-            });
+        const response = await api.fetch(fullUrl, {
+            body: JSON.stringify(bodyPayload),
+            headers: { 'Content-Type': 'application/json' },
+            method: 'POST'
+        });
 
-            this.response = response;
-        }
+        this.response = response;
 
         return this;
     }
