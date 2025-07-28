@@ -41,7 +41,6 @@ import type PerformanceJSON from './PerformanceJSON';
 
 export interface PerformanceOptions extends PAUSOptions {
     configId: string;
-    langcult?: string;
     portfolios: Array<PerformancePortfolio>;
     requestSettings: PerformanceRequestSettings;
 }

@@ -84,7 +84,6 @@ export class PerformanceConnector extends PAUSConnector {
         super(options, DATA_TABLES);
 
         this.options = options;
-        this.url = `/portfolioanalysis/v1/performance?langcult=${this.options.langcult || 'en-US'}`;
     }
 
 
@@ -96,7 +95,7 @@ export class PerformanceConnector extends PAUSConnector {
 
     public override readonly options: PerformanceOptions;
 
-    protected url: string;
+    protected url = '/portfolioanalysis/v1/performance';
 
 
     /* *

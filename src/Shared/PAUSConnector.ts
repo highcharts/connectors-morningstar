@@ -83,7 +83,7 @@ export abstract class PAUSConnector extends MorningstarConnector {
 
         const api = this.api = this.api || new MorningstarAPI(this.options.api);
 
-        const fullUrl = new MorningstarURL(this.url, this.api.baseURL);
+        const fullUrl = new MorningstarURL(`${this.url}?langcult=${this.options.langcult || 'en-US'}`, this.api.baseURL);
         const bodyPayload = this.getPayload();
 
         const response = await api.fetch(fullUrl, {
