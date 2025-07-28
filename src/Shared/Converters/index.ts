@@ -38,7 +38,7 @@ import StyleBoxConverter from './StyleBoxBreakdown';
 import BondStyleBoxBreakdownConverter from './BondStyleBoxBreakdownConverter';
 import HistoricalPerformanceSeriesConverter from './HistoricalPerformanceSeriesConverter';
 import XRayCreditQualityConverter from './XRayCreditQualityConverter';
-import TestConverter from './TestConverter';
+import EquityStyleConverter from './EquityStyleConverter';
 
 /* *
  *
@@ -80,7 +80,7 @@ export * from './StyleBoxBreakdown';
 export * from './BondStyleBoxBreakdownConverter';
 export * from './HistoricalPerformanceSeriesConverter';
 export * from './XRayCreditQualityConverter';
-export * from './TestConverter';
+export * from './EquityStyleConverter';
 /* *
  *
  *  Default Export
@@ -113,5 +113,5 @@ export default {
     BondStyleBoxBreakdownConverter,
     HistoricalPerformanceSeriesConverter,
     XRayCreditQualityConverter,
-    TestConverter
+    EquityStyleConverter
 };

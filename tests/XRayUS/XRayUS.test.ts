@@ -68,5 +68,20 @@ export async function xRayUSConnectorLoad (
         'Connector should be instance of XRayUSConnector class.'
     );
 
+    Assert.deepStrictEqual(
+        connector.dataTables.EquityStyle.getColumnNames(),
+        [
+            'Type',
+            'Value'
+        ],
+        'EquityStyle connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.EquityStyle.getRowCount() > 0,
+        'EquityStyle connector should not return empty rows.'
+    );
+
+
     await connector.load();
 }

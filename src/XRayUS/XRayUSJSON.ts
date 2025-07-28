@@ -40,8 +40,20 @@ namespace XRayUSJSON {
     }
 
     export interface XRayUS {
-        // Add more return types here
         PortfolioName: string;
+        Analysis: {
+            InvestmentStyle: InvestmentStyle
+        };
+    }
+
+    export interface InvestmentStyle {
+        EquityStyle: EquityStyle;
+    }
+
+    export interface EquityStyle {
+        EquityStyleBreakdown: {
+            Portfolio: Record<string, number>;
+        };
     }
 
 }
