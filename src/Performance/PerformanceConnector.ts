@@ -24,9 +24,13 @@
 
 import External from '../Shared/External';
 import PAUSConnector from '../Shared/PAUSConnector';
+import { TestConverter } from './Converters';
 import PerformanceOptions, {
-    PerformanceRequestPayload
+    PerformanceRequestPayload,
+    PerformanceConverterOptions
 } from './PerformanceOptions';
+import type MorningstarConverter from '../Shared/MorningstarConverter';
+import PerformanceJSON from './PerformanceJSON';
 
 
 /* *
@@ -38,10 +42,13 @@ import PerformanceOptions, {
 
 /* *
  *
- *  Functions
+ *  Interfaces
  *
  * */
 
+export interface PerformanceConverter extends MorningstarConverter {
+    parse(options: PerformanceConverterOptions): void;
+}
 
 /* *
  *
@@ -49,9 +56,9 @@ import PerformanceOptions, {
  *
  * */
 
-// export const DATA_TABLES = [
-//     { key: 'TrailingReturns' },
-// ];
+export const DATA_TABLES = [
+    { key: 'TestConverter' }
+];
 
 
 /* *
@@ -74,7 +81,7 @@ export class PerformanceConnector extends PAUSConnector {
     public constructor (
         options: PerformanceOptions
     ) {
-        super(options);
+        super(options, DATA_TABLES);
 
         this.options = options;
     }
@@ -97,10 +104,18 @@ export class PerformanceConnector extends PAUSConnector {
 
     public override async load (): Promise<any> {
         const url = `/portfolioanalysis/v1/performance?langcult=${this.options.langcult || 'en-US'}`;
-        const response = await super.load(url);
 
-        // eslint-disable-next-line no-console
-        console.log('Performance', response);
+        await super.load(url);
+
+        const json = await this.response?.json() as PerformanceJSON.PerformanceResponse;
+
+        for (const { key } of DATA_TABLES) {
+            const converter = this.initConverter(key);
+
+            converter.parse({ json: json });
+
+            this.dataTables[key].setColumns(converter.getTable().getColumns());
+        }
 
         return this.setModifierOptions(this.options.dataModifier);
     }
@@ -115,6 +130,15 @@ export class PerformanceConnector extends PAUSConnector {
         };
     }
 
+    private initConverter (key: string): PerformanceConverter {
+        switch (key) {
+            case 'TestConverter':
+                return new TestConverter();
+            default:
+                throw new Error(`Unsupported key: ${key}`);
+        }
+
+    }
 }
 
 /* *

@@ -24,6 +24,7 @@
 
 import MorningstarConnector from './MorningstarConnector';
 import MorningstarURL from './MorningstarURL';
+import MorningstarAPI from './MorningstarAPI';
 import type PAUSOptions from './PAUSOptions';
 import * as External from './External';
 import { PAUSPayload } from './PAUSOptions';
@@ -65,6 +66,8 @@ export abstract class PAUSConnector extends MorningstarConnector {
 
     public override readonly options: PAUSOptions;
 
+    public response?: Response;
+
 
     /* *
      *
@@ -76,15 +79,19 @@ export abstract class PAUSConnector extends MorningstarConnector {
     public override async load (url?: string): Promise<this> {
         await super.load();
 
-        if (url && this.api) {
+        const api = this.api = this.api || new MorningstarAPI(this.options.api);
+
+        if (url) {
             const fullUrl = new MorningstarURL(url, this.api.baseURL);
             const bodyPayload = this.getPayload();
 
-            await this.api.fetch(fullUrl, {
+            const response = await api.fetch(fullUrl, {
                 body: JSON.stringify(bodyPayload),
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST'
             });
+
+            this.response = response;
         }
 
         return this;

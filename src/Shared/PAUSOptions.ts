@@ -51,7 +51,6 @@ export interface PAUSOptions extends MorningstarOptions {
 
 export interface RequestSettings {
     outputCurrency?: string;
-    outputReturnsFrequency: string;
     assetClassGroupConfigs: {
         assetClassGroupConfig: Array<{
             id: string;
