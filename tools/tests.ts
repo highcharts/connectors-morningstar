@@ -136,17 +136,44 @@ async function runUnitTests () {
     let test: unknown;
     let unitTests: Record<string, unknown>;
 
-    for (let path of (await FS.readdir(testFolder, { recursive: true })).sort()) {
+    // Parse test patterns from command line arguments
+    const testPatterns = args._ && typeof args._ === 'string' ? [args._] : [];
 
-        if (
-            !path.endsWith('.test.ts') ||
-            (
-                typeof args.tests === 'string' &&
-                !path.includes(args.tests)
-            )
-        ) {
-            continue;
+    const allTestFiles = (await FS.readdir(testFolder, { recursive: true })).sort();
+    const filteredTestFiles = allTestFiles.filter(path => {
+        if (!path.endsWith('.test.ts')) {
+            return false;
         }
+
+        // If no patterns specified, run all tests
+        if (!testPatterns || testPatterns.length === 0) {
+            return true;
+        }
+
+        const normalizedPath = path.replace(/\\/gu, '/').toLowerCase();
+        return testPatterns.some(pattern => {
+            const normalizedPattern = pattern.replace(/\\/gu, '/').toLowerCase();
+            return normalizedPath.includes(normalizedPattern + '.test.ts') || 
+                   normalizedPath.includes(normalizedPattern + '/');
+        });
+    });
+
+    if (filteredTestFiles.length === 0) {
+        if (testPatterns.length > 0) {
+            console.error(`❌ No test files found matching patterns: ${testPatterns.join(', ')}`);
+            console.error('Available test files:');
+            allTestFiles
+                .filter(path => path.endsWith('.test.ts'))
+                .forEach(path => console.error(`  - ${path}`));
+        } else {
+            console.error('❌ No test files found');
+        }
+        process.exit(1);
+    }
+
+    console.log(`Running ${filteredTestFiles.length} test file(s)...\n`);
+
+    for (let path of filteredTestFiles) {
 
         stdWrite('Start', path.substring(0, path.length - 8), 'tests ...\n');
 
