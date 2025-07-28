@@ -14,7 +14,7 @@ Returned data depends on the selected view and config and may include tracking e
 
 ## Available data converters
 
-Currently the following data points are supported in the XRay converter:
+Currently the following data points are supported in the Performance converter:
 
 - **TrailingReturns**
 

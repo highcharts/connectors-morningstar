@@ -30,7 +30,7 @@ import PerformanceOptions, {
     PerformanceConverterOptions
 } from './PerformanceOptions';
 import type MorningstarConverter from '../Shared/MorningstarConverter';
-import PerformanceJSON from './PerformanceJSON';
+import type PerformanceJSON from './PerformanceJSON';
 
 
 /* *

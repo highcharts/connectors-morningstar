@@ -1,7 +1,7 @@
 import * as Assert from 'node:assert/strict';
 import * as MC from '../../code/connectors-morningstar.src';
 
-export async function xRayUSConnectorLoad (
+export async function PerformanceConnectorLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.PerformanceConnector({
