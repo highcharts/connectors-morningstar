@@ -72,7 +72,9 @@ export async function xRayUSConnectorLoad (
         connector.dataTables.EquityStyle.getColumnNames(),
         [
             'Type',
-            'Value'
+            'Value',
+            'Style',
+            'Size'
         ],
         'EquityStyle connector should return expected column names.'
     );
@@ -86,7 +88,9 @@ export async function xRayUSConnectorLoad (
         connector.dataTables.FixedIncomeStyle.getColumnNames(),
         [
             'Type',
-            'Value'
+            'Value',
+            'Style',
+            'Size'
         ],
         'FixedIncomeStyle connector should return expected column names.'
     );

@@ -83,6 +83,8 @@ For more details, see [Morningstar's APAC/EMEA X-Ray API].
 Currently the following data points are supported in the Americas X-Ray converter:
 
 - **EquityStyle**
+- **FixedIncomeStyle**
+
 
 Example request:
 
