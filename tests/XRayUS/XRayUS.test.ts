@@ -82,6 +82,19 @@ export async function xRayUSConnectorLoad (
         'EquityStyle connector should not return empty rows.'
     );
 
+    Assert.deepStrictEqual(
+        connector.dataTables.FixedIncomeStyle.getColumnNames(),
+        [
+            'Type',
+            'Value'
+        ],
+        'FixedIncomeStyle connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.FixedIncomeStyle.getRowCount() > 0,
+        'FixedIncomeStyle connector should not return empty rows.'
+    );
 
     await connector.load();
 }

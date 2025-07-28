@@ -48,12 +48,17 @@ namespace XRayUSJSON {
 
     export interface InvestmentStyle {
         EquityStyle: EquityStyle;
+        FixedIncomeStyle: FixedIncomeStyle;
     }
 
     export interface EquityStyle {
         EquityStyleBreakdown: {
             Portfolio: Record<string, number>;
         };
+    }
+
+    export interface FixedIncomeStyle {
+        FixedIncomeStyleBreakdown: Record<string, number>;
     }
 
 }

@@ -15,6 +15,7 @@
 'use strict';
 
 import EquityStyleConverter from './EquityStyleConverter';
+import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
 
 
 /* *
@@ -34,7 +35,7 @@ import EquityStyleConverter from './EquityStyleConverter';
 
 
 export * from './EquityStyleConverter';
-
+export * from './FixedIncomeStyleConverter';
 
 /* *
  *
@@ -44,5 +45,6 @@ export * from './EquityStyleConverter';
 
 
 export default {
-    EquityStyleConverter
+    EquityStyleConverter,
+    FixedIncomeStyleConverter
 };
