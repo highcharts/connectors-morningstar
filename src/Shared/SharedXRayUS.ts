@@ -20,7 +20,7 @@
 
 import {
     EquityStyleConverter
-} from './Converters';
+} from './USConverters';
 
 import type MorningstarConverter from './MorningstarConverter';
 import type { XRayUSConverterOptions } from '../XRayUS/XRayUSOptions';
