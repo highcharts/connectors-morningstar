@@ -29,6 +29,8 @@ import type {
     Portfolio,
     Holding
 } from '../Shared/PAUSOptions';
+import type { MorningstarConverterOptions } from '../Shared';
+import type PerformanceJSON from './PerformanceJSON';
 
 
 /* *
@@ -38,7 +40,6 @@ import type {
  * */
 
 export interface PerformanceOptions extends PAUSOptions {
-    configId: string;
     portfolios: Array<PerformancePortfolio>;
     requestSettings: PerformanceRequestSettings;
 }
@@ -58,8 +59,8 @@ export interface PerformanceRequestSettings extends RequestSettings {
 }
 
 export interface PerformancePortfolio extends Portfolio {
-    fees: fees;
-    irrFees: number;
+    fees?: fees;
+    irrFees?: number;
     holdings: Array<PerformanceHolding>;
 }
 
@@ -73,6 +74,10 @@ export interface PerformanceHolding extends Holding {
     value?: number;
     annualFeePercent?: number;
     annualFeeFrequency?: string;
+}
+
+export interface PerformanceConverterOptions extends MorningstarConverterOptions {
+    json: PerformanceJSON.Performance;
 }
 
 

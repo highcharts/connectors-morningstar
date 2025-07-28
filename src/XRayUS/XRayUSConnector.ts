@@ -23,9 +23,7 @@
 
 
 import External from '../Shared/External';
-import MorningstarAPI from '../Shared/MorningstarAPI';
 import PAUSConnector from '../Shared/PAUSConnector';
-import MorningstarURL from '../Shared/MorningstarURL';
 import { DATA_TABLES, initConverter } from '../Shared/SharedXRayUS';
 
 import type XRayUSJSON from './XRayUSJSON';
@@ -86,6 +84,8 @@ export class XRayUSConnector extends PAUSConnector {
 
     public override readonly options: XRayUSOptions;
 
+    protected url = '/portfolioanalysis/v1/xray';
+
     public override metadata: XRayUSMetadata = {
         columns: {}
     };
@@ -97,37 +97,10 @@ export class XRayUSConnector extends PAUSConnector {
      * */
 
 
-    public override async load (
-        options?: XRayUSOptions
-    ): Promise<any> {
+    public override async load (): Promise<any> {
         await super.load();
 
-        const userOptions = { ...this.options, ...options };
-        const api = this.api = this.api || new MorningstarAPI(userOptions.api);
-        const langcult = userOptions.langcult || 'en-US';
-        const url =
-            new MorningstarURL(`/portfolioanalysis/v1/xray?langcult=${langcult}`, api.baseURL);
-
-        const bodyPayload: XRayUSRequestPayload = {
-            view: {
-                id: this.options.viewId || 'All'
-            },
-            config: {
-                id: this.options.configId || 'Default'
-            },
-            requestSettings: this.options.requestSettings,
-            portfolios: this.options.portfolios
-        };
-
-        const response = await api.fetch(url, {
-            body: JSON.stringify(bodyPayload),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: 'POST'
-        });
-
-        const json = await response.json() as XRayUSJSON.XRayUSResponse;
+        const json = await this.response?.json() as XRayUSJSON.XRayUSResponse;
 
         for (const { key } of DATA_TABLES) {
             const converter = initConverter(key),
@@ -147,10 +120,17 @@ export class XRayUSConnector extends PAUSConnector {
             columns: {}
         };
 
-        return this.setModifierOptions(userOptions.dataModifier);
+        return this.setModifierOptions(this.options.dataModifier);
     }
 
-
+    protected getPayload (): XRayUSRequestPayload {
+        return {
+            view: { id: this.options.viewId || 'All' },
+            config: { id: this.options.configId || 'Default' },
+            requestSettings: this.options.requestSettings,
+            portfolios: this.options.portfolios
+        };
+    }
 }
 
 /* *

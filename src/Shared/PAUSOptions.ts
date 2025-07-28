@@ -7,9 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Sophie Bremer
- *  - Pawel Lysy
- *  - Askel Eirik Johansson
+ *  - Mateusz Bernacik
  *
  * */
 
@@ -46,10 +44,10 @@ export interface PAUSOptions extends MorningstarOptions {
      * @default 'All'
      */
     viewId: string,
-    configId: string;
+    langcult?: string;
     requestSettings: RequestSettings;
     portfolios: Array<Portfolio>;
-    langcult?: string;
+    configId: string;
 }
 
 

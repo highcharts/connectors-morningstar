@@ -1,13 +1,13 @@
-import { getPostmanFile } from '../utils/postman-localstorage.js';
+import * as Assert from 'node:assert/strict';
+import * as MC from '../../code/connectors-morningstar.src';
 
-getPostmanFile(displaySecurityDetails);
-
-const loadingLabel = document.getElementById('loading-label');
-
-async function displaySecurityDetails (postmanJSON) {
-    const connector = new HighchartsConnectors.Morningstar.PerformanceConnector({
-        postman: {
-            environmentJSON: postmanJSON
+export async function PerformanceConnectorLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.PerformanceConnector({
+        api: {
+            ...api,
+            url: 'https://www.us-api.morningstar.com/'
         },
         configId: 'Hypothetical',
         viewId: 'CorrelationMatrix',
@@ -52,7 +52,10 @@ async function displaySecurityDetails (postmanJSON) {
         ]
     });
 
-    await connector.load();
+    Assert.ok(
+        connector instanceof MC.PerformanceConnector,
+        'Connector should be instance of PerformanceConnector class.'
+    );
 
-    loadingLabel.style.display = 'none';
+    await connector.load();
 }

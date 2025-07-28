@@ -7,7 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Sophie Bremer
+ *  - Mateusz Bernacik
  *
  * */
 
@@ -23,8 +23,11 @@
 
 
 import MorningstarConnector from './MorningstarConnector';
-import PAUSOptions from './PAUSOptions';
+import MorningstarURL from './MorningstarURL';
+import MorningstarAPI from './MorningstarAPI';
+import type PAUSOptions from './PAUSOptions';
 import * as External from './External';
+import { PAUSPayload } from './PAUSOptions';
 
 
 /* *
@@ -63,6 +66,10 @@ export abstract class PAUSConnector extends MorningstarConnector {
 
     public override readonly options: PAUSOptions;
 
+    public response?: Response;
+
+    protected abstract url: string;
+
 
     /* *
      *
@@ -71,11 +78,26 @@ export abstract class PAUSConnector extends MorningstarConnector {
      * */
 
 
-    public override async load (): Promise<any> {
+    public override async load (): Promise<this> {
         await super.load();
+
+        const api = this.api = this.api || new MorningstarAPI(this.options.api);
+
+        const fullUrl = new MorningstarURL(`${this.url}?langcult=${this.options.langcult || 'en-US'}`, this.api.baseURL);
+        const bodyPayload = this.getPayload();
+
+        const response = await api.fetch(fullUrl, {
+            body: JSON.stringify(bodyPayload),
+            headers: { 'Content-Type': 'application/json' },
+            method: 'POST'
+        });
+
+        this.response = response;
+
+        return this;
     }
 
-
+    protected abstract getPayload(): PAUSPayload;
 }
 
 

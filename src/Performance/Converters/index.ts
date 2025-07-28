@@ -17,20 +17,22 @@
 
 /* *
  *
- *  Namespace
+ *  Imports
  *
  * */
 
 
-namespace PerformanceJSON {
+import TestConverter from './TestConverter';
 
-    export interface PerformanceResponse {
-    }
 
-    export interface Performance {
-    }
+/* *
+ *
+ *  Exports
+ *
+ * */
 
-}
+
+export * from './TestConverter';
 
 
 /* *
@@ -40,4 +42,6 @@ namespace PerformanceJSON {
  * */
 
 
-export default PerformanceJSON;
+export default {
+    TestConverter
+};
