@@ -189,16 +189,6 @@ export interface XRayUSHolding extends Holding {
      * @default 'Monthly'
      */
     annualFeeFrequency?: 'Monthly' | 'Quarterly' | 'SemiAnnually' | 'Annually';
-
-    /**
-     * The Morningstar unique identifier of a security (PerformanceId)
-     */
-    performanceId?: string;
-
-    /**
-     * The public unique identifier of a security (FundCode)
-     */
-    fundCode?: string;
 }
 
 export interface XRayUSConverterOptions extends MorningstarConverterOptions {

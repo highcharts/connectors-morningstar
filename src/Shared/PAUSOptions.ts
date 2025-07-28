@@ -80,6 +80,8 @@ export interface Holding {
     tradingSymbol?: string;
     isin?: string;
     cusip?: string;
+    performanceId?: string;
+    fundCode?: string;
 }
 
 export interface Benchmark {
