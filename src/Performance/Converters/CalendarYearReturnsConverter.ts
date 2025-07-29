@@ -56,17 +56,18 @@ export class CalendarYearReturnsConverter extends MorningstarConverter {
 
 
     public override parse (
-        options: PerformanceConverterOptions
+        options: PerformanceConverterOptions,
+        hasMultiple?: boolean
     ): void {
         const table = this.table,
             userOptions = {
                 ...this.options,
                 ...options
-            };
-
-        const portfolioPerformance = userOptions.json;
-        const calendarYearReturn = portfolioPerformance.Performance[0].Returns.CalendarYearReturn;
-
+            },
+            portfolioPerformance = userOptions.json,
+            calendarYearReturn = portfolioPerformance.Performance[0].Returns.CalendarYearReturn,
+            portfolioName = portfolioPerformance.Performance[0].PortfolioName,
+            columnSuffix = hasMultiple ? `_${portfolioName}` : '';
 
         const calendarYearData = calendarYearReturn.Portfolio.CalendarYear;
         const benchmarkData = calendarYearReturn.Benchmark?.CalendarYear;
@@ -76,14 +77,14 @@ export class CalendarYearReturnsConverter extends MorningstarConverter {
             const idColumn = 'Id';
             const portfolioValueColumn = 'Portfolio_Value';
 
-            table.setCell(idColumn, i, Id);
-            table.setCell(portfolioValueColumn, i, PortfolioValue);
+            table.setCell(`${idColumn}${columnSuffix}`, i, Id);
+            table.setCell(`${portfolioValueColumn}${columnSuffix}`, i, PortfolioValue);
 
             if (benchmarkData && benchmarkData.length > i) {
                 const { Value: BenchmarkValue } = benchmarkData[i];
                 const benchmarkValueColumn = 'Benchmark_Value';
 
-                table.setCell(benchmarkValueColumn, i, BenchmarkValue);
+                table.setCell(`${benchmarkValueColumn}${columnSuffix}`, i, BenchmarkValue);
             }
         }
     }

@@ -47,7 +47,7 @@ import type PerformanceJSON from './PerformanceJSON';
  * */
 
 export interface PerformanceConverter extends MorningstarConverter {
-    parse(options: PerformanceConverterOptions): void;
+    parse(options: PerformanceConverterOptions, hasMultiple?: boolean): void;
 }
 
 /* *
@@ -109,11 +109,12 @@ export class PerformanceConnector extends PAUSConnector {
         await super.load();
 
         const json = await this.response?.json() as PerformanceJSON.PerformanceResponse;
+        const hasMultiple = json.Performance.length > 1;
 
         for (const { key } of DATA_TABLES) {
             const converter = this.initConverter(key);
 
-            converter.parse({ json: json });
+            converter.parse({ json: json }, hasMultiple);
 
             this.dataTables[key].setColumns(converter.getTable().getColumns());
         }
