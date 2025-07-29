@@ -75,6 +75,8 @@ export class FixedIncomeStyleConverter extends MorningstarConverter {
 
                 if (key === 'Unclassified') {
                     table.setCell('Unclassified' + columnSuffix, 0, value);
+
+                    continue;
                 }
 
                 table.setCell('Type' + columnSuffix, rowIndex, key);
