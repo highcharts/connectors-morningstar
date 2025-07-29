@@ -22,7 +22,7 @@
  * */
 
 
-import TestConverter from './TestConverter';
+import CalendarYearReturnsConverter from './CalendarYearReturnsConverter';
 
 
 /* *
@@ -32,7 +32,7 @@ import TestConverter from './TestConverter';
  * */
 
 
-export * from './TestConverter';
+export * from './CalendarYearReturnsConverter';
 
 
 /* *
@@ -43,5 +43,5 @@ export * from './TestConverter';
 
 
 export default {
-    TestConverter
+    CalendarYearReturnsConverter
 };
