@@ -70,6 +70,9 @@ export class EquityStyleConverter extends MorningstarConverter {
             let rowIndex = 0;
 
             for (const [key, value] of Object.entries(portfolio)) {
+                if (key === 'Unclassified') {
+                    table.setCell('Unclassified' + columnSuffix, 0, value);
+                }
                 table.setCell('Type' + columnSuffix, rowIndex, key);
                 table.setCell('Value' + columnSuffix, rowIndex, value);
 

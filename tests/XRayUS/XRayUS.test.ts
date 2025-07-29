@@ -75,6 +75,7 @@ export async function xRayUSConnectorLoad (
         [
             'Type',
             'Value',
+            'Unclassified',
             'Style',
             'Size'
         ],
@@ -91,6 +92,7 @@ export async function xRayUSConnectorLoad (
         [
             'Type',
             'Value',
+            'Unclassified',
             'Style',
             'Size'
         ],

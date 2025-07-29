@@ -73,6 +73,10 @@ export class FixedIncomeStyleConverter extends MorningstarConverter {
                 // Skip AsOfDate key as it is not a style type
                 if (key === 'AsOfDate') continue;
 
+                if (key === 'Unclassified') {
+                    table.setCell('Unclassified' + columnSuffix, 0, value);
+                }
+
                 table.setCell('Type' + columnSuffix, rowIndex, key);
                 table.setCell('Value' + columnSuffix, rowIndex, value);
 
