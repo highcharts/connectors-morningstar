@@ -63,6 +63,8 @@ export async function xRayUSConnectorLoad (
         ]
     });
 
+    await connector.load();
+
     Assert.ok(
         connector instanceof MC.XRayUSConnector,
         'Connector should be instance of XRayUSConnector class.'
@@ -99,6 +101,4 @@ export async function xRayUSConnectorLoad (
         connector.dataTables.FixedIncomeStyle.getRowCount() > 0,
         'FixedIncomeStyle connector should not return empty rows.'
     );
-
-    await connector.load();
 }
