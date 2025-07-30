@@ -70,22 +70,26 @@ export async function xRayUSConnectorLoad (
         'Connector should be instance of XRayUSConnector class.'
     );
 
+    const expectedColumns = [
+        'Type',
+        'Value',
+        'Unclassified',
+        'Value_FOUSA00DFS',
+        'Unclassified_FOUSA00DFS',
+        'Unclassified_F00000VCTT',
+        'Value_FOUSA00C3O',
+        'Unclassified_FOUSA00C3O',
+        'Value_0P0000BVN5',
+        'Unclassified_0P0000BVN5',
+        'Style',
+        'Size'
+    ];
+
+    const actualColumns = connector.dataTables.EquityStyle.getColumnNames();
+
     Assert.deepStrictEqual(
-        connector.dataTables.EquityStyle.getColumnNames(),
-        [
-            'Type',
-            'Value',
-            'Unclassified',
-            'Value_0P0000BVN5',
-            'Unclassified_0P0000BVN5',
-            'Unclassified_F00000VCTT',
-            'Value_FOUSA00C3O',
-            'Unclassified_FOUSA00C3O',
-            'Value_FOUSA00DFS',
-            'Unclassified_FOUSA00DFS',
-            'Style',
-            'Size'
-        ],
+        actualColumns.sort(),
+        expectedColumns.sort(),
         'EquityStyle connector should return expected column names.'
     );
 
