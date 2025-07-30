@@ -9,7 +9,7 @@ export async function xRayUSConnectorLoad (
             ...api,
             url: 'https://www.us-api.morningstar.com/'
         },
-        viewId: 'Snapshot',
+        viewId: 'All',
         configId: 'Default',
         requestSettings: {
             outputCurrency: 'USD',
@@ -70,7 +70,7 @@ export async function xRayUSConnectorLoad (
         'Connector should be instance of XRayUSConnector class.'
     );
 
-    const expectedColumns = [
+    const expectedEquityStyleColumns = [
         'Type',
         'Value',
         'Unclassified',
@@ -85,11 +85,11 @@ export async function xRayUSConnectorLoad (
         'Size'
     ];
 
-    const actualColumns = connector.dataTables.EquityStyle.getColumnNames();
+    const actualEquityStyleColumns = connector.dataTables.EquityStyle.getColumnNames();
 
     Assert.deepStrictEqual(
-        actualColumns.sort(),
-        expectedColumns.sort(),
+        actualEquityStyleColumns.sort(),
+        expectedEquityStyleColumns.sort(),
         'EquityStyle connector should return expected column names.'
     );
 
@@ -98,15 +98,23 @@ export async function xRayUSConnectorLoad (
         'EquityStyle connector should not return empty rows.'
     );
 
+    const expectedFixedIncomeStyleColumns = [
+        'Type',
+        'Value',
+        'Unclassified',
+        'Value_FOUSA00DFS',
+        'Value_F00000VCTT',
+        'Value_0P0000BVN5',
+        'Value_FOUSA00C3O',
+        'Style',
+        'Size'
+    ];
+
+    const actualFixedIncomeStyleColumns = connector.dataTables.FixedIncomeStyle.getColumnNames();
+
     Assert.deepStrictEqual(
-        connector.dataTables.FixedIncomeStyle.getColumnNames(),
-        [
-            'Type',
-            'Value',
-            'Unclassified',
-            'Style',
-            'Size'
-        ],
+        actualFixedIncomeStyleColumns.sort(),
+        expectedFixedIncomeStyleColumns.sort(),
         'FixedIncomeStyle connector should return expected column names.'
     );
 
