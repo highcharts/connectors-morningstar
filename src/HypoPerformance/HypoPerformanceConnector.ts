@@ -128,9 +128,9 @@ export class HypoPerformanceConnector extends PAUSConnector {
 
     protected getPayload (): HypoPerformanceRequestPayload {
         return {
-            View: { Id: this.options.viewId || 'Growth' },
-            RequestSettings: this.options.requestSettings,
-            Portfolios: this.options.portfolios
+            view: { id: this.options.viewId || 'Growth' },
+            requestSettings: this.options.requestSettings,
+            portfolios: this.options.portfolios
         };
     }
 
@@ -141,9 +141,7 @@ export class HypoPerformanceConnector extends PAUSConnector {
             default:
                 throw new Error(`Unsupported key: ${key}`);
         }
-
     }
-
 
 }
 

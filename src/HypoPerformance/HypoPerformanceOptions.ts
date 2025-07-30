@@ -47,11 +47,11 @@ export interface HypoPerformanceOptions extends PAUSOptions {
 }
 
 export interface HypoPerformanceRequestPayload extends PAUSPayload {
-    View?: {
-        Id: string;
+    view?: {
+        id: string;
     };
-    RequestSettings: HypoPerformanceRequestSettings;
-    Portfolios: Array<HypoPerformancePortfolio>;
+    requestSettings: HypoPerformanceRequestSettings;
+    portfolios: Array<HypoPerformancePortfolio>;
 }
 
 export interface HypoCalculationSettings {
