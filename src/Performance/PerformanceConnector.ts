@@ -124,10 +124,10 @@ export class PerformanceConnector extends PAUSConnector {
 
     protected getPayload (): PerformanceRequestPayload {
         return {
-            View: { Id: this.options.viewId || 'All' },
-            Config: { Id: this.options.configId || 'QuickPortfolio' },
-            RequestSettings: this.options.requestSettings,
-            Portfolios: this.options.portfolios
+            view: { id: this.options.viewId || 'All' },
+            config: { id: this.options.configId || 'QuickPortfolio' },
+            requestSettings: this.options.requestSettings,
+            portfolios: this.options.portfolios
         };
     }
 
