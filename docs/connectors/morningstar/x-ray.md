@@ -156,7 +156,7 @@ Americas X-Ray API supports multiple portfolios return. Simply add more portfoli
 ```js
 await americasXRayConnector.load();
 
-const data = americasXRayConnector.dataTables.TABLE_NAME;
+const data = americasXRayConnector.dataTables.EquityStyle;
 ```
 
 For more details, see [Morningstar's Americas X-Ray API].
