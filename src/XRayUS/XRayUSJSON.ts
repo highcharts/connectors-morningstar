@@ -54,11 +54,17 @@ namespace XRayUSJSON {
     export interface EquityStyle {
         EquityStyleBreakdown: {
             Portfolio: Record<string, number>;
+            SecurityBreakdown: Array<SecurityBreakdown>;
         };
     }
 
     export interface FixedIncomeStyle {
         FixedIncomeStyleBreakdown: Record<string, number>;
+    }
+
+    export interface SecurityBreakdown {
+        EquityStyleBreakdownItem: Record<string, number>;
+        SecurityId: string;
     }
 
 }

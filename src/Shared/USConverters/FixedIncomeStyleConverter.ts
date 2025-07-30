@@ -79,7 +79,7 @@ export class FixedIncomeStyleConverter extends MorningstarConverter {
                     continue;
                 }
 
-                table.setCell('Type' + columnSuffix, rowIndex, key);
+                table.setCell('Type', rowIndex, key);
                 table.setCell('Value' + columnSuffix, rowIndex, value);
 
                 ++rowIndex;
@@ -87,8 +87,8 @@ export class FixedIncomeStyleConverter extends MorningstarConverter {
         }
 
         // Set destructured x & y values
-        table.setColumn('Style' + columnSuffix, STYLE_BOX_VALUES.X);
-        table.setColumn('Size' + columnSuffix, STYLE_BOX_VALUES.Y);
+        table.setColumn('Style', STYLE_BOX_VALUES.X);
+        table.setColumn('Size', STYLE_BOX_VALUES.Y);
     }
 }
 

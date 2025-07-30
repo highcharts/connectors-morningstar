@@ -76,6 +76,13 @@ export async function xRayUSConnectorLoad (
             'Type',
             'Value',
             'Unclassified',
+            'Value_0P0000BVN5',
+            'Unclassified_0P0000BVN5',
+            'Unclassified_F00000VCTT',
+            'Value_FOUSA00C3O',
+            'Unclassified_FOUSA00C3O',
+            'Value_FOUSA00DFS',
+            'Unclassified_FOUSA00DFS',
             'Style',
             'Size'
         ],
