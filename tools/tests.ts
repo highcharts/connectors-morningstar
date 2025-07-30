@@ -152,9 +152,12 @@ async function runUnitTests () {
 
         const normalizedPath = path.replace(/\\/gu, '/').toLowerCase();
         return testPatterns.some(pattern => {
-            const normalizedPattern = pattern.replace(/\\/gu, '/').toLowerCase();
-            return normalizedPath.includes(normalizedPattern + '.test.ts') || 
-                   normalizedPath.includes(normalizedPattern + '/');
+            const normalizedPattern = pattern
+                .toLowerCase()
+                .replace(/\\/gu, '/')
+                .replace(/^tests\//u, '');
+
+            return normalizedPath.includes(normalizedPattern);
         });
     });
 
