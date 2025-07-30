@@ -126,7 +126,7 @@ async function displayXRayUS (postmanJSON) {
         tooltip: {
             pointFormat: `
                 <b> {series.yAxis.categories.(point.y)}
-                    {series.xAxis.categories.(point.x)
+                    {series.xAxis.categories.(point.x)}
                 </b>: {point.value}%`
         },
         series: [{
