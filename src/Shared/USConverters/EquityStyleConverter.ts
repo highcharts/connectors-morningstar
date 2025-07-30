@@ -88,6 +88,10 @@ export class EquityStyleConverter extends MorningstarConverter {
         // Set data for each security
         if (securityBreakdown) {
             securityBreakdown.forEach((security) => {
+                if (!security.EquityStyleBreakdownItem) {
+                    return;
+                }
+
                 let rowIndex = 0;
 
                 for (const [key, value] of Object.entries(security.EquityStyleBreakdownItem)) {

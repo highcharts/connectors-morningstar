@@ -70,12 +70,29 @@ export class FixedIncomeStyleConverter extends MorningstarConverter {
             let rowIndex = 0;
 
             for (const [key, value] of Object.entries(breakdown)) {
-                // Skip AsOfDate key as it is not a style type
-                if (key === 'AsOfDate') continue;
-
-                if (key === 'Unclassified') {
+                if (key === 'Unclassified' && !Array.isArray(value)) {
                     table.setCell('Unclassified' + columnSuffix, 0, value);
 
+                    continue;
+                }
+
+                if (key === 'SecurityBreakdown') {
+                    breakdown.SecurityBreakdown.forEach((security) => {
+                        if (!security.FixedIncomeStyleBreakdownItem) {
+                            return;
+                        }
+
+                        table.setColumn(
+                            'Value_' + security.SecurityId,
+                            Object.values(security.FixedIncomeStyleBreakdownItem)
+                        );
+                    });
+
+                    continue;
+                }
+
+                // Skip properties that are not style types
+                if (Array.isArray(value) || key === 'AsOfDate') {
                     continue;
                 }
 

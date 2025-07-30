@@ -59,11 +59,15 @@ namespace XRayUSJSON {
     }
 
     export interface FixedIncomeStyle {
-        FixedIncomeStyleBreakdown: Record<string, number>;
+        FixedIncomeStyleBreakdown: {
+            [key: string]: number | string | Array<SecurityBreakdown>;
+            SecurityBreakdown: Array<SecurityBreakdown>;
+        };
     }
 
     export interface SecurityBreakdown {
-        EquityStyleBreakdownItem: Record<string, number>;
+        EquityStyleBreakdownItem?: Record<string, number>;
+        FixedIncomeStyleBreakdownItem?: Record<string, number>;
         SecurityId: string;
     }
 

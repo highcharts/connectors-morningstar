@@ -9,7 +9,7 @@ async function displayXRayUS (postmanJSON) {
         postman: {
             environmentJSON: postmanJSON
         },
-        viewId: 'Snapshot',
+        viewId: 'All',
         configId: 'Default',
         requestSettings: {
             outputCurrency: 'USD',
@@ -133,8 +133,10 @@ async function displayXRayUS (postmanJSON) {
             name: 'Portfolio Weight',
             borderWidth: 1,
             borderColor: '#e5e7e9',
-            keys: ['Type', 'value', '_', 'x', 'y'],
-            data: connector.dataTables.EquityStyle.getRows(0, 9),
+            keys: ['Type', 'value', 'x', 'y'],
+            data: connector.dataTables.EquityStyle.getRows(
+                void 0, void 0, ['Type', 'Value', 'Style', 'Size']
+            ),
             dataLabels: {
                 enabled: true,
                 format: '{value:.0f}%',
