@@ -71,6 +71,9 @@ export interface Holding {
     securityId?: string;
     type?: string;
     weight?: number;
+    tradingSymbol?: string;
+    isin?: string;
+    cusip?: string;
 }
 
 export interface Benchmark {
