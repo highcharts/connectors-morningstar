@@ -40,15 +40,11 @@ import type PerformanceJSON from './PerformanceJSON';
  * */
 
 export interface PerformanceOptions extends PAUSOptions {
-    configId: string;
     portfolios: Array<PerformancePortfolio>;
     requestSettings: PerformanceRequestSettings;
 }
 
 export interface PerformanceRequestPayload extends PAUSPayload {
-    Config?: {
-        Id: string;
-    };
     requestSettings: PerformanceRequestSettings;
     portfolios: Array<PerformancePortfolio>;
 }
