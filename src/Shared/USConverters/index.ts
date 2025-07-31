@@ -7,6 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
+ *  - Kamil Musialowski
  *  - Jedrzej Ruta
  *
  * */
@@ -15,6 +16,8 @@
 'use strict';
 
 import CreditQualityConverter from './CreditQualityConverter';
+import EquityStyleConverter from './EquityStyleConverter';
+import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
 
 
 /* *
@@ -34,6 +37,8 @@ import CreditQualityConverter from './CreditQualityConverter';
 
 
 export * from './CreditQualityConverter';
+export * from './EquityStyleConverter';
+export * from './FixedIncomeStyleConverter';
 
 /* *
  *
@@ -43,5 +48,7 @@ export * from './CreditQualityConverter';
 
 
 export default {
-    CreditQualityConverter
+    CreditQualityConverter,
+    EquityStyleConverter,
+    FixedIncomeStyleConverter
 };

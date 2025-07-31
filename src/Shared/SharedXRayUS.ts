@@ -19,7 +19,9 @@
  * */
 
 import {
-    CreditQualityConverter
+    CreditQualityConverter,
+    EquityStyleConverter,
+    FixedIncomeStyleConverter
 } from './USConverters';
 
 import type MorningstarConverter from './MorningstarConverter';
@@ -32,7 +34,9 @@ import type { XRayUSConverterOptions } from '../XRayUS/XRayUSOptions';
  * */
 
 export const DATA_TABLES = [
-    { key: 'CreditQuality' }
+    { key: 'CreditQuality' },
+    { key: 'EquityStyle' },
+    { key: 'FixedIncomeStyle' }
 ];
 
 /* *
@@ -57,6 +61,10 @@ export function initConverter (
     switch (key) {
         case 'CreditQuality':
             return new CreditQualityConverter();
+        case 'EquityStyle':
+            return new EquityStyleConverter();
+        case 'FixedIncomeStyle':
+            return new FixedIncomeStyleConverter();
         default:
             throw new Error(`Unsupported key: ${key}`);
     }

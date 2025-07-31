@@ -40,10 +40,10 @@ namespace XRayUSJSON {
     }
 
     export interface XRayUS {
-        // Add more return types here
         PortfolioName: string;
         Analysis: {
-            FixedIncomeAnalysis: FixedIncomeAnalysis
+            FixedIncomeAnalysis: FixedIncomeAnalysis;
+            InvestmentStyle: InvestmentStyle;
         }
     }
 
@@ -52,6 +52,31 @@ namespace XRayUSJSON {
             Portfolio: Record<string, number>;
             Benchmark: Record<string, number>;
         }
+    }
+
+    export interface InvestmentStyle {
+        EquityStyle: EquityStyle;
+        FixedIncomeStyle: FixedIncomeStyle;
+    }
+
+    export interface EquityStyle {
+        EquityStyleBreakdown: {
+            Portfolio: Record<string, number>;
+            SecurityBreakdown: Array<SecurityBreakdown>;
+        };
+    }
+
+    export interface FixedIncomeStyle {
+        FixedIncomeStyleBreakdown: {
+            [key: string]: number | string | Array<SecurityBreakdown>;
+            SecurityBreakdown: Array<SecurityBreakdown>;
+        };
+    }
+
+    export interface SecurityBreakdown {
+        EquityStyleBreakdownItem?: Record<string, number>;
+        FixedIncomeStyleBreakdownItem?: Record<string, number>;
+        SecurityId: string;
     }
 
 }
