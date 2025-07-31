@@ -70,7 +70,7 @@ export class CreditQualityConverter extends MorningstarConverter {
 
             for (const [key, value] of Object.entries(portfolio)) {
                 table.setCell('Type', rowIndex, key);
-                table.setCell('Value_Portfolio' + columnSuffix, rowIndex, value);
+                table.setCell('Value' + columnSuffix, rowIndex, value);
 
                 ++rowIndex;
             }
