@@ -65,8 +65,40 @@ async function displayXRayUS (postmanJSON) {
 
     await connector.load();
 
-    // eslint-disable-next-line no-console
-    console.log(connector.dataTables);
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Calendar Year Returns'
+        },
+        series: [{
+            name: 'Actual Returns',
+            data: connector.dataTables.TrailingPerformance.getRows(
+                void 0,
+                void 0,
+                ['Nav_DayEnd_TimePeriod', 'Nav_DayEnd_Value']
+            )
+        }, {
+            name: 'Benchmark Returns',
+            data: connector.dataTables.TrailingPerformance.getRows(
+                void 0,
+                void 0,
+                ['Nav_DayEnd_TimePeriod', 'Benchmark_Value']
+            )
+        }],
+        xAxis: {
+            type: 'category',
+            title: {
+                text: 'Time Period'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Returns (%)'
+            }
+        }
+    });
 
     loadingLabel.style.display = 'none';
 }

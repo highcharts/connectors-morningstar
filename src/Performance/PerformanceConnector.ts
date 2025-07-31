@@ -57,7 +57,7 @@ export interface PerformanceConverter extends MorningstarConverter {
  * */
 
 export const DATA_TABLES = [
-    { key: 'CalendarYearReturnsConverter' }
+    { key: 'CalendarYearReturns' }
 ];
 
 
@@ -134,7 +134,7 @@ export class PerformanceConnector extends PAUSConnector {
 
     private initConverter (key: string): PerformanceConverter {
         switch (key) {
-            case 'CalendarYearReturnsConverter':
+            case 'CalendarYearReturns':
                 return new CalendarYearReturnsConverter();
             default:
                 throw new Error(`Unsupported key: ${key}`);
