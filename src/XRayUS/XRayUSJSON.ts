@@ -42,6 +42,16 @@ namespace XRayUSJSON {
     export interface XRayUS {
         // Add more return types here
         PortfolioName: string;
+        Analysis: {
+            FixedIncomeAnalysis: FixedIncomeAnalysis
+        }
+    }
+
+    export interface FixedIncomeAnalysis {
+        CreditQuality: {
+            Portfolio: Record<string, number>;
+            Benchmark: Record<string, number>;
+        }
     }
 
 }

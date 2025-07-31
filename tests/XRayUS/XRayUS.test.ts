@@ -63,10 +63,25 @@ export async function xRayUSConnectorLoad (
         ]
     });
 
+    await connector.load();
+
     Assert.ok(
         connector instanceof MC.XRayUSConnector,
         'Connector should be instance of XRayUSConnector class.'
     );
 
-    await connector.load();
+    Assert.deepStrictEqual(
+        connector.dataTables.CreditQuality.getColumnNames(),
+        [
+            'Type',
+            'Value'
+        ],
+        'CreditQuality table should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.CreditQuality.getRowCount() > 0,
+        'CreditQuality table should not contain empty rows.'
+    );
+
 }
