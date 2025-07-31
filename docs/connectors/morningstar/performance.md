@@ -27,8 +27,6 @@ const performanceConnector = new HighchartsConnectors.Morningstar.PerformanceCon
             token: 'JWT token'
         }
     },
-    configId: 'Hypothetical',
-    viewId: 'CorrelationMatrix',
     requestSettings: {
         outputCurrency: 'USD',
         assetClassGroupConfigs: {
