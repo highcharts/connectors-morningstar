@@ -47,28 +47,73 @@ namespace XRayUSJSON {
     }
 
     export interface InvestmentStyle {
+        AsOfDate: string;
         EquityStyle: EquityStyle;
         FixedIncomeStyle: FixedIncomeStyle;
     }
 
     export interface EquityStyle {
+        AsOfDate: string;
         EquityStyleBreakdown: {
-            Portfolio: Record<string, number>;
-            SecurityBreakdown: Array<SecurityBreakdown>;
+            AsOfDate: string;
+            Portfolio: GenericEquityStyleBreakdownItem;
+            SecurityBreakdown: Array<EquityStyleSecurityBreakdownItem>;
         };
     }
 
     export interface FixedIncomeStyle {
-        FixedIncomeStyleBreakdown: {
-            [key: string]: number | string | Array<SecurityBreakdown>;
-            SecurityBreakdown: Array<SecurityBreakdown>;
+        AsOfDate: string;
+        FixedIncomeStyleBreakdown: FixedIncomeStyleBreakdown;
+        Portfolio: {
+            EffectiveDuration: number;
+            EffectiveMaturity: number;
         };
+        PortfolioAnalyzed: number;
     }
 
-    export interface SecurityBreakdown {
-        EquityStyleBreakdownItem?: Record<string, number>;
-        FixedIncomeStyleBreakdownItem?: Record<string, number>;
+    export interface FixedIncomeStyleBreakdown extends GenericFixedIncomeStyleBreakdownItem {
+        AsOfDate: string;
+        SecurityBreakdown: Array<FixedIncomeStyleSecurityBreakdownItem>;
+    }
+
+    export interface FixedIncomeStyleSecurityBreakdownItem {
+        Analyzed: number;
+        FixedIncomeStyleBreakdownItem: GenericFixedIncomeStyleBreakdownItem;
+        NotAnalyzed: number;
         SecurityId: string;
+    }
+
+    export interface EquityStyleSecurityBreakdownItem {
+        Analyzed: number;
+        EquityStyleBreakdownItem: GenericEquityStyleBreakdownItem;
+        NotAnalyzed: number;
+        SecurityId: string;
+    }
+
+    interface GenericFixedIncomeStyleBreakdownItem {
+        HighLtd: number;
+        HighMod: number;
+        HighExt: number;
+        MedLtd: number;
+        MedMod: number;
+        MedExt: number;
+        LowLtd: number;
+        LowMod: number;
+        LowExt: number;
+        Unclassified: number;
+    }
+
+    interface GenericEquityStyleBreakdownItem {
+        LargeBlend: number;
+        LargeGrowth: number;
+        LargeValue: number;
+        MidBlend: number;
+        MidGrowth: number;
+        MidValue: number;
+        SmallBlend: number;
+        SmallGrowth: number;
+        SmallValue: number;
+        Unclassified: number;
     }
 
 }

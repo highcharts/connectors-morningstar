@@ -71,15 +71,15 @@ export class EquityStyleConverter extends MorningstarConverter {
         if (portfolio) {
             let rowIndex = 0;
 
-            for (const [key, value] of Object.entries(portfolio)) {
+            for (const key of Object.keys(portfolio) as Array<keyof typeof portfolio>) {
                 if (key === 'Unclassified') {
-                    table.setCell('Unclassified' + columnSuffix, 0, value);
+                    table.setCell('Unclassified' + columnSuffix, 0, portfolio[key]);
 
                     continue;
                 }
 
                 table.setCell('Type', rowIndex, key);
-                table.setCell('Value' + columnSuffix, rowIndex, value);
+                table.setCell('Value' + columnSuffix, rowIndex, portfolio[key]);
 
                 ++rowIndex;
             }
@@ -88,13 +88,10 @@ export class EquityStyleConverter extends MorningstarConverter {
         // Set data for each security
         if (securityBreakdown) {
             securityBreakdown.forEach((security) => {
-                if (!security.EquityStyleBreakdownItem) {
-                    return;
-                }
-
                 let rowIndex = 0;
 
-                for (const [key, value] of Object.entries(security.EquityStyleBreakdownItem)) {
+                for (const key of Object.keys(security.EquityStyleBreakdownItem) as Array<keyof typeof security.EquityStyleBreakdownItem>) {
+                    const value = security.EquityStyleBreakdownItem[key];
                     if (key === 'Unclassified') {
                         table.setCell('Unclassified_' + security.SecurityId, 0, value);
 
