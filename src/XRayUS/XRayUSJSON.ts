@@ -56,7 +56,7 @@ namespace XRayUSJSON {
         AsOfDate: string;
         EquityStyleBreakdown: {
             AsOfDate: string;
-            Portfolio: GenericEquityStyleBreakdownItem;
+            Portfolio: EquityStyleBreakdownItem;
             SecurityBreakdown: Array<EquityStyleSecurityBreakdownItem>;
         };
     }
@@ -71,26 +71,26 @@ namespace XRayUSJSON {
         PortfolioAnalyzed: number;
     }
 
-    export interface FixedIncomeStyleBreakdown extends GenericFixedIncomeStyleBreakdownItem {
+    export interface FixedIncomeStyleBreakdown extends FixedIncomeStyleBreakdownItem {
         AsOfDate: string;
         SecurityBreakdown: Array<FixedIncomeStyleSecurityBreakdownItem>;
     }
 
     export interface FixedIncomeStyleSecurityBreakdownItem {
         Analyzed: number;
-        FixedIncomeStyleBreakdownItem: GenericFixedIncomeStyleBreakdownItem;
+        FixedIncomeStyleBreakdownItem: FixedIncomeStyleBreakdownItem;
         NotAnalyzed: number;
         SecurityId: string;
     }
 
     export interface EquityStyleSecurityBreakdownItem {
         Analyzed: number;
-        EquityStyleBreakdownItem: GenericEquityStyleBreakdownItem;
+        EquityStyleBreakdownItem: EquityStyleBreakdownItem;
         NotAnalyzed: number;
         SecurityId: string;
     }
 
-    interface GenericFixedIncomeStyleBreakdownItem {
+    interface FixedIncomeStyleBreakdownItem {
         HighLtd: number;
         HighMod: number;
         HighExt: number;
@@ -103,7 +103,7 @@ namespace XRayUSJSON {
         Unclassified: number;
     }
 
-    interface GenericEquityStyleBreakdownItem {
+    interface EquityStyleBreakdownItem {
         LargeBlend: number;
         LargeGrowth: number;
         LargeValue: number;
