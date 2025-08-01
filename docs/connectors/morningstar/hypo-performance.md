@@ -1,19 +1,27 @@
 # Hypothetical Performance
 
 Using historical performance data, financial advisors can demonstrate how a portfolio personalized to a client’s needs might perform over time. The Portfolio X-Ray API’s Hypothetical Performance capability uses historical performance data to help you calculate hypothetical performance for the portfolios specified in the request body.
+For standard performance, see the Performance connector.
 
 ## How to use HypoPerformance
 
 You can use the HypoPerformance Connector to fetch return and hypothetical performances for multiple portfolios and benchmarks.
 The returned data depends on the selected view and the various options set in the `hypoCalculationsSettings`.
 
+## Available data converters
+
+Currently the following data points are supported in the Performance converter:
+
+- **Test**
 
 Example request:
 
 ```js
     const connector = new HighchartsConnectors.Morningstar.HypoPerformanceConnector({
-        postman: {
-            environmentJSON: postmanJSON
+        api: {
+            access: {
+                token: 'JWT token'
+            }
         },
         viewId: 'Growth',
         requestSettings: {

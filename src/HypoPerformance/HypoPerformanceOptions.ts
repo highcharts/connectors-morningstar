@@ -92,7 +92,7 @@ export interface HypoCalculationSettings {
 
 export interface HypoPerformanceRequestSettings extends RequestSettings {
     hypoCalculationSettings?: HypoCalculationSettings;
-    outputReturnsFrequency?: string; 
+    outputReturnsFrequency?: string;
 }
 
 export interface HypoPerformancePortfolio extends Portfolio {
