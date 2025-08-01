@@ -69,43 +69,37 @@ export class FixedIncomeStyleConverter extends MorningstarConverter {
         if (breakdown) {
             let rowIndex = 0;
 
-            for (const [key, value] of Object.entries(breakdown)) {
-                if (key === 'Unclassified' && !Array.isArray(value)) {
-                    table.setCell('Unclassified' + columnSuffix, 0, value);
-
-                    continue;
-                }
-
+            for (const key of Object.keys(breakdown) as Array<keyof typeof breakdown>) {
                 if (key === 'SecurityBreakdown') {
                     breakdown.SecurityBreakdown.forEach((security) => {
-                        if (!security.FixedIncomeStyleBreakdownItem) {
-                            return;
-                        }
-
                         table.setColumn(
                             'Value_' + security.SecurityId,
                             Object.values(security.FixedIncomeStyleBreakdownItem)
                         );
                     });
-
                     continue;
                 }
 
-                // Skip properties that are not style types
-                if (Array.isArray(value) || key === 'AsOfDate') {
+                if (key === 'AsOfDate') {
+                    continue;
+                }
+
+
+                if (key === 'Unclassified') {
+                    table.setCell('Unclassified' + columnSuffix, 0, breakdown[key]);
                     continue;
                 }
 
                 table.setCell('Type', rowIndex, key);
-                table.setCell('Value' + columnSuffix, rowIndex, value);
+                table.setCell('Value' + columnSuffix, rowIndex, breakdown[key]);
 
                 ++rowIndex;
             }
-        }
 
-        // Set destructured x & y values
-        table.setColumn('Style', STYLE_BOX_VALUES.X);
-        table.setColumn('Size', STYLE_BOX_VALUES.Y);
+            // Set destructured x & y values
+            table.setColumn('Style', STYLE_BOX_VALUES.X);
+            table.setColumn('Size', STYLE_BOX_VALUES.Y);
+        }
     }
 }
 
