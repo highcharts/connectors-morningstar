@@ -77,7 +77,7 @@ export interface PerformanceHolding extends Holding {
 }
 
 export interface PerformanceConverterOptions extends MorningstarConverterOptions {
-    json: PerformanceJSON.PerformanceResponse;
+    json: PerformanceJSON.Performance;
 }
 
 

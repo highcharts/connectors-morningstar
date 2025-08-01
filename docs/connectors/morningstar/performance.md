@@ -14,9 +14,9 @@ Returned data depends on the selected view and config and may include tracking e
 
 ## Available data converters
 
-Currently the following data points are supported in the Performance converter:
+Currently the following data points are supported in the Performance connector:
 
-- **CalendarYearReturnsConverter**
+- **CalendarYearReturnConverter**
 
 Example request:
 
@@ -70,7 +70,7 @@ const performanceConnector = new HighchartsConnectors.Morningstar.PerformanceCon
 
 await performanceConnector.load();
 
-const data = performanceConnector.dataTables.CalendarYearReturns;
+const data = performanceConnector.dataTables.CalendarYearReturn;
 ```
 
 For more details, see [Morningstar's Performance API].

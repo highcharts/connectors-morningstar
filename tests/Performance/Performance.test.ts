@@ -57,23 +57,23 @@ export async function PerformanceConnectorLoad (
         'Connector should be instance of PerformanceConnector class.'
     );
 
-    const expectedCalendarYearReturnsColumns = [
+    const expectedCalendarYearReturnColumns = [
         'Id',
         'Portfolio_Value',
         'Benchmark_Value'
     ];
 
-    const actualCalendarYearReturnsColumns =
-        connector.dataTables.CalendarYearReturns.getColumnNames();
+    const actualCalendarYearReturnColumns =
+        connector.dataTables.CalendarYearReturn.getColumnNames();
 
     Assert.deepStrictEqual(
-        actualCalendarYearReturnsColumns.sort(),
-        expectedCalendarYearReturnsColumns.sort(),
-        'CalendarYearReturns converter should return expected column names.'
+        actualCalendarYearReturnColumns.sort(),
+        expectedCalendarYearReturnColumns.sort(),
+        'CalendarYearReturn converter should return expected column names.'
     );
 
     Assert.ok(
-        connector.dataTables.CalendarYearReturns.getRowCount() > 0,
-        'CalendarYearReturns converter should not return empty rows.'
+        connector.dataTables.CalendarYearReturn.getRowCount() > 0,
+        'CalendarYearReturn converter should not return empty rows.'
     );
 }

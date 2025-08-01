@@ -22,7 +22,7 @@
  * */
 
 
-import CalendarYearReturnsConverter from './CalendarYearReturnsConverter';
+import CalendarYearReturnConverter from './CalendarYearReturnConverter';
 
 
 /* *
@@ -32,7 +32,7 @@ import CalendarYearReturnsConverter from './CalendarYearReturnsConverter';
  * */
 
 
-export * from './CalendarYearReturnsConverter';
+export * from './CalendarYearReturnConverter';
 
 
 /* *
@@ -43,5 +43,5 @@ export * from './CalendarYearReturnsConverter';
 
 
 export default {
-    CalendarYearReturnsConverter
+    CalendarYearReturnConverter
 };

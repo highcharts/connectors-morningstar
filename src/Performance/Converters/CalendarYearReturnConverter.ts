@@ -31,7 +31,7 @@ import type { PerformanceConverterOptions } from '../PerformanceOptions';
  * */
 
 
-export class CalendarYearReturnsConverter extends MorningstarConverter {
+export class CalendarYearReturnConverter extends MorningstarConverter {
 
 
     /* *
@@ -65,26 +65,26 @@ export class CalendarYearReturnsConverter extends MorningstarConverter {
                 ...options
             },
             portfolioPerformance = userOptions.json,
-            calendarYearReturn = portfolioPerformance.Performance[0].Returns.CalendarYearReturn,
-            portfolioName = portfolioPerformance.Performance[0].PortfolioName,
+            CalendarYearReturn = portfolioPerformance.Returns.CalendarYearReturn,
+            portfolioName = portfolioPerformance.PortfolioName,
             columnSuffix = hasMultiple ? `_${portfolioName}` : '';
 
-        const calendarYearData = calendarYearReturn.Portfolio.CalendarYear;
-        const benchmarkData = calendarYearReturn.Benchmark?.CalendarYear;
+        const calendarYearData = CalendarYearReturn.Portfolio.CalendarYear;
+        const benchmarkData = CalendarYearReturn.Benchmark?.CalendarYear;
 
         for (let i = 0; i < calendarYearData.length; i++) {
-            const { Id, Value: PortfolioValue } = calendarYearData[i];
+            const { Id, Value: portfolioValue } = calendarYearData[i];
             const idColumn = 'Id';
             const portfolioValueColumn = 'Portfolio_Value';
 
             table.setCell(`${idColumn}${columnSuffix}`, i, Id);
-            table.setCell(`${portfolioValueColumn}${columnSuffix}`, i, PortfolioValue);
+            table.setCell(`${portfolioValueColumn}${columnSuffix}`, i, portfolioValue);
 
-            if (benchmarkData && benchmarkData.length > i) {
-                const { Value: BenchmarkValue } = benchmarkData[i];
+            if (benchmarkData?.length > i) {
+                const { Value: benchmarkValue } = benchmarkData[i];
                 const benchmarkValueColumn = 'Benchmark_Value';
 
-                table.setCell(`${benchmarkValueColumn}${columnSuffix}`, i, BenchmarkValue);
+                table.setCell(`${benchmarkValueColumn}${columnSuffix}`, i, benchmarkValue);
             }
         }
     }
@@ -98,4 +98,4 @@ export class CalendarYearReturnsConverter extends MorningstarConverter {
  * */
 
 
-export default CalendarYearReturnsConverter;
+export default CalendarYearReturnConverter;
