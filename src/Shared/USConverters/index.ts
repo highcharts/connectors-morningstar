@@ -16,7 +16,7 @@
 
 import EquityStyleConverter from './EquityStyleConverter';
 import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
-import AssetAllocationConverter from './USAssetAllocations';
+import USAssetAllocationConverter from './USAssetAllocationsConverter';
 
 
 /* *
@@ -37,7 +37,7 @@ import AssetAllocationConverter from './USAssetAllocations';
 
 export * from './EquityStyleConverter';
 export * from './FixedIncomeStyleConverter';
-export * from './USAssetAllocations';
+export * from './USAssetAllocationsConverter';
 
 /* *
  *
@@ -49,5 +49,5 @@ export * from './USAssetAllocations';
 export default {
     EquityStyleConverter,
     FixedIncomeStyleConverter,
-    AssetAllocationConverter
+    USAssetAllocationConverter
 };

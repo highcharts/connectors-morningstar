@@ -23,7 +23,7 @@
 
 import MorningstarConverter from '../MorningstarConverter';
 import type { XRayUSConverterOptions } from '../../XRayUS/XRayUSOptions';
-import XRayUSJSON from '../../XRayUS/XRayUSJSON';
+import type XRayUSJSON from '../../XRayUS/XRayUSJSON';
 
 /* *
  *
@@ -32,7 +32,7 @@ import XRayUSJSON from '../../XRayUS/XRayUSJSON';
  * */
 
 
-export class AssetAllocationConverter extends MorningstarConverter {
+export class USAssetAllocationConverter extends MorningstarConverter {
 
 
     /* *
@@ -67,14 +67,14 @@ export class AssetAllocationConverter extends MorningstarConverter {
             benchmark = assetAllocation.Benchmark;
 
         if (portfolio) {
-            setAssetAllocation(portfolio);
+            setAssetAllocationCells(portfolio);
         }
 
         if (benchmark) {
-            setAssetAllocation(benchmark, '_Benchmark');
+            setAssetAllocationCells(benchmark, '_Benchmark');
         }
 
-        function setAssetAllocation (
+        function setAssetAllocationCells (
             asset: Array<XRayUSJSON.AssetAllocationItem>,
             benchmarkSuffix = ''
         ) {
@@ -96,4 +96,4 @@ export class AssetAllocationConverter extends MorningstarConverter {
  * */
 
 
-export default AssetAllocationConverter;
+export default USAssetAllocationConverter;
