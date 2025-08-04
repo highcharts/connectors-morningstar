@@ -19,8 +19,9 @@
  * */
 
 import {
-    TestConverter
-} from './Converters';
+    EquityStyleConverter,
+    FixedIncomeStyleConverter
+} from './USConverters';
 
 import type MorningstarConverter from './MorningstarConverter';
 import type { XRayUSConverterOptions } from '../XRayUS/XRayUSOptions';
@@ -32,7 +33,8 @@ import type { XRayUSConverterOptions } from '../XRayUS/XRayUSOptions';
  * */
 
 export const DATA_TABLES = [
-    { key: 'TestConverter' }
+    { key: 'EquityStyle' },
+    { key: 'FixedIncomeStyle' }
 ];
 
 /* *
@@ -42,7 +44,7 @@ export const DATA_TABLES = [
  * */
 
 export interface XRayUSConverter extends MorningstarConverter {
-    parse(options: XRayUSConverterOptions): void;
+    parse(options: XRayUSConverterOptions, hasMultiple?: boolean): void;
 }
 
 /* *
@@ -55,8 +57,10 @@ export function initConverter (
     key: string
 ): XRayUSConverter {
     switch (key) {
-        case 'TestConverter':
-            return new TestConverter();
+        case 'EquityStyle':
+            return new EquityStyleConverter();
+        case 'FixedIncomeStyle':
+            return new FixedIncomeStyleConverter();
         default:
             throw new Error(`Unsupported key: ${key}`);
     }
