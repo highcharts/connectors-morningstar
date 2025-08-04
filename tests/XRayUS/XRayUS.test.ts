@@ -122,4 +122,25 @@ export async function xRayUSConnectorLoad (
         connector.dataTables.FixedIncomeStyle.getRowCount() > 0,
         'FixedIncomeStyle connector should not return empty rows.'
     );
+
+    const expectedAssetAllocationColumns = [
+        'ACG-USBROAD_Type',
+        'L',
+        'S',
+        'N',
+        'L_Benchmark',
+        'S_Benchmark',
+        'N_Benchmark'
+    ];
+
+    Assert.deepStrictEqual(
+        connector.dataTables.AssetAllocation.getColumnNames(),
+        expectedAssetAllocationColumns,
+        'AssetAllocation connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.AssetAllocation.getRowCount() > 0,
+        'AssetAllocation connector should not return empty rows.'
+    );
 }

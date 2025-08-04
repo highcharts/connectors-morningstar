@@ -84,6 +84,7 @@ Currently the following data points are supported in the Americas X-Ray converte
 
 - **EquityStyle**
 - **FixedIncomeStyle**
+= **AssetAllocation**
 
 
 Example request:
@@ -95,7 +96,7 @@ const americasXRayConnector = new HighchartsConnectors.Morningstar.XRayUSConnect
             token: 'JWT token'
         }
     },
-    viewId: 'Snapshot',
+    viewId: 'All',
     configId: 'Default',
     requestSettings: {
         outputCurrency: 'USD',

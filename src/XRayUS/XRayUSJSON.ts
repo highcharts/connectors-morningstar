@@ -42,8 +42,32 @@ namespace XRayUSJSON {
     export interface XRayUS {
         PortfolioName: string;
         Analysis: {
-            InvestmentStyle: InvestmentStyle
+            InvestmentStyle: InvestmentStyle,
+            AssetAllocation: Array<AssetAllocation>
         };
+    }
+
+    export interface AssetAllocation {
+        Id: string;
+        AsOfDate: string;
+        PortfolioAnalyzed: number;
+        Portfolio: Array<AssetAllocationItem>;
+        Benchmark: Array<AssetAllocationItem>;
+        SecurityBreakdown: Array<AssetAllocationSecurityBreakdown>;
+    }
+
+    export interface AssetAllocationItem {
+        Id: string;
+        Long: number;
+        Short: number;
+        Net: number;
+    }
+
+    export interface AssetAllocationSecurityBreakdown {
+        SecurityId: string;
+        Analyzed: number;
+        NotAnalyzed: number;
+        AssetClass: Array<AssetAllocationItem>;
     }
 
     export interface InvestmentStyle {
