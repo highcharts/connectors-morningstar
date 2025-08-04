@@ -32,7 +32,7 @@ import type XRayUSJSON from '../../XRayUS/XRayUSJSON';
  * */
 
 
-export class USAssetAllocationConverter extends MorningstarConverter {
+export class AssetAllocationConverter extends MorningstarConverter {
 
 
     /* *
@@ -79,7 +79,7 @@ export class USAssetAllocationConverter extends MorningstarConverter {
             benchmarkSuffix = ''
         ) {
             for (let i = 0; i < asset.length; i++) {
-                table.setCell(assetAllocation.Id + '_Type' + columnSuffix, i, asset[i].Id);
+                table.setCell(assetAllocation.Id + '_Type', i, asset[i].Id);
                 table.setCell('L' + benchmarkSuffix + columnSuffix, i, asset[i].Long);
                 table.setCell('S' + benchmarkSuffix + columnSuffix, i, asset[i].Short);
                 table.setCell('N' + benchmarkSuffix + columnSuffix, i, asset[i].Net);
@@ -96,4 +96,4 @@ export class USAssetAllocationConverter extends MorningstarConverter {
  * */
 
 
-export default USAssetAllocationConverter;
+export default AssetAllocationConverter;

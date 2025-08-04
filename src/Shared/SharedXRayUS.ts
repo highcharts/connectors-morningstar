@@ -21,7 +21,7 @@
 import {
     EquityStyleConverter,
     FixedIncomeStyleConverter,
-    USAssetAllocationConverter
+    AssetAllocationConverter
 } from './USConverters';
 
 import type MorningstarConverter from './MorningstarConverter';
@@ -64,7 +64,7 @@ export function initConverter (
         case 'FixedIncomeStyle':
             return new FixedIncomeStyleConverter();
         case 'AssetAllocation':
-            return new USAssetAllocationConverter();
+            return new AssetAllocationConverter();
         default:
             throw new Error(`Unsupported key: ${key}`);
     }
