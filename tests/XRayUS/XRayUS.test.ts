@@ -9,7 +9,7 @@ export async function xRayUSConnectorLoad (
             ...api,
             url: 'https://www.us-api.morningstar.com/'
         },
-        viewId: 'Snapshot',
+        viewId: 'All',
         configId: 'Default',
         requestSettings: {
             outputCurrency: 'USD',
@@ -63,10 +63,63 @@ export async function xRayUSConnectorLoad (
         ]
     });
 
+    await connector.load();
+
     Assert.ok(
         connector instanceof MC.XRayUSConnector,
         'Connector should be instance of XRayUSConnector class.'
     );
 
-    await connector.load();
+    const expectedEquityStyleColumns = [
+        'Type',
+        'Value',
+        'Unclassified',
+        'Value_FOUSA00DFS',
+        'Unclassified_FOUSA00DFS',
+        'Unclassified_F00000VCTT',
+        'Value_FOUSA00C3O',
+        'Unclassified_FOUSA00C3O',
+        'Value_0P0000BVN5',
+        'Unclassified_0P0000BVN5',
+        'Style',
+        'Size'
+    ];
+
+    const actualEquityStyleColumns = connector.dataTables.EquityStyle.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualEquityStyleColumns.sort(),
+        expectedEquityStyleColumns.sort(),
+        'EquityStyle connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.EquityStyle.getRowCount() > 0,
+        'EquityStyle connector should not return empty rows.'
+    );
+
+    const expectedFixedIncomeStyleColumns = [
+        'Type',
+        'Value',
+        'Unclassified',
+        'Value_FOUSA00DFS',
+        'Value_F00000VCTT',
+        'Value_0P0000BVN5',
+        'Value_FOUSA00C3O',
+        'Style',
+        'Size'
+    ];
+
+    const actualFixedIncomeStyleColumns = connector.dataTables.FixedIncomeStyle.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualFixedIncomeStyleColumns.sort(),
+        expectedFixedIncomeStyleColumns.sort(),
+        'FixedIncomeStyle connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.FixedIncomeStyle.getRowCount() > 0,
+        'FixedIncomeStyle connector should not return empty rows.'
+    );
 }
