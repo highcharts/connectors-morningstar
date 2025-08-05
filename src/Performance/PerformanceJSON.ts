@@ -39,13 +39,28 @@ namespace PerformanceJSON {
             Benchmark: {
                 CalendarYear: Array<{
                     Id: number;
-                    Value: number
+                    Value: number;
                 }>;
             };
             Portfolio: {
                 CalendarYear: Array<{
                     Id: number;
-                    Value: number
+                    Value: number;
+                }>;
+            };
+        };
+        TrailingReturns: {
+            AsOfDate: string;
+            Portfolio: {
+                TimePeriod: Array<{
+                    Id: string;
+                    Value: number;
+                }>;
+            };
+            Benchmark: {
+                TimePeriod: Array<{
+                    Id: string;
+                    Value: number;
                 }>;
             };
         };
