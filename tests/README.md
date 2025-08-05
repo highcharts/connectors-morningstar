@@ -28,5 +28,6 @@ If you would like to run one test folder or file, you can do that by passing as 
 - file name (to run tests in a chosen file): `npm run test -- --tests CumulativeReturn`
 - path to a specific file: `npm run test -- --tests XRay/RiskStatistics` (works the same as file name)
 - full relative path: `npm run test -- --tests tests/SecurityDetails/SecurityDetailsConnector` (works the same as file name)
+- multiple categories (comma-separated file names or folders): `npm run test -- --tests GoalAnalysis,RiskScore,RNANews,Screeners,SecurityCompare,SecurityDetails,Shared,TimeSeries,XRay`
 
 Arguments are not case sensitive (i.e `xray` and `XRay` works the same) and adding `.test.ts` extension to filename is optional.
