@@ -123,7 +123,7 @@ export async function xRayUSConnectorLoad (
         'FixedIncomeStyle connector should not return empty rows.'
     );
 
-    const expectedAssetAllocationColumns = [
+    const expectedAssetAllocationsColumns = [
         'Type',
         'L',
         'S',
@@ -145,16 +145,16 @@ export async function xRayUSConnectorLoad (
         'N_FOUSA00DFS'
     ];
 
-    const actualAssetAllocationColumns = connector.dataTables.AssetAllocation.getColumnNames();
+    const actualAssetAllocationsColumns = connector.dataTables.AssetAllocations.getColumnNames();
 
     Assert.deepStrictEqual(
-        actualAssetAllocationColumns.sort(),
-        expectedAssetAllocationColumns.sort(),
+        actualAssetAllocationsColumns.sort(),
+        expectedAssetAllocationsColumns.sort(),
         'AssetAllocation connector should return expected column names.'
     );
 
     Assert.ok(
-        connector.dataTables.AssetAllocation.getRowCount() > 0,
+        connector.dataTables.AssetAllocations.getRowCount() > 0,
         'AssetAllocation connector should not return empty rows.'
     );
 }
