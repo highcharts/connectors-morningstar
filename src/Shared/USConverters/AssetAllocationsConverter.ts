@@ -84,26 +84,28 @@ export class AssetAllocationConverter extends MorningstarConverter {
             securityBreakdown.forEach(security => {
                 for (let i = 0; i < security.AssetClass.length; i++) {
                     if (Array.isArray(typeColumn)) {
-                        const index = typeColumn.indexOf(
-                            security.AssetClass[i].Id
+                        const typeMap: Record<string, number> = {};
+                        typeColumn.forEach(function (type, idx) {
+                            if (typeof type === 'string') {
+                                typeMap[type] = idx;
+                            }
+                        });
+
+                        table.setCell(
+                            'L_' + security.SecurityId + columnSuffix,
+                            typeMap[security.AssetClass[i].Id],
+                            security.AssetClass[i].Long
                         );
-                        if (index !== -1) {
-                            table.setCell(
-                                'L_' + security.SecurityId + columnSuffix,
-                                index,
-                                security.AssetClass[i].Long
-                            );
-                            table.setCell(
-                                'S_' + security.SecurityId + columnSuffix,
-                                index,
-                                security.AssetClass[i].Short
-                            );
-                            table.setCell(
-                                'N_' + security.SecurityId + columnSuffix,
-                                index,
-                                security.AssetClass[i].Net
-                            );
-                        }
+                        table.setCell(
+                            'S_' + security.SecurityId + columnSuffix,
+                            typeMap[security.AssetClass[i].Id],
+                            security.AssetClass[i].Short
+                        );
+                        table.setCell(
+                            'N_' + security.SecurityId + columnSuffix,
+                            typeMap[security.AssetClass[i].Id],
+                            security.AssetClass[i].Net
+                        );
                     }
                 }
             });
