@@ -137,7 +137,8 @@ async function runUnitTests () {
     let unitTests: Record<string, unknown>;
 
     // Parse test patterns from command line arguments
-    const testPatterns = args._ && typeof args._ === 'string' ? [args._] : [];
+    // Format: npm run test -- --tests underlyholding
+    const testPatterns = args.tests && typeof args.tests === 'string' ? [args.tests] : [];
 
     const allTestFiles = (await FS.readdir(testFolder, { recursive: true })).sort();
     const filteredTestFiles = allTestFiles.filter(path => {
