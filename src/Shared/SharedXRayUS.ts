@@ -21,7 +21,7 @@
 import {
     EquityStyleConverter,
     FixedIncomeStyleConverter,
-    AssetAllocationConverter
+    AssetAllocationsConverter
 } from './USConverters';
 
 import type MorningstarConverter from './MorningstarConverter';
@@ -36,7 +36,7 @@ import type { XRayUSConverterOptions } from '../XRayUS/XRayUSOptions';
 export const DATA_TABLES = [
     { key: 'EquityStyle' },
     { key: 'FixedIncomeStyle' },
-    { key: 'AssetAllocation' }
+    { key: 'AssetAllocations' }
 ];
 
 /* *
@@ -63,8 +63,8 @@ export function initConverter (
             return new EquityStyleConverter();
         case 'FixedIncomeStyle':
             return new FixedIncomeStyleConverter();
-        case 'AssetAllocation':
-            return new AssetAllocationConverter();
+        case 'AssetAllocations':
+            return new AssetAllocationsConverter();
         default:
             throw new Error(`Unsupported key: ${key}`);
     }

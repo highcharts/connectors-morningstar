@@ -32,7 +32,7 @@ import type XRayUSJSON from '../../XRayUS/XRayUSJSON';
  * */
 
 
-export class AssetAllocationConverter extends MorningstarConverter {
+export class AssetAllocationsConverter extends MorningstarConverter {
 
 
     /* *
@@ -133,4 +133,4 @@ export class AssetAllocationConverter extends MorningstarConverter {
  * */
 
 
-export default AssetAllocationConverter;
+export default AssetAllocationsConverter;
