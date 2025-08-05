@@ -64,7 +64,8 @@ export class AssetAllocationConverter extends MorningstarConverter {
             columnSuffix = hasMultiple ? `_${options.json.PortfolioName}` : '',
             assetAllocation = options.json.Analysis.AssetAllocation[0],
             portfolio = assetAllocation.Portfolio,
-            benchmark = assetAllocation.Benchmark;
+            benchmark = assetAllocation.Benchmark,
+            securityBreakdown = assetAllocation.SecurityBreakdown;
 
         if (portfolio) {
             setAssetAllocationCells(portfolio);
@@ -72,6 +73,40 @@ export class AssetAllocationConverter extends MorningstarConverter {
 
         if (benchmark) {
             setAssetAllocationCells(benchmark, '_Benchmark');
+        }
+
+        if (securityBreakdown) {
+            // Assign security breakdown securities to the matching Type, since
+            // the security breakdown is in a different order than the asset
+            // allocation.
+            const typeColumn = table.getColumn(assetAllocation.Id + '_Type');
+
+            securityBreakdown.forEach(security => {
+                for (let i = 0; i < security.AssetClass.length; i++) {
+                    if (Array.isArray(typeColumn)) {
+                        const index = typeColumn.indexOf(
+                            security.AssetClass[i].Id
+                        );
+                        if (index !== -1) {
+                            table.setCell(
+                                'L_' + security.SecurityId + columnSuffix,
+                                index,
+                                security.AssetClass[i].Long
+                            );
+                            table.setCell(
+                                'S_' + security.SecurityId + columnSuffix,
+                                index,
+                                security.AssetClass[i].Short
+                            );
+                            table.setCell(
+                                'N_' + security.SecurityId + columnSuffix,
+                                index,
+                                security.AssetClass[i].Net
+                            );
+                        }
+                    }
+                }
+            });
         }
 
         function setAssetAllocationCells (
