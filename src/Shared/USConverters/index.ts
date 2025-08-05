@@ -16,6 +16,7 @@
 
 import EquityStyleConverter from './EquityStyleConverter';
 import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
+import FundStatisticsConverter from './FundStatisticsConverter';
 
 
 /* *
@@ -36,6 +37,7 @@ import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
 
 export * from './EquityStyleConverter';
 export * from './FixedIncomeStyleConverter';
+export * from './FundStatisticsConverter';
 
 /* *
  *
@@ -46,5 +48,6 @@ export * from './FixedIncomeStyleConverter';
 
 export default {
     EquityStyleConverter,
-    FixedIncomeStyleConverter
+    FixedIncomeStyleConverter,
+    FundStatisticsConverter
 };

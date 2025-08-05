@@ -122,4 +122,20 @@ export async function xRayUSConnectorLoad (
         connector.dataTables.FixedIncomeStyle.getRowCount() > 0,
         'FixedIncomeStyle connector should not return empty rows.'
     );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.FundStatistics.getColumnNames(),
+        [
+            'Type',
+            'Value',
+            'Value_FOUSA00DFS',
+            'Value_FOUSA00C3O'
+        ],
+        'FundStatistics table should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.FundStatistics.getRowCount() > 0,
+        'FundStatistics table should not contain empty rows.'
+    );
 }
