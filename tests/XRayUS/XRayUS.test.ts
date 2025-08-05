@@ -124,18 +124,32 @@ export async function xRayUSConnectorLoad (
     );
 
     const expectedAssetAllocationColumns = [
-        'ACG-USBROAD_Type',
+        'Type',
         'L',
         'S',
         'N',
         'L_Benchmark',
         'S_Benchmark',
-        'N_Benchmark'
+        'N_Benchmark',
+        'L_0P0000BVN5',
+        'S_0P0000BVN5',
+        'N_0P0000BVN5',
+        'L_F00000VCTT',
+        'S_F00000VCTT',
+        'N_F00000VCTT',
+        'L_FOUSA00C3O',
+        'S_FOUSA00C3O',
+        'N_FOUSA00C3O',
+        'L_FOUSA00DFS',
+        'S_FOUSA00DFS',
+        'N_FOUSA00DFS'
     ];
 
+    const actualAssetAllocationColumns = connector.dataTables.AssetAllocation.getColumnNames();
+
     Assert.deepStrictEqual(
-        connector.dataTables.AssetAllocation.getColumnNames(),
-        expectedAssetAllocationColumns,
+        actualAssetAllocationColumns.sort(),
+        expectedAssetAllocationColumns.sort(),
         'AssetAllocation connector should return expected column names.'
     );
 

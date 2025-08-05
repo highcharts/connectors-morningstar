@@ -77,9 +77,9 @@ export class AssetAllocationConverter extends MorningstarConverter {
 
         if (securityBreakdown) {
             // Assign security breakdown securities to the matching Type, since
-            // the security breakdown is in a different order than the asset
-            // allocation.
-            const typeColumn = table.getColumn(assetAllocation.Id + '_Type');
+            // the security breakdown is in a different order than the portfolio
+            // and benchmark.
+            const typeColumn = table.getColumn('Type');
 
             securityBreakdown.forEach(security => {
                 for (let i = 0; i < security.AssetClass.length; i++) {
@@ -114,7 +114,7 @@ export class AssetAllocationConverter extends MorningstarConverter {
             benchmarkSuffix = ''
         ) {
             for (let i = 0; i < asset.length; i++) {
-                table.setCell(assetAllocation.Id + '_Type', i, asset[i].Id);
+                table.setCell('Type', i, asset[i].Id);
                 table.setCell('L' + benchmarkSuffix + columnSuffix, i, asset[i].Long);
                 table.setCell('S' + benchmarkSuffix + columnSuffix, i, asset[i].Short);
                 table.setCell('N' + benchmarkSuffix + columnSuffix, i, asset[i].Net);
