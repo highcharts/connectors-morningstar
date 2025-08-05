@@ -49,9 +49,9 @@ namespace XRayUSJSON {
 
     export interface FixedIncomeAnalysis {
         CreditQuality: {
-            Portfolio: Record<string, number>;
-            Benchmark: Record<string, number>;
-        }
+            Portfolio: CreditQualityBreakdown;
+            Benchmark: CreditQualityBreakdown;
+        };
     }
 
     export interface InvestmentStyle {
@@ -122,6 +122,17 @@ namespace XRayUSJSON {
         SmallGrowth: number;
         SmallValue: number;
         Unclassified: number;
+    }
+
+    interface CreditQualityBreakdown {
+        AAA: number;
+        AA: number;
+        A: number;
+        BBB: number;
+        BB: number;
+        B: number;
+        BelowB: number;
+        NotRated: number;
     }
 
 }

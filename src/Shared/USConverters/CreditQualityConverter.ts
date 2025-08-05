@@ -68,9 +68,9 @@ export class CreditQualityConverter extends MorningstarConverter {
         if (portfolio) {
             let rowIndex = 0;
 
-            for (const [key, value] of Object.entries(portfolio)) {
+            for (const key of Object.keys(portfolio) as Array<keyof typeof portfolio>) {
                 table.setCell('Type', rowIndex, key);
-                table.setCell('Value' + columnSuffix, rowIndex, value);
+                table.setCell('Value' + columnSuffix, rowIndex, portfolio[key]);
 
                 ++rowIndex;
             }
@@ -79,9 +79,9 @@ export class CreditQualityConverter extends MorningstarConverter {
         if (benchmark) {
             let rowIndex = 0;
 
-            for (const [key, value] of Object.entries(benchmark)) {
+            for (const key of Object.keys(benchmark) as Array<keyof typeof benchmark>) {
                 table.setCell('Type', rowIndex, key);
-                table.setCell('Value_Benchmark' + columnSuffix, rowIndex, value);
+                table.setCell('Value_Benchmark' + columnSuffix, rowIndex, benchmark[key]);
 
                 ++rowIndex;
             }
