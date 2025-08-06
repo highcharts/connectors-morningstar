@@ -75,14 +75,14 @@ export class CalendarYearReturnConverter extends MorningstarConverter {
         for (let i = 0; i < calendarYearData.length; i++) {
             const { Id, Value: portfolioValue } = calendarYearData[i];
             const idColumn = 'Id';
-            const portfolioValueColumn = 'Portfolio_Value';
+            const portfolioValueColumn = 'Value';
 
             table.setCell(`${idColumn}${columnSuffix}`, i, Id);
             table.setCell(`${portfolioValueColumn}${columnSuffix}`, i, portfolioValue);
 
             if (benchmarkData?.length > i) {
                 const { Value: benchmarkValue } = benchmarkData[i];
-                const benchmarkValueColumn = 'Benchmark_Value';
+                const benchmarkValueColumn = 'Value_Benchmark';
 
                 table.setCell(`${benchmarkValueColumn}${columnSuffix}`, i, benchmarkValue);
             }
