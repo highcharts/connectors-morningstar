@@ -140,7 +140,9 @@ namespace XRayUSJSON {
 
     interface CalendarYearReturn {
         AsOfDate: string;
-        Portfolio: CalendarYearReturnItem;
+        Portfolio: CalendarYearReturnItem & {
+            GrossValue: number;
+        };
         Benchmark: CalendarYearReturnItem;
     }
 

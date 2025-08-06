@@ -72,6 +72,7 @@ export class XRayCalendarYearReturnConverter extends MorningstarConverter {
 
                 table.setCell('Year', rowIndex, year.Id);
                 table.setCell('Value' + columnSuffix, rowIndex, year.Value);
+                table.setCell('GrossValue' + columnSuffix, rowIndex, portfolio.GrossValue);
             }
         }
 
