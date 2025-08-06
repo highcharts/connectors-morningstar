@@ -143,30 +143,46 @@ async function runUnitTests () {
     }
 
     const allTestFiles = (await FS.readdir(testFolder, { recursive: true })).sort();
-    const filteredTestFiles = allTestFiles.filter(path => {
+    const filteredTestFiles: string[] = [];
+    const matchedPatterns = new Set<string>();
+
+    for (const path of allTestFiles) {
         if (!path.endsWith('.test.ts')) {
-            return false;
+            continue;
         }
 
         // If no patterns specified, run all tests
         if (!testPatterns || testPatterns.length === 0) {
-            return true;
+            filteredTestFiles.push(path);
+            continue;
         }
 
         const normalizedPath = path.replace(/\\/gu, '/').toLowerCase();
-        return testPatterns.some(pattern => {
+
+        for (const pattern of testPatterns) {
             const normalizedPattern = pattern
                 .toLowerCase()
                 .replace(/\\/gu, '/')
                 .replace(/^tests\//u, '');
 
-            return normalizedPath.includes(normalizedPattern);
-        });
-    });
+            if (normalizedPath.includes(normalizedPattern)) {
+                matchedPatterns.add(pattern);
+                filteredTestFiles.push(path);
+            }
+        }
+    }
+
+    // Log unmatched patterns
+    if (testPatterns?.length > 0) {
+        for (const pattern of testPatterns) {
+            if (!matchedPatterns.has(pattern)) {
+                console.error(`❌ No test files or folders found matching pattern: "${pattern}"`);
+            }
+        }
+    }
 
     if (filteredTestFiles.length === 0) {
         if (testPatterns.length > 0) {
-            console.error(`❌ No test files found matching patterns: ${testPatterns.join(', ')}`);
             console.error('Available test files:');
             allTestFiles
                 .filter(path => path.endsWith('.test.ts'))
