@@ -42,10 +42,19 @@ namespace XRayUSJSON {
     export interface XRayUS {
         PortfolioName: string;
         Analysis: {
-            InvestmentStyle: InvestmentStyle
+            FixedIncomeAnalysis: FixedIncomeAnalysis;
+            InvestmentStyle: InvestmentStyle;
         };
         Statistics: {
             FundStatistics: FundStatistics
+        };
+
+    }
+
+    export interface FixedIncomeAnalysis {
+        CreditQuality: {
+            Portfolio: CreditQualityBreakdown;
+            Benchmark: CreditQualityBreakdown;
         };
     }
 
@@ -117,6 +126,17 @@ namespace XRayUSJSON {
         SmallGrowth: number;
         SmallValue: number;
         Unclassified: number;
+    }
+
+    interface CreditQualityBreakdown {
+        AAA: number;
+        AA: number;
+        A: number;
+        BBB: number;
+        BB: number;
+        B: number;
+        BelowB: number;
+        NotRated: number;
     }
 
     interface FundStatistics {

@@ -8,12 +8,14 @@
  *
  *  Authors:
  *  - Kamil Musialowski
+ *  - Jedrzej Ruta
  *
  * */
 
 
 'use strict';
 
+import CreditQualityConverter from './CreditQualityConverter';
 import EquityStyleConverter from './EquityStyleConverter';
 import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
 import FundStatisticsConverter from './FundStatisticsConverter';
@@ -35,6 +37,7 @@ import FundStatisticsConverter from './FundStatisticsConverter';
  * */
 
 
+export * from './CreditQualityConverter';
 export * from './EquityStyleConverter';
 export * from './FixedIncomeStyleConverter';
 export * from './FundStatisticsConverter';
@@ -47,6 +50,7 @@ export * from './FundStatisticsConverter';
 
 
 export default {
+    CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,
     FundStatisticsConverter
