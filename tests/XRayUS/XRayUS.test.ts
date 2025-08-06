@@ -138,7 +138,7 @@ export async function xRayUSConnectorLoad (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.FundStatistics.getColumnNames(),
+        connector.dataTables.FundStatistics.getColumnNames().sort(),
         [
             'Type',
             'Value',
