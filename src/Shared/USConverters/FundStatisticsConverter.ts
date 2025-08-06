@@ -61,8 +61,7 @@ export class FundStatisticsConverter extends MorningstarConverter {
     ): void {
         const table = this.table,
             columnSuffix = hasMultiple ? `_${options.json.PortfolioName}` : '',
-            fundStatistics =
-                options.json.Statistics.FundStatistics,
+            fundStatistics = options.json.Statistics.FundStatistics,
             portfolio = fundStatistics.Portfolio,
             securityBreakdown = fundStatistics.SecurityBreakdown;
 
