@@ -59,8 +59,8 @@ export async function PerformanceConnectorLoad (
 
     const expectedReturnColumns = [
         'Id',
-        'Portfolio_Value',
-        'Benchmark_Value'
+        'Value',
+        'Value_Benchmark'
     ];
 
     const actualCalendarYearReturnColumns =
