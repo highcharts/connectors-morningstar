@@ -44,7 +44,10 @@ namespace XRayUSJSON {
         Analysis: {
             FixedIncomeAnalysis: FixedIncomeAnalysis;
             InvestmentStyle: InvestmentStyle;
-        }
+        };
+        Returns: {
+            CalendarYearReturn: CalendarYearReturn;
+        };
     }
 
     export interface FixedIncomeAnalysis {
@@ -135,6 +138,18 @@ namespace XRayUSJSON {
         NotRated: number;
     }
 
+    interface CalendarYearReturn {
+        AsOfDate: string;
+        Portfolio: CalendarYearReturnItem;
+        Benchmark: CalendarYearReturnItem;
+    }
+
+    interface CalendarYearReturnItem {
+        CalendarYear: Array<{
+            Id: number;
+            Value: number;
+        }>;
+    }
 }
 
 

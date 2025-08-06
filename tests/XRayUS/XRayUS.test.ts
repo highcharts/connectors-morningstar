@@ -136,4 +136,15 @@ export async function xRayUSConnectorLoad (
         connector.dataTables.FixedIncomeStyle.getRowCount() > 0,
         'FixedIncomeStyle connector should not return empty rows.'
     );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.CalendarYearReturns.getColumnNames(),
+        ['Year', 'Value', 'Value_Benchmark'],
+        'CalendarYearReturns connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.CalendarYearReturns.getRowCount() > 0,
+        'CalendarYearReturns connector should not return empty rows.'
+    );
 }
