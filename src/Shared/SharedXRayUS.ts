@@ -22,7 +22,7 @@ import {
     CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,
-    XRayCalendarYearReturnsConverter
+    XRayCalendarYearReturnConverter
 } from './USConverters';
 
 import type MorningstarConverter from './MorningstarConverter';
@@ -38,7 +38,7 @@ export const DATA_TABLES = [
     { key: 'CreditQuality' },
     { key: 'EquityStyle' },
     { key: 'FixedIncomeStyle' },
-    { key: 'CalendarYearReturns' }
+    { key: 'CalendarYearReturn' }
 ];
 
 /* *
@@ -67,8 +67,8 @@ export function initConverter (
             return new EquityStyleConverter();
         case 'FixedIncomeStyle':
             return new FixedIncomeStyleConverter();
-        case 'CalendarYearReturns':
-            return new XRayCalendarYearReturnsConverter();
+        case 'CalendarYearReturn':
+            return new XRayCalendarYearReturnConverter();
         default:
             throw new Error(`Unsupported key: ${key}`);
     }

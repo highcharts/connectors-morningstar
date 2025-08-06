@@ -31,7 +31,7 @@ import type { XRayUSConverterOptions } from '../../XRayUS/XRayUSOptions';
  * */
 
 
-export class XRayCalendarYearReturnsConverter extends MorningstarConverter {
+export class XRayCalendarYearReturnConverter extends MorningstarConverter {
 
 
     /* *
@@ -61,9 +61,9 @@ export class XRayCalendarYearReturnsConverter extends MorningstarConverter {
     ): void {
         const table = this.table,
             columnSuffix = hasMultiple ? `_${options.json.PortfolioName}` : '',
-            calendarYearReturns = options.json.Returns.CalendarYearReturn,
-            portfolio = calendarYearReturns.Portfolio,
-            benchmark = calendarYearReturns.Benchmark;
+            calendarYearReturn = options.json.Returns.CalendarYearReturn,
+            portfolio = calendarYearReturn.Portfolio,
+            benchmark = calendarYearReturn.Benchmark;
 
         if (portfolio) {
             for (let i = portfolio.CalendarYear.length - 1; i >= 0; i--) {
@@ -95,4 +95,4 @@ export class XRayCalendarYearReturnsConverter extends MorningstarConverter {
  * */
 
 
-export default XRayCalendarYearReturnsConverter;
+export default XRayCalendarYearReturnConverter;

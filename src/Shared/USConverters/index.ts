@@ -18,7 +18,7 @@
 import CreditQualityConverter from './CreditQualityConverter';
 import EquityStyleConverter from './EquityStyleConverter';
 import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
-import XRayCalendarYearReturnsConverter from './XRayCalendarYearReturnsConverter';
+import XRayCalendarYearReturnConverter from './XRayCalendarYearReturnConverter';
 
 
 /* *
@@ -40,7 +40,7 @@ import XRayCalendarYearReturnsConverter from './XRayCalendarYearReturnsConverter
 export * from './CreditQualityConverter';
 export * from './EquityStyleConverter';
 export * from './FixedIncomeStyleConverter';
-export * from './XRayCalendarYearReturnsConverter';
+export * from './XRayCalendarYearReturnConverter';
 
 /* *
  *
@@ -53,5 +53,5 @@ export default {
     CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,
-    XRayCalendarYearReturnsConverter
+    XRayCalendarYearReturnConverter
 };
