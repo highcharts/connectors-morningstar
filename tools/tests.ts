@@ -138,7 +138,7 @@ async function runUnitTests () {
 
     // Parse test patterns from command line arguments
     let testPatterns: string[] = [];
-    if (args.tests && typeof args.tests === 'string') {
+    if (typeof args.tests === 'string') {
         testPatterns = args.tests.split(',').map(pattern => pattern.trim());
     }
 
