@@ -138,13 +138,13 @@ export async function xRayUSConnectorLoad (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.CalendarYearReturns.getColumnNames(),
-        ['Year', 'Value', 'Value_Benchmark'],
+        connector.dataTables.CalendarYearReturn.getColumnNames(),
+        ['Year', 'Value', 'GrossValue', 'Value_Benchmark'],
         'CalendarYearReturns connector should return expected column names.'
     );
 
     Assert.ok(
-        connector.dataTables.CalendarYearReturns.getRowCount() > 0,
+        connector.dataTables.CalendarYearReturn.getRowCount() > 0,
         'CalendarYearReturns connector should not return empty rows.'
     );
 }
