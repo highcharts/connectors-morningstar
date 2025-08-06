@@ -128,8 +128,8 @@ export async function xRayUSConnectorLoad (
         [
             'Type',
             'Value',
-            'Value_FOUSA00DFS',
-            'Value_FOUSA00C3O'
+            'Value_FOUSA00C3O',
+            'Value_FOUSA00DFS'
         ],
         'FundStatistics table should return expected column names.'
     );
