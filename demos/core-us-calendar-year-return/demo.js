@@ -75,14 +75,14 @@ async function displayPerformance (postmanJSON) {
             data: connector.dataTables.CalendarYearReturn.getRows(
                 void 0,
                 void 0,
-                ['Id', 'Portfolio_Value']
+                ['Id', 'Value']
             )
         }, {
             name: 'Benchmark',
             data: connector.dataTables.CalendarYearReturn.getRows(
                 void 0,
                 void 0,
-                ['Id', 'Benchmark_Value']
+                ['Id', 'Value_Benchmark']
             )
         }]
     });
