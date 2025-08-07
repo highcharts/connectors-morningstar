@@ -70,6 +70,20 @@ export async function xRayUSConnectorLoad (
         'Connector should be instance of XRayUSConnector class.'
     );
 
+    Assert.deepStrictEqual(
+        connector.dataTables.CreditQuality.getColumnNames(),
+        [
+            'Type',
+            'Value'
+        ],
+        'CreditQuality table should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.CreditQuality.getRowCount() > 0,
+        'CreditQuality table should not contain empty rows.'
+    );
+
     const expectedEquityStyleColumns = [
         'Type',
         'Value',
