@@ -20,7 +20,8 @@ export async function xRayUSConnectorLoad (
                         id: 'ACG-USBROAD'
                     }
                 ]
-            }
+            },
+            includeGrossNetReturns: true
         },
         portfolios: [
             {
