@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <script src="https://code.highcharts.com/stock/highstock.js"></script>
+        <script src="https://code.highcharts.com/modules/heatmap.js"></script>
         <script src="https://code.highcharts.com/connectors/morningstar/connectors-morningstar.js"></script>
-        <title>XRay US Connector</title>
+        <title>Highcharts Core + Morningstar US Investment Style</title>
         <style>
             body {
                 font-family: sans-serif;
@@ -18,13 +19,13 @@
         </style>
     </head>
     <body>
-        <h1>XRay US Connector</h1>
+        <h1>Highcharts Core + Morningstar US Investment Style</h1>
         <p id="postman-message">
             Add your Postman environment file from Morningstar to start the demo:
             <input type="file" id="postman-json" accept=".json,application/json" />
         </p>
         <p id="loading-label">Loading data…</p>
-        <div id="container"></div>
+        <div id="container" style="max-width: 420px; margin: 0 auto;"></div>
         <script type="module" src="./demo.js"></script>
     </body>
 </html>

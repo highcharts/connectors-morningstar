@@ -9,8 +9,6 @@ export async function PerformanceConnectorLoad (
             ...api,
             url: 'https://www.us-api.morningstar.com/'
         },
-        configId: 'Hypothetical',
-        viewId: 'CorrelationMatrix',
         requestSettings: {
             outputCurrency: 'USD',
             assetClassGroupConfigs: {
@@ -52,10 +50,30 @@ export async function PerformanceConnectorLoad (
         ]
     });
 
+    await connector.load();
+
     Assert.ok(
         connector instanceof MC.PerformanceConnector,
         'Connector should be instance of PerformanceConnector class.'
     );
 
-    await connector.load();
+    const expectedCalendarYearReturnColumns = [
+        'Id',
+        'Value',
+        'Value_Benchmark'
+    ];
+
+    const actualCalendarYearReturnColumns =
+        connector.dataTables.CalendarYearReturn.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualCalendarYearReturnColumns.sort(),
+        expectedCalendarYearReturnColumns.sort(),
+        'CalendarYearReturn converter should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.CalendarYearReturn.getRowCount() > 0,
+        'CalendarYearReturn converter should not return empty rows.'
+    );
 }
