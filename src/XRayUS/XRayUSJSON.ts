@@ -44,7 +44,29 @@ namespace XRayUSJSON {
         Analysis: {
             FixedIncomeAnalysis: FixedIncomeAnalysis;
             InvestmentStyle: InvestmentStyle;
-        }
+        };
+        Holdings: {
+            AsOfDate: string;
+            PortfolioHoldings: PortfolioHoldings;
+        };
+    }
+
+    export interface PortfolioHoldings {
+        AsOfDate: string;
+        Security: Array<Security>;
+    }
+
+    export interface Security {
+        FundPortfolioDate: string;
+        MarketValue: number;
+        Name: string;
+        PercentAssets: number;
+        SecurityId: string;
+        Year1: number;
+        Year3: number;
+        Year5: number;
+        Year10: number;
+        NotClassifiedHoldingId: string;
     }
 
     export interface FixedIncomeAnalysis {
