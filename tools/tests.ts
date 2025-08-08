@@ -136,17 +136,66 @@ async function runUnitTests () {
     let test: unknown;
     let unitTests: Record<string, unknown>;
 
-    for (let path of (await FS.readdir(testFolder, { recursive: true })).sort()) {
+    // Parse test patterns from command line arguments
+    let testPatterns: string[] = [];
+    if (typeof args.tests === 'string') {
+        testPatterns = args.tests.split(',').map(pattern => pattern.trim());
+    }
 
-        if (
-            !path.endsWith('.test.ts') ||
-            (
-                typeof args.tests === 'string' &&
-                !path.includes(args.tests)
-            )
-        ) {
+    const allTestFiles = (await FS.readdir(testFolder, { recursive: true })).sort();
+    const filteredTestFiles: string[] = [];
+    const matchedPatterns = new Set<string>();
+
+    for (const path of allTestFiles) {
+        if (!path.endsWith('.test.ts')) {
             continue;
         }
+
+        // If no patterns specified, run all tests
+        if (!testPatterns || testPatterns.length === 0) {
+            filteredTestFiles.push(path);
+            continue;
+        }
+
+        const normalizedPath = path.replace(/\\/gu, '/').toLowerCase();
+
+        for (const pattern of testPatterns) {
+            const normalizedPattern = pattern
+                .toLowerCase()
+                .replace(/\\/gu, '/')
+                .replace(/^tests\//u, '');
+
+            if (normalizedPath.includes(normalizedPattern)) {
+                matchedPatterns.add(pattern);
+                filteredTestFiles.push(path);
+            }
+        }
+    }
+
+    // Log unmatched patterns
+    if (testPatterns?.length > 0) {
+        for (const pattern of testPatterns) {
+            if (!matchedPatterns.has(pattern)) {
+                console.error(`❌ No test files or folders found matching pattern: "${pattern}"`);
+            }
+        }
+    }
+
+    if (filteredTestFiles.length === 0) {
+        if (testPatterns.length > 0) {
+            console.error('Available test files:');
+            allTestFiles
+                .filter(path => path.endsWith('.test.ts'))
+                .forEach(path => console.error(`  - ${path}`));
+        } else {
+            console.error('❌ No test files found');
+        }
+        process.exit(1);
+    }
+
+    console.log(`Running ${filteredTestFiles.length} test file(s)...\n`);
+
+    for (let path of filteredTestFiles) {
 
         stdWrite('Start', path.substring(0, path.length - 8), 'tests ...\n');
 
