@@ -25,9 +25,31 @@
 namespace HypoJSON {
 
     export interface HypoResponse {
+        Hypo: Array<Hypo>;
     }
 
     export interface Hypo {
+        PortfolioName: string;
+        PortfolioSummary: PortfolioSummary;
+    }
+
+    export interface PortfolioSummary {
+        AsOfDate: string;
+        PortfolioSummaryChart: PortfolioSummaryChart;
+    }
+
+    export interface PortfolioSummaryChart {
+        Frequency: string;
+        Portfolio: Portfolio;
+        Benchmark: Portfolio;
+    }
+
+    export interface Portfolio {
+        StartDate: string;
+        Data: Array<{
+            Id: string;
+            Value: number;
+        }>
     }
 
 }
