@@ -44,7 +44,11 @@ namespace XRayUSJSON {
         Analysis: {
             FixedIncomeAnalysis: FixedIncomeAnalysis;
             InvestmentStyle: InvestmentStyle;
-        }
+        };
+        Statistics: {
+            FundStatistics: FundStatistics
+        };
+
     }
 
     export interface FixedIncomeAnalysis {
@@ -133,6 +137,35 @@ namespace XRayUSJSON {
         B: number;
         BelowB: number;
         NotRated: number;
+    }
+
+    interface FundStatistics {
+        AsOfDate: string;
+        PortfolioAnalyzed: number;
+        Portfolio: FundStatisticsPortfolioBreakdown;
+        SecurityBreakdown: Array<FundStatisticsSecurityBreakdown>
+    }
+
+    interface FundStatisticsPortfolioBreakdown {
+        AverageNetExpenseRatio: number;
+        AverageGrossExpenseRatio: number;
+        PotentialCapGainsExposure: number;
+        AverageManagementExpenseRatio: number;
+        AverageManagementFee: number;
+        EstimatedMutualFundExpensesAmount: number;
+    }
+
+    interface FundStatisticsSecurityBreakdown {
+        SecurityId: string;
+        Analyzed: number;
+        NotAnalyzed: number;
+        FundStatisticsItem: FundStatisticsItem;
+    }
+
+    interface FundStatisticsItem {
+        AverageNetExpenseRatio: number;
+        AverageGrossExpenseRatio: number;
+        PotentialCapGainsExposure: number;
     }
 
 }

@@ -85,6 +85,7 @@ Currently the following data points are supported in the Americas X-Ray converte
 - **CreditQuality**
 - **EquityStyle**
 - **FixedIncomeStyle**
+- **FundStatistics**
 
 
 Example request:

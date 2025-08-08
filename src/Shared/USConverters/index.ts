@@ -18,6 +18,7 @@
 import CreditQualityConverter from './CreditQualityConverter';
 import EquityStyleConverter from './EquityStyleConverter';
 import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
+import FundStatisticsConverter from './FundStatisticsConverter';
 
 
 /* *
@@ -39,6 +40,7 @@ import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
 export * from './CreditQualityConverter';
 export * from './EquityStyleConverter';
 export * from './FixedIncomeStyleConverter';
+export * from './FundStatisticsConverter';
 
 /* *
  *
@@ -50,5 +52,6 @@ export * from './FixedIncomeStyleConverter';
 export default {
     CreditQualityConverter,
     EquityStyleConverter,
-    FixedIncomeStyleConverter
+    FixedIncomeStyleConverter,
+    FundStatisticsConverter
 };
