@@ -72,6 +72,7 @@ export class GrowthConverter extends MorningstarConverter {
         const summaryChart = hypo.PortfolioSummary.PortfolioSummaryChart,
             portfolioData = summaryChart.Portfolio.Data,
             benchmarkData = summaryChart.Benchmark.Data,
+            netAmountInvested = summaryChart.NetAmountInvested,
             startDate = summaryChart.Portfolio.StartDate,
             frequency = summaryChart.Frequency;
 
@@ -80,7 +81,8 @@ export class GrowthConverter extends MorningstarConverter {
                 idColumn = 'Id',
                 dateColumn = 'Date',
                 portfolioValueColumn = 'Value',
-                benchmarkValueColumn = 'Value_Benchmark';
+                benchmarkValueColumn = 'Value_Benchmark',
+                netAmountValueColumn = 'Value_NetAmountInvested';
 
             // Set date based on frequency and the Id (offset) since startDate.
             switch (frequency) {
@@ -98,6 +100,12 @@ export class GrowthConverter extends MorningstarConverter {
                 const { Value: benchmarkValue } = benchmarkData[i];
 
                 table.setCell(`${benchmarkValueColumn}${columnSuffix}`, i, benchmarkValue);
+            }
+
+            if (netAmountInvested?.length > i) {
+                const { Value: netAmountValue } = netAmountInvested[i];
+
+                table.setCell(`${netAmountValueColumn}${columnSuffix}`, i, netAmountValue);
             }
         }
     }

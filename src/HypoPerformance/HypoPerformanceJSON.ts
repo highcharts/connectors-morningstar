@@ -42,6 +42,10 @@ namespace HypoJSON {
         Frequency: string;
         Portfolio: Portfolio;
         Benchmark: Portfolio;
+        NetAmountInvested: Array<{
+            Id: string;
+            Value: number;
+        }>;
     }
 
     export interface Portfolio {
@@ -49,7 +53,7 @@ namespace HypoJSON {
         Data: Array<{
             Id: string;
             Value: number;
-        }>
+        }>;
     }
 
 }

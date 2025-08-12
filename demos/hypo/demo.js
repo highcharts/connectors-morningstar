@@ -31,8 +31,8 @@ async function displayHypoGrowth (postmanJSON) {
                 stateIncomeTaxRate: 0,
                 dividendTaxRate: 0,
                 illustrationTrailingTimePeriod: 'Customized',
-                startDate: '2002-01-01',
-                endDate: '2004-01-01',
+                startDate: '2020-01-01',
+                endDate: '2025-01-31',
                 synchronizePortfolioStartDate: true,
                 investmentDetailReturnsFrequency: 'Monthly',
                 liquidateOnEndDate: true,
@@ -102,7 +102,7 @@ async function displayHypoGrowth (postmanJSON) {
 
     Highcharts.chart('container', {
         chart: {
-            type: 'column'
+            type: 'spline'
         },
         title: {
             text: 'Portfolio Hypothetical Growth'
@@ -134,6 +134,13 @@ async function displayHypoGrowth (postmanJSON) {
                 void 0,
                 void 0,
                 ['Date', 'Value_Benchmark']
+            )
+        }, {
+            name: 'Net Invested',
+            data: connector.dataTables.Growth.getRows(
+                void 0,
+                void 0,
+                ['Date', 'Value_NetAmountInvested']
             )
         }]
     });

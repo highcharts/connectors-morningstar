@@ -104,7 +104,13 @@ export async function HypoPerformanceConnectorLoad (
 
     await connector.load();
 
-    const expectedGrowthData = ['Date', 'Id', 'Value', 'Value_Benchmark'];
+    const expectedGrowthData = [
+        'Date',
+        'Id',
+        'Value',
+        'Value_Benchmark',
+        'Value_NetAmountInvested'
+    ];
     const actualGrowthData = connector.dataTables.Growth.getColumnNames();
 
     Assert.deepStrictEqual(
