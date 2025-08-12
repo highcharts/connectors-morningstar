@@ -136,4 +136,26 @@ export async function xRayUSConnectorLoad (
         connector.dataTables.FixedIncomeStyle.getRowCount() > 0,
         'FixedIncomeStyle connector should not return empty rows.'
     );
+
+    const expectedMPTStatisticsColumns = [
+        'TrailingTimePeriod',
+        'Alpha',
+        'Beta',
+        'RSquared',
+        'UpCaptureRatio',
+        'DownCaptureRatio',
+        'TreynorRatio',
+        'OmegaRatio'
+    ];
+
+    Assert.deepStrictEqual(
+        connector.dataTables.MPTStatistics.getColumnNames().sort(),
+        expectedMPTStatisticsColumns.sort(),
+        'MPTStatistics table should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.MPTStatistics.getRowCount() > 0,
+        'MPTStatistics table should not contain empty rows.'
+    );
 }
