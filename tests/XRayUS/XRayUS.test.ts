@@ -136,4 +136,47 @@ export async function xRayUSConnectorLoad (
         connector.dataTables.FixedIncomeStyle.getRowCount() > 0,
         'FixedIncomeStyle connector should not return empty rows.'
     );
+
+    const expectedRiskStatisticsColumns = [
+        'Benchmark_Mean',
+        'Benchmark_SharpeRatio',
+        'Benchmark_StandardDeviation',
+        'Benchmark_SortinoRatio',
+        'Portfolio_Mean',
+        'Portfolio_SharpeRatio',
+        'Portfolio_StandardDeviation',
+        'Portfolio_InformationRatio',
+        'Portfolio_TrackingError',
+        'Portfolio_SortinoRatio',
+        'Portfolio_ExcessReturn',
+        'F00000VCTT_Mean',
+        'F00000VCTT_Weight',
+        'F00000VCTT_SharpeRatio',
+        'F00000VCTT_StandardDeviation',
+        'FOUSA00DFS_Mean',
+        'FOUSA00DFS_Weight',
+        'FOUSA00DFS_SharpeRatio',
+        'FOUSA00DFS_StandardDeviation',
+        'FOUSA00C3O_Mean',
+        'FOUSA00C3O_Weight',
+        'FOUSA00C3O_SharpeRatio',
+        'FOUSA00C3O_StandardDeviation',
+        '0P0000BVN5_Mean',
+        '0P0000BVN5_Weight',
+        '0P0000BVN5_StandardDeviation'
+    ];
+
+    const actualRiskStatisticsColumns = connector.dataTables.RiskStatistics.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualRiskStatisticsColumns.sort(),
+        expectedRiskStatisticsColumns.sort(),
+        'RiskStatistics connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.RiskStatistics.getRowCount() > 0,
+        'RiskStatistics connector should not return empty rows.'
+    );
+
 }

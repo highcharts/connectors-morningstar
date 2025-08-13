@@ -44,7 +44,10 @@ namespace XRayUSJSON {
         Analysis: {
             FixedIncomeAnalysis: FixedIncomeAnalysis;
             InvestmentStyle: InvestmentStyle;
-        }
+        },
+        Risks: {
+            RiskStatistics: Array<RiskStatistics>;
+        };
     }
 
     export interface FixedIncomeAnalysis {
@@ -133,6 +136,38 @@ namespace XRayUSJSON {
         B: number;
         BelowB: number;
         NotRated: number;
+    }
+
+    interface RiskStatistics {
+        AsOfDate: string;
+        TrailingTimePeriod: 'Year1' | 'Year2' | 'Year3' | 'Year5' | 'Year10';
+        DataFrequency: 'Monthly' | 'Quarterly';
+        Portfolio: RiskStatisticsPortfolio;
+        Benchmark: RiskStatisticsBenchmark;
+        Security: Array<RiskStatisticsSecurity>;
+    }
+
+    interface RiskStatisticsItem {
+        Mean: number;
+        SharpeRatio: number;
+        StandardDeviation: number;
+    }
+
+    interface RiskStatisticsPortfolio extends RiskStatisticsItem {
+        SortinoRatio: number;
+        ExcessReturn: number;
+        InformationRatio: number;
+        TrackingError: number;
+    }
+
+    interface RiskStatisticsSecurity {
+        RiskStatisticsItem: RiskStatisticsItem;
+        SecurityId: string;
+        Weight: number;
+    }
+
+    interface RiskStatisticsBenchmark extends RiskStatisticsItem {
+        SortinoRatio: number;
     }
 
 }
