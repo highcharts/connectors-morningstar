@@ -76,7 +76,7 @@ export class RiskStatisticsConverter extends MorningstarConverter {
                 }
 
                 for (const key of Object.keys(Portfolio) as Array<keyof typeof Portfolio>) {
-                    table.setCell('Portfolio_' + key + columnSuffix, 0, Portfolio[key]);
+                    table.setCell(key + columnSuffix, 0, Portfolio[key]);
                 }
 
                 for (const security of Security) {
