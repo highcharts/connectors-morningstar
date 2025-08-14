@@ -138,6 +138,8 @@ export async function xRayUSConnectorLoad (
     );
 
     const expectedRiskStatisticsColumns = [
+        'TrailingTimePeriod',
+        'DataFrequency',
         'Benchmark_Mean',
         'Benchmark_SharpeRatio',
         'Benchmark_StandardDeviation',

@@ -64,6 +64,10 @@ export class RiskStatisticsConverter extends MorningstarConverter {
             riskStatistics = options.json.Risks.RiskStatistics;
 
         if (riskStatistics.length) {
+
+            table.setCell('TrailingTimePeriod', 0, riskStatistics[0].TrailingTimePeriod);
+            table.setCell('DataFrequency', 0, riskStatistics[0].DataFrequency);
+
             riskStatistics.forEach((statistic) => {
                 const { Benchmark, Portfolio, Security } = statistic;
 
