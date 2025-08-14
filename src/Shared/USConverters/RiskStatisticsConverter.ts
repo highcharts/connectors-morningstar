@@ -64,27 +64,32 @@ export class RiskStatisticsConverter extends MorningstarConverter {
             riskStatistics = options.json.Risks.RiskStatistics;
 
         if (riskStatistics.length) {
+            riskStatistics.forEach((statistic, i) => {
+                const {
+                    Benchmark,
+                    Portfolio,
+                    Security,
+                    TrailingTimePeriod,
+                    DataFrequency
+                } = statistic;
 
-            table.setCell('TrailingTimePeriod', 0, riskStatistics[0].TrailingTimePeriod);
-            table.setCell('DataFrequency', 0, riskStatistics[0].DataFrequency);
-
-            riskStatistics.forEach((statistic) => {
-                const { Benchmark, Portfolio, Security } = statistic;
+                table.setCell('TrailingTimePeriod', i, TrailingTimePeriod);
+                table.setCell('DataFrequency', i, DataFrequency);
 
                 for (const key of Object.keys(Benchmark) as Array<keyof typeof Benchmark>) {
-                    table.setCell('Benchmark_' + key + columnSuffix, 0, Benchmark[key]);
+                    table.setCell('Benchmark_' + key + columnSuffix, i, Benchmark[key]);
                 }
 
                 for (const key of Object.keys(Portfolio) as Array<keyof typeof Portfolio>) {
-                    table.setCell(key + columnSuffix, 0, Portfolio[key]);
+                    table.setCell(key + columnSuffix, i, Portfolio[key]);
                 }
 
                 for (const security of Security) {
                     const { SecurityId, RiskStatisticsItem, Weight } = security;
 
                     for (const key of Object.keys(RiskStatisticsItem || {}) as Array<keyof typeof RiskStatisticsItem>) {
-                        table.setCell(`${SecurityId}_${key}${columnSuffix}`, 0, RiskStatisticsItem[key]);
-                        table.setCell(`${SecurityId}_Weight${columnSuffix}`, 0, Weight);
+                        table.setCell(`${SecurityId}_${key}${columnSuffix}`, i, RiskStatisticsItem[key]);
+                        table.setCell(`${SecurityId}_Weight${columnSuffix}`, i, Weight);
                     }
                 }
             });
