@@ -140,12 +140,20 @@ namespace XRayUSJSON {
 
     interface RiskStatistics {
         AsOfDate: string;
-        TrailingTimePeriod: 'Year1' | 'Year2' | 'Year3' | 'Year5' | 'Year10';
+        TrailingTimePeriod: TrailingTimePeriod;
         DataFrequency: 'Monthly' | 'Quarterly';
         Portfolio: RiskStatisticsPortfolio;
         Benchmark: RiskStatisticsBenchmark;
         Security: Array<RiskStatisticsSecurity>;
     }
+
+    type TrailingTimePeriod = (
+        | 'Year1'
+        | 'Year2'
+        | 'Year3'
+        | 'Year5'
+        | 'Year10'
+    );
 
     interface RiskStatisticsItem {
         Mean: number;
