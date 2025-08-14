@@ -44,6 +44,9 @@ namespace XRayUSJSON {
         Analysis: {
             FixedIncomeAnalysis: FixedIncomeAnalysis;
             InvestmentStyle: InvestmentStyle;
+        },
+        Risks: {
+            CorrelationMatrix: Array<CorrelationMatrixItem>;
         }
     }
 
@@ -135,6 +138,35 @@ namespace XRayUSJSON {
         NotRated: number;
     }
 
+    interface CorrelationMatrixItem {
+        TrailingTimePeriod: TrailingTimePeriod;
+        DataFrequency: 'Monthly';
+        StartDate: string;
+        EndDate: string;
+        Correlations: Array<CorrelationItemKey>
+    }
+
+    interface CorrelationItemKey {
+        Id: number;
+        SecurityId: string;
+        UseExtendedReturns: boolean;
+        Type: 'Portfolio' | 'Security';
+        CorrelatedItemKey: Array<CorrelatedItemKey>
+    }
+
+    interface CorrelatedItemKey {
+        CorrelatedItemKeyId: number;
+        Type: 'Portfolio' | 'Security';
+        Value: number;
+    }
+
+    type TrailingTimePeriod = (
+        | 'Year1'
+        | 'Year2'
+        | 'Year3'
+        | 'Year5'
+        | 'Year10'
+    );
 }
 
 

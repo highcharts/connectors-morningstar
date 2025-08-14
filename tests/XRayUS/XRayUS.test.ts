@@ -12,6 +12,7 @@ export async function xRayUSConnectorLoad (
         viewId: 'All',
         configId: 'Default',
         requestSettings: {
+            returnDataSections: ['CorrelationMatrix'],
             outputCurrency: 'USD',
             outputReturnsFrequency: 'MonthEnd',
             assetClassGroupConfigs: {
@@ -136,4 +137,33 @@ export async function xRayUSConnectorLoad (
         connector.dataTables.FixedIncomeStyle.getRowCount() > 0,
         'FixedIncomeStyle connector should not return empty rows.'
     );
+
+    const expectedCorrelationMatrixColumns = [
+        'FOUSA00DFS_Year3',
+        'FOUSA00C3O_Year3',
+        'F00000VCTT_Year3',
+        '0P0000BVN5_Year3',
+        'FOUSA00DFS_Year5',
+        'FOUSA00C3O_Year5',
+        'F00000VCTT_Year5',
+        '0P0000BVN5_Year5',
+        'FOUSA00DFS_Year10',
+        'FOUSA00C3O_Year10',
+        'F00000VCTT_Year10',
+        '0P0000BVN5_Year10'
+    ];
+
+    const actualCorrelationMatrixColumns = connector.dataTables.CorrelationMatrix.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualCorrelationMatrixColumns.sort(),
+        expectedCorrelationMatrixColumns.sort(),
+        'CorrelationMatrix table should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.CorrelationMatrix.getRowCount() > 0,
+        'FixedIncomeStyle connector should not return empty rows.'
+    );
+
 }
