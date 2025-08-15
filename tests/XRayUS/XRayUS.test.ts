@@ -124,16 +124,32 @@ export async function xRayUSConnectorLoad (
         'Size'
     ];
 
+    
     const actualFixedIncomeStyleColumns = connector.dataTables.FixedIncomeStyle.getColumnNames();
-
+    
     Assert.deepStrictEqual(
         actualFixedIncomeStyleColumns.sort(),
         expectedFixedIncomeStyleColumns.sort(),
         'FixedIncomeStyle connector should return expected column names.'
+    );
+    
+    const expectedTrailingReturnsColumns = [
+        'Id',
+        'Value',
+        'Value_Benchmark'
+    ];
+
+    const actualyTrailingReturnsColumns = connector.dataTables.TrailingReturns.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualyTrailingReturnsColumns.sort(),
+        expectedTrailingReturnsColumns.sort(),
+        'TrailingReturns connector should return expected column names.'
     );
 
     Assert.ok(
         connector.dataTables.FixedIncomeStyle.getRowCount() > 0,
         'FixedIncomeStyle connector should not return empty rows.'
     );
+
 }
