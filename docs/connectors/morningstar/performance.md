@@ -16,7 +16,8 @@ Returned data depends on the selected view and config and may include tracking e
 
 Currently the following data points are supported in the Performance connector:
 
-- **CalendarYearReturnConverter**
+- **CalendarYearReturn**
+- **RiskStatistics**
 
 Example request:
 
