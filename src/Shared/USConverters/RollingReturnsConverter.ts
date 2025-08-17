@@ -65,30 +65,32 @@ export class RollingReturnsConverter extends MorningstarConverter {
 
         if (rollingReturn.length) {
             rollingReturn.forEach(rollingReturn => {
-                const { Portfolio } = rollingReturn;
+                const { Portfolio, RollingPeriod } = rollingReturn;
+
+                const period = `Period(${RollingPeriod})_`;
 
                 Portfolio.Data.forEach((data, i) => {
                     const { Id, Value } = data;
 
-                    table.setCell('Id' + columnSuffix, i, Id);
-                    table.setCell('Value' + columnSuffix, i, Value);
+                    table.setCell(period + 'Id' + columnSuffix, i, Id);
+                    table.setCell(period + 'Value' + columnSuffix, i, Value);
                 });
 
                 Portfolio.Details.forEach((detail, i) => {
                     const { AnnualizedTotalReturn, CumulativeTotalReturn, Id } = detail;
 
                     table.setCell(
-                        'Details_Id' + columnSuffix,
+                        period + 'Details_Id' + columnSuffix,
                         i,
                         Id
                     );
                     table.setCell(
-                        'Details_AnnualizedTotalReturn' + columnSuffix,
+                        period + 'Details_AnnualizedTotalReturn' + columnSuffix,
                         i,
                         AnnualizedTotalReturn
                     );
                     table.setCell(
-                        'Details_CumulativeTotalReturn' + columnSuffix,
+                        period + 'Details_CumulativeTotalReturn' + columnSuffix,
                         i,
                         CumulativeTotalReturn
                     );

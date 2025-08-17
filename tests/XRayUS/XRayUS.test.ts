@@ -141,11 +141,11 @@ export async function xRayUSConnectorLoad (
     Assert.deepStrictEqual(
         connector.dataTables.RollingReturns.getColumnNames(),
         [
-            'Id',
-            'Value',
-            'Details_Id',
-            'Details_AnnualizedTotalReturn',
-            'Details_CumulativeTotalReturn'
+            'Period(12)_Id',
+            'Period(12)_Value',
+            'Period(12)_Details_Id',
+            'Period(12)_Details_AnnualizedTotalReturn',
+            'Period(12)_Details_CumulativeTotalReturn'
         ],
         'RollingReturns connector should return expected column names.'
     );
@@ -154,6 +154,4 @@ export async function xRayUSConnectorLoad (
         connector.dataTables.RollingReturns.getRowCount() > 0,
         'RollingReturns connector should not return empty rows.'
     );
-
-
 }
