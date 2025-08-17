@@ -143,7 +143,7 @@ namespace XRayUSJSON {
         RollingReturn: Array<RollingReturn>;
     }
 
-    interface RollingReturn{
+    interface RollingReturn {
         Portfolio: RollingReturnPortfolio;
         RollingPeriod: number;
     }
