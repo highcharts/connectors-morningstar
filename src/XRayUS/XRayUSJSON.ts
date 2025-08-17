@@ -44,7 +44,10 @@ namespace XRayUSJSON {
         Analysis: {
             FixedIncomeAnalysis: FixedIncomeAnalysis;
             InvestmentStyle: InvestmentStyle;
-        }
+        };
+        Returns: {
+            RollingReturns: RollingReturns;
+        };
     }
 
     export interface FixedIncomeAnalysis {
@@ -135,6 +138,34 @@ namespace XRayUSJSON {
         NotRated: number;
     }
 
+    interface RollingReturns {
+        AsOfDate: string;
+        RollingReturn: Array<RollingReturn>;
+    }
+
+    interface RollingReturn{
+        Portfolio: RollingReturnPortfolio;
+        RollingPeriod: number;
+    }
+
+    interface RollingReturnPortfolio {
+        StartYear: number;
+        StartMonth: number;
+        Data: Array<RollingReturnPortfolioData>;
+        Details: Array<RollingReturnPortfolioDetails>;
+    }
+
+    interface RollingReturnPortfolioData {
+        Id: number;
+        Value: number;
+    }
+
+    interface RollingReturnPortfolioDetails {
+        AnnualizedTotalReturn: number;
+        CumulativeTotalReturn: number;
+        Id: number;
+        Period: string;
+    }
 }
 
 
