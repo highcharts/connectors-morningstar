@@ -124,7 +124,7 @@ export async function xRayUSConnectorLoad (
         'Size'
     ];
 
-    
+
     const actualFixedIncomeStyleColumns = connector.dataTables.FixedIncomeStyle.getColumnNames();
     
     Assert.deepStrictEqual(
@@ -132,7 +132,7 @@ export async function xRayUSConnectorLoad (
         expectedFixedIncomeStyleColumns.sort(),
         'FixedIncomeStyle connector should return expected column names.'
     );
-    
+
     const expectedTrailingReturnsColumns = [
         'Id',
         'Value',
