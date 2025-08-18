@@ -33,6 +33,7 @@ namespace PerformanceJSON {
         Returns: Returns;
         Risks: {
             RiskStatistics: Array<RiskStatistics>;
+            MPTStatistics: Array<MPTStatisticsBreakdownItem>;
         };
     }
 
@@ -84,6 +85,31 @@ namespace PerformanceJSON {
             };
         };
     }
+
+    interface MPTStatisticsBreakdownItem {
+        AsOfDate: string;
+        TrailingTimePeriod: TrailingTimePeriod;
+        DataFrequency: string;
+        Portfolio: MPTStatisticsPortfolio;
+    }
+
+    interface MPTStatisticsPortfolio {
+        Alpha: number;
+        Beta: number;
+        RSquared: number;
+        UpCaptureRatio: number;
+        DownCaptureRatio: number;
+        TreynorRatio: number;
+        OmegaRatio: number;
+    }
+
+    type TrailingTimePeriod = (
+        | 'Year1'
+        | 'Year2'
+        | 'Year3'
+        | 'Year5'
+        | 'Year10'
+    );
 
 }
 

@@ -114,4 +114,26 @@ export async function PerformanceConnectorLoad (
         'RiskStatistics converter should not return empty rows.'
     );
 
+    const expectedMPTStatisticsColumns = [
+        'TrailingTimePeriod',
+        'Alpha',
+        'Beta',
+        'RSquared',
+        'UpCaptureRatio',
+        'DownCaptureRatio',
+        'TreynorRatio',
+        'OmegaRatio'
+    ];
+
+    Assert.deepStrictEqual(
+        connector.dataTables.MPTStatistics.getColumnNames().sort(),
+        expectedMPTStatisticsColumns.sort(),
+        'MPTStatistics converter should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.MPTStatistics.getRowCount() > 0,
+        'MPTStatistics converter should not contain empty rows.'
+    );
+
 }
