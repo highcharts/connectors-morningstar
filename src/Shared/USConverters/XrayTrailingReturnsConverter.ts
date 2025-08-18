@@ -78,13 +78,13 @@ export class XrayTrailingReturnsConverter extends MorningstarConverter {
             const portfolioValueColumn = 'Value';
 
             table.setCell(`${idColumn}${columnSuffix}`, i, Id);
-            table.setCell(`${portfolioValueColumn}${columnSuffix}`, i, portfolioValue);
+            table.setCell(`${portfolioValueColumn}${columnSuffix}`, i, portfolioValue ?? null);
 
             if (benchmarkData?.length > i) {
                 const { Value: benchmarkValue } = benchmarkData[i];
                 const benchmarkValueColumn = 'Value_Benchmark';
 
-                table.setCell(`${benchmarkValueColumn}${columnSuffix}`, i, benchmarkValue);
+                table.setCell(`${benchmarkValueColumn}${columnSuffix}`, i, benchmarkValue ?? null);
             }
         }
     }
