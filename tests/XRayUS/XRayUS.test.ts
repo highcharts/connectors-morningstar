@@ -163,7 +163,7 @@ export async function xRayUSConnectorLoad (
 
     Assert.ok(
         connector.dataTables.CorrelationMatrix.getRowCount() > 0,
-        'FixedIncomeStyle connector should not return empty rows.'
+        'CorrelationMatrix connector should not return empty rows.'
     );
 
 }
