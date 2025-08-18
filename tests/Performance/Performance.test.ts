@@ -76,4 +76,27 @@ export async function PerformanceConnectorLoad (
         connector.dataTables.CalendarYearReturn.getRowCount() > 0,
         'CalendarYearReturn converter should not return empty rows.'
     );
+
+    const expectedCorrelationMatrixColumns = [
+        'FOUSA05H5F_Year3',
+        'FOUSA04BCR_Year3',
+        'FOUSA05H5F_Year5',
+        'FOUSA04BCR_Year5',
+        'FOUSA05H5F_Year10',
+        'FOUSA04BCR_Year10'
+    ];
+
+    const actualCorrelationMatrixColumns = connector.dataTables.CorrelationMatrix.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualCorrelationMatrixColumns.sort(),
+        expectedCorrelationMatrixColumns.sort(),
+        'CorrelationMatrix converter should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.CorrelationMatrix.getRowCount() > 0,
+        'CorrelationMatrix converter should not return empty rows.'
+    );
+
 }
