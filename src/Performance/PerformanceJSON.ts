@@ -39,7 +39,7 @@ namespace PerformanceJSON {
 
     interface RiskStatistics {
         AsOfDate: string;
-        TrailingTimePeriod: 'Year1' | 'Year2' | 'Year3' | 'Year5' | 'Year10';
+        TrailingTimePeriod: TrailingTimePeriod;
         DataFrequency: 'Monthly' | 'Quarterly';
         Portfolio: RiskStatisticsPortfolio;
         Benchmark: RiskStatisticsBenchmark;
