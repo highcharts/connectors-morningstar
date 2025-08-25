@@ -20,7 +20,8 @@ export async function xRayUSConnectorLoad (
                         id: 'ACG-USBROAD'
                     }
                 ]
-            }
+            },
+            includeGrossNetReturns: true
         },
         portfolios: [
             {
@@ -134,5 +135,16 @@ export async function xRayUSConnectorLoad (
     Assert.ok(
         connector.dataTables.FixedIncomeStyle.getRowCount() > 0,
         'FixedIncomeStyle connector should not return empty rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.CalendarYearReturn.getColumnNames(),
+        ['Year', 'Value', 'GrossValue', 'Value_Benchmark'],
+        'CalendarYearReturns connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.CalendarYearReturn.getRowCount() > 0,
+        'CalendarYearReturns connector should not return empty rows.'
     );
 }
