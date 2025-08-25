@@ -44,7 +44,8 @@ namespace XRayUSJSON {
         Analysis: {
             FixedIncomeAnalysis: FixedIncomeAnalysis;
             InvestmentStyle: InvestmentStyle;
-        }
+        };
+        Returns: XrayRreturns;
     }
 
     export interface FixedIncomeAnalysis {
@@ -96,6 +97,25 @@ namespace XRayUSJSON {
         EquityStyleBreakdownItem: EquityStyleBreakdownItem;
         NotAnalyzed: number;
         SecurityId: string;
+    }
+
+    interface XrayRreturns {
+        TrailingReturns: TrailingReturns;
+    }
+
+    interface TrailingReturns {
+        AsOfDate: string;
+        Portfolio: Portfolio;
+        Benchmark: Portfolio;
+    }
+
+    interface Portfolio {
+        TimePeriod: Array<TimePeriod>
+    }
+
+    interface TimePeriod {
+        Id: string;
+        Value: number;
     }
 
     interface FixedIncomeStyleBreakdownItem {
