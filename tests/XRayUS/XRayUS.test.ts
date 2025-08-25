@@ -116,7 +116,6 @@ export async function xRayUSConnectorLoad (
     const expectedFixedIncomeStyleColumns = [
         'Type',
         'Value',
-        'Unclassified',
         'Value_FOUSA00DFS',
         'Value_F00000VCTT',
         'Value_0P0000BVN5',
