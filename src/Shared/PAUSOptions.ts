@@ -43,7 +43,7 @@ export interface PAUSOptions extends MorningstarOptions {
      *
      * @default 'All'
      */
-    viewId: string,
+    viewId?: string,
     langcult?: string;
     requestSettings: RequestSettings;
     portfolios: Array<Portfolio>;

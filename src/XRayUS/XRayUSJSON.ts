@@ -40,8 +40,99 @@ namespace XRayUSJSON {
     }
 
     export interface XRayUS {
-        // Add more return types here
         PortfolioName: string;
+        Analysis: {
+            FixedIncomeAnalysis: FixedIncomeAnalysis;
+            InvestmentStyle: InvestmentStyle;
+        }
+    }
+
+    export interface FixedIncomeAnalysis {
+        CreditQuality: {
+            Portfolio: CreditQualityBreakdown;
+            Benchmark: CreditQualityBreakdown;
+        };
+    }
+
+    export interface InvestmentStyle {
+        AsOfDate: string;
+        EquityStyle: EquityStyle;
+        FixedIncomeStyle: FixedIncomeStyle;
+    }
+
+    export interface EquityStyle {
+        AsOfDate: string;
+        EquityStyleBreakdown: {
+            AsOfDate: string;
+            Portfolio: EquityStyleBreakdownItem;
+            SecurityBreakdown: Array<EquityStyleSecurityBreakdownItem>;
+        };
+    }
+
+    export interface FixedIncomeStyle {
+        AsOfDate: string;
+        FixedIncomeStyleBreakdown: FixedIncomeStyleBreakdown;
+        Portfolio: {
+            EffectiveDuration: number;
+            EffectiveMaturity: number;
+        };
+        PortfolioAnalyzed: number;
+    }
+
+    export interface FixedIncomeStyleBreakdown extends FixedIncomeStyleBreakdownItem {
+        AsOfDate: string;
+        SecurityBreakdown: Array<FixedIncomeStyleSecurityBreakdownItem>;
+    }
+
+    export interface FixedIncomeStyleSecurityBreakdownItem {
+        Analyzed: number;
+        FixedIncomeStyleBreakdownItem: FixedIncomeStyleBreakdownItem;
+        NotAnalyzed: number;
+        SecurityId: string;
+    }
+
+    export interface EquityStyleSecurityBreakdownItem {
+        Analyzed: number;
+        EquityStyleBreakdownItem: EquityStyleBreakdownItem;
+        NotAnalyzed: number;
+        SecurityId: string;
+    }
+
+    interface FixedIncomeStyleBreakdownItem {
+        HighLtd: number;
+        HighMod: number;
+        HighExt: number;
+        MedLtd: number;
+        MedMod: number;
+        MedExt: number;
+        LowLtd: number;
+        LowMod: number;
+        LowExt: number;
+        Unclassified: number;
+    }
+
+    interface EquityStyleBreakdownItem {
+        LargeBlend: number;
+        LargeGrowth: number;
+        LargeValue: number;
+        MidBlend: number;
+        MidGrowth: number;
+        MidValue: number;
+        SmallBlend: number;
+        SmallGrowth: number;
+        SmallValue: number;
+        Unclassified: number;
+    }
+
+    interface CreditQualityBreakdown {
+        AAA: number;
+        AA: number;
+        A: number;
+        BBB: number;
+        BB: number;
+        B: number;
+        BelowB: number;
+        NotRated: number;
     }
 
 }

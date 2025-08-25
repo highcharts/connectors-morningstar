@@ -1,4 +1,5 @@
 import * as Assert from 'node:assert/strict';
+import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar.src';
 import RiskScoreJSON from '../../code/es-modules/RiskScore/RiskScoreJSON.js';
 

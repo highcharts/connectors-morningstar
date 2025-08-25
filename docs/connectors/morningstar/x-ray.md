@@ -82,7 +82,10 @@ For more details, see [Morningstar's APAC/EMEA X-Ray API].
 
 Currently the following data points are supported in the Americas X-Ray converter:
 
-- **TO BE CHANGED**
+- **CreditQuality**
+- **EquityStyle**
+- **FixedIncomeStyle**
+
 
 Example request:
 
@@ -154,7 +157,7 @@ Americas X-Ray API supports multiple portfolios return. Simply add more portfoli
 ```js
 await americasXRayConnector.load();
 
-const data = americasXRayConnector.dataTables.TABLE_NAME;
+const data = americasXRayConnector.dataTables.EquityStyle;
 ```
 
 For more details, see [Morningstar's Americas X-Ray API].
