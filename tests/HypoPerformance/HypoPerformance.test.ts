@@ -29,9 +29,9 @@ export async function HypoPerformanceConnectorLoad (
                 capitalGainTaxRate: 0,
                 stateIncomeTaxRate: 0,
                 dividendTaxRate: 0,
-                illustrationTrailingTimePeriod: 'EarliestCommon',
+                illustrationTrailingTimePeriod: 'Customized',
                 startDate: '1998-12-31T00:00:00.000Z',
-                endDate: '2008-12-31T00:00:00.000Z',
+                endDate: '1999-12-31T00:00:00.000Z',
                 synchronizePortfolioStartDate: true,
                 investmentDetailReturnsFrequency: 'Monthly',
                 liquidateOnEndDate: true,
@@ -103,4 +103,23 @@ export async function HypoPerformanceConnectorLoad (
     );
 
     await connector.load();
+
+    const expectedGrowthData = [
+        'Date',
+        'Id',
+        'Value',
+        'Value_Benchmark',
+        'Value_NetAmountInvested'
+    ];
+    const actualGrowthData = connector.dataTables.Growth.getColumnNames();
+
+    Assert.deepStrictEqual(
+        expectedGrowthData.sort(),
+        actualGrowthData.sort(),
+        'GrowthConverter should return expected column names.'
+    );
+
+    Assert.ok(connector.dataTables.Growth.getRowCount() > 0,
+        'Growth converter should not return empty rows.'
+    );
 }

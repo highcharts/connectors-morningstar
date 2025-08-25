@@ -10,9 +10,9 @@ The returned data depends on the selected view and the various options set in th
 
 ## Available data converters
 
-Currently the following data points are supported in the Performance converter:
+Currently the following data points are supported in the Hypo Performance connector:
 
-- **Test**
+- **GrowthConverter**
 
 Example request:
 
@@ -43,9 +43,9 @@ Example request:
                 capitalGainTaxRate: 0,
                 stateIncomeTaxRate: 0,
                 dividendTaxRate: 0,
-                illustrationTrailingTimePeriod: 'EarliestCommon',
-                startDate: '1998-12-31T00:00:00.000Z',
-                endDate: '2008-12-31T00:00:00.000Z',
+                illustrationTrailingTimePeriod: 'Customized',
+                startDate: '2002-01-01',
+                endDate: '2004-01-01',
                 synchronizePortfolioStartDate: true,
                 investmentDetailReturnsFrequency: 'Monthly',
                 liquidateOnEndDate: true,
