@@ -85,6 +85,9 @@ export class FundStatisticsConverter extends MorningstarConverter {
                 const securityItem = security.FundStatisticsItem;
                 let rowIndex = 0;
 
+                // Set empty columns for all securities
+                table.setColumn('Value_' + security.SecurityId);
+
                 for (const key of Object.keys(securityItem) as Array<keyof typeof securityItem>) {
                     table.setCell('Type', rowIndex, key);
                     table.setCell('Value_' + security.SecurityId, rowIndex, securityItem[key]);
