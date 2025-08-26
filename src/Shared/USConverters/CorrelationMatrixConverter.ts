@@ -80,9 +80,9 @@ export class CorrelationMatrixConverter extends MorningstarConverter {
 
                         // Map data into heatmap format for correlation matrix
                         if (i <= Id - 1) {
-                            table.setCell('x', rowIndex, i);
-                            table.setCell('y', rowIndex, Id - 1);
-                            table.setCell(TrailingTimePeriod, rowIndex, value);
+                            table.setCell('x' + columnSuffix, rowIndex, i);
+                            table.setCell('y' + columnSuffix, rowIndex, Id - 1);
+                            table.setCell(TrailingTimePeriod + columnSuffix, rowIndex, value);
 
                             rowIndex++;
                         }
