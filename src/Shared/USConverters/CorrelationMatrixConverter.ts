@@ -67,12 +67,25 @@ export class CorrelationMatrixConverter extends MorningstarConverter {
             for (const correlationMatrixItem of correlationMatrix) {
                 const { TrailingTimePeriod, Correlations } = correlationMatrixItem;
 
+                let rowIndex = 0;
+
                 for (const key of Correlations) {
-                    const { CorrelatedItemKey, SecurityId } = key;
-                    const name = SecurityId + `_${TrailingTimePeriod}` + columnSuffix;
+                    const { CorrelatedItemKey, SecurityId, Id } = key;
+                    const name = TrailingTimePeriod + `_${SecurityId}` + columnSuffix;
 
                     for (let i = 0; i < CorrelatedItemKey.length; i++) {
-                        table.setCell(name, i, CorrelatedItemKey[i].Value);
+                        const value = CorrelatedItemKey[i].Value;
+
+                        table.setCell(name, i, value);
+
+                        // Map data into heatmap format for correlation matrix
+                        if (i <= Id - 1) {
+                            table.setCell('x', rowIndex, i);
+                            table.setCell('y', rowIndex, Id - 1);
+                            table.setCell(TrailingTimePeriod, rowIndex, value);
+
+                            rowIndex++;
+                        }
                     }
                 }
             }

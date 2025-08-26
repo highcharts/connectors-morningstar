@@ -138,18 +138,23 @@ export async function xRayUSConnectorLoad (
     );
 
     const expectedCorrelationMatrixColumns = [
-        'FOUSA00DFS_Year3',
-        'FOUSA00C3O_Year3',
-        'F00000VCTT_Year3',
-        '0P0000BVN5_Year3',
-        'FOUSA00DFS_Year5',
-        'FOUSA00C3O_Year5',
-        'F00000VCTT_Year5',
-        '0P0000BVN5_Year5',
-        'FOUSA00DFS_Year10',
-        'FOUSA00C3O_Year10',
-        'F00000VCTT_Year10',
-        '0P0000BVN5_Year10'
+        'Year10',
+        'Year10_0P0000BVN5',
+        'Year10_F00000VCTT',
+        'Year10_FOUSA00C3O',
+        'Year10_FOUSA00DFS',
+        'Year3',
+        'Year3_0P0000BVN5',
+        'Year3_F00000VCTT',
+        'Year3_FOUSA00C3O',
+        'Year3_FOUSA00DFS',
+        'Year5',
+        'Year5_0P0000BVN5',
+        'Year5_F00000VCTT',
+        'Year5_FOUSA00C3O',
+        'Year5_FOUSA00DFS',
+        'x',
+        'y'
     ];
 
     const actualCorrelationMatrixColumns = connector.dataTables.CorrelationMatrix.getColumnNames();
