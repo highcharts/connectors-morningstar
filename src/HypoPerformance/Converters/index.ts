@@ -7,7 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Mateusz Bernacik
+ *  - Askel Eirik Johansson
  *
  * */
 
@@ -22,7 +22,7 @@
  * */
 
 
-import CalendarYearReturnConverter from './CalendarYearReturnConverter';
+import TestConverter from './TestConverter';
 
 
 /* *
@@ -32,7 +32,7 @@ import CalendarYearReturnConverter from './CalendarYearReturnConverter';
  * */
 
 
-export * from './CalendarYearReturnConverter';
+export * from './TestConverter';
 
 
 /* *
@@ -43,5 +43,5 @@ export * from './CalendarYearReturnConverter';
 
 
 export default {
-    CalendarYearReturnConverter
+    TestConverter
 };

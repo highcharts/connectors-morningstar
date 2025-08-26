@@ -115,7 +115,6 @@ export async function xRayUSConnectorLoad (
     const expectedFixedIncomeStyleColumns = [
         'Type',
         'Value',
-        'Unclassified',
         'Value_FOUSA00DFS',
         'Value_F00000VCTT',
         'Value_0P0000BVN5',
@@ -142,6 +141,8 @@ export async function xRayUSConnectorLoad (
         [
             'Type',
             'Value',
+            'Value_0P0000BVN5',
+            'Value_F00000VCTT',
             'Value_FOUSA00C3O',
             'Value_FOUSA00DFS'
         ],
@@ -151,5 +152,27 @@ export async function xRayUSConnectorLoad (
     Assert.ok(
         connector.dataTables.FundStatistics.getRowCount() > 0,
         'FundStatistics table should not contain empty rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.Holdings.getColumnNames(),
+        [
+            'SecurityId',
+            'Name',
+            'FundPortfolioDate',
+            'Year1',
+            'Year3',
+            'Year5',
+            'Year10',
+            'PercentAssets',
+            'MarketValue',
+            'NotClassifiedHoldingId'
+        ],
+        'Holdings connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.Holdings.getRowCount() > 0,
+        'Holdings connector should not return empty rows.'
     );
 }

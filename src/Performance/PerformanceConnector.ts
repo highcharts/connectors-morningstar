@@ -24,7 +24,7 @@
 
 import External from '../Shared/External';
 import PAUSConnector from '../Shared/PAUSConnector';
-import { TestConverter } from './Converters';
+import { CalendarYearReturnConverter } from './Converters';
 import PerformanceOptions, {
     PerformanceRequestPayload,
     PerformanceConverterOptions
@@ -47,7 +47,7 @@ import type PerformanceJSON from './PerformanceJSON';
  * */
 
 export interface PerformanceConverter extends MorningstarConverter {
-    parse(options: PerformanceConverterOptions): void;
+    parse(options: PerformanceConverterOptions, hasMultiple?: boolean): void;
 }
 
 /* *
@@ -57,7 +57,7 @@ export interface PerformanceConverter extends MorningstarConverter {
  * */
 
 export const DATA_TABLES = [
-    { key: 'TestConverter' }
+    { key: 'CalendarYearReturn' }
 ];
 
 
@@ -109,11 +109,14 @@ export class PerformanceConnector extends PAUSConnector {
         await super.load();
 
         const json = await this.response?.json() as PerformanceJSON.PerformanceResponse;
+        const hasMultiple = json.Performance.length > 1;
 
         for (const { key } of DATA_TABLES) {
             const converter = this.initConverter(key);
 
-            converter.parse({ json: json });
+            for (const Performance of json.Performance) {
+                converter.parse({ json: Performance }, hasMultiple);
+            }
 
             this.dataTables[key].setColumns(converter.getTable().getColumns());
         }
@@ -133,8 +136,8 @@ export class PerformanceConnector extends PAUSConnector {
 
     private initConverter (key: string): PerformanceConverter {
         switch (key) {
-            case 'TestConverter':
-                return new TestConverter();
+            case 'CalendarYearReturn':
+                return new CalendarYearReturnConverter();
             default:
                 throw new Error(`Unsupported key: ${key}`);
         }

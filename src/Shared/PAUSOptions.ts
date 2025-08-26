@@ -43,11 +43,10 @@ export interface PAUSOptions extends MorningstarOptions {
      *
      * @default 'All'
      */
-    viewId: string,
+    viewId?: string,
     langcult?: string;
     requestSettings: RequestSettings;
     portfolios: Array<Portfolio>;
-    configId: string;
 }
 
 
@@ -89,9 +88,6 @@ export interface Benchmark {
 
 export interface PAUSPayload {
     view?: {
-        id: string;
-    };
-    config: {
         id: string;
     };
     requestSettings: RequestSettings;

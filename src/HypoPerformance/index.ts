@@ -7,7 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Mateusz Bernacik
+ *  - Askel Eirik Johansson
  *
  * */
 
@@ -22,7 +22,7 @@
  * */
 
 
-import CalendarYearReturnConverter from './CalendarYearReturnConverter';
+import HypoPerformanceConnector from './HypoPerformanceConnector';
 
 
 /* *
@@ -32,7 +32,8 @@ import CalendarYearReturnConverter from './CalendarYearReturnConverter';
  * */
 
 
-export * from './CalendarYearReturnConverter';
+export * from './HypoPerformanceConnector';
+export * from './HypoPerformanceOptions';
 
 
 /* *
@@ -42,6 +43,4 @@ export * from './CalendarYearReturnConverter';
  * */
 
 
-export default {
-    CalendarYearReturnConverter
-};
+export default HypoPerformanceConnector;

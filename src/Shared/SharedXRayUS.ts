@@ -22,7 +22,8 @@ import {
     CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,
-    FundStatisticsConverter
+    FundStatisticsConverter,
+    HoldingsConverter
 } from './USConverters';
 
 import type MorningstarConverter from './MorningstarConverter';
@@ -38,7 +39,8 @@ export const DATA_TABLES = [
     { key: 'CreditQuality' },
     { key: 'EquityStyle' },
     { key: 'FixedIncomeStyle' },
-    { key: 'FundStatistics' }
+    { key: 'FundStatistics' },
+    { key: 'Holdings' }
 ];
 
 /* *
@@ -69,6 +71,8 @@ export function initConverter (
             return new FixedIncomeStyleConverter();
         case 'FundStatistics':
             return new FundStatisticsConverter();
+        case 'Holdings':
+            return new HoldingsConverter();
         default:
             throw new Error(`Unsupported key: ${key}`);
     }

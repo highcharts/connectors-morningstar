@@ -7,7 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Mateusz Bernacik
+ *  - Askel Eirik Johansson
  *
  * */
 
@@ -17,22 +17,20 @@
 
 /* *
  *
- *  Imports
+ *  Namespace
  *
  * */
 
 
-import CalendarYearReturnConverter from './CalendarYearReturnConverter';
+namespace HypoJSON {
 
+    export interface HypoResponse {
+    }
 
-/* *
- *
- *  Exports
- *
- * */
+    export interface Hypo {
+    }
 
-
-export * from './CalendarYearReturnConverter';
+}
 
 
 /* *
@@ -42,6 +40,4 @@ export * from './CalendarYearReturnConverter';
  * */
 
 
-export default {
-    CalendarYearReturnConverter
-};
+export default HypoJSON;

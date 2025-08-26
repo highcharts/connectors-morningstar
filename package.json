@@ -63,7 +63,7 @@
         "scripts:bin": "rm -rf bin/ && tsc -p src/CLI/ && chmod +x bin/*.js && cp -R src/CLI/Static bin/ && ts-node tools/api",
         "scripts:code": "rm -rf code/ && tsc -p src/",
         "reset": "rm -rf bin/ build/ code/ node_modules/ ; npm i",
-        "test": "npm run webpack && npm run test:eslint && npm run test:tests",
+        "test": "npm run webpack && npm run test:eslint && npm run test:tests --",
         "test:eslint": "eslint .",
         "test:morningstar": "npx -y newman run --bail tmp/Collection.json -e tmp/Environment.json",
         "test:tests": "ts-node tools/tests",

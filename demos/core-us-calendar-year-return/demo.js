@@ -1,16 +1,14 @@
 import { getPostmanFile } from '../utils/postman-localstorage.js';
 
-getPostmanFile(displaySecurityDetails);
+getPostmanFile(displayPerformance);
 
 const loadingLabel = document.getElementById('loading-label');
 
-async function displaySecurityDetails (postmanJSON) {
+async function displayPerformance (postmanJSON) {
     const connector = new HighchartsConnectors.Morningstar.PerformanceConnector({
         postman: {
             environmentJSON: postmanJSON
         },
-        configId: 'Hypothetical',
-        viewId: 'CorrelationMatrix',
         requestSettings: {
             outputCurrency: 'USD',
             assetClassGroupConfigs: {
@@ -53,6 +51,41 @@ async function displaySecurityDetails (postmanJSON) {
     });
 
     await connector.load();
+
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Portfolio Calendar Year Returns'
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Returns (%)'
+            }
+        },
+        tooltip: {
+            valueSuffix: '%'
+        },
+        series: [{
+            name: 'Portfolio',
+            data: connector.dataTables.CalendarYearReturn.getRows(
+                void 0,
+                void 0,
+                ['Id', 'Value']
+            )
+        }, {
+            name: 'Benchmark',
+            data: connector.dataTables.CalendarYearReturn.getRows(
+                void 0,
+                void 0,
+                ['Id', 'Value_Benchmark']
+            )
+        }]
+    });
 
     loadingLabel.style.display = 'none';
 }

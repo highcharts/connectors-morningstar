@@ -25,9 +25,30 @@
 namespace PerformanceJSON {
 
     export interface PerformanceResponse {
+        Performance: Array<Performance>;
     }
 
     export interface Performance {
+        PortfolioName: string;
+        Returns: Returns;
+    }
+
+    export interface Returns {
+        CalendarYearReturn: {
+            AsOfDate: string;
+            Benchmark: {
+                CalendarYear: Array<{
+                    Id: number;
+                    Value: number
+                }>;
+            };
+            Portfolio: {
+                CalendarYear: Array<{
+                    Id: number;
+                    Value: number
+                }>;
+            };
+        };
     }
 
 }

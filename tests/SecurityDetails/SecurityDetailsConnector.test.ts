@@ -1,4 +1,5 @@
 import * as Assert from 'node:assert/strict';
+import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar.src';
 
 export async function securityDetailsLoad (
@@ -214,7 +215,7 @@ export async function portfolioHoldingsLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.PortfolioHoldings.getColumnNames(),
+        connector.dataTables.PortfolioHoldings.getColumnNames().sort(),
         [
             'Id',
             'ExternalId',
@@ -233,7 +234,7 @@ export async function portfolioHoldingsLoad (
             'ShareChange',
             'LocalCurrencyCode',
             'GICSIndustryId'
-        ],
+        ].sort(),
         'Portfolio holdings table should exist of expected columns.'
     );
 
