@@ -33,6 +33,7 @@ import TimeSeries from './TimeSeries/index';
 import { version } from './version';
 import XRay from './XRay/index';
 import Performance from './Performance/index';
+import HypoPerformance from './HypoPerformance/index';
 import XRayUS from './XRayUS/index';
 
 /* *
@@ -53,6 +54,7 @@ export * from './TimeSeries/index';
 export { version } from './version';
 export * from './XRay/index';
 export * from './Performance/index';
+export * from './HypoPerformance/index';
 export * from './XRayUS/index';
 /* *
  *
@@ -72,6 +74,7 @@ export default {
     InvestmentScreener,
     InvestorPreferences,
     Performance,
+    HypoPerformance,
     XRayUS,
     version
 };

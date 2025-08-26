@@ -22,7 +22,9 @@ import {
     CorrelationMatrixConverter,
     CreditQualityConverter,
     EquityStyleConverter,
-    FixedIncomeStyleConverter
+    FixedIncomeStyleConverter,
+    HoldingsConverter,
+    MPTStatisticsConverter
 } from './USConverters';
 
 import type MorningstarConverter from './MorningstarConverter';
@@ -38,7 +40,9 @@ export const DATA_TABLES = [
     { key: 'CorrelationMatrix' },
     { key: 'CreditQuality' },
     { key: 'EquityStyle' },
-    { key: 'FixedIncomeStyle' }
+    { key: 'FixedIncomeStyle' },
+    { key: 'Holdings' },
+    { key: 'MPTStatistics' }
 ];
 
 /* *
@@ -69,6 +73,10 @@ export function initConverter (
             return new EquityStyleConverter();
         case 'FixedIncomeStyle':
             return new FixedIncomeStyleConverter();
+        case 'Holdings':
+            return new HoldingsConverter();
+        case 'MPTStatistics':
+            return new MPTStatisticsConverter();
         default:
             throw new Error(`Unsupported key: ${key}`);
     }

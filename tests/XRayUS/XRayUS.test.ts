@@ -137,6 +137,50 @@ export async function xRayUSConnectorLoad (
         'FixedIncomeStyle connector should not return empty rows.'
     );
 
+    Assert.deepStrictEqual(
+        connector.dataTables.Holdings.getColumnNames(),
+        [
+            'SecurityId',
+            'Name',
+            'FundPortfolioDate',
+            'Year1',
+            'Year3',
+            'Year5',
+            'Year10',
+            'PercentAssets',
+            'MarketValue',
+            'NotClassifiedHoldingId'
+        ],
+        'Holdings connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.Holdings.getRowCount() > 0,
+        'Holdings connector should not return empty rows.'
+    );
+
+    const expectedMPTStatisticsColumns = [
+        'TrailingTimePeriod',
+        'Alpha',
+        'Beta',
+        'RSquared',
+        'UpCaptureRatio',
+        'DownCaptureRatio',
+        'TreynorRatio',
+        'OmegaRatio'
+    ];
+
+    Assert.deepStrictEqual(
+        connector.dataTables.MPTStatistics.getColumnNames().sort(),
+        expectedMPTStatisticsColumns.sort(),
+        'MPTStatistics table should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.MPTStatistics.getRowCount() > 0,
+        'MPTStatistics table should not contain empty rows.'
+    );
+
     const expectedCorrelationMatrixColumns = [
         'Year10',
         'Year10_0P0000BVN5',
@@ -169,5 +213,4 @@ export async function xRayUSConnectorLoad (
         connector.dataTables.CorrelationMatrix.getRowCount() > 0,
         'CorrelationMatrix connector should not return empty rows.'
     );
-
 }
