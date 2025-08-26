@@ -22,6 +22,7 @@ import {
     CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,
+    HoldingsConverter,
     MPTStatisticsConverter
 } from './USConverters';
 
@@ -38,6 +39,7 @@ export const DATA_TABLES = [
     { key: 'CreditQuality' },
     { key: 'EquityStyle' },
     { key: 'FixedIncomeStyle' },
+    { key: 'Holdings' },
     { key: 'MPTStatistics' }
 ];
 
@@ -67,6 +69,8 @@ export function initConverter (
             return new EquityStyleConverter();
         case 'FixedIncomeStyle':
             return new FixedIncomeStyleConverter();
+        case 'Holdings':
+            return new HoldingsConverter();
         case 'MPTStatistics':
             return new MPTStatisticsConverter();
         default:

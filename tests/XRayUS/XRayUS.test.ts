@@ -136,6 +136,28 @@ export async function xRayUSConnectorLoad (
         'FixedIncomeStyle connector should not return empty rows.'
     );
 
+    Assert.deepStrictEqual(
+        connector.dataTables.Holdings.getColumnNames(),
+        [
+            'SecurityId',
+            'Name',
+            'FundPortfolioDate',
+            'Year1',
+            'Year3',
+            'Year5',
+            'Year10',
+            'PercentAssets',
+            'MarketValue',
+            'NotClassifiedHoldingId'
+        ],
+        'Holdings connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.Holdings.getRowCount() > 0,
+        'Holdings connector should not return empty rows.'
+    );
+
     const expectedMPTStatisticsColumns = [
         'TrailingTimePeriod',
         'Alpha',
