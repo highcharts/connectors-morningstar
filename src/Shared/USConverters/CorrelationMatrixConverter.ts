@@ -63,7 +63,7 @@ export class CorrelationMatrixConverter extends MorningstarConverter {
             columnSuffix = hasMultiple ? `_${options.json.PortfolioName}` : '',
             correlationMatrix = options.json.Risks.CorrelationMatrix;
 
-        if (correlationMatrix.length) {
+        if (correlationMatrix) {
             for (const correlationMatrixItem of correlationMatrix) {
                 const { TrailingTimePeriod, Correlations } = correlationMatrixItem;
 

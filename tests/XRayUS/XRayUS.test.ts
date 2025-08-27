@@ -213,4 +213,22 @@ export async function xRayUSConnectorLoad (
         connector.dataTables.CorrelationMatrix.getRowCount() > 0,
         'CorrelationMatrix connector should not return empty rows.'
     );
+
+    const year3ColumnNames = [
+        'Year3_0P0000BVN5',
+        'Year3_F00000VCTT',
+        'Year3_FOUSA00C3O',
+        'Year3_FOUSA00DFS'
+    ];
+
+    year3ColumnNames.forEach((columnName, index) => {
+        const secIndex = year3ColumnNames.length - index - 1,
+            value = connector.dataTables.CorrelationMatrix.getCell(columnName, secIndex);
+
+        Assert.strictEqual(
+            value,
+            1,
+            `${columnName} at index ${secIndex} should have a value of 1.`
+        );
+    });
 }
