@@ -49,6 +49,9 @@ namespace XRayUSJSON {
             AsOfDate: string;
             PortfolioHoldings: PortfolioHoldings;
         };
+        Statistics: {
+            FundStatistics: FundStatistics
+        };
         Risks: {
             MPTStatistics: Array<MPTStatisticsBreakdownItem>;
         };
@@ -160,6 +163,34 @@ namespace XRayUSJSON {
         NotRated: number;
     }
 
+    interface FundStatistics {
+        AsOfDate: string;
+        PortfolioAnalyzed: number;
+        Portfolio: FundStatisticsPortfolioBreakdown;
+        SecurityBreakdown: Array<FundStatisticsSecurityBreakdown>
+    }
+
+    interface FundStatisticsPortfolioBreakdown {
+        AverageNetExpenseRatio: number;
+        AverageGrossExpenseRatio: number;
+        PotentialCapGainsExposure: number;
+        AverageManagementExpenseRatio: number;
+        AverageManagementFee: number;
+        EstimatedMutualFundExpensesAmount: number;
+    }
+
+    interface FundStatisticsSecurityBreakdown {
+        SecurityId: string;
+        Analyzed: number;
+        NotAnalyzed: number;
+        FundStatisticsItem: FundStatisticsItem;
+    }
+
+    interface FundStatisticsItem {
+        AverageNetExpenseRatio: number;
+        AverageGrossExpenseRatio: number;
+        PotentialCapGainsExposure: number;
+    }
     interface MPTStatisticsBreakdownItem {
         AsOfDate: string;
         TrailingTimePeriod: TrailingTimePeriod;

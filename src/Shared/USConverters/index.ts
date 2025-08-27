@@ -18,6 +18,7 @@
 import CreditQualityConverter from './CreditQualityConverter';
 import EquityStyleConverter from './EquityStyleConverter';
 import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
+import FundStatisticsConverter from './FundStatisticsConverter';
 import HoldingsConverter from './HoldingsConverter';
 import MPTStatisticsConverter from './MPTStatisticsConverter';
 
@@ -41,6 +42,7 @@ import MPTStatisticsConverter from './MPTStatisticsConverter';
 export * from './CreditQualityConverter';
 export * from './EquityStyleConverter';
 export * from './FixedIncomeStyleConverter';
+export * from './FundStatisticsConverter';
 export * from './HoldingsConverter';
 export * from './MPTStatisticsConverter';
 
@@ -55,6 +57,7 @@ export default {
     CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,
+    FundStatisticsConverter,
     HoldingsConverter,
     MPTStatisticsConverter
 };

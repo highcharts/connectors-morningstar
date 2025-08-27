@@ -137,6 +137,24 @@ export async function xRayUSConnectorLoad (
     );
 
     Assert.deepStrictEqual(
+        connector.dataTables.FundStatistics.getColumnNames().sort(),
+        [
+            'Type',
+            'Value',
+            'Value_0P0000BVN5',
+            'Value_F00000VCTT',
+            'Value_FOUSA00C3O',
+            'Value_FOUSA00DFS'
+        ],
+        'FundStatistics table should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.FundStatistics.getRowCount() > 0,
+        'FundStatistics table should not contain empty rows.'
+    );
+
+    Assert.deepStrictEqual(
         connector.dataTables.Holdings.getColumnNames(),
         [
             'SecurityId',
