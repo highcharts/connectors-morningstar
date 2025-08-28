@@ -19,6 +19,7 @@
  * */
 
 import {
+    CorrelationMatrixConverter,
     CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,
@@ -37,6 +38,7 @@ import type { XRayUSConverterOptions } from '../XRayUS/XRayUSOptions';
  * */
 
 export const DATA_TABLES = [
+    { key: 'CorrelationMatrix' },
     { key: 'CreditQuality' },
     { key: 'EquityStyle' },
     { key: 'FixedIncomeStyle' },
@@ -65,6 +67,8 @@ export function initConverter (
     key: string
 ): XRayUSConverter {
     switch (key) {
+        case 'CorrelationMatrix':
+            return new CorrelationMatrixConverter();
         case 'CreditQuality':
             return new CreditQualityConverter();
         case 'EquityStyle':

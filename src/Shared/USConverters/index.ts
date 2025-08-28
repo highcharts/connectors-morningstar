@@ -15,6 +15,7 @@
 
 'use strict';
 
+import CorrelationMatrixConverter from './CorrelationMatrixConverter';
 import CreditQualityConverter from './CreditQualityConverter';
 import EquityStyleConverter from './EquityStyleConverter';
 import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
@@ -39,6 +40,7 @@ import MPTStatisticsConverter from './MPTStatisticsConverter';
  * */
 
 
+export * from './CorrelationMatrixConverter';
 export * from './CreditQualityConverter';
 export * from './EquityStyleConverter';
 export * from './FixedIncomeStyleConverter';
@@ -54,6 +56,7 @@ export * from './MPTStatisticsConverter';
 
 
 export default {
+    CorrelationMatrixConverter,
     CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,

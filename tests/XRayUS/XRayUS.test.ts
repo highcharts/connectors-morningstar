@@ -12,6 +12,7 @@ export async function xRayUSConnectorLoad (
         viewId: 'All',
         configId: 'Default',
         requestSettings: {
+            returnDataSections: ['CorrelationMatrix'],
             outputCurrency: 'USD',
             outputReturnsFrequency: 'MonthEnd',
             assetClassGroupConfigs: {
@@ -197,4 +198,55 @@ export async function xRayUSConnectorLoad (
         connector.dataTables.MPTStatistics.getRowCount() > 0,
         'MPTStatistics table should not contain empty rows.'
     );
+
+    const expectedCorrelationMatrixColumns = [
+        'Year10',
+        'Year10_0P0000BVN5',
+        'Year10_F00000VCTT',
+        'Year10_FOUSA00C3O',
+        'Year10_FOUSA00DFS',
+        'Year3',
+        'Year3_0P0000BVN5',
+        'Year3_F00000VCTT',
+        'Year3_FOUSA00C3O',
+        'Year3_FOUSA00DFS',
+        'Year5',
+        'Year5_0P0000BVN5',
+        'Year5_F00000VCTT',
+        'Year5_FOUSA00C3O',
+        'Year5_FOUSA00DFS',
+        'x',
+        'y'
+    ];
+
+    const actualCorrelationMatrixColumns = connector.dataTables.CorrelationMatrix.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualCorrelationMatrixColumns.sort(),
+        expectedCorrelationMatrixColumns.sort(),
+        'CorrelationMatrix table should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.CorrelationMatrix.getRowCount() > 0,
+        'CorrelationMatrix connector should not return empty rows.'
+    );
+
+    const year3ColumnNames = [
+        'Year3_0P0000BVN5',
+        'Year3_F00000VCTT',
+        'Year3_FOUSA00C3O',
+        'Year3_FOUSA00DFS'
+    ];
+
+    year3ColumnNames.forEach((columnName, index) => {
+        const secIndex = year3ColumnNames.length - index - 1,
+            value = connector.dataTables.CorrelationMatrix.getCell(columnName, secIndex);
+
+        Assert.strictEqual(
+            value,
+            1,
+            `${columnName} at index ${secIndex} should have a value of 1.`
+        );
+    });
 }
