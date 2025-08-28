@@ -24,7 +24,11 @@
 
 import External from '../Shared/External';
 import PAUSConnector from '../Shared/PAUSConnector';
-import { CalendarYearReturnConverter } from './Converters';
+import {
+    CalendarYearReturnConverter,
+    RiskStatisticsConverter,
+    MPTStatisticsConverter
+} from './Converters';
 import PerformanceOptions, {
     PerformanceRequestPayload,
     PerformanceConverterOptions
@@ -57,7 +61,9 @@ export interface PerformanceConverter extends MorningstarConverter {
  * */
 
 export const DATA_TABLES = [
-    { key: 'CalendarYearReturn' }
+    { key: 'CalendarYearReturn' },
+    { key: 'RiskStatistics' },
+    { key: 'MPTStatistics' }
 ];
 
 
@@ -138,6 +144,10 @@ export class PerformanceConnector extends PAUSConnector {
         switch (key) {
             case 'CalendarYearReturn':
                 return new CalendarYearReturnConverter();
+            case 'RiskStatistics':
+                return new RiskStatisticsConverter();
+            case 'MPTStatistics':
+                return new MPTStatisticsConverter();
             default:
                 throw new Error(`Unsupported key: ${key}`);
         }
