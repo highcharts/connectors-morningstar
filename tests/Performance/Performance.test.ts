@@ -76,4 +76,42 @@ export async function PerformanceConnectorLoad (
         connector.dataTables.CalendarYearReturn.getRowCount() > 0,
         'CalendarYearReturn converter should not return empty rows.'
     );
+
+    const expectedRiskStatisticsColumns = [
+        'TrailingTimePeriod',
+        'DataFrequency',
+        'Benchmark_Mean',
+        'Benchmark_SharpeRatio',
+        'Benchmark_StandardDeviation',
+        'Benchmark_SortinoRatio',
+        'Mean',
+        'SharpeRatio',
+        'StandardDeviation',
+        'InformationRatio',
+        'TrackingError',
+        'SortinoRatio',
+        'ExcessReturn',
+        'FOUSA05H5F_Mean',
+        'FOUSA05H5F_Weight',
+        'FOUSA05H5F_SharpeRatio',
+        'FOUSA05H5F_StandardDeviation',
+        'FOUSA04BCR_Mean',
+        'FOUSA04BCR_Weight',
+        'FOUSA04BCR_SharpeRatio',
+        'FOUSA04BCR_StandardDeviation'
+    ];
+
+    const actualRiskStatisticsColumns = connector.dataTables.RiskStatistics.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualRiskStatisticsColumns.sort(),
+        expectedRiskStatisticsColumns.sort(),
+        'RiskStatistics converter should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.RiskStatistics.getRowCount() > 0,
+        'RiskStatistics converter should not return empty rows.'
+    );
+
 }
