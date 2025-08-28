@@ -33,6 +33,10 @@ export namespace MorningstarRegion {
 
 
     export type Name = ('Americas'|'APAC'|'EMEA');
+    type RegexGroups = {
+        lang: string;
+        region?: string;
+    };
 
 
     /* *
@@ -78,13 +82,20 @@ export namespace MorningstarRegion {
 
 
     export function detect (): Name {
-        const country = window.navigator.language.toUpperCase().match(/-(\w\w)/u);
+        const regex =
+            /^(?<lang>[\w]{2})(?:-(?<region>[\w]{2})(?:-[\w]{2,8})*|-[\w]{3,}(?:-[\w]{2,8})*)?$/u;
+        const match = window.navigator.language.toUpperCase().match(regex);
+
+        if (!match) return 'Americas';
+
+        const { lang, region } = match.groups as RegexGroups;
+        const country = region ?? lang;
 
         if (country) {
-            if (countriesAmericas.includes(country[1])) {
+            if (countriesAmericas.includes(country)) {
                 return 'Americas';
             }
-            if (countriesEMEA.includes(country[1])) {
+            if (countriesEMEA.includes(country)) {
                 return 'EMEA';
             }
             return 'APAC';
