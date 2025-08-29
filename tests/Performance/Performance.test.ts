@@ -9,6 +9,8 @@ export async function PerformanceConnectorLoad (
             ...api,
             url: 'https://www.us-api.morningstar.com/'
         },
+        viewId: 'All',
+        configId: 'QuickPortfolio',
         requestSettings: {
             outputCurrency: 'USD',
             assetClassGroupConfigs: {
