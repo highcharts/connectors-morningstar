@@ -1,4 +1,5 @@
 import * as Assert from 'node:assert/strict';
+import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar.src';
 import InvestorPreferencesJSON from
 '../../code/es-modules/Screeners/InvestorPreferences/InvestorPreferencesJSON';
@@ -46,7 +47,7 @@ export async function InvestorPreferencesLoad (
     Assert.strictEqual(
         connector.table.getRowCount(),
         10,
-        'Connector table should have 15 rows.'
+        'Connector table should have 10 rows.'
     );
 
     Assert.deepStrictEqual(

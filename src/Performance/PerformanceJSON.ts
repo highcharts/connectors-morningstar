@@ -55,6 +55,7 @@ namespace PerformanceJSON {
                 TimePeriod: Array<{
                     Id: string;
                     Value: number;
+                    GrossValue: number;
                 }>;
             };
             Benchmark: {

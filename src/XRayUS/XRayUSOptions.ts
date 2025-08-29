@@ -37,11 +37,15 @@ export interface XRayUSMetadata extends MorningstarMetadata {
 }
 
 export interface XRayUSOptions extends PAUSOptions {
+    configId: string;
     portfolios: Array<XRayUSPortfolio>;
     requestSettings: XRayUSRequestSettings;
 }
 
 export interface XRayUSRequestPayload extends PAUSPayload {
+    config: {
+        id: string;
+    };
     portfolios: Array<XRayUSPortfolio>;
     requestSettings: XRayUSRequestSettings;
 }
@@ -94,7 +98,7 @@ export interface XRayUSRequestSettings extends RequestSettings {
     /**
      * Return the specified data sections in the response.
      */
-    returnDataSections?: 'CorrelationMatrix' | 'RollingReturns';
+    returnDataSections?: Array<'CorrelationMatrix' | 'RollingReturns'>;
 
     /**
      * Enable to include portfolio in correlation matrix.
