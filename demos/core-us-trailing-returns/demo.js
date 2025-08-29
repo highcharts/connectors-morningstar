@@ -52,12 +52,36 @@ async function displayPerformance (postmanJSON) {
 
     await connector.load();
 
+    const periods = {
+        YearToDate: 'Year to Date',
+        Month3: '3 Months',
+        Month6: '6 Months',
+        Year1: '1 Year',
+        Year2: '2 Years',
+        Year3: '3 Years',
+        Year5: '5 Years',
+        Year10: '10 Years',
+        SinceInception: 'Since Inception'
+    };
+
+    const portfolioData = connector.dataTables.TrailingReturns.getRows(
+        void 0,
+        void 0,
+        ['Id', 'Value']
+    ).map(([period, value]) => [periods[period], value]);
+
+    const benchmarkData = connector.dataTables.TrailingReturns.getRows(
+        void 0,
+        void 0,
+        ['Id', 'Value_Benchmark']
+    ).map(([period, value]) => [periods[period], value]);
+
     Highcharts.chart('container', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Portfolio Calendar Year Returns'
+            text: 'Portfolio Trailing Returns'
         },
         xAxis: {
             type: 'category'
@@ -70,21 +94,16 @@ async function displayPerformance (postmanJSON) {
         tooltip: {
             valueSuffix: '%'
         },
-        series: [{
-            name: 'Portfolio',
-            data: connector.dataTables.TrailingReturns.getRows(
-                void 0,
-                void 0,
-                ['Id', 'Value']
-            )
-        }, {
-            name: 'Benchmark',
-            data: connector.dataTables.TrailingReturns.getRows(
-                void 0,
-                void 0,
-                ['Id', 'Value_Benchmark']
-            )
-        }]
+        series: [
+            {
+                name: 'Portfolio',
+                data: portfolioData
+            },
+            {
+                name: 'Benchmark',
+                data: benchmarkData
+            }
+        ]
     });
 
     loadingLabel.style.display = 'none';

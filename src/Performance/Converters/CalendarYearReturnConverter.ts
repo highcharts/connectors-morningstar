@@ -77,7 +77,7 @@ export class CalendarYearReturnConverter extends MorningstarConverter {
             const idColumn = 'Id';
             const portfolioValueColumn = 'Value';
 
-            table.setCell(`${idColumn}${columnSuffix}`, i, Id);
+            table.setCell(idColumn, i, Id);
             table.setCell(`${portfolioValueColumn}${columnSuffix}`, i, portfolioValue);
 
             if (benchmarkData?.length > i) {
