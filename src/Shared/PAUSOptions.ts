@@ -47,6 +47,7 @@ export interface PAUSOptions extends MorningstarOptions {
     langcult?: string;
     requestSettings: RequestSettings;
     portfolios: Array<Portfolio>;
+    configId?: string;
 }
 
 

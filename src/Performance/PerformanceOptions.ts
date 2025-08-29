@@ -40,7 +40,8 @@ import type PerformanceJSON from './PerformanceJSON';
  * */
 
 export interface PerformanceOptions extends PAUSOptions {
-    configId?: string;
+    configId: string;
+    viewId: string,
     portfolios: Array<PerformancePortfolio>;
     requestSettings: PerformanceRequestSettings;
 }
