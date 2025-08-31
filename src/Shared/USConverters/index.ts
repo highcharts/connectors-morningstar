@@ -15,10 +15,14 @@
 
 'use strict';
 
+import CorrelationMatrixConverter from './CorrelationMatrixConverter';
 import CreditQualityConverter from './CreditQualityConverter';
 import EquityStyleConverter from './EquityStyleConverter';
 import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
 import AssetAllocationsConverter from './AssetAllocationsConverter';
+import FundStatisticsConverter from './FundStatisticsConverter';
+import HoldingsConverter from './HoldingsConverter';
+import MPTStatisticsConverter from './MPTStatisticsConverter';
 
 
 /* *
@@ -37,10 +41,14 @@ import AssetAllocationsConverter from './AssetAllocationsConverter';
  * */
 
 
+export * from './CorrelationMatrixConverter';
 export * from './CreditQualityConverter';
 export * from './EquityStyleConverter';
 export * from './FixedIncomeStyleConverter';
 export * from './AssetAllocationsConverter';
+export * from './FundStatisticsConverter';
+export * from './HoldingsConverter';
+export * from './MPTStatisticsConverter';
 
 /* *
  *
@@ -50,8 +58,12 @@ export * from './AssetAllocationsConverter';
 
 
 export default {
+    CorrelationMatrixConverter,
     CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,
-    AssetAllocationsConverter
+    AssetAllocationsConverter,
+    FundStatisticsConverter,
+    HoldingsConverter,
+    MPTStatisticsConverter
 };

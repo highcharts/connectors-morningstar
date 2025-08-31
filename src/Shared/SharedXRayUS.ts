@@ -19,10 +19,14 @@
  * */
 
 import {
+    CorrelationMatrixConverter,
     CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,
-    AssetAllocationsConverter
+    AssetAllocationsConverter,
+    FundStatisticsConverter,
+    HoldingsConverter,
+    MPTStatisticsConverter
 } from './USConverters';
 
 import type MorningstarConverter from './MorningstarConverter';
@@ -35,10 +39,14 @@ import type { XRayUSConverterOptions } from '../XRayUS/XRayUSOptions';
  * */
 
 export const DATA_TABLES = [
+    { key: 'CorrelationMatrix' },
     { key: 'CreditQuality' },
     { key: 'EquityStyle' },
     { key: 'FixedIncomeStyle' },
-    { key: 'AssetAllocations' }
+    { key: 'AssetAllocations' },
+    { key: 'FundStatistics' },
+    { key: 'Holdings' },
+    { key: 'MPTStatistics' }
 ];
 
 /* *
@@ -61,6 +69,8 @@ export function initConverter (
     key: string
 ): XRayUSConverter {
     switch (key) {
+        case 'CorrelationMatrix':
+            return new CorrelationMatrixConverter();
         case 'CreditQuality':
             return new CreditQualityConverter();
         case 'EquityStyle':
@@ -69,6 +79,12 @@ export function initConverter (
             return new FixedIncomeStyleConverter();
         case 'AssetAllocations':
             return new AssetAllocationsConverter();
+        case 'FundStatistics':
+            return new FundStatisticsConverter();
+        case 'Holdings':
+            return new HoldingsConverter();
+        case 'MPTStatistics':
+            return new MPTStatisticsConverter();
         default:
             throw new Error(`Unsupported key: ${key}`);
     }
