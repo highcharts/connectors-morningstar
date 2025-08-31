@@ -7,7 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Mateusz Bernacik
+ *  - Askel Eirik Johansson
  *
  * */
 
@@ -22,7 +22,7 @@
  * */
 
 import MorningstarConverter from '../../Shared/MorningstarConverter';
-import type { PerformanceConverterOptions } from '../PerformanceOptions';
+import type { HypoConverterOptions } from '../HypoPerformanceOptions';
 
 /* *
  *
@@ -42,7 +42,7 @@ export class TestConverter extends MorningstarConverter {
 
 
     public constructor (
-        options?: PerformanceConverterOptions
+        options?: HypoConverterOptions
     ) {
         super(options);
     }
@@ -57,7 +57,7 @@ export class TestConverter extends MorningstarConverter {
 
     public override parse (
         // eslint-disable-next-line
-        options: PerformanceConverterOptions
+        options: HypoConverterOptions
     ): void {
         const table = this.table;
 
