@@ -18,6 +18,8 @@ Currently the following data points are supported in the Performance connector:
 
 - **CalendarYearReturn**
 - **RiskStatistics**
+- **TrailingReturns**
+- **MPTStatistics**
 
 Example request:
 

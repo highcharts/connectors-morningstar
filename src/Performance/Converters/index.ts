@@ -25,6 +25,7 @@
 import CalendarYearReturnConverter from './CalendarYearReturnConverter';
 import RiskStatisticsConverter from './RiskStatisticsConverter';
 import MPTStatisticsConverter from './MPTStatisticsConverter';
+import TrailingReturnsConverter from './TrailingReturnsConverter';
 
 
 /* *
@@ -37,6 +38,7 @@ import MPTStatisticsConverter from './MPTStatisticsConverter';
 export * from './CalendarYearReturnConverter';
 export * from './RiskStatisticsConverter';
 export * from './MPTStatisticsConverter';
+export * from './TrailingReturnsConverter';
 
 
 /* *
@@ -49,5 +51,6 @@ export * from './MPTStatisticsConverter';
 export default {
     CalendarYearReturnConverter,
     RiskStatisticsConverter,
-    MPTStatisticsConverter
+    MPTStatisticsConverter,
+    TrailingReturnsConverter
 };
