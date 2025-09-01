@@ -65,26 +65,28 @@ export class CalendarYearReturnConverter extends MorningstarConverter {
                 ...options
             },
             portfolioPerformance = userOptions.json,
-            CalendarYearReturn = portfolioPerformance.Returns.CalendarYearReturn,
-            portfolioName = portfolioPerformance.PortfolioName,
-            columnSuffix = hasMultiple ? `_${portfolioName}` : '';
+            CalendarYearReturn = portfolioPerformance.Returns.CalendarYearReturn;
 
-        const calendarYearData = CalendarYearReturn.Portfolio.CalendarYear;
-        const benchmarkData = CalendarYearReturn.Benchmark?.CalendarYear;
+        if (CalendarYearReturn) {
+            const portfolioName = portfolioPerformance.PortfolioName,
+                columnSuffix = hasMultiple ? `_${portfolioName}` : '',
+                calendarYearData = CalendarYearReturn.Portfolio.CalendarYear,
+                benchmarkData = CalendarYearReturn.Benchmark?.CalendarYear;
 
-        for (let i = 0; i < calendarYearData.length; i++) {
-            const { Id, Value: portfolioValue } = calendarYearData[i];
-            const idColumn = 'Id';
-            const portfolioValueColumn = 'Value';
+            for (let i = 0; i < calendarYearData.length; i++) {
+                const { Id, Value: portfolioValue } = calendarYearData[i];
+                const idColumn = 'Id';
+                const portfolioValueColumn = 'Value';
 
-            table.setCell(`${idColumn}${columnSuffix}`, i, Id);
-            table.setCell(`${portfolioValueColumn}${columnSuffix}`, i, portfolioValue);
+                table.setCell(`${idColumn}${columnSuffix}`, i, Id);
+                table.setCell(`${portfolioValueColumn}${columnSuffix}`, i, portfolioValue);
 
-            if (benchmarkData?.length > i) {
-                const { Value: benchmarkValue } = benchmarkData[i];
-                const benchmarkValueColumn = 'Value_Benchmark';
+                if (benchmarkData?.length > i) {
+                    const { Value: benchmarkValue } = benchmarkData[i];
+                    const benchmarkValueColumn = 'Value_Benchmark';
 
-                table.setCell(`${benchmarkValueColumn}${columnSuffix}`, i, benchmarkValue);
+                    table.setCell(`${benchmarkValueColumn}${columnSuffix}`, i, benchmarkValue);
+                }
             }
         }
     }

@@ -63,16 +63,27 @@ export class CorrelationMatrixConverter extends MorningstarConverter {
             columnSuffix = hasMultiple ? `_${options.json.PortfolioName}` : '',
             correlationMatrix = options.json.Risks.CorrelationMatrix;
 
-        if (correlationMatrix.length) {
+        if (correlationMatrix) {
             for (const correlationMatrixItem of correlationMatrix) {
                 const { TrailingTimePeriod, Correlations } = correlationMatrixItem;
 
+                let rowIndex = 0;
+
                 for (const key of Correlations) {
-                    const { CorrelatedItemKey, SecurityId } = key;
-                    const name = SecurityId + `_${TrailingTimePeriod}` + columnSuffix;
+                    const { CorrelatedItemKey, SecurityId, Id } = key;
+                    const name = TrailingTimePeriod + `_${SecurityId}` + columnSuffix;
 
                     for (let i = 0; i < CorrelatedItemKey.length; i++) {
-                        table.setCell(name, i, CorrelatedItemKey[i].Value);
+                        const value = CorrelatedItemKey[i].Value;
+                        table.setCell(name, i, value);
+
+                        if (i <= Id - 1) {
+                            table.setCell('x' + columnSuffix, rowIndex, i);
+                            table.setCell('y' + columnSuffix, rowIndex, Id - 1);
+                            table.setCell(TrailingTimePeriod + columnSuffix, rowIndex, value);
+
+                            rowIndex++;
+                        }
                     }
                 }
             }
