@@ -44,7 +44,10 @@ namespace XRayUSJSON {
         Analysis: {
             FixedIncomeAnalysis: FixedIncomeAnalysis;
             InvestmentStyle: InvestmentStyle;
-        },
+        };
+        Returns: {
+            CalendarYearReturn: CalendarYearReturn;
+        };
         Holdings: {
             AsOfDate: string;
             PortfolioHoldings: PortfolioHoldings;
@@ -164,6 +167,19 @@ namespace XRayUSJSON {
         NotRated: number;
     }
 
+    interface CalendarYearReturn {
+        AsOfDate: string;
+        Portfolio: CalendarYearReturnItem
+        Benchmark: CalendarYearReturnItem;
+    }
+
+    interface CalendarYearReturnItem {
+        CalendarYear: Array<{
+            Id: number;
+            Value: number;
+            GrossValue?: number;
+        }>;
+    }
     interface FundStatistics {
         AsOfDate: string;
         PortfolioAnalyzed: number;

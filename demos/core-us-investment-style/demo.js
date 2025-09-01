@@ -20,7 +20,8 @@ async function displayXRayUS (postmanJSON) {
                         id: 'ACG-USBROAD'
                     }
                 ]
-            }
+            },
+            includeGrossNetReturns: true
         },
         portfolios: [
             {
