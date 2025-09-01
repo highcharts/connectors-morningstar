@@ -9,6 +9,8 @@ export async function PerformanceConnectorLoad (
             ...api,
             url: 'https://www.us-api.morningstar.com/'
         },
+        viewId: 'All',
+        configId: 'QuickPortfolio',
         requestSettings: {
             outputCurrency: 'USD',
             assetClassGroupConfigs: {
@@ -57,7 +59,7 @@ export async function PerformanceConnectorLoad (
         'Connector should be instance of PerformanceConnector class.'
     );
 
-    const expectedCalendarYearReturnColumns = [
+    const expectedReturnColumns = [
         'Id',
         'Value',
         'Value_Benchmark'
@@ -68,7 +70,7 @@ export async function PerformanceConnectorLoad (
 
     Assert.deepStrictEqual(
         actualCalendarYearReturnColumns.sort(),
-        expectedCalendarYearReturnColumns.sort(),
+        expectedReturnColumns.sort(),
         'CalendarYearReturn converter should return expected column names.'
     );
 
@@ -77,4 +79,17 @@ export async function PerformanceConnectorLoad (
         'CalendarYearReturn converter should not return empty rows.'
     );
 
+    const actualTrailingReturnColumns =
+        connector.dataTables.TrailingReturns.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualTrailingReturnColumns.sort(),
+        expectedReturnColumns.sort(),
+        'TrailingReturns converter should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.TrailingReturns.getRowCount() > 0,
+        'TrailingReturns converter should not return empty rows.'
+    );
 }

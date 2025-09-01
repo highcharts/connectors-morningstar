@@ -18,6 +18,7 @@ Currently the following data points are supported in the Performance connector:
 
 - **CalendarYearReturn**
 - **CorrelationMatrix**
+- **TrailingReturns**
 
 Example request:
 
