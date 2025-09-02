@@ -5,10 +5,7 @@ export async function PerformanceConnectorLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.PerformanceConnector({
-        api: {
-            ...api,
-            url: 'https://www.us-api.morningstar.com/'
-        },
+        api,
         viewId: 'All',
         configId: 'QuickPortfolio',
         requestSettings: {

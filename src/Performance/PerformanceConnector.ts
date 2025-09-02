@@ -28,6 +28,7 @@ import {
     CalendarYearReturnConverter,
     RiskStatisticsConverter,
     MPTStatisticsConverter,
+    CorrelationMatrixConverter,
     TrailingReturnsConverter
 } from './Converters';
 import PerformanceOptions, {
@@ -65,6 +66,7 @@ export const DATA_TABLES = [
     { key: 'CalendarYearReturn' },
     { key: 'RiskStatistics' },
     { key: 'MPTStatistics' },
+    { key: 'CorrelationMatrix' },
     { key: 'TrailingReturns' }
 ];
 
@@ -150,6 +152,8 @@ export class PerformanceConnector extends PAUSConnector {
                 return new RiskStatisticsConverter();
             case 'MPTStatistics':
                 return new MPTStatisticsConverter();
+            case 'CorrelationMatrix':
+                return new CorrelationMatrixConverter();
             case 'TrailingReturns':
                 return new TrailingReturnsConverter();
             default:

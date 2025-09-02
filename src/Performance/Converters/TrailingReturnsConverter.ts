@@ -65,26 +65,28 @@ export class TrailingReturnsConverter extends MorningstarConverter {
                 ...options
             },
             portfolioPerformance = userOptions.json,
-            TrailingReturns = portfolioPerformance.Returns.TrailingReturns,
-            portfolioName = portfolioPerformance.PortfolioName,
-            columnSuffix = hasMultiple ? `_${portfolioName}` : '';
+            TrailingReturns = portfolioPerformance.Returns.TrailingReturns;
 
-        const trailingReturnsData = TrailingReturns.Portfolio.TimePeriod;
-        const benchmarkData = TrailingReturns.Benchmark?.TimePeriod;
+        if (TrailingReturns) {
+            const portfolioName = portfolioPerformance.PortfolioName,
+                columnSuffix = hasMultiple ? `_${portfolioName}` : '',
+                trailingReturnsData = TrailingReturns.Portfolio.TimePeriod,
+                benchmarkData = TrailingReturns.Benchmark?.TimePeriod;
 
-        for (let i = 0; i < trailingReturnsData.length; i++) {
-            const { Id, Value: portfolioValue } = trailingReturnsData[i];
-            const idColumn = 'Id';
-            const portfolioValueColumn = 'Value';
+            for (let i = 0; i < trailingReturnsData.length; i++) {
+                const { Id, Value: portfolioValue } = trailingReturnsData[i];
+                const idColumn = 'Id';
+                const portfolioValueColumn = 'Value';
 
-            table.setCell(idColumn, i, Id);
-            table.setCell(`${portfolioValueColumn}${columnSuffix}`, i, portfolioValue);
+                table.setCell(idColumn, i, Id);
+                table.setCell(`${portfolioValueColumn}${columnSuffix}`, i, portfolioValue);
 
-            if (benchmarkData?.length > i) {
-                const { Value: benchmarkValue } = benchmarkData[i];
-                const benchmarkValueColumn = 'Value_Benchmark';
+                if (benchmarkData?.length > i) {
+                    const { Value: benchmarkValue } = benchmarkData[i];
+                    const benchmarkValueColumn = 'Value_Benchmark';
 
-                table.setCell(`${benchmarkValueColumn}${columnSuffix}`, i, benchmarkValue);
+                    table.setCell(`${benchmarkValueColumn}${columnSuffix}`, i, benchmarkValue);
+                }
             }
         }
     }

@@ -34,7 +34,8 @@ namespace PerformanceJSON {
         Risks: {
             RiskStatistics: Array<RiskStatistics>;
             MPTStatistics: Array<MPTStatisticsBreakdownItem>;
-        };
+            CorrelationMatrix: Array<CorrelationMatrixItem>;
+        }
     }
 
     interface RiskStatistics {
@@ -124,6 +125,27 @@ namespace PerformanceJSON {
         DownCaptureRatio: number;
         TreynorRatio: number;
         OmegaRatio: number;
+    }
+    interface CorrelationMatrixItem {
+        TrailingTimePeriod: TrailingTimePeriod;
+        DataFrequency: 'Monthly';
+        StartDate: string;
+        EndDate: string;
+        Correlations: Array<CorrelationItemKey>
+    }
+
+    interface CorrelationItemKey {
+        Id: number;
+        SecurityId: string;
+        UseExtendedReturns: boolean;
+        Type: 'Portfolio' | 'Security';
+        CorrelatedItemKey: Array<CorrelatedItemKey>
+    }
+
+    interface CorrelatedItemKey {
+        CorrelatedItemKeyId: number;
+        Type: 'Portfolio' | 'Security';
+        Value: number;
     }
 
     type TrailingTimePeriod = (
