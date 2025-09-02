@@ -54,13 +54,23 @@ namespace PerformanceJSON {
     }
 
     interface RiskStatisticsPortfolio extends RiskStatisticsItem {
+        GrossMean?: number;
+        GrossSharpeRatio?: number;
+        GrossStandardDeviation?: number;
+        InformationRatio: number;
+        GrossInformationRatio?: number;
+        TrackingError: number;
+        GrossTrackingError: number;
+        SortinoRatio: number;
+        GrossSortinoRatio?: number;
         ExcessReturn: number;
+        GrossExcessReturn?: number;
+    }
+    interface RiskStatisticsBenchmark extends RiskStatisticsItem {
         InformationRatio: number;
         TrackingError: number;
         SortinoRatio: number;
-    }
-    interface RiskStatisticsBenchmark extends RiskStatisticsItem {
-        SortinoRatio: number;
+        ExcessReturn: number;
     }
 
     interface RiskStatisticsSecurity {
