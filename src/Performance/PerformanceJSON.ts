@@ -112,6 +112,13 @@ namespace PerformanceJSON {
     interface MPTStatisticsPortfolio {
         Alpha: number;
         Beta: number;
+        GrossAlpha?: number;
+        GrossBeta?: number;
+        GrossRSquared?: number;
+        GrossUpCaptureRatio?: number;
+        GrossDownCaptureRatio?: number;
+        GrossTreynorRatio?: number;
+        GrossOmegaRatio?: number;
         RSquared: number;
         UpCaptureRatio: number;
         DownCaptureRatio: number;
