@@ -172,8 +172,8 @@ namespace XRayUSJSON {
         AsOfDate: string;
         TrailingTimePeriod: TrailingTimePeriod;
         DataFrequency: 'Monthly' | 'Quarterly';
-        Portfolio: RiskStatisticsPortfolio;
-        Benchmark: RiskStatisticsBenchmark;
+        Portfolio: RiskStatisticsItem;
+        Benchmark: RiskStatisticsItem;
         Security: Array<RiskStatisticsSecurity>;
     }
     interface CalendarYearReturn {
@@ -268,9 +268,6 @@ namespace XRayUSJSON {
         Mean: number;
         SharpeRatio: number;
         StandardDeviation: number;
-    }
-
-    interface RiskStatisticsPortfolio extends RiskStatisticsItem {
         SortinoRatio: number;
         ExcessReturn: number;
         InformationRatio: number;
@@ -282,11 +279,6 @@ namespace XRayUSJSON {
         SecurityId: string;
         Weight: number;
     }
-
-    interface RiskStatisticsBenchmark extends RiskStatisticsItem {
-        SortinoRatio: number;
-    }
-
 }
 
 

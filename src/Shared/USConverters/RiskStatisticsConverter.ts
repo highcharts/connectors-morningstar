@@ -87,9 +87,12 @@ export class RiskStatisticsConverter extends MorningstarConverter {
                 for (const security of Security) {
                     const { SecurityId, RiskStatisticsItem, Weight } = security;
 
+                    // Set weight once per security
+                    table.setCell(`Weight_${SecurityId}${columnSuffix}`, i, Weight);
+
+                    // Set risk statistics for each property
                     for (const key of Object.keys(RiskStatisticsItem || {}) as Array<keyof typeof RiskStatisticsItem>) {
-                        table.setCell(`${SecurityId}_${key}${columnSuffix}`, i, RiskStatisticsItem[key]);
-                        table.setCell(`${SecurityId}_Weight${columnSuffix}`, i, Weight);
+                        table.setCell(`${key}_${SecurityId}${columnSuffix}`, i, RiskStatisticsItem[key]);
                     }
                 }
             });
