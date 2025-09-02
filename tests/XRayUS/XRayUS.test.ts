@@ -12,7 +12,6 @@ export async function xRayUSConnectorLoad (
         viewId: 'All',
         configId: 'Default',
         requestSettings: {
-            returnDataSections: ['CorrelationMatrix'],
             outputCurrency: 'USD',
             outputReturnsFrequency: 'MonthEnd',
             returnDataSections: ['CorrelationMatrix', 'RollingReturns'],
