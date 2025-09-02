@@ -90,14 +90,14 @@ export async function PerformanceConnectorLoad (
         'TrackingError',
         'SortinoRatio',
         'ExcessReturn',
-        'FOUSA05H5F_Mean',
-        'FOUSA05H5F_Weight',
-        'FOUSA05H5F_SharpeRatio',
-        'FOUSA05H5F_StandardDeviation',
-        'FOUSA04BCR_Mean',
-        'FOUSA04BCR_Weight',
-        'FOUSA04BCR_SharpeRatio',
-        'FOUSA04BCR_StandardDeviation'
+        'Mean_FOUSA05H5F',
+        'Weight_FOUSA05H5F',
+        'SharpeRatio_FOUSA05H5F',
+        'StandardDeviation_FOUSA05H5F',
+        'Mean_FOUSA04BCR',
+        'Weight_FOUSA04BCR',
+        'SharpeRatio_FOUSA04BCR',
+        'StandardDeviation_FOUSA04BCR'
     ];
 
     const actualRiskStatisticsColumns = connector.dataTables.RiskStatistics.getColumnNames();
