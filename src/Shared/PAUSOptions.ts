@@ -91,9 +91,6 @@ export interface PAUSPayload {
     view?: {
         id: string;
     };
-    config: {
-        id: string;
-    };
     requestSettings: RequestSettings;
     portfolios: Array<Portfolio>;
 }
