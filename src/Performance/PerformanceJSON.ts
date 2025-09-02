@@ -32,11 +32,53 @@ namespace PerformanceJSON {
         PortfolioName: string;
         Returns: Returns;
         Risks: {
+            RiskStatistics: Array<RiskStatistics>;
             CorrelationMatrix: Array<CorrelationMatrixItem>;
         }
     }
 
-    export interface Returns {
+    interface RiskStatistics {
+        AsOfDate: string;
+        TrailingTimePeriod: 'Year1' | 'Year2' | 'Year3' | 'Year5' | 'Year10';
+        DataFrequency: 'Monthly' | 'Quarterly';
+        Portfolio: RiskStatisticsPortfolio;
+        Benchmark: RiskStatisticsBenchmark;
+        Security: Array<RiskStatisticsSecurity>;
+    }
+
+    interface RiskStatisticsItem {
+        Mean: number;
+        SharpeRatio: number;
+        StandardDeviation: number;
+    }
+
+    interface RiskStatisticsPortfolio extends RiskStatisticsItem {
+        GrossMean?: number;
+        GrossSharpeRatio?: number;
+        GrossStandardDeviation?: number;
+        InformationRatio: number;
+        GrossInformationRatio?: number;
+        TrackingError: number;
+        GrossTrackingError: number;
+        SortinoRatio: number;
+        GrossSortinoRatio?: number;
+        ExcessReturn: number;
+        GrossExcessReturn?: number;
+    }
+    interface RiskStatisticsBenchmark extends RiskStatisticsItem {
+        InformationRatio: number;
+        TrackingError: number;
+        SortinoRatio: number;
+        ExcessReturn: number;
+    }
+
+    interface RiskStatisticsSecurity {
+        RiskStatisticsItem: RiskStatisticsItem;
+        SecurityId: string;
+        Weight: number;
+    }
+
+    interface Returns {
         CalendarYearReturn: {
             AsOfDate: string;
             Benchmark: {
