@@ -33,7 +33,8 @@ namespace PerformanceJSON {
         Returns: Returns;
         Risks: {
             RiskStatistics: Array<RiskStatistics>;
-        };
+            CorrelationMatrix: Array<CorrelationMatrixItem>;
+        }
     }
 
     interface RiskStatistics {
@@ -52,13 +53,23 @@ namespace PerformanceJSON {
     }
 
     interface RiskStatisticsPortfolio extends RiskStatisticsItem {
+        GrossMean?: number;
+        GrossSharpeRatio?: number;
+        GrossStandardDeviation?: number;
+        InformationRatio: number;
+        GrossInformationRatio?: number;
+        TrackingError: number;
+        GrossTrackingError: number;
+        SortinoRatio: number;
+        GrossSortinoRatio?: number;
         ExcessReturn: number;
+        GrossExcessReturn?: number;
+    }
+    interface RiskStatisticsBenchmark extends RiskStatisticsItem {
         InformationRatio: number;
         TrackingError: number;
         SortinoRatio: number;
-    }
-    interface RiskStatisticsBenchmark extends RiskStatisticsItem {
-        SortinoRatio: number;
+        ExcessReturn: number;
     }
 
     interface RiskStatisticsSecurity {
@@ -73,17 +84,63 @@ namespace PerformanceJSON {
             Benchmark: {
                 CalendarYear: Array<{
                     Id: number;
-                    Value: number
+                    Value: number;
                 }>;
             };
             Portfolio: {
                 CalendarYear: Array<{
                     Id: number;
-                    Value: number
+                    Value: number;
+                }>;
+            };
+        };
+        TrailingReturns: {
+            AsOfDate: string;
+            Portfolio: {
+                TimePeriod: Array<{
+                    Id: string;
+                    Value: number;
+                    GrossValue: number;
+                }>;
+            };
+            Benchmark: {
+                TimePeriod: Array<{
+                    Id: string;
+                    Value: number;
                 }>;
             };
         };
     }
+
+    interface CorrelationMatrixItem {
+        TrailingTimePeriod: TrailingTimePeriod;
+        DataFrequency: 'Monthly';
+        StartDate: string;
+        EndDate: string;
+        Correlations: Array<CorrelationItemKey>
+    }
+
+    interface CorrelationItemKey {
+        Id: number;
+        SecurityId: string;
+        UseExtendedReturns: boolean;
+        Type: 'Portfolio' | 'Security';
+        CorrelatedItemKey: Array<CorrelatedItemKey>
+    }
+
+    interface CorrelatedItemKey {
+        CorrelatedItemKeyId: number;
+        Type: 'Portfolio' | 'Security';
+        Value: number;
+    }
+
+    type TrailingTimePeriod = (
+        | 'Year1'
+        | 'Year2'
+        | 'Year3'
+        | 'Year5'
+        | 'Year10'
+    );
 
 }
 

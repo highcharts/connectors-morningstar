@@ -63,7 +63,7 @@ export class RiskStatisticsConverter extends MorningstarConverter {
             columnSuffix = hasMultiple ? `_${options.json.PortfolioName}` : '',
             riskStatistics = options.json.Risks.RiskStatistics;
 
-        if (riskStatistics.length) {
+        if (riskStatistics?.length) {
             riskStatistics.forEach((statistic, i) => {
                 const {
                     Benchmark,
@@ -77,19 +77,20 @@ export class RiskStatisticsConverter extends MorningstarConverter {
                 table.setCell('DataFrequency', i, DataFrequency);
 
                 for (const key of Object.keys(Benchmark) as Array<keyof typeof Benchmark>) {
-                    table.setCell('Benchmark_' + key + columnSuffix, i, Benchmark[key]);
+                    table.setCell(`${key}_Benchmark`, i, Benchmark[key]);
                 }
 
                 for (const key of Object.keys(Portfolio) as Array<keyof typeof Portfolio>) {
-                    table.setCell(key + columnSuffix, i, Portfolio[key]);
+                    table.setCell(`${key}${columnSuffix}`, i, Portfolio[key]);
                 }
 
                 for (const security of Security) {
                     const { SecurityId, RiskStatisticsItem, Weight } = security;
 
+                    table.setCell(`${SecurityId}_Weight${columnSuffix}`, i, Weight);
+
                     for (const key of Object.keys(RiskStatisticsItem || {}) as Array<keyof typeof RiskStatisticsItem>) {
                         table.setCell(`${SecurityId}_${key}${columnSuffix}`, i, RiskStatisticsItem[key]);
-                        table.setCell(`${SecurityId}_Weight${columnSuffix}`, i, Weight);
                     }
                 }
             });
