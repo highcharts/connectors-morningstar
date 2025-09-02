@@ -20,6 +20,7 @@ Currently the following data points are supported in the Performance connector:
 - **RiskStatistics**
 - **CorrelationMatrix**
 - **TrailingReturns**
+- **MPTStatistics**
 
 Example request:
 

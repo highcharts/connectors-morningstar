@@ -27,6 +27,7 @@ import PAUSConnector from '../Shared/PAUSConnector';
 import {
     CalendarYearReturnConverter,
     RiskStatisticsConverter,
+    MPTStatisticsConverter,
     CorrelationMatrixConverter,
     TrailingReturnsConverter
 } from './Converters';
@@ -64,6 +65,7 @@ export interface PerformanceConverter extends MorningstarConverter {
 export const DATA_TABLES = [
     { key: 'CalendarYearReturn' },
     { key: 'RiskStatistics' },
+    { key: 'MPTStatistics' },
     { key: 'CorrelationMatrix' },
     { key: 'TrailingReturns' }
 ];
@@ -148,6 +150,8 @@ export class PerformanceConnector extends PAUSConnector {
                 return new CalendarYearReturnConverter();
             case 'RiskStatistics':
                 return new RiskStatisticsConverter();
+            case 'MPTStatistics':
+                return new MPTStatisticsConverter();
             case 'CorrelationMatrix':
                 return new CorrelationMatrixConverter();
             case 'TrailingReturns':

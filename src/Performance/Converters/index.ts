@@ -23,7 +23,8 @@
 
 
 import CalendarYearReturnConverter from './CalendarYearReturnConverter';
-import { RiskStatisticsConverter } from './RiskStatisticsConverter';
+import RiskStatisticsConverter from './RiskStatisticsConverter';
+import MPTStatisticsConverter from './MPTStatisticsConverter';
 import CorrelationMatrixConverter from './CorrelationMatrixConverter';
 import TrailingReturnsConverter from './TrailingReturnsConverter';
 
@@ -37,6 +38,7 @@ import TrailingReturnsConverter from './TrailingReturnsConverter';
 
 export * from './CalendarYearReturnConverter';
 export * from './RiskStatisticsConverter';
+export * from './MPTStatisticsConverter';
 export * from './CorrelationMatrixConverter';
 export * from './TrailingReturnsConverter';
 
@@ -51,6 +53,7 @@ export * from './TrailingReturnsConverter';
 export default {
     CalendarYearReturnConverter,
     RiskStatisticsConverter,
+    MPTStatisticsConverter,
     CorrelationMatrixConverter,
     TrailingReturnsConverter
 };

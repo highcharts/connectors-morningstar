@@ -33,13 +33,14 @@ namespace PerformanceJSON {
         Returns: Returns;
         Risks: {
             RiskStatistics: Array<RiskStatistics>;
+            MPTStatistics: Array<MPTStatisticsBreakdownItem>;
             CorrelationMatrix: Array<CorrelationMatrixItem>;
         }
     }
 
     interface RiskStatistics {
         AsOfDate: string;
-        TrailingTimePeriod: 'Year1' | 'Year2' | 'Year3' | 'Year5' | 'Year10';
+        TrailingTimePeriod: TrailingTimePeriod;
         DataFrequency: 'Monthly' | 'Quarterly';
         Portfolio: RiskStatisticsPortfolio;
         Benchmark: RiskStatisticsBenchmark;
@@ -112,6 +113,29 @@ namespace PerformanceJSON {
         };
     }
 
+    interface MPTStatisticsBreakdownItem {
+        AsOfDate: string;
+        TrailingTimePeriod: TrailingTimePeriod;
+        DataFrequency: string;
+        Portfolio: MPTStatisticsPortfolio;
+    }
+
+    interface MPTStatisticsPortfolio {
+        Alpha: number;
+        Beta: number;
+        GrossAlpha?: number;
+        GrossBeta?: number;
+        GrossRSquared?: number;
+        GrossUpCaptureRatio?: number;
+        GrossDownCaptureRatio?: number;
+        GrossTreynorRatio?: number;
+        GrossOmegaRatio?: number;
+        RSquared: number;
+        UpCaptureRatio: number;
+        DownCaptureRatio: number;
+        TreynorRatio: number;
+        OmegaRatio: number;
+    }
     interface CorrelationMatrixItem {
         TrailingTimePeriod: TrailingTimePeriod;
         DataFrequency: 'Monthly';
