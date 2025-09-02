@@ -67,7 +67,7 @@ export class RollingReturnsConverter extends MorningstarConverter {
             rollingReturn.forEach(rollingReturn => {
                 const { Portfolio, RollingPeriod } = rollingReturn;
 
-                const period = `Period(${RollingPeriod})_`;
+                const period = `Period_${RollingPeriod}_`;
 
                 Portfolio.Data.forEach((data, i) => {
                     const { Id, Value } = data;
@@ -77,7 +77,7 @@ export class RollingReturnsConverter extends MorningstarConverter {
                 });
 
                 Portfolio.Details.forEach((detail, i) => {
-                    const { AnnualizedTotalReturn, CumulativeTotalReturn, Id } = detail;
+                    const { AnnualizedTotalReturn, CumulativeTotalReturn, Id, Period } = detail;
 
                     table.setCell(
                         period + 'Details_Id' + columnSuffix,
@@ -93,6 +93,11 @@ export class RollingReturnsConverter extends MorningstarConverter {
                         period + 'Details_CumulativeTotalReturn' + columnSuffix,
                         i,
                         CumulativeTotalReturn
+                    );
+                    table.setCell(
+                        period + 'Details_PeriodDates' + columnSuffix,
+                        i,
+                        Period
                     );
                 });
             });

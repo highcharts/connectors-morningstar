@@ -138,15 +138,20 @@ export async function xRayUSConnectorLoad (
         'FixedIncomeStyle connector should not return empty rows.'
     );
 
+    const expectedRollingReturnsColumns = [
+        'Period_12_Id',
+        'Period_12_Value',
+        'Period_12_Details_Id',
+        'Period_12_Details_AnnualizedTotalReturn',
+        'Period_12_Details_CumulativeTotalReturn',
+        'Period_12_Details_PeriodDates'
+    ];
+
+    const actualRollingReturnsColumns = connector.dataTables.RollingReturns.getColumnNames();
+
     Assert.deepStrictEqual(
-        connector.dataTables.RollingReturns.getColumnNames(),
-        [
-            'Period(12)_Id',
-            'Period(12)_Value',
-            'Period(12)_Details_Id',
-            'Period(12)_Details_AnnualizedTotalReturn',
-            'Period(12)_Details_CumulativeTotalReturn'
-        ],
+        actualRollingReturnsColumns.sort(),
+        expectedRollingReturnsColumns.sort(),
         'RollingReturns connector should return expected column names.'
     );
 

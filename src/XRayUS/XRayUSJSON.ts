@@ -175,7 +175,7 @@ namespace XRayUSJSON {
 
     interface RollingReturn {
         Portfolio: RollingReturnPortfolio;
-        RollingPeriod: number;
+        RollingPeriod: 'Month24' | 'Month120' | '12' | '36' | '60' | '120';
     }
 
     interface RollingReturnPortfolio {
