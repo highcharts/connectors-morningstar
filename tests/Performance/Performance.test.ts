@@ -5,10 +5,9 @@ export async function PerformanceConnectorLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.PerformanceConnector({
-        api: {
-            ...api,
-            url: 'https://www.us-api.morningstar.com/'
-        },
+        api,
+        viewId: 'All',
+        configId: 'QuickPortfolio',
         requestSettings: {
             outputCurrency: 'USD',
             assetClassGroupConfigs: {
@@ -57,7 +56,7 @@ export async function PerformanceConnectorLoad (
         'Connector should be instance of PerformanceConnector class.'
     );
 
-    const expectedCalendarYearReturnColumns = [
+    const expectedReturnColumns = [
         'Id',
         'Value',
         'Value_Benchmark'
@@ -68,12 +67,85 @@ export async function PerformanceConnectorLoad (
 
     Assert.deepStrictEqual(
         actualCalendarYearReturnColumns.sort(),
-        expectedCalendarYearReturnColumns.sort(),
+        expectedReturnColumns.sort(),
         'CalendarYearReturn converter should return expected column names.'
     );
 
     Assert.ok(
         connector.dataTables.CalendarYearReturn.getRowCount() > 0,
         'CalendarYearReturn converter should not return empty rows.'
+    );
+
+    const expectedRiskStatisticsColumns = [
+        'TrailingTimePeriod',
+        'DataFrequency',
+        'Mean_Benchmark',
+        'SharpeRatio_Benchmark',
+        'StandardDeviation_Benchmark',
+        'SortinoRatio_Benchmark',
+        'Mean',
+        'SharpeRatio',
+        'StandardDeviation',
+        'InformationRatio',
+        'TrackingError',
+        'SortinoRatio',
+        'ExcessReturn',
+        'Mean_FOUSA05H5F',
+        'Weight_FOUSA05H5F',
+        'SharpeRatio_FOUSA05H5F',
+        'StandardDeviation_FOUSA05H5F',
+        'Mean_FOUSA04BCR',
+        'Weight_FOUSA04BCR',
+        'SharpeRatio_FOUSA04BCR',
+        'StandardDeviation_FOUSA04BCR'
+    ];
+
+    const actualRiskStatisticsColumns = connector.dataTables.RiskStatistics.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualRiskStatisticsColumns.sort(),
+        expectedRiskStatisticsColumns.sort(),
+        'RiskStatistics converter should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.RiskStatistics.getRowCount() > 0,
+        'RiskStatistics converter should not return empty rows.'
+    );
+
+    const expectedMPTStatisticsColumns = [
+        'TrailingTimePeriod',
+        'Alpha',
+        'Beta',
+        'RSquared',
+        'UpCaptureRatio',
+        'DownCaptureRatio',
+        'TreynorRatio',
+        'OmegaRatio'
+    ];
+
+    Assert.deepStrictEqual(
+        connector.dataTables.MPTStatistics.getColumnNames().sort(),
+        expectedMPTStatisticsColumns.sort(),
+        'MPTStatistics converter should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.MPTStatistics.getRowCount() > 0,
+        'MPTStatistics converter should not contain empty rows.'
+    );
+
+    const actualTrailingReturnColumns =
+        connector.dataTables.TrailingReturns.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualTrailingReturnColumns.sort(),
+        expectedReturnColumns.sort(),
+        'TrailingReturns converter should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.TrailingReturns.getRowCount() > 0,
+        'TrailingReturns converter should not return empty rows.'
     );
 }

@@ -47,7 +47,37 @@ namespace XRayUSJSON {
         };
         Returns: {
             RollingReturns: RollingReturns;
+            CalendarYearReturn: CalendarYearReturn;
         };
+        Holdings: {
+            AsOfDate: string;
+            PortfolioHoldings: PortfolioHoldings;
+        };
+        Statistics: {
+            FundStatistics: FundStatistics
+        };
+        Risks: {
+            MPTStatistics: Array<MPTStatisticsBreakdownItem>;
+            CorrelationMatrix: Array<CorrelationMatrixItem>;
+        };
+    }
+
+    export interface PortfolioHoldings {
+        AsOfDate: string;
+        Security: Array<Security>;
+    }
+
+    export interface Security {
+        FundPortfolioDate: string;
+        MarketValue: number;
+        Name: string;
+        PercentAssets: number;
+        SecurityId: string;
+        Year1: number;
+        Year3: number;
+        Year5: number;
+        Year10: number;
+        NotClassifiedHoldingId: string;
     }
 
     export interface FixedIncomeAnalysis {
@@ -166,6 +196,94 @@ namespace XRayUSJSON {
         Id: number;
         Period: string;
     }
+    interface CalendarYearReturn {
+        AsOfDate: string;
+        Portfolio: CalendarYearReturnItem
+        Benchmark: CalendarYearReturnItem;
+    }
+
+    interface CalendarYearReturnItem {
+        CalendarYear: Array<{
+            Id: number;
+            Value: number;
+            GrossValue?: number;
+        }>;
+    }
+    interface FundStatistics {
+        AsOfDate: string;
+        PortfolioAnalyzed: number;
+        Portfolio: FundStatisticsPortfolioBreakdown;
+        SecurityBreakdown: Array<FundStatisticsSecurityBreakdown>
+    }
+
+    interface FundStatisticsPortfolioBreakdown {
+        AverageNetExpenseRatio: number;
+        AverageGrossExpenseRatio: number;
+        PotentialCapGainsExposure: number;
+        AverageManagementExpenseRatio: number;
+        AverageManagementFee: number;
+        EstimatedMutualFundExpensesAmount: number;
+    }
+
+    interface FundStatisticsSecurityBreakdown {
+        SecurityId: string;
+        Analyzed: number;
+        NotAnalyzed: number;
+        FundStatisticsItem: FundStatisticsItem;
+    }
+
+    interface FundStatisticsItem {
+        AverageNetExpenseRatio: number;
+        AverageGrossExpenseRatio: number;
+        PotentialCapGainsExposure: number;
+    }
+    interface MPTStatisticsBreakdownItem {
+        AsOfDate: string;
+        TrailingTimePeriod: TrailingTimePeriod;
+        DataFrequency: string;
+        Portfolio: MPTStatisticsPortfolio;
+    }
+
+    interface MPTStatisticsPortfolio {
+        Alpha: number;
+        Beta: number;
+        RSquared: number;
+        UpCaptureRatio: number;
+        DownCaptureRatio: number;
+        TreynorRatio: number;
+        OmegaRatio: number;
+    }
+
+    interface CorrelationMatrixItem {
+        TrailingTimePeriod: TrailingTimePeriod;
+        DataFrequency: 'Monthly';
+        StartDate: string;
+        EndDate: string;
+        Correlations: Array<CorrelationItemKey>
+    }
+
+    interface CorrelationItemKey {
+        Id: number;
+        SecurityId: string;
+        UseExtendedReturns: boolean;
+        Type: 'Portfolio' | 'Security';
+        CorrelatedItemKey: Array<CorrelatedItemKey>
+    }
+
+    interface CorrelatedItemKey {
+        CorrelatedItemKeyId: number;
+        Type: 'Portfolio' | 'Security';
+        Value: number;
+    }
+
+    type TrailingTimePeriod = (
+        | 'Year1'
+        | 'Year2'
+        | 'Year3'
+        | 'Year5'
+        | 'Year10'
+    );
+
 }
 
 

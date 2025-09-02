@@ -15,10 +15,15 @@
 
 'use strict';
 
+import CorrelationMatrixConverter from './CorrelationMatrixConverter';
 import CreditQualityConverter from './CreditQualityConverter';
 import EquityStyleConverter from './EquityStyleConverter';
 import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
 import RollingReturnsConverter from './RollingReturnsConverter';
+import XRayCalendarYearReturnConverter from './XRayCalendarYearReturnConverter';
+import FundStatisticsConverter from './FundStatisticsConverter';
+import HoldingsConverter from './HoldingsConverter';
+import MPTStatisticsConverter from './MPTStatisticsConverter';
 
 
 /* *
@@ -37,10 +42,15 @@ import RollingReturnsConverter from './RollingReturnsConverter';
  * */
 
 
+export * from './CorrelationMatrixConverter';
 export * from './CreditQualityConverter';
 export * from './EquityStyleConverter';
 export * from './FixedIncomeStyleConverter';
 export * from './RollingReturnsConverter';
+export * from './XRayCalendarYearReturnConverter';
+export * from './FundStatisticsConverter';
+export * from './HoldingsConverter';
+export * from './MPTStatisticsConverter';
 
 /* *
  *
@@ -50,8 +60,13 @@ export * from './RollingReturnsConverter';
 
 
 export default {
+    CorrelationMatrixConverter,
     CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,
-    RollingReturnsConverter
+    RollingReturnsConverter,
+    XRayCalendarYearReturnConverter,
+    FundStatisticsConverter,
+    HoldingsConverter,
+    MPTStatisticsConverter
 };
