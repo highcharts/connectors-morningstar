@@ -1,14 +1,15 @@
 import * as Assert from 'node:assert/strict';
 import * as MC from '../../code/connectors-morningstar.src';
 
-export async function PerformanceConnectorLoad (
+export async function PerformanceCorrelationMatrixLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.PerformanceConnector({
         api,
         viewId: 'All',
-        configId: 'QuickPortfolio',
+        configId: 'Hypothetical',
         requestSettings: {
+            includePortfolioCorrelationMatrix: true,
             outputCurrency: 'USD',
             assetClassGroupConfigs: {
                 assetClassGroupConfig: [
@@ -56,37 +57,47 @@ export async function PerformanceConnectorLoad (
         'Connector should be instance of PerformanceConnector class.'
     );
 
-    const expectedReturnColumns = [
-        'Id',
-        'Value',
-        'Value_Benchmark'
+    const expectedCorrelationMatrixColumns = [
+        'Year10',
+        'Year10_FOUSA04BCR',
+        'Year10_FOUSA05H5F',
+        'Year3',
+        'Year3_FOUSA04BCR',
+        'Year3_FOUSA05H5F',
+        'Year5',
+        'Year5_FOUSA04BCR',
+        'Year5_FOUSA05H5F',
+        'x',
+        'y'
     ];
 
-    const actualCalendarYearReturnColumns =
-        connector.dataTables.CalendarYearReturn.getColumnNames();
+    const actualCorrelationMatrixColumns = connector.dataTables.CorrelationMatrix.getColumnNames();
 
     Assert.deepStrictEqual(
-        actualCalendarYearReturnColumns.sort(),
-        expectedReturnColumns.sort(),
-        'CalendarYearReturn converter should return expected column names.'
+        actualCorrelationMatrixColumns.sort(),
+        expectedCorrelationMatrixColumns.sort(),
+        'CorrelationMatrix converter should return expected column names.'
     );
 
     Assert.ok(
-        connector.dataTables.CalendarYearReturn.getRowCount() > 0,
-        'CalendarYearReturn converter should not return empty rows.'
+        connector.dataTables.CorrelationMatrix.getRowCount() > 0,
+        'CorrelationMatrix converter should not return empty rows.'
     );
 
-    const actualTrailingReturnColumns =
-        connector.dataTables.TrailingReturns.getColumnNames();
+    const year3ColumnNames = [
+        'Year3_FOUSA04BCR',
+        'Year3_FOUSA05H5F'
+    ];
 
-    Assert.deepStrictEqual(
-        actualTrailingReturnColumns.sort(),
-        expectedReturnColumns.sort(),
-        'TrailingReturns converter should return expected column names.'
-    );
+     year3ColumnNames.forEach((columnName, index) => {
+        const secIndex = year3ColumnNames.length - index - 1,
+            value = connector.dataTables.CorrelationMatrix.getCell(columnName, secIndex);
 
-    Assert.ok(
-        connector.dataTables.TrailingReturns.getRowCount() > 0,
-        'TrailingReturns converter should not return empty rows.'
-    );
+        Assert.strictEqual(
+            value,
+            1,
+            `${columnName} at index ${secIndex} should have a value of 1.`
+        );
+    });
+
 }

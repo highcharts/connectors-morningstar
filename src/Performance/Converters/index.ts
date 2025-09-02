@@ -23,6 +23,7 @@
 
 
 import CalendarYearReturnConverter from './CalendarYearReturnConverter';
+import CorrelationMatrixConverter from './CorrelationMatrixConverter';
 import TrailingReturnsConverter from './TrailingReturnsConverter';
 
 
@@ -34,6 +35,7 @@ import TrailingReturnsConverter from './TrailingReturnsConverter';
 
 
 export * from './CalendarYearReturnConverter';
+export * from './CorrelationMatrixConverter';
 export * from './TrailingReturnsConverter';
 
 
@@ -46,5 +48,6 @@ export * from './TrailingReturnsConverter';
 
 export default {
     CalendarYearReturnConverter,
+    CorrelationMatrixConverter,
     TrailingReturnsConverter
 };
