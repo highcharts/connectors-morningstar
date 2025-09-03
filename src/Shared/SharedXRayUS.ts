@@ -23,6 +23,7 @@ import {
     CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,
+    RollingReturnsConverter,
     RiskStatisticsConverter,
     XRayCalendarYearReturnConverter,
     FundStatisticsConverter,
@@ -44,6 +45,7 @@ export const DATA_TABLES = [
     { key: 'CreditQuality' },
     { key: 'EquityStyle' },
     { key: 'FixedIncomeStyle' },
+    { key: 'RollingReturns' },
     { key: 'RiskStatistics' },
     { key: 'CalendarYearReturn' },
     { key: 'FundStatistics' },
@@ -79,6 +81,8 @@ export function initConverter (
             return new EquityStyleConverter();
         case 'FixedIncomeStyle':
             return new FixedIncomeStyleConverter();
+        case 'RollingReturns':
+            return new RollingReturnsConverter();
         case 'RiskStatistics':
             return new RiskStatisticsConverter();
         case 'CalendarYearReturn':

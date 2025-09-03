@@ -46,6 +46,7 @@ namespace XRayUSJSON {
             InvestmentStyle: InvestmentStyle;
         };
         Returns: {
+            RollingReturns: RollingReturns;
             CalendarYearReturn: CalendarYearReturn;
         };
         Holdings: {
@@ -166,6 +167,35 @@ namespace XRayUSJSON {
         B: number;
         BelowB: number;
         NotRated: number;
+    }
+
+    interface RollingReturns {
+        AsOfDate: string;
+        RollingReturn: Array<RollingReturn>;
+    }
+
+    interface RollingReturn {
+        Portfolio: RollingReturnPortfolio;
+        RollingPeriod: 'Month24' | 'Month120' | '12' | '36' | '60' | '120';
+    }
+
+    interface RollingReturnPortfolio {
+        StartYear: number;
+        StartMonth: number;
+        Data: Array<RollingReturnPortfolioData>;
+        Details: Array<RollingReturnPortfolioDetails>;
+    }
+
+    interface RollingReturnPortfolioData {
+        Id: number;
+        Value: number;
+    }
+
+    interface RollingReturnPortfolioDetails {
+        AnnualizedTotalReturn: number;
+        CumulativeTotalReturn: number;
+        Id: number;
+        Period: string;
     }
 
     interface RiskStatistics {

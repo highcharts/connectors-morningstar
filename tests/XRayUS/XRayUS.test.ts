@@ -12,9 +12,9 @@ export async function xRayUSConnectorLoad (
         viewId: 'All',
         configId: 'Default',
         requestSettings: {
-            returnDataSections: ['CorrelationMatrix'],
             outputCurrency: 'USD',
             outputReturnsFrequency: 'MonthEnd',
+            returnDataSections: ['CorrelationMatrix', 'RollingReturns'],
             assetClassGroupConfigs: {
                 assetClassGroupConfig: [
                     {
@@ -138,6 +138,27 @@ export async function xRayUSConnectorLoad (
         'FixedIncomeStyle connector should not return empty rows.'
     );
 
+    const expectedRollingReturnsColumns = [
+        'Period_12_Id',
+        'Period_12_Value',
+        'Period_12_Details_Id',
+        'Period_12_Details_AnnualizedTotalReturn',
+        'Period_12_Details_CumulativeTotalReturn',
+        'Period_12_Details_PeriodDates'
+    ];
+
+    const actualRollingReturnsColumns = connector.dataTables.RollingReturns.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualRollingReturnsColumns.sort(),
+        expectedRollingReturnsColumns.sort(),
+        'RollingReturns connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.RollingReturns.getRowCount() > 0,
+        'RollingReturns connector should not return empty rows.'
+    );
     const expectedRiskStatisticsColumns = [
         'TrailingTimePeriod',
         'DataFrequency',
