@@ -48,7 +48,7 @@ export interface SecurityDetailsConverterOptions extends MorningstarConverterOpt
      * 'RegionalExposure', 'GlobalStockSectorBreakdown',
      * 'CountryExposure', 'MarketCap', 'IndustryBreakdown',
      * 'IndustryGroupBreakdown, BondStatistics',
-     * 'Meta'.
+     * 'Meta', 'RiskStatistics.
      *
      * @default 'TrailingPerformance'
      */
@@ -100,6 +100,7 @@ export type SecurityDetailsConverterType  = (
    | 'StyleBoxBreakdown'
    | 'BondStyleBoxBreakdown'
    | 'HistoricalPerformanceSeries'
+   | 'RiskStatistics'
  );
 
 export interface SecurityDetailsMetadata extends MorningstarMetadata {
