@@ -58,6 +58,7 @@ namespace XRayUSJSON {
         Risks: {
             MPTStatistics: Array<MPTStatisticsBreakdownItem>;
             CorrelationMatrix: Array<CorrelationMatrixItem>;
+            RiskStatistics: Array<RiskStatistics>;
         };
     }
 
@@ -167,6 +168,14 @@ namespace XRayUSJSON {
         NotRated: number;
     }
 
+    interface RiskStatistics {
+        AsOfDate: string;
+        TrailingTimePeriod: TrailingTimePeriod;
+        DataFrequency: 'Monthly' | 'Quarterly';
+        Portfolio: RiskStatisticsItem;
+        Benchmark: RiskStatisticsItem;
+        Security: Array<RiskStatisticsSecurity>;
+    }
     interface CalendarYearReturn {
         AsOfDate: string;
         Portfolio: CalendarYearReturnItem
@@ -255,6 +264,21 @@ namespace XRayUSJSON {
         | 'Year10'
     );
 
+    interface RiskStatisticsItem {
+        Mean: number;
+        SharpeRatio: number;
+        StandardDeviation: number;
+        SortinoRatio: number;
+        ExcessReturn: number;
+        InformationRatio: number;
+        TrackingError: number;
+    }
+
+    interface RiskStatisticsSecurity {
+        RiskStatisticsItem: RiskStatisticsItem;
+        SecurityId: string;
+        Weight: number;
+    }
 }
 
 

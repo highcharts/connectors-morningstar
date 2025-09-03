@@ -86,6 +86,7 @@ Currently the following data points are supported in the Americas X-Ray converte
 - **CorrelationMatrix**
 - **EquityStyle**
 - **FixedIncomeStyle**
+- **RiskStatistics**
 - **CalendarYearReturn**
 - **FundStatistics**
 - **Holdings**
