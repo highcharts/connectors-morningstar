@@ -19,6 +19,7 @@ import CorrelationMatrixConverter from './CorrelationMatrixConverter';
 import CreditQualityConverter from './CreditQualityConverter';
 import EquityStyleConverter from './EquityStyleConverter';
 import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
+import AssetAllocationsConverter from './AssetAllocationsConverter';
 import RollingReturnsConverter from './RollingReturnsConverter';
 import RiskStatisticsConverter from './RiskStatisticsConverter';
 import XRayCalendarYearReturnConverter from './XRayCalendarYearReturnConverter';
@@ -47,6 +48,7 @@ export * from './CorrelationMatrixConverter';
 export * from './CreditQualityConverter';
 export * from './EquityStyleConverter';
 export * from './FixedIncomeStyleConverter';
+export * from './AssetAllocationsConverter';
 export * from './RollingReturnsConverter';
 export * from './RiskStatisticsConverter';
 export * from './XRayCalendarYearReturnConverter';
@@ -66,6 +68,7 @@ export default {
     CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,
+    AssetAllocationsConverter,
     RollingReturnsConverter,
     RiskStatisticsConverter,
     XRayCalendarYearReturnConverter,

@@ -138,6 +138,41 @@ export async function xRayUSConnectorLoad (
         'FixedIncomeStyle connector should not return empty rows.'
     );
 
+    const expectedAssetAllocationsColumns = [
+        'Type',
+        'L',
+        'S',
+        'N',
+        'L_Benchmark',
+        'S_Benchmark',
+        'N_Benchmark',
+        'L_0P0000BVN5',
+        'S_0P0000BVN5',
+        'N_0P0000BVN5',
+        'L_F00000VCTT',
+        'S_F00000VCTT',
+        'N_F00000VCTT',
+        'L_FOUSA00C3O',
+        'S_FOUSA00C3O',
+        'N_FOUSA00C3O',
+        'L_FOUSA00DFS',
+        'S_FOUSA00DFS',
+        'N_FOUSA00DFS'
+    ];
+
+    const actualAssetAllocationsColumns = connector.dataTables.AssetAllocations.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualAssetAllocationsColumns.sort(),
+        expectedAssetAllocationsColumns.sort(),
+        'AssetAllocation connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.AssetAllocations.getRowCount() > 0,
+        'AssetAllocation connector should not return empty rows.'
+    );
+
     const expectedRollingReturnsColumns = [
         'Period_12_Id',
         'Period_12_Value',

@@ -86,6 +86,7 @@ Currently the following data points are supported in the Americas X-Ray converte
 - **CorrelationMatrix**
 - **EquityStyle**
 - **FixedIncomeStyle**
+- **AssetAllocation**
 - **RollingReturns**
 - **RiskStatistics**
 - **CalendarYearReturn**
@@ -103,7 +104,7 @@ const americasXRayConnector = new HighchartsConnectors.Morningstar.XRayUSConnect
             token: 'JWT token'
         }
     },
-    viewId: 'Snapshot',
+    viewId: 'All',
     configId: 'Default',
     requestSettings: {
         outputCurrency: 'USD',
