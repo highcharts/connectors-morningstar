@@ -159,6 +159,50 @@ export async function xRayUSConnectorLoad (
         connector.dataTables.RollingReturns.getRowCount() > 0,
         'RollingReturns connector should not return empty rows.'
     );
+    const expectedRiskStatisticsColumns = [
+        'TrailingTimePeriod',
+        'DataFrequency',
+        'Benchmark_Mean',
+        'Benchmark_SharpeRatio',
+        'Benchmark_StandardDeviation',
+        'Benchmark_SortinoRatio',
+        'Mean',
+        'SharpeRatio',
+        'StandardDeviation',
+        'InformationRatio',
+        'TrackingError',
+        'SortinoRatio',
+        'ExcessReturn',
+        'Mean_F00000VCTT',
+        'Weight_F00000VCTT',
+        'SharpeRatio_F00000VCTT',
+        'StandardDeviation_F00000VCTT',
+        'Mean_FOUSA00DFS',
+        'Weight_FOUSA00DFS',
+        'SharpeRatio_FOUSA00DFS',
+        'StandardDeviation_FOUSA00DFS',
+        'Mean_FOUSA00C3O',
+        'Weight_FOUSA00C3O',
+        'SharpeRatio_FOUSA00C3O',
+        'StandardDeviation_FOUSA00C3O',
+        'Mean_0P0000BVN5',
+        'Weight_0P0000BVN5',
+        'StandardDeviation_0P0000BVN5'
+    ];
+
+    const actualRiskStatisticsColumns = connector.dataTables.RiskStatistics.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualRiskStatisticsColumns.sort(),
+        expectedRiskStatisticsColumns.sort(),
+        'RiskStatistics connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.RiskStatistics.getRowCount() > 0,
+        'RiskStatistics connector should not return empty rows.'
+    );
+
     Assert.deepStrictEqual(
         connector.dataTables.CalendarYearReturn.getColumnNames(),
         ['Year', 'Value', 'GrossValue', 'Value_Benchmark'],
