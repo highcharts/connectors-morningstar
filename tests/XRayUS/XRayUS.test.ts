@@ -12,16 +12,17 @@ export async function xRayUSConnectorLoad (
         viewId: 'All',
         configId: 'Default',
         requestSettings: {
-            returnDataSections: ['CorrelationMatrix'],
             outputCurrency: 'USD',
             outputReturnsFrequency: 'MonthEnd',
+            returnDataSections: ['CorrelationMatrix', 'RollingReturns'],
             assetClassGroupConfigs: {
                 assetClassGroupConfig: [
                     {
                         id: 'ACG-USBROAD'
                     }
                 ]
-            }
+            },
+            includeGrossNetReturns: true
         },
         portfolios: [
             {
@@ -172,6 +173,81 @@ export async function xRayUSConnectorLoad (
         'AssetAllocation connector should not return empty rows.'
     );
 
+    const expectedRollingReturnsColumns = [
+        'Period_12_Id',
+        'Period_12_Value',
+        'Period_12_Details_Id',
+        'Period_12_Details_AnnualizedTotalReturn',
+        'Period_12_Details_CumulativeTotalReturn',
+        'Period_12_Details_PeriodDates'
+    ];
+
+    const actualRollingReturnsColumns = connector.dataTables.RollingReturns.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualRollingReturnsColumns.sort(),
+        expectedRollingReturnsColumns.sort(),
+        'RollingReturns connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.RollingReturns.getRowCount() > 0,
+        'RollingReturns connector should not return empty rows.'
+    );
+    const expectedRiskStatisticsColumns = [
+        'TrailingTimePeriod',
+        'DataFrequency',
+        'Benchmark_Mean',
+        'Benchmark_SharpeRatio',
+        'Benchmark_StandardDeviation',
+        'Benchmark_SortinoRatio',
+        'Mean',
+        'SharpeRatio',
+        'StandardDeviation',
+        'InformationRatio',
+        'TrackingError',
+        'SortinoRatio',
+        'ExcessReturn',
+        'Mean_F00000VCTT',
+        'Weight_F00000VCTT',
+        'SharpeRatio_F00000VCTT',
+        'StandardDeviation_F00000VCTT',
+        'Mean_FOUSA00DFS',
+        'Weight_FOUSA00DFS',
+        'SharpeRatio_FOUSA00DFS',
+        'StandardDeviation_FOUSA00DFS',
+        'Mean_FOUSA00C3O',
+        'Weight_FOUSA00C3O',
+        'SharpeRatio_FOUSA00C3O',
+        'StandardDeviation_FOUSA00C3O',
+        'Mean_0P0000BVN5',
+        'Weight_0P0000BVN5',
+        'StandardDeviation_0P0000BVN5'
+    ];
+
+    const actualRiskStatisticsColumns = connector.dataTables.RiskStatistics.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualRiskStatisticsColumns.sort(),
+        expectedRiskStatisticsColumns.sort(),
+        'RiskStatistics connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.RiskStatistics.getRowCount() > 0,
+        'RiskStatistics connector should not return empty rows.'
+    );
+
+    Assert.deepStrictEqual(
+        connector.dataTables.CalendarYearReturn.getColumnNames(),
+        ['Year', 'Value', 'GrossValue', 'Value_Benchmark'],
+        'CalendarYearReturns connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.CalendarYearReturn.getRowCount() > 0,
+        'CalendarYearReturns connector should not return empty rows.'
+    );
     Assert.deepStrictEqual(
         connector.dataTables.FundStatistics.getColumnNames().sort(),
         [

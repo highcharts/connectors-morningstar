@@ -20,6 +20,9 @@ import CreditQualityConverter from './CreditQualityConverter';
 import EquityStyleConverter from './EquityStyleConverter';
 import FixedIncomeStyleConverter from './FixedIncomeStyleConverter';
 import AssetAllocationsConverter from './AssetAllocationsConverter';
+import RollingReturnsConverter from './RollingReturnsConverter';
+import RiskStatisticsConverter from './RiskStatisticsConverter';
+import XRayCalendarYearReturnConverter from './XRayCalendarYearReturnConverter';
 import FundStatisticsConverter from './FundStatisticsConverter';
 import HoldingsConverter from './HoldingsConverter';
 import MPTStatisticsConverter from './MPTStatisticsConverter';
@@ -46,6 +49,9 @@ export * from './CreditQualityConverter';
 export * from './EquityStyleConverter';
 export * from './FixedIncomeStyleConverter';
 export * from './AssetAllocationsConverter';
+export * from './RollingReturnsConverter';
+export * from './RiskStatisticsConverter';
+export * from './XRayCalendarYearReturnConverter';
 export * from './FundStatisticsConverter';
 export * from './HoldingsConverter';
 export * from './MPTStatisticsConverter';
@@ -63,6 +69,9 @@ export default {
     EquityStyleConverter,
     FixedIncomeStyleConverter,
     AssetAllocationsConverter,
+    RollingReturnsConverter,
+    RiskStatisticsConverter,
+    XRayCalendarYearReturnConverter,
     FundStatisticsConverter,
     HoldingsConverter,
     MPTStatisticsConverter

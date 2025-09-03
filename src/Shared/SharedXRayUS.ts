@@ -24,6 +24,9 @@ import {
     EquityStyleConverter,
     FixedIncomeStyleConverter,
     AssetAllocationsConverter,
+    RollingReturnsConverter,
+    RiskStatisticsConverter,
+    XRayCalendarYearReturnConverter,
     FundStatisticsConverter,
     HoldingsConverter,
     MPTStatisticsConverter
@@ -44,6 +47,9 @@ export const DATA_TABLES = [
     { key: 'EquityStyle' },
     { key: 'FixedIncomeStyle' },
     { key: 'AssetAllocations' },
+    { key: 'RollingReturns' },
+    { key: 'RiskStatistics' },
+    { key: 'CalendarYearReturn' },
     { key: 'FundStatistics' },
     { key: 'Holdings' },
     { key: 'MPTStatistics' }
@@ -79,6 +85,12 @@ export function initConverter (
             return new FixedIncomeStyleConverter();
         case 'AssetAllocations':
             return new AssetAllocationsConverter();
+        case 'RollingReturns':
+            return new RollingReturnsConverter();
+        case 'RiskStatistics':
+            return new RiskStatisticsConverter();
+        case 'CalendarYearReturn':
+            return new XRayCalendarYearReturnConverter();
         case 'FundStatistics':
             return new FundStatisticsConverter();
         case 'Holdings':

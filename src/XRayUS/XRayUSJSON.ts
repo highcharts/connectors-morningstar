@@ -45,7 +45,11 @@ namespace XRayUSJSON {
             InvestmentStyle: InvestmentStyle,
             AssetAllocation: Array<AssetAllocation>
             FixedIncomeAnalysis: FixedIncomeAnalysis;
-        },
+        };
+        Returns: {
+            RollingReturns: RollingReturns;
+            CalendarYearReturn: CalendarYearReturn;
+        };
         Holdings: {
             AsOfDate: string;
             PortfolioHoldings: PortfolioHoldings;
@@ -56,6 +60,7 @@ namespace XRayUSJSON {
         Risks: {
             MPTStatistics: Array<MPTStatisticsBreakdownItem>;
             CorrelationMatrix: Array<CorrelationMatrixItem>;
+            RiskStatistics: Array<RiskStatistics>;
         };
     }
 
@@ -188,6 +193,56 @@ namespace XRayUSJSON {
         NotRated: number;
     }
 
+    interface RollingReturns {
+        AsOfDate: string;
+        RollingReturn: Array<RollingReturn>;
+    }
+
+    interface RollingReturn {
+        Portfolio: RollingReturnPortfolio;
+        RollingPeriod: 'Month24' | 'Month120' | '12' | '36' | '60' | '120';
+    }
+
+    interface RollingReturnPortfolio {
+        StartYear: number;
+        StartMonth: number;
+        Data: Array<RollingReturnPortfolioData>;
+        Details: Array<RollingReturnPortfolioDetails>;
+    }
+
+    interface RollingReturnPortfolioData {
+        Id: number;
+        Value: number;
+    }
+
+    interface RollingReturnPortfolioDetails {
+        AnnualizedTotalReturn: number;
+        CumulativeTotalReturn: number;
+        Id: number;
+        Period: string;
+    }
+
+    interface RiskStatistics {
+        AsOfDate: string;
+        TrailingTimePeriod: TrailingTimePeriod;
+        DataFrequency: 'Monthly' | 'Quarterly';
+        Portfolio: RiskStatisticsItem;
+        Benchmark: RiskStatisticsItem;
+        Security: Array<RiskStatisticsSecurity>;
+    }
+    interface CalendarYearReturn {
+        AsOfDate: string;
+        Portfolio: CalendarYearReturnItem
+        Benchmark: CalendarYearReturnItem;
+    }
+
+    interface CalendarYearReturnItem {
+        CalendarYear: Array<{
+            Id: number;
+            Value: number;
+            GrossValue?: number;
+        }>;
+    }
     interface FundStatistics {
         AsOfDate: string;
         PortfolioAnalyzed: number;
@@ -263,6 +318,21 @@ namespace XRayUSJSON {
         | 'Year10'
     );
 
+    interface RiskStatisticsItem {
+        Mean: number;
+        SharpeRatio: number;
+        StandardDeviation: number;
+        SortinoRatio: number;
+        ExcessReturn: number;
+        InformationRatio: number;
+        TrackingError: number;
+    }
+
+    interface RiskStatisticsSecurity {
+        RiskStatisticsItem: RiskStatisticsItem;
+        SecurityId: string;
+        Weight: number;
+    }
 }
 
 
