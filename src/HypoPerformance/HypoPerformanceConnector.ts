@@ -26,6 +26,7 @@ import External from '../Shared/External';
 import PAUSConnector from '../Shared/PAUSConnector';
 import HypoPerformanceOptions, {
     HypoConverterOptions,
+    HypoPerformanceMetadata,
     HypoPerformanceRequestPayload
 } from './HypoPerformanceOptions';
 import { TestConverter } from './Converters';
@@ -104,6 +105,8 @@ export class HypoPerformanceConnector extends PAUSConnector {
 
     protected url = '/portfolioanalysis/v1/hypo';
 
+    public override metadata!: HypoPerformanceMetadata;
+
     /* *
      *
      *  Functions
@@ -122,6 +125,11 @@ export class HypoPerformanceConnector extends PAUSConnector {
 
             this.dataTables[key].setColumns(converter.getTable().getColumns());
         }
+
+        this.metadata = {
+            columns: {},
+            json
+        };
 
         return this.setModifierOptions(this.options.dataModifier);
     }

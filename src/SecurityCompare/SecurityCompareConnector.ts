@@ -86,11 +86,7 @@ export class SecurityCompareConnector extends MorningstarConnector {
 
     public override readonly options: SecurityCompareOptions;
 
-    public override metadata: SecurityCompareMetadata = {
-        columns: {},
-        ids: [],
-        isins: []
-    };
+    public override metadata!: SecurityCompareMetadata;
 
 
     /* *
@@ -119,7 +115,7 @@ export class SecurityCompareConnector extends MorningstarConnector {
         searchParams.set('viewIds', viewIds);
 
         const response = await api.fetch(url);
-        const json = await response.json() as unknown;
+        const json = await response.json() as SecurityDetailsJSON.SecurityDetailsResponse;
 
         if (!SecurityDetailsJSON.isSecurityDetailsResponse(json)) {
             throw new Error('Invalid data');
@@ -140,7 +136,8 @@ export class SecurityCompareConnector extends MorningstarConnector {
         this.metadata = {
             columns: {},
             ids: [],
-            isins: []
+            isins: [],
+            json
         };
 
 
