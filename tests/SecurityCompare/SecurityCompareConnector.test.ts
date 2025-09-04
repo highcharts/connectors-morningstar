@@ -679,3 +679,74 @@ export async function historicalPerformanceSeriesLoad (
         'Connector should not return empty rows.'
     );
 }
+
+export async function riskStatisticsLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityCompareConnector({
+        api,
+        security: {
+            ids: ['F0GBR050DD', 'F00000Q5PZ'],
+            idType: 'MSID'
+        },
+        converters: ['RiskStatistics']
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.dataTables.RiskStatistics.getColumnNames().sort(),
+        [
+            'GbPostTax_MonthEnd_Alphas_F00000Q5PZ',
+            'GbPostTax_MonthEnd_Alphas_F0GBR050DD',
+            'GbPostTax_MonthEnd_Betas_F00000Q5PZ',
+            'GbPostTax_MonthEnd_Betas_F0GBR050DD',
+            'GbPostTax_MonthEnd_InformationRatios_F00000Q5PZ',
+            'GbPostTax_MonthEnd_InformationRatios_F0GBR050DD',
+            'GbPostTax_MonthEnd_RSquareds_F00000Q5PZ',
+            'GbPostTax_MonthEnd_RSquareds_F0GBR050DD',
+            'GbPostTax_MonthEnd_SharpeRatios_F00000Q5PZ',
+            'GbPostTax_MonthEnd_SharpeRatios_F0GBR050DD',
+            'GbPostTax_MonthEnd_StandardDeviations_F00000Q5PZ',
+            'GbPostTax_MonthEnd_StandardDeviations_F0GBR050DD',
+            'GbPostTax_MonthEnd_TrackingErrors_F00000Q5PZ',
+            'GbPostTax_MonthEnd_TrackingErrors_F0GBR050DD',
+            'ItPostTax_MonthEnd_Alphas_F00000Q5PZ',
+            'ItPostTax_MonthEnd_Alphas_F0GBR050DD',
+            'ItPostTax_MonthEnd_Betas_F00000Q5PZ',
+            'ItPostTax_MonthEnd_Betas_F0GBR050DD',
+            'ItPostTax_MonthEnd_InformationRatios_F00000Q5PZ',
+            'ItPostTax_MonthEnd_InformationRatios_F0GBR050DD',
+            'ItPostTax_MonthEnd_RSquareds_F00000Q5PZ',
+            'ItPostTax_MonthEnd_RSquareds_F0GBR050DD',
+            'ItPostTax_MonthEnd_SharpeRatios_F00000Q5PZ',
+            'ItPostTax_MonthEnd_SharpeRatios_F0GBR050DD',
+            'ItPostTax_MonthEnd_StandardDeviations_F00000Q5PZ',
+            'ItPostTax_MonthEnd_StandardDeviations_F0GBR050DD',
+            'ItPostTax_MonthEnd_TrackingErrors_F00000Q5PZ',
+            'ItPostTax_MonthEnd_TrackingErrors_F0GBR050DD',
+            'Nav_MonthEnd_Alphas_F00000Q5PZ',
+            'Nav_MonthEnd_Alphas_F0GBR050DD',
+            'Nav_MonthEnd_Betas_F00000Q5PZ',
+            'Nav_MonthEnd_Betas_F0GBR050DD',
+            'Nav_MonthEnd_InformationRatios_F00000Q5PZ',
+            'Nav_MonthEnd_InformationRatios_F0GBR050DD',
+            'Nav_MonthEnd_RSquareds_F00000Q5PZ',
+            'Nav_MonthEnd_RSquareds_F0GBR050DD',
+            'Nav_MonthEnd_SharpeRatios_F00000Q5PZ',
+            'Nav_MonthEnd_SharpeRatios_F0GBR050DD',
+            'Nav_MonthEnd_StandardDeviations_F00000Q5PZ',
+            'Nav_MonthEnd_StandardDeviations_F0GBR050DD',
+            'Nav_MonthEnd_TrackingErrors_F00000Q5PZ',
+            'Nav_MonthEnd_TrackingErrors_F0GBR050DD',
+            'TimePeriod_F00000Q5PZ',
+            'TimePeriod_F0GBR050DD'
+        ],
+        'RiskStatistics table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.dataTables.RiskStatistics.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
