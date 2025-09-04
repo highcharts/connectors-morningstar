@@ -71,7 +71,6 @@ namespace SecurityDetailsJSON {
         Alphas?: GenericRiskStatisticsResponse[];
         ArithmeticMeans?: GenericRiskStatisticsResponse[];
         Betas?: GenericRiskStatisticsResponse[];
-        Rsquareds?: GenericRiskStatisticsResponse[];
         InformationRatios?: GenericRiskStatisticsResponse[];
         MaxDrawdowns?: DrawdownRiskStatisticsResponse[];
         MaximumReturns?: ReturnRiskStatisticsResponse[];
