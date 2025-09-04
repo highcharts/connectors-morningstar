@@ -71,6 +71,8 @@ namespace SecurityDetailsJSON {
         Alphas?: GenericRiskStatisticsResponse[];
         ArithmeticMeans?: GenericRiskStatisticsResponse[];
         Betas?: GenericRiskStatisticsResponse[];
+        BenchmarkCorrelations?: GenericRiskStatisticsResponse[];
+        Correlations?: GenericRiskStatisticsResponse[];
         InformationRatios?: GenericRiskStatisticsResponse[];
         MaxDrawdowns?: DrawdownRiskStatisticsResponse[];
         MaximumReturns?: ReturnRiskStatisticsResponse[];
@@ -79,7 +81,7 @@ namespace SecurityDetailsJSON {
         NumberOfPositives?: OccurrenceRiskStatisticsResponse[];
         RSquareds?: GenericRiskStatisticsResponse[];
         SharpeRatios?: GenericRiskStatisticsResponse[];
-        SortinoRations?: GenericRiskStatisticsResponse[];
+        SortinoRatios?: GenericRiskStatisticsResponse[];
         StandardDeviations?: GenericRiskStatisticsResponse[];
         TrackingErrors?: GenericRiskStatisticsResponse[];
         TreynorRatios?: GenericRiskStatisticsResponse[];
