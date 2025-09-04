@@ -34,6 +34,7 @@ import type XRayUSJSON from './XRayUSJSON';
 
 export interface XRayUSMetadata extends MorningstarMetadata {
     securityReference: Array<XRayUSJSON.SecurityReference>;
+    json: XRayUSJSON.XRayUSResponse;
 }
 
 export interface XRayUSOptions extends PAUSOptions {

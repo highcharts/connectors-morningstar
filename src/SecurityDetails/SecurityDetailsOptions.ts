@@ -30,6 +30,7 @@ import type {
     MorningstarSecurityOptions,
     MorningstarMetadata
 } from '../Shared/MorningstarOptions';
+import type SecurityDetailsJSON from './SecurityDetailsJSON';
 
 
 /* *
@@ -105,6 +106,7 @@ export type SecurityDetailsConverterType  = (
 export interface SecurityDetailsMetadata extends MorningstarMetadata {
     id?: string;
     isin?: string;
+    json: SecurityDetailsJSON.SecurityDetailsResponse;
 }
 
 

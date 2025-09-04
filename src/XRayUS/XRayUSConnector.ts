@@ -86,10 +86,7 @@ export class XRayUSConnector extends PAUSConnector {
 
     protected url = '/portfolioanalysis/v1/xray';
 
-    public override metadata: XRayUSMetadata = {
-        columns: {},
-        securityReference: []
-    };
+    public override metadata!: XRayUSMetadata;
 
     /* *
      *
@@ -118,7 +115,8 @@ export class XRayUSConnector extends PAUSConnector {
 
         this.metadata = {
             columns: {},
-            securityReference: json.SecurityReference
+            securityReference: json.SecurityReference,
+            json
         };
 
         return this.setModifierOptions(this.options.dataModifier);

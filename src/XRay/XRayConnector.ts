@@ -156,9 +156,7 @@ export class XRayConnector extends MorningstarConnector {
 
     public override readonly options: XRayOptions;
 
-    public override metadata: XRayMetadata = {
-        columns: {}
-    };
+    public override metadata!: XRayMetadata;
 
 
     /* *
@@ -225,7 +223,7 @@ export class XRayConnector extends MorningstarConnector {
             },
             method: 'POST'
         });
-        const json = await response.json() as unknown;
+        const json = await response.json() as XRayJSON.XRayResponse;
         const xrays: Array<XRayJSON.XRayResponse> = [];
 
         if (XRayJSON.isResponse(json)) {
@@ -259,7 +257,8 @@ export class XRayConnector extends MorningstarConnector {
         }
 
         this.metadata = {
-            columns: {}
+            columns: {},
+            json
         };
 
         return this.setModifierOptions(options.dataModifier);

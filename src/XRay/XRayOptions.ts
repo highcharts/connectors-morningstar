@@ -39,7 +39,7 @@ import XRayJSON from './XRayJSON';
  * */
 
 export interface XRayMetadata extends MorningstarMetadata {
-
+    json: XRayJSON.XRayResponse;
 }
 
 
