@@ -137,6 +137,7 @@ export async function xRayUSConnectorLoad (
     const expectedTrailingReturnsColumns = [
         'Id',
         'Value',
+        'GrossValue',
         'Value_Benchmark'
     ];
 
