@@ -125,12 +125,28 @@ export async function xRayUSConnectorLoad (
         'Size'
     ];
 
-    const actualFixedIncomeStyleColumns = connector.dataTables.FixedIncomeStyle.getColumnNames();
 
+    const actualFixedIncomeStyleColumns = connector.dataTables.FixedIncomeStyle.getColumnNames();
+    
     Assert.deepStrictEqual(
         actualFixedIncomeStyleColumns.sort(),
         expectedFixedIncomeStyleColumns.sort(),
         'FixedIncomeStyle connector should return expected column names.'
+    );
+
+    const expectedTrailingReturnsColumns = [
+        'Id',
+        'Value',
+        'GrossValue',
+        'Value_Benchmark'
+    ];
+
+    const actualyTrailingReturnsColumns = connector.dataTables.TrailingReturns.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualyTrailingReturnsColumns.sort(),
+        expectedTrailingReturnsColumns.sort(),
+        'TrailingReturns connector should return expected column names.'
     );
 
     Assert.ok(

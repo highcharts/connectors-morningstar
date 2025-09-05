@@ -109,7 +109,8 @@ export class XRayUSConnector extends PAUSConnector {
 
             for (const XRay of json.XRay) {
                 converter.parse({
-                    json: XRay
+                    json: XRay,
+                    requestSettings: this.options.requestSettings
                 }, hasMultiple);
             }
 

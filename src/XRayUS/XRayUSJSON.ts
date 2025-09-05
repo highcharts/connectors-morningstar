@@ -49,6 +49,7 @@ namespace XRayUSJSON {
         Returns: {
             RollingReturns: RollingReturns;
             CalendarYearReturn: CalendarYearReturn;
+            TrailingReturns: TrailingReturns;
         };
         Holdings: {
             AsOfDate: string;
@@ -154,6 +155,29 @@ namespace XRayUSJSON {
         EquityStyleBreakdownItem: EquityStyleBreakdownItem;
         NotAnalyzed: number;
         SecurityId: string;
+    }
+
+    interface TrailingReturns {
+        AsOfDate: string;
+        Portfolio: TrailingReturnsPortfolio;
+        Benchmark: TrailingReturnsBenchmark;
+    }
+
+    interface TrailingReturnsPortfolio {
+        TimePeriod: Array<BenchmarkTimePeriod>
+    }
+    
+    interface TrailingReturnsBenchmark {
+        TimePeriod: Array<TimePeriod>
+    }
+
+    interface TimePeriod {
+        Id: string;
+        Value: number;
+    }
+
+    interface BenchmarkTimePeriod extends TimePeriod {
+        GrossValue?: number;
     }
 
     interface FixedIncomeStyleBreakdownItem {
