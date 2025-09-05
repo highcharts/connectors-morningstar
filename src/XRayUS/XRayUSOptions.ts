@@ -194,6 +194,7 @@ export interface XRayUSHolding extends Holding {
 export interface XRayUSConverterOptions extends MorningstarConverterOptions {
     json: XRayUSJSON.XRayUS;
     hasMultiple?: boolean;
+    requestSettings?: XRayUSRequestSettings; // Easy access to flags
 }
 
 /* *

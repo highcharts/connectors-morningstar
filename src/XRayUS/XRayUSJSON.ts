@@ -105,17 +105,25 @@ namespace XRayUSJSON {
 
     interface TrailingReturns {
         AsOfDate: string;
-        Portfolio: Portfolio;
-        Benchmark: Portfolio;
+        Portfolio: TrailingReturnsPortfolio;
+        Benchmark: TrailingReturnsBenchmark;
     }
 
-    interface Portfolio {
+    interface TrailingReturnsPortfolio {
+        TimePeriod: Array<BenchmarkTimePeriod>
+    }
+    
+    interface TrailingReturnsBenchmark {
         TimePeriod: Array<TimePeriod>
     }
 
     interface TimePeriod {
         Id: string;
         Value: number;
+    }
+
+    interface BenchmarkTimePeriod extends TimePeriod {
+        GrossValue?: number;
     }
 
     interface FixedIncomeStyleBreakdownItem {
