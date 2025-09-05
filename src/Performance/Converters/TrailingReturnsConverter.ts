@@ -31,7 +31,7 @@ import type { PerformanceConverterOptions } from '../PerformanceOptions';
  * */
 
 
-export class CalendarYearReturnConverter extends MorningstarConverter {
+export class TrailingReturnsConverter extends MorningstarConverter {
 
 
     /* *
@@ -65,16 +65,16 @@ export class CalendarYearReturnConverter extends MorningstarConverter {
                 ...options
             },
             portfolioPerformance = userOptions.json,
-            CalendarYearReturn = portfolioPerformance.Returns.CalendarYearReturn;
+            TrailingReturns = portfolioPerformance.Returns.TrailingReturns;
 
-        if (CalendarYearReturn) {
+        if (TrailingReturns) {
             const portfolioName = portfolioPerformance.PortfolioName,
                 columnSuffix = hasMultiple ? `_${portfolioName}` : '',
-                calendarYearData = CalendarYearReturn.Portfolio.CalendarYear,
-                benchmarkData = CalendarYearReturn.Benchmark?.CalendarYear;
+                trailingReturnsData = TrailingReturns.Portfolio.TimePeriod,
+                benchmarkData = TrailingReturns.Benchmark?.TimePeriod;
 
-            for (let i = 0; i < calendarYearData.length; i++) {
-                const { Id, Value: portfolioValue } = calendarYearData[i];
+            for (let i = 0; i < trailingReturnsData.length; i++) {
+                const { Id, Value: portfolioValue } = trailingReturnsData[i];
                 const idColumn = 'Id';
                 const portfolioValueColumn = 'Value';
 
@@ -100,4 +100,4 @@ export class CalendarYearReturnConverter extends MorningstarConverter {
  * */
 
 
-export default CalendarYearReturnConverter;
+export default TrailingReturnsConverter;

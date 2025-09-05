@@ -14,13 +14,15 @@ async function displayXRayUS (postmanJSON) {
         requestSettings: {
             outputCurrency: 'USD',
             outputReturnsFrequency: 'MonthEnd',
+            ReturnDataSections: ['CorrelationMatrix', 'RollingReturns'],
             assetClassGroupConfigs: {
                 assetClassGroupConfig: [
                     {
                         id: 'ACG-USBROAD'
                     }
                 ]
-            }
+            },
+            includeGrossNetReturns: true
         },
         portfolios: [
             {
