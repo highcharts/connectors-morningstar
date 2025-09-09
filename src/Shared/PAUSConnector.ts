@@ -28,6 +28,7 @@ import MorningstarAPI from './MorningstarAPI';
 import type PAUSOptions from './PAUSOptions';
 import * as External from './External';
 import { PAUSPayload } from './PAUSOptions';
+import MorningstarRegion from './MorningstarRegion';
 
 
 /* *
@@ -83,7 +84,10 @@ export abstract class PAUSConnector extends MorningstarConnector {
 
         const api = this.api = this.api || new MorningstarAPI(this.options.api);
 
-        const fullUrl = new MorningstarURL(`${this.url}?langcult=${this.options.langcult || 'en-US'}`, this.api.baseURL);
+        const fullUrl = new MorningstarURL(
+            `${this.url}?langcult=${this.options.langcult || 'en-US'}`,
+            this.options?.api?.url || MorningstarRegion.baseURLs['Americas']
+        );
         const bodyPayload = this.getPayload();
 
         const response = await api.fetch(fullUrl, {
