@@ -127,21 +127,21 @@ async function displayHypoGrowth (postmanJSON) {
                 void 0,
                 void 0,
                 ['Date', 'Value']
-            )
+            ).slice(0, -1) // A known issue with trailing 0's in the data
         }, {
             name: 'Benchmark',
             data: connector.dataTables.Growth.getRows(
                 void 0,
                 void 0,
                 ['Date', 'Value_Benchmark']
-            )
+            ).slice(0, -1) // A known issue with trailing 0's in the data
         }, {
             name: 'Net Invested',
             data: connector.dataTables.Growth.getRows(
                 void 0,
                 void 0,
                 ['Date', 'Value_NetAmountInvested']
-            )
+            ).slice(0, -1) // A known issue with trailing 0's in the data
         }]
     });
 
