@@ -33,7 +33,8 @@ import {
 } from './Converters';
 import PerformanceOptions, {
     PerformanceRequestPayload,
-    PerformanceConverterOptions
+    PerformanceConverterOptions,
+    PerformanceMetadata
 } from './PerformanceOptions';
 import type MorningstarConverter from '../Shared/MorningstarConverter';
 import type PerformanceJSON from './PerformanceJSON';
@@ -107,6 +108,7 @@ export class PerformanceConnector extends PAUSConnector {
 
     protected url = '/portfolioanalysis/v1/performance';
 
+    public override metadata!: PerformanceMetadata;
 
     /* *
      *
@@ -130,6 +132,11 @@ export class PerformanceConnector extends PAUSConnector {
 
             this.dataTables[key].setColumns(converter.getTable().getColumns());
         }
+
+        this.metadata = {
+            columns: {},
+            json
+        };
 
         return this.setModifierOptions(this.options.dataModifier);
     }

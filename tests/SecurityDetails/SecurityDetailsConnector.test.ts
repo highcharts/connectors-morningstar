@@ -58,13 +58,16 @@ export async function securityDetailsLoad (
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
-    Assert.deepStrictEqual(
-        connector.metadata,
-        {
-            columns: {},
-            id: 'F0GBR050DD',
-            isin: 'GB0004460357'
-        }
+    Assert.strictEqual(
+        connector.metadata.id,
+        'F0GBR050DD',
+        'Connector metadata should have the correct id.'
+    );
+
+    Assert.strictEqual(
+        connector.metadata.isin,
+        'GB0004460357',
+        'Connector metadata should have the correct isin.'
     );
 }
 

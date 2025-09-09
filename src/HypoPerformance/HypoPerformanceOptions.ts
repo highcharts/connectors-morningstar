@@ -21,7 +21,7 @@
  *
  * */
 
-import type { MorningstarConverterOptions } from '../Shared';
+import type { MorningstarConverterOptions, MorningstarMetadata } from '../Shared';
 
 import type {
     PAUSOptions,
@@ -39,6 +39,11 @@ import HypoJSON from './HypoPerformanceJSON';
  *  API Options
  *
  * */
+
+export interface HypoPerformanceMetadata extends MorningstarMetadata {
+    json: HypoJSON.HypoResponse;
+}
+
 
 export interface HypoPerformanceOptions extends PAUSOptions {
     langcult?: string;

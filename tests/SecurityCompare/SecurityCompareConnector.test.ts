@@ -68,13 +68,16 @@ export async function securityCompareLoad (
     );
 
     Assert.deepStrictEqual(
-        connector.metadata,
-        {
-            columns: {},
-            ids: ['F0GBR050DD', 'F00000Q5PZ'],
-            isins: ['GB0004460357', 'LU0593848723']
-        }
+        connector.metadata.ids,
+        ['F0GBR050DD', 'F00000Q5PZ'],
+        'Connector metadata should have the correct ids.'
     );
+
+    Assert.deepStrictEqual(
+        connector.metadata.isins,
+        ['GB0004460357', 'LU0593848723'],
+        'Connector metadata should have the correct isins.'
+    )
 }
 
 export async function securityCompareBackwardsCompatibility (

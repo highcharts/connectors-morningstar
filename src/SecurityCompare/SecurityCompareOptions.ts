@@ -7,6 +7,7 @@ import type {
     MorningstarSecurityOptions,
     MorningstarMetadata
 } from '../Shared/MorningstarOptions';
+import type SecurityDetailsJSON from '../SecurityDetails/SecurityDetailsJSON';
 
 interface SecurityCompareSecurity extends Omit <MorningstarSecurityOptions, 'id'> {
     /**
@@ -40,4 +41,5 @@ export interface SecurityCompareOptions extends MorningstarOptions {
 export interface SecurityCompareMetadata extends MorningstarMetadata {
     ids?: string[];
     isins?: string[];
+    json: SecurityDetailsJSON.SecurityDetailsResponse;
 }

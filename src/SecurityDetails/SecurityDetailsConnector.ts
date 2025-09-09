@@ -78,11 +78,7 @@ export class SecurityDetailsConnector extends MorningstarConnector {
 
     public override readonly options: SecurityDetailsOptions;
 
-    public override metadata: SecurityDetailsMetadata = {
-        columns: {},
-        id: '',
-        isin: ''
-    };
+    public override metadata!: SecurityDetailsMetadata;
 
 
     /* *
@@ -111,7 +107,7 @@ export class SecurityDetailsConnector extends MorningstarConnector {
         searchParams.set('viewid', viewId);
 
         const response = await api.fetch(url);
-        const json = await response.json() as unknown;
+        const json = await response.json() as SecurityDetailsJSON.SecurityDetailsResponse;
 
         if (!SecurityDetailsJSON.isSecurityDetailsResponse(json)) {
             throw new Error('Invalid data');
@@ -128,7 +124,8 @@ export class SecurityDetailsConnector extends MorningstarConnector {
         this.metadata = {
             columns: {},
             id: json[0].Id,
-            isin: json[0].Isin
+            isin: json[0].Isin,
+            json
         };
 
         return this.setModifierOptions(userOptions.dataModifier);
