@@ -1,10 +1,10 @@
 import { getPostmanFile } from '../utils/postman-localstorage.js';
 
-getPostmanFile(displaySecurityDetails);
+getPostmanFile(displayHypoGrowth);
 
 const loadingLabel = document.getElementById('loading-label');
 
-async function displaySecurityDetails (postmanJSON) {
+async function displayHypoGrowth (postmanJSON) {
 
     const connector = new HighchartsConnectors.Morningstar.HypoPerformanceConnector({
         postman: {
@@ -30,9 +30,9 @@ async function displaySecurityDetails (postmanJSON) {
                 capitalGainTaxRate: 0,
                 stateIncomeTaxRate: 0,
                 dividendTaxRate: 0,
-                illustrationTrailingTimePeriod: 'EarliestCommon',
-                startDate: '1998-12-31T00:00:00.000Z',
-                endDate: '2008-12-31T00:00:00.000Z',
+                illustrationTrailingTimePeriod: 'Customized',
+                startDate: '2020-01-01',
+                endDate: '2025-01-31',
                 synchronizePortfolioStartDate: true,
                 investmentDetailReturnsFrequency: 'Monthly',
                 liquidateOnEndDate: true,
@@ -99,6 +99,51 @@ async function displaySecurityDetails (postmanJSON) {
     });
 
     await connector.load();
+
+    Highcharts.chart('container', {
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: 'Portfolio Hypothetical Growth'
+        },
+        xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: {
+                month: '%b %Y'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Holding (USD)'
+            }
+        },
+        tooltip: {
+            valueSuffix: 'USD'
+        },
+        series: [{
+            name: 'Portfolio',
+            data: connector.dataTables.Growth.getRows(
+                void 0,
+                void 0,
+                ['Date', 'Value']
+            ).slice(0, -1) // A known issue with trailing 0's in the data
+        }, {
+            name: 'Benchmark',
+            data: connector.dataTables.Growth.getRows(
+                void 0,
+                void 0,
+                ['Date', 'Value_Benchmark']
+            ).slice(0, -1) // A known issue with trailing 0's in the data
+        }, {
+            name: 'Net Invested',
+            data: connector.dataTables.Growth.getRows(
+                void 0,
+                void 0,
+                ['Date', 'Value_NetAmountInvested']
+            ).slice(0, -1) // A known issue with trailing 0's in the data
+        }]
+    });
 
     loadingLabel.style.display = 'none';
 }

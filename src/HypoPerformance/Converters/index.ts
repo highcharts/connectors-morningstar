@@ -22,7 +22,7 @@
  * */
 
 
-import TestConverter from './TestConverter';
+import GrowthConverter from './GrowthConverter';
 
 
 /* *
@@ -32,7 +32,7 @@ import TestConverter from './TestConverter';
  * */
 
 
-export * from './TestConverter';
+export * from './GrowthConverter';
 
 
 /* *
@@ -43,5 +43,5 @@ export * from './TestConverter';
 
 
 export default {
-    TestConverter
+    GrowthConverter
 };

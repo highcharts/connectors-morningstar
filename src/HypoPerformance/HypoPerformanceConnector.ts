@@ -26,10 +26,10 @@ import External from '../Shared/External';
 import PAUSConnector from '../Shared/PAUSConnector';
 import HypoPerformanceOptions, {
     HypoConverterOptions,
-    HypoPerformanceMetadata,
-    HypoPerformanceRequestPayload
+    HypoPerformanceRequestPayload,
+    HypoPerformanceMetadata
 } from './HypoPerformanceOptions';
-import { TestConverter } from './Converters';
+import { GrowthConverter } from './Converters';
 import MorningstarConverter from '../Shared/MorningstarConverter';
 import HypoJSON from './HypoPerformanceJSON';
 
@@ -47,7 +47,7 @@ import HypoJSON from './HypoPerformanceJSON';
  * */
 
 export interface HypoConverter extends MorningstarConverter {
-    parse(options: HypoConverterOptions): void;
+    parse(options: HypoConverterOptions, hasMultiple?: boolean): void;
 }
 
 
@@ -65,7 +65,7 @@ export interface HypoConverter extends MorningstarConverter {
  * */
 
 const DATA_TABLES = [
-    { key: 'TestConverter' }
+    { key: 'Growth' }
 ];
 
 
@@ -117,11 +117,14 @@ export class HypoPerformanceConnector extends PAUSConnector {
         await super.load();
 
         const json = await this.response?.json() as HypoJSON.HypoResponse;
+        const hasMultiple = json.Hypo.length > 1;
 
         for (const { key } of DATA_TABLES) {
             const converter = this.initConverter(key);
 
-            converter.parse({ json: json });
+            for (const Hypo of json.Hypo) {
+                converter.parse({ json: Hypo }, hasMultiple);
+            }
 
             this.dataTables[key].setColumns(converter.getTable().getColumns());
         }
@@ -144,8 +147,8 @@ export class HypoPerformanceConnector extends PAUSConnector {
 
     private initConverter (key: string): HypoConverter {
         switch (key) {
-            case 'TestConverter':
-                return new TestConverter();
+            case 'Growth':
+                return new GrowthConverter();
             default:
                 throw new Error(`Unsupported key: ${key}`);
         }

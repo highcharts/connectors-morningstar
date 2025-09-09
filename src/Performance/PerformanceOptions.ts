@@ -44,8 +44,7 @@ export interface PerformanceMetadata extends MorningstarMetadata {
 }
 
 export interface PerformanceOptions extends PAUSOptions {
-    configId: string;
-    viewId: string,
+    configId?: string;
     portfolios: Array<PerformancePortfolio>;
     requestSettings: PerformanceRequestSettings;
 }
