@@ -58,6 +58,54 @@ namespace SecurityDetailsJSON {
         ActualManagementFee: number;
         FundAttributes?: FundAttributesType;
         HistoricalPerformanceSeries?: SecurityDetailsHistoricalPerformance[];
+        RiskStatistics?: RiskStatisticsItem[];
+    }
+
+    interface RiskStatisticsItem {
+        CurrencyId: string;
+        CurrencyOption: string;
+        Date: string;
+        Type: string;
+        ReturnType: string;
+        benchmarkType: string;
+        Alphas?: GenericRiskStatisticsResponse[];
+        ArithmeticMeans?: GenericRiskStatisticsResponse[];
+        Betas?: GenericRiskStatisticsResponse[];
+        BenchmarkCorrelations?: GenericRiskStatisticsResponse[];
+        Correlations?: GenericRiskStatisticsResponse[];
+        InformationRatios?: GenericRiskStatisticsResponse[];
+        MaxDrawdowns?: DrawdownRiskStatisticsResponse[];
+        MaximumReturns?: ReturnRiskStatisticsResponse[];
+        MinimumReturns?: ReturnRiskStatisticsResponse[];
+        NumberOfNegatives?: OccurrenceRiskStatisticsResponse[];
+        NumberOfPositives?: OccurrenceRiskStatisticsResponse[];
+        RSquareds?: GenericRiskStatisticsResponse[];
+        SharpeRatios?: GenericRiskStatisticsResponse[];
+        SortinoRatios?: GenericRiskStatisticsResponse[];
+        StandardDeviations?: GenericRiskStatisticsResponse[];
+        TrackingErrors?: GenericRiskStatisticsResponse[];
+        TreynorRatios?: GenericRiskStatisticsResponse[];
+    }
+
+    export type GenericRiskStatisticsResponse = {
+        Value: number;
+        Frequency: string;
+        TimePeriod: string;
+    };
+
+    export type OccurrenceRiskStatisticsResponse = {
+        Count: number;
+        Frequency: string;
+        TimePeriod: string;
+    };
+
+    interface DrawdownRiskStatisticsResponse extends GenericRiskStatisticsResponse {
+        StartDate: string;
+        EndDate: string;
+    }
+
+    interface ReturnRiskStatisticsResponse extends GenericRiskStatisticsResponse {
+        Date: string;
     }
 
     export type PortfoliosType = {
