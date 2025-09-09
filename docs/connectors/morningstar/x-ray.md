@@ -83,8 +83,16 @@ For more details, see [Morningstar's APAC/EMEA X-Ray API].
 Currently the following data points are supported in the Americas X-Ray converter:
 
 - **CreditQuality**
+- **CorrelationMatrix**
 - **EquityStyle**
 - **FixedIncomeStyle**
+- **AssetAllocation**
+- **RollingReturns**
+- **RiskStatistics**
+- **CalendarYearReturn**
+- **FundStatistics**
+- **Holdings**
+- **MPTStatistics**
 
 
 Example request:
@@ -96,7 +104,7 @@ const americasXRayConnector = new HighchartsConnectors.Morningstar.XRayUSConnect
             token: 'JWT token'
         }
     },
-    viewId: 'Snapshot',
+    viewId: 'All',
     configId: 'Default',
     requestSettings: {
         outputCurrency: 'USD',

@@ -30,6 +30,7 @@ import type {
     MorningstarSecurityOptions,
     MorningstarMetadata
 } from '../Shared/MorningstarOptions';
+import type SecurityDetailsJSON from './SecurityDetailsJSON';
 
 
 /* *
@@ -48,7 +49,7 @@ export interface SecurityDetailsConverterOptions extends MorningstarConverterOpt
      * 'RegionalExposure', 'GlobalStockSectorBreakdown',
      * 'CountryExposure', 'MarketCap', 'IndustryBreakdown',
      * 'IndustryGroupBreakdown, BondStatistics',
-     * 'Meta'.
+     * 'Meta', 'RiskStatistics.
      *
      * @default 'TrailingPerformance'
      */
@@ -100,11 +101,13 @@ export type SecurityDetailsConverterType  = (
    | 'StyleBoxBreakdown'
    | 'BondStyleBoxBreakdown'
    | 'HistoricalPerformanceSeries'
+   | 'RiskStatistics'
  );
 
 export interface SecurityDetailsMetadata extends MorningstarMetadata {
     id?: string;
     isin?: string;
+    json: SecurityDetailsJSON.SecurityDetailsResponse;
 }
 
 

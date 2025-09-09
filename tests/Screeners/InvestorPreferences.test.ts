@@ -47,7 +47,7 @@ export async function InvestorPreferencesLoad (
     Assert.strictEqual(
         connector.table.getRowCount(),
         10,
-        'Connector table should have 15 rows.'
+        'Connector table should have 10 rows.'
     );
 
     Assert.deepStrictEqual(

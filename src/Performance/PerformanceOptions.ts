@@ -29,7 +29,7 @@ import type {
     Portfolio,
     Holding
 } from '../Shared/PAUSOptions';
-import type { MorningstarConverterOptions } from '../Shared';
+import type { MorningstarConverterOptions, MorningstarMetadata } from '../Shared';
 import type PerformanceJSON from './PerformanceJSON';
 
 
@@ -38,6 +38,10 @@ import type PerformanceJSON from './PerformanceJSON';
  *  API Options
  *
  * */
+
+export interface PerformanceMetadata extends MorningstarMetadata {
+    json: PerformanceJSON.PerformanceResponse;
+}
 
 export interface PerformanceOptions extends PAUSOptions {
     configId?: string;

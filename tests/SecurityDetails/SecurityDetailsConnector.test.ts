@@ -58,13 +58,16 @@ export async function securityDetailsLoad (
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
-    Assert.deepStrictEqual(
-        connector.metadata,
-        {
-            columns: {},
-            id: 'F0GBR050DD',
-            isin: 'GB0004460357'
-        }
+    Assert.strictEqual(
+        connector.metadata.id,
+        'F0GBR050DD',
+        'Connector metadata should have the correct id.'
+    );
+
+    Assert.strictEqual(
+        connector.metadata.isin,
+        'GB0004460357',
+        'Connector metadata should have the correct isin.'
     );
 }
 
@@ -215,7 +218,7 @@ export async function portfolioHoldingsLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.PortfolioHoldings.getColumnNames(),
+        connector.dataTables.PortfolioHoldings.getColumnNames().sort(),
         [
             'Id',
             'ExternalId',
@@ -234,7 +237,7 @@ export async function portfolioHoldingsLoad (
             'ShareChange',
             'LocalCurrencyCode',
             'GICSIndustryId'
-        ],
+        ].sort(),
         'Portfolio holdings table should exist of expected columns.'
     );
 
@@ -548,6 +551,44 @@ export async function historicalPerformanceSeriesLoad (
 
     Assert.ok(
         connector.dataTables.HistoricalPerformanceSeries.getRowCount() > 0,
+        'Connector should not return empty rows.'
+    );
+}
+
+export async function riskStatisticsLoad (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.SecurityDetailsConnector({
+        api,
+        viewId: 'HSsnapshot',
+        security: {
+            id: 'F0GBR050DD',
+            idType: 'MSID'
+        },
+        converters: ['RiskStatistics']
+    });
+
+    await connector.load();
+
+    Assert.deepStrictEqual(
+        connector.dataTables.RiskStatistics.getColumnNames().sort(),
+        [
+            'GbPostTax_MonthEnd_InformationRatios',
+            'GbPostTax_MonthEnd_StandardDeviations',
+            'GbPostTax_MonthEnd_TrackingErrors',
+            'ItPostTax_MonthEnd_InformationRatios',
+            'ItPostTax_MonthEnd_StandardDeviations',
+            'ItPostTax_MonthEnd_TrackingErrors',
+            'Nav_MonthEnd_InformationRatios',
+            'Nav_MonthEnd_StandardDeviations',
+            'Nav_MonthEnd_TrackingErrors',
+            'TimePeriod'
+        ],
+        'RiskStatistics table should exist of expected columns.'
+    );
+
+    Assert.ok(
+        connector.dataTables.RiskStatistics.getRowCount() > 0,
         'Connector should not return empty rows.'
     );
 }

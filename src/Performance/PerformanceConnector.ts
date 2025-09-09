@@ -24,10 +24,17 @@
 
 import External from '../Shared/External';
 import PAUSConnector from '../Shared/PAUSConnector';
-import { CalendarYearReturnConverter } from './Converters';
+import {
+    CalendarYearReturnConverter,
+    RiskStatisticsConverter,
+    MPTStatisticsConverter,
+    CorrelationMatrixConverter,
+    TrailingReturnsConverter
+} from './Converters';
 import PerformanceOptions, {
     PerformanceRequestPayload,
-    PerformanceConverterOptions
+    PerformanceConverterOptions,
+    PerformanceMetadata
 } from './PerformanceOptions';
 import type MorningstarConverter from '../Shared/MorningstarConverter';
 import type PerformanceJSON from './PerformanceJSON';
@@ -57,7 +64,11 @@ export interface PerformanceConverter extends MorningstarConverter {
  * */
 
 export const DATA_TABLES = [
-    { key: 'CalendarYearReturn' }
+    { key: 'CalendarYearReturn' },
+    { key: 'RiskStatistics' },
+    { key: 'MPTStatistics' },
+    { key: 'CorrelationMatrix' },
+    { key: 'TrailingReturns' }
 ];
 
 
@@ -97,6 +108,7 @@ export class PerformanceConnector extends PAUSConnector {
 
     protected url = '/portfolioanalysis/v1/performance';
 
+    public override metadata!: PerformanceMetadata;
 
     /* *
      *
@@ -121,6 +133,11 @@ export class PerformanceConnector extends PAUSConnector {
             this.dataTables[key].setColumns(converter.getTable().getColumns());
         }
 
+        this.metadata = {
+            columns: {},
+            json
+        };
+
         return this.setModifierOptions(this.options.dataModifier);
     }
 
@@ -138,6 +155,14 @@ export class PerformanceConnector extends PAUSConnector {
         switch (key) {
             case 'CalendarYearReturn':
                 return new CalendarYearReturnConverter();
+            case 'RiskStatistics':
+                return new RiskStatisticsConverter();
+            case 'MPTStatistics':
+                return new MPTStatisticsConverter();
+            case 'CorrelationMatrix':
+                return new CorrelationMatrixConverter();
+            case 'TrailingReturns':
+                return new TrailingReturnsConverter();
             default:
                 throw new Error(`Unsupported key: ${key}`);
         }
