@@ -1,0 +1,104 @@
+/* *
+ *
+ *  (c) 2009-2025 Highsoft AS
+ *
+ *  License: www.highcharts.com/license
+ *
+ *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
+ *
+ *  Authors:
+ *  - Askel Eirik Johansson
+ *
+ * */
+
+
+'use strict';
+
+
+/* *
+ *
+ *  Imports
+ *
+ * */
+
+import MorningstarConverter from '../MorningstarConverter';
+import type { XRayUSConverterOptions } from '../../XRayUS/XRayUSOptions';
+
+/* *
+ *
+ *  Class
+ *
+ * */
+
+
+export class XrayTrailingReturnsConverter extends MorningstarConverter {
+
+
+    /* *
+     *
+     *  Constructor
+     *
+     * */
+
+
+    public constructor (
+        options?: XRayUSConverterOptions
+    ) {
+        super(options);
+    }
+
+
+    /* *
+     *
+     *  Functions
+     *
+     * */
+
+
+    public override parse (
+        options: XRayUSConverterOptions,
+        hasMultiple?: boolean
+    ): void {
+        const table = this.table,
+            userOptions = {
+                ...this.options,
+                ...options
+            },
+            portfolioPerformance = userOptions.json,
+            TrailingReturns = portfolioPerformance.Returns.TrailingReturns,
+            portfolioName = portfolioPerformance.PortfolioName,
+            columnSuffix = hasMultiple ? `_${portfolioName}` : '';
+
+        const trailingReturnsData = TrailingReturns.Portfolio.TimePeriod;
+        const benchmarkData = TrailingReturns.Benchmark?.TimePeriod;
+
+        // Check if GrossValue can be expected.
+        const hasGrossValues = trailingReturnsData.some(item => 'GrossValue' in item);
+
+        for (let i = 0; i < trailingReturnsData.length; i++) {
+            const { Id, Value: portfolioValue } = trailingReturnsData[i];
+            table.setCell(`Id${columnSuffix}`, i, Id);
+            table.setCell(`Value${columnSuffix}`, i, portfolioValue ?? null);
+
+            if (hasGrossValues) {
+                const { GrossValue: porfolioGrossValue } = trailingReturnsData[i];
+                table.setCell(`GrossValue${columnSuffix}`, i, porfolioGrossValue ?? null);
+            }
+
+            if (benchmarkData?.length > i) {
+                const { Value: benchmarkValue } = benchmarkData[i];
+                table.setCell(`Value_Benchmark${columnSuffix}`, i, benchmarkValue ?? null);
+            }
+        }
+    }
+}
+
+
+/* *
+ *
+ *  Default Export
+ *
+ * */
+
+
+export default XrayTrailingReturnsConverter;

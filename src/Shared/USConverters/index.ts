@@ -26,6 +26,7 @@ import XRayCalendarYearReturnConverter from './XRayCalendarYearReturnConverter';
 import FundStatisticsConverter from './FundStatisticsConverter';
 import HoldingsConverter from './HoldingsConverter';
 import MPTStatisticsConverter from './MPTStatisticsConverter';
+import XrayTrailingReturnsConverter from './XrayTrailingReturnsConverter';
 
 
 /* *
@@ -55,6 +56,7 @@ export * from './XRayCalendarYearReturnConverter';
 export * from './FundStatisticsConverter';
 export * from './HoldingsConverter';
 export * from './MPTStatisticsConverter';
+export * from './XrayTrailingReturnsConverter';
 
 /* *
  *
@@ -68,6 +70,7 @@ export default {
     CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,
+    XrayTrailingReturnsConverter,
     AssetAllocationsConverter,
     RollingReturnsConverter,
     RiskStatisticsConverter,

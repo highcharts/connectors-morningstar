@@ -23,6 +23,7 @@ import {
     CreditQualityConverter,
     EquityStyleConverter,
     FixedIncomeStyleConverter,
+    XrayTrailingReturnsConverter,
     AssetAllocationsConverter,
     RollingReturnsConverter,
     RiskStatisticsConverter,
@@ -46,6 +47,7 @@ export const DATA_TABLES = [
     { key: 'CreditQuality' },
     { key: 'EquityStyle' },
     { key: 'FixedIncomeStyle' },
+    { key: 'TrailingReturns' },
     { key: 'AssetAllocations' },
     { key: 'RollingReturns' },
     { key: 'RiskStatistics' },
@@ -97,6 +99,8 @@ export function initConverter (
             return new HoldingsConverter();
         case 'MPTStatistics':
             return new MPTStatisticsConverter();
+        case 'TrailingReturns':
+            return new XrayTrailingReturnsConverter();
         default:
             throw new Error(`Unsupported key: ${key}`);
     }

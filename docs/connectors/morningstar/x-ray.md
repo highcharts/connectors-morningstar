@@ -93,6 +93,7 @@ Currently the following data points are supported in the Americas X-Ray converte
 - **FundStatistics**
 - **Holdings**
 - **MPTStatistics**
+- **TrailingReturns**
 
 
 Example request:
