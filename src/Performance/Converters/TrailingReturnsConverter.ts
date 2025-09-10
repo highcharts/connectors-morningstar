@@ -65,13 +65,13 @@ export class TrailingReturnsConverter extends MorningstarConverter {
                 ...options
             },
             portfolioPerformance = userOptions.json,
-            TrailingReturns = portfolioPerformance.Returns.TrailingReturns;
+            trailingReturns = portfolioPerformance.Returns?.TrailingReturns;
 
-        if (TrailingReturns) {
+        if (trailingReturns) {
             const portfolioName = portfolioPerformance.PortfolioName,
                 columnSuffix = hasMultiple ? `_${portfolioName}` : '',
-                trailingReturnsData = TrailingReturns.Portfolio.TimePeriod,
-                benchmarkData = TrailingReturns.Benchmark?.TimePeriod;
+                trailingReturnsData = trailingReturns.Portfolio.TimePeriod,
+                benchmarkData = trailingReturns.Benchmark?.TimePeriod;
 
             for (let i = 0; i < trailingReturnsData.length; i++) {
                 const { Id, Value: portfolioValue } = trailingReturnsData[i];

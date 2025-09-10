@@ -30,8 +30,8 @@ namespace PerformanceJSON {
 
     export interface Performance {
         PortfolioName: string;
-        Returns: Returns;
-        Risks: {
+        Returns?: Returns;
+        Risks?: {
             RiskStatistics: Array<RiskStatistics>;
             MPTStatistics: Array<MPTStatisticsBreakdownItem>;
             CorrelationMatrix: Array<CorrelationMatrixItem>;

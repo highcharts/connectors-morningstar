@@ -61,9 +61,9 @@ export class RollingReturnsConverter extends MorningstarConverter {
     ): void {
         const table = this.table,
             columnSuffix = hasMultiple ? `_${options.json.PortfolioName}` : '',
-            rollingReturn = options.json.Returns.RollingReturns.RollingReturn;
+            rollingReturn = options.json.Returns?.RollingReturns?.RollingReturn;
 
-        if (rollingReturn.length) {
+        if (rollingReturn?.length) {
             rollingReturn.forEach(rollingReturn => {
                 const { Portfolio, RollingPeriod } = rollingReturn;
 

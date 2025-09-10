@@ -61,9 +61,9 @@ export class XRayCalendarYearReturnConverter extends MorningstarConverter {
     ): void {
         const table = this.table,
             columnSuffix = hasMultiple ? `_${options.json.PortfolioName}` : '',
-            calendarYearReturn = options.json.Returns.CalendarYearReturn,
-            portfolio = calendarYearReturn.Portfolio,
-            benchmark = calendarYearReturn.Benchmark;
+            calendarYearReturn = options.json.Returns?.CalendarYearReturn,
+            portfolio = calendarYearReturn?.Portfolio,
+            benchmark = calendarYearReturn?.Benchmark;
 
         if (portfolio) {
             for (let i = portfolio.CalendarYear.length - 1; i >= 0; i--) {

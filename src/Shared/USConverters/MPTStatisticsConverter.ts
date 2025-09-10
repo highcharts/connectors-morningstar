@@ -61,7 +61,7 @@ export class MPTStatisticsConverter extends MorningstarConverter {
     ): void {
         const table = this.table,
             columnSuffix = hasMultiple ? `_${options.json.PortfolioName}` : '',
-            mptStatistics = options.json.Risks.MPTStatistics;
+            mptStatistics = options.json.Risks?.MPTStatistics;
 
         if (mptStatistics) {
             let rowIndex = 0;
