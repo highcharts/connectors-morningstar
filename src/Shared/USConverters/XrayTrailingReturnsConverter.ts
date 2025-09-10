@@ -72,14 +72,19 @@ export class XrayTrailingReturnsConverter extends MorningstarConverter {
         const trailingReturnsData = TrailingReturns.Portfolio.TimePeriod;
         const benchmarkData = TrailingReturns.Benchmark?.TimePeriod;
 
+        // Check if GrossValue can be expected.
+        const hasGrossValues = trailingReturnsData.some(item => 'GrossValue' in item);
+
         for (let i = 0; i < trailingReturnsData.length; i++) {
             const { Id, Value: portfolioValue } = trailingReturnsData[i];
             table.setCell(`Id${columnSuffix}`, i, Id);
             table.setCell(`Value${columnSuffix}`, i, portfolioValue ?? null);
 
-            if (options.requestSettings?.includeGrossNetReturns) {
+            if (hasGrossValues) {
                 const { GrossValue: porfolioGrossValue } = trailingReturnsData[i];
-                table.setCell(`GrossValue${columnSuffix}`, i, porfolioGrossValue ?? null);
+                const portfolioGrossValueColumn = 'GrossValue';
+
+                table.setCell(`${portfolioGrossValueColumn}${columnSuffix}`, i, porfolioGrossValue ?? null);
             }
 
             if (benchmarkData?.length > i) {
