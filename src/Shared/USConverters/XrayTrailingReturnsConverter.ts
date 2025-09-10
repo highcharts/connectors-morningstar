@@ -82,9 +82,7 @@ export class XrayTrailingReturnsConverter extends MorningstarConverter {
 
             if (hasGrossValues) {
                 const { GrossValue: porfolioGrossValue } = trailingReturnsData[i];
-                const portfolioGrossValueColumn = 'GrossValue';
-
-                table.setCell(`${portfolioGrossValueColumn}${columnSuffix}`, i, porfolioGrossValue ?? null);
+                table.setCell(`GrossValue${columnSuffix}`, i, porfolioGrossValue ?? null);
             }
 
             if (benchmarkData?.length > i) {
