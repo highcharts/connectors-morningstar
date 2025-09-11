@@ -1,6 +1,38 @@
 Changelog
 =========
 
+v2.1.0
+------
+
+## What’s Changed
+### Bugfixes
+* Fixed wrong region detect, added default US endpoint URL for PA US Connectors in https://github.com/highcharts/connectors-morningstar/pull/141
+### Enhancements
+* Portfolio Analysis ans Security Details APIs: Added raw response to connectors metadata in https://github.com/highcharts/connectors-morningstar/pull/143
+* Security Details (SD): Added `RiskStatistics` converter in https://github.com/highcharts/connectors-morningstar/pull/142
+* Portfolio Analysis (Americas): Added `Performance` Connector in https://github.com/highcharts/connectors-morningstar/pull/116
+* Portfolio Analysis (Americas): Added `XRay` Connector in https://github.com/highcharts/connectors-morningstar/pull/119
+* Portfolio Analysis (Americas): Added `HypoPerformance` Connector  in https://github.com/highcharts/connectors-morningstar/pull/122
+* Portfolio Analysis Performance Connector (Americas): Added `CalendarYearsReturns` converter in https://github.com/highcharts/connectors-morningstar/pull/125
+* Portfolio Analysis Performance Connector (Americas): Added `TrailingReturns` converter in https://github.com/highcharts/connectors-morningstar/pull/128
+* Portfolio Analysis Performance Connector (Americas): Added `CorrelationMatrix` converter in https://github.com/highcharts/connectors-morningstar/pull/139
+* Portfolio Analysis Performance Connector (Americas): Added `RiskStatistics` converter in https://github.com/highcharts/connectors-morningstar/pull/137
+* Portfolio Analysis Performance Connector (Americas): Added `MPTStatistics` converter in https://github.com/highcharts/connectors-morningstar/pull/138
+* Portfolio Analysis Hypothetical Performance Connector (Americas): Added `Growth` converter in https://github.com/highcharts/connectors-morningstar/pull/131
+* Portfolio Analysis XRay (Americas): Added `EquityStyle` and `FixedIncomeStyle` converters in https://github.com/highcharts/connectors-morningstar/pull/120
+* Portfolio Analysis XRay (Americas): Added `CreditQuality` converter in https://github.com/highcharts/connectors-morningstar/pull/123
+* Portfolio Analysis XRay (Americas): Added `Holdings` converter in https://github.com/highcharts/connectors-morningstar/pull/130
+* Portfolio Analysis XRay (Americas): Added `MPTStatistics` converter in https://github.com/highcharts/connectors-morningstar/pull/132
+* Portfolio Analysis XRay (Americas): Added `FundStatistics` converter in https://github.com/highcharts/connectors-morningstar/pull/127
+* Portfolio Analysis XRay (Americas): Added `MatrixCorrelation` converter in https://github.com/highcharts/connectors-morningstar/pull/134
+* Portfolio Analysis XRay (Americas): Added `CalendarYearReturns` converter in https://github.com/highcharts/connectors-morningstar/pull/129
+* Portfolio Analysis XRay (Americas): Added `RiskStatistics` converter in https://github.com/highcharts/connectors-morningstar/pull/133
+* Portfolio Analysis XRay (Americas): Added `RollingReturns` converter in https://github.com/highcharts/connectors-morningstar/pull/136
+* Portfolio Analysis XRay (Americas): Added `AssetAllocation` converter in https://github.com/highcharts/connectors-morningstar/pull/126
+* Portfolio Analysis XRay (Americas): Added `TrailingReturns` converter in https://github.com/highcharts/connectors-morningstar/pull/135
+
+**Full Changelog**: https://github.com/highcharts/connectors-morningstar/compare/v2.0.0...v2.1.0
+
 v2.0.0
 ------
 
