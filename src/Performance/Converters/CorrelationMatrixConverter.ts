@@ -61,7 +61,7 @@ export class CorrelationMatrixConverter extends MorningstarConverter {
     ): void {
         const table = this.table,
             columnSuffix = hasMultiple ? `_${options.json.PortfolioName}` : '',
-            correlationMatrix = options.json.Risks.CorrelationMatrix;
+            correlationMatrix = options.json.Risks?.CorrelationMatrix;
 
         if (correlationMatrix) {
             for (const correlationMatrixItem of correlationMatrix) {

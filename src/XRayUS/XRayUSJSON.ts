@@ -46,8 +46,8 @@ namespace XRayUSJSON {
             AssetAllocation: Array<AssetAllocation>
             FixedIncomeAnalysis: FixedIncomeAnalysis;
         };
-        Returns: {
-            RollingReturns: RollingReturns;
+        Returns?: {
+            RollingReturns?: RollingReturns;
             CalendarYearReturn: CalendarYearReturn;
             TrailingReturns: TrailingReturns;
         };
@@ -58,7 +58,7 @@ namespace XRayUSJSON {
         Statistics: {
             FundStatistics: FundStatistics
         };
-        Risks: {
+        Risks?: {
             MPTStatistics: Array<MPTStatisticsBreakdownItem>;
             CorrelationMatrix: Array<CorrelationMatrixItem>;
             RiskStatistics: Array<RiskStatistics>;

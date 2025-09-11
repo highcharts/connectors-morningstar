@@ -65,13 +65,13 @@ export class CalendarYearReturnConverter extends MorningstarConverter {
                 ...options
             },
             portfolioPerformance = userOptions.json,
-            CalendarYearReturn = portfolioPerformance.Returns.CalendarYearReturn;
+            calendarYearReturn = portfolioPerformance.Returns?.CalendarYearReturn;
 
-        if (CalendarYearReturn) {
+        if (calendarYearReturn) {
             const portfolioName = portfolioPerformance.PortfolioName,
                 columnSuffix = hasMultiple ? `_${portfolioName}` : '',
-                calendarYearData = CalendarYearReturn.Portfolio.CalendarYear,
-                benchmarkData = CalendarYearReturn.Benchmark?.CalendarYear;
+                calendarYearData = calendarYearReturn.Portfolio.CalendarYear,
+                benchmarkData = calendarYearReturn.Benchmark?.CalendarYear;
 
             for (let i = 0; i < calendarYearData.length; i++) {
                 const { Id, Value: portfolioValue } = calendarYearData[i];

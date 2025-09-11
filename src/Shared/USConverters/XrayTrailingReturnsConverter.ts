@@ -65,12 +65,14 @@ export class XrayTrailingReturnsConverter extends MorningstarConverter {
                 ...options
             },
             portfolioPerformance = userOptions.json,
-            TrailingReturns = portfolioPerformance.Returns.TrailingReturns,
+            trailingReturns = portfolioPerformance.Returns?.TrailingReturns,
             portfolioName = portfolioPerformance.PortfolioName,
             columnSuffix = hasMultiple ? `_${portfolioName}` : '';
 
-        const trailingReturnsData = TrailingReturns.Portfolio.TimePeriod;
-        const benchmarkData = TrailingReturns.Benchmark?.TimePeriod;
+        if (!trailingReturns) return;
+
+        const trailingReturnsData = trailingReturns.Portfolio.TimePeriod;
+        const benchmarkData = trailingReturns.Benchmark?.TimePeriod;
 
         // Check if GrossValue can be expected.
         const hasGrossValues = trailingReturnsData.some(item => 'GrossValue' in item);

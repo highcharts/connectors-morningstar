@@ -61,9 +61,9 @@ export class RiskStatisticsConverter extends MorningstarConverter {
     ): void {
         const table = this.table,
             columnSuffix = hasMultiple ? `_${options.json.PortfolioName}` : '',
-            riskStatistics = options.json.Risks.RiskStatistics;
+            riskStatistics = options.json.Risks?.RiskStatistics;
 
-        if (riskStatistics.length) {
+        if (riskStatistics?.length) {
             riskStatistics.forEach((statistic, i) => {
                 const {
                     Benchmark,
