@@ -376,4 +376,28 @@ export async function xRayUSConnectorLoad (
             `${columnName} at index ${secIndex} should have a value of 1.`
         );
     });
+
+    const expectedWorldRegionsColumns = [
+        'ParentId',
+        'ParentValue',
+        'Id',
+        'Value',
+        'ParentId_Benchmark',
+        'ParentValue_Benchmark',
+        'Id_Benchmark',
+        'Value_Benchmark'
+    ];
+
+    const actualWorldRegionsColumns = connector.dataTables.WorldRegions.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualWorldRegionsColumns.sort(),
+        expectedWorldRegionsColumns.sort(),
+        'WorldRegions table should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.WorldRegions.getRowCount() > 0,
+        'WorldRegions table should not contain empty rows.'
+    );
 }
