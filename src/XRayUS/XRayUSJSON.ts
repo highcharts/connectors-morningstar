@@ -45,6 +45,7 @@ namespace XRayUSJSON {
             InvestmentStyle: InvestmentStyle,
             AssetAllocation: Array<AssetAllocation>
             FixedIncomeAnalysis: FixedIncomeAnalysis;
+            EquityAnalysis: EquityAnalysis;
         };
         Returns?: {
             RollingReturns?: RollingReturns;
@@ -88,6 +89,26 @@ namespace XRayUSJSON {
             Portfolio: CreditQualityBreakdown;
             Benchmark: CreditQualityBreakdown;
         };
+    }
+
+    export interface EquityAnalysis {
+        WorldRegions: WorldRegions;
+    }
+
+    export interface WorldRegions {
+        Portfolio: Array<WorldRegionsItem>;
+        Benchmark: Array<WorldRegionsItem>;
+    }
+
+    export interface WorldRegionsItem {
+        Id: string;
+        Value: number;
+        ExposureItem?: Array<WorldRegionsExposureItem>;
+    }
+
+    export interface WorldRegionsExposureItem {
+        Id: string;
+        Value: number;
     }
 
     export interface AssetAllocation {
@@ -166,7 +187,7 @@ namespace XRayUSJSON {
     interface TrailingReturnsPortfolio {
         TimePeriod: Array<BenchmarkTimePeriod>
     }
-    
+
     interface TrailingReturnsBenchmark {
         TimePeriod: Array<TimePeriod>
     }

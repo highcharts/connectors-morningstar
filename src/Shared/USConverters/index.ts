@@ -27,7 +27,7 @@ import FundStatisticsConverter from './FundStatisticsConverter';
 import HoldingsConverter from './HoldingsConverter';
 import MPTStatisticsConverter from './MPTStatisticsConverter';
 import XrayTrailingReturnsConverter from './XrayTrailingReturnsConverter';
-
+import WorldRegionsConverter from './WorldRegionsConverter';
 
 /* *
  *
@@ -57,6 +57,7 @@ export * from './FundStatisticsConverter';
 export * from './HoldingsConverter';
 export * from './MPTStatisticsConverter';
 export * from './XrayTrailingReturnsConverter';
+export * from './WorldRegionsConverter';
 
 /* *
  *
@@ -77,5 +78,6 @@ export default {
     XRayCalendarYearReturnConverter,
     FundStatisticsConverter,
     HoldingsConverter,
-    MPTStatisticsConverter
+    MPTStatisticsConverter,
+    WorldRegionsConverter
 };

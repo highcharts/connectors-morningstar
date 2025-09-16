@@ -30,7 +30,8 @@ import {
     XRayCalendarYearReturnConverter,
     FundStatisticsConverter,
     HoldingsConverter,
-    MPTStatisticsConverter
+    MPTStatisticsConverter,
+    WorldRegionsConverter
 } from './USConverters';
 
 import type MorningstarConverter from './MorningstarConverter';
@@ -54,7 +55,8 @@ export const DATA_TABLES = [
     { key: 'CalendarYearReturn' },
     { key: 'FundStatistics' },
     { key: 'Holdings' },
-    { key: 'MPTStatistics' }
+    { key: 'MPTStatistics' },
+    { key: 'WorldRegions' }
 ];
 
 /* *
@@ -101,6 +103,8 @@ export function initConverter (
             return new MPTStatisticsConverter();
         case 'TrailingReturns':
             return new XrayTrailingReturnsConverter();
+        case 'WorldRegions':
+            return new WorldRegionsConverter();
         default:
             throw new Error(`Unsupported key: ${key}`);
     }
