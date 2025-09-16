@@ -78,31 +78,36 @@ export class WorldRegionsConverter extends MorningstarConverter {
             asset: Array<XRayUSJSON.WorldRegionsItem>,
             benchmarkSuffix = ''
         ) {
+            let rowIndex = 0;
+
             for (let i = 0; i < asset.length; i++) {
                 const exposureItem = asset[i].ExposureItem || [];
 
-                table.setCell(
-                    `ParentId${benchmarkSuffix}${columnSuffix}`,
-                    i,
-                    asset[i].Id
-                );
-                table.setCell(
-                    `ParentValue${benchmarkSuffix}${columnSuffix}`,
-                    i,
-                    asset[i].Value
-                );
-
                 for (let j = 0; j < exposureItem.length; j++) {
+                    // Parent columns (Regions)
+                    table.setCell(
+                        'ParentId' + benchmarkSuffix + columnSuffix,
+                        rowIndex,
+                        asset[i].Id
+                    );
+                    table.setCell(
+                        'ParentValue' + benchmarkSuffix + columnSuffix,
+                        rowIndex,
+                        asset[i].Value
+                    );
+
+                    // Exposure item (Individual countries)
                     table.setCell(
                         'Id' + benchmarkSuffix + columnSuffix,
-                        i,
+                        rowIndex,
                         exposureItem[j].Id
                     );
                     table.setCell(
                         'Value' + benchmarkSuffix + columnSuffix,
-                        i,
+                        rowIndex,
                         exposureItem[j].Value
                     );
+                    rowIndex++;
                 }
             }
         }
