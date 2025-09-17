@@ -1,10 +1,21 @@
 Changelog
 =========
 
+v2.1.1
+------
+
+## What's Changed
+
+### Enhancements
+* Portfolio Analysis XRay (Americas): Added `WorldRegions` converter in https://github.com/highcharts/connectors-morningstar/pull/146
+
+**Full Changelog**: https://github.com/highcharts/connectors-morningstar/compare/v2.1.0...v2.1.1
+
 v2.1.0
 ------
 
 ## What’s Changed
+
 ### Bugfixes
 * Fixed wrong region detect, added default US endpoint URL for PA US Connectors in https://github.com/highcharts/connectors-morningstar/pull/141
 ### Enhancements
