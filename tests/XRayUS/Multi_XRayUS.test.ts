@@ -513,4 +513,36 @@ export async function multiXRayUSConnectorLoad (
             `${columnName} at index ${secIndex} should have a value of 1.`
         );
     });
+
+    const expectedWorldRegionsColumns = [
+        'Id_Benchmark_TestPortfolio1',
+        'Id_Benchmark_TestPortfolio2',
+        'Id_TestPortfolio1',
+        'Id_TestPortfolio2',
+        'ParentId_Benchmark_TestPortfolio1',
+        'ParentId_Benchmark_TestPortfolio2',
+        'ParentId_TestPortfolio1',
+        'ParentId_TestPortfolio2',
+        'ParentValue_Benchmark_TestPortfolio1',
+        'ParentValue_Benchmark_TestPortfolio2',
+        'ParentValue_TestPortfolio1',
+        'ParentValue_TestPortfolio2',
+        'Value_Benchmark_TestPortfolio1',
+        'Value_Benchmark_TestPortfolio2',
+        'Value_TestPortfolio1',
+        'Value_TestPortfolio2'
+    ];
+
+    const actualWorldRegionsColumns = connector.dataTables.WorldRegions.getColumnNames();
+
+    Assert.deepStrictEqual(
+        actualWorldRegionsColumns.sort(),
+        expectedWorldRegionsColumns.sort(),
+        'WorldRegions connector should return expected column names.'
+    );
+
+    Assert.ok(
+        connector.dataTables.WorldRegions.getRowCount() > 0,
+        'WorldRegions connector should not return empty rows.'
+    );
 }
