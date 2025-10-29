@@ -20,6 +20,8 @@ export async function investmentScreenerLoad (
         'maxFrontEndLoad'
     ];
     const connector = new MC.InvestmentScreenerConnector({
+        id: '',
+        type: '',
         api,
         page: 1,
         pageSize: 20,
@@ -44,26 +46,26 @@ export async function investmentScreenerLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable().getColumnIds(),
         secIds.map(id => `InvestmentScreener_${id}`),
         'Connector table should exist of expected columns.'
     );
 
     Assert.strictEqual(
-        connector.table.getRowCount(),
+        connector.getTable().getRowCount(),
         15,
         'Connector table should have 15 rows.'
     );
 
     Assert.deepStrictEqual(
-        connector.table.modified.getColumn('columnNames'),
-        connector.table.getColumnNames(),
+        connector.getTable().getModified().getColumn('columnIds'),
+        connector.getTable().getColumnIds(),
         'Connector inverted table should exist of expected columns.'
     );
 
     Assert.strictEqual(
-        connector.table.getColumnNames().length,
-        connector.table.modified.getRowCount(),
+        connector.getTable().getColumnIds().length,
+        connector.getTable().getModified().getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 }

@@ -1,10 +1,13 @@
 import * as Assert from 'node:assert/strict';
+import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar.src';
 
 export async function PerformanceCorrelationMatrixLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.PerformanceConnector({
+        id: '',
+        type: '',
         api,
         viewId: 'All',
         configId: 'Hypothetical',
@@ -71,7 +74,7 @@ export async function PerformanceCorrelationMatrixLoad (
         'y'
     ];
 
-    const actualCorrelationMatrixColumns = connector.dataTables.CorrelationMatrix.getColumnNames();
+    const actualCorrelationMatrixColumns = connector.dataTables.CorrelationMatrix.getColumnIds();
 
     Assert.deepStrictEqual(
         actualCorrelationMatrixColumns.sort(),

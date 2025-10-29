@@ -89,7 +89,13 @@ export class HypoPerformanceConnector extends PAUSConnector {
     public constructor (
         options: HypoPerformanceOptions
     ) {
-        super(options, DATA_TABLES);
+        options = {
+            ...options,
+            id: 'morningstar-hypo-performance',
+            type: 'MorningstarHypoPerformance',
+            dataTables: DATA_TABLES
+        };
+        super(options);
 
         this.options = options;
     }
@@ -134,7 +140,7 @@ export class HypoPerformanceConnector extends PAUSConnector {
             json
         };
 
-        return this.setModifierOptions(this.options.dataModifier);
+        return this.applyTableModifiers();
     }
 
     protected getPayload (): HypoPerformanceRequestPayload {

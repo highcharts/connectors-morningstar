@@ -6,6 +6,8 @@ export async function securityDetailsLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         security: {
             id: 'F0GBR050DD',
@@ -35,7 +37,7 @@ export async function securityDetailsLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.TrailingPerformance.getColumnNames(),
+        connector.dataTables.TrailingPerformance.getColumnIds(),
         columnNames,
         'Connector table should exist of expected columns.'
     );
@@ -47,14 +49,14 @@ export async function securityDetailsLoad (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.TrailingPerformance.modified.getColumn('columnNames'),
+        connector.dataTables.TrailingPerformance.getModified().getColumn('columnIds'),
         columnNames,
         'Connector inverted table should exist of expected columns.'
     );
 
     Assert.strictEqual(
         columnNames.length,
-        connector.dataTables.TrailingPerformance.modified.getRowCount(),
+        connector.dataTables.TrailingPerformance.getModified().getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
@@ -75,6 +77,8 @@ export async function securityDetailsBackwardsCompatibility (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         security: {
             id: 'F0GBR050DD',
@@ -88,7 +92,7 @@ export async function securityDetailsBackwardsCompatibility (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.AssetAllocations.getColumnNames(),
+        connector.dataTables.AssetAllocations.getColumnIds(),
         [
             'MorningstarEUR3_Type',
             'MorningstarEUR3_L',
@@ -109,6 +113,8 @@ export async function assetAllocationsLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         security: {
             id: 'F0GBR050DD',
@@ -120,7 +126,7 @@ export async function assetAllocationsLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.AssetAllocations.getColumnNames(),
+        connector.dataTables.AssetAllocations.getColumnIds(),
         [
             'MorningstarEUR3_Type',
             'MorningstarEUR3_L',
@@ -135,6 +141,8 @@ export async function regionalExposureLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         security: {
             id: 'F0GBR050DD',
@@ -146,7 +154,7 @@ export async function regionalExposureLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.RegionalExposure.getColumnNames()[0],
+        connector.dataTables.RegionalExposure.getColumnIds()[0],
         'Type',
         'Regional exposure table should exist of expected columns.'
     );
@@ -156,6 +164,8 @@ export async function globalStockSectorBreakdownLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         security: {
             id: 'F0GBR050DD',
@@ -167,7 +177,7 @@ export async function globalStockSectorBreakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.GlobalStockSectorBreakdown.getColumnNames()[0],
+        connector.dataTables.GlobalStockSectorBreakdown.getColumnIds()[0],
         'Type',
         'Global stock sector breakdown table should exist of expected columns.'
     );
@@ -177,6 +187,8 @@ export async function countryExposureLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         security: {
             id: 'F0GBR050DD',
@@ -188,7 +200,7 @@ export async function countryExposureLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.CountryExposure.getColumnNames(),
+        connector.dataTables.CountryExposure.getColumnIds(),
         [
             'Type',
             'NotClassified',
@@ -207,6 +219,8 @@ export async function portfolioHoldingsLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         security: {
             id: 'F0GBR050DD',
@@ -218,7 +232,7 @@ export async function portfolioHoldingsLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.PortfolioHoldings.getColumnNames().sort(),
+        connector.dataTables.PortfolioHoldings.getColumnIds().sort(),
         [
             'Id',
             'ExternalId',
@@ -251,6 +265,8 @@ export async function marketCapLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         viewId: 'HSsnapshot',
         security: {
@@ -263,7 +279,7 @@ export async function marketCapLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.MarketCap.getColumnNames(),
+        connector.dataTables.MarketCap.getColumnIds(),
         [
             'Type',
             'NotClassified',
@@ -282,6 +298,8 @@ export async function industryBDCLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         viewId: 'HSsnapshot',
         security: {
@@ -294,7 +312,7 @@ export async function industryBDCLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.IndustryBreakdown.getColumnNames(),
+        connector.dataTables.IndustryBreakdown.getColumnIds(),
         [
             'Type',
             'NotClassified',
@@ -313,6 +331,8 @@ export async function industryGroupBDCLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         viewId: 'HSsnapshot',
         security: {
@@ -325,7 +345,7 @@ export async function industryGroupBDCLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.IndustryGroupBreakdown.getColumnNames(),
+        connector.dataTables.IndustryGroupBreakdown.getColumnIds(),
         [
             'Type',
             'NotClassified',
@@ -344,6 +364,8 @@ export async function bondStatisticsLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         viewId: 'HSsnapshot',
         security: {
@@ -356,7 +378,7 @@ export async function bondStatisticsLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.BondStatistics.getColumnNames(),
+        connector.dataTables.BondStatistics.getColumnIds(),
         [
             'StyleBox',
             'EffectiveDuration',
@@ -382,6 +404,8 @@ export async function metaLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         security: {
             id: 'F0GBR050DD',
@@ -393,13 +417,13 @@ export async function metaLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.Meta.getColumnNames(),
+        connector.dataTables.Meta.getColumnIds(),
         ['Meta', 'Value'],
         'Meta table should have Meta and Value columns.'
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.Meta.getColumnNames().length,
+        connector.dataTables.Meta.getColumnIds().length,
         2,
         'Meta table should have two columns.'
     );
@@ -414,6 +438,8 @@ export async function bondStyleBoxBreakdownLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         security: {
             id: 'F00001GPCX',
@@ -427,7 +453,7 @@ export async function bondStyleBoxBreakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.BondStyleBoxBreakdown.getColumnNames(),
+        connector.dataTables.BondStyleBoxBreakdown.getColumnIds(),
         [
             'Type',
             'N',
@@ -447,6 +473,8 @@ export async function styleBoxBreakdownLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         security: {
             id: 'F0GBR050DD',
@@ -460,7 +488,7 @@ export async function styleBoxBreakdownLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.StyleBoxBreakdown.getColumnNames(),
+        connector.dataTables.StyleBoxBreakdown.getColumnIds(),
         [
             'Type',
             'NotClassified',
@@ -484,6 +512,8 @@ export async function creditQualityLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         converter: {
             type: 'CreditQualityBreakdown'
@@ -497,7 +527,7 @@ export async function creditQualityLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.CreditQualityBreakdown.getColumnNames(),
+        connector.dataTables.CreditQualityBreakdown.getColumnIds(),
         [
             'Type',
             'NotClassified',
@@ -518,6 +548,8 @@ export async function historicalPerformanceSeriesLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         converter: {
             type: 'HistoricalPerformanceSeries'
@@ -531,7 +563,7 @@ export async function historicalPerformanceSeriesLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.HistoricalPerformanceSeries.getColumnNames(),
+        connector.dataTables.HistoricalPerformanceSeries.getColumnIds(),
         [
             'Nav_M12_Q_Date',
             'Nav_M12_Q_Value',
@@ -559,6 +591,8 @@ export async function riskStatisticsLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.SecurityDetailsConnector({
+        id: '',
+        type: '',
         api,
         viewId: 'HSsnapshot',
         security: {
@@ -571,7 +605,7 @@ export async function riskStatisticsLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.RiskStatistics.getColumnNames().sort(),
+        connector.dataTables.RiskStatistics.getColumnIds().sort(),
         [
             'GbPostTax_MonthEnd_InformationRatios',
             'GbPostTax_MonthEnd_StandardDeviations',

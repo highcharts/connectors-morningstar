@@ -6,6 +6,8 @@ export async function underlyHoldings (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.XRayConnector({
+        id: '',
+        type: '',
         api,
         currencyId: 'GBP',
         dataPoints: {
@@ -29,7 +31,7 @@ export async function underlyHoldings (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.UnderlyHoldings.getColumnNames(),
+        connector.dataTables.UnderlyHoldings.getColumnIds(),
         [
             'holdingId',
             'name',

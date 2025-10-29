@@ -140,9 +140,13 @@ export class XRayConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: XRayOptions = {}
+        options: XRayOptions = {
+            id: 'xray-connector',
+            type: 'XRayConnector',
+            dataTables: DATA_TABLES
+        }
     ) {
-        super(options, DATA_TABLES);
+        super(options);
 
         this.options = options;
     }
@@ -261,7 +265,7 @@ export class XRayConnector extends MorningstarConnector {
             json
         };
 
-        return this.setModifierOptions(options.dataModifier);
+        return this.applyTableModifiers();
     }
 
 

@@ -1,10 +1,13 @@
 import * as Assert from 'node:assert/strict';
+import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar.src';
 
 export async function HypoPerformanceConnectorLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.HypoPerformanceConnector({
+        id: '',
+        type: '',
         api: {
             ...api,
             url: 'https://www.us-api.morningstar.com/'
@@ -111,7 +114,7 @@ export async function HypoPerformanceConnectorLoad (
         'Value_Benchmark',
         'Value_NetAmountInvested'
     ];
-    const actualGrowthData = connector.dataTables.Growth.getColumnNames();
+    const actualGrowthData = connector.dataTables.Growth.getColumnIds();
 
     Assert.deepStrictEqual(
         expectedGrowthData.sort(),

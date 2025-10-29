@@ -92,7 +92,13 @@ export class PerformanceConnector extends PAUSConnector {
     public constructor (
         options: PerformanceOptions
     ) {
-        super(options, DATA_TABLES);
+        options = {
+            ...options,
+            id: 'morningstar-performance-connector',
+            type: 'MorningstarPerformanceConnector',
+            dataTables: DATA_TABLES
+        };
+        super(options);
 
         this.options = options;
     }
@@ -138,7 +144,7 @@ export class PerformanceConnector extends PAUSConnector {
             json
         };
 
-        return this.setModifierOptions(this.options.dataModifier);
+        return this.applyTableModifiers();
     }
 
 

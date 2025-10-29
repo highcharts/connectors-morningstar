@@ -8,6 +8,8 @@ export async function growthLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.TimeSeriesConnector({
+        id: '',
+        type: '',
         api,
         currencyId: 'EUR',
         endDate: '2020-01-31',
@@ -35,13 +37,13 @@ export async function growthLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable().getColumnIds(),
         ['Date', securityId],
         'Connector table should exist of expected columns.'
     );
 
     Assert.strictEqual(
-        connector.table.getRowCount(),
+        connector.getTable().getRowCount(),
         31,
         'Connector table should have 31 growth rows.'
     );

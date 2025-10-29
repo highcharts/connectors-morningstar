@@ -72,7 +72,14 @@ export class SecurityCompareConnector extends MorningstarConnector {
         const { converter, converters } = options;
         const convertersToUse = pickConverters(converter, converters);
 
-        super(options, convertersToUse);
+        options = {
+            ...options,
+            id: 'morningstar-security-compare',
+            type: 'MorningstarSecurityCompare',
+            dataTables: convertersToUse
+        };
+
+        super(options);
         this.options = options;
     }
 
@@ -121,7 +128,7 @@ export class SecurityCompareConnector extends MorningstarConnector {
             throw new Error('Invalid data');
         }
 
-        this.table.deleteColumns();
+        this.getTable().deleteColumns();
 
         for (const key of Object.keys(this.dataTables)) {
             const converter = initConverter({ type: key as SecurityDetailsConverterType }, true);
@@ -146,7 +153,7 @@ export class SecurityCompareConnector extends MorningstarConnector {
             this?.metadata?.isins?.push(security.Isin);
         }
 
-        return this.setModifierOptions(userOptions.dataModifier);
+        return this.applyTableModifiers();
     }
 }
 

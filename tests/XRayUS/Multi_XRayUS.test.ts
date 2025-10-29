@@ -1,10 +1,13 @@
 import * as Assert from 'node:assert/strict';
+import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar.src';
 
 export async function multiXRayUSConnectorLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.XRayUSConnector({
+        id: '',
+        type: '',
         api: {
             ...api,
             url: 'https://www.us-api.morningstar.com/'
@@ -109,7 +112,7 @@ export async function multiXRayUSConnectorLoad (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.CreditQuality.getColumnNames(),
+        connector.dataTables.CreditQuality.getColumnIds(),
         [
             'Type',
             'Value_TestPortfolio1',
@@ -140,7 +143,7 @@ export async function multiXRayUSConnectorLoad (
         'Value_TestPortfolio2'
     ];
 
-    const actualEquityStyleColumns = connector.dataTables.EquityStyle.getColumnNames();
+    const actualEquityStyleColumns = connector.dataTables.EquityStyle.getColumnIds();
 
     Assert.deepStrictEqual(
         actualEquityStyleColumns.sort(),
@@ -166,7 +169,7 @@ export async function multiXRayUSConnectorLoad (
     ];
 
 
-    const actualFixedIncomeStyleColumns = connector.dataTables.FixedIncomeStyle.getColumnNames();
+    const actualFixedIncomeStyleColumns = connector.dataTables.FixedIncomeStyle.getColumnIds();
 
     Assert.deepStrictEqual(
         actualFixedIncomeStyleColumns.sort(),
@@ -185,7 +188,7 @@ export async function multiXRayUSConnectorLoad (
         'Value_TestPortfolio2'
     ];
 
-    const actualTrailingReturnsColumns = connector.dataTables.TrailingReturns.getColumnNames();
+    const actualTrailingReturnsColumns = connector.dataTables.TrailingReturns.getColumnIds();
 
     Assert.deepStrictEqual(
         actualTrailingReturnsColumns.sort(),
@@ -238,7 +241,7 @@ export async function multiXRayUSConnectorLoad (
         'Type'
     ];
 
-    const actualAssetAllocationsColumns = connector.dataTables.AssetAllocations.getColumnNames();
+    const actualAssetAllocationsColumns = connector.dataTables.AssetAllocations.getColumnIds();
 
     Assert.deepStrictEqual(
         actualAssetAllocationsColumns.sort(),
@@ -266,7 +269,7 @@ export async function multiXRayUSConnectorLoad (
         'Period_12_Value_TestPortfolio2'
     ];
 
-    const actualRollingReturnsColumns = connector.dataTables.RollingReturns.getColumnNames();
+    const actualRollingReturnsColumns = connector.dataTables.RollingReturns.getColumnIds();
 
     Assert.deepStrictEqual(
         actualRollingReturnsColumns.sort(),
@@ -335,7 +338,7 @@ export async function multiXRayUSConnectorLoad (
         'Weight_FOUSA00DFS_TestPortfolio2'
     ];
 
-    const actualRiskStatisticsColumns = connector.dataTables.RiskStatistics.getColumnNames();
+    const actualRiskStatisticsColumns = connector.dataTables.RiskStatistics.getColumnIds();
 
     Assert.deepStrictEqual(
         actualRiskStatisticsColumns.sort(),
@@ -349,7 +352,7 @@ export async function multiXRayUSConnectorLoad (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.CalendarYearReturn.getColumnNames(),
+        connector.dataTables.CalendarYearReturn.getColumnIds(),
         [
             'Year',
             'Value_TestPortfolio1',
@@ -367,7 +370,7 @@ export async function multiXRayUSConnectorLoad (
         'CalendarYearReturns connector should not return empty rows.'
     );
     Assert.deepStrictEqual(
-        connector.dataTables.FundStatistics.getColumnNames().sort(),
+        connector.dataTables.FundStatistics.getColumnIds().sort(),
         [
             'Type',
             'Value_0P0000BVN5',
@@ -386,7 +389,7 @@ export async function multiXRayUSConnectorLoad (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.Holdings.getColumnNames(),
+        connector.dataTables.Holdings.getColumnIds(),
         [
             'SecurityId_TestPortfolio1',
             'Name_TestPortfolio1',
@@ -436,7 +439,7 @@ export async function multiXRayUSConnectorLoad (
     ];
 
     Assert.deepStrictEqual(
-        connector.dataTables.MPTStatistics.getColumnNames().sort(),
+        connector.dataTables.MPTStatistics.getColumnIds().sort(),
         expectedMPTStatisticsColumns.sort(),
         'MPTStatistics table should return expected column names.'
     );
@@ -483,7 +486,7 @@ export async function multiXRayUSConnectorLoad (
         'y_TestPortfolio2'
     ];
 
-    const actualCorrelationMatrixColumns = connector.dataTables.CorrelationMatrix.getColumnNames();
+    const actualCorrelationMatrixColumns = connector.dataTables.CorrelationMatrix.getColumnIds();
 
     Assert.deepStrictEqual(
         actualCorrelationMatrixColumns.sort(),
@@ -533,7 +536,7 @@ export async function multiXRayUSConnectorLoad (
         'Value_TestPortfolio2'
     ];
 
-    const actualWorldRegionsColumns = connector.dataTables.WorldRegions.getColumnNames();
+    const actualWorldRegionsColumns = connector.dataTables.WorldRegions.getColumnIds();
 
     Assert.deepStrictEqual(
         actualWorldRegionsColumns.sort(),

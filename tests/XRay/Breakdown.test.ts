@@ -7,6 +7,8 @@ export async function benchmarkBreakdownLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.XRayConnector({
+        id: '',
+        type: '',
         api,
         benchmarkId: 'EUCA000812',
         currencyId: 'GBP',
@@ -55,7 +57,7 @@ export async function benchmarkBreakdownLoad (
 
     // Only Portfolio data:
     Assert.deepStrictEqual(
-        connector.dataTables.GlobalStockSector.getColumnNames(),
+        connector.dataTables.GlobalStockSector.getColumnIds(),
         [
             'Type',
             'N'
@@ -64,7 +66,7 @@ export async function benchmarkBreakdownLoad (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.RegionalExposure.getColumnNames(),
+        connector.dataTables.RegionalExposure.getColumnIds(),
         [
             'Type',
             'N',
@@ -76,7 +78,7 @@ export async function benchmarkBreakdownLoad (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.StyleBox.getColumnNames(),
+        connector.dataTables.StyleBox.getColumnIds(),
         [
             'Type',
             'N',
@@ -92,7 +94,7 @@ export async function benchmarkBreakdownLoad (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.TrailingPerformance.getColumnNames(),
+        connector.dataTables.TrailingPerformance.getColumnIds(),
         [
             'TotalReturn_MonthEnd_TimePeriod',
             'TotalReturn_MonthEnd_Value',
@@ -104,7 +106,7 @@ export async function benchmarkBreakdownLoad (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.AssetAllocation.getColumnNames(),
+        connector.dataTables.AssetAllocation.getColumnIds(),
         [
             'MorningstarEUR3_Type',
             'MorningstarEUR3_N',
@@ -125,7 +127,7 @@ export async function benchmarkBreakdownLoad (
 
     // Only Benchmark data:
     Assert.deepStrictEqual(
-        connector.dataTables.TrailingPerformance.getColumnNames(),
+        connector.dataTables.TrailingPerformance.getColumnIds(),
         [
             'TotalReturn_MonthEnd_TimePeriod',
             'TotalReturn_MonthEnd_Value',
@@ -141,6 +143,8 @@ export async function totalReturnLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.XRayConnector({
+        id: '',
+        type: '',
         api,
         currencyId: 'GBP',
         dataPoints: {
@@ -169,7 +173,7 @@ export async function totalReturnLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.HistoricalPerformanceSeries.getColumnNames(),
+        connector.dataTables.HistoricalPerformanceSeries.getColumnIds(),
         [
              'TotalReturn_M1_Monthly_Date_Benchmark',
              'TotalReturn_M1_Monthly_Value_Benchmark',
@@ -202,6 +206,8 @@ export async function portfolioDataPoints (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.XRayConnector({
+        id: '',
+        type: '',
         api,
         currencyId: 'GBP',
         dataModifier: {
@@ -251,7 +257,7 @@ export async function portfolioDataPoints (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.AssetAllocation.getColumnNames(),
+        connector.dataTables.AssetAllocation.getColumnIds(),
         assetAllocationColumnNames,
         'Connector columns should return expected names.'
     );
@@ -262,20 +268,20 @@ export async function portfolioDataPoints (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.AssetAllocation.modified.getColumn('columnNames'),
+        connector.dataTables.AssetAllocation.getModified().getColumn('columnIds'),
         assetAllocationColumnNames,
         'Row names of inverted table should be the same as original column names.'
     );
 
     Assert.strictEqual(
         assetAllocationColumnNames.length,
-        connector.dataTables.AssetAllocation.modified.getRowCount(),
+        connector.dataTables.AssetAllocation.getModified().getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
 
     Assert.deepStrictEqual(
-        connector.dataTables.GlobalStockSector.getColumnNames(),
+        connector.dataTables.GlobalStockSector.getColumnIds(),
         columnNames,
         'Connector columns should return expected names.'
     );
@@ -286,19 +292,19 @@ export async function portfolioDataPoints (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.GlobalStockSector.modified.getColumn('columnNames'),
+        connector.dataTables.GlobalStockSector.getModified().getColumn('columnIds'),
         columnNames,
         'Row names of inverted table should be the same as original column names.'
     );
 
     Assert.strictEqual(
         columnNames.length,
-        connector.dataTables.GlobalStockSector.modified.getRowCount(),
+        connector.dataTables.GlobalStockSector.getModified().getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.RegionalExposure.getColumnNames(),
+        connector.dataTables.RegionalExposure.getColumnIds(),
         columnNames,
         'Connector columns should return expected names.'
     );
@@ -309,19 +315,19 @@ export async function portfolioDataPoints (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.RegionalExposure.modified.getColumn('columnNames'),
+        connector.dataTables.RegionalExposure.getModified().getColumn('columnIds'),
         columnNames,
         'Row names of inverted table should be the same as original column names.'
     );
 
     Assert.strictEqual(
         columnNames.length,
-        connector.dataTables.RegionalExposure.modified.getRowCount(),
+        connector.dataTables.RegionalExposure.getModified().getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.StyleBox.getColumnNames(),
+        connector.dataTables.StyleBox.getColumnIds(),
         styleBoxColumnNames,
         'Connector columns should return expected names.'
     );
@@ -332,25 +338,25 @@ export async function portfolioDataPoints (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.StyleBox.modified.getColumn('columnNames'),
+        connector.dataTables.StyleBox.getModified().getColumn('columnIds'),
         styleBoxColumnNames,
         'Row names of inverted table should be the same as original column names.'
     );
 
     Assert.strictEqual(
         styleBoxColumnNames.length,
-        connector.dataTables.StyleBox.modified.getRowCount(),
+        connector.dataTables.StyleBox.getModified().getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
         Assert.strictEqual(
         columnNames.length,
-        connector.dataTables.RegionalExposure.modified.getRowCount(),
+        connector.dataTables.RegionalExposure.getModified().getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.TrailingPerformance.getColumnNames(),
+        connector.dataTables.TrailingPerformance.getColumnIds(),
         trailingPerformanceColumnNames,
         'Connector columns should return expected names.'
     );
@@ -361,14 +367,14 @@ export async function portfolioDataPoints (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.TrailingPerformance.modified.getColumn('columnNames'),
+        connector.dataTables.TrailingPerformance.getModified().getColumn('columnIds'),
         trailingPerformanceColumnNames,
         'Row names of inverted table should be the same as original column names.'
     );
 
     Assert.strictEqual(
         trailingPerformanceColumnNames.length,
-        connector.dataTables.TrailingPerformance.modified.getRowCount(),
+        connector.dataTables.TrailingPerformance.getModified().getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 }
@@ -377,6 +383,8 @@ export async function creditQualityLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.XRayConnector({
+        id: '',
+        type: '',
         api,
         currencyId: 'GBP',
         dataModifier: {
@@ -405,7 +413,7 @@ export async function creditQualityLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.CreditQuality.getColumnNames(),
+        connector.dataTables.CreditQuality.getColumnIds(),
         columnNames,
         'Connector columns should return expected names.'
     );
@@ -416,14 +424,14 @@ export async function creditQualityLoad (
     );
 
     Assert.deepStrictEqual(
-        connector.dataTables.CreditQuality.modified.getColumn('columnNames'),
+        connector.dataTables.CreditQuality.getModified().getColumn('columnIds'),
         columnNames,
         'Row names of inverted table should be the same as original column names.'
     );
 
     Assert.strictEqual(
         columnNames.length,
-        connector.dataTables.CreditQuality.modified.getRowCount(),
+        connector.dataTables.CreditQuality.getModified().getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 }

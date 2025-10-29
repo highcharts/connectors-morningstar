@@ -6,6 +6,8 @@ export async function goalAnalysisConnector (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.GoalAnalysisConnector({
+        id: '',
+        type: '',
         api,
         annualInvestment: 4800,
         assetClassWeights: [
@@ -40,26 +42,26 @@ export async function goalAnalysisConnector (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable().getColumnIds(),
         columnNames,
         'Connector table should exist of expected columns.'
     );
 
     Assert.strictEqual(
-        connector.table.getRowCount(),
+        connector.getTable().getRowCount(),
         7,
         'Connector table should have the expected amount of rows.'
     );
 
      Assert.deepStrictEqual(
-        connector.table.modified.getColumn('columnNames'),
+        connector.getTable().getModified().getColumn('columnIds'),
         columnNames,
         'Row names of inverted table should be the same as original column names.'
     );
 
     Assert.strictEqual(
         columnNames.length,
-        connector.table.modified.getRowCount(),
+        connector.getTable().getModified().getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 

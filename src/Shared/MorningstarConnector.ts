@@ -46,10 +46,12 @@ export abstract class MorningstarConnector extends External.DataConnector {
 
 
     public constructor (
-        options: MorningstarOptions = {},
-        dataTables: Array<External.DataTableOptions> = []
+        options: MorningstarOptions = {
+            id: '',
+            type: ''
+        }
     ) {
-        super(options, dataTables);
+        super(options);
 
         this.options = options;
     }
@@ -64,7 +66,7 @@ export abstract class MorningstarConnector extends External.DataConnector {
 
     protected api?: MorningstarAPI;
 
-    protected readonly options: MorningstarOptions;
+    public override readonly options: MorningstarOptions;
 
 
     /* *

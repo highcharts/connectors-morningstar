@@ -65,7 +65,14 @@ export class SecurityDetailsConnector extends MorningstarConnector {
         const { converter, converters } = options;
         const convertersToUse = pickConverters(converter, converters);
 
-        super(options, convertersToUse);
+
+        options = {
+            ...options,
+            id: 'morningstar-security-details',
+            type: 'MorningstarSecurityDetails',
+            dataTables: convertersToUse
+        };
+        super(options);
         this.options = options;
     }
 
@@ -128,7 +135,7 @@ export class SecurityDetailsConnector extends MorningstarConnector {
             json
         };
 
-        return this.setModifierOptions(userOptions.dataModifier);
+        return this.applyTableModifiers();
     }
 }
 

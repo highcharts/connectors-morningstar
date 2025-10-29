@@ -49,7 +49,10 @@ export class TimeSeriesConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: TimeSeriesOptions = {}
+        options: TimeSeriesOptions = {
+            id: 'morningstar-time-series',
+            type: 'MorningstarTimeSeries'
+        }
     ) {
         super(options);
 
@@ -190,10 +193,10 @@ export class TimeSeriesConnector extends MorningstarConnector {
 
         this.converter.parse({ json });
 
-        this.table.deleteColumns();
-        this.table.setColumns(this.converter.getTable().getColumns());
+        this.getTable().deleteColumns();
+        this.getTable().setColumns(this.converter.getTable().getColumns());
 
-        return this.setModifierOptions(options.dataModifier);
+        return this.applyTableModifiers();
     }
 
 

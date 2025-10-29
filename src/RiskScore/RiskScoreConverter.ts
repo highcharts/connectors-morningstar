@@ -159,7 +159,7 @@ export class RiskScoreConverter extends MorningstarConverter {
             });
 
             if (
-                riskScorePortfolio.metadata !== undefined && 
+                riskScorePortfolio.metadata !== undefined &&
                 riskScorePortfolio.metadata.messages.length > 0
             ) {
                 messages.push(...riskScorePortfolio.metadata.messages);

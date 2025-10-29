@@ -49,7 +49,10 @@ export class GoalAnalysisConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: GoalAnalysisOptions = {}
+        options: GoalAnalysisOptions = {
+            id: 'morningstar-goal-analysis',
+            type: 'MorningstarGoalAnalysis'
+        }
     ) {
         super(options);
 
@@ -130,10 +133,10 @@ export class GoalAnalysisConnector extends MorningstarConnector {
 
         this.converter.parse({ json });
 
-        this.table.deleteColumns();
-        this.table.setColumns(this.converter.getTable().getColumns());
+        this.getTable().deleteColumns();
+        this.getTable().setColumns(this.converter.getTable().getColumns());
 
-        return this.setModifierOptions(options.dataModifier);
+        return this.applyTableModifiers();
     }
 
 

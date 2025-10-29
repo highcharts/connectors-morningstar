@@ -11,7 +11,10 @@ export async function ohlcvLoad (
     const startDate = new Date(new Date().setDate(endDate.getDate() - 30));
     const securityId = 'XIUSA000O2';
 
+    
     const connector = new MC.TimeSeriesConnector({
+        id: '',
+        type: '',
         api,
         currencyId: 'EUR',
         securities: [{
@@ -39,7 +42,7 @@ export async function ohlcvLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable().getColumnIds(),
         [
             'Date', 
             `${securityId}_Open`, 

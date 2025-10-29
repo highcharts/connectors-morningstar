@@ -73,12 +73,22 @@ export abstract class MorningstarConverter extends External.DataConverter {
      * */
 
 
-    public abstract override parse (
-        options: MorningstarConverterOptions
-    ): void;
+    /**
+     * Initiates parsing of Morningstar JSON response structure.
+     *
+     * @param {MorningstarConverterOptions} options
+     * Options for the parser
+     *
+     */
+    public abstract parse(options: MorningstarConverterOptions): void;
 
 
-    public override getTable (): External.DataTable {
+    /**
+     * Returns the DataTable for the converter
+     *
+     * @return {External.DataTable}
+     */
+    public getTable (): External.DataTable {
         return this.table;
     }
 

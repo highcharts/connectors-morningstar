@@ -22,10 +22,9 @@
  * */
 
 
-import type * as _Dashboards from '@highcharts/dashboards';
-import type * as _DataGrid from '@highcharts/dashboards/datagrid';
+import type * as _Dashboards from '@highcharts/dashboards/dashboards';
+import type * as _Grid from '@highcharts/grid-pro/grid-pro';
 import type _DataTableOptions from '@highcharts/dashboards/es-modules/Data/DataTableOptions';
-
 
 import _DataConnector from '@highcharts/dashboards/es-modules/Data/Connectors/DataConnector';
 import _DataConverter from '@highcharts/dashboards/es-modules/Data/Converters/DataConverter';
@@ -41,9 +40,7 @@ import _DataTable from '@highcharts/dashboards/es-modules/Data/DataTable';
 
 export type DataConnectorMetadata = _DataConnector['metadata'];
 
-
-export type DataConnectorOptions = Partial<_DataConnector.UserOptions>;
-
+export type DataConnectorOptions = _DataConnector['options'];
 
 export type DataConverterOptions = Partial<_DataConverter.Options>;
 
@@ -63,27 +60,27 @@ export type DataTableOptions = _DataTableOptions;
 
 const Dashboards: typeof _Dashboards = globalThis.window.Dashboards;
 
-
-const DataGrid: typeof _DataGrid = globalThis.window.DataGrid;
+const Grid: typeof _Grid | undefined =  typeof window !== 'undefined' &&
+ 'Grid' in window ? (window.Grid as typeof _Grid) : undefined;
 
 
 export const DataConnector = (
     Dashboards?.DataConnector ||
-    DataGrid?.DataConnector ||
+    Grid?.DataConnector ||
     _DataConnector
 );
 
 
 export const DataConverter = (
     Dashboards?.DataConverter ||
-    DataGrid?.DataConverter ||
+    Grid?.DataConverter ||
     _DataConverter
 );
 
 
 export const DataTable = (
     Dashboards?.DataTable ||
-    DataGrid?.DataTable ||
+    Grid?.DataTable ||
     _DataTable
 );
 

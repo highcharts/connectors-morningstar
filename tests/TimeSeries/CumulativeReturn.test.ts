@@ -7,7 +7,10 @@ const securityId = 'F0GBR04S23';
 export async function cumulativeReturnLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
+    
     const connector = new MC.TimeSeriesConnector({
+        id: '',
+        type: '',
         api,
         currencyId: 'EUR',
         endDate: '2020-12-31',
@@ -35,13 +38,13 @@ export async function cumulativeReturnLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable().getColumnIds(),
         ['Date', securityId],
         'Connector table should exist of expected columns.'
     );
 
     Assert.strictEqual(
-        connector.table.getRowCount(),
+        connector.getTable().getRowCount(),
         366,
         'Connector table should have 366 cumulative return rows.'
     );
@@ -51,7 +54,10 @@ export async function cumulativeReturnLoad (
 export async function cumulativeReturnLoadWithFrequency (
     api: MC.Shared.MorningstarAPIOptions
 ) {
+    
     const connector = new MC.TimeSeriesConnector({
+        id: '',
+        type: '',
         api,
         currencyId: 'EUR',
         endDate: '2020-12-31',
@@ -69,7 +75,7 @@ export async function cumulativeReturnLoadWithFrequency (
     await connector.load();
 
     Assert.strictEqual(
-        connector.table.getRowCount(),
+        connector.getTable().getRowCount(),
         52,
         'Connector table should have 52 cumulative return rows when frequency is weekly.'
     );

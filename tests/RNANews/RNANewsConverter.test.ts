@@ -7,6 +7,8 @@ export async function rnaNewsLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.RNANewsConnector({
+      id: '',
+      type: '',
       api,
       security: {
         id: 'GB00BLGZ9862',
@@ -33,26 +35,26 @@ export async function rnaNewsLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable().getColumnIds(),
         columnNames,
         'Connector table should exist of expected columns.'
     );
 
     Assert.strictEqual(
-        connector.table.getRowCount(),
+        connector.getTable().getRowCount(),
         10,
         'Connector table should have ten expected RNANews rows.'
     );
 
     Assert.deepStrictEqual(
-      connector.table.modified.getColumn('columnNames'),
+      connector.getTable().getModified().getColumn('columnIds'),
       columnNames,
       'Connector inverted table should exist of expected columns.'
     );
 
     Assert.strictEqual(
         columnNames.length,
-        connector.table.modified.getRowCount(),
+        connector.getTable().getModified().getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
@@ -78,7 +80,10 @@ export function rnaNewsValidation () {
 
 export function rnaNewsUrlShouldBeEMEA () {
 
-  const connector = new MC.RNANewsConnector({});
+  const connector = new MC.RNANewsConnector({
+    id: '',
+    type: ''
+  });
 
   Assert.equal(
       connector.options.api?.url,
@@ -90,6 +95,8 @@ export function rnaNewsUrlShouldBeEMEA () {
 export function rnaNewsUrlShouldNotOverrideIfAPIOptionsAreProvided () {
 
   const connector = new MC.RNANewsConnector({
+    id: '',
+    type: '',
     api: {
       url: 'https://www.us-api.morningstar.com/'
     }

@@ -9,6 +9,8 @@ export async function priceLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.TimeSeriesConnector({
+        id: '',
+        type: '',
         api,
         currencyId: 'EUR',
         securities: [{
@@ -40,26 +42,26 @@ export async function priceLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable().getColumnIds(),
         ['Date', securityId],
         'Connector table should exist of expected columns.'
     );
 
     Assert.strictEqual(
-        connector.table.getRowCount(),
+        connector.getTable().getRowCount(),
         12,
         'Connector table should have 12 expected price rows.'
     );
 
     Assert.deepStrictEqual(
-        connector.table.modified.getColumn('columnNames'),
+        connector.getTable().getModified().getColumn('columnIds'),
         ['Date', securityId],
         'Connector inverted table should exist of expected columns.'
     );
 
     Assert.strictEqual(
-        connector.table.getColumnNames().length,
-        connector.table.modified.getRowCount(),
+        connector.getTable().getColumnIds().length,
+        connector.getTable().getModified().getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 
@@ -71,7 +73,6 @@ export function decorateURL () {
         type: 'Price',
         priceType: 'PRICE'
     });
-
 
     const url = new MorningstarURL('/ecint/v1/' + priceConverter.path, 'http://mock-api.com');
     priceConverter.decorateURL(url);

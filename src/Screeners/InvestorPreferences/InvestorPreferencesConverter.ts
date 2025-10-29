@@ -23,7 +23,7 @@ import type {
     InvestorPreferencesConverterOptions,
     InvestorPreferencesMetadata
 } from './InvestorPreferencesOptions';
-import type { DataTable } from '@highcharts/dashboards';
+import type { DataTable } from '@highcharts/dashboards/dashboards';
 
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 import InvestorPreferencesJSON from './InvestorPreferencesJSON';

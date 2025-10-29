@@ -70,7 +70,13 @@ export class XRayUSConnector extends PAUSConnector {
     public constructor (
         options: XRayUSOptions
     ) {
-        super(options, DATA_TABLES);
+        options = {
+            ...options,
+            id: 'morningstar-xray-us',
+            type: 'MorningstarXRayUS',
+            dataTables: DATA_TABLES
+        };
+        super(options);
 
         this.options = options;
     }
@@ -119,7 +125,7 @@ export class XRayUSConnector extends PAUSConnector {
             json
         };
 
-        return this.setModifierOptions(this.options.dataModifier);
+        return this.applyTableModifiers();
     }
 
     protected getPayload (): XRayUSRequestPayload {
