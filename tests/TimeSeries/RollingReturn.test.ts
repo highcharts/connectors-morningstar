@@ -8,8 +8,9 @@ const securityId = 'F0GBR04S23';
 export async function rollingReturnLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
-    
     const connector = new MC.TimeSeriesConnector({
+        id: '',
+        type: '',
         api,
         currencyId: 'EUR',
         endDate: '2020-01-31',

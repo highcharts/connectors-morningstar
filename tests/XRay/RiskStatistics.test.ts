@@ -5,7 +5,6 @@ import * as MC from '../../code/connectors-morningstar.src';
 export async function portfolioBreakdown (
     api: MC.Shared.MorningstarAPIOptions
 ) {
-    
     const connector = new MC.XRayConnector({
         id: '',
         type: '',

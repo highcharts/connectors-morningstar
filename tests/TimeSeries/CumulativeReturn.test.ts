@@ -7,7 +7,6 @@ const securityId = 'F0GBR04S23';
 export async function cumulativeReturnLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
-    
     const connector = new MC.TimeSeriesConnector({
         id: '',
         type: '',
@@ -54,7 +53,6 @@ export async function cumulativeReturnLoad (
 export async function cumulativeReturnLoadWithFrequency (
     api: MC.Shared.MorningstarAPIOptions
 ) {
-    
     const connector = new MC.TimeSeriesConnector({
         id: '',
         type: '',

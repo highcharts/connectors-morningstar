@@ -1,7 +1,7 @@
 import * as Assert from 'node:assert/strict';
 import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar.src';
-import InvestmentScreenerJSON from 
+import InvestmentScreenerJSON from
 '../../code/es-modules/Screeners/InvestmentScreener/InvestmentScreenerJSON';
 
 export async function investmentScreenerLoad (

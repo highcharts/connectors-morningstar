@@ -537,7 +537,6 @@ export async function metaLoad (
 export async function bondStyleBoxBreakdownLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
-    
     const connector = new MC.SecurityCompareConnector({
         id: '',
         type: '',

@@ -11,7 +11,6 @@ export async function ohlcvLoad (
     const startDate = new Date(new Date().setDate(endDate.getDate() - 30));
     const securityId = 'XIUSA000O2';
 
-    
     const connector = new MC.TimeSeriesConnector({
         id: '',
         type: '',
@@ -44,11 +43,11 @@ export async function ohlcvLoad (
     Assert.deepStrictEqual(
         connector.getTable().getColumnIds(),
         [
-            'Date', 
-            `${securityId}_Open`, 
-            `${securityId}_High`, 
-            `${securityId}_Low`, 
-            `${securityId}_Close`, 
+            'Date',
+            `${securityId}_Open`,
+            `${securityId}_High`,
+            `${securityId}_Low`,
+            `${securityId}_Close`,
             `${securityId}_Volume`
         ],
         'Connector table should exist of expected columns.'
