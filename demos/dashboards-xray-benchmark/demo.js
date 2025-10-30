@@ -66,50 +66,48 @@ async function displaySecurityDetails (postmanJSON) {
         connectors: [{
             id: 'xray',
             type: 'MorningstarXRay',
-            options: {
-                postman: {
-                    environmentJSON: postmanJSON
-                },
-                benchmarkId: 'EUCA000812',
-                currencyId: 'GBP',
-                dataPoints: [{
-                    type: 'portfolio',
-                    dataPoints: [
-                        'AssetAllocationMorningstarEUR3',
-                        'GlobalStockSector',
-                        'RegionalExposure',
-                        'HistoricalPerformanceSeries',
-                        ['PerformanceReturn', 'M0', 'M1', 'M2', 'M3', 'M6', 'M12'],
-                        'StyleBox',
-                        ['StandardDeviation', 'M', 'M36'],
-                        ['SharpeRatio', 'M', 'M36'],
-                        'UnderlyingHolding'
-                    ]
-                }, {
-                    type: 'benchmark',
-                    dataPoints: [
-                        'HistoricalPerformanceSeries',
-                        ['PerformanceReturn', 'M0', 'M1', 'M2', 'M3', 'M6', 'M12'],
-                        'ShowBreakdown'
-                    ]
-                }],
-                holdings: [
-                    {
-                        id: 'F0GBR052QA',
-                        idType: 'MSID',
-                        type: HighchartsConnectors.Morningstar.Shared
-                            .MorningstarSecurityType.OpenEndFund,
-                        weight: 50,
-                        holdingType: 'weight'
-                    }, {
-                        id: 'GB00BWDBJF10',
-                        idType: 'ISIN',
-                        type: HighchartsConnectors.Morningstar.Shared
-                            .MorningstarSecurityType.OpenEndFund,
-                        weight: 50
-                    }
+            postman: {
+                environmentJSON: postmanJSON
+            },
+            benchmarkId: 'EUCA000812',
+            currencyId: 'GBP',
+            dataPoints: [{
+                type: 'portfolio',
+                dataPoints: [
+                    'AssetAllocationMorningstarEUR3',
+                    'GlobalStockSector',
+                    'RegionalExposure',
+                    'HistoricalPerformanceSeries',
+                    ['PerformanceReturn', 'M0', 'M1', 'M2', 'M3', 'M6', 'M12'],
+                    'StyleBox',
+                    ['StandardDeviation', 'M', 'M36'],
+                    ['SharpeRatio', 'M', 'M36'],
+                    'UnderlyingHolding'
                 ]
-            }
+            }, {
+                type: 'benchmark',
+                dataPoints: [
+                    'HistoricalPerformanceSeries',
+                    ['PerformanceReturn', 'M0', 'M1', 'M2', 'M3', 'M6', 'M12'],
+                    'ShowBreakdown'
+                ]
+            }],
+            holdings: [
+                {
+                    id: 'F0GBR052QA',
+                    idType: 'MSID',
+                    type: HighchartsConnectors.Morningstar.Shared
+                        .MorningstarSecurityType.OpenEndFund,
+                    weight: 50,
+                    holdingType: 'weight'
+                }, {
+                    id: 'GB00BWDBJF10',
+                    idType: 'ISIN',
+                    type: HighchartsConnectors.Morningstar.Shared
+                        .MorningstarSecurityType.OpenEndFund,
+                    weight: 50
+                }
+            ]
         }]
     },
     components: [
@@ -119,9 +117,9 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray',
                 dataTableKey: 'AssetAllocation'
             },
-            type: 'DataGrid',
+            type: 'Grid',
             title: 'Morningstar EUR3',
-            dataGridOptions: {
+            gridOptions: {
                 header: [{
                     format: 'Type',
                     columnId: 'MorningstarEUR3_Type'
@@ -131,7 +129,7 @@ async function displaySecurityDetails (postmanJSON) {
                 }, {
                     format: 'Long (Benchmark)',
                     columnId: 'MorningstarEUR3_L_Benchmark'
-                }, { 
+                }, {
                     format: 'Net',
                     columnId: 'MorningstarEUR3_N'
                 },  {
@@ -190,9 +188,9 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray',
                 dataTableKey: 'GlobalStockSector'
             },
-            type: 'DataGrid',
+            type: 'Grid',
             title: 'Global Stock Sector',
-            dataGridOptions: {
+            gridOptions: {
                 header: [{
                     format: 'Category',
                     columnId: 'Type'
@@ -221,9 +219,9 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray',
                 dataTableKey: 'RegionalExposure'
             },
-            type: 'DataGrid',
+            type: 'Grid',
             title: 'Regional Exposure',
-            dataGridOptions: {
+            gridOptions: {
                 header: [{
                     format: 'Category',
                     columnId: 'Type'
@@ -260,9 +258,9 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray',
                 dataTableKey: 'RiskStatistics'
             },
-            type: 'DataGrid',
+            type: 'Grid',
             title: 'Risk Statistics',
-            dataGridOptions: {
+            gridOptions: {
                 header: [{
                     format: 'Sharpe Ratio Period',
                     columnId: 'SharpeRatio_TimePeriod'
@@ -283,9 +281,9 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray',
                 dataTableKey: 'StyleBox'
             },
-            type: 'DataGrid',
+            type: 'Grid',
             title: 'Style Box',
-            dataGridOptions: {
+            gridOptions: {
                 header: [{
                     format: 'Category',
                     columnId: 'Type'
@@ -322,9 +320,9 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray',
                 dataTableKey: 'TrailingPerformance'
             },
-            type: 'DataGrid',
+            type: 'Grid',
             title: 'Trailing Performance',
-            dataGridOptions: {
+            gridOptions: {
                 header: [{
                     format: 'Time Period',
                     columnId: 'TotalReturn_MonthEnd_TimePeriod'
@@ -342,9 +340,9 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray',
                 dataTableKey: 'HistoricalPerformanceSeries'
             },
-            type: 'DataGrid',
+            type: 'Grid',
             title: 'Total Return (Benchmark)',
-            dataGridOptions: {
+            gridOptions: {
                 header: [{
                     format: 'M1 (Date)',
                     columnId: 'TotalReturn_M1_Monthly_Date_Benchmark'
@@ -371,9 +369,9 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray',
                 dataTableKey: 'UnderlyHoldings'
             },
-            type: 'DataGrid',
+            type: 'Grid',
             title: 'Underlying Holdings',
-            dataGridOptions: {
+            gridOptions: {
                 header: [{
                     format: 'Holding ID',
                     columnId: 'holdingId'
@@ -402,7 +400,7 @@ async function displaySecurityDetails (postmanJSON) {
 });
 
     board.dataPool
-        .getConnectorTable('xray')
+        .getConnector('xray')
         .then(() => {
             loadingLabel.style.display = 'none';
     });

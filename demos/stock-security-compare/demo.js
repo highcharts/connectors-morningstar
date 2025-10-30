@@ -10,8 +10,7 @@ async function displaySecurityDetails (postmanJSON) {
             'F0GBR050DD': 'Aviva Investors UK Listed Equity Unconstrained Fund 2 GBP Acc',
             'F00000Q5PZ': 'Mirae Asset Global Discovery Fund - ' +
                 'ESG Asia Great Consumer Equity Fund A EUR Capitalization'
-        }
-
+        };
 
     const connector = new HighchartsConnectors.Morningstar.SecurityCompareConnector({
         postman: {
@@ -52,7 +51,6 @@ async function displaySecurityDetails (postmanJSON) {
                 format: '{value}%'
             }
         },
-
         tooltip: {
             valueDecimals: 2,
             valueSuffix: '%'

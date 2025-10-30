@@ -6,7 +6,7 @@ const loadingLabel = document.getElementById('loading-label');
 
 function displayInvestorPreferences (postmanJSON) {
     // eslint-disable-next-line
-    DataGrid.AST.allowedAttributes.push('viewBox');
+    Grid.AST.allowedAttributes.push('viewBox');
 
     const filterButtons = document.querySelectorAll(
         '.input-wrapper input, .input-wrapper select, button#filter-1'
@@ -216,18 +216,16 @@ function displayInvestorPreferences (postmanJSON) {
                 {
                     id: 'investor-preferences',
                     type: 'MorningstarInvestorPreferences',
-                    options: {
-                        page: 1,
-                        pageSize: 20,
-                        languageId: 'en-GB',
-                        currencyId: 'USD',
-                        securityDataPoints: secIds,
-                        universeIds: ['FOGBR$$ALL'],
-                        calculatedDataPoints,
-                        filters,
-                        postman: {
-                            environmentJSON: postmanJSON
-                        }
+                    page: 1,
+                    pageSize: 20,
+                    languageId: 'en-GB',
+                    currencyId: 'USD',
+                    securityDataPoints: secIds,
+                    universeIds: ['FOGBR$$ALL'],
+                    calculatedDataPoints,
+                    filters,
+                    postman: {
+                        environmentJSON: postmanJSON
                     }
                 }
             ]
@@ -238,9 +236,8 @@ function displayInvestorPreferences (postmanJSON) {
                 connector: {
                     id: 'investor-preferences'
                 },
-                type: 'DataGrid',
-
-                dataGridOptions: {
+                type: 'Grid',
+                gridOptions: {
                     editable: false,
                     columns,
                     header: columns.map(column => column.id)

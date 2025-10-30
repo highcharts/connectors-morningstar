@@ -53,30 +53,28 @@ async function displaySecurityDetails (postmanJSON) {
         connectors: [{
             id: 'xray',
             type: 'MorningstarXRay',
-            options: {
-                postman: {
-                    environmentJSON: postmanJSON
-                },
-                currencyId: 'GBP',
-                dataPoints: {
-                    type: 'portfolio',
-                    dataPoints: [
-                        'AssetAllocationMorningstarEUR3',
-                        'GlobalStockSector',
-                        'RegionalExposure'
-                    ]
-                },
-                holdings: [
-                    {
-                        id: 'F0GBR052QA',
-                        idType: 'MSID',
-                        type: 'FO',
-                        weight: '100',
-                        name: 'BlackRock Income and Growth Ord',
-                        holdingType: 'weight'
-                    }
+            postman: {
+                environmentJSON: postmanJSON
+            },
+            currencyId: 'GBP',
+            dataPoints: {
+                type: 'portfolio',
+                dataPoints: [
+                    'AssetAllocationMorningstarEUR3',
+                    'GlobalStockSector',
+                    'RegionalExposure'
                 ]
-            }
+            },
+            holdings: [
+                {
+                    id: 'F0GBR052QA',
+                    idType: 'MSID',
+                    type: 'FO',
+                    weight: '100',
+                    name: 'BlackRock Income and Growth Ord',
+                    holdingType: 'weight'
+                }
+            ]
         }]
     },
     components: [
@@ -86,9 +84,9 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray',
                 dataTableKey: 'GlobalStockSector'
             },
-            type: 'DataGrid',
+            type: 'Grid',
             title: 'Global Stock Sector',
-            dataGridOptions: {
+            gridOptions: {
                 header: [{
                     format: 'Net',
                     columnId: 'Type'
@@ -112,9 +110,9 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray',
                 dataTableKey: 'AssetAllocation'
             },
-            type: 'DataGrid',
+            type: 'Grid',
             title: 'Morningstar EUR3',
-            dataGridOptions: {
+            gridOptions: {
                 header: [{
                     format: 'Long',
                     columnId: 'MorningstarEUR3_Type'
@@ -166,9 +164,9 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'xray',
                 dataTableKey: 'RegionalExposure'
             },
-            type: 'DataGrid',
+            type: 'Grid',
             title: 'Regional Exposure',
-            dataGridOptions: {
+            gridOptions: {
                 header: [{
                     format: 'Net',
                     columnId: 'Type'
@@ -191,7 +189,7 @@ async function displaySecurityDetails (postmanJSON) {
 });
 
     board.dataPool
-        .getConnectorTable('xray')
+        .getConnector('xray')
         .then(() => {
             loadingLabel.style.display = 'none';
     });

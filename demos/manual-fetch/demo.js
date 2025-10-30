@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-// Wait for postman json file input 
+// Wait for postman json file input
 const handleSelectEnvironment = async (evt) => {
     const target = evt.target;
     const postmanJSON = await getPostmanJSON(target);
@@ -50,7 +50,7 @@ const decode = ({ username, password }) => {
 const getToken = async (url, payload) => {
     const response = await fetch(url, payload);
     const responseJSON = await response.json();
-    if (response.status === 200) { 
+    if (response.status === 200) {
         const token = responseJSON.access_token;
         return token;
     }
