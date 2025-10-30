@@ -331,7 +331,6 @@ export async function portfolioHoldings (
             'GlobalSectorId_F00000Q5PZ',
             'NumberOfShare_F00000Q5PZ',
             'GICSIndustryId_F00000Q5PZ',
-            'CUSIP_F00000Q5PZ',
             'ShareChange_F00000Q5PZ'
         ].sort(),
         'PortfolioHoldings table should exist of expected columns'

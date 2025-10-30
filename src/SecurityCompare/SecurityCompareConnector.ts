@@ -45,19 +45,23 @@ import {
 
 /* *
  *
- *  Constants
- *
- * */
-
-
-/* *
- *
  *  Class
  *
  * */
 
 
 export class SecurityCompareConnector extends MorningstarConnector {
+
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+    protected static readonly defaultOptions: Partial<SecurityCompareOptions> = {
+        id: 'morningstar-security-compare',
+        type: 'MorningstarSecurityCompare'
+    };
 
 
     /* *
@@ -73,9 +77,8 @@ export class SecurityCompareConnector extends MorningstarConnector {
         const convertersToUse = pickConverters(converter, converters);
 
         options = {
+            ...SecurityCompareConnector.defaultOptions,
             ...options,
-            id: 'morningstar-security-compare',
-            type: 'MorningstarSecurityCompare',
             dataTables: convertersToUse
         };
 

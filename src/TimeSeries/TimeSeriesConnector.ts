@@ -40,6 +40,17 @@ import TimeSeriesOptions from './TimeSeriesOptions';
 
 export class TimeSeriesConnector extends MorningstarConnector {
 
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+    protected static readonly defaultOptions: TimeSeriesOptions = {
+        id: 'morningstar-time-series',
+        type: 'MorningstarTimeSeries'
+    };
+
 
     /* *
      *
@@ -49,11 +60,13 @@ export class TimeSeriesConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: TimeSeriesOptions = {
-            id: 'morningstar-time-series',
-            type: 'MorningstarTimeSeries'
-        }
+        options: TimeSeriesOptions
     ) {
+        options = {
+            ...TimeSeriesConnector.defaultOptions,
+            ...options
+        };
+
         super(options);
 
         switch (options.series?.type) {

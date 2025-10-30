@@ -178,6 +178,17 @@ function convertMorningstarHoldingOptionsToMorningstarHoldingRequest (
 export class RiskScoreConnector extends MorningstarConnector {
 
 
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+    protected static readonly defaultOptions: RiskScoreOptions = {
+        id: 'morningstar-risk-score',
+        type: 'MorningstarRiskScore'
+    };
+
     /* *
      *
      *  Constructor
@@ -192,11 +203,13 @@ export class RiskScoreConnector extends MorningstarConnector {
      * Options for the connector and converter.
      */
     public constructor (
-        options: RiskScoreOptions = {
-            id: 'morningstar-risk-score',
-            type: 'MorningstarRiskScore'
-        }
+        options: RiskScoreOptions
     ) {
+        options = {
+            ...RiskScoreConnector.defaultOptions,
+            ...options
+        };
+
         super(options);
 
         this.converter = new RiskScoreConverter(options.converter);

@@ -39,19 +39,23 @@ import {
 
 /* *
  *
- *  Constants
- *
- * */
-
-
-/* *
- *
  *  Class
  *
  * */
 
 
 export class SecurityDetailsConnector extends MorningstarConnector {
+
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+    protected static readonly defaultOptions: SecurityDetailsOptions = {
+        id: 'morningstar-security-details',
+        type: 'MorningstarSecurityDetails'
+    };
 
     /* *
      *
@@ -65,13 +69,12 @@ export class SecurityDetailsConnector extends MorningstarConnector {
         const { converter, converters } = options;
         const convertersToUse = pickConverters(converter, converters);
 
-
         options = {
+            ...SecurityDetailsConnector.defaultOptions,
             ...options,
-            id: 'morningstar-security-details',
-            type: 'MorningstarSecurityDetails',
             dataTables: convertersToUse
         };
+
         super(options);
         this.options = options;
     }

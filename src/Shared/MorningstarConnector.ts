@@ -46,10 +46,7 @@ export abstract class MorningstarConnector extends External.DataConnector {
 
 
     public constructor (
-        options: MorningstarOptions = {
-            id: '',
-            type: ''
-        }
+        options: MorningstarOptions
     ) {
         super(options);
 

@@ -41,6 +41,19 @@ import MorningstarURL from '../Shared/MorningstarURL';
 export class GoalAnalysisConnector extends MorningstarConnector {
 
 
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+
+    protected static readonly defaultOptions: GoalAnalysisOptions = {
+        id: 'morningstar-goal-analysis',
+        type: 'MorningstarGoalAnalysis'
+    };
+
+
     /* *
      *
      *  Constructor
@@ -49,11 +62,13 @@ export class GoalAnalysisConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: GoalAnalysisOptions = {
-            id: 'morningstar-goal-analysis',
-            type: 'MorningstarGoalAnalysis'
-        }
+        options: GoalAnalysisOptions
     ) {
+        options = {
+            ...GoalAnalysisConnector.defaultOptions,
+            ...options
+        };
+
         super(options);
 
         this.converter = new GoalAnalysisConverter(options.converter);

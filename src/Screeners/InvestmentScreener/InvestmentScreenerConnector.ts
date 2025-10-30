@@ -41,13 +41,33 @@ import {
  *
  * */
 export class InvestmentScreenerConnector extends MorningstarConnector {
+
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+    protected static readonly defaultOptions: InvestmentScreenerOptions = {
+        id: 'morningstar-investment-screener',
+        type: 'MorningstarInvestmentScreener',
+        universeIds: []
+    };
+
+    /**
+     *
+     * Constructor
+     *
+     */
+
     public constructor (
-        options: InvestmentScreenerOptions = {
-            id: 'morningstar-investment-screener',
-            type: 'MorningstarInvestmentScreener',
-            universeIds: []
-        }
+        options: InvestmentScreenerOptions
     ) {
+        options = {
+            ...InvestmentScreenerConnector.defaultOptions,
+            ...options
+        };
+
         super(options);
 
         this.converter = new InvestmentScreenerConverter(options.converter);

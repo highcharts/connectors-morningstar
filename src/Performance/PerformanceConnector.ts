@@ -39,14 +39,6 @@ import PerformanceOptions, {
 import type MorningstarConverter from '../Shared/MorningstarConverter';
 import type PerformanceJSON from './PerformanceJSON';
 
-
-/* *
- *
- *  Declarations
- *
- * */
-
-
 /* *
  *
  *  Interfaces
@@ -81,6 +73,16 @@ export const DATA_TABLES = [
 
 export class PerformanceConnector extends PAUSConnector {
 
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+    protected static readonly defaultOptions: Partial<PerformanceOptions> = {
+        id: 'morningstar-performance-connector',
+        type: 'MorningstarPerformanceConnector'
+    };
 
     /* *
      *
@@ -88,16 +90,15 @@ export class PerformanceConnector extends PAUSConnector {
      *
      * */
 
-
     public constructor (
         options: PerformanceOptions
     ) {
         options = {
+            ...PerformanceConnector.defaultOptions,
             ...options,
-            id: 'morningstar-performance-connector',
-            type: 'MorningstarPerformanceConnector',
             dataTables: DATA_TABLES
         };
+
         super(options);
 
         this.options = options;
