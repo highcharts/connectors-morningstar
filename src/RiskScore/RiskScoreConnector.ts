@@ -70,7 +70,7 @@ interface RiskScorePortfolioRequest extends BaseRiskScorePortfolio {
     /**
      * List of holdings in your portfolio.
      *
-     * You specify the quantity of a holding using `weight` xor `value`.
+     * You specify the quantity of a holding using `weight` or `value`.
      * If `weight` is used, you must specify `totalValue`.
      */
     holdings: MorningstarHoldingRequest;
@@ -110,7 +110,7 @@ interface MorningstarAnyHoldingOptions extends MorningstarHoldingOptions {
  * */
 
 /**
- * Validates the holdings, throws an error if they have unmatching
+ * Validates the holdings, throws an error if they have unmatched
  * ways of describing quantity.
  *
  * @param holdings { MorningstarHoldingWeightOptions[] }

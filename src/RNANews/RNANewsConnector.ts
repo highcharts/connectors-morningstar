@@ -84,6 +84,18 @@ function validateAndFormatDate (date: number | string): string {
 export class RNANewsConnector extends MorningstarConnector {
 
 
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+    protected static readonly defaultOptions: RNANewsOptions = {
+        id: 'morningstar-rna-news',
+        type: 'MorningstarRNANews'
+    };
+
+
     /* *
      *
      *  Constructor
@@ -98,11 +110,13 @@ export class RNANewsConnector extends MorningstarConnector {
      * Options for the connector and converter.
      */
     public constructor (
-        options: RNANewsOptions = {
-            id: 'morningstar-rna-news',
-            type: 'MorningstarRNANews'
-        }
+        options: RNANewsOptions
     ) {
+        options = {
+            ...RNANewsConnector.defaultOptions,
+            ...options
+        };
+
         super(options);
 
         this.converter = new RNANewsConverter(options.converter);

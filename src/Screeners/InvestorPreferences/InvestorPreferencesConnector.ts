@@ -93,6 +93,19 @@ interface InvestorPreferencesBody extends Omit<InvestorPreferencesOptions, NonSt
  * */
 
 export class InvestorPreferencesConnector extends MorningstarConnector {
+
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+    protected static readonly defaultOptions: InvestorPreferencesOptions = {
+        id: 'morningstar-investor-preferences',
+        type: 'MorningstarInvestorPreferences',
+        universeIds: []
+    };
+
     /* *
      *
      *  Constructor
@@ -100,12 +113,13 @@ export class InvestorPreferencesConnector extends MorningstarConnector {
      * */
 
     public constructor (
-        options: InvestorPreferencesOptions = {
-            id: 'morningstar-investor-preferences',
-            type: 'MorningstarInvestorPreferences',
-            universeIds: []
-        }
+        options: InvestorPreferencesOptions
     ) {
+        options = {
+            ...InvestorPreferencesConnector.defaultOptions,
+            ...options
+        };
+
         super(options);
 
         this.converter = new InvestorPreferencesConverter(options.converter);
