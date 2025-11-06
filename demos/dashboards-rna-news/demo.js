@@ -39,7 +39,6 @@ function displayRNANews (postmanJSON) {
                 type: 'Grid',
                 title: 'News',
                 gridOptions: {
-                    editable: false,
                     columns: [{
                         id: 'Day',
                         cells: {

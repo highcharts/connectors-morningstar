@@ -67,7 +67,6 @@ function displayFindSimilarScreener (postmanJSON) {
                 },
                 type: 'Grid',
                 gridOptions: {
-                    editable: false,
                     columns
                 },
                 title: 'Find Similar Investments to EUR Money Market Fund'

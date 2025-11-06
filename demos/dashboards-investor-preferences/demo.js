@@ -238,7 +238,6 @@ function displayInvestorPreferences (postmanJSON) {
                 },
                 type: 'Grid',
                 gridOptions: {
-                    editable: false,
                     columns,
                     header: columns.map(column => column.id)
                 },

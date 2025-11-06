@@ -270,7 +270,6 @@ function displayRegulatoryScreener (postmanJSON) {
                             }
                         }
                     },
-                    editable: false,
                     columns,
                     rendering: {
                         columns: {

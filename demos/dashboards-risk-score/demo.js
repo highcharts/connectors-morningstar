@@ -179,7 +179,6 @@ function displayRiskScore (postmanJSON) {
                 type: 'Grid',
                 title: 'RiskScore',
                 gridOptions: {
-                    editable: false,
                     header: [{
                         columnId: 'LowRisk_RiskScore',
                         format: 'RiskScore, Conservative'

@@ -64,7 +64,6 @@ function displayESGScreener (postmanJSON) {
                 },
                 type: 'Grid',
                 gridOptions: {
-                    editable: false,
                     columns
                 },
                 title: 'ESG Screener'

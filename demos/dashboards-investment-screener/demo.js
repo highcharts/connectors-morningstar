@@ -65,7 +65,6 @@ function displayInvestmentScreener (postmanJSON) {
                 },
                 type: 'Grid',
                 gridOptions: {
-                    editable: false,
                     columns
                 },
                 title: 'Investment Screener'
