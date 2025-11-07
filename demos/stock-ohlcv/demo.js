@@ -35,7 +35,7 @@ async function displayOHLCV (postmanJSON) {
         series: [{
             type: 'ohlc',
             name: 'NASDAQ Composite (EUR)',
-            data: ohlcvConnector.table.getRows(0),
+            data: ohlcvConnector.getTable().getRows(),
             keys: ['x', 'open', 'high', 'low', 'close']
         }]
     });

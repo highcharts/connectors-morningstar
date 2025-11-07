@@ -29,9 +29,9 @@ import External from '../../Shared/External';
 import MorningstarAPI from '../../Shared/MorningstarAPI';
 import MorningstarConnector from '../../Shared/MorningstarConnector';
 import MorningstarURL from '../../Shared/MorningstarURL';
-import { 
+import {
     UTF_PIPE,
-    UTF_COLON 
+    UTF_COLON
 } from '../../Shared/Utilities';
 
 
@@ -42,7 +42,7 @@ import {
  */
 
 type NonStringOptions = (
-    'universeIds' | 'page' | 'pageSize' | 'filters' | 'filterDataPoints'
+    'universeIds' | 'page' | 'pageSize' | 'filters' | 'filterDataPoints' | 'id' | 'type'
 );
 
 interface InvestorPreferencesBody extends Omit<InvestorPreferencesOptions, NonStringOptions> {
@@ -93,6 +93,19 @@ interface InvestorPreferencesBody extends Omit<InvestorPreferencesOptions, NonSt
  * */
 
 export class InvestorPreferencesConnector extends MorningstarConnector {
+
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+    protected static readonly defaultOptions: InvestorPreferencesOptions = {
+        id: 'morningstar-investor-preferences',
+        type: 'MorningstarInvestorPreferences',
+        universeIds: []
+    };
+
     /* *
      *
      *  Constructor
@@ -100,8 +113,13 @@ export class InvestorPreferencesConnector extends MorningstarConnector {
      * */
 
     public constructor (
-        options: InvestorPreferencesOptions = { universeIds: [] }
+        options: InvestorPreferencesOptions
     ) {
+        options = {
+            ...InvestorPreferencesConnector.defaultOptions,
+            ...options
+        };
+
         super(options);
 
         this.converter = new InvestorPreferencesConverter(options.converter);
@@ -215,10 +233,10 @@ export class InvestorPreferencesConnector extends MorningstarConnector {
 
         this.converter.parse({ json });
 
-        this.table.deleteColumns();
-        this.table.setColumns(this.converter.getTable().getColumns());
+        this.getTable().deleteColumns();
+        this.getTable().setColumns(this.converter.getTable().getColumns());
 
-        return this.setModifierOptions(userOptions.dataModifier);
+        return this.applyTableModifiers();
     }
 
     private getFilter (filter: InvestorPreferencesFilter): string {

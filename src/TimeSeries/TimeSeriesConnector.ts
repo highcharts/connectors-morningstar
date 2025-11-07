@@ -40,6 +40,17 @@ import TimeSeriesOptions from './TimeSeriesOptions';
 
 export class TimeSeriesConnector extends MorningstarConnector {
 
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+    protected static readonly defaultOptions: TimeSeriesOptions = {
+        id: 'morningstar-time-series',
+        type: 'MorningstarTimeSeries'
+    };
+
 
     /* *
      *
@@ -49,8 +60,13 @@ export class TimeSeriesConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: TimeSeriesOptions = {}
+        options: TimeSeriesOptions
     ) {
+        options = {
+            ...TimeSeriesConnector.defaultOptions,
+            ...options
+        };
+
         super(options);
 
         switch (options.series?.type) {
@@ -190,10 +206,10 @@ export class TimeSeriesConnector extends MorningstarConnector {
 
         this.converter.parse({ json });
 
-        this.table.deleteColumns();
-        this.table.setColumns(this.converter.getTable().getColumns());
+        this.getTable().deleteColumns();
+        this.getTable().setColumns(this.converter.getTable().getColumns());
 
-        return this.setModifierOptions(options.dataModifier);
+        return this.applyTableModifiers();
     }
 
 

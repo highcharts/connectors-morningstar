@@ -115,12 +115,6 @@ function escapeDataPoints (
     return `UseMongoSecurities,RunInThread,${dataPoints.join(',')}`;
 }
 
-/* *
- *
- *  Constants
- *
- * */
-
 
 /* *
  *
@@ -132,6 +126,20 @@ function escapeDataPoints (
 export class XRayConnector extends MorningstarConnector {
 
 
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+
+    protected static readonly defaultOptions: XRayOptions = {
+        id: 'morningstar-xray',
+        type: 'MorningstarXRay',
+        dataTables: DATA_TABLES
+    };
+
+
     /* *
      *
      *  Constructors
@@ -140,9 +148,14 @@ export class XRayConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: XRayOptions = {}
+        options: XRayOptions
     ) {
-        super(options, DATA_TABLES);
+        options = {
+            ...XRayConnector.defaultOptions,
+            ...options
+        };
+
+        super(options);
 
         this.options = options;
     }
@@ -261,7 +274,7 @@ export class XRayConnector extends MorningstarConnector {
             json
         };
 
-        return this.setModifierOptions(options.dataModifier);
+        return this.applyTableModifiers();
     }
 
 

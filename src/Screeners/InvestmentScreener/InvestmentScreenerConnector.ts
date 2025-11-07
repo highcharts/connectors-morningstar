@@ -29,9 +29,9 @@ import MorningstarAPI from '../../Shared/MorningstarAPI';
 import MorningstarConnector from '../../Shared/MorningstarConnector';
 import InvestmentScreenerConverter from './InvestmentScreenerConverter';
 import MorningstarURL from '../../Shared/MorningstarURL';
-import { 
+import {
     UTF_PIPE,
-    UTF_COLON 
+    UTF_COLON
 } from '../../Shared/Utilities';
 
 
@@ -41,9 +41,33 @@ import {
  *
  * */
 export class InvestmentScreenerConnector extends MorningstarConnector {
+
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+    protected static readonly defaultOptions: InvestmentScreenerOptions = {
+        id: 'morningstar-investment-screener',
+        type: 'MorningstarInvestmentScreener',
+        universeIds: []
+    };
+
+    /**
+     *
+     * Constructor
+     *
+     */
+
     public constructor (
-        options: InvestmentScreenerOptions = { universeIds: [] }
+        options: InvestmentScreenerOptions
     ) {
+        options = {
+            ...InvestmentScreenerConnector.defaultOptions,
+            ...options
+        };
+
         super(options);
 
         this.converter = new InvestmentScreenerConverter(options.converter);
@@ -132,10 +156,10 @@ export class InvestmentScreenerConnector extends MorningstarConnector {
         const json = (await response.json()) as unknown;
 
         this.converter.parse({ json });
-        this.table.deleteColumns();
-        this.table.setColumns(this.converter.getTable().getColumns());
+        this.getTable().deleteColumns();
+        this.getTable().setColumns(this.converter.getTable().getColumns());
 
-        return this.setModifierOptions(userOptions.dataModifier);
+        return this.applyTableModifiers();
     }
 
     private getFilter (filter: InvestmentScreenerFilter): string {

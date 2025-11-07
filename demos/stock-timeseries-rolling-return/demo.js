@@ -42,7 +42,7 @@ async function initializeChart (postmanJSON) {
         },
         series: [{
             name: 'AAPL',
-            data: rollingReturnConnector.table.getRows(0)
+            data: rollingReturnConnector.getTable().getRows()
         }]
     });
 

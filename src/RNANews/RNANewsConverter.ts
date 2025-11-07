@@ -20,10 +20,11 @@
  *
  * */
 
-import * as External from '../Shared/External';
 import MorningstarConverter from '../Shared/MorningstarConverter';
+import DataConverterUtils from '@highcharts/dashboards/es-modules/Data/Converters/DataConverterUtils';
 import RNANewsJSON from './RNANewsJSON';
 import { RNANewsConverterOptions } from './RNANewsOptions';
+import DataTable from '@highcharts/dashboards/es-modules/Data/DataTable';
 
 
 /* *
@@ -138,11 +139,11 @@ export class RNANewsConverter extends MorningstarConverter {
     /**
      * Handles converting the parsed data to a table.
      *
-     * @return {DataTable}
+     * @return {DataTable.ColumnCollection}
      * Table from the parsed RNANews
      */
-    public override getTable (): External.DataTable {
-        return MorningstarConverter.getTableFromColumns(this.columns, this.header);
+    public getTableColumns (): DataTable.ColumnCollection {
+        return DataConverterUtils.getColumnsCollection(this.columns, this.header);
     }
 
 }

@@ -41,6 +41,19 @@ import MorningstarURL from '../Shared/MorningstarURL';
 export class GoalAnalysisConnector extends MorningstarConnector {
 
 
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+
+    protected static readonly defaultOptions: GoalAnalysisOptions = {
+        id: 'morningstar-goal-analysis',
+        type: 'MorningstarGoalAnalysis'
+    };
+
+
     /* *
      *
      *  Constructor
@@ -49,8 +62,13 @@ export class GoalAnalysisConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: GoalAnalysisOptions = {}
+        options: GoalAnalysisOptions
     ) {
+        options = {
+            ...GoalAnalysisConnector.defaultOptions,
+            ...options
+        };
+
         super(options);
 
         this.converter = new GoalAnalysisConverter(options.converter);
@@ -130,10 +148,10 @@ export class GoalAnalysisConnector extends MorningstarConnector {
 
         this.converter.parse({ json });
 
-        this.table.deleteColumns();
-        this.table.setColumns(this.converter.getTable().getColumns());
+        this.getTable().deleteColumns();
+        this.getTable().setColumns(this.converter.getTable().getColumns());
 
-        return this.setModifierOptions(options.dataModifier);
+        return this.applyTableModifiers();
     }
 
 

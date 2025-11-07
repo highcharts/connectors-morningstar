@@ -9,6 +9,8 @@ export async function returnLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.TimeSeriesConnector({
+        id: '',
+        type: '',
         api,
         currencyId: 'EUR',
         endDate: '2020-01-31',
@@ -36,19 +38,19 @@ export async function returnLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable().getColumnIds(),
         ['Date', securityId],
         'Connector table should exist of expected columns.'
     );
 
     Assert.strictEqual(
-        connector.table.getRowCount(),
+        connector.getTable().getRowCount(),
         31,
         'Connector table should have 31 return rows.'
     );
 
      Assert.strictEqual(
-        isNumber(connector.table.getCell(securityId, 0)),
+        isNumber(connector.getTable().getCell(securityId, 0)),
         true,
         'Connector table cell value should be a valid number.'
     );

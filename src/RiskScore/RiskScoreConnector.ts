@@ -31,9 +31,9 @@ import RiskScoreConverter from './RiskScoreConverter';
 import { MorningstarHoldingIdentiferType, MorningstarHoldingOptions, MorningstarHoldingValueOptions, MorningstarHoldingWeightOptions } from '../Shared/MorningstarOptions';
 
 /* *
- * 
+ *
  *  Declarations
- * 
+ *
  * */
 
 
@@ -69,8 +69,8 @@ interface MorningstarHoldingRequest {
 interface RiskScorePortfolioRequest extends BaseRiskScorePortfolio {
     /**
      * List of holdings in your portfolio.
-     * 
-     * You specify the quantity of a holding using `weight` xor `value`. 
+     *
+     * You specify the quantity of a holding using `weight` or `value`.
      * If `weight` is used, you must specify `totalValue`.
      */
     holdings: MorningstarHoldingRequest;
@@ -89,14 +89,14 @@ interface MorningstarAnyHoldingOptions extends MorningstarHoldingOptions {
 
     /**
      * Holding weight.
-     * 
+     *
      * `value` and `weight` are mutually exclusive.
      */
     weight?: (number|string);
 
     /**
      * Holding value.
-     * 
+     *
      * `value` and `weight` are mutually exclusive.
      */
     value?: (number|string);
@@ -104,15 +104,15 @@ interface MorningstarAnyHoldingOptions extends MorningstarHoldingOptions {
 }
 
 /* *
- * 
+ *
  *  Functions
- * 
+ *
  * */
 
 /**
- * Validates the holdings, throws an error if they have unmatching 
+ * Validates the holdings, throws an error if they have unmatched
  * ways of describing quantity.
- * 
+ *
  * @param holdings { MorningstarHoldingWeightOptions[] }
  * @param portfolioName { string }
  * @throws
@@ -155,7 +155,7 @@ function convertMorningstarHoldingOptionsToMorningstarHoldingRequest (
         identifierType: holding.idType,
         name: holding.name
     };
-    
+
     const typeErasedHolding = holding as MorningstarAnyHoldingOptions;
 
     if (typeErasedHolding.weight !== undefined) {
@@ -171,12 +171,23 @@ function convertMorningstarHoldingOptionsToMorningstarHoldingRequest (
 /* *
  *
  *  Class
- * 
+ *
  *  */
 
 
 export class RiskScoreConnector extends MorningstarConnector {
 
+
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+    protected static readonly defaultOptions: RiskScoreOptions = {
+        id: 'morningstar-risk-score',
+        type: 'MorningstarRiskScore'
+    };
 
     /* *
      *
@@ -192,8 +203,13 @@ export class RiskScoreConnector extends MorningstarConnector {
      * Options for the connector and converter.
      */
     public constructor (
-        options: RiskScoreOptions = {}
+        options: RiskScoreOptions
     ) {
+        options = {
+            ...RiskScoreConnector.defaultOptions,
+            ...options
+        };
+
         super(options);
 
         this.converter = new RiskScoreConverter(options.converter);
@@ -278,10 +294,10 @@ export class RiskScoreConnector extends MorningstarConnector {
 
         this.converter.parse({ json });
 
-        this.table.deleteColumns();
-        this.table.setColumns(this.converter.getTable().getColumns());
+        this.getTable().deleteColumns();
+        this.getTable().setColumns(this.converter.getTable().getColumns());
 
-        return this.setModifierOptions(options.dataModifier);
+        return this.applyTableModifiers();
     }
 
 

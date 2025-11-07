@@ -20,7 +20,7 @@
  * */
 
 import type { InvestmentScreenerConverterOptions, InvestmentScreenerMetadata } from './InvestmentScreenerOptions';
-import type { DataTable } from '@highcharts/dashboards';
+import type { DataTable } from '@highcharts/dashboards/dashboards';
 
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 import InvestmentScreenerJSON from './InvestmentScreenerJSON';

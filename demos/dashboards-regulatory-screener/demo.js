@@ -237,16 +237,14 @@ function displayRegulatoryScreener (postmanJSON) {
                 {
                     id: 'regulatory-screener',
                     type: 'MorningstarInvestmentScreener',
-                    options: {
-                        page: 1,
-                        pageSize: 20,
-                        languageId: 'en-GB',
-                        currencyId: 'USD',
-                        securityDataPoints: secIds,
-                        universeIds: ['FOEUR$$ALL_5791'],
-                        postman: {
-                            environmentJSON: postmanJSON
-                        }
+                    page: 1,
+                    pageSize: 20,
+                    languageId: 'en-GB',
+                    currencyId: 'USD',
+                    securityDataPoints: secIds,
+                    universeIds: ['FOEUR$$ALL_5791'],
+                    postman: {
+                        environmentJSON: postmanJSON
                     }
                 }
             ]
@@ -257,9 +255,8 @@ function displayRegulatoryScreener (postmanJSON) {
                 connector: {
                     id: 'regulatory-screener'
                 },
-                type: 'DataGrid',
-
-                dataGridOptions: {
+                type: 'Grid',
+                gridOptions: {
                     columnDefaults: {
                         cells: {
                             formatter () {
@@ -273,11 +270,12 @@ function displayRegulatoryScreener (postmanJSON) {
                             }
                         }
                     },
-                    editable: false,
                     columns,
                     rendering: {
                         columns: {
-                            distribution: 'fixed'
+                            resizing: {
+                                mode: 'distributed'
+                            }
                         }
                     },
                     header

@@ -29,26 +29,6 @@ import { DATA_TABLES, initConverter } from '../Shared/SharedXRayUS';
 import type XRayUSJSON from './XRayUSJSON';
 import type { XRayUSOptions, XRayUSMetadata, XRayUSRequestPayload } from './XRayUSOptions';
 
-/* *
- *
- *  Declarations
- *
- * */
-
-
-/* *
- *
- *  Functions
- *
- * */
-
-
-/* *
- *
- *  Constants
- *
- * */
-
 
 /* *
  *
@@ -58,6 +38,20 @@ import type { XRayUSOptions, XRayUSMetadata, XRayUSRequestPayload } from './XRay
 
 
 export class XRayUSConnector extends PAUSConnector {
+
+
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+
+    protected static readonly defaultOptions: Partial<XRayUSOptions> = {
+        id: 'morningstar-xray-us',
+        type: 'MorningstarXRayUS',
+        dataTables: DATA_TABLES
+    };
 
 
     /* *
@@ -70,7 +64,12 @@ export class XRayUSConnector extends PAUSConnector {
     public constructor (
         options: XRayUSOptions
     ) {
-        super(options, DATA_TABLES);
+        options = {
+            ...XRayUSConnector.defaultOptions,
+            ...options
+        };
+
+        super(options);
 
         this.options = options;
     }
@@ -119,7 +118,7 @@ export class XRayUSConnector extends PAUSConnector {
             json
         };
 
-        return this.setModifierOptions(this.options.dataModifier);
+        return this.applyTableModifiers();
     }
 
     protected getPayload (): XRayUSRequestPayload {

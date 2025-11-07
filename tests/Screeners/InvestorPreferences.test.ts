@@ -14,6 +14,8 @@ export async function InvestorPreferencesLoad (
         'StarRatingM255'
     ];
     const connector = new MC.InvestorPreferencesConnector({
+        id: '',
+        type: '',
         api,
         page: 1,
         pageSize: 10,
@@ -39,26 +41,26 @@ export async function InvestorPreferencesLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable().getColumnIds(),
         secIds.map(id => `InvestorPreferences_${id}`),
         'Connector table should have expected column names.'
     );
 
     Assert.strictEqual(
-        connector.table.getRowCount(),
+        connector.getTable().getRowCount(),
         10,
         'Connector table should have 10 rows.'
     );
 
     Assert.deepStrictEqual(
-        connector.table.modified.getColumn('columnNames'),
-        connector.table.getColumnNames(),
+        connector.getTable().getModified().getColumn('columnIds'),
+        connector.getTable().getColumnIds(),
         'Connector inverted table should exist of expected columns.'
     );
 
     Assert.strictEqual(
-        connector.table.getColumnNames().length,
-        connector.table.modified.getRowCount(),
+        connector.getTable().getColumnIds().length,
+        connector.getTable().getModified().getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
     );
 }

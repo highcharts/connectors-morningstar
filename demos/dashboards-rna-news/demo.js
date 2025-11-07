@@ -10,30 +10,25 @@ function displayRNANews (postmanJSON) {
             connectors: [{
                 id: 'rna',
                 type: 'MorningstarRNANews',
-                options: {
-                    security: {
-                        id: 'GB00BLGZ9862',
-                        idType: 'ISIN'
-                    },
-                    postman: {
-                        environmentJSON: postmanJSON
-                    }
+                security: {
+                    id: 'GB00BLGZ9862',
+                    idType: 'ISIN'
+                },
+                postman: {
+                    environmentJSON: postmanJSON
                 }
             },
             {
                 id: 'rna-type-amount',
                 type: 'JSON',
-                options: {
-                    columnNames: ['Type', 'Amount'],
-                    data: [
-                        [],
-                        []
-                    ],
-                    orientation: 'columns',
-                    firstRowAsNames: false
-                }
-            }
-            ]
+                columnIds: ['Type', 'Amount'],
+                data: [
+                    [],
+                    []
+                ],
+                orientation: 'columns',
+                firstRowAsNames: false
+            }]
         },
         components: [
             {
@@ -41,19 +36,19 @@ function displayRNANews (postmanJSON) {
                 connector: {
                     id: 'rna'
                 },
-                type: 'DataGrid',
+                type: 'Grid',
                 title: 'News',
-                dataGridOptions: {
-                    editable: false,
-                    columns: {
-                        Day: {
-                            cellFormatter: function () {
+                gridOptions: {
+                    columns: [{
+                        id: 'Day',
+                        cells: {
+                            formatter: function () {
                                 return new Date(this.value)
                                     .toISOString()
                                     .substring(0, 10);
                             }
                         }
-                    }
+                    }]
                 }
             },
             {
@@ -95,7 +90,7 @@ function displayRNANews (postmanJSON) {
                     xAxis: {
                         type: 'category',
                         accessibility: {
-                            description: 'Kind of news annoucement'
+                            description: 'Kind of news announcement'
                         }
                     },
                     yAxis: {
@@ -109,8 +104,9 @@ function displayRNANews (postmanJSON) {
     });
 
     board.dataPool
-        .getConnectorTable('rna')
-        .then(async table => {
+        .getConnector('rna')
+        .then(connector => {
+            const table = connector.getTable();
             const types = table.getColumn('Type');
             const uniqueTypes = Array.from(new Set(types));
             const numberPerType = uniqueTypes.map(type =>
@@ -122,31 +118,22 @@ function displayRNANews (postmanJSON) {
                 }, 0)
             );
 
-            board.dataPool.setConnectorOptions({
-                id: 'rna-type-amount',
-                type: 'JSON',
-                options: {
-                    columnNames: ['Type', 'Amount'],
+            board.dataPool.getConnector('rna-type-amount').then(connector => {
+                connector.options = {
+                    type: 'JSON',
+                    columnIds: ['Type', 'Amount'],
                     orientation: 'columns',
                     firstRowAsNames: false,
                     data: [
                         uniqueTypes,
                         numberPerType
                     ]
-                }
+                };
+
+                connector.load();
             });
 
-            // Refresh the component after updating the table
-            await board.getComponentByCellId('dashboard-col-1').initConnectors();
-            await board.getComponentByCellId('dashboard-col-1').update({
-                connector: {
-                    id: 'rna-type-amount',
-                    columnAssignment: [{
-                        seriesId: 'number-per-type',
-                        data: ['Type', 'Amount']
-                    }]
-                }
-            });
+            board.getComponentByCellId('dashboard-col-1').initConnectors();
         })
         .finally(() => {
             loadingLabel.style.display = 'none';

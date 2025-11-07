@@ -102,14 +102,12 @@ function displayRiskScore (postmanJSON) {
             connectors: [{
                 id: 'risk-score',
                 type: 'MorningstarRiskScore',
-                options: {
-                    portfolios: [
-                        lowRiskRetirementPortfolio,
-                        highRiskRetirementPortfolio
-                    ],
-                    postman: {
-                        environmentJSON: postmanJSON
-                    }
+                portfolios: [
+                    lowRiskRetirementPortfolio,
+                    highRiskRetirementPortfolio
+                ],
+                postman: {
+                    environmentJSON: postmanJSON
                 }
             }]
         },
@@ -142,7 +140,7 @@ function displayRiskScore (postmanJSON) {
                         text: 'Risk score for each portfolio'
                     },
                     subtitle: {
-                        text: 'Conservative is a low risk portfolio, ' + 
+                        text: 'Conservative is a low risk portfolio, ' +
                         'while Aggressive is a high risk portfolio'
                     },
                     yAxis: {
@@ -178,29 +176,23 @@ function displayRiskScore (postmanJSON) {
                 connector: {
                     id: 'risk-score'
                 },
-                visibleColumns: [
-                    'LowRisk_RiskScore',
-                    'HighRisk_RiskScore'
-                ],
-                type: 'DataGrid',
+                type: 'Grid',
                 title: 'RiskScore',
-                dataGridOptions: {
-                    editable: false,
-                    columns: {
-                        'LowRisk_RiskScore': {
-                            headerFormat: 'RiskScore, Conservative'
-                        },
-                        'HighRisk_RiskScore': {
-                            headerFormat: 'RiskScore, Aggressive'
-                        }
-                    }
+                gridOptions: {
+                    header: [{
+                        columnId: 'LowRisk_RiskScore',
+                        format: 'RiskScore, Conservative'
+                    }, {
+                        columnId: 'HighRisk_RiskScore',
+                        format: 'RiskScore, Aggressive'
+                    }]
                 }
             }
         ]
     });
 
     board.dataPool
-        .getConnectorTable('risk-score')
+        .getConnector('risk-score')
         .then(() => {
             loadingLabel.style.display = 'none';
         });

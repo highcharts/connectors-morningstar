@@ -45,16 +45,14 @@ function displayInvestmentScreener (postmanJSON) {
                 {
                     id: 'investment-screener',
                     type: 'MorningstarInvestmentScreener',
-                    options: {
-                        page: 1,
-                        pageSize: 20,
-                        languageId: 'en-GB',
-                        currencyId: 'USD',
-                        securityDataPoints: secIds,
-                        universeIds: ['FOALL$$ALL'],
-                        postman: {
-                            environmentJSON: postmanJSON
-                        }
+                    page: 1,
+                    pageSize: 20,
+                    languageId: 'en-GB',
+                    currencyId: 'USD',
+                    securityDataPoints: secIds,
+                    universeIds: ['FOALL$$ALL'],
+                    postman: {
+                        environmentJSON: postmanJSON
                     }
                 }
             ]
@@ -65,9 +63,8 @@ function displayInvestmentScreener (postmanJSON) {
                 connector: {
                     id: 'investment-screener'
                 },
-                type: 'DataGrid',
-                dataGridOptions: {
-                    editable: false,
+                type: 'Grid',
+                gridOptions: {
                     columns
                 },
                 title: 'Investment Screener'

@@ -44,16 +44,14 @@ function displayESGScreener (postmanJSON) {
                 {
                     id: 'esg-screener',
                     type: 'MorningstarInvestmentScreener',
-                    options: {
-                        page: 1,
-                        pageSize: 20,
-                        languageId: 'en-GB',
-                        currencyId: 'USD',
-                        securityDataPoints: secIds,
-                        universeIds: ['FOALL$$ALL'],
-                        postman: {
-                            environmentJSON: postmanJSON
-                        }
+                    page: 1,
+                    pageSize: 20,
+                    languageId: 'en-GB',
+                    currencyId: 'USD',
+                    securityDataPoints: secIds,
+                    universeIds: ['FOALL$$ALL'],
+                    postman: {
+                        environmentJSON: postmanJSON
                     }
                 }
             ]
@@ -64,10 +62,8 @@ function displayESGScreener (postmanJSON) {
                 connector: {
                     id: 'esg-screener'
                 },
-                type: 'DataGrid',
-
-                dataGridOptions: {
-                    editable: false,
+                type: 'Grid',
+                gridOptions: {
                     columns
                 },
                 title: 'ESG Screener'

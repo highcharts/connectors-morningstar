@@ -7,6 +7,8 @@ export async function riskScoreLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.RiskScoreConnector({
+        id: '',
+        type: '',
         api,
         portfolios: [
             {
@@ -54,26 +56,26 @@ export async function riskScoreLoad (
       await connector.load();
 
       Assert.deepStrictEqual(
-          connector.table.getColumnNames(),
+          connector.getTable().getColumnIds(),
           columnNames,
           'Connector table should exist of expected columns.'
       );
 
       Assert.strictEqual(
-          connector.table.getRowCount(),
+          connector.getTable().getRowCount(),
           1,
           'Connector table should have one row.'
       );
 
       Assert.deepStrictEqual(
-        connector.table.modified.getColumn('columnNames'),
+        connector.getTable().getModified().getColumn('columnIds'),
         columnNames,
         'Connector inverted table should exist of expected columns.'
       );
 
       Assert.strictEqual(
-        connector.table.getColumnNames().length,
-        connector.table.modified.getRowCount(),
+        connector.getTable().getColumnIds().length,
+        connector.getTable().getModified().getRowCount(),
         'Original and inverted table should have an inverted amount of columns and rows.'
       );
 
@@ -83,6 +85,8 @@ export async function riskScoreLoadWithInvalidHoldings (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.RiskScoreConnector({
+        id: '',
+        type: '',
         api,
         portfolios: [
             {
@@ -93,12 +97,12 @@ export async function riskScoreLoadWithInvalidHoldings (
                     {
                         id: 'F00000VCTT',
                         idType: 'SecurityID',
-                        weight: 50
+                        weight: 90
                     },
                     {
                         id: 'AAPLL',
                         idType: 'TradingSymbol',
-                        weight: 50
+                        weight: 10
                     }
                 ]
             }

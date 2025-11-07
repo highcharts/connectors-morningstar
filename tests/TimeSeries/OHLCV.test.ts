@@ -12,6 +12,8 @@ export async function ohlcvLoad (
     const securityId = 'XIUSA000O2';
 
     const connector = new MC.TimeSeriesConnector({
+        id: '',
+        type: '',
         api,
         currencyId: 'EUR',
         securities: [{
@@ -39,13 +41,13 @@ export async function ohlcvLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.table.getColumnNames(),
+        connector.getTable().getColumnIds(),
         [
-            'Date', 
-            `${securityId}_Open`, 
-            `${securityId}_High`, 
-            `${securityId}_Low`, 
-            `${securityId}_Close`, 
+            'Date',
+            `${securityId}_Open`,
+            `${securityId}_High`,
+            `${securityId}_Low`,
+            `${securityId}_Close`,
             `${securityId}_Volume`
         ],
         'Connector table should exist of expected columns.'

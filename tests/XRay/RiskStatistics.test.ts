@@ -6,6 +6,8 @@ export async function portfolioBreakdown (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.XRayConnector({
+        id: '',
+        type: '',
         api,
         currencyId: 'GBP',
         dataPoints: {
@@ -30,7 +32,7 @@ export async function portfolioBreakdown (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.dataTables.RiskStatistics.getColumnNames(),
+        connector.dataTables.RiskStatistics.getColumnIds(),
         [
             'SharpeRatio_TimePeriod',
             'SharpeRatio',

@@ -40,15 +40,13 @@ async function displaySecurityDetails (postmanJSON) {
             connectors: [{
                 id: 'asset-allocations',
                 type: 'MorningstarSecurityCompare',
-                options: {
-                    postman: {
-                        environmentJSON: postmanJSON
-                    },
-                    converters: ['AssetAllocations'],
-                    security: {
-                        ids,
-                        idType: 'MSID'
-                    }
+                postman: {
+                    environmentJSON: postmanJSON
+                },
+                converters: ['AssetAllocations'],
+                security: {
+                    ids,
+                    idType: 'MSID'
                 }
             }]
         },

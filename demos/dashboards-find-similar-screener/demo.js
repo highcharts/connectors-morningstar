@@ -32,31 +32,29 @@ function displayFindSimilarScreener (postmanJSON) {
                 {
                     id: 'find-similar-screener',
                     type: 'MorningstarInvestmentScreener',
-                    options: {
-                        page: 1,
-                        pageSize: 20,
-                        languageId: 'en-GB',
-                        currencyId: 'USD',
-                        securityDataPoints: secIds,
-                        universeIds: ['FOESP$$ALL'],
-                        sortOrder: 'Name+Asc',
-                        filters: [
-                            {
-                                dataPointId: 'CategoryId',
-                                comparatorCode: 'EQ',
-                                // The returned list will be similar to the
-                                // chosen fund
-                                value: 'EUCA000591'
-                            },
-                            {
-                                dataPointId: 'OngoingCharge',
-                                comparatorCode: 'LT',
-                                value: 3
-                            }
-                        ],
-                        postman: {
-                            environmentJSON: postmanJSON
+                    page: 1,
+                    pageSize: 20,
+                    languageId: 'en-GB',
+                    currencyId: 'USD',
+                    securityDataPoints: secIds,
+                    universeIds: ['FOESP$$ALL'],
+                    sortOrder: 'Name+Asc',
+                    filters: [
+                        {
+                            dataPointId: 'CategoryId',
+                            comparatorCode: 'EQ',
+                            // The returned list will be similar to the
+                            // chosen fund
+                            value: 'EUCA000591'
+                        },
+                        {
+                            dataPointId: 'OngoingCharge',
+                            comparatorCode: 'LT',
+                            value: 3
                         }
+                    ],
+                    postman: {
+                        environmentJSON: postmanJSON
                     }
                 }
             ]
@@ -67,9 +65,8 @@ function displayFindSimilarScreener (postmanJSON) {
                 connector: {
                     id: 'find-similar-screener'
                 },
-                type: 'DataGrid',
-                dataGridOptions: {
-                    editable: false,
+                type: 'Grid',
+                gridOptions: {
                     columns
                 },
                 title: 'Find Similar Investments to EUR Money Market Fund'

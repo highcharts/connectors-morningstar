@@ -1,10 +1,13 @@
 import * as Assert from 'node:assert/strict';
+import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar.src';
 
 export async function PerformanceConnectorLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.PerformanceConnector({
+        id: '',
+        type: '',
         api,
         viewId: 'All',
         configId: 'QuickPortfolio',
@@ -63,7 +66,7 @@ export async function PerformanceConnectorLoad (
     ];
 
     const actualCalendarYearReturnColumns =
-        connector.dataTables.CalendarYearReturn.getColumnNames();
+        connector.dataTables.CalendarYearReturn.getColumnIds();
 
     Assert.deepStrictEqual(
         actualCalendarYearReturnColumns.sort(),
@@ -100,7 +103,7 @@ export async function PerformanceConnectorLoad (
         'StandardDeviation_FOUSA04BCR'
     ];
 
-    const actualRiskStatisticsColumns = connector.dataTables.RiskStatistics.getColumnNames();
+    const actualRiskStatisticsColumns = connector.dataTables.RiskStatistics.getColumnIds();
 
     Assert.deepStrictEqual(
         actualRiskStatisticsColumns.sort(),
@@ -125,7 +128,7 @@ export async function PerformanceConnectorLoad (
     ];
 
     Assert.deepStrictEqual(
-        connector.dataTables.MPTStatistics.getColumnNames().sort(),
+        connector.dataTables.MPTStatistics.getColumnIds().sort(),
         expectedMPTStatisticsColumns.sort(),
         'MPTStatistics converter should return expected column names.'
     );
@@ -136,7 +139,7 @@ export async function PerformanceConnectorLoad (
     );
 
     const actualTrailingReturnColumns =
-        connector.dataTables.TrailingReturns.getColumnNames();
+        connector.dataTables.TrailingReturns.getColumnIds();
 
     Assert.deepStrictEqual(
         actualTrailingReturnColumns.sort(),

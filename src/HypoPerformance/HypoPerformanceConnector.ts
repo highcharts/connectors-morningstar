@@ -36,12 +36,6 @@ import HypoJSON from './HypoPerformanceJSON';
 
 /* *
  *
- *  Declarations
- *
- * */
-
-/* *
- *
  *  Interfaces
  *
  * */
@@ -49,13 +43,6 @@ import HypoJSON from './HypoPerformanceJSON';
 export interface HypoConverter extends MorningstarConverter {
     parse(options: HypoConverterOptions, hasMultiple?: boolean): void;
 }
-
-
-/* *
- *
- *  Functions
- *
- * */
 
 
 /* *
@@ -78,6 +65,16 @@ const DATA_TABLES = [
 
 export class HypoPerformanceConnector extends PAUSConnector {
 
+    /**
+     *
+     * Static Properties
+     *
+     */
+
+    protected static readonly defaultOptions: Partial<HypoPerformanceOptions> = {
+        id: 'morningstar-hypo-performance',
+        type: 'MorningstarHypoPerformance'
+    };
 
     /* *
      *
@@ -89,7 +86,13 @@ export class HypoPerformanceConnector extends PAUSConnector {
     public constructor (
         options: HypoPerformanceOptions
     ) {
-        super(options, DATA_TABLES);
+        options = {
+            ...HypoPerformanceConnector.defaultOptions,
+            ...options,
+            dataTables: DATA_TABLES
+        };
+
+        super(options);
 
         this.options = options;
     }
@@ -134,7 +137,7 @@ export class HypoPerformanceConnector extends PAUSConnector {
             json
         };
 
-        return this.setModifierOptions(this.options.dataModifier);
+        return this.applyTableModifiers();
     }
 
     protected getPayload (): HypoPerformanceRequestPayload {

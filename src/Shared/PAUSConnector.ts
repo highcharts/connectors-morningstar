@@ -26,7 +26,6 @@ import MorningstarConnector from './MorningstarConnector';
 import MorningstarURL from './MorningstarURL';
 import MorningstarAPI from './MorningstarAPI';
 import type PAUSOptions from './PAUSOptions';
-import * as External from './External';
 import { PAUSPayload } from './PAUSOptions';
 import MorningstarRegion from './MorningstarRegion';
 
@@ -49,10 +48,9 @@ export abstract class PAUSConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: PAUSOptions,
-        dataTables: Array<External.DataTableOptions> = []
+        options: PAUSOptions
     ) {
-        super(options, dataTables);
+        super(options);
 
         this.options = options;
     }
