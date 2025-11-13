@@ -1,6 +1,17 @@
 Changelog
 =========
 
+v2.2.0
+------
+
+## What's Changed
+
+### Enhancements
+* Dashboards v4 compatibility adjustments in https://github.com/highcharts/connectors-morningstar/pull/149
+
+
+**Full Changelog**: https://github.com/highcharts/connectors-morningstar/compare/v2.1.1...v2.2.0
+
 v2.1.1
 ------
 
