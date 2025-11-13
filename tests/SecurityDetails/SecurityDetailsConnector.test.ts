@@ -248,7 +248,6 @@ export async function portfolioHoldingsLoad (
             'MarketValue',
             'GlobalSectorId',
             'NumberOfShare',
-            'ShareChange',
             'LocalCurrencyCode',
             'GICSIndustryId'
         ].sort(),
