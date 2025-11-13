@@ -313,7 +313,6 @@ export async function portfolioHoldings (
             'MarketValue_F0GBR050DD',
             'GlobalSectorId_F0GBR050DD',
             'NumberOfShare_F0GBR050DD',
-            'ShareChange_F0GBR050DD',
             'LocalCurrencyCode_F0GBR050DD',
             'GICSIndustryId_F0GBR050DD',
             'Id_F00000Q5PZ',
