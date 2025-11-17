@@ -35,7 +35,7 @@ import type {
  * */
 
 
-export interface InvestmentDetailsOptions extends MorningstarOptions {
+export interface DWSOptions extends MorningstarOptions {
     langcult?: string;
 }
 
@@ -47,4 +47,4 @@ export interface InvestmentDetailsOptions extends MorningstarOptions {
  * */
 
 
-export default InvestmentDetailsOptions;
+export default DWSOptions;

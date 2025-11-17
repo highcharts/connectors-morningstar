@@ -22,8 +22,8 @@
  * */
 
 
-import InvestmentDetailsConnector from '../../InvestmentDetailsConnector';
-import InvestmentDetailsOptions from '../../InvestmentDetailsOptions';
+import DWSConnector from '../../DWSConnector';
+import DWSOptions from '../../DWSOptions';
 
 
 /* *
@@ -33,9 +33,9 @@ import InvestmentDetailsOptions from '../../InvestmentDetailsOptions';
  * */
 
 
-export class FakeConnector extends InvestmentDetailsConnector {
+export class FakeConnector extends DWSConnector {
     public constructor (
-        options: InvestmentDetailsOptions
+        options: DWSOptions
     ) {
         super(options);
 
@@ -49,7 +49,7 @@ export class FakeConnector extends InvestmentDetailsConnector {
      *
      * */
 
-    public override readonly options: InvestmentDetailsOptions;
+    public override readonly options: DWSOptions;
 
     /* *
      *
@@ -58,7 +58,7 @@ export class FakeConnector extends InvestmentDetailsConnector {
      * */
 
     public override async load (): Promise<any> {
-        this.url = '/0P00000FIA/asset-Allocation-Breakdown';
+        this.url = 'investments/0P00000FIA/asset-Allocation-Breakdown';
 
         await super.load();
 

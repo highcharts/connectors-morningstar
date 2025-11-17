@@ -22,7 +22,7 @@
  * */
 
 
-import type InvestmentDetailsOptions from './InvestmentDetailsOptions';
+import type DWSOptions from './DWSOptions';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
 import MorningstarAPI from '../Shared/MorningstarAPI';
@@ -36,7 +36,7 @@ import MorningstarRegion from '../Shared/MorningstarRegion';
  * */
 
 
-export abstract class InvestmentDetailsConnector extends MorningstarConnector {
+export abstract class DWSConnector extends MorningstarConnector {
 
 
     /* *
@@ -47,7 +47,7 @@ export abstract class InvestmentDetailsConnector extends MorningstarConnector {
 
 
     public constructor (
-        options: InvestmentDetailsOptions
+        options: DWSOptions
     ) {
         super(options);
 
@@ -62,7 +62,7 @@ export abstract class InvestmentDetailsConnector extends MorningstarConnector {
      * */
 
 
-    public override readonly options: InvestmentDetailsOptions;
+    public override readonly options: DWSOptions;
 
     public response?: Response;
 
@@ -82,7 +82,7 @@ export abstract class InvestmentDetailsConnector extends MorningstarConnector {
         const api = this.api = this.api || new MorningstarAPI(this.options.api);
 
         const fullUrl = new MorningstarURL(
-            `/direct-web-services/v1/investments${this.url}?langcult=${this.options.langcult || 'en-US'}`,
+            `/direct-web-services/v1/${this.url}?langcult=${this.options.langcult || 'en-US'}`,
             this.options?.api?.url || MorningstarRegion.baseURLs['Americas']
         );
 
@@ -105,4 +105,4 @@ export abstract class InvestmentDetailsConnector extends MorningstarConnector {
  * */
 
 
-export default InvestmentDetailsConnector;
+export default DWSConnector;

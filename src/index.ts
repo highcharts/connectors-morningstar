@@ -35,7 +35,7 @@ import XRay from './XRay/index';
 import Performance from './Performance/index';
 import HypoPerformance from './HypoPerformance/index';
 import XRayUS from './XRayUS/index';
-import FakeConnector from './InvestmentDetails/FundData/FakeConnector/FakeConnector';
+import FakeConnector from './DirectWebServices/FundData/FakeConnector/FakeConnector';
 
 /* *
  *
@@ -57,7 +57,7 @@ export * from './XRay/index';
 export * from './Performance/index';
 export * from './HypoPerformance/index';
 export * from './XRayUS/index';
-export * from './InvestmentDetails/FundData/FakeConnector/FakeConnector';
+export * from './DirectWebServices/FundData/FakeConnector/FakeConnector';
 /* *
  *
  *  Default Export
