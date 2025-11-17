@@ -11,6 +11,16 @@
     "bin": "bin/connectors-morningstar.js",
     "main": "code/es-modules/index.js",
     "types": "code/es-modules/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./code/es-modules/index.js",
+            "types": "./code/es-modules/index.d.ts"
+        },
+        "./dws": {
+            "import": "./code/es-modules/index-dws.js",
+            "types": "./code/es-modules/index-dws.d.ts"
+        }
+    },
     "devDependencies": {
         "@aws-sdk/client-s3": "^3.592.0",
         "@aws-sdk/credential-providers": "^3.592.0",
@@ -70,8 +80,9 @@
         "test:tests": "ts-node tools/tests",
         "watch": "tsc -p src/ -w",
         "webpack": "npm run scripts && webpack && npm run webpack:dts",
-        "webpack:dts": "npm run webpack:dts:cm",
+        "webpack:dts": "npm run webpack:dts:cm && npm run webpack:dts:cm-dws",
         "webpack:dts:cm": "cp src/webpack.d.ts code/connectors-morningstar.d.ts && cp src/webpack.d.ts code/connectors-morningstar.src.d.ts",
+        "webpack:dts:cm-dws": "cp src/webpack-dws.d.ts code/connectors-morningstar-dws.d.ts && cp src/webpack-dws.d.ts code/connectors-morningstar-dws.src.d.ts",
         "webpack:dts:dbm": "cp src/webpack.d.ts code/dashboards-morningstar.d.ts && cp src/webpack.d.ts code/dashboards-morningstar.src.d.ts",
         "webpack:dts:dgm": "cp src/webpack.d.ts code/datagrid-morningstar.d.ts && cp src/webpack.d.ts code/datagrid-morningstar.src.d.ts",
         "webpack:dts:hcm": "cp src/webpack.d.ts code/highcharts-morningstar.d.ts && cp src/webpack.d.ts code/highcharts-morningstar.src.d.ts"

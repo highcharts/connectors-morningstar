@@ -16,6 +16,7 @@
         ]
     },
     "files": [
-        "index.ts"
+        "index.ts",
+        "index-dws.ts"
     ]
 }
