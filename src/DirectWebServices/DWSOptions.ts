@@ -36,7 +36,7 @@ import type {
 
 
 export interface DWSOptions extends MorningstarOptions {
-    langcult?: string;
+    languageId?: 'ENG' | 'SPA' | 'FRA' | 'DEU' | 'ITA' | 'JPN' | 'CHI' | 'ZHO' | 'KOR';
 }
 
 
