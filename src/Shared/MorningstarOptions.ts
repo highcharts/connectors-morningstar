@@ -33,6 +33,11 @@ import type * as External from './External';
 
 
 export interface MorningstarAPIOptions {
+    /**
+     * Internal flag to indicate that the credentials are used for the
+     * Morningstar Direct Web Services new API.
+     */
+    isDWS?: boolean;
 
     /**
      * Access options to get authorized access to the Morningstar Direct Web
@@ -76,7 +81,7 @@ export interface MorningstarAccessOptions {
      * Absolute URL or relative URL path to the API to be used.
      *
      * Defaults to the nearest region of the Morningstar Direct Web Services
-     * based on the browser localization settings. 
+     * based on the browser localization settings.
      */
     url?: string;
 
@@ -86,6 +91,15 @@ export interface MorningstarAccessOptions {
      */
     username?: string;
 
+    /**
+     * Password for the Morningstar Direct Web Services new API.
+     */
+    dwsPassword?: string;
+
+    /**
+     * Username for the Morningstar Direct Web Services new API.
+     */
+    dwsUsername?: string;
 }
 
 
@@ -165,6 +179,8 @@ export interface MorningstarOptions extends External.DataConnectorOptions {
      * Options to configure the connector from provided Postman files.
      */
     postman?: MorningstarPostmanOptions;
+
+    isDWS?: boolean;
 
 }
 

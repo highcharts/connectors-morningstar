@@ -85,7 +85,7 @@ export class MorningstarAPI {
         );
         this.version = (this.version > 0 ? this.version : 1);
 
-        this.access = new MorningstarAuthentication(options.access);
+        this.access = new MorningstarAuthentication(options);
 
     }
 

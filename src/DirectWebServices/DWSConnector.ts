@@ -77,6 +77,9 @@ export abstract class DWSConnector extends MorningstarConnector {
 
 
     public override async load (): Promise<this> {
+        if (this.options.api) {
+            this.options.api.isDWS = true;
+        }
         await super.load();
 
         const api = this.api = this.api || new MorningstarAPI(this.options.api);
