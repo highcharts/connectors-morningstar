@@ -109,6 +109,7 @@ export class XRayUSConnector extends PAUSConnector {
                 }, hasMultiple);
             }
 
+            this.dataTables[key].metadata = converter.getTable().metadata;
             this.dataTables[key].setColumns(converter.getTable().getColumns());
         }
 
