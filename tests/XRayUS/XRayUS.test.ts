@@ -1,6 +1,7 @@
 import * as Assert from 'node:assert/strict';
 import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar.src';
+import type { DataTableValue } from '@highcharts/dashboards/es-modules/Data/DataTableOptions';
 
 export async function xRayUSConnectorLoad (
     api: MC.Shared.MorningstarAPIOptions
@@ -283,6 +284,30 @@ export async function xRayUSConnectorLoad (
     Assert.ok(
         connector.dataTables.FundStatistics.getRowCount() > 0,
         'FundStatistics table should not contain empty rows.'
+    );
+
+    const fundStatisticsMetadata =
+        connector.dataTables.FundStatistics.metadata as Record<string, DataTableValue>;
+
+    Assert.ok(
+        fundStatisticsMetadata,
+        'Metadata should be defined for the FundStatistics table.'
+    );
+
+    Assert.deepStrictEqual(
+        Object.keys(fundStatisticsMetadata).sort(),
+        [
+            'PortfolioAnalyzed',
+            'Analyzed_FOUSA00C3O',
+            'NotAnalyzed_FOUSA00C3O',
+            'Analyzed_0P0000BVN5',
+            'NotAnalyzed_0P0000BVN5',
+            'Analyzed_FOUSA00DFS',
+            'NotAnalyzed_FOUSA00DFS',
+            'Analyzed_F00000VCTT',
+            'NotAnalyzed_F00000VCTT'
+        ].sort(),
+        'FundStatistics metadata should contain valid keys.'
     );
 
     Assert.deepStrictEqual(
