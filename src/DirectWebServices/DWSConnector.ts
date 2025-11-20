@@ -85,7 +85,7 @@ export abstract class DWSConnector extends MorningstarConnector {
         const api = this.api = this.api || new MorningstarAPI(this.options.api);
 
         const fullUrl = new MorningstarURL(
-            `/direct-web-services/v1/${this.url}?languageId=${this.options.languageId}`,
+            `/direct-web-services/v1/${this.url}?languageId=${this.options.languageId || 'ENG'}`,
             this.options?.api?.url || MorningstarRegion.baseURLs['Americas']
         );
 
