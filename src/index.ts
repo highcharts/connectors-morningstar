@@ -35,7 +35,7 @@ import XRay from './XRay/index';
 import Performance from './Performance/index';
 import HypoPerformance from './HypoPerformance/index';
 import XRayUS from './XRayUS/index';
-import FakeConnector from './DirectWebServices/FundData/FakeConnector/FakeConnector';
+import RegionExposure from './DirectWebServices/FundData/RegionExposure/index';
 
 /* *
  *
@@ -57,7 +57,8 @@ export * from './XRay/index';
 export * from './Performance/index';
 export * from './HypoPerformance/index';
 export * from './XRayUS/index';
-export * from './DirectWebServices/FundData/FakeConnector/FakeConnector';
+export * from './DirectWebServices/FundData/RegionExposure/index';
+
 /* *
  *
  *  Default Export
@@ -78,6 +79,6 @@ export default {
     Performance,
     HypoPerformance,
     XRayUS,
-    FakeConnector,
+    RegionExposure,
     version
 };
