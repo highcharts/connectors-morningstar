@@ -11,7 +11,7 @@ async function displaySecurityDetails (postmanJSON) {
             environmentJSON: postmanJSON
         },
         security: {
-            id: '0P00000FIA',
+            id: '0P0000XTUQ',
             idType: 'performanceId'
         }
     });
@@ -31,8 +31,7 @@ async function displaySecurityDetails (postmanJSON) {
             text: connector.metadata.performanceId
         },
         xAxis: {
-            type: 'category',
-            categories: dataTable.getColumn('Region')
+            type: 'category'
         },
         yAxis: {
             labels: {
