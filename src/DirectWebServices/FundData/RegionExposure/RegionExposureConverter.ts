@@ -31,12 +31,19 @@ import MorningstarConverter from '../../../Shared/MorningstarConverter';
  *
  */
 
-
 const PREFIXES = {
     Equity: 'equityRegion',
     FixedIncome: 'fixedIncRegion',
+    FixedIncomeGeographic: 'fixdIncGeographic',
     RevenueExposure: 'revenueExposureByRegionPerc'
 };
+
+const GEO_SUBPREFIXES = [
+    'DevelopmentStatusBreakdown',
+    'SuperRegionBreakdown',
+    'PrimaryRegionBreakdown',
+    'RegionBreakdown'
+] as const;
 
 const REGIONS: Record<string, string> = {
     Africa: 'Africa',
@@ -49,6 +56,7 @@ const REGIONS: Record<string, string> = {
     Australasia: 'Australasia',
     Canada: 'Canada',
     Developed: 'Developed Markets',
+    EuropeDeveloped: 'Europe (Developed)',
     EuropeDev: 'Europe (Developed)',
     EuropeEmrg: 'Europe (Emerging)',
     EuropeEmerging: 'Europe (Emerging)',
@@ -65,17 +73,21 @@ const REGIONS: Record<string, string> = {
     Mideast: 'Middle East',
     NorthAmerica: 'North America',
     NotClassified: 'Not Classified',
+    Uk: 'United Kingdom',
     Unclassified: 'Not Classified',
     UnitedKingdom: 'United Kingdom',
-    Uk: 'United Kingdom',
     UnitedStates: 'United States',
+    Unknown: 'Unknown',
     Us: 'United States'
 };
 
 const SUFFIXES = [
     'PercLongRescaled',
     'PercLong',
-    'PercNet'
+    'PercNet',
+    'CalcShortFiperc',
+    'CalcNetFiperc',
+    'CalcLongFiperc'
 ];
 
 export class RegionExposureConverter extends MorningstarConverter {
@@ -153,11 +165,20 @@ export class RegionExposureConverter extends MorningstarConverter {
                 // If no suffix found, fallback to 'Perc' for RevenueExposure
                 const suffix = SUFFIXES.find(s => key.endsWith(s)) || 'Perc';
 
-                const regionKey =
-                    type === 'RevenueExposure' ?
-                        key.slice(prefix.length) :
-                        key.slice(prefix.length, key.length - suffix.length);
 
+                let regionKey;
+                if (type === 'RevenueExposure') {
+                    regionKey = key.slice(prefix.length);
+                } else if (type === 'FixedIncomeGeographic') {
+                    let rest = key.slice(prefix.length);
+                    const sub = GEO_SUBPREFIXES.find(s => rest.startsWith(s));
+                    if (!sub) continue;
+
+                    rest = rest.slice(sub.length);
+                    regionKey = rest.slice(0, rest.length - suffix.length);
+                } else {
+                    regionKey = key.slice(prefix.length, key.length - suffix.length);
+                }
                 const region = REGIONS[regionKey];
 
                 let rowIndex = rowIndexByRegion[region];
