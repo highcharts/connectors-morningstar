@@ -85,19 +85,20 @@ export class FundStatisticsConverter extends MorningstarConverter {
 
         if (securityBreakdown) {
             for (const security of securityBreakdown) {
-                const securityItem = security.FundStatisticsItem;
+                const securityItem = security.FundStatisticsItem,
+                    securityId = security.SecurityId;
                 let rowIndex = 0;
 
                 // Set empty columns for all securities
-                table.setColumn('Value_' + security.SecurityId);
+                table.setColumn('Value_' + securityId);
 
                 // Set metadata props for each security
-                metadata[`Analyzed_${security.SecurityId}`] = security.Analyzed;
-                metadata[`NotAnalyzed_${security.SecurityId}`] = security.NotAnalyzed;
+                metadata[`Analyzed_${securityId}`] = security.Analyzed;
+                metadata[`NotAnalyzed_${securityId}`] = security.NotAnalyzed;
 
                 for (const key of Object.keys(securityItem) as Array<keyof typeof securityItem>) {
                     table.setCell('Type', rowIndex, key);
-                    table.setCell('Value_' + security.SecurityId, rowIndex, securityItem[key]);
+                    table.setCell('Value_' + securityId, rowIndex, securityItem[key]);
 
                     ++rowIndex;
                 }
