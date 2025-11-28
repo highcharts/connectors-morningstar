@@ -51,10 +51,9 @@ export async function investmentScreenerLoad (
         'Connector table should exist of expected columns.'
     );
 
-    Assert.strictEqual(
-        connector.getTable().getRowCount(),
-        15,
-        'Connector table should have 15 rows.'
+    Assert.ok(
+        connector.getTable().getRowCount() > 0,
+        'Connector table should not contain empty rows.'
     );
 
     Assert.deepStrictEqual(

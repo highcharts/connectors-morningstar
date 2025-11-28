@@ -120,6 +120,15 @@ const metas: Record<string, Meta> = {
             commonjs,
             root: ['HighchartsConnectors', 'Morningstar']
         }
+    },
+    standaloneDws: {
+        filename: 'connectors-morningstar-dws.js',
+        noExternals: true,
+        umdNames: {
+            amd: 'highcharts/connectors-morningstar-dws',
+            commonjs,
+            root: ['HighchartsConnectors', 'Morningstar']
+        }
     }
 };
 
@@ -146,7 +155,10 @@ const webpacks: Array<Configuration> = Object.keys(metas).map(variant => ({
     ...sharedConfiguration,
 
     // Path to the main file
-    entry: Path.resolve(projectFolder, `${sourceFolder}/index.js`),
+    entry: Path.resolve(
+        projectFolder,
+        `${sourceFolder}/${(variant !== 'standaloneDws') ? 'index' : 'index-dws'}.js`
+    ),
 
     externals,
 
