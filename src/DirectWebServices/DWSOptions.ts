@@ -43,7 +43,7 @@ export interface DWSResponse {
 }
 
 export interface DWSMetadata extends MorningstarMetadata {
-    rawResponses: Array<{ type: InvestmentsConverterType; json: any }>;
+    rawResponses: Array<{ type: InvestmentsConverterType; json: unknown }>;
 }
 
 export interface DWSOptions extends MorningstarOptions {
