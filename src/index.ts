@@ -35,7 +35,7 @@ import XRay from './XRay/index';
 import Performance from './Performance/index';
 import HypoPerformance from './HypoPerformance/index';
 import XRayUS from './XRayUS/index';
-import RegionExposure from './DirectWebServices/FundData/RegionExposure/index';
+import InvestmentsConnector from './DirectWebServices/InvestmentsConnector/InvestmentsConnector';
 
 /* *
  *
@@ -57,8 +57,7 @@ export * from './XRay/index';
 export * from './Performance/index';
 export * from './HypoPerformance/index';
 export * from './XRayUS/index';
-export * from './DirectWebServices/FundData/RegionExposure/index';
-
+export * from './DirectWebServices/InvestmentsConnector/InvestmentsConnector';
 /* *
  *
  *  Default Export
@@ -79,6 +78,6 @@ export default {
     Performance,
     HypoPerformance,
     XRayUS,
-    RegionExposure,
+    InvestmentsConnector,
     version
 };

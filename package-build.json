@@ -10,6 +10,16 @@
     "bin": "bin/connectors-morningstar.js",
     "main": "es-modules/index.js",
     "types": "es-modules/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./code/es-modules/index.js",
+            "types": "./code/es-modules/index.d.ts"
+        },
+        "./dws": {
+            "import": "./code/es-modules/index-dws.js",
+            "types": "./code/es-modules/index-dws.d.ts"
+        }
+    },
     "files": [
         "bin/",
         "demos/",
@@ -20,6 +30,9 @@
         "*-morningstar.d.ts",
         "*-morningstar.js",
         "*-morningstar.src.js",
+        "*-morningstar-dws.d.ts",
+        "*-morningstar-dws.js",
+        "*-morningstar-dws.src.js",
         "README.md"
     ],
     "keywords": [

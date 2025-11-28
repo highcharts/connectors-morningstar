@@ -22,9 +22,8 @@
  * */
 
 
-import type {
-    MorningstarOptions
-} from '../Shared/MorningstarOptions';
+import type { MorningstarMetadata, MorningstarOptions } from '../Shared/MorningstarOptions';
+import type { InvestmentsConverterType } from './InvestmentsConnector/InvestmentsOptions';
 
 
 /* *
@@ -34,9 +33,23 @@ import type {
  *
  * */
 
+export interface DWSRequest {
+    url: string;
+    type: InvestmentsConverterType;
+}
+
+export interface DWSResponse {
+    [key: string]: Response;
+}
+
+export interface DWSMetadata extends MorningstarMetadata {
+    rawResponses: Array<{ type: InvestmentsConverterType; json: any }>;
+}
 
 export interface DWSOptions extends MorningstarOptions {
     languageId?: 'ENG' | 'SPA' | 'FRA' | 'DEU' | 'ITA' | 'JPN' | 'CHI' | 'ZHO' | 'KOR';
+
+    requests?: Array<DWSRequest>;
 }
 
 

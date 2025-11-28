@@ -23,6 +23,7 @@
 
 import MorningstarConverter from '../MorningstarConverter';
 import type { XRayUSConverterOptions } from '../../XRayUS/XRayUSOptions';
+import { DataTableValue } from '@highcharts/dashboards/es-modules/Data/DataTableOptions';
 
 /* *
  *
@@ -45,7 +46,11 @@ export class FundStatisticsConverter extends MorningstarConverter {
         options?: XRayUSConverterOptions
     ) {
         super(options);
+
+        this.metadata = {};
     }
+
+    public readonly metadata: Record<string, DataTableValue>;
 
 
     /* *
@@ -60,14 +65,11 @@ export class FundStatisticsConverter extends MorningstarConverter {
         hasMultiple?: boolean
     ): void {
         const table = this.table,
+            metadata = this.metadata,
             columnSuffix = hasMultiple ? `_${options.json.PortfolioName}` : '',
             fundStatistics = options.json.Statistics.FundStatistics,
             portfolio = fundStatistics.Portfolio,
             securityBreakdown = fundStatistics.SecurityBreakdown;
-
-        // TODO:
-        // Add dataTable metadata properties Analyzed and NotAnalyzed
-        // for portfolio & securityBreakdown with upcoming major Dash release
 
         if (portfolio) {
             let rowIndex = 0;
@@ -78,24 +80,32 @@ export class FundStatisticsConverter extends MorningstarConverter {
 
                 ++rowIndex;
             }
+            metadata.PortfolioAnalyzed = fundStatistics.PortfolioAnalyzed;
         }
 
         if (securityBreakdown) {
             for (const security of securityBreakdown) {
-                const securityItem = security.FundStatisticsItem;
+                const { Analyzed, FundStatisticsItem, NotAnalyzed, SecurityId } = security;
                 let rowIndex = 0;
 
                 // Set empty columns for all securities
-                table.setColumn('Value_' + security.SecurityId);
+                table.setColumn('Value_' + SecurityId);
 
-                for (const key of Object.keys(securityItem) as Array<keyof typeof securityItem>) {
+                // Set metadata props for each security
+                metadata[`Analyzed_${SecurityId}`] = Analyzed;
+                metadata[`NotAnalyzed_${SecurityId}`] = NotAnalyzed;
+
+                for (const key of Object.keys(FundStatisticsItem) as Array<keyof typeof FundStatisticsItem>) {
                     table.setCell('Type', rowIndex, key);
-                    table.setCell('Value_' + security.SecurityId, rowIndex, securityItem[key]);
+                    table.setCell('Value_' + SecurityId, rowIndex, FundStatisticsItem[key]);
 
                     ++rowIndex;
                 }
             }
         }
+
+        table.metadata = this.metadata;
+
     }
 }
 
