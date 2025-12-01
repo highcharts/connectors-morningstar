@@ -19,7 +19,8 @@ async function displaySecurityDetails (postmanJSON) {
             },
             MockBasicDetails: {
                 // extra converter options here
-            }
+            },
+            SectorsBreakdown: {}
         }
     });
 

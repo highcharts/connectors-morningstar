@@ -34,7 +34,6 @@ export function createMockAssetAllocRequest (
     };
 }
 
-
 export function createMockBasicDetailsRequest (
     converter: InvestmentsConverterOptions,
     security: InvestmentsSecurityOptions
@@ -44,5 +43,17 @@ export function createMockBasicDetailsRequest (
     return {
         type: 'MockBasicDetails',
         url: `investments/${id}/investment-Basic-Details`
+    };
+}
+
+export function createSectorsBreakdownRequest (
+    converter: InvestmentsConverterOptions,
+    security: InvestmentsSecurityOptions
+): DWSRequest {
+    const { id } = security;
+
+    return {
+        type: 'SectorsBreakdown',
+        url: `investments/${id}/morningstar-equity-sectors-breakdown`
     };
 }

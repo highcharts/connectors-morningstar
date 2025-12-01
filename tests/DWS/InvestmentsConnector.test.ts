@@ -1,6 +1,6 @@
 import * as Assert from 'node:assert/strict';
 import '@highcharts/dashboards/es-modules/masters/dashboards.src';
-import * as MC from '../../code/connectors-morningstar.src';
+import * as MC from '../../code/connectors-morningstar-dws.src';
 
 export async function investmentsConnectorLoad (
     api: MC.Shared.MorningstarAPIOptions

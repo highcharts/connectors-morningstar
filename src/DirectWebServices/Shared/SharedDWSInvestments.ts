@@ -23,10 +23,12 @@
 
 import {
     createMockAssetAllocRequest,
-    createMockBasicDetailsRequest
+    createMockBasicDetailsRequest,
+    createSectorsBreakdownRequest
 } from './SharedDWSRequests';
 import MockAssetAllocConverter from './DWSConverters/MockAssetAllocConverter';
 import MockBasicDetailsConverter from './DWSConverters/MockBasicDetailsConverter';
+import SectorsBreakdownConverter from '../Sectors/SectorsBreakdownConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
@@ -45,6 +47,7 @@ import type { MorningstarConverterOptions } from '../../Shared';
  * */
 
 const DATA_TABLES: { key: InvestmentsConverterType }[] = [
+    { key: 'SectorsBreakdown' },
     { key: 'MockAssetAlloc' },
     { key: 'MockBasicDetails' }
 ];
@@ -93,6 +96,9 @@ export function createRequests (
             case 'MockBasicDetails':
                 requests.push(createMockBasicDetailsRequest(converters[type], security));
                 break;
+            case 'SectorsBreakdown':
+                requests.push(createSectorsBreakdownRequest(converters[type], security));
+                break;
         }
     }
 
@@ -107,5 +113,7 @@ export function initConverter (
             return new MockAssetAllocConverter();
         case 'MockBasicDetails':
             return new MockBasicDetailsConverter();
+        case 'SectorsBreakdown':
+            return new SectorsBreakdownConverter();
     }
 }

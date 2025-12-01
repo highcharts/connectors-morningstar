@@ -113,7 +113,7 @@ export class InvestmentsConnector extends DWSConnector {
             const json = await response?.json() as MorningstarConverterOptions;
             const converter = initConverter(type);
 
-            converter.parse(json);
+            converter.parse({ json });
 
             this.dataTables[type].setColumns(converter.getTable().getColumns());
 
