@@ -24,11 +24,11 @@
 import type {
     MorningstarConverterOptions,
     MorningstarMetadata
-} from '../../../Shared/MorningstarOptions';
-import { Message } from '../FundDataJSON';
-import RegionExposureJSON from './RegionExposureJSON';
+} from '../../../../Shared';
+import type { Message } from '../../../InvestmentsConnector/InvestmentsJSON';
+import type RegionExposureJSON from './RegionExposureJSON';
 
-export interface RegionExposureConverterOptions extends MorningstarConverterOptions {
+export interface RegionExposureOptions extends MorningstarConverterOptions {
     json: RegionExposureJSON.RegionExposureResponse;
 }
 

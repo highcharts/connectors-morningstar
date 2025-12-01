@@ -7,13 +7,11 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- *  - Jedrzej Ruta
+ *  - Pawel Dalek
  *
  * */
 
-
 'use strict';
-
 
 /* *
  *
@@ -21,8 +19,7 @@
  *
  * */
 
-
-import RegionExposureConnector from './RegionExposureConnector';
+import InvestmentsConnector from './InvestmentsConnector';
 
 
 /* *
@@ -31,11 +28,7 @@ import RegionExposureConnector from './RegionExposureConnector';
  *
  * */
 
-
-export * from './RegionExposureConnector';
-export * from './RegionExposureConverter';
-export * from './RegionExposureOptions';
-
+export * from './InvestmentsConnector';
 
 /* *
  *
@@ -43,5 +36,4 @@ export * from './RegionExposureOptions';
  *
  * */
 
-
-export default RegionExposureConnector;
+export default InvestmentsConnector;

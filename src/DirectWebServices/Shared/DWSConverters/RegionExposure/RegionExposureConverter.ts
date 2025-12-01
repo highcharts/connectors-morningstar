@@ -7,7 +7,7 @@
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
  *  Authors:
- * - Jedrzej Ruta
+ *  - Jedrzej Ruta
  *
  * */
 
@@ -16,20 +16,21 @@
 
 
 /* *
- *
- *  Imports
- *
- * */
+*
+*  Imports
+*
+* */
 
-import { RegionExposureConverterOptions, RegionExposureMetadata } from './RegionExposureOptions';
-import MorningstarConverter from '../../../Shared/MorningstarConverter';
 
+import type { RegionExposureOptions } from './RegionExposureOptions';
+import MorningstarConverter from '../../../../Shared/MorningstarConverter';
 
 /**
  *
  * Constants
  *
  */
+
 
 const PREFIXES = {
     Equity: 'equityRegion',
@@ -90,23 +91,29 @@ const SUFFIXES = [
     'CalcLongFiperc'
 ];
 
+/* *
+ *
+ *  Class
+ *
+ * */
+
+
 export class RegionExposureConverter extends MorningstarConverter {
 
+
     /* *
-        *
-        *  Constructor
-        *
-        * */
+     *
+     *  Constructor
+     *
+     * */
 
 
     public constructor (
-        options?: RegionExposureConverterOptions
+        options?: RegionExposureOptions
     ) {
         super(options);
 
-        this.metadata = {
-            columns: {}
-        };
+        this.metadata = {};
     }
 
     /**
@@ -115,27 +122,20 @@ export class RegionExposureConverter extends MorningstarConverter {
      *
      */
 
-    public readonly metadata: RegionExposureMetadata;
+    public readonly metadata: Record<string, unknown>;
 
 
     /* *
-        *
-        *  Functions
-        *
-        * */
+     *
+     *  Functions
+     *
+     * */
 
 
-    public override parse (
-        options: RegionExposureConverterOptions
-    ): void {
+    public override parse (options: RegionExposureOptions): void {
         const metadata = this.metadata,
             table = this.table,
-            userOptions = {
-                ...this.options,
-                ...options
-            },
-            json =
-                userOptions.json,
+            json = options.json,
             countryAndRegionalExposureBreakdown = json.countryAndRegionalExposureBreakdown;
 
         if (countryAndRegionalExposureBreakdown) {
@@ -143,13 +143,18 @@ export class RegionExposureConverter extends MorningstarConverter {
             let nextRowIndex = 0;
 
             for (const key in countryAndRegionalExposureBreakdown) {
-                // TODO: Add metadata for RescalingFactor and
-                // RevenueExposureDate
                 if (
                     key.includes('Country') ||
+                    key.includes('DevStatus')
+                ) continue;
+
+                // Assign metadata for RescalingFactor and RevenueExposureDate
+                if (
                     key.includes('Factor') ||
                     key.includes('Date')
-                ) continue;
+                ) {
+                    metadata[key] = countryAndRegionalExposureBreakdown[key];
+                }
 
                 // Cast value to number from string
                 const value = Number(countryAndRegionalExposureBreakdown[key]);
@@ -164,9 +169,8 @@ export class RegionExposureConverter extends MorningstarConverter {
 
                 // If no suffix found, fallback to 'Perc' for RevenueExposure
                 const suffix = SUFFIXES.find(s => key.endsWith(s)) || 'Perc';
-
-
                 let regionKey;
+
                 if (type === 'RevenueExposure') {
                     regionKey = key.slice(prefix.length);
                 } else if (type === 'FixedIncomeGeographic') {
@@ -179,6 +183,8 @@ export class RegionExposureConverter extends MorningstarConverter {
                 } else {
                     regionKey = key.slice(prefix.length, key.length - suffix.length);
                 }
+
+                // Assign region based on regionKey
                 const region = REGIONS[regionKey];
 
                 let rowIndex = rowIndexByRegion[region];
@@ -203,21 +209,20 @@ export class RegionExposureConverter extends MorningstarConverter {
 
         metadata.performanceId = json.identifiers.performanceId;
 
-        if (
-            json.metadata.messages &&
-            json.metadata.messages.length > 0
-        ) {
+        if (json.metadata.messages?.length) {
             metadata.messages = json.metadata.messages;
         }
+
+        (table.metadata as Record<string, unknown>) = this.metadata;
     }
 }
 
 
 /* *
-*
-*  Default Export
-*
-* */
+ *
+ *  Default Export
+ *
+ * */
 
 
 export default RegionExposureConverter;

@@ -14,7 +14,7 @@
 
 'use strict';
 
-import { InvestmentResponse } from '../FundDataJSON';
+import type { InvestmentResponse } from '../../../InvestmentsConnector/InvestmentsJSON';
 
 /* *
  *
