@@ -18,6 +18,10 @@ async function displaySecurityDetails (postmanJSON) {
 
     await connector.load();
 
+    const generalTable = connector.dataTables.GeneralAssetAlloc,
+        canadaTable = connector.dataTables.CanadianAssetAlloc,
+        underlyingTable = connector.dataTables.UnderlyingAssetAlloc;
+
     Highcharts.chart('general', {
 
         title: {
@@ -27,17 +31,17 @@ async function displaySecurityDetails (postmanJSON) {
             type: 'column'
         },
         xAxis: {
-            categories: connector.dataTables[0].getColumn('General_Type')
+            categories: generalTable.getColumn('General_Type')
         },
         series: [{
             name: 'Long',
-            data: connector.dataTables[0].getColumn('Basic_Long')
+            data: generalTable.getColumn('Basic_Long')
         }, {
             name: 'Long Rescaled',
-            data: connector.dataTables[0].getColumn('Basic_LongRescaled')
+            data: generalTable.getColumn('Basic_LongRescaled')
         }, {
             name: 'Net',
-            data: connector.dataTables[0].getColumn('Basic_Net')
+            data: generalTable.getColumn('Basic_Net')
         }]
 
     });
@@ -51,17 +55,17 @@ async function displaySecurityDetails (postmanJSON) {
             type: 'column'
         },
         xAxis: {
-            categories: connector.dataTables[0].getColumn('Can_Type')
+            categories: canadaTable.getColumn('Can_Type')
         },
         series: [{
             name: 'Long',
-            data: connector.dataTables[0].getColumn('Can_Long')
+            data: canadaTable.getColumn('Can_Long')
         }, {
             name: 'Long Rescaled',
-            data: connector.dataTables[0].getColumn('Can_LongRescaled')
+            data: canadaTable.getColumn('Can_LongRescaled')
         }, {
             name: 'Net',
-            data: connector.dataTables[0].getColumn('Can_Net')
+            data: canadaTable.getColumn('Can_Net')
         }]
 
     });
@@ -75,17 +79,17 @@ async function displaySecurityDetails (postmanJSON) {
             type: 'column'
         },
         xAxis: {
-            categories: connector.dataTables[0].getColumn('General_Type')
+            categories: generalTable.getColumn('General_Type')
         },
         series: [{
             name: 'Long',
-            data: connector.dataTables[0].getColumn('Us_Long')
+            data: generalTable.getColumn('Us_Long')
         }, {
             name: 'Long Rescaled',
-            data: connector.dataTables[0].getColumn('Us_LongRescaled')
+            data: generalTable.getColumn('Us_LongRescaled')
         }, {
             name: 'Net',
-            data: connector.dataTables[0].getColumn('Us_Net')
+            data: generalTable.getColumn('Us_Net')
         }]
 
     });
@@ -99,17 +103,35 @@ async function displaySecurityDetails (postmanJSON) {
             type: 'column'
         },
         xAxis: {
-            categories: connector.dataTables[0].getColumn('General_Type')
+            categories: generalTable.getColumn('General_Type')
         },
         series: [{
             name: 'Long',
-            data: connector.dataTables[0].getColumn('NonUs_Long')
+            data: generalTable.getColumn('NonUs_Long')
         }, {
             name: 'Long Rescaled',
-            data: connector.dataTables[0].getColumn('NonUs_LongRescaled')
+            data: generalTable.getColumn('NonUs_LongRescaled')
         }, {
             name: 'Net',
-            data: connector.dataTables[0].getColumn('NonUs_Net')
+            data: generalTable.getColumn('NonUs_Net')
+        }]
+
+    });
+
+    Highcharts.chart('underlying', {
+
+        title: {
+            text: 'Underlying Instruments'
+        },
+        chart: {
+            type: 'column'
+        },
+        xAxis: {
+            categories: underlyingTable.getColumn('Underlying_Type')
+        },
+        series: [{
+            name: 'Underlying Instruments',
+            data: underlyingTable.getColumn('UnderlyingInstruments')
         }]
 
     });

@@ -23,6 +23,7 @@ import { DataTable } from '@highcharts/dashboards';
  * */
 
 import MorningstarConverter from '../../../Shared/MorningstarConverter';
+import * as External from '../../../Shared/External';
 import {
     AssetAllocationBreakdownConverterOptions,
     AssetAllocationBreakdownMetadata 
@@ -53,6 +54,8 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
         this.metadata = {
             columns: {}
         };
+
+        this.tables = [];
     }
 
     /**
@@ -62,6 +65,7 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
      */
 
     public readonly metadata: AssetAllocationBreakdownMetadata;
+    protected tables: External.DataTable[];
 
 
     /* *
@@ -70,11 +74,10 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
      *
      * */
 
-
     public override parse (
         options: AssetAllocationBreakdownConverterOptions
     ): void {
-        const table = this.table,
+        const tables = this.tables,
             userOptions = {
                 ...this.options,
                 ...options
@@ -96,30 +99,61 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
             'FixedIncome',
             'Other'
         ] as DataTable.Column;
+
+        const underlying = [
+            'Bond',
+            'CashAndMoneyMarket',
+            'ClosedEndFund',
+            'ExchangeTradedProduct',
+            'InstitutionalInvestment',
+            'MiscellaneousSecurities',
+            'OpenEndFund',
+            'Stock'
+        ] as DataTable.Column;
+
         const SUFFIXES = ['Long', 'LongRescaled', 'Net'];
 
-        table.setColumn('General_Type', assets);
-        table.setColumn('Can_Type', canAssets);
+
+        tables[0] = new External.DataTable({ id:'AssetAlloc' });
+        tables[1] = new External.DataTable({ id:'CanadianAssetAlloc' });
+        tables[2] = new External.DataTable({ id:'UnderlyingAssetAlloc' });
+
+        tables[0].setColumn('General_Type', assets);
+        tables[1].setColumn('Can_Type', canAssets);
+        tables[2].setColumn('Underlying_Type', underlying);
+
         for (const suffix of SUFFIXES) {
             for (let i = 0; i < assets.length; i++) {
                 const asset = assets[i];
 
                 let key = `assetAlloc${asset}Perc${suffix}`;
-                table.setCell('Basic_' + suffix, i, key in assetAlloc ? assetAlloc[key] : null);
+                tables[0].setCell('Basic_' + suffix, i, key in assetAlloc ? assetAlloc[key] : null);
 
                 key = `assetAllocUs${asset}Perc${suffix}`;
-                table.setCell('Us_' + suffix, i, key in assetAlloc ? assetAlloc[key] : null);
+                tables[0].setCell('Us_' + suffix, i, key in assetAlloc ? assetAlloc[key] : null);
 
                 key = `assetAllocNonUs${asset}Perc${suffix}`;
-                table.setCell('NonUs_' + suffix, i, key in assetAlloc ? assetAlloc[key] : null);
+                tables[0].setCell('NonUs_' + suffix, i, key in assetAlloc ? assetAlloc[key] : null);
             }
 
             for (let i = 0; i < canAssets.length; i++) {
                 const asset = canAssets[i];
                 const key = `canAssetAlloc${asset}Perc${suffix}`;
-                table.setCell('Can_' + suffix, i, key in assetAlloc ? assetAlloc[key] : null);
+                tables[1].setCell('Can_' + suffix, i, key in assetAlloc ? assetAlloc[key] : null);
             }
         }
+
+        for (let i = 0; i < underlying.length; i++) {
+            const asset = underlying[i];
+            const key = `underlyingInstrument${asset}Percent`;
+            tables[2].setCell(
+                'UnderlyingInstruments', i, key in assetAlloc ? assetAlloc[key] : null
+            );
+        }
+    }
+
+    public getTables (): External.DataTable[] {
+        return this.tables;
     }
 }
 

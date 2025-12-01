@@ -69,7 +69,12 @@ export class AssetAllocationBreakdownConnector extends DWSConnector {
 
         options = {
             ...AssetAllocationBreakdownConnector.defaultOptions,
-            ...options
+            ...options,
+            dataTables: [
+                { key: 'GeneralAssetAlloc' },
+                { key: 'CanadianAssetAlloc' },
+                { key: 'UnderlyingAssetAlloc' }
+            ]
         };
 
         super(options);
@@ -107,9 +112,12 @@ export class AssetAllocationBreakdownConnector extends DWSConnector {
             AssetAllocationBreakdownJSON.AssetAllocationBreakdownResponse;
 
         this.converter.parse({ json });
-
-        this.getTable().deleteColumns();
-        this.getTable().setColumns(this.converter.getTable().getColumns());
+        this.dataTables['GeneralAssetAlloc']
+            .setColumns(this.converter.getTables()[0].getColumns());
+        this.dataTables['CanadianAssetAlloc']
+            .setColumns(this.converter.getTables()[1].getColumns());
+        this.dataTables['UnderlyingAssetAlloc']
+            .setColumns(this.converter.getTables()[2].getColumns());
 
         return this.applyTableModifiers();
     }
