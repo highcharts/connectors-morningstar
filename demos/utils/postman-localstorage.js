@@ -16,9 +16,11 @@ async function getPostmanJSON (htmlInputFile) {
     return fileJSON;
 }
 
-export function getPostmanFile (initializeChart) {
+export function getPostmanFile (initializeChart, useDWS = false) {
     document.addEventListener('DOMContentLoaded', async () => {
-        const parsedPostman = JSON.parse(localStorage.getItem('postmanEnvironment')),
+        const localStorageKey = useDWS ? 'postmanEnvironmentDWS' : 'postmanEnvironment',
+            parsedPostman = JSON.parse(localStorage.getItem(localStorageKey)),
+            fileInput = document.getElementById('postman-json'),
             postmanMessage = document.getElementById('postman-message'),
             loadingLabel = document.getElementById('loading-label');
 
@@ -27,16 +29,13 @@ export function getPostmanFile (initializeChart) {
                 postmanMessage.style.display = 'none';
                 loadingLabel.style.display = 'block';
 
-                initializeChart(parsedPostman);
+                await initializeChart(parsedPostman);
             } else {
-                localStorage.removeItem('postmanEnvironment');
-
-                const fileInput = document.getElementById('postman-json');
+                localStorage.removeItem(localStorageKey);
                 postmanMessage.style.display = 'block';
 
-                fileInput.addEventListener('change', async function (evt) {
-                    const target = evt.target;
-                    const postmanJSON = await getPostmanJSON(target);
+                fileInput.addEventListener('change', async function (e) {
+                    const postmanJSON = await getPostmanJSON(e.target);
 
                     if (!postmanJSON) {
                         loadingLabel.textContent =
@@ -46,19 +45,19 @@ export function getPostmanFile (initializeChart) {
                         return;
                     }
 
-                    localStorage.setItem('postmanEnvironment', JSON.stringify(postmanJSON));
+                    localStorage.setItem(localStorageKey, JSON.stringify(postmanJSON));
 
                     postmanMessage.style.display = 'none';
                     loadingLabel.style.display = 'block';
                     loadingLabel.textContent = 'Loading data…';
 
-                    initializeChart(postmanJSON);
+                    await initializeChart(postmanJSON);
                 });
             }
         } catch (error) {
             // eslint-disable-next-line no-console
             console.error('Incorrect postman environment file: ', error);
-            localStorage.removeItem('postmanEnvironment');
+            localStorage.removeItem(localStorageKey);
             postmanMessage.style.display = 'block';
         }
     });
