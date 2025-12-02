@@ -42,6 +42,9 @@ async function displaySecurityDetails (postmanJSON) {
         }, {
             name: 'Net',
             data: generalTable.getColumn('Basic_Net')
+        }, {
+            name: 'Short',
+            data: generalTable.getColumn('Basic_Short')
         }]
 
     });

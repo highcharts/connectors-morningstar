@@ -111,7 +111,7 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
             'Stock'
         ] as DataTable.Column;
 
-        const SUFFIXES = ['Long', 'LongRescaled', 'Net'];
+        const SUFFIXES = ['Long', 'LongRescaled', 'Net', 'Short'];
 
 
         tables[0] = new External.DataTable({ id:'AssetAlloc' });
@@ -127,19 +127,19 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
                 const asset = assets[i];
 
                 let key = `assetAlloc${asset}Perc${suffix}`;
-                tables[0].setCell('Basic_' + suffix, i, key in assetAlloc ? assetAlloc[key] : null);
+                tables[0].setCell('Basic_' + suffix, i, key in assetAlloc ? assetAlloc[key] : 0);
 
                 key = `assetAllocUs${asset}Perc${suffix}`;
-                tables[0].setCell('Us_' + suffix, i, key in assetAlloc ? assetAlloc[key] : null);
+                tables[0].setCell('Us_' + suffix, i, key in assetAlloc ? assetAlloc[key] : 0);
 
                 key = `assetAllocNonUs${asset}Perc${suffix}`;
-                tables[0].setCell('NonUs_' + suffix, i, key in assetAlloc ? assetAlloc[key] : null);
+                tables[0].setCell('NonUs_' + suffix, i, key in assetAlloc ? assetAlloc[key] : 0);
             }
 
             for (let i = 0; i < canAssets.length; i++) {
                 const asset = canAssets[i];
                 const key = `canAssetAlloc${asset}Perc${suffix}`;
-                tables[1].setCell('Can_' + suffix, i, key in assetAlloc ? assetAlloc[key] : null);
+                tables[1].setCell('Can_' + suffix, i, key in assetAlloc ? assetAlloc[key] : 0);
             }
         }
 
@@ -147,7 +147,7 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
             const asset = underlying[i];
             const key = `underlyingInstrument${asset}Percent`;
             tables[2].setCell(
-                'UnderlyingInstruments', i, key in assetAlloc ? assetAlloc[key] : null
+                'UnderlyingInstruments', i, key in assetAlloc ? assetAlloc[key] : 0
             );
         }
     }
