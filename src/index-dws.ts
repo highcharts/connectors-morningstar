@@ -26,7 +26,7 @@ import { version } from './version';
  *
  * */
 
-export * from './DirectWebServices/InvestmentsConnector/InvestmentsConnector';
+export * from './DirectWebServices/InvestmentsConnector/index';
 export * as Shared from './Shared/index';
 export { version } from './version';
 
