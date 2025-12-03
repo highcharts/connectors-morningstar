@@ -48,7 +48,6 @@ export interface DWSMetadata extends MorningstarMetadata {
 
 export interface DWSOptions extends MorningstarOptions {
     languageId?: 'ENG' | 'SPA' | 'FRA' | 'DEU' | 'ITA' | 'JPN' | 'CHI' | 'ZHO' | 'KOR';
-
     requests?: Array<DWSRequest>;
 }
 
