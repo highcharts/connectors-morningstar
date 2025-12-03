@@ -8,8 +8,7 @@ async function getPostmanJSON (htmlInputFile) {
                 break;
             }
         } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error('Incorrect postman environment file: ', error);
+            throw new Error('Incorrect postman environment file: ' + error);
         }
     }
 
@@ -20,7 +19,6 @@ export function getPostmanFile (initializeChart, useDWS = false) {
     document.addEventListener('DOMContentLoaded', async () => {
         const localStorageKey = useDWS ? 'postmanEnvironmentDWS' : 'postmanEnvironment',
             parsedPostman = JSON.parse(localStorage.getItem(localStorageKey)),
-            fileInput = document.getElementById('postman-json'),
             postmanMessage = document.getElementById('postman-message'),
             loadingLabel = document.getElementById('loading-label');
 
@@ -34,31 +32,32 @@ export function getPostmanFile (initializeChart, useDWS = false) {
                 localStorage.removeItem(localStorageKey);
                 postmanMessage.style.display = 'block';
 
-                fileInput.addEventListener('change', async function (e) {
-                    const postmanJSON = await getPostmanJSON(e.target);
+                document.getElementById('postman-json').addEventListener(
+                    'change',
+                    async (e) => {
+                        const postmanJSON = await getPostmanJSON(e.target);
 
-                    if (!postmanJSON) {
-                        loadingLabel.textContent =
-                            'The provided file is not a Postman Environment Configuration.';
+                        if (!postmanJSON) {
+                            loadingLabel.textContent =
+                                'The provided file is not a Postman Environment Configuration.';
+                            loadingLabel.style.display = 'block';
+
+                            return;
+                        }
+
+                        localStorage.setItem(localStorageKey, JSON.stringify(postmanJSON));
+
+                        postmanMessage.style.display = 'none';
                         loadingLabel.style.display = 'block';
+                        loadingLabel.textContent = 'Loading data…';
 
-                        return;
-                    }
-
-                    localStorage.setItem(localStorageKey, JSON.stringify(postmanJSON));
-
-                    postmanMessage.style.display = 'none';
-                    loadingLabel.style.display = 'block';
-                    loadingLabel.textContent = 'Loading data…';
-
-                    await initializeChart(postmanJSON);
-                });
+                        await initializeChart(postmanJSON);
+                    });
             }
         } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error('Incorrect postman environment file: ', error);
             localStorage.removeItem(localStorageKey);
             postmanMessage.style.display = 'block';
+            throw new Error('Incorrect postman environment file: ' + error);
         }
     });
 }
