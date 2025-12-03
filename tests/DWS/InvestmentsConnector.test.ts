@@ -8,7 +8,21 @@ export async function investmentsConnectorLoad (
     const connector = new MC.InvestmentsConnector({
         id: '',
         type: '',
-        api
+        api,
+        security: {
+            id: '0P00000FIA'
+        },
+        converters: {
+            MockAssetAlloc: {
+                // extra converter options here
+            },
+            MockBasicDetails: {
+                // extra converter options here
+            },
+            SectorsBreakdown: {
+                // extra converter options here
+            }
+        }
     });
 
     Assert.ok(

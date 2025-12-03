@@ -94,13 +94,15 @@ export abstract class DWSConnector extends MorningstarConnector {
     public override async load (): Promise<this> {
         await super.load();
 
-        const api = this.api = this.api || new MorningstarAPI(this.options.api);
+        const { requests, options, responses } = this;
 
-        for (const { url, type } of this.requests || []) {
+        const api = this.api = this.api || new MorningstarAPI(options.api);
+
+        for (const { url, type } of requests) {
 
             const fullUrl = new MorningstarURL(
-                `/direct-web-services/v1/${url}?languageId=${this.options.languageId || 'ENG'}`,
-                this.options?.api?.url || MorningstarRegion.baseURLs['Americas']
+                `/direct-web-services/v1/${url}?languageId=${options.languageId || 'ENG'}`,
+                options.api?.url || MorningstarRegion.baseURLs['Americas']
             );
 
             const response = await api.fetch(fullUrl, {
@@ -108,7 +110,7 @@ export abstract class DWSConnector extends MorningstarConnector {
                 method: 'GET'
             });
 
-            this.responses.push({ [type]: response });
+            responses.push({ [type]: response });
         }
 
         return this.applyTableModifiers();
