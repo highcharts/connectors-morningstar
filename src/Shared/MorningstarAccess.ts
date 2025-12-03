@@ -123,11 +123,13 @@ export class MorningstarAccess {
     public constructor (
         options: MorningstarAPIOptions = {}
     ) {
-        const accessOptions = options.access ?? {};
+        const accessOptions = options.access ?? {},
+            accessURL = accessOptions.url,
+            accessToken = accessOptions.token;
 
         this.url = (
-            accessOptions.url ?
-                new URL(accessOptions.url, window.location.href) :
+            accessURL ?
+                new URL(accessURL, window.location.href) :
                 new URL('token/oauth', MorningstarRegion.baseURLs[MorningstarRegion.detect()])
         );
 
@@ -135,8 +137,8 @@ export class MorningstarAccess {
             throw new Error('Insecure API protocol');
         }
 
-        if (accessOptions.token) {
-            this.token = accessOptions.token;
+        if (accessToken) {
+            this.token = accessToken;
             this.tokenType = 'Option';
         }
 
