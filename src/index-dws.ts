@@ -16,7 +16,7 @@
  *
  * */
 
-import InvestmentsConnector from './DirectWebServices/InvestmentsConnector/InvestmentsConnector';
+import Investments from './DirectWebServices/InvestmentsConnector/index';
 import * as Shared from './Shared/index';
 import { version } from './version';
 
@@ -26,7 +26,7 @@ import { version } from './version';
  *
  * */
 
-export * from './DirectWebServices/InvestmentsConnector/InvestmentsConnector';
+export * from './DirectWebServices/InvestmentsConnector/index';
 export * as Shared from './Shared/index';
 export { version } from './version';
 
@@ -37,7 +37,7 @@ export { version } from './version';
  * */
 
 export default {
-    InvestmentsConnector,
+    Investments,
     Shared,
     version
 };

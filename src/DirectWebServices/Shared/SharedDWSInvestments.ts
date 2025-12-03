@@ -22,10 +22,10 @@
 * */
 
 import {
-    createMockAssetAllocRequest,
+    createRegionExposureRequest,
     createMockBasicDetailsRequest
 } from './SharedDWSRequests';
-import MockAssetAllocConverter from './DWSConverters/MockAssetAllocConverter';
+import RegionExposureConverter from './DWSConverters/RegionExposure/RegionExposureConverter';
 import MockBasicDetailsConverter from './DWSConverters/MockBasicDetailsConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
@@ -45,7 +45,7 @@ import type { MorningstarConverterOptions } from '../../Shared';
  * */
 
 const DATA_TABLES: { key: InvestmentsConverterType }[] = [
-    { key: 'MockAssetAlloc' },
+    { key: 'RegionExposure' },
     { key: 'MockBasicDetails' }
 ];
 
@@ -87,8 +87,8 @@ export function createRequests (
 
     for (const type of Object.keys(dataTables)) {
         switch (type) {
-            case 'MockAssetAlloc':
-                requests.push(createMockAssetAllocRequest(converters[type], security));
+            case 'RegionExposure':
+                requests.push(createRegionExposureRequest(converters[type], security));
                 break;
             case 'MockBasicDetails':
                 requests.push(createMockBasicDetailsRequest(converters[type], security));
@@ -103,8 +103,8 @@ export function initConverter (
     type: InvestmentsConverterType
 ): InvestmentsConverter {
     switch (type) {
-        case 'MockAssetAlloc':
-            return new MockAssetAllocConverter();
+        case 'RegionExposure':
+            return new RegionExposureConverter();
         case 'MockBasicDetails':
             return new MockBasicDetailsConverter();
     }

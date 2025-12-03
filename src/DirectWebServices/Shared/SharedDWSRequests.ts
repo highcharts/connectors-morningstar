@@ -22,15 +22,15 @@ import type { InvestmentsConverterOptions, InvestmentsSecurityOptions } from '..
  *
  * */
 
-export function createMockAssetAllocRequest (
+export function createRegionExposureRequest (
     converter: InvestmentsConverterOptions,
     security: InvestmentsSecurityOptions
 ): DWSRequest {
     const { id } = security;
 
     return {
-        type: 'MockAssetAlloc',
-        url: `investments/${id}/asset-Allocation-Breakdown`
+        type: 'RegionExposure',
+        url: `investments/${id}/country-and-regional-exposure-breakdown`
     };
 }
 

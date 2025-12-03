@@ -113,6 +113,7 @@ export class InvestmentsConnector extends DWSConnector {
 
             converter.parse({ json });
 
+            this.dataTables[type].metadata = converter.getTable().metadata;
             this.dataTables[type].setColumns(converter.getTable().getColumns());
 
             this.metadata.rawResponses.push({ type, json });
