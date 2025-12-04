@@ -52,7 +52,8 @@ export interface InvestmentsSecurityOptions {
 export type InvestmentsConverterType =
     'MockAssetAlloc' |
     'MockBasicDetails' |
-    'SectorsBreakdown';
+    'EquitySectorsBreakdown' |
+    'FixedIncomeSectorsBreakdown';
 
 
 /* *

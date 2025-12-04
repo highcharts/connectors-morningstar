@@ -19,7 +19,10 @@ export async function investmentsConnectorLoad (
             MockBasicDetails: {
                 // extra converter options here
             },
-            SectorsBreakdown: {
+            EquitySectorsBreakdown: {
+                // extra converter options here
+            },
+            FixedIncomeSectorsBreakdown: {
                 // extra converter options here
             }
         }

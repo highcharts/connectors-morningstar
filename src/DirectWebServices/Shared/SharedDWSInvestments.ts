@@ -24,11 +24,13 @@
 import {
     createMockAssetAllocRequest,
     createMockBasicDetailsRequest,
-    createSectorsBreakdownRequest
+    createEquitySectorsBreakdownRequest,
+    createFixedIncomeSectorsBreakdown
 } from './SharedDWSRequests';
 import MockAssetAllocConverter from './DWSConverters/MockAssetAllocConverter';
 import MockBasicDetailsConverter from './DWSConverters/MockBasicDetailsConverter';
-import SectorsBreakdownConverter from '../Sectors/SectorsBreakdownConverter';
+import EquitySectorsBreakdownConverter from '../Sectors/EquitySectorsBreakdownConverter';
+import FixedIncomeSectorsBreakdownConverter from '../Sectors/FixedIncomeSectorsBreakdownConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
@@ -47,9 +49,10 @@ import type { MorningstarConverterOptions } from '../../Shared';
  * */
 
 const DATA_TABLES: { key: InvestmentsConverterType }[] = [
-    { key: 'SectorsBreakdown' },
     { key: 'MockAssetAlloc' },
-    { key: 'MockBasicDetails' }
+    { key: 'MockBasicDetails' },
+    { key: 'EquitySectorsBreakdown' },
+    { key: 'FixedIncomeSectorsBreakdown' }
 ];
 
 /* *
@@ -96,8 +99,11 @@ export function createRequests (
             case 'MockBasicDetails':
                 requests.push(createMockBasicDetailsRequest(converters[type], security));
                 break;
-            case 'SectorsBreakdown':
-                requests.push(createSectorsBreakdownRequest(converters[type], security));
+            case 'EquitySectorsBreakdown':
+                requests.push(createEquitySectorsBreakdownRequest(converters[type], security));
+                break;
+            case 'FixedIncomeSectorsBreakdown':
+                requests.push(createFixedIncomeSectorsBreakdown(converters[type], security));
                 break;
         }
     }
@@ -113,7 +119,9 @@ export function initConverter (
             return new MockAssetAllocConverter();
         case 'MockBasicDetails':
             return new MockBasicDetailsConverter();
-        case 'SectorsBreakdown':
-            return new SectorsBreakdownConverter();
+        case 'EquitySectorsBreakdown':
+            return new EquitySectorsBreakdownConverter();
+        case 'FixedIncomeSectorsBreakdown':
+            return new FixedIncomeSectorsBreakdownConverter();
     }
 }

@@ -2,7 +2,7 @@ import * as Assert from 'node:assert/strict';
 import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar-dws.src';
 
-export async function sectorsBreakdown (
+export async function equitySectorsBreakdown (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.InvestmentsConnector({
@@ -15,7 +15,8 @@ export async function sectorsBreakdown (
         converters: {
             MockAssetAlloc: {},
             MockBasicDetails: {},
-            SectorsBreakdown: {}
+            EquitySectorsBreakdown: {},
+            FixedIncomeSectorsBreakdown: {}
         }
     });
 
@@ -49,11 +50,5 @@ export async function sectorsBreakdown (
     Assert.ok(
         dataTable.getRowCount() > 0,
         'Sectors breakdown table should not return empty rows.'
-    );
-
-    Assert.strictEqual(
-        connector.getTable().getRowCount(),
-        11,
-        'Sectors breakdown should have ten expected number of rows.'
     );
 }

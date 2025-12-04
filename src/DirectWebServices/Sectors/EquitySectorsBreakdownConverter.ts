@@ -20,7 +20,11 @@
 * */
 
 import MorningstarConverter from '../../Shared/MorningstarConverter';
-import { SectorsBreakdownConverterOptions, SectorsBreakdownMetadata } from './SectorsBreakdownOptions';
+import EquitySectorsBreakdownJSON from './EquitySectorsBreakdownJSON';
+import {
+    EquitySectorsBreakdownConverterOptions,
+    EquitySectorsBreakdownMetadata
+} from './EquitySectorsBreakdownOptions';
 
 const superSectors = [
     'Cyclical',
@@ -42,13 +46,15 @@ const sectors = [
     'Technology'
 ];
 
+const suffixes = ['PercLong', 'PercLongRescaled', 'PercShort', 'PercNet'];
+
 /* *
  *
  *  Class
  *
  * */
 
-export class SectorsBreakdownConverter extends MorningstarConverter {
+export class EquitySectorsBreakdownConverter extends MorningstarConverter {
 
     /* *
      *
@@ -57,7 +63,7 @@ export class SectorsBreakdownConverter extends MorningstarConverter {
      * */
 
     public constructor (
-        options?: SectorsBreakdownConverterOptions
+        options?: EquitySectorsBreakdownConverterOptions
     ) {
         super(options);
         this.metadata = {
@@ -71,7 +77,7 @@ export class SectorsBreakdownConverter extends MorningstarConverter {
      *
      */
 
-    public readonly metadata: SectorsBreakdownMetadata;
+    public readonly metadata: EquitySectorsBreakdownMetadata;
 
     /* *
      *
@@ -79,7 +85,9 @@ export class SectorsBreakdownConverter extends MorningstarConverter {
      *
      * */
 
-    public override parse (options: SectorsBreakdownConverterOptions): void {
+    public override parse (
+        options: EquitySectorsBreakdownConverterOptions
+    ): void {
         const table = this.table;
         const metadata = this.metadata;
         const userOptions = { ...this.options, ...options };
@@ -88,7 +96,7 @@ export class SectorsBreakdownConverter extends MorningstarConverter {
         const sectorsData = json.morningstarEquitySectorsBreakdown;
 
         const setSectors = (sectors: string[], sectorType: string) => {
-            // Set sector or super sector type column
+            // Set sector or super sector column
             table.setColumn(`${sectorType}_Type_${id}`);
 
             sectors.forEach((sector, index) => {
@@ -97,9 +105,10 @@ export class SectorsBreakdownConverter extends MorningstarConverter {
 
                 const prefix = `equityEcon${sectorType}${sector}`;
                 const long = Number(sectorsData[`${prefix}PercLong`]);
-                const longRescaled = sectorsData[`${prefix}PercLongRescaled`];
-                const short = sectorsData[`${prefix}PercShort`];
-                const net = sectorsData[`${prefix}PercNet`];
+                const longRescaled =
+                    Number(sectorsData[`${prefix}PercLongRescaled`]);
+                const short = Number(sectorsData[`${prefix}PercShort`]);
+                const net = Number(sectorsData[`${prefix}PercNet`]);
 
                 // Long value
                 if (long) {
@@ -119,8 +128,6 @@ export class SectorsBreakdownConverter extends MorningstarConverter {
                 const shortCol = `${sectorType}_Short_${id}`;
                 if (short) {
                     table.setCell(shortCol, index, short);
-                } else if (net) {
-                    table.setCell(shortCol, index, long - (net as number));
                 }
 
                 // Net value
@@ -130,16 +137,70 @@ export class SectorsBreakdownConverter extends MorningstarConverter {
             });
         };
 
+        function setIndustries (
+            sectorsData: EquitySectorsBreakdownJSON.MorningstarEquitySectorsBreakdownItem
+        ): void {
+            // Pattern to find industry related records
+            const pattern = new RegExp(
+                '^equityIndustry(.+)(' + suffixes.join('|') + ')$',
+                'u'
+            );
+            const typeColumn = `Industry_Type_${id}`;
+            const industries: Array<string> = [];
+
+            // Industry type column
+            table.setColumn(typeColumn);
+
+            let index = 0;
+            for (const key in sectorsData) {
+                const match = key.match(pattern);
+                if (match) {
+                    const industryName = match[1];
+
+                    // New industry
+                    if (!industries.includes(industryName)) {
+                        // Industry type value
+                        table.setCell(typeColumn, index, industryName);
+
+                        // Industry Long, RescaledLong, Short and Net values
+                        suffixes.forEach((suffix) => {
+                            const industryValue = sectorsData[
+                                `equityIndustry${industryName}${suffix}`
+                            ];
+
+                            // Set value of a specific category
+                            if (industryValue) {
+                                table.setCell(
+                                    `Industry_${suffix}_${id}`,
+                                    index,
+                                    Number(industryValue)
+                                );
+                            }
+                        });
+
+                        // Save industry
+                        industries.push(industryName);
+                        index++;
+                    }
+                }
+            }
+        }
+
         // Super-sectors
         setSectors(superSectors, 'SuperSector');
 
         // Sectors
         setSectors(sectors, 'Sector');
 
+        // Industries
+        setIndustries(sectorsData);
+
         // Metadata
         metadata.performanceId = id;
         metadata.equityEconSectorRescalingFactorLong =
             Number(sectorsData.equityEconSectorRescalingFactorLong) || 0;
+        metadata.equityIndustryRescalingFactorLong =
+            Number(sectorsData.equityIndustryRescalingFactorLong) || 0;
 
         if (json.metadata.messages?.length) {
             metadata.messages = json.metadata.messages;
@@ -154,4 +215,4 @@ export class SectorsBreakdownConverter extends MorningstarConverter {
  *
  * */
 
-export default SectorsBreakdownConverter;
+export default EquitySectorsBreakdownConverter;

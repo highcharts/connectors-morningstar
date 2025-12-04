@@ -46,14 +46,26 @@ export function createMockBasicDetailsRequest (
     };
 }
 
-export function createSectorsBreakdownRequest (
+export function createEquitySectorsBreakdownRequest (
     converter: InvestmentsConverterOptions,
     security: InvestmentsSecurityOptions
 ): DWSRequest {
     const { id } = security;
 
     return {
-        type: 'SectorsBreakdown',
+        type: 'EquitySectorsBreakdown',
         url: `investments/${id}/morningstar-equity-sectors-breakdown`
+    };
+}
+
+export function createFixedIncomeSectorsBreakdown (
+    converter: InvestmentsConverterOptions,
+    security: InvestmentsSecurityOptions
+): DWSRequest {
+    const { id } = security;
+
+    return {
+        type: 'FixedIncomeSectorsBreakdown',
+        url: `investments/${id}/morningstar-fixed-income-sectors-breakdown`
     };
 }

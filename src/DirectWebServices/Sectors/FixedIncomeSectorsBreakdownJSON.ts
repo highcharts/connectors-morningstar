@@ -45,21 +45,37 @@ export interface InvestmentMessage {
     errorCode?: string;
 }
 
+export type FieldMappingEntry = {
+    pattern: RegExp;
+    superSector: string[];
+    primarySector: string[];
+    secondarySector: string[];
+    suffixes: string[];
+    column: string;
+    [key: string]: any;
+};
+
+export type FieldsMapping = {
+    fixdInc: FieldMappingEntry;
+    fixedInc: FieldMappingEntry;
+    surveyedFixedInc: FieldMappingEntry;
+};
+
 /* *
  *
  *  Namespace
  *
  * */
 
-namespace SectorsBreakdownJSON {
+namespace FixedIncomeSectorsBreakdownJSON {
 
     export interface Response extends InvestmentResponse {
-        morningstarEquitySectorsBreakdown: MorningstarEquitySectorsBreakdownItem;
+        morningstarFixedIncomeSectorsBreakdown: MorningstarFixedIncomeSectorsBreakdownItem;
     }
 
-    export interface MorningstarEquitySectorsBreakdownItem {
+    export interface MorningstarFixedIncomeSectorsBreakdownItem {
         [key: string]: number | string;
     }
 }
 
-export default SectorsBreakdownJSON;
+export default FixedIncomeSectorsBreakdownJSON;
