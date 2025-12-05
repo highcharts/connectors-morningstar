@@ -13,8 +13,6 @@ export async function equitySectorsBreakdown (
             id: '0P00000FIA'
         },
         converters: {
-            MockAssetAlloc: {},
-            MockBasicDetails: {},
             EquitySectorsBreakdown: {},
             FixedIncomeSectorsBreakdown: {}
         }
@@ -27,18 +25,20 @@ export async function equitySectorsBreakdown (
 
     await connector.load();
 
-    const dataTable = connector.getTable(),
+    const dataTable = connector.getTable('EquitySectorsBreakdown'),
         columnIds = [
             'SuperSector_Type_0P00000FIA',
-            'SuperSector_Long_0P00000FIA',
-            'SuperSector_LongRescaled_0P00000FIA',
-            'SuperSector_Short_0P00000FIA',
-            'SuperSector_Net_0P00000FIA',
+            'SuperSector_PercLong_0P00000FIA',
+            'SuperSector_PercLongRescaled_0P00000FIA',
+            'SuperSector_PercNet_0P00000FIA',
             'Sector_Type_0P00000FIA',
-            'Sector_Long_0P00000FIA',
-            'Sector_LongRescaled_0P00000FIA',
-            'Sector_Short_0P00000FIA',
-            'Sector_Net_0P00000FIA'
+            'Sector_PercLong_0P00000FIA',
+            'Sector_PercLongRescaled_0P00000FIA',
+            'Sector_PercNet_0P00000FIA',
+            'Industry_Type_0P00000FIA',
+            'Industry_PercLong_0P00000FIA',
+            'Industry_PercLongRescaled_0P00000FIA',
+            'Industry_PercNet_0P00000FIA'
         ];
 
     Assert.deepStrictEqual(

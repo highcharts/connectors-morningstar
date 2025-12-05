@@ -11,24 +11,18 @@
  *
  * */
 
-
 'use strict';
 
-
 /* *
-*
-*  Imports
-*
-* */
+ *
+ *  Imports
+ *
+ * */
 
 import {
-    createMockAssetAllocRequest,
-    createMockBasicDetailsRequest,
     createEquitySectorsBreakdownRequest,
-    createFixedIncomeSectorsBreakdown
+    createFixedIncomeSectorsBreakdownRequest
 } from './SharedDWSRequests';
-import MockAssetAllocConverter from './DWSConverters/MockAssetAllocConverter';
-import MockBasicDetailsConverter from './DWSConverters/MockBasicDetailsConverter';
 import EquitySectorsBreakdownConverter from '../Sectors/EquitySectorsBreakdownConverter';
 import FixedIncomeSectorsBreakdownConverter from '../Sectors/FixedIncomeSectorsBreakdownConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
@@ -49,8 +43,6 @@ import type { MorningstarConverterOptions } from '../../Shared';
  * */
 
 const DATA_TABLES: { key: InvestmentsConverterType }[] = [
-    { key: 'MockAssetAlloc' },
-    { key: 'MockBasicDetails' },
     { key: 'EquitySectorsBreakdown' },
     { key: 'FixedIncomeSectorsBreakdown' }
 ];
@@ -77,7 +69,8 @@ export function pickConverters (
     const converterTypes = Object.keys(converters || {});
 
     if (converterTypes?.length) {
-        const matchingTables = DATA_TABLES.filter(dt => converterTypes.includes(dt.key));
+        const matchingTables =
+            DATA_TABLES.filter(dt => converterTypes.includes(dt.key));
         return matchingTables.length ? matchingTables : DATA_TABLES;
     }
 
@@ -93,17 +86,21 @@ export function createRequests (
 
     for (const type of Object.keys(dataTables)) {
         switch (type) {
-            case 'MockAssetAlloc':
-                requests.push(createMockAssetAllocRequest(converters[type], security));
-                break;
-            case 'MockBasicDetails':
-                requests.push(createMockBasicDetailsRequest(converters[type], security));
-                break;
             case 'EquitySectorsBreakdown':
-                requests.push(createEquitySectorsBreakdownRequest(converters[type], security));
+                requests.push(
+                    createEquitySectorsBreakdownRequest(
+                        converters[type],
+                        security
+                    )
+                );
                 break;
             case 'FixedIncomeSectorsBreakdown':
-                requests.push(createFixedIncomeSectorsBreakdown(converters[type], security));
+                requests.push(
+                    createFixedIncomeSectorsBreakdownRequest(
+                        converters[type],
+                        security
+                    )
+                );
                 break;
         }
     }
@@ -115,10 +112,6 @@ export function initConverter (
     type: InvestmentsConverterType
 ): InvestmentsConverter {
     switch (type) {
-        case 'MockAssetAlloc':
-            return new MockAssetAllocConverter();
-        case 'MockBasicDetails':
-            return new MockBasicDetailsConverter();
         case 'EquitySectorsBreakdown':
             return new EquitySectorsBreakdownConverter();
         case 'FixedIncomeSectorsBreakdown':

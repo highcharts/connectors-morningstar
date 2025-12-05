@@ -11,9 +11,7 @@
  *
  * */
 
-
 'use strict';
-
 
 /* *
  *
@@ -24,7 +22,6 @@
 import type {
     MorningstarOptions
 } from '../../Shared/MorningstarOptions';
-
 
 /* *
  *
@@ -50,17 +47,13 @@ export interface InvestmentsSecurityOptions {
 }
 
 export type InvestmentsConverterType =
-    'MockAssetAlloc' |
-    'MockBasicDetails' |
     'EquitySectorsBreakdown' |
     'FixedIncomeSectorsBreakdown';
-
 
 /* *
  *
  *  Default Export
  *
  * */
-
 
 export default InvestmentsOptions;

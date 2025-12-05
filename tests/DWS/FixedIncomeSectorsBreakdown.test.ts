@@ -13,8 +13,6 @@ export async function fixedIncomeSectorsBreakdown (
             id: '0P00000FIA'
         },
         converters: {
-            MockAssetAlloc: {},
-            MockBasicDetails: {},
             EquitySectorsBreakdown: {},
             FixedIncomeSectorsBreakdown: {}
         }
@@ -27,18 +25,20 @@ export async function fixedIncomeSectorsBreakdown (
 
     await connector.load();
 
-    const dataTable = connector.getTable(),
+    const dataTable = connector.getTable('FixedIncomeSectorsBreakdown'),
         columnIds = [
-            'SuperSector_Type_0P00000FIA',
-            'SuperSector_Long_0P00000FIA',
-            'SuperSector_LongRescaled_0P00000FIA',
-            'SuperSector_Short_0P00000FIA',
-            'SuperSector_Net_0P00000FIA',
-            'Sector_Type_0P00000FIA',
-            'Sector_Long_0P00000FIA',
-            'Sector_LongRescaled_0P00000FIA',
-            'Sector_Short_0P00000FIA',
-            'Sector_Net_0P00000FIA'
+            'SuperSector_Fixed_Inc_Type_0P00000FIA',
+            'PrimarySector_Fixed_Inc_Type_0P00000FIA',
+            'SecondarySector_Fixed_Inc_Type_0P00000FIA',
+            'SuperSector_Fixed_Inc_PercLong_0P00000FIA',
+            'SuperSector_Fixed_Inc_PercNet_0P00000FIA',
+            'SuperSector_Fixed_Inc_PercLongRescaled_0P00000FIA',
+            'PrimarySector_Fixed_Inc_PercLong_0P00000FIA',
+            'PrimarySector_Fixed_Inc_PercNet_0P00000FIA',
+            'PrimarySector_Fixed_Inc_PercLongRescaled_0P00000FIA',
+            'SecondarySector_Fixed_Inc_PercLong_0P00000FIA',
+            'SecondarySector_Fixed_Inc_PercNet_0P00000FIA',
+            'SecondarySector_Fixed_Inc_PercLongRescaled_0P00000FIA'
         ];
 
     Assert.deepStrictEqual(

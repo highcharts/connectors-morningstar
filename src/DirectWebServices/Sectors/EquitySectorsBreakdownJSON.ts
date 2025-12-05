@@ -15,35 +15,11 @@
 
 /* *
  *
- *  Interfaces
+ *  Imports
  *
  * */
 
-export interface InvestmentResponse {
-    identifiers: {
-        performanceId: string;
-    };
-    metadata: InvestmentMetadata;
-}
-
-export interface InvestmentMetadata {
-    requestId: string;
-    time: string;
-    messages?: Array<Message>;
-}
-
-export interface Message {
-    type: string;
-    investments?: Array<InvestmentMessage>;
-}
-
-export interface InvestmentMessage {
-    id?: string;
-    idType?: string;
-    status?: string;
-    datapointId?: Array<string>;
-    errorCode?: string;
-}
+import SectorsBreakdown from './SectorsBreakdownOptions';
 
 /* *
  *
@@ -53,7 +29,7 @@ export interface InvestmentMessage {
 
 namespace EquitySectorsBreakdownJSON {
 
-    export interface Response extends InvestmentResponse {
+    export interface EquitySectorsBreakdownResponse extends SectorsBreakdown.InvestmentResponse {
         morningstarEquitySectorsBreakdown: MorningstarEquitySectorsBreakdownItem;
     }
 

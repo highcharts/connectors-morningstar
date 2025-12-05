@@ -15,35 +15,23 @@
 
 /* *
  *
+ *  Imports
+ *
+ * */
+
+import SectorsBreakdown from './SectorsBreakdownOptions';
+
+/* *
+ *
  *  Interfaces
  *
  * */
 
-export interface InvestmentResponse {
-    identifiers: {
-        performanceId: string;
-    };
-    metadata: InvestmentMetadata;
-}
-
-export interface InvestmentMetadata {
-    requestId: string;
-    time: string;
-    messages?: Array<Message>;
-}
-
-export interface Message {
-    type: string;
-    investments?: Array<InvestmentMessage>;
-}
-
-export interface InvestmentMessage {
-    id?: string;
-    idType?: string;
-    status?: string;
-    datapointId?: Array<string>;
-    errorCode?: string;
-}
+export type FieldsMapping = {
+    fixdInc: FieldMappingEntry;
+    fixedInc: FieldMappingEntry;
+    surveyedFixedInc: FieldMappingEntry;
+};
 
 export type FieldMappingEntry = {
     pattern: RegExp;
@@ -55,12 +43,6 @@ export type FieldMappingEntry = {
     [key: string]: any;
 };
 
-export type FieldsMapping = {
-    fixdInc: FieldMappingEntry;
-    fixedInc: FieldMappingEntry;
-    surveyedFixedInc: FieldMappingEntry;
-};
-
 /* *
  *
  *  Namespace
@@ -69,7 +51,7 @@ export type FieldsMapping = {
 
 namespace FixedIncomeSectorsBreakdownJSON {
 
-    export interface Response extends InvestmentResponse {
+    export interface FixedIncomeSectorsBreakdownResponse extends SectorsBreakdown.InvestmentResponse {
         morningstarFixedIncomeSectorsBreakdown: MorningstarFixedIncomeSectorsBreakdownItem;
     }
 

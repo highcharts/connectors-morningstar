@@ -11,16 +11,13 @@
  *
  * */
 
-
 'use strict';
 
-
 /* *
-*
-*  Imports
-*
-* */
-
+ *
+ *  Imports
+ *
+ * */
 
 import DWSConnector from '../DWSConnector';
 import {
@@ -29,7 +26,10 @@ import {
     pickConverters
 } from '../Shared/SharedDWSInvestments';
 
-import type { InvestmentsConverterType, InvestmentsOptions } from './InvestmentsOptions';
+import type {
+    InvestmentsConverterType,
+    InvestmentsOptions
+} from './InvestmentsOptions';
 
 /* *
  *
@@ -37,10 +37,9 @@ import type { InvestmentsConverterType, InvestmentsOptions } from './Investments
  *
  * */
 
-
 export class InvestmentsConnector extends DWSConnector {
 
-    /**
+    /* *
      *
      * Static Properties
      *
@@ -71,7 +70,6 @@ export class InvestmentsConnector extends DWSConnector {
         super(options);
         this.options = options;
     }
-
 
     /* *
      *
@@ -125,6 +123,5 @@ export class InvestmentsConnector extends DWSConnector {
  *  Default Export
  *
  * */
-
 
 export default InvestmentsConnector;

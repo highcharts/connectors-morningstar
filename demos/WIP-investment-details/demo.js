@@ -14,12 +14,6 @@ async function displaySecurityDetails (postmanJSON) {
             id: '0P00000FIA'
         },
         converters: {
-            MockAssetAlloc: {
-                // extra converter options here
-            },
-            MockBasicDetails: {
-                // extra converter options here
-            },
             EquitySectorsBreakdown: {
                 // extra converter options here
             },

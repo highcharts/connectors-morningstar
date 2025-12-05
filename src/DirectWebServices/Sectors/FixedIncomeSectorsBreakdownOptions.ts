@@ -19,7 +19,9 @@
  *
  * */
 
-import FixedIncomeSectorsBreakdownJSON, { Message } from './FixedIncomeSectorsBreakdownJSON';
+import FixedIncomeSectorsBreakdownJSON from './FixedIncomeSectorsBreakdownJSON';
+import SectorsBreakdown from './SectorsBreakdownOptions';
+
 import type {
     MorningstarConverterOptions,
     MorningstarMetadata
@@ -32,10 +34,10 @@ import type {
  * */
 
 export interface FixedIncomeSectorsBreakdownConverterOptions extends MorningstarConverterOptions {
-    json: FixedIncomeSectorsBreakdownJSON.Response;
+    json: FixedIncomeSectorsBreakdownJSON.FixedIncomeSectorsBreakdownResponse;
 }
 
 export interface FixedIncomeSectorsBreakdownMetadata extends MorningstarMetadata {
     performanceId?: string;
-    messages?: Array<Message>;
+    messages?: Array<SectorsBreakdown.Message>;
 }
