@@ -50,6 +50,8 @@ jobs:
     env:
       MORNINGSTAR_PASSWORD: ${{ secrets.MORNINGSTAR_PWD }}
       MORNINGSTAR_USERNAME: ${{ secrets.MORNINGSTAR_USERNAME }}
+      DWS_MORNINGSTAR_PASSWORD: ${{ secrets.DWS_MORNINGSTAR_PASSWORD }}
+      DWS_MORNINGSTAR_USERNAME: ${{ secrets.DWS_MORNINGSTAR_USERNAME }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

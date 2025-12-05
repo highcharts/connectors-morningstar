@@ -50,6 +50,7 @@ export abstract class MorningstarConverter extends External.DataConverter {
 
         this.options = options as Required<MorningstarConverterOptions>;
         this.table = new External.DataTable();
+        this.tables = [];
     }
 
 
@@ -65,6 +66,7 @@ export abstract class MorningstarConverter extends External.DataConverter {
 
     protected table: External.DataTable;
 
+    protected tables: Array<External.DataTable>;
 
     /* *
      *
@@ -90,6 +92,15 @@ export abstract class MorningstarConverter extends External.DataConverter {
      */
     public getTable (): External.DataTable {
         return this.table;
+    }
+
+    /**
+     * Returns multiple DataTables for the converter
+     *
+     * @return {Array<External.DataTable>}
+     */
+    public getTables (): Array<External.DataTable> {
+        return this.tables;
     }
 
 
