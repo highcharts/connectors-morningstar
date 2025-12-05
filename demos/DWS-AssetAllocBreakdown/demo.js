@@ -23,9 +23,9 @@ async function displaySecurityDetails (postmanJSON) {
 
     await connector.load();
 
-    const generalTable = connector.dataTables.GeneralAssetAlloc,
-        canadaTable = connector.dataTables.CanadianAssetAlloc,
-        underlyingTable = connector.dataTables.UnderlyingAssetAlloc;
+    const generalTable = connector.getTable('AssetAlloc'),
+        canadaTable = connector.getTable('CanadianAssetAlloc'),
+        underlyingTable = connector.getTable('UnderlyingAssetAlloc');
 
     Highcharts.chart('general', {
 

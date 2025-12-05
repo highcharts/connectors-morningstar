@@ -28,6 +28,7 @@ import {
 } from './SharedDWSRequests';
 import MockAssetAllocConverter from './DWSConverters/MockAssetAllocConverter';
 import MockBasicDetailsConverter from './DWSConverters/MockBasicDetailsConverter';
+import AssetAllocationBreakdownConverter from './DWSConverters/AssetAllocationBreakdown/AssetAllocationBreakdownConverter';
 import NestedTablesConverter from './DWSConverters/NestedTablesConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
@@ -47,7 +48,14 @@ import type { MorningstarConverterOptions } from '../../Shared';
  * */
 
 const CONVERTERS: Converters = [
-    { key: 'AssetAllocationBreakdown' },
+    { 
+        key: 'AssetAllocationBreakdown', 
+        children: [
+            'AssetAlloc',
+            'CanadianAssetAlloc',
+            'UnderlyingAssetAlloc'
+        ]
+    },
     { key: 'MockAssetAlloc' },
     { key: 'MockBasicDetails' },
     { key: 'NestedTablesConverter', children: ['Table1', 'Table2', 'Table3'] }
@@ -124,7 +132,7 @@ export function initConverter (
     switch (type) {
         default:
         case 'AssetAllocationBreakdown':
-            return new MockAssetAllocConverter();
+            return new AssetAllocationBreakdownConverter();
         case 'MockAssetAlloc':
             return new MockAssetAllocConverter();
         case 'MockBasicDetails':
