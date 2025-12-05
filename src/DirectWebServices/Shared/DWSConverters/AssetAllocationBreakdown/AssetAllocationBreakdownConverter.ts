@@ -55,7 +55,6 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
             columns: {}
         };
 
-        this.tables = [];
     }
 
     /**
@@ -117,16 +116,16 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
         tables[1] = new External.DataTable({ id:'CanadianAssetAlloc' });
         tables[2] = new External.DataTable({ id:'UnderlyingAssetAlloc' });
 
-        tables[0].setColumn('General_Type', assets);
-        tables[1].setColumn('Can_Type', canAssets);
-        tables[2].setColumn('Underlying_Type', underlying);
+        tables[0].setColumn('Type', assets);
+        tables[1].setColumn('Type', canAssets);
+        tables[2].setColumn('Type', underlying);
 
         for (const suffix of SUFFIXES) {
             for (let i = 0; i < assets.length; i++) {
                 const asset = assets[i];
 
                 let key = `assetAlloc${asset}Perc${suffix}`;
-                tables[0].setCell('Basic_' + suffix, i, key in assetAlloc ? assetAlloc[key] : 0);
+                tables[0].setCell(suffix, i, key in assetAlloc ? assetAlloc[key] : 0);
 
                 key = `assetAllocUs${asset}Perc${suffix}`;
                 tables[0].setCell('Us_' + suffix, i, key in assetAlloc ? assetAlloc[key] : 0);
@@ -138,7 +137,7 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
             for (let i = 0; i < canAssets.length; i++) {
                 const asset = canAssets[i];
                 const key = `canAssetAlloc${asset}Perc${suffix}`;
-                tables[1].setCell('Can_' + suffix, i, key in assetAlloc ? assetAlloc[key] : 0);
+                tables[1].setCell(suffix, i, key in assetAlloc ? assetAlloc[key] : 0);
             }
         }
 

@@ -36,20 +36,20 @@ async function displaySecurityDetails (postmanJSON) {
             type: 'column'
         },
         xAxis: {
-            categories: generalTable.getColumn('General_Type')
+            categories: generalTable.getColumn('Type')
         },
         series: [{
             name: 'Long',
-            data: generalTable.getColumn('Basic_Long')
+            data: generalTable.getColumn('Long')
         }, {
             name: 'Long Rescaled',
-            data: generalTable.getColumn('Basic_LongRescaled')
+            data: generalTable.getColumn('LongRescaled')
         }, {
             name: 'Net',
-            data: generalTable.getColumn('Basic_Net')
+            data: generalTable.getColumn('Net')
         }, {
             name: 'Short',
-            data: generalTable.getColumn('Basic_Short')
+            data: generalTable.getColumn('Short')
         }]
 
     });
@@ -63,17 +63,17 @@ async function displaySecurityDetails (postmanJSON) {
             type: 'column'
         },
         xAxis: {
-            categories: canadaTable.getColumn('Can_Type')
+            categories: canadaTable.getColumn('Type')
         },
         series: [{
             name: 'Long',
-            data: canadaTable.getColumn('Can_Long')
+            data: canadaTable.getColumn('Long')
         }, {
             name: 'Long Rescaled',
-            data: canadaTable.getColumn('Can_LongRescaled')
+            data: canadaTable.getColumn('LongRescaled')
         }, {
             name: 'Net',
-            data: canadaTable.getColumn('Can_Net')
+            data: canadaTable.getColumn('Net')
         }]
 
     });
@@ -87,7 +87,7 @@ async function displaySecurityDetails (postmanJSON) {
             type: 'column'
         },
         xAxis: {
-            categories: generalTable.getColumn('General_Type')
+            categories: generalTable.getColumn('Type')
         },
         series: [{
             name: 'Long',
@@ -111,7 +111,7 @@ async function displaySecurityDetails (postmanJSON) {
             type: 'column'
         },
         xAxis: {
-            categories: generalTable.getColumn('General_Type')
+            categories: generalTable.getColumn('Type')
         },
         series: [{
             name: 'Long',
@@ -135,7 +135,7 @@ async function displaySecurityDetails (postmanJSON) {
             type: 'column'
         },
         xAxis: {
-            categories: underlyingTable.getColumn('Underlying_Type')
+            categories: underlyingTable.getColumn('Type')
         },
         series: [{
             name: 'Underlying Instruments',
