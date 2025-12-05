@@ -13,10 +13,10 @@ export async function investmentsConnectorLoad (
             id: '0P00000FIA'
         },
         converters: {
-            MockAssetAlloc: {
+            EquitySectorsBreakdown: {
                 // extra converter options here
             },
-            MockBasicDetails: {
+            FixedIncomeSectorsBreakdown: {
                 // extra converter options here
             }
         }

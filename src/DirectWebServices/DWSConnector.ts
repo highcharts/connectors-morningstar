@@ -11,16 +11,13 @@
  *
  * */
 
-
 'use strict';
-
 
 /* *
  *
  *  Imports
  *
  * */
-
 
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
@@ -30,23 +27,19 @@ import MorningstarRegion from '../Shared/MorningstarRegion';
 import type DWSOptions from './DWSOptions';
 import type { DWSRequest, DWSResponse, DWSMetadata } from './DWSOptions';
 
-
 /* *
  *
  *  Class
  *
  * */
 
-
 export abstract class DWSConnector extends MorningstarConnector {
-
 
     /* *
      *
      *  Constructor
      *
      * */
-
 
     public constructor (
         options: DWSOptions
@@ -65,13 +58,11 @@ export abstract class DWSConnector extends MorningstarConnector {
         this.options = options;
     }
 
-
     /* *
      *
      *  Properties
      *
      * */
-
 
     public override readonly options: DWSOptions;
 
@@ -83,13 +74,11 @@ export abstract class DWSConnector extends MorningstarConnector {
 
     protected url!: string;
 
-
     /* *
      *
      *  Functions
      *
      * */
-
 
     public override async load (): Promise<this> {
         await super.load();
@@ -117,12 +106,10 @@ export abstract class DWSConnector extends MorningstarConnector {
     }
 }
 
-
 /* *
  *
  *  Default Export
  *
  * */
-
 
 export default DWSConnector;

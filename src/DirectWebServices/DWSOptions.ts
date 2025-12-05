@@ -11,9 +11,7 @@
  *
  * */
 
-
 'use strict';
-
 
 /* *
  *
@@ -21,10 +19,13 @@
  *
  * */
 
-
-import type { MorningstarMetadata, MorningstarOptions } from '../Shared/MorningstarOptions';
-import type { InvestmentsConverterType } from './InvestmentsConnector/InvestmentsOptions';
-
+import type {
+    MorningstarMetadata,
+    MorningstarOptions
+} from '../Shared/MorningstarOptions';
+import type {
+    InvestmentsConverterType
+} from './InvestmentsConnector/InvestmentsOptions';
 
 /* *
  *
@@ -51,12 +52,10 @@ export interface DWSOptions extends MorningstarOptions {
     requests?: Array<DWSRequest>;
 }
 
-
 /* *
  *
  *  Default Export
  *
  * */
-
 
 export default DWSOptions;
