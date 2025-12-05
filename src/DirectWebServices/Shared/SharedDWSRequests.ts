@@ -22,14 +22,14 @@ import type { InvestmentsConverterOptions, InvestmentsSecurityOptions } from '..
  *
  * */
 
-export function createMockAssetAllocRequest (
+export function createAssetAllocRequest (
     converter: InvestmentsConverterOptions,
     security: InvestmentsSecurityOptions
 ): DWSRequest {
     const { id } = security;
 
     return {
-        type: 'MockAssetAlloc',
+        type: 'AssetAllocationBreakdown',
         url: `investments/${id}/asset-Allocation-Breakdown`
     };
 }
