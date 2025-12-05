@@ -21,7 +21,6 @@
 
 import InvestmentsConnector from './InvestmentsConnector';
 
-
 /* *
  *
  *  Exports
@@ -29,6 +28,7 @@ import InvestmentsConnector from './InvestmentsConnector';
  * */
 
 export * from './InvestmentsConnector';
+export * from './InvestmentsOptions';
 
 /* *
  *

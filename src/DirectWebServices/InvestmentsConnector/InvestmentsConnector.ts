@@ -25,12 +25,16 @@
 import DWSConnector from '../DWSConnector';
 import {
     createRequests,
+    dataTablesFromConverters,
     initConverter,
     pickConverters
 } from '../Shared/SharedDWSInvestments';
-import { MorningstarConverterOptions } from '../../Shared';
 
-import type { InvestmentsConverterType, InvestmentsOptions } from './InvestmentsOptions';
+import type {
+    Converters,
+    InvestmentsConverterType,
+    InvestmentsOptions
+} from './InvestmentsOptions';
 
 /* *
  *
@@ -61,16 +65,18 @@ export class InvestmentsConnector extends DWSConnector {
     public constructor (
         options: InvestmentsOptions
     ) {
-        const convertersToUse = pickConverters(options.converters);
+        const convertersToUse = pickConverters(options.converters),
+            dataTablesToUse = dataTablesFromConverters(convertersToUse);
 
         options = {
             ...InvestmentsConnector.defaultOptions,
             ...options,
-            dataTables: convertersToUse
+            dataTables: dataTablesToUse
         };
 
         super(options);
         this.options = options;
+        this.convertersToUse = convertersToUse;
     }
 
 
@@ -82,6 +88,8 @@ export class InvestmentsConnector extends DWSConnector {
 
     public override readonly options: InvestmentsOptions;
 
+    public convertersToUse: Converters;
+
     /* *
      *
      *  Functions
@@ -92,16 +100,14 @@ export class InvestmentsConnector extends DWSConnector {
         const { converters, security } = this.options;
 
         if (!converters) {
-            // eslint-disable-next-line no-console
-            return console.log('No converters object found.');
+            throw new Error('No converters object found.');
         }
 
         if (!security?.id) {
-            // eslint-disable-next-line no-console
-            return console.log('No security ID found.');
+            throw new Error('No security ID found.');
         }
 
-        this.requests = createRequests(this.dataTables, converters, security);
+        this.requests = createRequests(this.convertersToUse, converters, security);
 
         await super.load();
 
@@ -109,16 +115,14 @@ export class InvestmentsConnector extends DWSConnector {
             const [type, response] =
                 Object.entries(responseObject)[0] as [InvestmentsConverterType, Response];
 
-            // TODO: Change type casting to a valid one
-            const json = await response?.json() as MorningstarConverterOptions;
+            const json: unknown = await response?.json();
             const converter = initConverter(type);
 
             converter.parse({ json });
 
-            const multiTables = converter.getTables();
-            if (multiTables) {
-                for (let i = 0; i < multiTables.length; i++) {
-                    this.dataTables[multiTables[i].id].setColumns(multiTables[i].getColumns());
+            if (this.convertersToUse.find(c => c.key === type)?.children) {
+                for (const table of converter.getTables()) {
+                    this.dataTables[table.id].setColumns(table.getColumns());
                 }
             } else {
                 this.dataTables[type].setColumns(converter.getTable().getColumns());

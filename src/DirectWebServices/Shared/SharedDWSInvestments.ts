@@ -23,18 +23,20 @@
 
 import {
     createAssetAllocRequest,
-    createMockBasicDetailsRequest
+    createMockBasicDetailsRequest,
+    createNestedTablesRequest
 } from './SharedDWSRequests';
-import AssetAllocationBreakdownConverter from './DWSConverters/AssetAllocationBreakdown/AssetAllocationBreakdownConverter';
+import MockAssetAllocConverter from './DWSConverters/MockAssetAllocConverter';
 import MockBasicDetailsConverter from './DWSConverters/MockBasicDetailsConverter';
+import NestedTablesConverter from './DWSConverters/NestedTablesConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
     InvestmentsConverters,
     InvestmentsConverterType,
-    InvestmentsSecurityOptions
+    InvestmentsSecurityOptions,
+    Converters
 } from '../InvestmentsConnector/InvestmentsOptions';
-import type DataTable from '@highcharts/dashboards/es-modules/Data/DataTable';
 import type { DWSRequest } from '../DWSOptions';
 import type { MorningstarConverterOptions } from '../../Shared';
 
@@ -44,9 +46,11 @@ import type { MorningstarConverterOptions } from '../../Shared';
  *
  * */
 
-const DATA_TABLES: { key: InvestmentsConverterType }[] = [
-    { key: 'AssetAllocationBreakdown' }, // Need multiple of these
-    { key: 'MockBasicDetails' }
+const CONVERTERS: Converters = [
+    { key: 'AssetAllocationBreakdown' },
+    { key: 'MockAssetAlloc' },
+    { key: 'MockBasicDetails' },
+    { key: 'NestedTablesConverter', children: ['Table1', 'Table2', 'Table3'] }
 ];
 
 /* *
@@ -67,32 +71,47 @@ export interface InvestmentsConverter extends MorningstarConverter {
 
 export function pickConverters (
     converters?: InvestmentsConverters
-): Array<{ key: InvestmentsConverterType }> {
+): Converters {
     const converterTypes = Object.keys(converters || {});
 
     if (converterTypes?.length) {
-        const matchingTables = DATA_TABLES.filter(dt => converterTypes.includes(dt.key));
-        return matchingTables.length ? matchingTables : DATA_TABLES;
+        const matchingTables = CONVERTERS.filter(dt => converterTypes.includes(dt.key));
+        return matchingTables.length ? matchingTables : CONVERTERS;
     }
 
-    return DATA_TABLES;
+    return CONVERTERS;
+}
+
+export function dataTablesFromConverters (
+    converters: Converters
+): Array<{ key: string }> {
+    return converters.flatMap(converter =>
+        converter.children?.map(child => ({ key: child })) || [{ key: converter.key }]
+    );
 }
 
 export function createRequests (
-    dataTables: Record<string, DataTable>,
-    converters: InvestmentsConverters,
+    convertersToUse: Converters,
+    userConverters: InvestmentsConverters,
     security: InvestmentsSecurityOptions
 ): Array<DWSRequest> {
     const requests: Array<DWSRequest> = [];
 
-    for (const type of Object.keys(dataTables)) {
+    for (const { key: type } of convertersToUse) {
+        const converter = userConverters[type];
+
+        if (!converter) {
+            continue;
+        }
         switch (type) {
             case 'AssetAllocationBreakdown':
-                requests.push(createAssetAllocRequest(converters[type], security));
+                requests.push(createAssetAllocRequest(converter, security));
                 break;
             case 'MockBasicDetails':
-                requests.push(createMockBasicDetailsRequest(converters[type], security));
+                requests.push(createMockBasicDetailsRequest(converter, security));
                 break;
+            case 'NestedTablesConverter':
+                requests.push(createNestedTablesRequest(converter, security));
         }
     }
 
@@ -103,9 +122,14 @@ export function initConverter (
     type: InvestmentsConverterType
 ): InvestmentsConverter {
     switch (type) {
+        default:
         case 'AssetAllocationBreakdown':
-            return new AssetAllocationBreakdownConverter();
+            return new MockAssetAllocConverter();
+        case 'MockAssetAlloc':
+            return new MockAssetAllocConverter();
         case 'MockBasicDetails':
             return new MockBasicDetailsConverter();
+        case 'NestedTablesConverter':
+            return new NestedTablesConverter();
     }
 }
