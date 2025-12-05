@@ -19,6 +19,9 @@ async function displaySecurityDetails (postmanJSON) {
             },
             MockBasicDetails: {
                 // extra converter options here
+            },
+            NestedTablesConverter: {
+                // extra converter options here
             }
         }
     });

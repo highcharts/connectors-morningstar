@@ -25,11 +25,16 @@
 import DWSConnector from '../DWSConnector';
 import {
     createRequests,
+    dataTablesFromConverters,
     initConverter,
     pickConverters
 } from '../Shared/SharedDWSInvestments';
 
-import type { InvestmentsConverterType, InvestmentsOptions } from './InvestmentsOptions';
+import type {
+    Converters,
+    InvestmentsConverterType,
+    InvestmentsOptions
+} from './InvestmentsOptions';
 
 /* *
  *
@@ -60,16 +65,18 @@ export class InvestmentsConnector extends DWSConnector {
     public constructor (
         options: InvestmentsOptions
     ) {
-        const convertersToUse = pickConverters(options.converters);
+        const convertersToUse = pickConverters(options.converters),
+            dataTablesToUse = dataTablesFromConverters(convertersToUse);
 
         options = {
             ...InvestmentsConnector.defaultOptions,
             ...options,
-            dataTables: convertersToUse
+            dataTables: dataTablesToUse
         };
 
         super(options);
         this.options = options;
+        this.convertersToUse = convertersToUse;
     }
 
 
@@ -81,6 +88,8 @@ export class InvestmentsConnector extends DWSConnector {
 
     public override readonly options: InvestmentsOptions;
 
+    public convertersToUse: Converters;
+
     /* *
      *
      *  Functions
@@ -91,16 +100,14 @@ export class InvestmentsConnector extends DWSConnector {
         const { converters, security } = this.options;
 
         if (!converters) {
-            // eslint-disable-next-line no-console
             throw new Error('No converters object found.');
         }
 
         if (!security?.id) {
-            // eslint-disable-next-line no-console
             throw new Error('No security ID found.');
         }
 
-        this.requests = createRequests(this.dataTables, converters, security);
+        this.requests = createRequests(this.convertersToUse, converters, security);
 
         await super.load();
 
@@ -113,7 +120,13 @@ export class InvestmentsConnector extends DWSConnector {
 
             converter.parse({ json });
 
-            this.dataTables[type].setColumns(converter.getTable().getColumns());
+            if (this.convertersToUse.find(c => c.key === type)?.children) {
+                for (const table of converter.getTables()) {
+                    this.dataTables[table.id].setColumns(table.getColumns());
+                }
+            } else {
+                this.dataTables[type].setColumns(converter.getTable().getColumns());
+            }
 
             this.metadata.rawResponses.push({ type, json });
         }

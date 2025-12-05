@@ -46,3 +46,15 @@ export function createMockBasicDetailsRequest (
         url: `investments/${id}/investment-Basic-Details`
     };
 }
+
+export function createNestedTablesRequest (
+    converter: InvestmentsConverterOptions,
+    security: InvestmentsSecurityOptions
+): DWSRequest {
+    const { id } = security;
+
+    return {
+        type: 'NestedTablesConverter',
+        url: `investments/${id}/asset-Allocation-Breakdown`
+    };
+}
