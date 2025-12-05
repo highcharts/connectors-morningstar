@@ -22,11 +22,13 @@
  * */
 
 
-import type DWSOptions from './DWSOptions';
 import MorningstarConnector from '../Shared/MorningstarConnector';
 import MorningstarURL from '../Shared/MorningstarURL';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarRegion from '../Shared/MorningstarRegion';
+
+import type DWSOptions from './DWSOptions';
+import type { DWSRequest, DWSResponse, DWSMetadata } from './DWSOptions';
 
 
 /* *
@@ -49,7 +51,16 @@ export abstract class DWSConnector extends MorningstarConnector {
     public constructor (
         options: DWSOptions
     ) {
+        if (options.api) {
+            options.api.isDWS = true;
+        }
+
         super(options);
+
+        this.metadata = {
+            columns: {},
+            rawResponses: []
+        };
 
         this.options = options;
     }
@@ -64,7 +75,11 @@ export abstract class DWSConnector extends MorningstarConnector {
 
     public override readonly options: DWSOptions;
 
-    public response?: Response;
+    public responses: Array<DWSResponse> = [];
+
+    public requests: Array<DWSRequest> = [];
+
+    public override metadata!: DWSMetadata;
 
     protected url!: string;
 
@@ -77,26 +92,26 @@ export abstract class DWSConnector extends MorningstarConnector {
 
 
     public override async load (): Promise<this> {
-        if (this.options.api) {
-            this.options.api.isDWS = true;
-        }
         await super.load();
 
         const api = this.api = this.api || new MorningstarAPI(this.options.api);
 
-        const fullUrl = new MorningstarURL(
-            `/direct-web-services/v1/${this.url}?languageId=${this.options.languageId || 'ENG'}`,
-            this.options?.api?.url || MorningstarRegion.baseURLs['Americas']
-        );
+        for (const { url, type } of this.requests || []) {
 
-        const response = await api.fetch(fullUrl, {
-            headers: { 'Content-Type': 'application/json' },
-            method: 'GET'
-        });
+            const fullUrl = new MorningstarURL(
+                `/direct-web-services/v1/${url}?languageId=${this.options.languageId || 'ENG'}`,
+                this.options?.api?.url || MorningstarRegion.baseURLs['Americas']
+            );
 
-        this.response = response;
+            const response = await api.fetch(fullUrl, {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'GET'
+            });
 
-        return this;
+            this.responses.push({ [type]: response });
+        }
+
+        return this.applyTableModifiers();
     }
 }
 

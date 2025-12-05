@@ -6,13 +6,18 @@ const loadingLabel = document.getElementById('loading-label');
 
 async function displaySecurityDetails (postmanJSON) {
 
-    const connector = new HighchartsConnectors.Morningstar.AssetAllocationBreakdownConnector({
+    const connector = new HighchartsConnectors.Morningstar.InvestmentsConnector({
         postman: {
             environmentJSON: postmanJSON
         },
         security: {
             id: '0P00000FIA',
             idType: 'performanceId'
+        },
+        converters: {
+            AssetAllocationBreakdown: {
+                
+            }
         }
     });
 

@@ -24,8 +24,8 @@
 import type {
     MorningstarConverterOptions,
     MorningstarMetadata
-} from '../../../Shared/MorningstarOptions';
-import { Message } from '../FundDataJSON';
+} from '../../../../Shared/MorningstarOptions';
+import { Message } from '../../../InvestmentsConnector/InvestmentsJSON';
 import AssetAllocationBreakdownJSON from './AssetAllocationBreakdownJSON';
 
 export interface AssetAllocationBreakdownConverterOptions extends MorningstarConverterOptions {

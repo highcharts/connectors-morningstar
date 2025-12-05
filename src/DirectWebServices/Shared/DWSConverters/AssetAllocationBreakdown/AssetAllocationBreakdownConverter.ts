@@ -22,8 +22,8 @@ import { DataTable } from '@highcharts/dashboards';
  *
  * */
 
-import MorningstarConverter from '../../../Shared/MorningstarConverter';
-import * as External from '../../../Shared/External';
+import MorningstarConverter from '../../../../Shared/MorningstarConverter';
+import * as External from '../../../../Shared/External';
 import {
     AssetAllocationBreakdownConverterOptions,
     AssetAllocationBreakdownMetadata 
@@ -65,7 +65,6 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
      */
 
     public readonly metadata: AssetAllocationBreakdownMetadata;
-    protected tables: External.DataTable[];
 
 
     /* *
@@ -152,9 +151,6 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
         }
     }
 
-    public getTables (): External.DataTable[] {
-        return this.tables;
-    }
 }
 
 

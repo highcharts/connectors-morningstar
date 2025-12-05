@@ -14,6 +14,7 @@
 
 'use strict';
 
+import type { InvestmentResponse } from '../../../InvestmentsConnector/InvestmentsJSON';
 
 /* *
  *
@@ -24,7 +25,7 @@
 
 namespace AssetAllocationBreakdownJSON {
 
-    export interface AssetAllocationBreakdownResponse {
+    export interface AssetAllocationBreakdownResponse extends InvestmentResponse {
         assetAllocationBreakdown: assetAllocationBreakdownItem;
     }
 

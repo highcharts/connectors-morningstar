@@ -35,7 +35,6 @@ import XRay from './XRay/index';
 import Performance from './Performance/index';
 import HypoPerformance from './HypoPerformance/index';
 import XRayUS from './XRayUS/index';
-import AssetAllocationBreakdown from './DirectWebServices/FundData/AssetAllocationBreakdown/index';
 
 /* *
  *
@@ -57,7 +56,7 @@ export * from './XRay/index';
 export * from './Performance/index';
 export * from './HypoPerformance/index';
 export * from './XRayUS/index';
-export * from './DirectWebServices/FundData/AssetAllocationBreakdown/index';
+
 /* *
  *
  *  Default Export
@@ -78,6 +77,5 @@ export default {
     Performance,
     HypoPerformance,
     XRayUS,
-    AssetAllocationBreakdown,
     version
 };
