@@ -19,6 +19,9 @@ async function displaySecurityDetails (postmanJSON) {
             },
             FixedIncomeSectorsBreakdown: {
                 // extra converter options here
+            },
+            NestedTablesConverter: {
+                // extra converter options here
             }
         }
     });
