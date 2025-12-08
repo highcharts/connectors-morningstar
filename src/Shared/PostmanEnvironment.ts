@@ -144,7 +144,7 @@ export class PostmanEnvironment {
 
         }
 
-        return new PostmanEnvironment(id, name, values); 
+        return new PostmanEnvironment(id, name, values);
     }
 
 

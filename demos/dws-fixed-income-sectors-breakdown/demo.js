@@ -1,14 +1,14 @@
 import { getPostmanFile } from '../utils/postman-localstorage.js';
 
-getPostmanFile(displayFixedIncomeSectorsBreakdown, true);
+getPostmanFile(displayFixedIncomeSectorsBreakdown, 'postmanEnvironmentDWS');
 
 const loadingLabel = document.getElementById('loading-label');
 
 async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
 
-    const connector = new HighchartsConnectors.Morningstar.InvestmentsConnector({
+    const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
         postman: {
-            environmentJSON: postmanJSON
+            environmentJSON: postmanJSON['postmanEnvironmentDWS']
         },
         security: {
             id: '0P00002QN3'

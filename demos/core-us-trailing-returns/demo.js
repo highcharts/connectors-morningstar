@@ -7,7 +7,7 @@ const loadingLabel = document.getElementById('loading-label');
 async function displayPerformance (postmanJSON) {
     const connector = new HighchartsConnectors.Morningstar.PerformanceConnector({
         postman: {
-            environmentJSON: postmanJSON
+            environmentJSON: postmanJSON['postmanEnvironment']
         },
         requestSettings: {
             outputCurrency: 'USD',

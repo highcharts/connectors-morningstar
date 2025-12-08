@@ -41,7 +41,7 @@ async function displaySecurityDetails (postmanJSON) {
                 id: 'asset-allocations',
                 type: 'MorningstarSecurityCompare',
                 postman: {
-                    environmentJSON: postmanJSON
+                    environmentJSON: postmanJSON['postmanEnvironment']
                 },
                 converters: ['AssetAllocations'],
                 security: {

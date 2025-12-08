@@ -11,7 +11,7 @@ async function displayOHLCV (postmanJSON) {
 
     const ohlcvConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
         postman: {
-            environmentJSON: postmanJSON
+            environmentJSON: postmanJSON['postmanEnvironment']
         },
         replaceZeroWithCloseValue: true,
         series: {
