@@ -44,11 +44,11 @@ export async function equitySectorsBreakdown (
     Assert.deepStrictEqual(
         dataTable.getColumnIds(),
         columnIds,
-        'Sectors breakdown converter should have expected columns.'
+        'Equity Sectors Breakdown table should have expected columns.'
     );
 
     Assert.ok(
         dataTable.getRowCount() > 0,
-        'Sectors breakdown table should not return empty rows.'
+        'Equity Sectors Breakdown table should not return empty rows.'
     );
 }

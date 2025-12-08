@@ -44,11 +44,11 @@ export async function fixedIncomeSectorsBreakdown (
     Assert.deepStrictEqual(
         dataTable.getColumnIds(),
         columnIds,
-        'Sectors breakdown converter should have expected columns.'
+        'Fixed Income Sectors Breakdown table should have expected columns.'
     );
 
     Assert.ok(
         dataTable.getRowCount() > 0,
-        'Sectors breakdown table should not return empty rows.'
+        'Fixed Income Sectors Breakdown table should not return empty rows.'
     );
 }

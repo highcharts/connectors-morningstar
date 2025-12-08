@@ -1,10 +1,10 @@
 import { getPostmanFile } from '../utils/postman-localstorage.js';
 
-getPostmanFile(displaySecurityDetails, true);
+getPostmanFile(displayEquitySectorsBreakdown, true);
 
 const loadingLabel = document.getElementById('loading-label');
 
-async function displaySecurityDetails (postmanJSON) {
+async function displayEquitySectorsBreakdown (postmanJSON) {
 
     const connector = new HighchartsConnectors.Morningstar.InvestmentsConnector({
         postman: {
