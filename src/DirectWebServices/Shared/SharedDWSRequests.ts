@@ -22,6 +22,7 @@ import type { InvestmentsConverterOptions, InvestmentsSecurityOptions } from '..
  *
  * */
 
+
 export function createRegionExposureRequest (
     converter: InvestmentsConverterOptions,
     security: InvestmentsSecurityOptions
@@ -35,6 +36,19 @@ export function createRegionExposureRequest (
 }
 
 
+export function createMockAssetAllocRequest (
+    converter: InvestmentsConverterOptions,
+    security: InvestmentsSecurityOptions
+): DWSRequest {
+    const { id } = security;
+
+    return {
+        type: 'MockAssetAlloc',
+        url: `investments/${id}/asset-Allocation-Breakdown`
+    };
+}
+
+
 export function createMockBasicDetailsRequest (
     converter: InvestmentsConverterOptions,
     security: InvestmentsSecurityOptions
@@ -44,5 +58,18 @@ export function createMockBasicDetailsRequest (
     return {
         type: 'MockBasicDetails',
         url: `investments/${id}/investment-Basic-Details`
+    };
+}
+
+
+export function createNestedTablesRequest (
+    converter: InvestmentsConverterOptions,
+    security: InvestmentsSecurityOptions
+): DWSRequest {
+    const { id } = security;
+
+    return {
+        type: 'NestedTablesConverter',
+        url: `investments/${id}/asset-Allocation-Breakdown`
     };
 }
