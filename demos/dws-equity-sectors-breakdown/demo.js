@@ -16,26 +16,15 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         converters: {
             EquitySectorsBreakdown: {
                 // extra converter options here
-            },
-            FixedIncomeSectorsBreakdown: {
-                // extra converter options here
             }
         }
     });
 
     await connector.load();
 
-    const dataTable = connector.getTable('EquitySectorsBreakdown');
-
-    Highcharts.chart('container', {
+    Highcharts.setOptions({
         chart: {
             type: 'column'
-        },
-        title: {
-            text: 'Equity Sectors Breakdown'
-        },
-        subtitle: {
-            text: connector.metadata.performanceId
         },
         xAxis: {
             type: 'category'
@@ -48,28 +37,107 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         tooltip: {
             shared: true,
             valueSuffix: '%'
+        }
+    });
+
+    const type = 'Type_0P00000FIA',
+        longRescaled = 'PercLongRescaled_0P00000FIA',
+        long = 'PercLong_0P00000FIA',
+        net = 'PercNet_0P00000FIA';
+
+    const superSectorTable = connector.getTable('SuperSector');
+    Highcharts.chart('container-super-sector', {
+        title: {
+            text: 'Equity Super Sectors Breakdown'
+        },
+        subtitle: {
+            text: superSectorTable.metadata.performanceId
         },
         series: [{
-            name: 'Equity Super Sector Long',
-            data: dataTable.getRows(
-                void 0,
-                void 0,
-                ['SuperSector_Type_0P00000FIA', 'SuperSector_PercLong_0P00000FIA']
-            ).filter(item => !item.every(v => v === undefined))
-        }, {
             name: 'Equity Super Sector Long Rescaled',
-            data: dataTable.getRows(
+            data: superSectorTable.getRows(
                 void 0,
                 void 0,
-                ['SuperSector_Type_0P00000FIA', 'SuperSector_PercLongRescaled_0P00000FIA']
-            ).filter(item => !item.every(v => v === undefined))
+                [type, longRescaled]
+            )
+        }, {
+            name: 'Equity Super Sector Long',
+            data: superSectorTable.getRows(
+                void 0,
+                void 0,
+                [type, long]
+            )
         }, {
             name: 'Equity Super Sector Net',
-            data: dataTable.getRows(
+            data: superSectorTable.getRows(
                 void 0,
                 void 0,
-                ['SuperSector_Type_0P00000FIA', 'SuperSector_PercNet_0P00000FIA']
-            ).filter(item => !item.every(v => v === undefined))
+                [type, net]
+            )
+        }]
+    });
+
+    const sectorTable = connector.getTable('Sector');
+    Highcharts.chart('container-sector', {
+        title: {
+            text: 'Equity Sectors Breakdown'
+        },
+        subtitle: {
+            text: sectorTable.metadata.performanceId
+        },
+        series: [{
+            name: 'Equity Sector Long Rescaled',
+            data: sectorTable.getRows(
+                void 0,
+                void 0,
+                [type, longRescaled]
+            )
+        }, {
+            name: 'Equity Sector Long',
+            data: sectorTable.getRows(
+                void 0,
+                void 0,
+                [type, long]
+            )
+        }, {
+            name: 'Equity Sector Net',
+            data: sectorTable.getRows(
+                void 0,
+                void 0,
+                [type, net]
+            )
+        }]
+    });
+
+    const industryTable = connector.getTable('Industry');
+    Highcharts.chart('container-industry', {
+        title: {
+            text: 'Equity Industries Breakdown'
+        },
+        subtitle: {
+            text: industryTable.metadata.performanceId
+        },
+        series: [{
+            name: 'Equity Industries Long Rescaled',
+            data: industryTable.getRows(
+                void 0,
+                void 0,
+                [type, longRescaled]
+            )
+        }, {
+            name: 'Equity Industries Long',
+            data: industryTable.getRows(
+                void 0,
+                void 0,
+                [type, long]
+            )
+        }, {
+            name: 'Equity Industries Net',
+            data: industryTable.getRows(
+                void 0,
+                void 0,
+                [type, net]
+            )
         }]
     });
 

@@ -13,8 +13,7 @@ export async function equitySectorsBreakdown (
             id: '0P00000FIA'
         },
         converters: {
-            EquitySectorsBreakdown: {},
-            FixedIncomeSectorsBreakdown: {}
+            EquitySectorsBreakdown: {}
         }
     });
 
@@ -24,23 +23,15 @@ export async function equitySectorsBreakdown (
     );
 
     await connector.load();
-    const dataTable = connector.getTable('EquitySectorsBreakdown');
+    const dataTable = connector.getTable('SuperSector');
 
     Assert.deepStrictEqual(
         dataTable.getColumnIds(),
         [
-            'SuperSector_Type_0P00000FIA',
-            'SuperSector_PercLong_0P00000FIA',
-            'SuperSector_PercLongRescaled_0P00000FIA',
-            'SuperSector_PercNet_0P00000FIA',
-            'Sector_Type_0P00000FIA',
-            'Sector_PercLong_0P00000FIA',
-            'Sector_PercLongRescaled_0P00000FIA',
-            'Sector_PercNet_0P00000FIA',
-            'Industry_Type_0P00000FIA',
-            'Industry_PercLong_0P00000FIA',
-            'Industry_PercLongRescaled_0P00000FIA',
-            'Industry_PercNet_0P00000FIA'
+            'Type_0P00000FIA',
+            'PercLong_0P00000FIA',
+            'PercLongRescaled_0P00000FIA',
+            'PercNet_0P00000FIA'
         ],
         'Equity Sectors Breakdown table should have expected columns.'
     );

@@ -13,7 +13,6 @@ export async function fixedIncomeSectorsBreakdown (
             id: '0P00000FIA'
         },
         converters: {
-            EquitySectorsBreakdown: {},
             FixedIncomeSectorsBreakdown: {}
         }
     });
@@ -24,23 +23,15 @@ export async function fixedIncomeSectorsBreakdown (
     );
 
     await connector.load();
-    const dataTable = connector.getTable('FixedIncomeSectorsBreakdown');
+    const dataTable = connector.getTable('SuperSector');
 
     Assert.deepStrictEqual(
         dataTable.getColumnIds(),
         [
-            'SuperSector_Fixed_Inc_Type_0P00000FIA',
-            'PrimarySector_Fixed_Inc_Type_0P00000FIA',
-            'SecondarySector_Fixed_Inc_Type_0P00000FIA',
-            'SuperSector_Fixed_Inc_PercLong_0P00000FIA',
-            'SuperSector_Fixed_Inc_PercNet_0P00000FIA',
-            'SuperSector_Fixed_Inc_PercLongRescaled_0P00000FIA',
-            'PrimarySector_Fixed_Inc_PercLong_0P00000FIA',
-            'PrimarySector_Fixed_Inc_PercNet_0P00000FIA',
-            'PrimarySector_Fixed_Inc_PercLongRescaled_0P00000FIA',
-            'SecondarySector_Fixed_Inc_PercLong_0P00000FIA',
-            'SecondarySector_Fixed_Inc_PercNet_0P00000FIA',
-            'SecondarySector_Fixed_Inc_PercLongRescaled_0P00000FIA'
+            'Fixed_Inc_Type_0P00000FIA',
+            'Fixed_Inc_PercLong_0P00000FIA',
+            'Fixed_Inc_PercNet_0P00000FIA',
+            'Fixed_Inc_PercLongRescaled_0P00000FIA'
         ],
         'Fixed Income Sectors Breakdown table should have expected columns.'
     );

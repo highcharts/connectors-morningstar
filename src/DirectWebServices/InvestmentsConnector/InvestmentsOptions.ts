@@ -30,7 +30,13 @@ import type {
  *
  * */
 
-export type InvestmentsConverters = Record<InvestmentsConverterType, InvestmentsConverterOptions>;
+export type InvestmentsConverters = Partial<Record<InvestmentsConverterType, InvestmentsConverterOptions>>;
+
+export type Converters = Array<{ key: InvestmentsConverterType, children?: string[] }>;
+
+export type InvestmentsConverterType =
+    'EquitySectorsBreakdown' |
+    'FixedIncomeSectorsBreakdown';
 
 export interface InvestmentsOptions extends MorningstarOptions {
     converters?: InvestmentsConverters;
@@ -45,10 +51,6 @@ export interface InvestmentsConverterOptions {
 export interface InvestmentsSecurityOptions {
     id: string;
 }
-
-export type InvestmentsConverterType =
-    'EquitySectorsBreakdown' |
-    'FixedIncomeSectorsBreakdown';
 
 /* *
  *
