@@ -174,7 +174,7 @@ export class Server {
      * @param request
      * Incoming HTTP message.
      *
-     * @param response 
+     * @param response
      * Outgoing HTTP message.
      */
     public async handle (
@@ -241,7 +241,7 @@ export class Server {
                     fileBuffer
                         .toString('utf8')
                         .replace(
-                            /https:\/\/code\.highcharts\.com\/connectors\/morningstar\//u,
+                            /https:\/\/code\.highcharts\.com\/connectors\/morningstar\//gu,
                             '/code/'
                         )
                 );
