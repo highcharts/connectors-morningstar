@@ -56,8 +56,7 @@ export async function bothAPIs (
             id: '0P00000FIA'
         },
         converters: {
-            EquitySectorsBreakdown: {},
-            FixedIncomeSectorsBreakdown: {}
+            EquitySectorsBreakdown: {}
         }
     });
 
@@ -67,23 +66,15 @@ export async function bothAPIs (
     );
 
     await dwsConnector.load();
-    const dwsDataTable = dwsConnector.getTable('EquitySectorsBreakdown');
+    const dwsDataTable = dwsConnector.getTable('SuperSector');
 
     Assert.deepStrictEqual(
         dwsDataTable.getColumnIds(),
         [
-            'SuperSector_Type_0P00000FIA',
-            'SuperSector_PercLong_0P00000FIA',
-            'SuperSector_PercLongRescaled_0P00000FIA',
-            'SuperSector_PercNet_0P00000FIA',
-            'Sector_Type_0P00000FIA',
-            'Sector_PercLong_0P00000FIA',
-            'Sector_PercLongRescaled_0P00000FIA',
-            'Sector_PercNet_0P00000FIA',
-            'Industry_Type_0P00000FIA',
-            'Industry_PercLong_0P00000FIA',
-            'Industry_PercLongRescaled_0P00000FIA',
-            'Industry_PercNet_0P00000FIA'
+            'Type_0P00000FIA',
+            'PercLong_0P00000FIA',
+            'PercLongRescaled_0P00000FIA',
+            'PercNet_0P00000FIA'
         ],
         'DWS Equity Sectors Breakdown table should have expected columns.'
     );

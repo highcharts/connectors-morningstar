@@ -29,9 +29,6 @@ async function displayDataFromBothAPIs (postmanJSON) {
         converters: {
             EquitySectorsBreakdown: {
                 // extra converter options here
-            },
-            FixedIncomeSectorsBreakdown: {
-                // extra converter options here
             }
         }
     });
@@ -46,7 +43,7 @@ async function displayDataFromBothAPIs (postmanJSON) {
     const dataTable = connector.dataTables['TrailingPerformance'];
 
     // Get data from the MorningstarDWS's EquitySectorsBreakdown
-    const dwsDataTable = dwsConnector.getTable('EquitySectorsBreakdown');
+    const dwsDataTable = dwsConnector.getTable('SuperSector');
 
     // Display data from the Morningstar API
     Highcharts.chart('container', {
@@ -76,10 +73,10 @@ async function displayDataFromBothAPIs (postmanJSON) {
             type: 'column'
         },
         title: {
-            text: '[Morningstar DWS API] Equity Sectors Breakdown'
+            text: '[Morningstar DWS API] Equity Super Sectors Breakdown'
         },
         subtitle: {
-            text: dwsConnector.metadata.performanceId
+            text: dwsDataTable.metadata.performanceId
         },
         xAxis: {
             type: 'category'
@@ -94,26 +91,26 @@ async function displayDataFromBothAPIs (postmanJSON) {
             valueSuffix: '%'
         },
         series: [{
-            name: 'Equity Super Sector Long',
-            data: dwsDataTable.getRows(
-                void 0,
-                void 0,
-                ['SuperSector_Type_0P00000FIA', 'SuperSector_PercLong_0P00000FIA']
-            ).filter(item => !item.every(v => v === undefined))
-        }, {
             name: 'Equity Super Sector Long Rescaled',
             data: dwsDataTable.getRows(
                 void 0,
                 void 0,
-                ['SuperSector_Type_0P00000FIA', 'SuperSector_PercLongRescaled_0P00000FIA']
-            ).filter(item => !item.every(v => v === undefined))
+                ['Type_0P00000FIA', 'PercLongRescaled_0P00000FIA']
+            )
+        }, {
+            name: 'Equity Super Sector Long',
+            data: dwsDataTable.getRows(
+                void 0,
+                void 0,
+                ['Type_0P00000FIA', 'PercLong_0P00000FIA']
+            )
         }, {
             name: 'Equity Super Sector Net',
             data: dwsDataTable.getRows(
                 void 0,
                 void 0,
-                ['SuperSector_Type_0P00000FIA', 'SuperSector_PercNet_0P00000FIA']
-            ).filter(item => !item.every(v => v === undefined))
+                ['Type_0P00000FIA', 'PercNet_0P00000FIA']
+            )
         }]
     });
 
