@@ -22,7 +22,7 @@
  * */
 
 
-import type { MorningstarAccessOptions } from './MorningstarOptions';
+import type { MorningstarAPIOptions } from './MorningstarOptions';
 
 import MorningstarRegion from './MorningstarRegion';
 import { version } from '../version';
@@ -121,12 +121,15 @@ export class MorningstarAccess {
 
 
     public constructor (
-        options: MorningstarAccessOptions = {}
+        options: MorningstarAPIOptions = {}
     ) {
+        const accessOptions = options.access ?? {},
+            accessURL = accessOptions.url,
+            accessToken = accessOptions.token;
 
         this.url = (
-            options.url ?
-                new URL(options.url, window.location.href) :
+            accessURL ?
+                new URL(accessURL, window.location.href) :
                 new URL('token/oauth', MorningstarRegion.baseURLs[MorningstarRegion.detect()])
         );
 
@@ -134,15 +137,20 @@ export class MorningstarAccess {
             throw new Error('Insecure API protocol');
         }
 
-        if (options.token) {
-            this.token = options.token;
+        if (accessToken) {
+            this.token = accessToken;
             this.tokenType = 'Option';
         }
 
-        this.setPayload(options.username, options.password);
-
-        delete options.password;
-        delete options.username;
+        if (options.isDWS) {
+            this.setPayload(accessOptions.dwsUsername, accessOptions.dwsPassword);
+            delete accessOptions.dwsUsername;
+            delete accessOptions.dwsPassword;
+        } else {
+            this.setPayload(accessOptions.username, accessOptions.password);
+            delete accessOptions.username;
+            delete accessOptions.password;
+        }
 
     }
 

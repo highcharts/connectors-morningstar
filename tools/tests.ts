@@ -56,7 +56,9 @@ function getAPIOptions (): Shared.MorningstarAPIOptions {
     ) {
         apiOptions.access = {
             password: process.env.MORNINGSTAR_PASSWORD,
-            username: process.env.MORNINGSTAR_USERNAME
+            username: process.env.MORNINGSTAR_USERNAME,
+            dwsUsername: process.env.DWS_MORNINGSTAR_USERNAME,
+            dwsPassword: process.env.DWS_MORNINGSTAR_PASSWORD
         }
     }
 
