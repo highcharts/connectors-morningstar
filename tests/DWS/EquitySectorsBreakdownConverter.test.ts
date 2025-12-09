@@ -24,7 +24,7 @@ export async function equitySectorsBreakdown (
 
     await connector.load();
 
-    const dataTable = connector.getTable('SuperSector'),
+    const dataTable = connector.getTable('EqSuperSector'),
         columnIds = [
             'Type_0P00000FIA',
             'PercLong_0P00000FIA',

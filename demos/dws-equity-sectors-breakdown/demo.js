@@ -45,7 +45,7 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         long = 'PercLong_0P00000FIA',
         net = 'PercNet_0P00000FIA';
 
-    const superSectorTable = connector.getTable('SuperSector');
+    const superSectorTable = connector.getTable('EqSuperSector');
     Highcharts.chart('container-super-sector', {
         title: {
             text: 'Equity Super Sectors Breakdown'
@@ -77,7 +77,7 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         }]
     });
 
-    const sectorTable = connector.getTable('Sector');
+    const sectorTable = connector.getTable('EqSector');
     Highcharts.chart('container-sector', {
         title: {
             text: 'Equity Sectors Breakdown'
@@ -109,7 +109,7 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         }]
     });
 
-    const industryTable = connector.getTable('Industry');
+    const industryTable = connector.getTable('EqIndustry');
     Highcharts.chart('container-industry', {
         title: {
             text: 'Equity Industries Breakdown'

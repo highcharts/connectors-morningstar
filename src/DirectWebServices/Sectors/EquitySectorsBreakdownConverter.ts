@@ -49,9 +49,9 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
 
         // Create main data tables
         this.tables = [
-            new External.DataTable({ id: 'SuperSector' }),
-            new External.DataTable({ id: 'Sector' }),
-            new External.DataTable({ id: 'Industry' })
+            new External.DataTable({ id: 'EqSuperSector' }),
+            new External.DataTable({ id: 'EqSector' }),
+            new External.DataTable({ id: 'EqIndustry' })
         ];
 
         this.metadata = {
@@ -95,7 +95,7 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
                     // Sector type value
                     table.setCell(`Type_${id}`, index, sector);
 
-                    const prefix = `equityEcon${table.id}${sector}`;
+                    const prefix = `equityEcon${table.id.replace(/^Eq/u, '')}${sector}`;
                     const long = Number(sectorsData[`${prefix}PercLong`]);
                     const longRescaled =
                         Number(sectorsData[`${prefix}PercLongRescaled`]);

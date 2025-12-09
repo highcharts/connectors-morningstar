@@ -24,7 +24,7 @@ export async function fixedIncomeSectorsBreakdown (
 
     await connector.load();
 
-    const dataTable = connector.getTable('SuperSector'),
+    const dataTable = connector.getTable('IncSuperSector'),
         columnIds = [
             'Fixed_Inc_Type_0P00000FIA',
             'Fixed_Inc_PercLong_0P00000FIA',
