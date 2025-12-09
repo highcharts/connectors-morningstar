@@ -46,6 +46,12 @@ export class NestedTablesConverter extends MorningstarConverter {
         options?: any
     ) {
         super(options as MorningstarConverterOptions);
+
+        const tables = this.tables;
+
+        tables.push(new External.DataTable({ id: 'Table1' }));
+        tables.push(new External.DataTable({ id: 'Table2' }));
+        tables.push(new External.DataTable({ id: 'Table3' }));
     }
 
 
@@ -58,10 +64,6 @@ export class NestedTablesConverter extends MorningstarConverter {
 
     public override parse (): void {
         const tables = this.tables;
-
-        tables.push(new External.DataTable({ id: 'Table1' }));
-        tables.push(new External.DataTable({ id: 'Table2' }));
-        tables.push(new External.DataTable({ id: 'Table3' }));
 
         tables[0].setCell('First table', 0, 'some value');
         tables[1].setCell('Second table', 0, 'some value');
