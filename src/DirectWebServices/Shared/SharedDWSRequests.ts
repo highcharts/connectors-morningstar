@@ -54,15 +54,3 @@ export function createFixedIncomeSectorsBreakdownRequest (
         url: `investments/${id}/morningstar-fixed-income-sectors-breakdown`
     };
 }
-
-export function createNestedTablesRequest (
-    converter: InvestmentsConverterOptions,
-    security: InvestmentsSecurityOptions
-): DWSRequest {
-    const { id } = security;
-
-    return {
-        type: 'NestedTablesConverter',
-        url: `investments/${id}/asset-Allocation-Breakdown`
-    };
-}

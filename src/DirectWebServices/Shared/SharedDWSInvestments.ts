@@ -21,12 +21,10 @@
 
 import {
     createEquitySectorsBreakdownRequest,
-    createFixedIncomeSectorsBreakdownRequest,
-    createNestedTablesRequest
+    createFixedIncomeSectorsBreakdownRequest
 } from './SharedDWSRequests';
 import EquitySectorsBreakdownConverter from '../Sectors/EquitySectorsBreakdownConverter';
 import FixedIncomeSectorsBreakdownConverter from '../Sectors/FixedIncomeSectorsBreakdownConverter';
-import NestedTablesConverter from './DWSConverters/NestedTablesConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
@@ -45,9 +43,14 @@ import type { MorningstarConverterOptions } from '../../Shared';
  * */
 
 const CONVERTERS: Converters = [
-    { key: 'EquitySectorsBreakdown' },
-    { key: 'FixedIncomeSectorsBreakdown' },
-    { key: 'NestedTablesConverter', children: ['Table1', 'Table2', 'Table3'] }
+    {
+        key: 'EquitySectorsBreakdown',
+        children: ['SuperSector', 'Sector', 'Industry']
+    },
+    {
+        key: 'FixedIncomeSectorsBreakdown',
+        children: ['SuperSector', 'PrimarySector', 'SecondarySector']
+    }
 ];
 
 /* *
@@ -110,9 +113,6 @@ export function createRequests (
                 requests.push(
                     createFixedIncomeSectorsBreakdownRequest(converter, security)
                 );
-                break;
-            case 'NestedTablesConverter':
-                requests.push(createNestedTablesRequest(converter, security));
         }
     }
 
@@ -127,7 +127,5 @@ export function initConverter (
             return new EquitySectorsBreakdownConverter();
         case 'FixedIncomeSectorsBreakdown':
             return new FixedIncomeSectorsBreakdownConverter();
-        case 'NestedTablesConverter':
-            return new NestedTablesConverter();
     }
 }

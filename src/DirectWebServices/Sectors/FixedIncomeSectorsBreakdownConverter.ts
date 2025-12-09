@@ -26,6 +26,7 @@ import {
 } from './FixedIncomeSectorsBreakdownOptions';
 import SectorsBreakdown from './SectorsBreakdownOptions';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
+import * as External from '../../Shared/External';
 
 // The fields mapping object
 const fieldsMapping: FieldsMapping = {
@@ -82,6 +83,14 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
         options?: FixedIncomeSectorsBreakdownConverterOptions
     ) {
         super(options);
+
+        // Create main data tables
+        this.tables = [
+            new External.DataTable({ id: 'SuperSector' }),
+            new External.DataTable({ id: 'PrimarySector' }),
+            new External.DataTable({ id: 'SecondarySector' })
+        ];
+
         this.metadata = {
             columns: {}
         };
@@ -104,15 +113,29 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
     public override parse (
         options: FixedIncomeSectorsBreakdownConverterOptions
     ): void {
-        const table = this.table;
-        const metadata = this.metadata;
-        const userOptions = { ...this.options, ...options };
-        const json = userOptions.json;
-        const id = json.identifiers.performanceId;
-        const sectorsData = json.morningstarFixedIncomeSectorsBreakdown;
+        const tables = this.tables,
+            metadata = this.metadata,
+            userOptions = { ...this.options, ...options },
+            json = userOptions.json,
+            id = json.identifiers.performanceId,
+            sectorsData = json.morningstarFixedIncomeSectorsBreakdown;
+
+        const tablesObj = {
+            SuperSector: tables[0],
+            PrimarySector: tables[1],
+            SecondarySector: tables[2]
+        };
 
         if (sectorsData) {
             let initTypeColumns = true;
+
+            // Metadata
+            metadata.performanceId = id;
+
+            if (json.metadata.messages?.length) {
+                metadata.messages = json.metadata.messages;
+            }
+
             // Search the data
             for (const option in sectorsData) {
                 // Use the mapping object
@@ -127,13 +150,20 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                     // The init of the sector types columns
                     if (initTypeColumns) {
                         SectorsBreakdown.sectorTypes.forEach((type) => {
+                            // Get the table for this sector type
                             if (type !== 'SecondrySector') {
+                                const table = tablesObj[type as keyof typeof tablesObj];
                                 const sectorsArray =
                                     mapping[type.charAt(0).toLowerCase() + type.slice(1)] as Array<string>;
 
                                 if (!sectorsArray.length) {
-                                    table.setColumn(`${type}_${column}_Type_${id}`);
+                                    table.setColumn(`${column}_Type_${id}`);
                                 }
+
+                                // Set metadata per each Sector table
+                                table.metadata = {
+                                    performanceId: metadata.performanceId
+                                };
                             }
                         });
                         initTypeColumns = false;
@@ -152,10 +182,11 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                         // Save breakdown sector
                         sectors.push(typeAndName);
                         const index = sectors.length - 1;
+                        const table = tablesObj[type as keyof typeof tablesObj];
 
                         // Sector type value
                         table.setCell(
-                            `${type}_${column}_Type_${id}`,
+                            `${column}_Type_${id}`,
                             index,
                             name
                         );
@@ -169,7 +200,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                             // Set value of a specific category
                             if (value) {
                                 table.setCell(
-                                    `${type}_${column}_${suffix}_${id}`,
+                                    `${column}_${suffix}_${id}`,
                                     index,
                                     Number(value)
                                 );
@@ -184,13 +215,6 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                 mapping.superSector.length = 0;
                 mapping.primarySector.length = 0;
                 mapping.secondarySector.length = 0;
-            }
-
-            // Metadata
-            metadata.performanceId = id;
-
-            if (json.metadata.messages?.length) {
-                metadata.messages = json.metadata.messages;
             }
         }
     }

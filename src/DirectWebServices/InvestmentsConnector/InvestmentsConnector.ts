@@ -118,9 +118,11 @@ export class InvestmentsConnector extends DWSConnector {
             if (this.convertersToUse.find(c => c.key === type)?.children) {
                 for (const table of converter.getTables()) {
                     this.dataTables[table.id].setColumns(table.getColumns());
+                    this.dataTables[table.id].metadata = table.metadata;
                 }
             } else {
                 this.dataTables[type].setColumns(converter.getTable().getColumns());
+                this.dataTables[type].metadata = converter.getTable().metadata;
             }
 
             this.metadata.rawResponses.push({ type, json });

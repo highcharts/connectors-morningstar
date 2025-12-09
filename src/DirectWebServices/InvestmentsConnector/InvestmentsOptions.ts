@@ -36,8 +36,7 @@ export type Converters = Array<{ key: InvestmentsConverterType, children?: strin
 
 export type InvestmentsConverterType =
     'EquitySectorsBreakdown' |
-    'FixedIncomeSectorsBreakdown' |
-    'NestedTablesConverter';
+    'FixedIncomeSectorsBreakdown';
 
 export interface InvestmentsOptions extends MorningstarOptions {
     converters?: InvestmentsConverters;
