@@ -23,7 +23,7 @@ export async function fixedIncomeSectorsBreakdown (
     );
 
     await connector.load();
-    const dataTable = connector.getTable('SuperSector');
+    const dataTable = connector.getTable('IncSuperSector');
 
     Assert.deepStrictEqual(
         dataTable.getColumnIds(),

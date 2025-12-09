@@ -19,13 +19,8 @@
  *
  * */
 
-import type {
-    MorningstarMetadata,
-    MorningstarOptions
-} from '../Shared/MorningstarOptions';
-import type {
-    InvestmentsConverterType
-} from './InvestmentsConnector/InvestmentsOptions';
+import type { MorningstarMetadata, MorningstarOptions } from '../Shared/MorningstarOptions';
+import type { InvestmentsConverterType } from './InvestmentsConnector/InvestmentsOptions';
 
 /* *
  *

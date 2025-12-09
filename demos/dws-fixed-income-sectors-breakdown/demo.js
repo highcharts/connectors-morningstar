@@ -45,7 +45,7 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         long = 'Fixed_Inc_PercLong_0P00002QN3',
         net = 'Fixed_Inc_PercNet_0P00002QN3';
 
-    const superSectorTable = connector.getTable('SuperSector');
+    const superSectorTable = connector.getTable('IncSuperSector');
     Highcharts.chart('container-super-sector', {
         title: {
             text: 'Fixed Income Super Sectors Breakdown'
@@ -77,7 +77,7 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }]
     });
 
-    const primarySectorTable = connector.getTable('PrimarySector');
+    const primarySectorTable = connector.getTable('IncPrimarySector');
     Highcharts.chart('container-primary-sector', {
         title: {
             text: 'Fixed Income Primary Sectors Breakdown'
@@ -109,7 +109,7 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }]
     });
 
-    const secondarySectorTable = connector.getTable('SecondarySector');
+    const secondarySectorTable = connector.getTable('IncSecondarySector');
     Highcharts.chart('container-secondary-sector', {
         title: {
             text: 'Fixed Income Secondary Sectors Breakdown'

@@ -61,13 +61,12 @@ export class InvestmentsConnector extends DWSConnector {
     public constructor (
         options: InvestmentsOptions
     ) {
-        const convertersToUse = pickConverters(options.converters),
-            dataTablesToUse = dataTablesFromConverters(convertersToUse);
+        const convertersToUse = pickConverters(options.converters);
 
         options = {
             ...InvestmentsConnector.defaultOptions,
             ...options,
-            dataTables: dataTablesToUse
+            dataTables: dataTablesFromConverters(convertersToUse)
         };
 
         super(options);

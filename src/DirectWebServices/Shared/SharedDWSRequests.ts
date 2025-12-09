@@ -13,17 +13,8 @@
 
 'use strict';
 
-/* *
- *
- *  Imports
- *
- * */
-
 import type { DWSRequest } from '../DWSOptions';
-import type {
-    InvestmentsConverterOptions,
-    InvestmentsSecurityOptions
-} from '../InvestmentsConnector/InvestmentsOptions';
+import type { InvestmentsConverterOptions, InvestmentsSecurityOptions } from '../InvestmentsConnector/InvestmentsOptions';
 
 /* *
  *

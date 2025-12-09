@@ -23,7 +23,7 @@ export async function equitySectorsBreakdown (
     );
 
     await connector.load();
-    const dataTable = connector.getTable('SuperSector');
+    const dataTable = connector.getTable('EqSuperSector');
 
     Assert.deepStrictEqual(
         dataTable.getColumnIds(),

@@ -86,9 +86,9 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
 
         // Create main data tables
         this.tables = [
-            new External.DataTable({ id: 'SuperSector' }),
-            new External.DataTable({ id: 'PrimarySector' }),
-            new External.DataTable({ id: 'SecondarySector' })
+            new External.DataTable({ id: 'IncSuperSector' }),
+            new External.DataTable({ id: 'IncPrimarySector' }),
+            new External.DataTable({ id: 'IncSecondarySector' })
         ];
 
         this.metadata = {
