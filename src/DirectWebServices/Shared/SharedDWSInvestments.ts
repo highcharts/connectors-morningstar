@@ -23,6 +23,7 @@
 
 import {
     createAssetAllocRequest,
+    createMockAssetAllocRequest,
     createMockBasicDetailsRequest,
     createNestedTablesRequest
 } from './SharedDWSRequests';
@@ -114,6 +115,9 @@ export function createRequests (
         switch (type) {
             case 'AssetAllocationBreakdown':
                 requests.push(createAssetAllocRequest(converter, security));
+                break;
+            case 'MockAssetAlloc':
+                requests.push(createMockAssetAllocRequest(converter, security));
                 break;
             case 'MockBasicDetails':
                 requests.push(createMockBasicDetailsRequest(converter, security));
