@@ -23,11 +23,9 @@
 
 import {
     createAssetAllocRequest,
-    createMockAssetAllocRequest,
     createMockBasicDetailsRequest,
     createNestedTablesRequest
 } from './SharedDWSRequests';
-import MockAssetAllocConverter from './DWSConverters/MockAssetAllocConverter';
 import MockBasicDetailsConverter from './DWSConverters/MockBasicDetailsConverter';
 import AssetAllocationBreakdownConverter from './DWSConverters/AssetAllocationBreakdown/AssetAllocationBreakdownConverter';
 import NestedTablesConverter from './DWSConverters/NestedTablesConverter';
@@ -57,7 +55,6 @@ const CONVERTERS: Converters = [
             'UnderlyingAssetAlloc'
         ]
     },
-    { key: 'MockAssetAlloc' },
     { key: 'MockBasicDetails' },
     { key: 'NestedTablesConverter', children: ['Table1', 'Table2', 'Table3'] }
 ];
@@ -116,9 +113,6 @@ export function createRequests (
             case 'AssetAllocationBreakdown':
                 requests.push(createAssetAllocRequest(converter, security));
                 break;
-            case 'MockAssetAlloc':
-                requests.push(createMockAssetAllocRequest(converter, security));
-                break;
             case 'MockBasicDetails':
                 requests.push(createMockBasicDetailsRequest(converter, security));
                 break;
@@ -137,8 +131,6 @@ export function initConverter (
         default:
         case 'AssetAllocationBreakdown':
             return new AssetAllocationBreakdownConverter();
-        case 'MockAssetAlloc':
-            return new MockAssetAllocConverter();
         case 'MockBasicDetails':
             return new MockBasicDetailsConverter();
         case 'NestedTablesConverter':

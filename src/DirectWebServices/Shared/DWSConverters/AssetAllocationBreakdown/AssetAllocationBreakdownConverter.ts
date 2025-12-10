@@ -54,6 +54,11 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
         this.metadata = {
             columns: {}
         };
+        const tables = this.tables;
+
+        tables[0] = new External.DataTable({ id:'AssetAlloc' });
+        tables[1] = new External.DataTable({ id:'CanadianAssetAlloc' });
+        tables[2] = new External.DataTable({ id:'UnderlyingAssetAlloc' });
 
     }
 
@@ -110,11 +115,6 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
         ] as DataTable.Column;
 
         const SUFFIXES = ['Long', 'LongRescaled', 'Net', 'Short'];
-
-
-        tables[0] = new External.DataTable({ id:'AssetAlloc' });
-        tables[1] = new External.DataTable({ id:'CanadianAssetAlloc' });
-        tables[2] = new External.DataTable({ id:'UnderlyingAssetAlloc' });
 
         tables[0].setColumn('Type', assets);
         tables[1].setColumn('Type', canAssets);

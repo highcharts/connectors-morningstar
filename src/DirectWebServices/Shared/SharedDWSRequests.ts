@@ -34,19 +34,6 @@ export function createAssetAllocRequest (
     };
 }
 
-export function createMockAssetAllocRequest (
-    converter: InvestmentsConverterOptions,
-    security: InvestmentsSecurityOptions
-): DWSRequest {
-    const { id } = security;
-
-    return {
-        type: 'MockAssetAlloc',
-        url: `investments/${id}/asset-Allocation-Breakdown`
-    };
-}
-
-
 export function createMockBasicDetailsRequest (
     converter: InvestmentsConverterOptions,
     security: InvestmentsSecurityOptions
