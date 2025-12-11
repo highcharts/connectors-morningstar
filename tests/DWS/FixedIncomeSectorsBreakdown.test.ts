@@ -23,18 +23,11 @@ export async function fixedIncomeSectorsBreakdown (
     );
 
     await connector.load();
-
-    const dataTable = connector.getTable('IncSuperSector'),
-        columnIds = [
-            'Fixed_Inc_Type_0P00000FIA',
-            'Fixed_Inc_PercLong_0P00000FIA',
-            'Fixed_Inc_PercNet_0P00000FIA',
-            'Fixed_Inc_PercLongRescaled_0P00000FIA'
-        ];
+    const dataTable = connector.getTable('IncSuperSectors');
 
     Assert.deepStrictEqual(
         dataTable.getColumnIds(),
-        columnIds,
+        ['Fixed_Inc_Type', 'Fixed_Inc_PercLongRescaled', 'Fixed_Inc_PercNet', 'Fixed_Inc_PercLong'],
         'Fixed Income Sectors Breakdown table should have expected columns.'
     );
 

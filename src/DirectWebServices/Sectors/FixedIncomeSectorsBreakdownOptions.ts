@@ -19,9 +19,9 @@
  *
  * */
 
-import FixedIncomeSectorsBreakdownJSON from './FixedIncomeSectorsBreakdownJSON';
 import SectorsBreakdown from './SectorsBreakdownOptions';
 
+import type FixedIncomeSectorsBreakdownJSON from './FixedIncomeSectorsBreakdownJSON';
 import type {
     MorningstarConverterOptions,
     MorningstarMetadata
@@ -40,4 +40,5 @@ export interface FixedIncomeSectorsBreakdownConverterOptions extends Morningstar
 export interface FixedIncomeSectorsBreakdownMetadata extends MorningstarMetadata {
     performanceId?: string;
     messages?: Array<SectorsBreakdown.Message>;
+    [key: string]: unknown;
 }
