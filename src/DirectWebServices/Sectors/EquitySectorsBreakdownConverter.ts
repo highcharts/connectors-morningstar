@@ -19,14 +19,15 @@
  *
  * */
 
-import EquitySectorsBreakdownJSON from './EquitySectorsBreakdownJSON';
-import {
-    EquitySectorsBreakdownConverterOptions,
-    EquitySectorsBreakdownMetadata
-} from './EquitySectorsBreakdownOptions';
 import SectorsBreakdown from './SectorsBreakdownOptions';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 import * as External from '../../Shared/External';
+
+import type EquitySectorsBreakdownJSON from './EquitySectorsBreakdownJSON';
+import type {
+    EquitySectorsBreakdownConverterOptions,
+    EquitySectorsBreakdownMetadata
+} from './EquitySectorsBreakdownOptions';
 
 /* *
  *
@@ -49,9 +50,9 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
 
         // Create main data tables
         this.tables = [
-            new External.DataTable({ id: 'EqSuperSector' }),
-            new External.DataTable({ id: 'EqSector' }),
-            new External.DataTable({ id: 'EqIndustry' })
+            new External.DataTable({ id: 'EqSuperSectors' }),
+            new External.DataTable({ id: 'EqSectors' }),
+            new External.DataTable({ id: 'EqIndustries' })
         ];
 
         this.metadata = {
@@ -88,42 +89,36 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
                 sectors: string[],
                 table: External.DataTable
             ) => {
-                // Set sector or super sector column
-                table.setColumn(`Type_${id}`);
-
                 sectors.forEach((sector, index) => {
                     // Sector type value
-                    table.setCell(`Type_${id}`, index, sector);
+                    table.setCell('Type', index, sector);
 
-                    const prefix = `equityEcon${table.id.replace(/^Eq/u, '')}${sector}`;
-                    const long = Number(sectorsData[`${prefix}PercLong`]);
-                    const longRescaled =
-                        Number(sectorsData[`${prefix}PercLongRescaled`]);
-                    const short = Number(sectorsData[`${prefix}PercShort`]);
-                    const net = Number(sectorsData[`${prefix}PercNet`]);
+                    // Prepare a prefix for getting the right data
+                    const prefix = `equityEcon${table.id.replace(/^Eq/u, '').slice(0, -1)}${sector}`;
 
                     // Long value
+                    const long = Number(sectorsData[`${prefix}PercLong`]);
                     if (long) {
-                        table.setCell(`PercLong_${id}`, index, long);
+                        table.setCell('PercLong', index, long);
                     }
 
                     // LongRescaled value
+                    const longRescaled =
+                        Number(sectorsData[`${prefix}PercLongRescaled`]);
                     if (longRescaled) {
-                        table.setCell(
-                            `PercLongRescaled_${id}`,
-                            index,
-                            longRescaled
-                        );
+                        table.setCell('PercLongRescaled', index, longRescaled);
                     }
 
                     // Short value
+                    const short = Number(sectorsData[`${prefix}PercShort`]);
                     if (short) {
-                        table.setCell(`PercShort_${id}`, index, short);
+                        table.setCell('PercShort', index, short);
                     }
 
                     // Net value
+                    const net = Number(sectorsData[`${prefix}PercNet`]);
                     if (net) {
-                        table.setCell(`PercNet_${id}`, index, net);
+                        table.setCell('PercNet', index, net);
                     }
                 });
 
@@ -144,11 +139,7 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
                     '^equityIndustry(.+)(' + SectorsBreakdown.suffixes.join('|') + ')$',
                     'u'
                 );
-                const typeColumn = `Type_${id}`;
                 const industries: Array<string> = [];
-
-                // Industry type column
-                table.setColumn(typeColumn);
 
                 let index = 0;
                 for (const key in sectorsData) {
@@ -159,7 +150,7 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
                         // New industry
                         if (!industries.includes(industryName)) {
                             // Industry type value
-                            table.setCell(typeColumn, index, industryName);
+                            table.setCell('Type', index, industryName);
 
                             // Industry Long, RescaledLong, Short and Net values
                             SectorsBreakdown.suffixes.forEach((suffix) => {
@@ -169,11 +160,7 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
 
                                 // Set value of a specific category
                                 if (industryValue) {
-                                    table.setCell(
-                                        `${suffix}_${id}`,
-                                        index,
-                                        Number(industryValue)
-                                    );
+                                    table.setCell(suffix, index, Number(industryValue));
                                 }
                             });
 

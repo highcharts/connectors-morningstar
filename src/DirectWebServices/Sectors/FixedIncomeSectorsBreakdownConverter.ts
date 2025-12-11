@@ -19,20 +19,21 @@
  *
  * */
 
-import { FieldsMapping } from './FixedIncomeSectorsBreakdownJSON';
-import {
-    FixedIncomeSectorsBreakdownConverterOptions,
-    FixedIncomeSectorsBreakdownMetadata
-} from './FixedIncomeSectorsBreakdownOptions';
 import SectorsBreakdown from './SectorsBreakdownOptions';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 import * as External from '../../Shared/External';
+
+import type { FieldsMapping } from './FixedIncomeSectorsBreakdownJSON';
+import type {
+    FixedIncomeSectorsBreakdownConverterOptions,
+    FixedIncomeSectorsBreakdownMetadata
+} from './FixedIncomeSectorsBreakdownOptions';
 
 // The fields mapping object
 const fieldsMapping: FieldsMapping = {
     fixdInc: {
         pattern: new RegExp(
-            `^fixdInc(${SectorsBreakdown.sectorTypes.join('Brkdwn|')})([^_]+)(${SectorsBreakdown.suffixesFiperc.join('|')})$`,
+            `^fixdInc(${SectorsBreakdown.sectorTypes.map(s => `${s}Brkdwn`).join('|')})([^_]+)(${SectorsBreakdown.suffixesFiperc.join('|')})$`,
             'u'
         ),
         superSector: [],
@@ -86,9 +87,12 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
 
         // Create main data tables
         this.tables = [
-            new External.DataTable({ id: 'IncSuperSector' }),
-            new External.DataTable({ id: 'IncPrimarySector' }),
-            new External.DataTable({ id: 'IncSecondarySector' })
+            new External.DataTable({ id: 'IncSuperSectors' }),
+            new External.DataTable({ id: 'IncPrimarySectors' }),
+            new External.DataTable({ id: 'IncSecondarySectors' }),
+            new External.DataTable({ id: 'IncBrkSuperSectors' }),
+            new External.DataTable({ id: 'IncBrkPrimarySectors' }),
+            new External.DataTable({ id: 'IncBrkSecondarySectors' })
         ];
 
         this.metadata = {
@@ -118,99 +122,92 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
             userOptions = { ...this.options, ...options },
             json = userOptions.json,
             id = json.identifiers.performanceId,
-            sectorsData = json.morningstarFixedIncomeSectorsBreakdown;
+            sectorsData = json.morningstarFixedIncomeSectorsBreakdown,
+            tablesObj: Record<string, External.DataTable> = {};
 
-        const tablesObj = {
-            SuperSector: tables[0],
-            PrimarySector: tables[1],
-            SecondarySector: tables[2]
-        };
+        // Prepare tables object
+        tables.forEach((table) => {
+            let category = table.id.replace('Inc', '').slice(0, -1);
+            if (category.includes('Brk')) {
+                category = `${category.replace('Brk', '')}Breakdown`;
+            }
+            tablesObj[category] = table;
+        });
 
         if (sectorsData) {
-            let initTypeColumns = true;
-
             // Metadata
             metadata.performanceId = id;
+            metadata.fixdIncMorningstarSectorsPortfolioDate =
+                sectorsData.fixdIncMorningstarSectorsPortfolioDate || '';
 
             if (json.metadata.messages?.length) {
                 metadata.messages = json.metadata.messages;
             }
 
+            // Get possible data prefixes
+            const prefixes = Object.keys(fieldsMapping);
+
+            // Set the metadata in each table
+            tables.forEach((table) => {
+                table.metadata = {
+                    performanceId: id
+                };
+            });
+
             // Search the data
             for (const option in sectorsData) {
-                // Use the mapping object
-                for (const [field, mapping] of Object.entries(fieldsMapping)) {
+                // Save factor properties in the metadata
+                if (option.includes('Factor')) {
+                    metadata[option] = Number(sectorsData[option]);
+                }
+
+                // Consider only selected data
+                const field = prefixes.find((prefix) => option.startsWith(prefix));
+                if (field) {
+                    // Get the correct mapping object
+                    const mapping = fieldsMapping[field as keyof typeof fieldsMapping];
+
                     // Try to find matching proeprty
                     const match = option.match(mapping.pattern);
                     if (!match) {
                         continue;
                     }
-                    const column = mapping.column;
-
-                    // The init of the sector types columns
-                    if (initTypeColumns) {
-                        SectorsBreakdown.sectorTypes.forEach((type) => {
-                            // Get the table for this sector type
-                            if (type !== 'SecondrySector') {
-                                const table = tablesObj[type as keyof typeof tablesObj];
-                                const sectorsArray =
-                                    mapping[type.charAt(0).toLowerCase() + type.slice(1)] as Array<string>;
-
-                                if (!sectorsArray.length) {
-                                    table.setColumn(`${column}_Type_${id}`);
-                                }
-
-                                // Set metadata per each Sector table
-                                table.metadata = {
-                                    performanceId: metadata.performanceId
-                                };
-                            }
-                        });
-                        initTypeColumns = false;
-                    }
 
                     // Get correct type and name
-                    const type = match[1] === 'SecondrySector' ? 'SecondarySector' : match[1];
-                    const name = match[2];
-                    const typeAndName = `${type}${name}`;
+                    const type = match[1]
+                            .replace('Secondry', 'Secondary')
+                            .replace('Brkdwn', 'Breakdown'),
+                        name = match[2],
+                        typeAndName = `${type}${name}`;
 
-                    // Get the righ array
-                    const sectors = mapping[type.charAt(0).toLowerCase() + type.slice(1)] as Array<string>;
+                    // Get the right table
+                    const table = tablesObj[type];
+
+                    // Get the right array
+                    const sectors = mapping[(type.charAt(0).toLowerCase() + type.slice(1)).replace('Breakdown', '')] as Array<string>,
+                        column = mapping.column;
 
                     // New sector
-                    if (sectors && !sectors.includes(typeAndName)) {
-                        // Save breakdown sector
+                    let index = sectors.indexOf(typeAndName);
+                    if (sectors && index === -1) {
+                        index = sectors.length;
+
+                        // Save sector
                         sectors.push(typeAndName);
-                        const index = sectors.length - 1;
-                        const table = tablesObj[type as keyof typeof tablesObj];
 
                         // Sector type value
-                        table.setCell(
-                            `${column}_Type_${id}`,
-                            index,
-                            name
-                        );
+                        table.setCell(`${column}_Type`, index, name);
+                    }
 
-                        // Sector values
-                        mapping.suffixes.forEach((suffix) => {
-                            const value = sectorsData[
-                                `${field}${type}${name}${suffix}`
-                            ];
-
-                            // Set value of a specific category
-                            if (value) {
-                                table.setCell(
-                                    `${column}_${suffix}_${id}`,
-                                    index,
-                                    Number(value)
-                                );
-                            }
-                        });
+                    const value = sectorsData[option];
+                    if (value) {
+                        // Set value of a specific category
+                        table.setCell(`${column}_${match[3]}`, index, Number(value));
                     }
                 }
             }
 
-            // Clear sector arrays
+            // Clear sectors arrays
             for (const mapping of Object.values(fieldsMapping)) {
                 mapping.superSector.length = 0;
                 mapping.primarySector.length = 0;

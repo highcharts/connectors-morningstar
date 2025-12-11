@@ -45,11 +45,18 @@ import type { MorningstarConverterOptions } from '../../Shared';
 const CONVERTERS: Converters = [
     {
         key: 'EquitySectorsBreakdown',
-        children: ['EqSuperSector', 'EqSector', 'EqIndustry']
+        children: ['EqSuperSectors', 'EqSectors', 'EqIndustries']
     },
     {
         key: 'FixedIncomeSectorsBreakdown',
-        children: ['IncSuperSector', 'IncPrimarySector', 'IncSecondarySector']
+        children: [
+            'IncSuperSectors',
+            'IncPrimarySectors',
+            'IncSecondarySectors',
+            'IncBrkSuperSectors',
+            'IncBrkPrimarySectors',
+            'IncBrkSecondarySectors'
+        ]
     }
 ];
 

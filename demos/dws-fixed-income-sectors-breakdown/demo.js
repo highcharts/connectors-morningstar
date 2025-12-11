@@ -14,9 +14,7 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
             id: '0P00002QN3'
         },
         converters: {
-            FixedIncomeSectorsBreakdown: {
-                // extra converter options here
-            }
+            FixedIncomeSectorsBreakdown: {}
         }
     });
 
@@ -40,36 +38,145 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }
     });
 
-    const type = 'Fixed_Inc_Type_0P00002QN3',
-        longRescaled = 'Fixed_Inc_PercLongRescaled_0P00002QN3',
-        long = 'Fixed_Inc_PercLong_0P00002QN3',
-        net = 'Fixed_Inc_PercNet_0P00002QN3';
+    const brkType = 'Fixd_Inc_Brkdwn_Type',
+        brkLong = 'Fixd_Inc_Brkdwn_CalcLongFiperc',
+        brkNet = 'Fixd_Inc_Brkdwn_CalcNetFiperc',
+        brkShort = 'Fixd_Inc_Brkdwn_CalcShortFiperc';
 
-    const superSectorTable = connector.getTable('IncSuperSector');
-    Highcharts.chart('container-super-sector', {
+    const superSectorsBrkTable = connector.getTable('IncBrkSuperSectors');
+    Highcharts.chart('container-brk-super-sectors', {
         title: {
             text: 'Fixed Income Super Sectors Breakdown'
         },
         subtitle: {
-            text: superSectorTable.metadata.performanceId
+            text: superSectorsBrkTable.metadata.performanceId
+        },
+        series: [{
+            name: 'Fixed Income Breakdown Super Sectors Long',
+            data: superSectorsBrkTable.getRows(
+                void 0,
+                void 0,
+                [brkType, brkLong]
+            )
+        }, {
+            name: 'Fixed Income Breakdown Super Sectors Short',
+            data: superSectorsBrkTable.getRows(
+                void 0,
+                void 0,
+                [brkType, brkShort]
+            )
+        }, {
+            name: 'Fixed Income Breakdown Super Sectors Net',
+            data: superSectorsBrkTable.getRows(
+                void 0,
+                void 0,
+                [brkType, brkNet]
+            )
+        }]
+    });
+
+    const primarySectorsBrkTable = connector.getTable('IncBrkPrimarySectors');
+    Highcharts.chart('container-brk-primary-sectors', {
+        title: {
+            text: 'Fixed Income Primary Sectors Breakdown'
+        },
+        subtitle: {
+            text: primarySectorsBrkTable.metadata.performanceId
+        },
+        series: [{
+            name: 'Fixed Income Breakdown Primary Sectors Long',
+            data: primarySectorsBrkTable.getRows(
+                void 0,
+                void 0,
+                [brkType, brkLong]
+            )
+        }, {
+            name: 'Fixed Income Breakdown Primary Sectors Short',
+            data: primarySectorsBrkTable.getRows(
+                void 0,
+                void 0,
+                [brkType, brkShort]
+            )
+        }, {
+            name: 'Fixed Income Breakdown Primary Sectors Net',
+            data: primarySectorsBrkTable.getRows(
+                void 0,
+                void 0,
+                [brkType, brkNet]
+            )
+        }]
+    });
+
+    const secondarySectorsBrkTable = connector.getTable('IncBrkSecondarySectors');
+    Highcharts.chart('container-brk-secondary-sectors', {
+        title: {
+            text: 'Fixed Income Secondary Sectors Breakdown'
+        },
+        subtitle: {
+            text: secondarySectorsBrkTable.metadata.performanceId
+        },
+        series: [{
+            name: 'Fixed Income Breakdown Secondary Sectors Long',
+            data: secondarySectorsBrkTable.getRows(
+                void 0,
+                void 0,
+                [brkType, brkLong]
+            )
+        }, {
+            name: 'Fixed Income Breakdown Secondary Sectors Short',
+            data: secondarySectorsBrkTable.getRows(
+                void 0,
+                void 0,
+                [brkType, brkShort]
+            )
+        }, {
+            name: 'Fixed Income Breakdown Secondary Sectors Net',
+            data: secondarySectorsBrkTable.getRows(
+                void 0,
+                void 0,
+                [brkType, brkNet]
+            )
+        }]
+    });
+
+    const type = 'Fixed_Inc_Type',
+        longRescaled = 'Fixed_Inc_PercLongRescaled',
+        long = 'Fixed_Inc_PercLong',
+        short = 'Fixed_Inc_PercShort',
+        net = 'Fixed_Inc_PercNet';
+
+    const superSectorsTable = connector.getTable('IncSuperSectors');
+    Highcharts.chart('container-super-sectors', {
+        title: {
+            text: 'Fixed Income Super Sectors'
+        },
+        subtitle: {
+            text: superSectorsTable.metadata.performanceId
         },
         series: [{
             name: 'Fixed Income Super Sectors Long Rescaled',
-            data: superSectorTable.getRows(
+            data: superSectorsTable.getRows(
                 void 0,
                 void 0,
                 [type, longRescaled]
             )
         }, {
             name: 'Fixed Income Super Sectors Long',
-            data: superSectorTable.getRows(
+            data: superSectorsTable.getRows(
                 void 0,
                 void 0,
                 [type, long]
             )
         }, {
+            name: 'Fixed Income Super Sectors Short',
+            data: superSectorsTable.getRows(
+                void 0,
+                void 0,
+                [type, short]
+            )
+        }, {
             name: 'Fixed Income Super Sectors Net',
-            data: superSectorTable.getRows(
+            data: superSectorsTable.getRows(
                 void 0,
                 void 0,
                 [type, net]
@@ -77,31 +184,38 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }]
     });
 
-    const primarySectorTable = connector.getTable('IncPrimarySector');
-    Highcharts.chart('container-primary-sector', {
+    const primarySectorsTable = connector.getTable('IncPrimarySectors');
+    Highcharts.chart('container-primary-sectors', {
         title: {
-            text: 'Fixed Income Primary Sectors Breakdown'
+            text: 'Fixed Income Primary Sectors'
         },
         subtitle: {
-            text: primarySectorTable.metadata.performanceId
+            text: primarySectorsTable.metadata.performanceId
         },
         series: [{
             name: 'Fixed Income Primary Sectors Long Rescaled',
-            data: primarySectorTable.getRows(
+            data: primarySectorsTable.getRows(
                 void 0,
                 void 0,
                 [type, longRescaled]
             )
         }, {
             name: 'Fixed Income Primary Sectors Long',
-            data: primarySectorTable.getRows(
+            data: primarySectorsTable.getRows(
                 void 0,
                 void 0,
                 [type, long]
             )
         }, {
+            name: 'Fixed Income Primary Sectors Short',
+            data: primarySectorsTable.getRows(
+                void 0,
+                void 0,
+                [type, short]
+            )
+        }, {
             name: 'Fixed Income Primary Sectors Net',
-            data: primarySectorTable.getRows(
+            data: primarySectorsTable.getRows(
                 void 0,
                 void 0,
                 [type, net]
@@ -109,31 +223,38 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }]
     });
 
-    const secondarySectorTable = connector.getTable('IncSecondarySector');
-    Highcharts.chart('container-secondary-sector', {
+    const secondarySectorsTable = connector.getTable('IncSecondarySectors');
+    Highcharts.chart('container-secondary-sectors', {
         title: {
-            text: 'Fixed Income Secondary Sectors Breakdown'
+            text: 'Fixed Income Secondary Sectors'
         },
         subtitle: {
-            text: secondarySectorTable.metadata.performanceId
+            text: secondarySectorsTable.metadata.performanceId
         },
         series: [{
             name: 'Fixed Income Secondary Sectors Long Rescaled',
-            data: secondarySectorTable.getRows(
+            data: secondarySectorsTable.getRows(
                 void 0,
                 void 0,
                 [type, longRescaled]
             )
         }, {
             name: 'Fixed Income Secondary Sectors Long',
-            data: secondarySectorTable.getRows(
+            data: secondarySectorsTable.getRows(
                 void 0,
                 void 0,
                 [type, long]
             )
         }, {
+            name: 'Fixed Income Secondary Sectors Short',
+            data: secondarySectorsTable.getRows(
+                void 0,
+                void 0,
+                [type, short]
+            )
+        }, {
             name: 'Fixed Income Secondary Sectors Net',
-            data: secondarySectorTable.getRows(
+            data: secondarySectorsTable.getRows(
                 void 0,
                 void 0,
                 [type, net]

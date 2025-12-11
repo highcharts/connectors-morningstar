@@ -19,9 +19,9 @@
  *
  * */
 
-import EquitySectorsBreakdownJSON from './EquitySectorsBreakdownJSON';
 import SectorsBreakdown from './SectorsBreakdownOptions';
 
+import type EquitySectorsBreakdownJSON from './EquitySectorsBreakdownJSON';
 import type {
     MorningstarConverterOptions,
     MorningstarMetadata
