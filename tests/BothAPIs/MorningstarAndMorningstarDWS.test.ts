@@ -66,16 +66,11 @@ export async function bothAPIs (
     );
 
     await dwsConnector.load();
-    const dwsDataTable = dwsConnector.getTable('SuperSector');
+    const dwsDataTable = dwsConnector.getTable('EqSuperSectors');
 
     Assert.deepStrictEqual(
         dwsDataTable.getColumnIds(),
-        [
-            'Type_0P00000FIA',
-            'PercLong_0P00000FIA',
-            'PercLongRescaled_0P00000FIA',
-            'PercNet_0P00000FIA'
-        ],
+        ['Type', 'PercLong', 'PercLongRescaled', 'PercNet'],
         'DWS Equity Sectors Breakdown table should have expected columns.'
     );
 

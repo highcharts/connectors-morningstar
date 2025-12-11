@@ -27,9 +27,7 @@ async function displayDataFromBothAPIs (postmanJSON) {
             id: '0P00000FIA'
         },
         converters: {
-            EquitySectorsBreakdown: {
-                // extra converter options here
-            }
+            EquitySectorsBreakdown: {}
         }
     });
 
@@ -43,7 +41,7 @@ async function displayDataFromBothAPIs (postmanJSON) {
     const dataTable = connector.dataTables['TrailingPerformance'];
 
     // Get data from the MorningstarDWS's EquitySectorsBreakdown
-    const dwsDataTable = dwsConnector.getTable('SuperSector');
+    const dwsDataTable = dwsConnector.getTable('EqSuperSectors');
 
     // Display data from the Morningstar API
     Highcharts.chart('container', {
@@ -91,25 +89,25 @@ async function displayDataFromBothAPIs (postmanJSON) {
             valueSuffix: '%'
         },
         series: [{
-            name: 'Equity Super Sector Long Rescaled',
+            name: 'Equity Super Sectors Long Rescaled',
             data: dwsDataTable.getRows(
                 void 0,
                 void 0,
-                ['Type_0P00000FIA', 'PercLongRescaled_0P00000FIA']
+                ['Type', 'PercLongRescaled']
             )
         }, {
-            name: 'Equity Super Sector Long',
+            name: 'Equity Super Sectors Long',
             data: dwsDataTable.getRows(
                 void 0,
                 void 0,
-                ['Type_0P00000FIA', 'PercLong_0P00000FIA']
+                ['Type', 'PercLong']
             )
         }, {
-            name: 'Equity Super Sector Net',
+            name: 'Equity Super Sectors Net',
             data: dwsDataTable.getRows(
                 void 0,
                 void 0,
-                ['Type_0P00000FIA', 'PercNet_0P00000FIA']
+                ['Type', 'PercNet']
             )
         }]
     });
