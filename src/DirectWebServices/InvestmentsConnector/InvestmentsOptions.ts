@@ -24,6 +24,7 @@
 import type {
     MorningstarOptions
 } from '../../Shared/MorningstarOptions';
+import { DWSMetadata } from '../DWSOptions';
 
 
 /* *
@@ -55,6 +56,10 @@ export interface InvestmentsConverterOptions {
 
 export interface InvestmentsSecurityOptions {
     id: string;
+}
+
+export interface InvestmentsMetadata extends DWSMetadata {
+    performanceId?: string;
 }
 
 

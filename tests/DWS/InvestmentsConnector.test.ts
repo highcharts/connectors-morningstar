@@ -28,4 +28,10 @@ export async function investmentsConnectorLoad (
     );
 
     await connector.load();
+
+    Assert.strictEqual(
+        connector.metadata.performanceId,
+        '0P00000FIA',
+        'Connector metadata should contain correct security ID information.'
+    );
 }

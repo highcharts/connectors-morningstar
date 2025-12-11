@@ -13,47 +13,75 @@ export async function regionExposureConnector (
             id: '0P0000XTUQ'
         },
         converters: {
-            RegionExposure: {},
-            MockBasicDetails: {}
+            RegionExposure: {}
         }
     });
 
     await connector.load();
 
-    const dataTable = connector.getTable('RegionExposure'),
-        expectedColumnIds = [
-            'Region',
-            'FixedIncomeGeographic_CalcNetFiperc',
-            'FixedIncomeGeographic_CalcLongFiperc',
-            'FixedIncome_PercLongRescaled',
-            'FixedIncome_Perc',
-            'FixedIncome_PercNet',
-            'FixedIncome_PercLong',
-            'Equity_PercLongRescaled',
-            'Equity_Perc',
-            'Equity_PercNet',
-            'Equity_PercLong'
-        ];
+    const equityTable = connector.getTable('Equity'),
+        fixedIncomeTable = connector.getTable('FixedIncome'),
+        fixedIncomeGeoTable = connector.getTable('FixedIncomeGeo');
 
     Assert.deepStrictEqual(
-        dataTable.getColumnIds(),
-        expectedColumnIds,
-        'Region Exposure converter should have expected columns.'
+        equityTable.getColumnIds(),
+        [
+            'Region',
+            'PercLongRescaled',
+            'PercNet',
+            'PercLong'
+        ],
+        'Equity table should have expected columns.'
     );
 
     Assert.ok(
-        dataTable.getRowCount() > 0,
-        'Region Exposure table should not return empty rows.'
+        equityTable.getRowCount() > 0,
+        'Equity table should not return empty rows.'
     );
 
     Assert.ok(
-        dataTable.metadata !== undefined,
-        'Region Exposure data table should have metadata defined.'
-    )
+        equityTable.metadata !== undefined,
+        'Equity data table should have metadata defined.'
+    );
 
-    Assert.strictEqual(
-        dataTable.metadata.performanceId,
-        '0P0000XTUQ',
-        'Region Exposure metadata should contain correct performanceId information.'
+    Assert.deepStrictEqual(
+        fixedIncomeTable.getColumnIds(),
+        [
+            'Region',
+            'PercLongRescaled',
+            'PercNet',
+            'PercLong'
+        ],
+        'Equity table should have expected columns.'
+    );
+
+    Assert.ok(
+        fixedIncomeTable.getRowCount() > 0,
+        'Fixed Income table should not return empty rows.'
+    );
+
+    Assert.ok(
+        fixedIncomeTable.metadata !== undefined,
+        'Fixed Income data table should have metadata defined.'
+    );
+
+    Assert.deepStrictEqual(
+        fixedIncomeGeoTable.getColumnIds(),
+        [
+            'Region',
+            'CalcNetFiperc',
+            'CalcLongFiperc'
+        ],
+        'Equity table should have expected columns.'
+    );
+
+    Assert.ok(
+        fixedIncomeGeoTable.getRowCount() > 0,
+        'Fixed Income Geo table should not return empty rows.'
+    );
+
+    Assert.ok(
+        fixedIncomeGeoTable.metadata !== undefined,
+        'Fixed Income Geo data table should have metadata defined.'
     );
 }

@@ -33,6 +33,7 @@ import {
 import type {
     Converters,
     InvestmentsConverterType,
+    InvestmentsMetadata,
     InvestmentsOptions
 } from './InvestmentsOptions';
 
@@ -56,11 +57,12 @@ export class InvestmentsConnector extends DWSConnector {
         type: 'MorningstarInvestmentsConnector'
     };
 
+
     /* *
-     *
-     *  Constructor
-     *
-     * */
+    *
+    *  Constructor
+    *
+    * */
 
     public constructor (
         options: InvestmentsOptions
@@ -75,19 +77,25 @@ export class InvestmentsConnector extends DWSConnector {
 
         super(options);
         this.options = options;
+        this.metadata = {
+            columns: {},
+            rawResponses: []
+        };
         this.convertersToUse = convertersToUse;
     }
 
 
     /* *
-     *
-     *  Properties
-     *
-     * */
+    *
+    *  Properties
+    *
+    * */
 
     public override readonly options: InvestmentsOptions;
 
     public convertersToUse: Converters;
+
+    public override readonly metadata: InvestmentsMetadata;
 
     /* *
      *
@@ -131,6 +139,8 @@ export class InvestmentsConnector extends DWSConnector {
 
             this.metadata.rawResponses.push({ type, json });
         }
+
+        this.metadata.performanceId = security.id;
     }
 }
 

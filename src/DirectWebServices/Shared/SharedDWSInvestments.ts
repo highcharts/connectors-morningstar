@@ -49,7 +49,10 @@ import type { MorningstarConverterOptions } from '../../Shared';
  * */
 
 const CONVERTERS: Converters = [
-    { key: 'RegionExposure' },
+    {
+        key: 'RegionExposure',
+        children: ['Equity', 'FixedIncome', 'RevenueExposure', 'FixedIncomeGeo']
+    },
     { key: 'MockAssetAlloc' },
     { key: 'MockBasicDetails' },
     { key: 'NestedTablesConverter', children: ['Table1', 'Table2', 'Table3'] }

@@ -22,8 +22,9 @@
 * */
 
 
-import type { RegionExposureOptions } from './RegionExposureOptions';
+import type { RegionExposureMetadata, RegionExposureOptions } from './RegionExposureOptions';
 import MorningstarConverter from '../../../../Shared/MorningstarConverter';
+import { DataTable } from '../../../../Shared/External';
 
 /**
  *
@@ -35,7 +36,7 @@ import MorningstarConverter from '../../../../Shared/MorningstarConverter';
 const PREFIXES = {
     Equity: 'equityRegion',
     FixedIncome: 'fixedIncRegion',
-    FixedIncomeGeographic: 'fixdIncGeographic',
+    FixedIncomeGeo: 'fixdIncGeographic',
     RevenueExposure: 'revenueExposureByRegionPerc'
 };
 
@@ -44,43 +45,7 @@ const GEO_SUBPREFIXES = [
     'SuperRegionBreakdown',
     'PrimaryRegionBreakdown',
     'RegionBreakdown'
-] as const;
-
-const REGIONS: Record<string, string> = {
-    Africa: 'Africa',
-    AfricaormiddleEast: 'Africa/Middle East',
-    Americas: 'Americas',
-    AsiaDev: 'Asia (Developed)',
-    AsiaDeveloped: 'Asia (Developed)',
-    AsiaEmrg: 'Asia (Emerging)',
-    AsiaEmerging: 'Asia (Emerging)',
-    Australasia: 'Australasia',
-    Canada: 'Canada',
-    Developed: 'Developed Markets',
-    EuropeDeveloped: 'Europe (Developed)',
-    EuropeDev: 'Europe (Developed)',
-    EuropeEmrg: 'Europe (Emerging)',
-    EuropeEmerging: 'Europe (Emerging)',
-    EuropeExEuro: 'Europe ex-Eurozone',
-    EuropeExEur: 'Europe ex-Eurozone',
-    Eurozone: 'Eurozone',
-    Emerging: 'Emerging Markets',
-    GreaterAsia: 'Greater Asia',
-    GreaterEurope: 'Greater Europe',
-    Japan: 'Japan',
-    LatinAmerica: 'Latin America',
-    Latinam: 'Latin America',
-    MiddleEast: 'Middle East',
-    Mideast: 'Middle East',
-    NorthAmerica: 'North America',
-    NotClassified: 'Not Classified',
-    Uk: 'United Kingdom',
-    Unclassified: 'Not Classified',
-    UnitedKingdom: 'United Kingdom',
-    UnitedStates: 'United States',
-    Unknown: 'Unknown',
-    Us: 'United States'
-};
+];
 
 const SUFFIXES = [
     'PercLongRescaled',
@@ -113,7 +78,16 @@ export class RegionExposureConverter extends MorningstarConverter {
     ) {
         super(options);
 
-        this.metadata = {};
+        this.metadata = {
+            columns: {}
+        };
+
+        this.tables = [
+            new DataTable({ id: 'Equity' }),
+            new DataTable({ id: 'FixedIncome' }),
+            new DataTable({ id: 'FixedIncomeGeo' }),
+            new DataTable({ id: 'RevenueExposure' })
+        ];
     }
 
     /**
@@ -122,7 +96,7 @@ export class RegionExposureConverter extends MorningstarConverter {
      *
      */
 
-    public readonly metadata: Record<string, unknown>;
+    public readonly metadata: RegionExposureMetadata;
 
 
     /* *
@@ -133,14 +107,23 @@ export class RegionExposureConverter extends MorningstarConverter {
 
 
     public override parse (options: RegionExposureOptions): void {
-        const metadata = this.metadata,
-            table = this.table,
+        const tables = this.tables,
+            metadata = this.metadata,
             json = options.json,
             countryAndRegionalExposureBreakdown = json.countryAndRegionalExposureBreakdown;
+        type ExposureType = keyof typeof PREFIXES;
 
         if (countryAndRegionalExposureBreakdown) {
-            const rowIndexByRegion: Record<string, number> = {};
-            let nextRowIndex = 0;
+            const tableRecords: Record<ExposureType, {
+                table: DataTable,
+                rowIndexByRegion: Record<string, number>,
+                nextRowIndex: number
+            }> = {
+                Equity: { table: tables[0], rowIndexByRegion: {}, nextRowIndex: 0 },
+                FixedIncome: { table: tables[1], rowIndexByRegion: {}, nextRowIndex: 0 },
+                FixedIncomeGeo: { table: tables[2], rowIndexByRegion: {}, nextRowIndex: 0 },
+                RevenueExposure: { table: tables[3], rowIndexByRegion: {}, nextRowIndex: 0 }
+            };
 
             for (const key in countryAndRegionalExposureBreakdown) {
                 if (
@@ -148,22 +131,30 @@ export class RegionExposureConverter extends MorningstarConverter {
                     key.includes('DevStatus')
                 ) continue;
 
+                const type = (Object.keys(PREFIXES) as ExposureType[])
+                    .find(t => key.startsWith(PREFIXES[t]));
+
+                if (!type) continue;
+
+                const tableRecord = tableRecords[type];
+                const { table, rowIndexByRegion } = tableRecord;
+
+                // Create empty table metadata record instead of casting
+                if (!table.metadata) {
+                    table.metadata = {};
+                }
+
                 // Assign metadata for RescalingFactor and RevenueExposureDate
                 if (
                     key.includes('Factor') ||
                     key.includes('Date')
                 ) {
-                    metadata[key] = countryAndRegionalExposureBreakdown[key];
+                    table.metadata[key] = countryAndRegionalExposureBreakdown[key];
+                    continue;
                 }
 
                 // Cast value to number from string
                 const value = Number(countryAndRegionalExposureBreakdown[key]);
-
-                type ExposureType = keyof typeof PREFIXES;
-                const type = (Object.keys(PREFIXES) as ExposureType[])
-                    .find(t => key.startsWith(PREFIXES[t]));
-
-                if (!type) continue;
 
                 const prefix = PREFIXES[type];
 
@@ -173,7 +164,7 @@ export class RegionExposureConverter extends MorningstarConverter {
 
                 if (type === 'RevenueExposure') {
                     regionKey = key.slice(prefix.length);
-                } else if (type === 'FixedIncomeGeographic') {
+                } else if (type === 'FixedIncomeGeo') {
                     let rest = key.slice(prefix.length);
                     const sub = GEO_SUBPREFIXES.find(s => rest.startsWith(s));
                     if (!sub) continue;
@@ -184,36 +175,29 @@ export class RegionExposureConverter extends MorningstarConverter {
                     regionKey = key.slice(prefix.length, key.length - suffix.length);
                 }
 
-                // Assign region based on regionKey
-                const region = REGIONS[regionKey];
-
-                let rowIndex = rowIndexByRegion[region];
+                let rowIndex = rowIndexByRegion[regionKey];
                 if (rowIndex === undefined) {
-                    rowIndex = nextRowIndex++;
-                    rowIndexByRegion[region] = rowIndex;
+                    rowIndex = tableRecord.nextRowIndex++;
+                    rowIndexByRegion[regionKey] = rowIndex;
 
                     table.setCell(
                         'Region',
                         rowIndex,
-                        region
+                        regionKey
                     );
                 }
 
                 table.setCell(
-                    `${type}_${suffix}`,
+                    suffix,
                     rowIndex,
                     value
                 );
             }
         }
 
-        metadata.performanceId = json.identifiers.performanceId;
-
         if (json.metadata.messages?.length) {
             metadata.messages = json.metadata.messages;
         }
-
-        (table.metadata as Record<string, unknown>) = this.metadata;
     }
 }
 
