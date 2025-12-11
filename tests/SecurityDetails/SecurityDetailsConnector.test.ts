@@ -243,6 +243,7 @@ export async function portfolioHoldingsLoad (
             'CurrencyId',
             'CountryId',
             'SecurityName',
+            'ShareChange',
             'Weighting',
             'IndustryId',
             'MarketValue',

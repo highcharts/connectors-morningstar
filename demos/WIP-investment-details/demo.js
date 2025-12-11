@@ -14,12 +14,8 @@ async function displaySecurityDetails (postmanJSON) {
             id: '0P00000FIA'
         },
         converters: {
-            EquitySectorsBreakdown: {
-                // extra converter options here
-            },
-            FixedIncomeSectorsBreakdown: {
-                // extra converter options here
-            }
+            EquitySectorsBreakdown: {},
+            FixedIncomeSectorsBreakdown: {}
         }
     });
 

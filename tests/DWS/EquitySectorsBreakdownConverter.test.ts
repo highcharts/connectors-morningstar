@@ -23,18 +23,11 @@ export async function equitySectorsBreakdown (
     );
 
     await connector.load();
-
-    const dataTable = connector.getTable('EqSuperSector'),
-        columnIds = [
-            'Type_0P00000FIA',
-            'PercLong_0P00000FIA',
-            'PercLongRescaled_0P00000FIA',
-            'PercNet_0P00000FIA'
-        ];
+    const dataTable = connector.getTable('EqSuperSectors');
 
     Assert.deepStrictEqual(
         dataTable.getColumnIds(),
-        columnIds,
+        ['Type', 'PercLong', 'PercLongRescaled', 'PercNet'],
         'Equity Sectors Breakdown table should have expected columns.'
     );
 
