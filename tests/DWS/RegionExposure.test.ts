@@ -52,7 +52,7 @@ export async function regionExposureConnector (
             'PercNet',
             'PercLong'
         ],
-        'Equity table should have expected columns.'
+        'Fixed Income table should have expected columns.'
     );
 
     Assert.ok(
@@ -72,7 +72,7 @@ export async function regionExposureConnector (
             'CalcNetFiperc',
             'CalcLongFiperc'
         ],
-        'Equity table should have expected columns.'
+        'Fixed Income Geo table should have expected columns.'
     );
 
     Assert.ok(
