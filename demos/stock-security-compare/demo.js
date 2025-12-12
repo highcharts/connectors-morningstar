@@ -14,7 +14,7 @@ async function displaySecurityDetails (postmanJSON) {
 
     const connector = new HighchartsConnectors.Morningstar.SecurityCompareConnector({
         postman: {
-            environmentJSON: postmanJSON
+            environmentJSON: postmanJSON['postmanEnvironment']
         },
         security: {
             ids,

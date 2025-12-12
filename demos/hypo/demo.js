@@ -8,7 +8,7 @@ async function displayHypoGrowth (postmanJSON) {
 
     const connector = new HighchartsConnectors.Morningstar.HypoPerformanceConnector({
         postman: {
-            environmentJSON: postmanJSON
+            environmentJSON: postmanJSON['postmanEnvironment']
         },
         viewId: 'Growth',
         requestSettings: {
