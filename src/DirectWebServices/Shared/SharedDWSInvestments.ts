@@ -22,15 +22,9 @@
 * */
 
 import {
-    createRegionExposureRequest,
-    createMockAssetAllocRequest,
-    createMockBasicDetailsRequest,
-    createNestedTablesRequest
+    createRegionExposureRequest
 } from './SharedDWSRequests';
 import RegionExposureConverter from './DWSConverters/RegionExposure/RegionExposureConverter';
-import MockAssetAllocConverter from './DWSConverters/MockAssetAllocConverter';
-import MockBasicDetailsConverter from './DWSConverters/MockBasicDetailsConverter';
-import NestedTablesConverter from './DWSConverters/NestedTablesConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
@@ -52,10 +46,7 @@ const CONVERTERS: Converters = [
     {
         key: 'RegionExposure',
         children: ['Equity', 'FixedIncome', 'RevenueExposure', 'FixedIncomeGeo']
-    },
-    { key: 'MockAssetAlloc' },
-    { key: 'MockBasicDetails' },
-    { key: 'NestedTablesConverter', children: ['Table1', 'Table2', 'Table3'] }
+    }
 ];
 
 /* *
@@ -112,14 +103,7 @@ export function createRequests (
             case 'RegionExposure':
                 requests.push(createRegionExposureRequest(converter, security));
                 break;
-            case 'MockAssetAlloc':
-                requests.push(createMockAssetAllocRequest(converter, security));
-                break;
-            case 'MockBasicDetails':
-                requests.push(createMockBasicDetailsRequest(converter, security));
-                break;
-            case 'NestedTablesConverter':
-                requests.push(createNestedTablesRequest(converter, security));
+
         }
     }
 
@@ -132,11 +116,7 @@ export function initConverter (
     switch (type) {
         case 'RegionExposure':
             return new RegionExposureConverter();
-        case 'MockAssetAlloc':
-            return new MockAssetAllocConverter();
-        case 'MockBasicDetails':
-            return new MockBasicDetailsConverter();
-        case 'NestedTablesConverter':
-            return new NestedTablesConverter();
+        default:
+            throw new Error(`Unknown converter type: ${type}`);
     }
 }
