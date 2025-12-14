@@ -28,13 +28,14 @@ import FixedIncomeSectorsBreakdownConverter from '../Sectors/FixedIncomeSectorsB
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
+    Converters,
+    ConverterMetadata,
     InvestmentsConverters,
     InvestmentsConverterType,
-    InvestmentsSecurityOptions,
-    Converters
+    InvestmentsSecurityOptions
 } from '../InvestmentsConnector/InvestmentsOptions';
 import type { DWSRequest } from '../DWSOptions';
-import type { MorningstarConverterOptions } from '../../Shared';
+import type { MorningstarConverterOptions, MorningstarMetadata } from '../../Shared';
 
 /* *
  *
@@ -67,8 +68,12 @@ const CONVERTERS: Converters = [
  * */
 
 export interface InvestmentsConverter extends MorningstarConverter {
+    metadata: InvestmentsConverterMetadata;
+
     parse(options: MorningstarConverterOptions): void;
 }
+
+export interface InvestmentsConverterMetadata extends MorningstarMetadata, ConverterMetadata {}
 
 /* *
  *

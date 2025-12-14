@@ -21,50 +21,13 @@
 
 import SectorsBreakdown from './SectorsBreakdownOptions';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
-import * as External from '../../Shared/External';
+import { DataTable } from '../../Shared/External';
 
 import type { FieldsMapping } from './FixedIncomeSectorsBreakdownJSON';
 import type {
     FixedIncomeSectorsBreakdownConverterOptions,
-    FixedIncomeSectorsBreakdownMetadata
+    FixedIncomeSectorsBreakdownConverterMetadata
 } from './FixedIncomeSectorsBreakdownOptions';
-
-// The fields mapping object
-const fieldsMapping: FieldsMapping = {
-    fixdInc: {
-        pattern: new RegExp(
-            `^fixdInc(${SectorsBreakdown.sectorTypes.map(s => `${s}Brkdwn`).join('|')})([^_]+)(${SectorsBreakdown.suffixesFiperc.join('|')})$`,
-            'u'
-        ),
-        superSector: [],
-        primarySector: [],
-        secondarySector: [],
-        suffixes: SectorsBreakdown.suffixesFiperc,
-        column: 'Fixd_Inc_Brkdwn'
-    },
-    fixedInc: {
-        pattern: new RegExp(
-            `^fixedInc(${SectorsBreakdown.sectorTypes.join('|')})([^_]+)(${SectorsBreakdown.suffixes.join('|')})$`,
-            'u'
-        ),
-        superSector: [],
-        primarySector: [],
-        secondarySector: [],
-        suffixes: SectorsBreakdown.suffixes,
-        column: 'Fixed_Inc'
-    },
-    surveyedFixedInc: {
-        pattern: new RegExp(
-            `^surveyedFixedInc(${SectorsBreakdown.sectorTypes.join('|')})([^_]+)(PercLong)$`,
-            'u'
-        ),
-        superSector: [],
-        primarySector: [],
-        secondarySector: [],
-        suffixes: ['PercLong'],
-        column: 'Surveyed_Fixd_Inc'
-    }
-};
 
 /* *
  *
@@ -87,12 +50,12 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
 
         // Create main data tables
         this.tables = [
-            new External.DataTable({ id: 'IncSuperSectors' }),
-            new External.DataTable({ id: 'IncPrimarySectors' }),
-            new External.DataTable({ id: 'IncSecondarySectors' }),
-            new External.DataTable({ id: 'IncBrkSuperSectors' }),
-            new External.DataTable({ id: 'IncBrkPrimarySectors' }),
-            new External.DataTable({ id: 'IncBrkSecondarySectors' })
+            new DataTable({ id: 'IncSuperSectors' }),
+            new DataTable({ id: 'IncPrimarySectors' }),
+            new DataTable({ id: 'IncSecondarySectors' }),
+            new DataTable({ id: 'IncBrkSuperSectors' }),
+            new DataTable({ id: 'IncBrkPrimarySectors' }),
+            new DataTable({ id: 'IncBrkSecondarySectors' })
         ];
 
         this.metadata = {
@@ -106,7 +69,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
      *
      */
 
-    public readonly metadata: FixedIncomeSectorsBreakdownMetadata;
+    public readonly metadata: FixedIncomeSectorsBreakdownConverterMetadata;
 
     /* *
      *
@@ -123,7 +86,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
             json = userOptions.json,
             id = json.identifiers.performanceId,
             sectorsData = json.morningstarFixedIncomeSectorsBreakdown,
-            tablesObj: Record<string, External.DataTable> = {};
+            tablesObj: Record<string, DataTable> = {};
 
         // Prepare tables object
         tables.forEach((table) => {
@@ -132,35 +95,43 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                 category = `${category.replace('Brk', '')}Breakdown`;
             }
             tablesObj[category] = table;
+
+            // Set the metadata in each table
+            table.metadata = {
+                performanceId: id
+            };
         });
 
         if (sectorsData) {
-            // Metadata
+            const {
+                fixdIncMorningstarSectorsPortfolioDate,
+                surveyedFixedIncSectorDate
+            } = sectorsData;
+
+            // Converter metadata
             metadata.performanceId = id;
-            metadata.fixdIncMorningstarSectorsPortfolioDate =
-                sectorsData.fixdIncMorningstarSectorsPortfolioDate || '';
+
+            if (fixdIncMorningstarSectorsPortfolioDate) {
+                metadata.fixdIncMorningstarSectorsPortfolioDate =
+                    fixdIncMorningstarSectorsPortfolioDate as string;
+            }
+
+            if (surveyedFixedIncSectorDate) {
+                metadata.surveyedFixedIncSectorDate = surveyedFixedIncSectorDate as string;
+            }
 
             if (json.metadata.messages?.length) {
                 metadata.messages = json.metadata.messages;
             }
 
+            // Get the fields mapping per parse
+            const fieldsMapping = this.createFieldsMapping();
+
             // Get possible data prefixes
             const prefixes = Object.keys(fieldsMapping);
 
-            // Set the metadata in each table
-            tables.forEach((table) => {
-                table.metadata = {
-                    performanceId: id
-                };
-            });
-
             // Search the data
             for (const option in sectorsData) {
-                // Save factor properties in the metadata
-                if (option.includes('Factor')) {
-                    metadata[option] = Number(sectorsData[option]);
-                }
-
                 // Consider only selected data
                 const field = prefixes.find((prefix) => option.startsWith(prefix));
                 if (field) {
@@ -182,6 +153,12 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
 
                     // Get the right table
                     const table = tablesObj[type];
+
+                    // Save factor properties in the table's metadata
+                    if (option.includes('Factor') && table.metadata) {
+                        table.metadata[option] = Number(sectorsData[option]);
+                        continue;
+                    }
 
                     // Get the right array
                     const sectors = mapping[(type.charAt(0).toLowerCase() + type.slice(1)).replace('Breakdown', '')] as Array<string>,
@@ -206,14 +183,46 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                     }
                 }
             }
-
-            // Clear sectors arrays
-            for (const mapping of Object.values(fieldsMapping)) {
-                mapping.superSector.length = 0;
-                mapping.primarySector.length = 0;
-                mapping.secondarySector.length = 0;
-            }
         }
+    }
+
+    private createFieldsMapping (): FieldsMapping {
+        // The fields mapping object
+        return {
+            fixdInc: {
+                pattern: new RegExp(
+                    `^fixdInc(${SectorsBreakdown.sectorTypes.map(s => `${s}Brkdwn`).join('|')})([^_]+)(${SectorsBreakdown.suffixesFiperc.join('|')})$`,
+                    'u'
+                ),
+                superSector: [],
+                primarySector: [],
+                secondarySector: [],
+                suffixes: SectorsBreakdown.suffixesFiperc,
+                column: 'Fixd_Inc_Brkdwn'
+            },
+            fixedInc: {
+                pattern: new RegExp(
+                    `^fixedInc(${SectorsBreakdown.sectorTypes.join('|')})([^_]+)(${SectorsBreakdown.suffixes.join('|')})$`,
+                    'u'
+                ),
+                superSector: [],
+                primarySector: [],
+                secondarySector: [],
+                suffixes: SectorsBreakdown.suffixes,
+                column: 'Fixed_Inc'
+            },
+            surveyedFixedInc: {
+                pattern: new RegExp(
+                    `^surveyedFixedInc(${SectorsBreakdown.sectorTypes.join('|')})([^_]+)(PercLong)$`,
+                    'u'
+                ),
+                superSector: [],
+                primarySector: [],
+                secondarySector: [],
+                suffixes: ['PercLong'],
+                column: 'Surveyed_Fixd_Inc'
+            }
+        };
     }
 
 }

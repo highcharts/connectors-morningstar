@@ -19,9 +19,7 @@
  *
  * */
 
-import type {
-    MorningstarOptions
-} from '../../Shared/MorningstarOptions';
+import type { MorningstarOptions } from '../../Shared/MorningstarOptions';
 
 /* *
  *
@@ -37,6 +35,12 @@ export type Converters = Array<{ key: InvestmentsConverterType, children?: strin
 export type InvestmentsConverterType =
     'EquitySectorsBreakdown' |
     'FixedIncomeSectorsBreakdown';
+
+export type ConverterMetadata = {
+    [K in InvestmentsConverterType]?: {
+        [key: string]: unknown;
+    };
+};
 
 export interface InvestmentsOptions extends MorningstarOptions {
     converters?: InvestmentsConverters;

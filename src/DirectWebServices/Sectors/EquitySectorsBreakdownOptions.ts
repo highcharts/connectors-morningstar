@@ -22,10 +22,8 @@
 import SectorsBreakdown from './SectorsBreakdownOptions';
 
 import type EquitySectorsBreakdownJSON from './EquitySectorsBreakdownJSON';
-import type {
-    MorningstarConverterOptions,
-    MorningstarMetadata
-} from '../../Shared/MorningstarOptions';
+import type { MorningstarConverterOptions } from '../../Shared/MorningstarOptions';
+import type { InvestmentsConverterMetadata } from '../Shared/SharedDWSInvestments';
 
 /* *
  *
@@ -37,9 +35,7 @@ export interface EquitySectorsBreakdownConverterOptions extends MorningstarConve
     json: EquitySectorsBreakdownJSON.EquitySectorsBreakdownResponse;
 }
 
-export interface EquitySectorsBreakdownMetadata extends MorningstarMetadata {
-    performanceId?: string;
-    equityEconSectorRescalingFactorLong?: number;
-    equityIndustryRescalingFactorLong?: number;
+export interface EquitySectorsBreakdownConverterMetadata extends InvestmentsConverterMetadata {
     messages?: Array<SectorsBreakdown.Message>;
+    performanceId?: string;
 }

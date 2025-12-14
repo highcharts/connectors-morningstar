@@ -90,7 +90,8 @@ export namespace SectorsBreakdown {
         'PercLong',
         'PercLongRescaled',
         'PercShort',
-        'PercNet'
+        'PercNet',
+        'FactorLong'
     ];
 
     export const suffixesFiperc = [

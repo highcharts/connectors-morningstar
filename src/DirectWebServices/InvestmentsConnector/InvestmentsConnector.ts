@@ -124,7 +124,11 @@ export class InvestmentsConnector extends DWSConnector {
                 this.dataTables[type].metadata = converter.getTable().metadata;
             }
 
+            // Connector metadata
             this.metadata.rawResponses.push({ type, json });
+            this.metadata[type] = {
+                ...converter.metadata
+            };
         }
     }
 }

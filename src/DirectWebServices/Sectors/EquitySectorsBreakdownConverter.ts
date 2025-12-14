@@ -26,7 +26,7 @@ import * as External from '../../Shared/External';
 import type EquitySectorsBreakdownJSON from './EquitySectorsBreakdownJSON';
 import type {
     EquitySectorsBreakdownConverterOptions,
-    EquitySectorsBreakdownMetadata
+    EquitySectorsBreakdownConverterMetadata
 } from './EquitySectorsBreakdownOptions';
 
 /* *
@@ -66,7 +66,7 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
      *
      */
 
-    public readonly metadata: EquitySectorsBreakdownMetadata;
+    public readonly metadata: EquitySectorsBreakdownConverterMetadata;
 
     /* *
      *
@@ -85,6 +85,11 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
             sectorsData = json.morningstarEquitySectorsBreakdown;
 
         if (sectorsData) {
+            const {
+                equityEconSectorRescalingFactorLong,
+                equityIndustryRescalingFactorLong
+            } = sectorsData;
+
             const setSectors = (
                 sectors: string[],
                 table: External.DataTable
@@ -124,10 +129,13 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
 
                 // Set metadata for sector related table
                 table.metadata = {
-                    performanceId: id,
-                    equityEconSectorRescalingFactorLong:
-                        metadata.equityEconSectorRescalingFactorLong
+                    performanceId: id
                 };
+
+                if (equityEconSectorRescalingFactorLong) {
+                    table.metadata.equityEconSectorRescalingFactorLong =
+                        Number(equityEconSectorRescalingFactorLong);
+                }
             };
 
             function setIndustries (
@@ -173,17 +181,17 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
 
                 // Set metadata for industry related table
                 table.metadata = {
-                    performanceId: id,
-                    equityIndustryRescalingFactorLong: metadata.equityIndustryRescalingFactorLong
+                    performanceId: id
                 };
+
+                if (equityIndustryRescalingFactorLong) {
+                    table.metadata.equityIndustryRescalingFactorLong =
+                        Number(equityIndustryRescalingFactorLong);
+                }
             }
 
-            // Metadata
+            // Converter metadata
             metadata.performanceId = id;
-            metadata.equityEconSectorRescalingFactorLong =
-                Number(sectorsData.equityEconSectorRescalingFactorLong) || 0;
-            metadata.equityIndustryRescalingFactorLong =
-                Number(sectorsData.equityIndustryRescalingFactorLong) || 0;
 
             if (json.metadata.messages?.length) {
                 metadata.messages = json.metadata.messages;
