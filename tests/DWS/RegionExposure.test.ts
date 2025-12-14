@@ -2,7 +2,7 @@ import * as Assert from 'node:assert/strict';
 import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar-dws.src'
 
-export async function regionExposureConnector (
+export async function countryAndRegionExposureConnector (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.InvestmentsConnector({
@@ -13,15 +13,15 @@ export async function regionExposureConnector (
             id: '0P0000XTUQ'
         },
         converters: {
-            RegionExposure: {}
+            CountryAndRegionExposure: {}
         }
     });
 
     await connector.load();
 
-    const equityTable = connector.getTable('Equity'),
-        fixedIncomeTable = connector.getTable('FixedIncome'),
-        fixedIncomeGeoTable = connector.getTable('FixedIncomeGeo');
+    const equityTable = connector.getTable('Region_Equity'),
+        fixedIncomeTable = connector.getTable('Region_FixedIncome'),
+        fixedIncomeGeoTable = connector.getTable('Region_FixedIncomeGeo');
 
     Assert.deepStrictEqual(
         equityTable.getColumnIds(),

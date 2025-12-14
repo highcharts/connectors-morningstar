@@ -23,9 +23,9 @@ import type { InvestmentResponse } from '../../../InvestmentsConnector/Investmen
  * */
 
 
-namespace RegionExposureJSON {
+namespace CountryAndRegionExposureJSON {
 
-    export interface RegionExposureResponse extends InvestmentResponse {
+    export interface CountryAndRegionExposureResponse extends InvestmentResponse {
         countryAndRegionalExposureBreakdown: countryAndRegionalExposureBreakdownItem;
     }
 
@@ -35,4 +35,4 @@ namespace RegionExposureJSON {
 }
 
 
-export default RegionExposureJSON;
+export default CountryAndRegionExposureJSON;

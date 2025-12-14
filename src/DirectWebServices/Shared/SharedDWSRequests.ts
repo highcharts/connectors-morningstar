@@ -23,14 +23,14 @@ import type { InvestmentsConverterOptions, InvestmentsSecurityOptions } from '..
  * */
 
 
-export function createRegionExposureRequest (
+export function createCountryAndRegionExposureRequest (
     converter: InvestmentsConverterOptions,
     security: InvestmentsSecurityOptions
 ): DWSRequest {
     const { id } = security;
 
     return {
-        type: 'RegionExposure',
+        type: 'CountryAndRegionExposure',
         url: `investments/${id}/country-and-regional-exposure-breakdown`
     };
 }

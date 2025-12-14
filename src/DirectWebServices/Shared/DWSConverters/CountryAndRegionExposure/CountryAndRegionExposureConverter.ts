@@ -22,7 +22,7 @@
 * */
 
 
-import type { RegionExposureMetadata, RegionExposureOptions } from './RegionExposureOptions';
+import type { CountryAndRegionExposureMetadata, CountryAndRegionExposureOptions } from './CountryAndRegionExposureOptions';
 import MorningstarConverter from '../../../../Shared/MorningstarConverter';
 import { DataTable } from '../../../../Shared/External';
 
@@ -63,7 +63,7 @@ const SUFFIXES = [
  * */
 
 
-export class RegionExposureConverter extends MorningstarConverter {
+export class CountryAndRegionExposureConverter extends MorningstarConverter {
 
 
     /* *
@@ -74,7 +74,7 @@ export class RegionExposureConverter extends MorningstarConverter {
 
 
     public constructor (
-        options?: RegionExposureOptions
+        options?: CountryAndRegionExposureOptions
     ) {
         super(options);
 
@@ -83,10 +83,10 @@ export class RegionExposureConverter extends MorningstarConverter {
         };
 
         this.tables = [
-            new DataTable({ id: 'Equity' }),
-            new DataTable({ id: 'FixedIncome' }),
-            new DataTable({ id: 'FixedIncomeGeo' }),
-            new DataTable({ id: 'RevenueExposure' })
+            new DataTable({ id: 'Region_Equity' }),
+            new DataTable({ id: 'Region_FixedIncome' }),
+            new DataTable({ id: 'Region_FixedIncomeGeo' }),
+            new DataTable({ id: 'Region_RevenueExposure' })
         ];
     }
 
@@ -96,7 +96,7 @@ export class RegionExposureConverter extends MorningstarConverter {
      *
      */
 
-    public readonly metadata: RegionExposureMetadata;
+    public readonly metadata: CountryAndRegionExposureMetadata;
 
 
     /* *
@@ -106,7 +106,7 @@ export class RegionExposureConverter extends MorningstarConverter {
      * */
 
 
-    public override parse (options: RegionExposureOptions): void {
+    public override parse (options: CountryAndRegionExposureOptions): void {
         const tables = this.tables,
             metadata = this.metadata,
             json = options.json,
@@ -209,4 +209,4 @@ export class RegionExposureConverter extends MorningstarConverter {
  * */
 
 
-export default RegionExposureConverter;
+export default CountryAndRegionExposureConverter;

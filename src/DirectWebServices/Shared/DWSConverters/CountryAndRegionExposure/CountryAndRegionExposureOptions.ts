@@ -26,13 +26,13 @@ import type {
     MorningstarMetadata
 } from '../../../../Shared';
 import type { Message } from '../../../InvestmentsConnector/InvestmentsJSON';
-import type RegionExposureJSON from './RegionExposureJSON';
+import type CountryAndRegionExposureJSON from './CountryAndRegionExposureJSON';
 
-export interface RegionExposureOptions extends MorningstarConverterOptions {
-    json: RegionExposureJSON.RegionExposureResponse;
+export interface CountryAndRegionExposureOptions extends MorningstarConverterOptions {
+    json: CountryAndRegionExposureJSON.CountryAndRegionExposureResponse;
 }
 
-export interface RegionExposureMetadata extends MorningstarMetadata {
+export interface CountryAndRegionExposureMetadata extends MorningstarMetadata {
     performanceId?: string;
     messages?: Array<Message>;
     equityRegionRescalingFactorLong?: number;

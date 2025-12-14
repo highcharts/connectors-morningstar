@@ -22,9 +22,9 @@
 * */
 
 import {
-    createRegionExposureRequest
+    createCountryAndRegionExposureRequest
 } from './SharedDWSRequests';
-import RegionExposureConverter from './DWSConverters/RegionExposure/RegionExposureConverter';
+import CountryAndRegionExposureConverter from './DWSConverters/CountryAndRegionExposure/CountryAndRegionExposureConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
@@ -44,8 +44,13 @@ import type { MorningstarConverterOptions } from '../../Shared';
 
 const CONVERTERS: Converters = [
     {
-        key: 'RegionExposure',
-        children: ['Equity', 'FixedIncome', 'RevenueExposure', 'FixedIncomeGeo']
+        key: 'CountryAndRegionExposure',
+        children: [
+            'Region_Equity',
+            'Region_FixedIncome',
+            'Region_RevenueExposure',
+            'Region_FixedIncomeGeo'
+        ]
     }
 ];
 
@@ -100,8 +105,8 @@ export function createRequests (
             continue;
         }
         switch (type) {
-            case 'RegionExposure':
-                requests.push(createRegionExposureRequest(converter, security));
+            case 'CountryAndRegionExposure':
+                requests.push(createCountryAndRegionExposureRequest(converter, security));
                 break;
 
         }
@@ -114,8 +119,8 @@ export function initConverter (
     type: InvestmentsConverterType
 ): InvestmentsConverter {
     switch (type) {
-        case 'RegionExposure':
-            return new RegionExposureConverter();
+        case 'CountryAndRegionExposure':
+            return new CountryAndRegionExposureConverter();
         default:
             throw new Error(`Unknown converter type: ${type}`);
     }
