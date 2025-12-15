@@ -14,7 +14,7 @@
 
 'use strict';
 
-import { RiskScoreInvalidHolding, RiskScoreMetadataMessage } from './RiskScoreOptions';
+import { RiskScoreMetadataMessage } from './RiskScoreOptions';
 
 
 /* *
@@ -45,13 +45,15 @@ export namespace RiskScoreJSON {
     export type RiskScorePortfolioResponse = {
         externalId?: string,
         name: string,
-        riskScore: number,
-        alignmentScore: number,
-        rSquared: number,
-        retainedWeightProxied: number,
-        scoringMethodUsed: string,
-        effectiveDate: string
+        riskScore?: number,
+        alignmentScore?: number,
+        rSquared?: number,
+        retainedWeightProxied?: number,
+        scoringMethodUsed?: string,
+        effectiveDate?: string
     };
+
+    export type RiskScoreCalculated = Required<RiskScorePortfolioResponse>;
 
     export type RiskScoreMetadataResponse = {
         messages: RiskScoreMetadataMessage[]
@@ -100,13 +102,22 @@ export namespace RiskScoreJSON {
         return (
             !!json &&
             typeof json === 'object' &&
-            typeof (json as RiskScorePortfolioResponse).name                    === 'string' &&
-            typeof (json as RiskScorePortfolioResponse).riskScore               === 'number' &&
-            typeof (json as RiskScorePortfolioResponse).alignmentScore          === 'number' &&
-            typeof (json as RiskScorePortfolioResponse).rSquared                === 'number' &&
-            typeof (json as RiskScorePortfolioResponse).retainedWeightProxied   === 'number' &&
-            typeof (json as RiskScorePortfolioResponse).scoringMethodUsed       === 'string' &&
-            typeof (json as RiskScorePortfolioResponse).effectiveDate           === 'string'
+            typeof (json as RiskScorePortfolioResponse).name === 'string'
+        );
+    }
+
+    export function isRiskScoreCalculated (
+        json?: unknown
+    ): json is RiskScoreCalculated {
+        return (
+            !!json &&
+            typeof json === 'object' &&
+            typeof (json as RiskScoreCalculated).riskScore               === 'number' &&
+            typeof (json as RiskScoreCalculated).alignmentScore          === 'number' &&
+            typeof (json as RiskScoreCalculated).rSquared                === 'number' &&
+            typeof (json as RiskScoreCalculated).retainedWeightProxied   === 'number' &&
+            typeof (json as RiskScoreCalculated).scoringMethodUsed       === 'string' &&
+            typeof (json as RiskScoreCalculated).effectiveDate           === 'string'
         );
     }
 
@@ -131,7 +142,6 @@ export namespace RiskScoreJSON {
                 isRiskScoreMetadataMessage(json[0])
             )
         );
-        
     }
 
     function isRiskScoreMetadataMessage (
@@ -141,27 +151,9 @@ export namespace RiskScoreJSON {
             !!json &&
             typeof json === 'object' &&
             typeof (json as RiskScoreMetadataMessage).type === 'string' &&
-            typeof (json as RiskScoreMetadataMessage).message === 'string' &&
-            Array.isArray((json as RiskScoreMetadataMessage).invalidHoldings) &&
-            (
-                (json as RiskScoreMetadataMessage).invalidHoldings.length === 0 ||
-                isRiskScoreInvalidHolding((json as RiskScoreMetadataMessage).invalidHoldings[0])
-            )
+            typeof (json as RiskScoreMetadataMessage).message === 'string'
         );
     }
-
-    function isRiskScoreInvalidHolding (
-        json?: unknown
-    ): json is RiskScoreInvalidHolding {
-        return (
-            !!json &&
-            typeof json === 'object' &&
-            typeof (json as RiskScoreInvalidHolding).identifier     === 'string' &&
-            typeof (json as RiskScoreInvalidHolding).identifierType === 'string' &&
-            typeof (json as RiskScoreInvalidHolding).status         === 'string'
-        );
-    }
-
 
 }
 
