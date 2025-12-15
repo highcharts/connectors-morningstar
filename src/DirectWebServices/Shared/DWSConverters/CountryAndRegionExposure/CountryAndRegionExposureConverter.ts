@@ -34,10 +34,13 @@ import { DataTable } from '../../../../Shared/External';
 
 
 const PREFIXES = {
-    Equity: 'equityRegion',
-    FixedIncome: 'fixedIncRegion',
-    FixedIncomeGeo: 'fixdIncGeographic',
-    RevenueExposure: 'revenueExposureByRegionPerc'
+    RegionEquity: 'equityRegion',
+    RegionFixedIncome: 'fixedIncRegion',
+    RegionFixedIncomeGeo: 'fixdIncGeographic',
+    RegionRevenueExposure: 'revenueExposureByRegionPerc',
+    CountryEquity: 'equityCountry',
+    CountryBreakdown: 'fixdIncCountryBrkdwn',
+    CountryRevenueExposure: 'revenueExposureByCountryPerc'
 };
 
 const GEO_SUBPREFIXES = [
@@ -86,7 +89,10 @@ export class CountryAndRegionExposureConverter extends MorningstarConverter {
             new DataTable({ id: 'Region_Equity' }),
             new DataTable({ id: 'Region_FixedIncome' }),
             new DataTable({ id: 'Region_FixedIncomeGeo' }),
-            new DataTable({ id: 'Region_RevenueExposure' })
+            new DataTable({ id: 'Region_RevenueExposure' }),
+            new DataTable({ id: 'Country_Equity' }),
+            new DataTable({ id: 'Country_Breakdown' }),
+            new DataTable({ id: 'Country_RevenueExposure' })
         ];
     }
 
@@ -116,20 +122,20 @@ export class CountryAndRegionExposureConverter extends MorningstarConverter {
         if (countryAndRegionalExposureBreakdown) {
             const tableRecords: Record<ExposureType, {
                 table: DataTable,
-                rowIndexByRegion: Record<string, number>,
+                rowIndexRecord: Record<string, number>,
                 nextRowIndex: number
             }> = {
-                Equity: { table: tables[0], rowIndexByRegion: {}, nextRowIndex: 0 },
-                FixedIncome: { table: tables[1], rowIndexByRegion: {}, nextRowIndex: 0 },
-                FixedIncomeGeo: { table: tables[2], rowIndexByRegion: {}, nextRowIndex: 0 },
-                RevenueExposure: { table: tables[3], rowIndexByRegion: {}, nextRowIndex: 0 }
+                RegionEquity: { table: tables[0], rowIndexRecord: {}, nextRowIndex: 0 },
+                RegionFixedIncome: { table: tables[1], rowIndexRecord: {}, nextRowIndex: 0 },
+                RegionFixedIncomeGeo: { table: tables[2], rowIndexRecord: {}, nextRowIndex: 0 },
+                RegionRevenueExposure: { table: tables[3], rowIndexRecord: {}, nextRowIndex: 0 },
+                CountryEquity: { table: tables[4], rowIndexRecord: {}, nextRowIndex: 0 },
+                CountryBreakdown: { table: tables[5], rowIndexRecord: {}, nextRowIndex: 0 },
+                CountryRevenueExposure: { table: tables[6], rowIndexRecord: {}, nextRowIndex: 0 }
             };
 
             for (const key in countryAndRegionalExposureBreakdown) {
-                if (
-                    key.includes('Country') ||
-                    key.includes('DevStatus')
-                ) continue;
+                if (key.includes('DevStatus')) continue;
 
                 const type = (Object.keys(PREFIXES) as ExposureType[])
                     .find(t => key.startsWith(PREFIXES[t]));
@@ -137,7 +143,7 @@ export class CountryAndRegionExposureConverter extends MorningstarConverter {
                 if (!type) continue;
 
                 const tableRecord = tableRecords[type];
-                const { table, rowIndexByRegion } = tableRecord;
+                const { table, rowIndexRecord } = tableRecord;
 
                 // Create empty table metadata record instead of casting
                 if (!table.metadata) {
@@ -162,9 +168,9 @@ export class CountryAndRegionExposureConverter extends MorningstarConverter {
                 const suffix = SUFFIXES.find(s => key.endsWith(s)) || 'Perc';
                 let regionKey;
 
-                if (type === 'RevenueExposure') {
+                if (type === 'RegionRevenueExposure' || type === 'CountryRevenueExposure') {
                     regionKey = key.slice(prefix.length);
-                } else if (type === 'FixedIncomeGeo') {
+                } else if (type === 'RegionFixedIncomeGeo') {
                     let rest = key.slice(prefix.length);
                     const sub = GEO_SUBPREFIXES.find(s => rest.startsWith(s));
                     if (!sub) continue;
@@ -175,13 +181,13 @@ export class CountryAndRegionExposureConverter extends MorningstarConverter {
                     regionKey = key.slice(prefix.length, key.length - suffix.length);
                 }
 
-                let rowIndex = rowIndexByRegion[regionKey];
+                let rowIndex = rowIndexRecord[regionKey];
                 if (rowIndex === undefined) {
                     rowIndex = tableRecord.nextRowIndex++;
-                    rowIndexByRegion[regionKey] = rowIndex;
+                    rowIndexRecord[regionKey] = rowIndex;
 
                     table.setCell(
-                        'Region',
+                        table.id.split('_')[0], // Region or Country
                         rowIndex,
                         regionKey
                     );

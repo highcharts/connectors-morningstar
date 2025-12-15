@@ -49,7 +49,10 @@ const CONVERTERS: Converters = [
             'Region_Equity',
             'Region_FixedIncome',
             'Region_RevenueExposure',
-            'Region_FixedIncomeGeo'
+            'Region_FixedIncomeGeo',
+            'Country_Equity',
+            'Country_Breakdown',
+            'Country_RevenueExposure'
         ]
     }
 ];
