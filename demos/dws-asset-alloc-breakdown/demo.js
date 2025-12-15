@@ -11,8 +11,7 @@ async function displaySecurityDetails (postmanJSON) {
             environmentJSON: postmanJSON
         },
         security: {
-            id: '0P00000FIA',
-            idType: 'performanceId'
+            id: '0P00000FIA'
         },
         converters: {
             AssetAllocationBreakdown: {}
