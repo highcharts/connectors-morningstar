@@ -11,9 +11,7 @@
  *
  * */
 
-
 'use strict';
-
 
 /* *
  *
@@ -21,10 +19,9 @@
  *
  * */
 
-
-import type { MorningstarMetadata, MorningstarOptions } from '../Shared/MorningstarOptions';
 import type { InvestmentsConverterType } from './InvestmentsConnector/InvestmentsOptions';
-
+import type { MorningstarOptions } from '../Shared/MorningstarOptions';
+import type { InvestmentsConverterMetadata } from './Shared/SharedDWSInvestments';
 
 /* *
  *
@@ -42,7 +39,7 @@ export interface DWSResponse {
     [key: string]: Response;
 }
 
-export interface DWSMetadata extends MorningstarMetadata {
+export interface DWSMetadata extends InvestmentsConverterMetadata {
     rawResponses: Array<{ type: InvestmentsConverterType; json: unknown }>;
 }
 
@@ -51,12 +48,10 @@ export interface DWSOptions extends MorningstarOptions {
     requests?: Array<DWSRequest>;
 }
 
-
 /* *
  *
  *  Default Export
  *
  * */
-
 
 export default DWSOptions;

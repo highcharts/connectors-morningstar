@@ -11,9 +11,7 @@
  *
  * */
 
-
 'use strict';
-
 
 /* *
  *
@@ -21,10 +19,7 @@
  *
  * */
 
-import type {
-    MorningstarOptions
-} from '../../Shared/MorningstarOptions';
-import { DWSMetadata } from '../DWSOptions';
+import type { MorningstarOptions } from '../../Shared/MorningstarOptions';
 
 /* *
  *
@@ -38,7 +33,15 @@ export type InvestmentsConverters = Partial<Record<InvestmentsConverterType, Inv
 export type Converters = Array<{ key: InvestmentsConverterType, children?: string[] }>;
 
 export type InvestmentsConverterType =
-    'AssetAllocationBreakdown';
+    'AssetAllocationBreakdown' |
+    'EquitySectorsBreakdown' |
+    'FixedIncomeSectorsBreakdown';
+
+export type ConverterMetadata = {
+    [K in InvestmentsConverterType]?: {
+        [key: string]: unknown;
+    };
+};
 
 export interface InvestmentsOptions extends MorningstarOptions {
     converters?: InvestmentsConverters;
@@ -54,16 +57,10 @@ export interface InvestmentsSecurityOptions {
     id: string;
 }
 
-export interface InvestmentsMetadata extends DWSMetadata {
-    performanceId?: string;
-}
-
-
 /* *
  *
  *  Default Export
  *
  * */
-
 
 export default InvestmentsOptions;

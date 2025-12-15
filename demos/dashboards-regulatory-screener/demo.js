@@ -244,7 +244,7 @@ function displayRegulatoryScreener (postmanJSON) {
                     securityDataPoints: secIds,
                     universeIds: ['FOEUR$$ALL_5791'],
                     postman: {
-                        environmentJSON: postmanJSON
+                        environmentJSON: postmanJSON['postmanEnvironment']
                     }
                 }
             ]

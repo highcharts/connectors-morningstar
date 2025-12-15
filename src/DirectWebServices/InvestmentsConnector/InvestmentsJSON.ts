@@ -11,16 +11,13 @@
  *
  * */
 
-
 'use strict';
-
 
 /* *
  *
- *  Namespace
+ *  Interfaces
  *
  * */
-
 
 export interface InvestmentResponse {
     identifiers: {

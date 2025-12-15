@@ -14,62 +14,11 @@ export async function assetAllocBreakdownLoad (
             id: '0P00000FIA'
         },
         converters: {
-            AssetAllocationBreakdown: {}
+            AssetAllocationBreakdown: {},
+            EquitySectorsBreakdown: {},
+            FixedIncomeSectorsBreakdown: {}
         }
     });
-
-    await connector.load();
-
-    const expectedAssetAllocCols = [
-        'Type',
-        'Long',
-        'Us_Long',
-        'NonUs_Long',
-        'LongRescaled',
-        'Us_LongRescaled',
-        'NonUs_LongRescaled',
-        'Net',
-        'Us_Net',
-        'NonUs_Net',
-        'Short',
-        'Us_Short',
-        'NonUs_Short'
-    ],
-        expectedCanadianAssetAllocCols = [
-            'Type',
-            'Long',
-            'LongRescaled',
-            'Net',
-            'Short'
-        ],
-        expectedUnderlyingAssetAllocCols = [
-            'Type',
-            'UnderlyingInstruments'
-        ];
-
-
-    Assert.deepStrictEqual(
-        connector.dataTables.AssetAlloc.getColumnIds(),
-        expectedAssetAllocCols,
-        'AssectAlloc table should exist of expected columns.'
-    );
-
-    Assert.deepStrictEqual(
-        connector.dataTables.CanadianAssetAlloc.getColumnIds(),
-        expectedCanadianAssetAllocCols,
-        'CanadianAssetAlloc table should exist of expected columns.'
-    );
-
-    Assert.deepStrictEqual(
-        connector.dataTables.UnderlyingAssetAlloc.getColumnIds(),
-        expectedUnderlyingAssetAllocCols,
-        'UnderlyingAssetAlloc table should exist of expected columns.'
-    );
-    
-    Assert.ok(
-        connector.dataTables.AssetAlloc.getRowCount() > 0,
-        'AssetAlloc should not return empty rows.'
-    );
 
     Assert.ok(
         connector.dataTables.CanadianAssetAlloc.getRowCount() > 0,

@@ -7,7 +7,7 @@ const loadingLabel = document.getElementById('loading-label');
 async function initializeChart (postmanJSON) {
     const priceConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
         postman: {
-            environmentJSON: postmanJSON
+            environmentJSON: postmanJSON['postmanEnvironment']
         },
         series: {
             type: 'Price'

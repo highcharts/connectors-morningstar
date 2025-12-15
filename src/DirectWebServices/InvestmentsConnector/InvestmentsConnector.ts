@@ -11,16 +11,13 @@
  *
  * */
 
-
 'use strict';
 
-
 /* *
-*
-*  Imports
-*
-* */
-
+ *
+ *  Imports
+ *
+ * */
 
 import DWSConnector from '../DWSConnector';
 import {
@@ -42,10 +39,9 @@ import type {
  *
  * */
 
-
 export class InvestmentsConnector extends DWSConnector {
 
-    /**
+    /* *
      *
      * Static Properties
      *
@@ -77,7 +73,6 @@ export class InvestmentsConnector extends DWSConnector {
         this.options = options;
         this.convertersToUse = convertersToUse;
     }
-
 
     /* *
      *
@@ -129,7 +124,11 @@ export class InvestmentsConnector extends DWSConnector {
                 this.dataTables[type].metadata = converter.getTable().metadata;
             }
 
+            // Connector metadata
             this.metadata.rawResponses.push({ type, json });
+            this.metadata[type] = {
+                ...converter.metadata
+            };
         }
     }
 }
@@ -139,6 +138,5 @@ export class InvestmentsConnector extends DWSConnector {
  *  Default Export
  *
  * */
-
 
 export default InvestmentsConnector;

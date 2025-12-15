@@ -2,9 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <script src="https://code.highcharts.com/stock/highstock.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/connectors/morningstar/connectors-morningstar.js"></script>
-        <title>Morningstar Security Details Asset Allocations</title>
+        <script src="https://code.highcharts.com/connectors/morningstar/connectors-morningstar-dws.js"></script>
+        <title>Morningstar and MorningstarDWS</title>
         <style>
             body {
                 font-family: sans-serif;
@@ -18,13 +19,14 @@
         </style>
     </head>
     <body>
-        <h1>Morningstar Security Details Asset Allocations</h1>
+        <h1>Morningstar and MorningstarDWS</h1>
         <p id="postman-message">
-            Add your Postman environment file from Morningstar to start the demo:
-            <input type="file" id="postman-json" accept=".json,application/json" />
+            Add your <b>both</b> Postman environment files from <b>Morningstar</b> and <b>Morningstar DWS</b> to start the demo:
+            <input type="file" id="postman-json" accept=".json,application/json" multiple />
         </p>
         <p id="loading-label">Loading data…</p>
         <div id="container"></div>
+        <div id="container-dws"></div>
         <script type="module" src="./demo.js"></script>
     </body>
 </html>
