@@ -52,7 +52,7 @@ function displayInvestmentScreener (postmanJSON) {
                     securityDataPoints: secIds,
                     universeIds: ['FOALL$$ALL'],
                     postman: {
-                        environmentJSON: postmanJSON
+                        environmentJSON: postmanJSON['postmanEnvironment']
                     }
                 }
             ]

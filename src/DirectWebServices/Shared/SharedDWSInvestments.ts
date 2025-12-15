@@ -11,30 +11,33 @@
  *
  * */
 
-
 'use strict';
 
-
 /* *
-*
-*  Imports
-*
-* */
+ *
+ *  Imports
+ *
+ * */
 
 import {
-    createRegionExposureRequest
+    createRegionExposureRequest,
+    createEquitySectorsBreakdownRequest,
+    createFixedIncomeSectorsBreakdownRequest
 } from './SharedDWSRequests';
 import RegionExposureConverter from './DWSConverters/RegionExposure/RegionExposureConverter';
+import EquitySectorsBreakdownConverter from '../Sectors/EquitySectorsBreakdownConverter';
+import FixedIncomeSectorsBreakdownConverter from '../Sectors/FixedIncomeSectorsBreakdownConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
     Converters,
+    ConverterMetadata,
     InvestmentsConverters,
     InvestmentsConverterType,
     InvestmentsSecurityOptions
 } from '../InvestmentsConnector/InvestmentsOptions';
 import type { DWSRequest } from '../DWSOptions';
-import type { MorningstarConverterOptions } from '../../Shared';
+import type { MorningstarConverterOptions, MorningstarMetadata } from '../../Shared';
 
 /* *
  *
@@ -46,6 +49,21 @@ const CONVERTERS: Converters = [
     {
         key: 'RegionExposure',
         children: ['Equity', 'FixedIncome', 'RevenueExposure', 'FixedIncomeGeo']
+    },
+    {
+        key: 'EquitySectorsBreakdown',
+        children: ['EqSuperSectors', 'EqSectors', 'EqIndustries']
+    },
+    {
+        key: 'FixedIncomeSectorsBreakdown',
+        children: [
+            'IncSuperSectors',
+            'IncPrimarySectors',
+            'IncSecondarySectors',
+            'IncBrkSuperSectors',
+            'IncBrkPrimarySectors',
+            'IncBrkSecondarySectors'
+        ]
     }
 ];
 
@@ -56,8 +74,12 @@ const CONVERTERS: Converters = [
  * */
 
 export interface InvestmentsConverter extends MorningstarConverter {
+    metadata: InvestmentsConverterMetadata;
+
     parse(options: MorningstarConverterOptions): void;
 }
+
+export interface InvestmentsConverterMetadata extends MorningstarMetadata, ConverterMetadata {}
 
 /* *
  *
@@ -103,7 +125,15 @@ export function createRequests (
             case 'RegionExposure':
                 requests.push(createRegionExposureRequest(converter, security));
                 break;
-
+            case 'EquitySectorsBreakdown':
+                requests.push(
+                    createEquitySectorsBreakdownRequest(converter, security)
+                );
+                break;
+            case 'FixedIncomeSectorsBreakdown':
+                requests.push(
+                    createFixedIncomeSectorsBreakdownRequest(converter, security)
+                );
         }
     }
 
@@ -116,7 +146,9 @@ export function initConverter (
     switch (type) {
         case 'RegionExposure':
             return new RegionExposureConverter();
-        default:
-            throw new Error(`Unknown converter type: ${type}`);
+        case 'EquitySectorsBreakdown':
+            return new EquitySectorsBreakdownConverter();
+        case 'FixedIncomeSectorsBreakdown':
+            return new FixedIncomeSectorsBreakdownConverter();
     }
 }

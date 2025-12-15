@@ -2,7 +2,7 @@ import * as Assert from 'node:assert/strict';
 import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar-dws.src';
 
-export async function investmentsConnectorLoad (
+export async function fixedIncomeSectorsBreakdown (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.InvestmentsConnector({
@@ -13,8 +13,6 @@ export async function investmentsConnectorLoad (
             id: '0P00000FIA'
         },
         converters: {
-            RegionExposure: {},
-            EquitySectorsBreakdown: {},
             FixedIncomeSectorsBreakdown: {}
         }
     });
@@ -25,4 +23,16 @@ export async function investmentsConnectorLoad (
     );
 
     await connector.load();
+    const dataTable = connector.getTable('IncSuperSectors');
+
+    Assert.deepStrictEqual(
+        dataTable.getColumnIds(),
+        ['Fixed_Inc_Type', 'Fixed_Inc_PercLongRescaled', 'Fixed_Inc_PercNet', 'Fixed_Inc_PercLong'],
+        'Fixed Income Sectors Breakdown table should have expected columns.'
+    );
+
+    Assert.ok(
+        dataTable.getRowCount() > 0,
+        'Fixed Income Sectors Breakdown table should not return empty rows.'
+    );
 }

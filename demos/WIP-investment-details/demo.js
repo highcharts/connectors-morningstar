@@ -1,24 +1,29 @@
 import { getPostmanFile } from '../utils/postman-localstorage.js';
 
-getPostmanFile(displaySecurityDetails, true);
+getPostmanFile(displaySecurityDetails, 'postmanEnvironmentDWS');
 
 const loadingLabel = document.getElementById('loading-label');
 
 async function displaySecurityDetails (postmanJSON) {
 
-    const connector = new HighchartsConnectors.Morningstar.InvestmentsConnector({
+    const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
         postman: {
-            environmentJSON: postmanJSON
+            environmentJSON: postmanJSON['postmanEnvironmentDWS']
         },
         security: {
             id: '0P00000FIA'
         },
         converters: {
-            RegionExposure: {}
+            RegionExposure: {},
+            EquitySectorsBreakdown: {},
+            FixedIncomeSectorsBreakdown: {}
         }
     });
 
     await connector.load();
+
+    // eslint-disable-next-line no-console
+    console.log(connector);
 
     // eslint-disable-next-line no-console
     console.log(connector.dataTables);

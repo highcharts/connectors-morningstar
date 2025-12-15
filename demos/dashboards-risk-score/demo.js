@@ -107,7 +107,7 @@ function displayRiskScore (postmanJSON) {
                     highRiskRetirementPortfolio
                 ],
                 postman: {
-                    environmentJSON: postmanJSON
+                    environmentJSON: postmanJSON['postmanEnvironment']
                 }
             }]
         },

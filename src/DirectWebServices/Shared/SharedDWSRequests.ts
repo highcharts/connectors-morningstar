@@ -22,7 +22,6 @@ import type { InvestmentsConverterOptions, InvestmentsSecurityOptions } from '..
  *
  * */
 
-
 export function createRegionExposureRequest (
     converter: InvestmentsConverterOptions,
     security: InvestmentsSecurityOptions
@@ -32,5 +31,29 @@ export function createRegionExposureRequest (
     return {
         type: 'RegionExposure',
         url: `investments/${id}/country-and-regional-exposure-breakdown`
+    };
+}
+
+export function createEquitySectorsBreakdownRequest (
+    converter: InvestmentsConverterOptions,
+    security: InvestmentsSecurityOptions
+): DWSRequest {
+    const { id } = security;
+
+    return {
+        type: 'EquitySectorsBreakdown',
+        url: `investments/${id}/morningstar-equity-sectors-breakdown`
+    };
+}
+
+export function createFixedIncomeSectorsBreakdownRequest (
+    converter: InvestmentsConverterOptions,
+    security: InvestmentsSecurityOptions
+): DWSRequest {
+    const { id } = security;
+
+    return {
+        type: 'FixedIncomeSectorsBreakdown',
+        url: `investments/${id}/morningstar-fixed-income-sectors-breakdown`
     };
 }

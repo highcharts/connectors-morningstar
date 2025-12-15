@@ -15,7 +15,7 @@ function displayRNANews (postmanJSON) {
                     idType: 'ISIN'
                 },
                 postman: {
-                    environmentJSON: postmanJSON
+                    environmentJSON: postmanJSON['postmanEnvironment']
                 }
             },
             {

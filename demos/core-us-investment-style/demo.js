@@ -7,7 +7,7 @@ const loadingLabel = document.getElementById('loading-label');
 async function displayXRayUS (postmanJSON) {
     const connector = new HighchartsConnectors.Morningstar.XRayUSConnector({
         postman: {
-            environmentJSON: postmanJSON
+            environmentJSON: postmanJSON['postmanEnvironment']
         },
         viewId: 'All',
         configId: 'Default',
