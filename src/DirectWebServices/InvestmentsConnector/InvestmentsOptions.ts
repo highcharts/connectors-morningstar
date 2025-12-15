@@ -24,7 +24,7 @@
 import type {
     MorningstarOptions
 } from '../../Shared/MorningstarOptions';
-
+import { DWSMetadata } from '../DWSOptions';
 
 /* *
  *
@@ -38,9 +38,7 @@ export type InvestmentsConverters = Partial<Record<InvestmentsConverterType, Inv
 export type Converters = Array<{ key: InvestmentsConverterType, children?: string[] }>;
 
 export type InvestmentsConverterType =
-    'AssetAllocationBreakdown'|
-    'MockBasicDetails'|
-    'NestedTablesConverter';
+    'AssetAllocationBreakdown';
 
 export interface InvestmentsOptions extends MorningstarOptions {
     converters?: InvestmentsConverters;
@@ -54,6 +52,10 @@ export interface InvestmentsConverterOptions {
 
 export interface InvestmentsSecurityOptions {
     id: string;
+}
+
+export interface InvestmentsMetadata extends DWSMetadata {
+    performanceId?: string;
 }
 
 

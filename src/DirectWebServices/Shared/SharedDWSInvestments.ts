@@ -22,13 +22,9 @@
 * */
 
 import {
-    createAssetAllocRequest,
-    createMockBasicDetailsRequest,
-    createNestedTablesRequest
+    createAssetAllocRequest
 } from './SharedDWSRequests';
-import MockBasicDetailsConverter from './DWSConverters/MockBasicDetailsConverter';
 import AssetAllocationBreakdownConverter from './DWSConverters/AssetAllocationBreakdown/AssetAllocationBreakdownConverter';
-import NestedTablesConverter from './DWSConverters/NestedTablesConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
@@ -54,9 +50,7 @@ const CONVERTERS: Converters = [
             'CanadianAssetAlloc',
             'UnderlyingAssetAlloc'
         ]
-    },
-    { key: 'MockBasicDetails' },
-    { key: 'NestedTablesConverter', children: ['Table1', 'Table2', 'Table3'] }
+    }
 ];
 
 /* *
@@ -113,11 +107,6 @@ export function createRequests (
             case 'AssetAllocationBreakdown':
                 requests.push(createAssetAllocRequest(converter, security));
                 break;
-            case 'MockBasicDetails':
-                requests.push(createMockBasicDetailsRequest(converter, security));
-                break;
-            case 'NestedTablesConverter':
-                requests.push(createNestedTablesRequest(converter, security));
         }
     }
 
@@ -131,9 +120,5 @@ export function initConverter (
         default:
         case 'AssetAllocationBreakdown':
             return new AssetAllocationBreakdownConverter();
-        case 'MockBasicDetails':
-            return new MockBasicDetailsConverter();
-        case 'NestedTablesConverter':
-            return new NestedTablesConverter();
     }
 }

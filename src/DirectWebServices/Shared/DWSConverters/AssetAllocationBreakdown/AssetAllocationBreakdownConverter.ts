@@ -15,15 +15,14 @@
 'use strict';
 
 
-import { DataTable } from '@highcharts/dashboards';
 /* *
- *
- *  Imports
- *
- * */
+*
+*  Imports
+*
+* */
 
+import { DataTable } from '../../../../Shared/External';
 import MorningstarConverter from '../../../../Shared/MorningstarConverter';
-import * as External from '../../../../Shared/External';
 import {
     AssetAllocationBreakdownConverterOptions,
     AssetAllocationBreakdownMetadata 
@@ -56,9 +55,9 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
         };
         const tables = this.tables;
 
-        tables[0] = new External.DataTable({ id:'AssetAlloc' });
-        tables[1] = new External.DataTable({ id:'CanadianAssetAlloc' });
-        tables[2] = new External.DataTable({ id:'UnderlyingAssetAlloc' });
+        tables[0] = new DataTable({ id:'AssetAlloc' });
+        tables[1] = new DataTable({ id:'CanadianAssetAlloc' });
+        tables[2] = new DataTable({ id:'UnderlyingAssetAlloc' });
 
     }
 
@@ -84,16 +83,19 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
             userOptions = {
                 ...this.options,
                 ...options
-            };
+            },
+            metadata = this.metadata,
+            json = userOptions.json,
+            id = json.identifiers.performanceId;
 
-        const assetAlloc = userOptions.json.assetAllocationBreakdown;
+        const assetAlloc = json.assetAllocationBreakdown;
         const assets = [
             'Bond',
             'Cash',
             'ConvBond',
             'Equity',
             'Other'
-        ] as DataTable.Column;
+        ];
         const canAssets = [
             'CanadianEquity',
             'InternationalEquity',
@@ -101,7 +103,7 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
             'Cash',
             'FixedIncome',
             'Other'
-        ] as DataTable.Column;
+        ];
 
         const underlying = [
             'Bond',
@@ -112,7 +114,7 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
             'MiscellaneousSecurities',
             'OpenEndFund',
             'Stock'
-        ] as DataTable.Column;
+        ];
 
         const SUFFIXES = ['Long', 'LongRescaled', 'Net', 'Short'];
 
@@ -147,6 +149,13 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
             tables[2].setCell(
                 'UnderlyingInstruments', i, key in assetAlloc ? assetAlloc[key] : 0
             );
+        }
+
+        // Converter metadata
+        metadata.performanceId = id;
+
+        if (json.metadata.messages?.length) {
+            metadata.messages = json.metadata.messages;
         }
     }
 

@@ -33,27 +33,3 @@ export function createAssetAllocRequest (
         url: `investments/${id}/asset-Allocation-Breakdown`
     };
 }
-
-export function createMockBasicDetailsRequest (
-    converter: InvestmentsConverterOptions,
-    security: InvestmentsSecurityOptions
-): DWSRequest {
-    const { id } = security;
-
-    return {
-        type: 'MockBasicDetails',
-        url: `investments/${id}/investment-Basic-Details`
-    };
-}
-
-export function createNestedTablesRequest (
-    converter: InvestmentsConverterOptions,
-    security: InvestmentsSecurityOptions
-): DWSRequest {
-    const { id } = security;
-
-    return {
-        type: 'NestedTablesConverter',
-        url: `investments/${id}/asset-Allocation-Breakdown`
-    };
-}

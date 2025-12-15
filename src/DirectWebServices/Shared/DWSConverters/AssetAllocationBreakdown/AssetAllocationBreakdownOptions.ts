@@ -35,7 +35,4 @@ export interface AssetAllocationBreakdownConverterOptions extends MorningstarCon
 export interface AssetAllocationBreakdownMetadata extends MorningstarMetadata {
     performanceId?: string;
     messages?: Array<Message>;
-    equityRegionRescalingFactorLong?: number;
-    fixedIncRegionRescalingFactorLong?: number;
-    revenueExposureByRegionDate?: string;
 }

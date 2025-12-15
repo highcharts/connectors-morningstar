@@ -15,9 +15,7 @@ async function displaySecurityDetails (postmanJSON) {
             idType: 'performanceId'
         },
         converters: {
-            AssetAllocationBreakdown: {
-                
-            }
+            AssetAllocationBreakdown: {}
         }
     });
 
