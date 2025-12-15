@@ -7,7 +7,7 @@ const loadingLabel = document.getElementById('loading-label');
 async function initializeChart (postmanJSON) {
     const rollingReturnConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector({
         postman: {
-            environmentJSON: postmanJSON
+            environmentJSON: postmanJSON['postmanEnvironment']
         },
         securities: [{
             id: 'US0378331005',

@@ -11,9 +11,7 @@
  *
  * */
 
-
 'use strict';
-
 
 /* *
  *
@@ -21,10 +19,7 @@
  *
  * */
 
-import type {
-    MorningstarOptions
-} from '../../Shared/MorningstarOptions';
-
+import type { MorningstarOptions } from '../../Shared/MorningstarOptions';
 
 /* *
  *
@@ -38,9 +33,14 @@ export type InvestmentsConverters = Partial<Record<InvestmentsConverterType, Inv
 export type Converters = Array<{ key: InvestmentsConverterType, children?: string[] }>;
 
 export type InvestmentsConverterType =
-    'MockAssetAlloc'|
-    'MockBasicDetails'|
-    'NestedTablesConverter';
+    'EquitySectorsBreakdown' |
+    'FixedIncomeSectorsBreakdown';
+
+export type ConverterMetadata = {
+    [K in InvestmentsConverterType]?: {
+        [key: string]: unknown;
+    };
+};
 
 export interface InvestmentsOptions extends MorningstarOptions {
     converters?: InvestmentsConverters;
@@ -56,12 +56,10 @@ export interface InvestmentsSecurityOptions {
     id: string;
 }
 
-
 /* *
  *
  *  Default Export
  *
  * */
-
 
 export default InvestmentsOptions;

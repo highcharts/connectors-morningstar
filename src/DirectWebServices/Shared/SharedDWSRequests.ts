@@ -22,39 +22,26 @@ import type { InvestmentsConverterOptions, InvestmentsSecurityOptions } from '..
  *
  * */
 
-export function createMockAssetAllocRequest (
+export function createEquitySectorsBreakdownRequest (
     converter: InvestmentsConverterOptions,
     security: InvestmentsSecurityOptions
 ): DWSRequest {
     const { id } = security;
 
     return {
-        type: 'MockAssetAlloc',
-        url: `investments/${id}/asset-Allocation-Breakdown`
+        type: 'EquitySectorsBreakdown',
+        url: `investments/${id}/morningstar-equity-sectors-breakdown`
     };
 }
 
-
-export function createMockBasicDetailsRequest (
+export function createFixedIncomeSectorsBreakdownRequest (
     converter: InvestmentsConverterOptions,
     security: InvestmentsSecurityOptions
 ): DWSRequest {
     const { id } = security;
 
     return {
-        type: 'MockBasicDetails',
-        url: `investments/${id}/investment-Basic-Details`
-    };
-}
-
-export function createNestedTablesRequest (
-    converter: InvestmentsConverterOptions,
-    security: InvestmentsSecurityOptions
-): DWSRequest {
-    const { id } = security;
-
-    return {
-        type: 'NestedTablesConverter',
-        url: `investments/${id}/asset-Allocation-Breakdown`
+        type: 'FixedIncomeSectorsBreakdown',
+        url: `investments/${id}/morningstar-fixed-income-sectors-breakdown`
     };
 }

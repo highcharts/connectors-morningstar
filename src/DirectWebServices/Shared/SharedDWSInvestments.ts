@@ -11,34 +11,31 @@
  *
  * */
 
-
 'use strict';
 
-
 /* *
-*
-*  Imports
-*
-* */
+ *
+ *  Imports
+ *
+ * */
 
 import {
-    createMockAssetAllocRequest,
-    createMockBasicDetailsRequest,
-    createNestedTablesRequest
+    createEquitySectorsBreakdownRequest,
+    createFixedIncomeSectorsBreakdownRequest
 } from './SharedDWSRequests';
-import MockAssetAllocConverter from './DWSConverters/MockAssetAllocConverter';
-import MockBasicDetailsConverter from './DWSConverters/MockBasicDetailsConverter';
-import NestedTablesConverter from './DWSConverters/NestedTablesConverter';
+import EquitySectorsBreakdownConverter from '../Sectors/EquitySectorsBreakdownConverter';
+import FixedIncomeSectorsBreakdownConverter from '../Sectors/FixedIncomeSectorsBreakdownConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
+    Converters,
+    ConverterMetadata,
     InvestmentsConverters,
     InvestmentsConverterType,
-    InvestmentsSecurityOptions,
-    Converters
+    InvestmentsSecurityOptions
 } from '../InvestmentsConnector/InvestmentsOptions';
 import type { DWSRequest } from '../DWSOptions';
-import type { MorningstarConverterOptions } from '../../Shared';
+import type { MorningstarConverterOptions, MorningstarMetadata } from '../../Shared';
 
 /* *
  *
@@ -47,9 +44,21 @@ import type { MorningstarConverterOptions } from '../../Shared';
  * */
 
 const CONVERTERS: Converters = [
-    { key: 'MockAssetAlloc' },
-    { key: 'MockBasicDetails' },
-    { key: 'NestedTablesConverter', children: ['Table1', 'Table2', 'Table3'] }
+    {
+        key: 'EquitySectorsBreakdown',
+        children: ['EqSuperSectors', 'EqSectors', 'EqIndustries']
+    },
+    {
+        key: 'FixedIncomeSectorsBreakdown',
+        children: [
+            'IncSuperSectors',
+            'IncPrimarySectors',
+            'IncSecondarySectors',
+            'IncBrkSuperSectors',
+            'IncBrkPrimarySectors',
+            'IncBrkSecondarySectors'
+        ]
+    }
 ];
 
 /* *
@@ -59,8 +68,12 @@ const CONVERTERS: Converters = [
  * */
 
 export interface InvestmentsConverter extends MorningstarConverter {
+    metadata: InvestmentsConverterMetadata;
+
     parse(options: MorningstarConverterOptions): void;
 }
+
+export interface InvestmentsConverterMetadata extends MorningstarMetadata, ConverterMetadata {}
 
 /* *
  *
@@ -103,14 +116,15 @@ export function createRequests (
             continue;
         }
         switch (type) {
-            case 'MockAssetAlloc':
-                requests.push(createMockAssetAllocRequest(converter, security));
+            case 'EquitySectorsBreakdown':
+                requests.push(
+                    createEquitySectorsBreakdownRequest(converter, security)
+                );
                 break;
-            case 'MockBasicDetails':
-                requests.push(createMockBasicDetailsRequest(converter, security));
-                break;
-            case 'NestedTablesConverter':
-                requests.push(createNestedTablesRequest(converter, security));
+            case 'FixedIncomeSectorsBreakdown':
+                requests.push(
+                    createFixedIncomeSectorsBreakdownRequest(converter, security)
+                );
         }
     }
 
@@ -121,11 +135,9 @@ export function initConverter (
     type: InvestmentsConverterType
 ): InvestmentsConverter {
     switch (type) {
-        case 'MockAssetAlloc':
-            return new MockAssetAllocConverter();
-        case 'MockBasicDetails':
-            return new MockBasicDetailsConverter();
-        case 'NestedTablesConverter':
-            return new NestedTablesConverter();
+        case 'EquitySectorsBreakdown':
+            return new EquitySectorsBreakdownConverter();
+        case 'FixedIncomeSectorsBreakdown':
+            return new FixedIncomeSectorsBreakdownConverter();
     }
 }

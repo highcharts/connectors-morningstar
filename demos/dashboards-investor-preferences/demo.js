@@ -225,7 +225,7 @@ function displayInvestorPreferences (postmanJSON) {
                     calculatedDataPoints,
                     filters,
                     postman: {
-                        environmentJSON: postmanJSON
+                        environmentJSON: postmanJSON['postmanEnvironment']
                     }
                 }
             ]

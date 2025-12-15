@@ -67,7 +67,7 @@ async function displaySecurityDetails (postmanJSON) {
             id: 'xray',
             type: 'MorningstarXRay',
             postman: {
-                environmentJSON: postmanJSON
+                environmentJSON: postmanJSON['postmanEnvironment']
             },
             benchmarkId: 'EUCA000812',
             currencyId: 'GBP',
