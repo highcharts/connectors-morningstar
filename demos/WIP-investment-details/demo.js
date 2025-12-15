@@ -23,9 +23,6 @@ async function displaySecurityDetails (postmanJSON) {
     await connector.load();
 
     // eslint-disable-next-line no-console
-    console.log(connector);
-
-    // eslint-disable-next-line no-console
     console.log(connector.dataTables);
 
     loadingLabel.style.display = 'none';

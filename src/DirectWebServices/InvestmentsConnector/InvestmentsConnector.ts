@@ -54,10 +54,10 @@ export class InvestmentsConnector extends DWSConnector {
 
 
     /* *
-    *
-    *  Constructor
-    *
-    * */
+     *
+     *  Constructor
+     *
+     * */
 
     public constructor (
         options: InvestmentsOptions
@@ -76,10 +76,10 @@ export class InvestmentsConnector extends DWSConnector {
     }
 
     /* *
-    *
-    *  Properties
-    *
-    * */
+     *
+     *  Properties
+     *
+     * */
 
     public override readonly options: InvestmentsOptions;
 

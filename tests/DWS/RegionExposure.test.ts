@@ -19,6 +19,15 @@ export async function regionExposureConnector (
 
     await connector.load();
 
+    Assert.deepStrictEqual(
+        connector.metadata['RegionExposure'],
+        {
+            columns: {},
+            performanceId: '0P0000XTUQ'
+        },
+        'Connector metadata should contain performanceId.'
+    );
+
     const equityTable = connector.getTable('Equity'),
         fixedIncomeTable = connector.getTable('FixedIncome'),
         fixedIncomeGeoTable = connector.getTable('FixedIncomeGeo');
