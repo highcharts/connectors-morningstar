@@ -19,7 +19,7 @@
  *
  * */
 
-import SectorsBreakdown from './SectorsBreakdownOptions';
+import { InvestmentResponse } from '../InvestmentsConnector/InvestmentsJSON';
 
 /* *
  *
@@ -29,7 +29,7 @@ import SectorsBreakdown from './SectorsBreakdownOptions';
 
 namespace EquitySectorsBreakdownJSON {
 
-    export interface EquitySectorsBreakdownResponse extends SectorsBreakdown.InvestmentResponse {
+    export interface EquitySectorsBreakdownResponse extends InvestmentResponse {
         morningstarEquitySectorsBreakdown: MorningstarEquitySectorsBreakdownItem;
     }
 

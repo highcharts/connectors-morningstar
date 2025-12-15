@@ -19,9 +19,8 @@
  *
  * */
 
-import SectorsBreakdown from './SectorsBreakdownOptions';
-
 import type EquitySectorsBreakdownJSON from './EquitySectorsBreakdownJSON';
+import type { Message } from '../InvestmentsConnector/InvestmentsJSON';
 import type { MorningstarConverterOptions } from '../../Shared/MorningstarOptions';
 import type { InvestmentsConverterMetadata } from '../Shared/SharedDWSInvestments';
 
@@ -36,6 +35,6 @@ export interface EquitySectorsBreakdownConverterOptions extends MorningstarConve
 }
 
 export interface EquitySectorsBreakdownConverterMetadata extends InvestmentsConverterMetadata {
-    messages?: Array<SectorsBreakdown.Message>;
+    messages?: Array<Message>;
     performanceId?: string;
 }

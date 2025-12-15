@@ -21,7 +21,7 @@
 
 import SectorsBreakdown from './SectorsBreakdownOptions';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
-import * as External from '../../Shared/External';
+import { DataTable } from '../../Shared/External';
 
 import type EquitySectorsBreakdownJSON from './EquitySectorsBreakdownJSON';
 import type {
@@ -50,9 +50,9 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
 
         // Create main data tables
         this.tables = [
-            new External.DataTable({ id: 'EqSuperSectors' }),
-            new External.DataTable({ id: 'EqSectors' }),
-            new External.DataTable({ id: 'EqIndustries' })
+            new DataTable({ id: 'EqSuperSectors' }),
+            new DataTable({ id: 'EqSectors' }),
+            new DataTable({ id: 'EqIndustries' })
         ];
 
         this.metadata = {
@@ -92,7 +92,7 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
 
             const setSectors = (
                 sectors: string[],
-                table: External.DataTable
+                table: DataTable
             ) => {
                 sectors.forEach((sector, index) => {
                     // Sector type value
@@ -140,7 +140,7 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
 
             function setIndustries (
                 sectorsData: EquitySectorsBreakdownJSON.MorningstarEquitySectorsBreakdownItem,
-                table: External.DataTable
+                table: DataTable
             ): void {
                 // Pattern to find industry related records
                 const pattern = new RegExp(

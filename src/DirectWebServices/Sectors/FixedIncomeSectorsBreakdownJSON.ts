@@ -19,7 +19,7 @@
  *
  * */
 
-import SectorsBreakdown from './SectorsBreakdownOptions';
+import { InvestmentResponse } from '../InvestmentsConnector/InvestmentsJSON';
 
 /* *
  *
@@ -51,7 +51,7 @@ export type FieldMappingEntry = {
 
 namespace FixedIncomeSectorsBreakdownJSON {
 
-    export interface FixedIncomeSectorsBreakdownResponse extends SectorsBreakdown.InvestmentResponse {
+    export interface FixedIncomeSectorsBreakdownResponse extends InvestmentResponse {
         morningstarFixedIncomeSectorsBreakdown: MorningstarFixedIncomeSectorsBreakdownItem;
     }
 

@@ -19,9 +19,8 @@
  *
  * */
 
-import SectorsBreakdown from './SectorsBreakdownOptions';
-
 import type FixedIncomeSectorsBreakdownJSON from './FixedIncomeSectorsBreakdownJSON';
+import type { Message } from '../InvestmentsConnector/InvestmentsJSON';
 import type { MorningstarConverterOptions } from '../../Shared/MorningstarOptions';
 import type { InvestmentsConverterMetadata } from '../Shared/SharedDWSInvestments';
 
@@ -37,7 +36,7 @@ export interface FixedIncomeSectorsBreakdownConverterOptions extends Morningstar
 
 export interface FixedIncomeSectorsBreakdownConverterMetadata extends InvestmentsConverterMetadata {
     fixdIncMorningstarSectorsPortfolioDate?: string;
-    messages?: Array<SectorsBreakdown.Message>;
+    messages?: Array<Message>;
     performanceId?: string;
     surveyedFixedIncSectorDate?: string;
 }
