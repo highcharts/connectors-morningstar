@@ -54,7 +54,7 @@ function displayFindSimilarScreener (postmanJSON) {
                         }
                     ],
                     postman: {
-                        environmentJSON: postmanJSON
+                        environmentJSON: postmanJSON['postmanEnvironment']
                     }
                 }
             ]

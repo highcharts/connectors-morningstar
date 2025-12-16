@@ -11,16 +11,13 @@
  *
  * */
 
-
 'use strict';
-
 
 /* *
  *
- *  Namespace
+ *  Interfaces
  *
  * */
-
 
 export interface InvestmentResponse {
     identifiers: {
@@ -45,4 +42,3 @@ export interface InvestmentMessage {
     datapointId?: Array<string>;
     errorCode?: string;
 }
-

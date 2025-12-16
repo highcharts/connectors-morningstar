@@ -11,16 +11,13 @@
  *
  * */
 
-
 'use strict';
 
-
 /* *
-*
-*  Imports
-*
-* */
-
+ *
+ *  Imports
+ *
+ * */
 
 import DWSConnector from '../DWSConnector';
 import {
@@ -33,7 +30,6 @@ import {
 import type {
     Converters,
     InvestmentsConverterType,
-    InvestmentsMetadata,
     InvestmentsOptions
 } from './InvestmentsOptions';
 
@@ -43,10 +39,9 @@ import type {
  *
  * */
 
-
 export class InvestmentsConnector extends DWSConnector {
 
-    /**
+    /* *
      *
      * Static Properties
      *
@@ -59,10 +54,10 @@ export class InvestmentsConnector extends DWSConnector {
 
 
     /* *
-    *
-    *  Constructor
-    *
-    * */
+     *
+     *  Constructor
+     *
+     * */
 
     public constructor (
         options: InvestmentsOptions
@@ -77,25 +72,18 @@ export class InvestmentsConnector extends DWSConnector {
 
         super(options);
         this.options = options;
-        this.metadata = {
-            columns: {},
-            rawResponses: []
-        };
         this.convertersToUse = convertersToUse;
     }
 
-
     /* *
-    *
-    *  Properties
-    *
-    * */
+     *
+     *  Properties
+     *
+     * */
 
     public override readonly options: InvestmentsOptions;
 
     public convertersToUse: Converters;
-
-    public override readonly metadata: InvestmentsMetadata;
 
     /* *
      *
@@ -137,10 +125,12 @@ export class InvestmentsConnector extends DWSConnector {
                 this.dataTables[type].metadata = converter.getTable().metadata;
             }
 
+            // Connector metadata
             this.metadata.rawResponses.push({ type, json });
+            this.metadata[type] = {
+                ...converter.metadata
+            };
         }
-
-        this.metadata.performanceId = security.id;
     }
 }
 
@@ -149,6 +139,5 @@ export class InvestmentsConnector extends DWSConnector {
  *  Default Export
  *
  * */
-
 
 export default InvestmentsConnector;

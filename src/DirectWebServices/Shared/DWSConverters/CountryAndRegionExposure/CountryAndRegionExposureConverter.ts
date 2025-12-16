@@ -16,10 +16,10 @@
 
 
 /* *
-*
-*  Imports
-*
-* */
+ *
+ *  Imports
+ *
+ * */
 
 
 import type { CountryAndRegionExposureMetadata, CountryAndRegionExposureOptions } from './CountryAndRegionExposureOptions';
@@ -116,6 +116,7 @@ export class CountryAndRegionExposureConverter extends MorningstarConverter {
         const tables = this.tables,
             metadata = this.metadata,
             json = options.json,
+            id = json.identifiers.performanceId,
             countryAndRegionalExposureBreakdown = json.countryAndRegionalExposureBreakdown;
         type ExposureType = keyof typeof PREFIXES;
 
@@ -145,9 +146,11 @@ export class CountryAndRegionExposureConverter extends MorningstarConverter {
                 const tableRecord = tableRecords[type];
                 const { table, rowIndexRecord } = tableRecord;
 
-                // Create empty table metadata record instead of casting
+                // Initialize table metadata object and assign performanceId
                 if (!table.metadata) {
-                    table.metadata = {};
+                    table.metadata = {
+                        performanceId: id
+                    };
                 }
 
                 // Assign metadata for RescalingFactor and RevenueExposureDate
@@ -200,6 +203,9 @@ export class CountryAndRegionExposureConverter extends MorningstarConverter {
                 );
             }
         }
+
+        // Converter metadata
+        metadata.performanceId = id;
 
         if (json.metadata.messages?.length) {
             metadata.messages = json.metadata.messages;

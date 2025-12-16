@@ -11,30 +11,33 @@
  *
  * */
 
-
 'use strict';
 
-
 /* *
-*
-*  Imports
-*
-* */
+ *
+ *  Imports
+ *
+ * */
 
 import {
-    createCountryAndRegionExposureRequest
+    createCountryAndRegionExposureRequest,
+    createEquitySectorsBreakdownRequest,
+    createFixedIncomeSectorsBreakdownRequest
 } from './SharedDWSRequests';
 import CountryAndRegionExposureConverter from './DWSConverters/CountryAndRegionExposure/CountryAndRegionExposureConverter';
+import EquitySectorsBreakdownConverter from '../Sectors/EquitySectorsBreakdownConverter';
+import FixedIncomeSectorsBreakdownConverter from '../Sectors/FixedIncomeSectorsBreakdownConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
     Converters,
+    ConverterMetadata,
     InvestmentsConverters,
     InvestmentsConverterType,
     InvestmentsSecurityOptions
 } from '../InvestmentsConnector/InvestmentsOptions';
 import type { DWSRequest } from '../DWSOptions';
-import type { MorningstarConverterOptions } from '../../Shared';
+import type { MorningstarConverterOptions, MorningstarMetadata } from '../../Shared';
 
 /* *
  *
@@ -54,6 +57,21 @@ const CONVERTERS: Converters = [
             'Country_Breakdown',
             'Country_RevenueExposure'
         ]
+    },
+    {
+        key: 'EquitySectorsBreakdown',
+        children: ['EqSuperSectors', 'EqSectors', 'EqIndustries']
+    },
+    {
+        key: 'FixedIncomeSectorsBreakdown',
+        children: [
+            'IncSuperSectors',
+            'IncPrimarySectors',
+            'IncSecondarySectors',
+            'IncBrkSuperSectors',
+            'IncBrkPrimarySectors',
+            'IncBrkSecondarySectors'
+        ]
     }
 ];
 
@@ -64,8 +82,12 @@ const CONVERTERS: Converters = [
  * */
 
 export interface InvestmentsConverter extends MorningstarConverter {
+    metadata: InvestmentsConverterMetadata;
+
     parse(options: MorningstarConverterOptions): void;
 }
+
+export interface InvestmentsConverterMetadata extends MorningstarMetadata, ConverterMetadata {}
 
 /* *
  *
@@ -111,7 +133,15 @@ export function createRequests (
             case 'CountryAndRegionExposure':
                 requests.push(createCountryAndRegionExposureRequest(converter, security));
                 break;
-
+            case 'EquitySectorsBreakdown':
+                requests.push(
+                    createEquitySectorsBreakdownRequest(converter, security)
+                );
+                break;
+            case 'FixedIncomeSectorsBreakdown':
+                requests.push(
+                    createFixedIncomeSectorsBreakdownRequest(converter, security)
+                );
         }
     }
 
@@ -124,7 +154,9 @@ export function initConverter (
     switch (type) {
         case 'CountryAndRegionExposure':
             return new CountryAndRegionExposureConverter();
-        default:
-            throw new Error(`Unknown converter type: ${type}`);
+        case 'EquitySectorsBreakdown':
+            return new EquitySectorsBreakdownConverter();
+        case 'FixedIncomeSectorsBreakdown':
+            return new FixedIncomeSectorsBreakdownConverter();
     }
 }
