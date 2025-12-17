@@ -22,7 +22,10 @@
  * */
 
 
-import type { RegionExposureMetadata, RegionExposureOptions } from './RegionExposureOptions';
+import type {
+    RegionExposureConverterOptions,
+    RegionExposureConverterMetadata
+} from './RegionExposureOptions';
 import MorningstarConverter from '../../../../Shared/MorningstarConverter';
 import { DataTable } from '../../../../Shared/External';
 
@@ -74,7 +77,7 @@ export class RegionExposureConverter extends MorningstarConverter {
 
 
     public constructor (
-        options?: RegionExposureOptions
+        options?: RegionExposureConverterOptions
     ) {
         super(options);
 
@@ -96,7 +99,7 @@ export class RegionExposureConverter extends MorningstarConverter {
      *
      */
 
-    public readonly metadata: RegionExposureMetadata;
+    public readonly metadata: RegionExposureConverterMetadata;
 
 
     /* *
@@ -106,7 +109,7 @@ export class RegionExposureConverter extends MorningstarConverter {
      * */
 
 
-    public override parse (options: RegionExposureOptions): void {
+    public override parse (options: RegionExposureConverterOptions): void {
         const tables = this.tables,
             metadata = this.metadata,
             json = options.json,

@@ -28,14 +28,11 @@ import type {
 import type { Message } from '../../../InvestmentsConnector/InvestmentsJSON';
 import type RegionExposureJSON from './RegionExposureJSON';
 
-export interface RegionExposureOptions extends MorningstarConverterOptions {
+export interface RegionExposureConverterOptions extends MorningstarConverterOptions {
     json: RegionExposureJSON.RegionExposureResponse;
 }
 
-export interface RegionExposureMetadata extends MorningstarMetadata {
+export interface RegionExposureConverterMetadata extends MorningstarMetadata {
     performanceId?: string;
     messages?: Array<Message>;
-    equityRegionRescalingFactorLong?: number;
-    fixedIncRegionRescalingFactorLong?: number;
-    revenueExposureByRegionDate?: string;
 }
