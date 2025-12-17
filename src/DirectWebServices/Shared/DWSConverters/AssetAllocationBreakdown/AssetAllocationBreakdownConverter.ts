@@ -23,7 +23,7 @@
 
 import { DataTable } from '../../../../Shared/External';
 import MorningstarConverter from '../../../../Shared/MorningstarConverter';
-import {
+import type {
     AssetAllocationBreakdownConverterOptions,
     AssetAllocationBreakdownMetadata 
 } from './AssetAllocationBreakdownOptions';
