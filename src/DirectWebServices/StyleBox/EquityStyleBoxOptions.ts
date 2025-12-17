@@ -19,7 +19,7 @@
  *
  * */
 
-import type EquitySectorsBreakdownJSON from './EquitySectorsBreakdownJSON';
+import type EquityStyleBoxJSON from './EquityStyleBoxJSON';
 import type { Message } from '../InvestmentsConnector/InvestmentsJSON';
 import type { MorningstarConverterOptions, MorningstarMetadata } from '../../Shared/MorningstarOptions';
 
@@ -29,11 +29,11 @@ import type { MorningstarConverterOptions, MorningstarMetadata } from '../../Sha
  *
  * */
 
-export interface EquitySectorsBreakdownConverterOptions extends MorningstarConverterOptions {
-    json: EquitySectorsBreakdownJSON.EquitySectorsBreakdownResponse;
+export interface EquityStyleBoxConverterOptions extends MorningstarConverterOptions {
+    json: EquityStyleBoxJSON.EquityStyleBoxResponse;
 }
 
-export interface EquitySectorsBreakdownConverterMetadata extends MorningstarMetadata {
+export interface EquityStyleBoxConverterMetadata extends MorningstarMetadata {
     messages?: Array<Message>;
     performanceId?: string;
 }

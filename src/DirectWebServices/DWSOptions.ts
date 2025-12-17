@@ -20,8 +20,7 @@
  * */
 
 import type { InvestmentsConverterType } from './InvestmentsConnector/InvestmentsOptions';
-import type { MorningstarOptions } from '../Shared/MorningstarOptions';
-import type { InvestmentsConverterMetadata } from './Shared/SharedDWSInvestments';
+import type { MorningstarMetadata, MorningstarOptions } from '../Shared/MorningstarOptions';
 
 /* *
  *
@@ -39,13 +38,13 @@ export interface DWSResponse {
     [key: string]: Response;
 }
 
-export interface DWSMetadata extends InvestmentsConverterMetadata {
-    rawResponses: Array<{ type: InvestmentsConverterType; json: unknown }>;
-}
-
-export interface DWSOptions extends MorningstarOptions {
+export interface DWSConnectorOptions extends MorningstarOptions {
     languageId?: 'ENG' | 'SPA' | 'FRA' | 'DEU' | 'ITA' | 'JPN' | 'CHI' | 'ZHO' | 'KOR';
     requests?: Array<DWSRequest>;
+}
+
+export interface DWSConnectorMetadata extends MorningstarMetadata {
+    rawResponses: Array<{ type: InvestmentsConverterType; json: unknown }>;
 }
 
 /* *
@@ -54,4 +53,4 @@ export interface DWSOptions extends MorningstarOptions {
  *
  * */
 
-export default DWSOptions;
+export default DWSConnectorOptions;

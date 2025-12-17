@@ -20,6 +20,7 @@
  * */
 
 import type { MorningstarOptions } from '../../Shared/MorningstarOptions';
+import type { DWSConnectorMetadata } from '../DWSOptions';
 
 /* *
  *
@@ -34,9 +35,12 @@ export type Converters = Array<{ key: InvestmentsConverterType, children?: strin
 
 export type InvestmentsConverterType =
     'EquitySectorsBreakdown' |
+    'EquityStyleBox' |
     'FixedIncomeSectorsBreakdown';
 
-export type ConverterMetadata = {
+export interface InvestmentsConnectorMetadata extends DWSConnectorMetadata, ConnectorMetadata {}
+
+export type ConnectorMetadata = {
     [K in InvestmentsConverterType]?: {
         [key: string]: unknown;
     };

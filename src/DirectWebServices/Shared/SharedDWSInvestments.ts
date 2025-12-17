@@ -21,15 +21,16 @@
 
 import {
     createEquitySectorsBreakdownRequest,
+    createEquityStyleBoxRequest,
     createFixedIncomeSectorsBreakdownRequest
 } from './SharedDWSRequests';
 import EquitySectorsBreakdownConverter from '../Sectors/EquitySectorsBreakdownConverter';
+import EquityStyleBoxConverter from '../StyleBox/EquityStyleBoxConverter';
 import FixedIncomeSectorsBreakdownConverter from '../Sectors/FixedIncomeSectorsBreakdownConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
     Converters,
-    ConverterMetadata,
     InvestmentsConverters,
     InvestmentsConverterType,
     InvestmentsSecurityOptions
@@ -47,6 +48,10 @@ const CONVERTERS: Converters = [
     {
         key: 'EquitySectorsBreakdown',
         children: ['EqSuperSectors', 'EqSectors', 'EqIndustries']
+    },
+    {
+        key: 'EquityStyleBox',
+        children: ['StockStyle', 'TimeSeries']
     },
     {
         key: 'FixedIncomeSectorsBreakdown',
@@ -68,12 +73,10 @@ const CONVERTERS: Converters = [
  * */
 
 export interface InvestmentsConverter extends MorningstarConverter {
-    metadata: InvestmentsConverterMetadata;
+    metadata: MorningstarMetadata;
 
     parse(options: MorningstarConverterOptions): void;
 }
-
-export interface InvestmentsConverterMetadata extends MorningstarMetadata, ConverterMetadata {}
 
 /* *
  *
@@ -121,6 +124,11 @@ export function createRequests (
                     createEquitySectorsBreakdownRequest(converter, security)
                 );
                 break;
+            case 'EquityStyleBox':
+                requests.push(
+                    createEquityStyleBoxRequest(converter, security)
+                );
+                break;
             case 'FixedIncomeSectorsBreakdown':
                 requests.push(
                     createFixedIncomeSectorsBreakdownRequest(converter, security)
@@ -137,6 +145,8 @@ export function initConverter (
     switch (type) {
         case 'EquitySectorsBreakdown':
             return new EquitySectorsBreakdownConverter();
+        case 'EquityStyleBox':
+            return new EquityStyleBoxConverter();
         case 'FixedIncomeSectorsBreakdown':
             return new FixedIncomeSectorsBreakdownConverter();
     }

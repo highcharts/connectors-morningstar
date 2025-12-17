@@ -34,6 +34,24 @@ export function createEquitySectorsBreakdownRequest (
     };
 }
 
+export function createEquityStyleBoxRequest (
+    converter: InvestmentsConverterOptions,
+    security: InvestmentsSecurityOptions
+): DWSRequest {
+    const { id } = security;
+
+    // Look for the start and end dates
+    const { startDate, endDate } = converter;
+
+    return {
+        type: 'EquityStyleBox',
+        url:
+            startDate && endDate ?
+                `investments/${id}/equity-style-box?startDate=${startDate}&endDate=${endDate}` :
+                `investments/${id}/equity-style-box`
+    };
+}
+
 export function createFixedIncomeSectorsBreakdownRequest (
     converter: InvestmentsConverterOptions,
     security: InvestmentsSecurityOptions
