@@ -40,7 +40,7 @@ const PREFIXES = {
     Equity: 'equityRegion',
     FixedIncome: 'fixedIncRegion',
     FixedIncomeGeo: 'fixdIncGeographic',
-    RevenueExposure: 'revenueExposureByRegionPerc'
+    RevenueExposure: 'revenueExposureByRegion'
 };
 
 const GEO_SUBPREFIXES = [
@@ -169,7 +169,7 @@ export class RegionExposureConverter extends MorningstarConverter {
                 let regionKey;
 
                 if (type === 'RevenueExposure') {
-                    regionKey = key.slice(prefix.length);
+                    regionKey = key.slice(prefix.length + suffix.length);
                 } else if (type === 'FixedIncomeGeo') {
                     let rest = key.slice(prefix.length);
                     const sub = GEO_SUBPREFIXES.find(s => rest.startsWith(s));
