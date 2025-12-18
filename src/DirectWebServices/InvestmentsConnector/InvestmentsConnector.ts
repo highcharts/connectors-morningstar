@@ -52,7 +52,6 @@ export class InvestmentsConnector extends DWSConnector {
         type: 'MorningstarInvestmentsConnector'
     };
 
-
     /* *
      *
      *  Constructor

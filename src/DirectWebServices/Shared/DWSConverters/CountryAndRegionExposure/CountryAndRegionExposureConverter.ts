@@ -22,7 +22,10 @@
  * */
 
 
-import type { CountryAndRegionExposureMetadata, CountryAndRegionExposureOptions } from './CountryAndRegionExposureOptions';
+import type {
+    CountryAndRegionExposureMetadata,
+    CountryAndRegionExposureOptions
+} from './CountryAndRegionExposureOptions';
 import MorningstarConverter from '../../../../Shared/MorningstarConverter';
 import { DataTable } from '../../../../Shared/External';
 

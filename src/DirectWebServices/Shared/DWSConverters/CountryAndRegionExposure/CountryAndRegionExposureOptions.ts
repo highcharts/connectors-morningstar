@@ -35,7 +35,4 @@ export interface CountryAndRegionExposureOptions extends MorningstarConverterOpt
 export interface CountryAndRegionExposureMetadata extends MorningstarMetadata {
     performanceId?: string;
     messages?: Array<Message>;
-    equityRegionRescalingFactorLong?: number;
-    fixedIncRegionRescalingFactorLong?: number;
-    revenueExposureByRegionDate?: string;
 }
