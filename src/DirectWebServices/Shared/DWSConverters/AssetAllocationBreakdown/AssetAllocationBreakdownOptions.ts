@@ -32,7 +32,7 @@ export interface AssetAllocationBreakdownConverterOptions extends MorningstarCon
     json: AssetAllocationBreakdownJSON.AssetAllocationBreakdownResponse;
 }
 
-export interface AssetAllocationBreakdownMetadata extends MorningstarMetadata {
+export interface AssetAllocationBreakdownConverterMetadata extends MorningstarMetadata {
     performanceId?: string;
     messages?: Array<Message>;
 }

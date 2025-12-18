@@ -25,7 +25,7 @@ import { DataTable } from '../../../../Shared/External';
 import MorningstarConverter from '../../../../Shared/MorningstarConverter';
 import type {
     AssetAllocationBreakdownConverterOptions,
-    AssetAllocationBreakdownMetadata 
+    AssetAllocationBreakdownConverterMetadata 
 } from './AssetAllocationBreakdownOptions';
 
 /* *
@@ -67,7 +67,7 @@ export class AssetAllocationBreakdownConverter extends MorningstarConverter {
      *
      */
 
-    public readonly metadata: AssetAllocationBreakdownMetadata;
+    public readonly metadata: AssetAllocationBreakdownConverterMetadata;
 
 
     /* *

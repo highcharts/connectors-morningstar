@@ -46,6 +46,14 @@ import type { MorningstarConverterOptions, MorningstarMetadata } from '../../Sha
  * */
 
 const CONVERTERS: Converters = [
+    { 
+        key: 'AssetAllocationBreakdown', 
+        children: [
+            'AssetAlloc',
+            'CanadianAssetAlloc',
+            'UnderlyingAssetAlloc'
+        ]
+    },
     {
         key: 'EquitySectorsBreakdown',
         children: ['EqSuperSectors', 'EqSectors', 'EqIndustries']
@@ -59,14 +67,6 @@ const CONVERTERS: Converters = [
             'IncBrkSuperSectors',
             'IncBrkPrimarySectors',
             'IncBrkSecondarySectors'
-        ]
-    }, 
-    { 
-        key: 'AssetAllocationBreakdown', 
-        children: [
-            'AssetAlloc',
-            'CanadianAssetAlloc',
-            'UnderlyingAssetAlloc'
         ]
     }
 ];
@@ -126,6 +126,11 @@ export function createRequests (
             continue;
         }
         switch (type) {
+            case 'AssetAllocationBreakdown':
+                requests.push(
+                    createAssetAllocRequest(converter, security)
+                );
+                break;
             case 'EquitySectorsBreakdown':
                 requests.push(
                     createEquitySectorsBreakdownRequest(converter, security)
@@ -136,8 +141,6 @@ export function createRequests (
                     createFixedIncomeSectorsBreakdownRequest(converter, security)
                 );
                 break;
-            case 'AssetAllocationBreakdown':
-                requests.push(createAssetAllocRequest(converter, security));
         }
     }
 
