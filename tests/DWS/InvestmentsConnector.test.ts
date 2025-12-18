@@ -14,6 +14,7 @@ export async function investmentsConnectorLoad (
         },
         converters: {
             EquitySectorsBreakdown: {},
+            EquityStyleBox: {},
             FixedIncomeSectorsBreakdown: {}
         }
     });

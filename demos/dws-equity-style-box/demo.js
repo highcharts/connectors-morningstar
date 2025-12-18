@@ -21,7 +21,16 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
     await connector.load();
 
     // eslint-disable-next-line no-unused-vars
-    const table = connector.getTable('StockStyle');
+    const dataTable = connector.getTable('StockStyle');
+
+    const data = dataTable.getRows(0, 9).map((row) => {
+        row.push(dataTable.metadata['effectiveDate']);
+        row.push(dataTable.metadata['growthScore']);
+        row.push(dataTable.metadata['sizeScore']);
+        row.push(dataTable.metadata['styleScore']);
+        row.push(dataTable.metadata['valueScore']);
+        return row;
+    });
 
     Highcharts.chart('container', {
         chart: {
@@ -31,7 +40,7 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
             text: 'Equity Style Box'
         },
         subtitle: {
-            text: `Stock Style (${table.metadata.performanceId})`,
+            text: `Stock Style (${dataTable.metadata.performanceId})`,
             align: 'left'
         },
         xAxis: {
@@ -92,16 +101,30 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
             }]
         },
         tooltip: {
-            // pointFormat:
-            //     '<b> {series.yAxis.categories.(point.y)}
-            //     {series.xAxis.categories.(point.x)}</b>: {point.value}%'
+            headerFormat: '<b>{series.name}</b><br/>',
+            pointFormat: `
+                Effective Date: <b>{point.effectiveDate}</b><br/>
+                Weight: <b>{point.value:.0f}%</b><br/>
+                Growth Score: <b>{point.growthScore:.2f}</b><br/>
+                Size Score: <b>{point.sizeScore:.2f}</b><br/>
+                Style Score: <b>{point.styleScore:.2f}</b><br/>
+                Value Score: <b>{point.valueScore:.2f}</b>`
         },
         series: [{
-            name: 'Portfolio Weight',
+            name: 'Equity Style Box',
             borderWidth: 1,
             borderColor: '#e5e7e9',
-            keys: ['x', 'y', 'value'],
-            data: table.getRows(0, 9),
+            keys: [
+                'x',
+                'y',
+                'value',
+                'effectiveDate',
+                'growthScore',
+                'sizeScore',
+                'styleScore',
+                'valueScore'
+            ],
+            data,
             dataLabels: {
                 enabled: true,
                 format: '{value:.0f}%',

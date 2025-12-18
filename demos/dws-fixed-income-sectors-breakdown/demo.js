@@ -40,8 +40,8 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
 
     const brkType = 'Fixd_Inc_Brkdwn_Type',
         brkLong = 'Fixd_Inc_Brkdwn_CalcLongFiperc',
-        brkNet = 'Fixd_Inc_Brkdwn_CalcNetFiperc',
-        brkShort = 'Fixd_Inc_Brkdwn_CalcShortFiperc';
+        brkShort = 'Fixd_Inc_Brkdwn_CalcShortFiperc',
+        brkNet = 'Fixd_Inc_Brkdwn_CalcNetFiperc';
 
     const superSectorsBrkTable = connector.getTable('IncBrkSuperSectors');
     Highcharts.chart('container-brk-super-sectors', {

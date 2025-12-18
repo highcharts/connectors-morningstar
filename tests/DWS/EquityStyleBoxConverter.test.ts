@@ -23,28 +23,85 @@ export async function equityStyleBox (
     );
 
     await connector.load();
-    const stockDataTable = connector.getTable('StockStyle'),
-        timeDataTable = connector.getTable('TimeSeries');
+
+    const connectorMeradata = connector.metadata['EquityStyleBox'];
+
+    Assert.ok(
+        connectorMeradata !== undefined,
+        'InvestmentsConnector metadata should contain EquityStyleBox section.'
+    );
 
     Assert.deepStrictEqual(
-        stockDataTable.getColumnIds(),
+        Object.keys(connectorMeradata).sort(),
+        [
+            'columns',
+            'performanceId'
+        ],
+        'EquityStyleBox metadata should contain expected properties.'
+    );
+
+    Assert.deepStrictEqual(
+        connectorMeradata.performanceId,
+        '0P00006W6Q',
+        'EquityStyleBox metadata should contain performanceId.'
+    );
+
+    const stockStyleDataTable = connector.getTable('StockStyle');
+
+    Assert.deepStrictEqual(
+        stockStyleDataTable.getColumnIds(),
         ['Style', 'Size', 'Value'],
-        'Equity Style Box StockStyle table should have expected columns.'
+        'StockStyle table should have expected columns.'
     );
 
     Assert.ok(
-        stockDataTable.getRowCount() > 0,
-        'Equity Style Box StockStyle table should not return empty rows.'
+        stockStyleDataTable.getRowCount() > 0,
+        'StockStyle table should not return empty rows.'
+    );
+
+    Assert.ok(
+        stockStyleDataTable.metadata !== undefined,
+        'StockStyle table should have metadata defined.'
     );
 
     Assert.deepStrictEqual(
-        timeDataTable.getColumnIds(),
-        ['Date', 'SizeScore', 'StyleScore', 'GrowthScore', 'ValueScore'],
-        'Equity Style Box TimeSeries table should have expected columns.'
+        Object.keys(stockStyleDataTable.metadata).sort(),
+        [
+            'effectiveDate',
+            'growthScore',
+            'performanceId',
+            'regionIdCode',
+            'regionIdValue',
+            'sizeScore',
+            'styleBoxCode',
+            'styleBoxValue',
+            'styleScore',
+            'valueScore'
+        ],
+        'StockStyle table metadata should contain expected properties.'
+    );
+
+    const timeSeriesDataTable = connector.getTable('TimeSeries')
+
+    Assert.deepStrictEqual(
+        timeSeriesDataTable.getColumnIds(),
+        ['Date', 'StyleBox', 'StyleScore', 'SizeScore', 'GrowthScore', 'ValueScore', 'Region'],
+        'TimeSeries table should have expected columns.'
     );
 
     Assert.ok(
-        timeDataTable.getRowCount() > 0,
-        'Equity Style Box TimeSeries table should not return empty rows.'
+        timeSeriesDataTable.getRowCount() > 0,
+        'TimeSeries table should not return empty rows.'
+    );
+
+    Assert.ok(
+        timeSeriesDataTable.metadata !== undefined,
+        'TimeSeries table should have metadata defined.'
+    );
+
+    Assert.deepStrictEqual(
+        Object.keys(timeSeriesDataTable.metadata).sort(),
+        ['performanceId'],
+        'TimeSeries table metadata should contain expected properties.'
     );
 }

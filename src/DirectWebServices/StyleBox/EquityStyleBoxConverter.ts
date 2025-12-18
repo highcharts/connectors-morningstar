@@ -123,16 +123,19 @@ export class EquityStyleBoxConverter extends MorningstarConverter {
 
             let index = 0;
             for (const value of Object.values(stockStyle)) {
-                const { effectiveDate, growthScore, sizeScore, styleScore, valueScore } = value;
+                const { growthScore, valueScore, regionId } = value;
 
                 // Save date
-                timeTable.setCell('Date', index, new Date(effectiveDate).getTime());
+                timeTable.setCell('Date', index, value.effectiveDate);
 
-                // Save Size Score
-                timeTable.setCell('SizeScore', index, sizeScore);
+                // Save Style Box Value
+                timeTable.setCell('StyleBox', index, value.styleBox.value);
 
                 // Save Style Score
-                timeTable.setCell('StyleScore', index, styleScore);
+                timeTable.setCell('StyleScore', index, value.styleScore);
+
+                // Save Size Score
+                timeTable.setCell('SizeScore', index, value.sizeScore);
 
                 // Save Growth Score
                 if (growthScore) {
@@ -142,6 +145,11 @@ export class EquityStyleBoxConverter extends MorningstarConverter {
                 // Save Value Score
                 if (valueScore) {
                     timeTable.setCell('ValueScore', index, valueScore);
+                }
+
+                // Save Region Value
+                if (regionId) {
+                    timeTable.setCell('Region', index, regionId.value);
                 }
 
                 index++;

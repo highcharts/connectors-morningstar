@@ -23,50 +23,21 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
 
     await connector.load();
 
-    const table = connector.getTable('TimeSeries');
+    const dataTable = connector.getTable('TimeSeries')
 
-    Highcharts.stockChart('container', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Equity Style Box Time Series'
-        },
-        subtitle: {
-            text: table.metadata.performanceId
-        },
-        tooltip: {
-            shared: true
-        },
-        series: [{
-            name: 'Equity Style Box Growth Score',
-            data: table.getRows(
-                void 0,
-                void 0,
-                ['Date', 'GrowthScore']
-            )
-        }, {
-            name: 'Equity Style Box Size Score',
-            data: table.getRows(
-                void 0,
-                void 0,
-                ['Date', 'SizeScore']
-            )
-        }, {
-            name: 'Equity Style Box Style Score',
-            data: table.getRows(
-                void 0,
-                void 0,
-                ['Date', 'StyleScore']
-            )
-        }, {
-            name: 'Equity Style Box Value Score',
-            data: table.getRows(
-                void 0,
-                void 0,
-                ['Date', 'ValueScore']
-            )
-        }]
+    // eslint-disable-next-line no-undef
+    Grid.grid('container', {
+        dataTable: {
+            columns: {
+                Date: dataTable.getColumn('Date'),
+                'Style Box': dataTable.getColumn('StyleBox'),
+                'Growth Score': dataTable.getColumn('GrowthScore'),
+                'Size Score': dataTable.getColumn('SizeScore'),
+                'Style Score': dataTable.getColumn('StyleScore'),
+                'Value Score': dataTable.getColumn('ValueScore'),
+                'Region': dataTable.getColumn('Region')
+            }
+        }
     });
 
     loadingLabel.style.display = 'none';
