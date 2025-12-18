@@ -127,21 +127,21 @@ Highcharts.chart('container-brk-super-sectors', {
         data: dataTable.getRows(
             void 0,
             void 0,
-            ['Fixd_Inc_Brkdwn_Type', 'Fixd_Inc_Brkdwn_CalcLongFiperc']
+            ['Fixed_Income_Breakdown_Type', 'Fixed_Income_Breakdown_CalcLongFiperc']
         )
     }, {
         name: 'Fixed Income Breakdown Super Sectors Short',
         data: dataTable.getRows(
             void 0,
             void 0,
-            ['Fixd_Inc_Brkdwn_Type', 'Fixd_Inc_Brkdwn_CalcShortFiperc']
+            ['Fixed_Income_Breakdown_Type', 'Fixed_Income_Breakdown_CalcShortFiperc']
         )
     }, {
         name: 'Fixed Income Breakdown Super Sectors Net',
         data: dataTable.getRows(
             void 0,
             void 0,
-            ['Fixd_Inc_Brkdwn_Type', 'Fixd_Inc_Brkdwn_CalcNetFiperc']
+            ['Fixed_Income_Breakdown_Type', 'Fixed_Income_Breakdown_CalcNetFiperc']
         )
     }]
 });

@@ -38,10 +38,10 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }
     });
 
-    const brkType = 'Fixd_Inc_Brkdwn_Type',
-        brkLong = 'Fixd_Inc_Brkdwn_CalcLongFiperc',
-        brkShort = 'Fixd_Inc_Brkdwn_CalcShortFiperc',
-        brkNet = 'Fixd_Inc_Brkdwn_CalcNetFiperc';
+    const brkType = 'Fixed_Income_Breakdown_Type',
+        brkLong = 'Fixed_Income_Breakdown_CalcLongFiperc',
+        brkShort = 'Fixed_Income_Breakdown_CalcShortFiperc',
+        brkNet = 'Fixed_Income_Breakdown_CalcNetFiperc';
 
     const superSectorsBrkTable = connector.getTable('IncBrkSuperSectors');
     Highcharts.chart('container-brk-super-sectors', {
@@ -139,11 +139,11 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }]
     });
 
-    const type = 'Fixed_Inc_Type',
-        longRescaled = 'Fixed_Inc_PercLongRescaled',
-        long = 'Fixed_Inc_PercLong',
-        short = 'Fixed_Inc_PercShort',
-        net = 'Fixed_Inc_PercNet';
+    const type = 'Fixed_Income_Type',
+        longRescaled = 'Fixed_Income_PercLongRescaled',
+        long = 'Fixed_Income_PercLong',
+        short = 'Fixed_Income_PercShort',
+        net = 'Fixed_Income_PercNet';
 
     const superSectorsTable = connector.getTable('IncSuperSectors');
     Highcharts.chart('container-super-sectors', {

@@ -48,11 +48,11 @@ export async function fixedIncomeSectorsBreakdown (
     );
 
     const fixedIncColumns = [
-        'Fixed_Inc_Type',
-        'Fixed_Inc_PercLongRescaled',
-        'Fixed_Inc_PercNet',
-        'Fixed_Inc_PercShort',
-        'Fixed_Inc_PercLong'
+        'Fixed_Income_Type',
+        'Fixed_Income_PercLongRescaled',
+        'Fixed_Income_PercNet',
+        'Fixed_Income_PercShort',
+        'Fixed_Income_PercLong'
     ];
     const superSectorsDataTable = connector.getTable('IncSuperSectors');
 
@@ -136,17 +136,17 @@ export async function fixedIncomeSectorsBreakdown (
         'IncSecondarySectors table metadata should contain expected properties.'
     );
 
-    const fixdIncBrkdwnColumns = [
-        'Fixd_Inc_Brkdwn_Type',
-        'Fixd_Inc_Brkdwn_CalcNetFiperc',
-        'Fixd_Inc_Brkdwn_CalcLongFiperc',
-        'Fixd_Inc_Brkdwn_CalcShortFiperc'
+    const fixedIncomeBreakdownColumns = [
+        'Fixed_Income_Breakdown_Type',
+        'Fixed_Income_Breakdown_CalcNetFiperc',
+        'Fixed_Income_Breakdown_CalcLongFiperc',
+        'Fixed_Income_Breakdown_CalcShortFiperc'
     ];
     const brkSuperSectorsDataTable = connector.getTable('IncBrkSuperSectors');
 
     Assert.deepStrictEqual(
         brkSuperSectorsDataTable.getColumnIds(),
-        fixdIncBrkdwnColumns,
+        fixedIncomeBreakdownColumns,
         'IncBrkSuperSectors table should have expected columns.'
     );
 
@@ -170,7 +170,7 @@ export async function fixedIncomeSectorsBreakdown (
 
     Assert.deepStrictEqual(
         brkPrimarySectorsDataTable.getColumnIds(),
-        fixdIncBrkdwnColumns,
+        fixedIncomeBreakdownColumns,
         'IncBrkPrimarySectors table should have expected columns.'
     );
 
@@ -194,7 +194,7 @@ export async function fixedIncomeSectorsBreakdown (
 
     Assert.deepStrictEqual(
         brkSecondarySectorsDataTable.getColumnIds(),
-        fixdIncBrkdwnColumns,
+        fixedIncomeBreakdownColumns,
         'IncBrkSecondarySectors table should have expected columns.'
     );
 
