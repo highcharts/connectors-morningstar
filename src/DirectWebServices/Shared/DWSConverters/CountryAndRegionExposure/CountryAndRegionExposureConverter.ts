@@ -175,7 +175,7 @@ export class CountryAndRegionExposureConverter extends MorningstarConverter {
                 let regionKey;
 
                 if (type === 'RegionRevenueExposure' || type === 'CountryRevenueExposure') {
-                    regionKey = key.slice(prefix.length);
+                    regionKey = key.slice(prefix.length + suffix.length);
                 } else if (type === 'RegionFixedIncomeGeo') {
                     let rest = key.slice(prefix.length);
                     const sub = GEO_SUBPREFIXES.find(s => rest.startsWith(s));
