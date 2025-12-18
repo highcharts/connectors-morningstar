@@ -122,16 +122,14 @@ export class RiskScoreConverter extends MorningstarConverter {
             ...this.options,
             ...options
         };
-        const json = userOptions.json as RiskScoreJSON.Response;
+        const json = userOptions.json;
 
         // Validate JSON
-
         if (!RiskScoreJSON.isResponse(json)) {
             throw new Error('Invalid data');
         }
 
         // Parse and cumulate risk scores by date
-
         const sortedPortfolios: RiskScorePortfolio[] = [];
         const messages: RiskScoreMetadataMessage[] = [];
 
@@ -160,10 +158,10 @@ export class RiskScoreConverter extends MorningstarConverter {
                 scoringMethodUsed
             });
 
-            if (!RiskScoreJSON.isRiskScoreCalculated(riskScorePortfolio.portfolio)) {
+            if (!RiskScoreJSON.isRiskScoreCalculated(portfolio)) {
                 messages.push({
                     type: 'Warning',
-                    message: 'Invalid RiskScore data for ' + riskScorePortfolio.portfolio.name
+                    message: 'Invalid RiskScore data for ' + name
                 });
             }
 
@@ -175,13 +173,11 @@ export class RiskScoreConverter extends MorningstarConverter {
             }
         }
 
-        if (sortedPortfolios.length > 0) {
-            sortedPortfolios.sort((a, b) => (
-                a.effectiveDate === b.effectiveDate ?
-                    0 :
-                    a.effectiveDate < b.effectiveDate ? -1 : 1
-            ));
-        }
+        sortedPortfolios.sort((a, b) => (
+            a.effectiveDate === b.effectiveDate ?
+                0 :
+                a.effectiveDate < b.effectiveDate ? -1 : 1
+        ));
 
         // Reset table
 

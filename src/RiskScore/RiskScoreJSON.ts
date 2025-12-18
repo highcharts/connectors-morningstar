@@ -112,12 +112,12 @@ export namespace RiskScoreJSON {
         return (
             !!json &&
             typeof json === 'object' &&
-            typeof (json as RiskScoreCalculated).riskScore               === 'number' &&
-            typeof (json as RiskScoreCalculated).alignmentScore          === 'number' &&
-            typeof (json as RiskScoreCalculated).rSquared                === 'number' &&
-            typeof (json as RiskScoreCalculated).retainedWeightProxied   === 'number' &&
-            typeof (json as RiskScoreCalculated).scoringMethodUsed       === 'string' &&
-            typeof (json as RiskScoreCalculated).effectiveDate           === 'string'
+            typeof (json as RiskScoreCalculated).riskScore === 'number' &&
+            typeof (json as RiskScoreCalculated).alignmentScore === 'number' &&
+            typeof (json as RiskScoreCalculated).rSquared === 'number' &&
+            typeof (json as RiskScoreCalculated).retainedWeightProxied === 'number' &&
+            typeof (json as RiskScoreCalculated).scoringMethodUsed === 'string' &&
+            typeof (json as RiskScoreCalculated).effectiveDate === 'string'
         );
     }
 

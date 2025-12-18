@@ -84,12 +84,9 @@ export async function riskScoreLoad (
 export async function riskScoreLoadWithInvalidHoldings (
     api: MC.Shared.MorningstarAPIOptions
 ) {
-    const options = {
+    const connector = new MC.RiskScoreConnector({
         id: '',
-        type: ''
-    },
-    connector = new MC.RiskScoreConnector({
-        ...options,
+        type: '',
         api,
         portfolios: [
             {
