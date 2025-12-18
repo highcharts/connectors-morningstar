@@ -105,6 +105,22 @@ export async function riskScoreLoadWithInvalidHoldings (
                         weight: 10
                     }
                 ]
+            }, {
+                name: 'PortfolioWithInvalidHoldingsAndNullRiskScore',
+                currency: 'USD',
+                totalValue: 100,
+                holdings: [
+                    {
+                        id: 'F00000VCTT',
+                        idType: 'SecurityID',
+                        weight: 50
+                    },
+                    {
+                        id: 'AAPLL',
+                        idType: 'TradingSymbol',
+                        weight: 50
+                    }
+                ]
             }
         ]
     });
@@ -121,9 +137,27 @@ export async function riskScoreLoadWithInvalidHoldings (
                 identifierType: 'TradingSymbol',
                 status: 'Invalid'
             }]
-        }]
+        },
+        {
+            type: 'Warning',
+            message: 'Invalid RiskScore data for PortfolioWithInvalidHoldingsAndNullRiskScore'
+        },
+        {
+            type: 'Warning',
+            message: 'Invalid or unentitled holdings',
+            invalidHoldings: [{
+                identifier: 'AAPLL',
+                identifierType: 'TradingSymbol',
+                status: 'Invalid'
+            }]
+        },
+        {
+            type: 'Warning',
+            // eslint-disable-next-line max-len
+            message: 'HBSA: Cannot obtain SecurityExposure for portfolio; RBSA: weight retained (combined return) is less than 0.9'
+        }],
+        'Metadata should contain warnings about invalid holdings and null risk score.'
     );
-
 }
 
 export function riskScoreResponseValidation () {
