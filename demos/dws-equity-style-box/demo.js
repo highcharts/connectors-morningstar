@@ -20,24 +20,24 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
 
     await connector.load();
 
-    // eslint-disable-next-line no-unused-vars
-    const dataTable = connector.getTable('StockStyle');
+    const dataTable = connector.getTable('StockStyle'),
+        data = dataTable.getRows(0, 9).map((row) => {
+            row.push(dataTable.metadata['effectiveDate']);
+            row.push(dataTable.metadata['growthScore']);
+            row.push(dataTable.metadata['sizeScore']);
+            row.push(dataTable.metadata['styleScore']);
+            row.push(dataTable.metadata['valueScore']);
 
-    const data = dataTable.getRows(0, 9).map((row) => {
-        row.push(dataTable.metadata['effectiveDate']);
-        row.push(dataTable.metadata['growthScore']);
-        row.push(dataTable.metadata['sizeScore']);
-        row.push(dataTable.metadata['styleScore']);
-        row.push(dataTable.metadata['valueScore']);
-        return row;
-    });
+            return row;
+        });
 
     Highcharts.chart('container', {
         chart: {
             type: 'heatmap'
         },
         title: {
-            text: 'Equity Style Box'
+            text: 'Equity Style Box',
+            align: 'left'
         },
         subtitle: {
             text: `Stock Style (${dataTable.metadata.performanceId})`,
