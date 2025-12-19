@@ -32,7 +32,7 @@ export interface CountryAndRegionExposureOptions extends MorningstarConverterOpt
     json: CountryAndRegionExposureJSON.CountryAndRegionExposureResponse;
 }
 
-export interface CountryAndRegionExposureMetadata extends MorningstarMetadata {
+export interface CountryAndRegionExposureConverterMetadata extends MorningstarMetadata {
     performanceId?: string;
     messages?: Array<Message>;
 }

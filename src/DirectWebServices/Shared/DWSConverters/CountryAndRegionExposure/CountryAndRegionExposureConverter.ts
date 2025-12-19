@@ -23,7 +23,7 @@
 
 
 import type {
-    CountryAndRegionExposureMetadata,
+    CountryAndRegionExposureConverterMetadata,
     CountryAndRegionExposureOptions
 } from './CountryAndRegionExposureOptions';
 import MorningstarConverter from '../../../../Shared/MorningstarConverter';
@@ -40,10 +40,10 @@ const PREFIXES = {
     RegionEquity: 'equityRegion',
     RegionFixedIncome: 'fixedIncRegion',
     RegionFixedIncomeGeo: 'fixdIncGeographic',
-    RegionRevenueExposure: 'revenueExposureByRegionPerc',
+    RegionRevenueExposure: 'revenueExposureByRegion',
     CountryEquity: 'equityCountry',
     CountryBreakdown: 'fixdIncCountryBrkdwn',
-    CountryRevenueExposure: 'revenueExposureByCountryPerc'
+    CountryRevenueExposure: 'revenueExposureByCountry'
 };
 
 const GEO_SUBPREFIXES = [
@@ -105,7 +105,7 @@ export class CountryAndRegionExposureConverter extends MorningstarConverter {
      *
      */
 
-    public readonly metadata: CountryAndRegionExposureMetadata;
+    public readonly metadata: CountryAndRegionExposureConverterMetadata;
 
 
     /* *
