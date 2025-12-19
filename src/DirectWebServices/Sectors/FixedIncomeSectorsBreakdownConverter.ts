@@ -198,7 +198,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                 primarySector: [],
                 secondarySector: [],
                 suffixes: SectorsBreakdown.suffixesFiperc,
-                column: 'Fixd_Inc_Brkdwn'
+                column: 'Fixed_Income_Breakdown'
             },
             fixedInc: {
                 pattern: new RegExp(
@@ -209,7 +209,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                 primarySector: [],
                 secondarySector: [],
                 suffixes: SectorsBreakdown.suffixes,
-                column: 'Fixed_Inc'
+                column: 'Fixed_Income'
             },
             surveyedFixedInc: {
                 pattern: new RegExp(
@@ -220,7 +220,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                 primarySector: [],
                 secondarySector: [],
                 suffixes: ['PercLong'],
-                column: 'Surveyed_Fixd_Inc'
+                column: 'Surveyed_Fixed_Income'
             }
         };
     }
