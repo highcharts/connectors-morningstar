@@ -24,7 +24,7 @@
 
 import type {
     CountryAndRegionExposureConverterMetadata,
-    CountryAndRegionExposureOptions
+    CountryAndRegionExposureConverterOptions
 } from './CountryAndRegionExposureOptions';
 import MorningstarConverter from '../../../../Shared/MorningstarConverter';
 import { DataTable } from '../../../../Shared/External';
@@ -80,7 +80,7 @@ export class CountryAndRegionExposureConverter extends MorningstarConverter {
 
 
     public constructor (
-        options?: CountryAndRegionExposureOptions
+        options?: CountryAndRegionExposureConverterOptions
     ) {
         super(options);
 
@@ -115,7 +115,7 @@ export class CountryAndRegionExposureConverter extends MorningstarConverter {
      * */
 
 
-    public override parse (options: CountryAndRegionExposureOptions): void {
+    public override parse (options: CountryAndRegionExposureConverterOptions): void {
         const tables = this.tables,
             metadata = this.metadata,
             json = options.json,

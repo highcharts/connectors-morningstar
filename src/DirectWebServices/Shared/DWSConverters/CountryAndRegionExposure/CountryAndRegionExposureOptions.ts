@@ -28,7 +28,7 @@ import type {
 import type { Message } from '../../../InvestmentsConnector/InvestmentsJSON';
 import type CountryAndRegionExposureJSON from './CountryAndRegionExposureJSON';
 
-export interface CountryAndRegionExposureOptions extends MorningstarConverterOptions {
+export interface CountryAndRegionExposureConverterOptions extends MorningstarConverterOptions {
     json: CountryAndRegionExposureJSON.CountryAndRegionExposureResponse;
 }
 
