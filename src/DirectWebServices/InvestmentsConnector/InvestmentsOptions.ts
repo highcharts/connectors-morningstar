@@ -37,7 +37,8 @@ export type InvestmentsConverterType =
     'AssetAllocationBreakdown' |
     'EquitySectorsBreakdown' |
     'EquityStyleBox' |
-    'FixedIncomeSectorsBreakdown';
+    'FixedIncomeSectorsBreakdown' |
+    'RegionExposure';
 
 export interface InvestmentsConnectorMetadata extends DWSConnectorMetadata, ConnectorMetadata {}
 

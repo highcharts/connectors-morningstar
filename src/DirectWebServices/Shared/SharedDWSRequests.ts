@@ -34,6 +34,18 @@ export function createAssetAllocRequest (
     };
 }
 
+export function createRegionExposureRequest (
+    converter: InvestmentsConverterOptions,
+    security: InvestmentsSecurityOptions
+): DWSRequest {
+    const { id } = security;
+
+    return {
+        type: 'RegionExposure',
+        url: `investments/${id}/country-and-regional-exposure-breakdown`
+    };
+}
+
 export function createEquitySectorsBreakdownRequest (
     converter: InvestmentsConverterOptions,
     security: InvestmentsSecurityOptions
