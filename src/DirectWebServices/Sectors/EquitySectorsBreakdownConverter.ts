@@ -156,7 +156,10 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
                         const industryName = match[1];
 
                         // New industry
-                        if (!industries.includes(industryName)) {
+                        if (
+                            !industries.includes(industryName) &&
+                            !match[0].endsWith('FactorLong')
+                        ) {
                             // Industry type value
                             table.setCell('Type', index, industryName);
 

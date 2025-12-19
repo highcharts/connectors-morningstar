@@ -24,8 +24,7 @@ import MorningstarURL from '../Shared/MorningstarURL';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarRegion from '../Shared/MorningstarRegion';
 
-import type DWSOptions from './DWSOptions';
-import type { DWSRequest, DWSResponse, DWSMetadata } from './DWSOptions';
+import type { DWSRequest, DWSResponse, DWSConnectorOptions, DWSConnectorMetadata } from './DWSOptions';
 
 /* *
  *
@@ -42,7 +41,7 @@ export abstract class DWSConnector extends MorningstarConnector {
      * */
 
     public constructor (
-        options: DWSOptions
+        options: DWSConnectorOptions
     ) {
         if (options.api) {
             options.api.isDWS = true;
@@ -64,13 +63,13 @@ export abstract class DWSConnector extends MorningstarConnector {
      *
      * */
 
-    public override readonly options: DWSOptions;
+    public override readonly options: DWSConnectorOptions;
 
     public responses: Array<DWSResponse> = [];
 
     public requests: Array<DWSRequest> = [];
 
-    public override metadata!: DWSMetadata;
+    public override metadata!: DWSConnectorMetadata;
 
     protected url!: string;
 
@@ -88,9 +87,8 @@ export abstract class DWSConnector extends MorningstarConnector {
         const api = this.api = this.api || new MorningstarAPI(options.api);
 
         for (const { url, type } of requests) {
-
             const fullUrl = new MorningstarURL(
-                `/direct-web-services/v1/${url}?languageId=${options.languageId || 'ENG'}`,
+                `/direct-web-services/v1/${url.includes('?') ? `${url}&` : `${url}?`}languageId=${options.languageId || 'ENG'}`,
                 options.api?.url || MorningstarRegion.baseURLs['Americas']
             );
 

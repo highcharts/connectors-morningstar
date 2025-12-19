@@ -29,6 +29,7 @@ import {
 
 import type {
     Converters,
+    InvestmentsConnectorMetadata,
     InvestmentsConverterType,
     InvestmentsOptions
 } from './InvestmentsOptions';
@@ -83,6 +84,8 @@ export class InvestmentsConnector extends DWSConnector {
     public override readonly options: InvestmentsOptions;
 
     public convertersToUse: Converters;
+
+    public override metadata!: InvestmentsConnectorMetadata;
 
     /* *
      *

@@ -5,7 +5,7 @@ getPostmanFile(displayEquitySectorsBreakdown, 'postmanEnvironmentDWS');
 const loadingLabel = document.getElementById('loading-label');
 
 async function displayEquitySectorsBreakdown (postmanJSON) {
-
+    // Configure the connector
     const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
         postman: {
             environmentJSON: postmanJSON['postmanEnvironmentDWS']
@@ -18,8 +18,10 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         }
     });
 
+    // Load data
     await connector.load();
 
+    // Set global options
     Highcharts.setOptions({
         chart: {
             type: 'column'
@@ -38,12 +40,16 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         }
     });
 
+    // Set categories
     const type = 'Type',
         longRescaled = 'PercLongRescaled',
         long = 'PercLong',
         net = 'PercNet';
 
+    // Get data table
     const superSectorsTable = connector.getTable('EqSuperSectors');
+
+    // Create chart
     Highcharts.chart('container-super-sectors', {
         title: {
             text: 'Equity Super Sectors Breakdown'
@@ -75,7 +81,10 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         }]
     });
 
+    // Get data table
     const sectorsTable = connector.getTable('EqSectors');
+
+    // Create chart
     Highcharts.chart('container-sectors', {
         title: {
             text: 'Equity Sectors Breakdown'
@@ -107,7 +116,10 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         }]
     });
 
+    // Get data table
     const industriesTable = connector.getTable('EqIndustries');
+
+    // Create chart
     Highcharts.chart('container-industries', {
         title: {
             text: 'Equity Industries Breakdown'
