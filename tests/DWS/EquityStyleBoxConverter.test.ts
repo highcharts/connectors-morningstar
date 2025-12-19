@@ -85,7 +85,16 @@ export async function equityStyleBox (
 
     Assert.deepStrictEqual(
         timeSeriesDataTable.getColumnIds(),
-        ['Date', 'StyleBox', 'StyleScore', 'SizeScore', 'GrowthScore', 'ValueScore', 'Region'],
+        [
+            'Date',
+            'StyleBox',
+            'StyleBoxCode',
+            'StyleScore',
+            'SizeScore',
+            'GrowthScore',
+            'ValueScore',
+            'Region'
+        ],
         'TimeSeries table should have expected columns.'
     );
 

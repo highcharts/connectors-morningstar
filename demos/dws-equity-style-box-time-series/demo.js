@@ -5,7 +5,7 @@ getPostmanFile(displayEquitySectorsBreakdown, 'postmanEnvironmentDWS');
 const loadingLabel = document.getElementById('loading-label');
 
 async function displayEquitySectorsBreakdown (postmanJSON) {
-
+    // Configure the connector
     const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
         postman: {
             environmentJSON: postmanJSON['postmanEnvironmentDWS']
@@ -21,15 +21,29 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         }
     });
 
+    // Load data
     await connector.load();
 
-    const dataTable = connector.getTable('TimeSeries')
+    // Get data table
+    const dataTable = connector.getTable('TimeSeries');
+
+    // Get Stock Style data
+    const stockStyleData = connector.getTable('StockStyle')
+        .getRows()
+        .map(row => [row[0], row[1], 0]);
 
     // eslint-disable-next-line no-undef
     Grid.grid('container', {
         dataTable: {
             columns: {
                 Date: dataTable.getColumn('Date'),
+                Box: dataTable
+                    .getColumn('StyleBoxCode')
+                    .map(code => {
+                        const data = stockStyleData.map(row => [...row]);
+                        data[code - 1][2] = 100;
+                        return JSON.stringify(data);
+                    }),
                 'Style Box': dataTable.getColumn('StyleBox'),
                 'Growth Score': dataTable.getColumn('GrowthScore'),
                 'Size Score': dataTable.getColumn('SizeScore'),
@@ -37,7 +51,51 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
                 'Value Score': dataTable.getColumn('ValueScore'),
                 'Region': dataTable.getColumn('Region')
             }
-        }
+        },
+        columns: [{
+            id: 'Box',
+            width: 70,
+            cells: {
+                renderer: {
+                    type: 'sparkline',
+                    chartOptions: {
+                        chart: {
+                            plotBorderWidth: 1,
+                            plotBorderColor: '#000',
+                            type: 'heatmap',
+                            width: 70,
+                            height: 70,
+                            margin: 5,
+                            spacing: 0
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            type: 'category'
+                        },
+                        colorAxis: {
+                            dataClasses: [{
+                                from: 100,
+                                color: '#000'
+                            }, {
+                                to: 99,
+                                color: '#fff'
+                            }]
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 1,
+                                borderColor: '#000',
+                                marker: {
+                                    enabled: true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }]
     });
 
     loadingLabel.style.display = 'none';

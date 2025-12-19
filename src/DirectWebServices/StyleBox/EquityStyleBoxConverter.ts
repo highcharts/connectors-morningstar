@@ -131,6 +131,9 @@ export class EquityStyleBoxConverter extends MorningstarConverter {
                 // Save Style Box Value
                 timeTable.setCell('StyleBox', index, value.styleBox.value);
 
+                // Save Style Box Code
+                timeTable.setCell('StyleBoxCode', index, value.styleBox.code);
+
                 // Save Style Score
                 timeTable.setCell('StyleScore', index, value.styleScore);
 

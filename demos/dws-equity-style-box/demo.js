@@ -5,7 +5,7 @@ getPostmanFile(displayEquitySectorsBreakdown, 'postmanEnvironmentDWS');
 const loadingLabel = document.getElementById('loading-label');
 
 async function displayEquitySectorsBreakdown (postmanJSON) {
-
+    // Configure the connector
     const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
         postman: {
             environmentJSON: postmanJSON['postmanEnvironmentDWS']
@@ -18,19 +18,13 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         }
     });
 
+    // Load data
     await connector.load();
 
-    const dataTable = connector.getTable('StockStyle'),
-        data = dataTable.getRows().map((row) => {
-            row.push(dataTable.metadata['effectiveDate']);
-            row.push(dataTable.metadata['growthScore']);
-            row.push(dataTable.metadata['sizeScore']);
-            row.push(dataTable.metadata['styleScore']);
-            row.push(dataTable.metadata['valueScore']);
+    // Get data table
+    const dataTable = connector.getTable('StockStyle');
 
-            return row;
-        });
-
+    // Create chart
     Highcharts.chart('container', {
         chart: {
             type: 'heatmap'
@@ -44,7 +38,7 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
             align: 'left'
         },
         xAxis: {
-            categories: ['Value', 'Blend', 'Growth'],
+            categories: ['Value', 'Core', 'Growth'],
             lineWidth: 0,
             gridLineWidth: 0,
             opposite: true,
@@ -103,28 +97,21 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         tooltip: {
             headerFormat: '<b>{series.name}</b><br/>',
             pointFormat: `
-                Effective Date: <b>{point.effectiveDate}</b><br/>
+                Effective Date: <b>{series.options.custom.effectiveDate}</b><br/>
                 Weight: <b>{point.value:.0f}%</b><br/>
-                Growth Score: <b>{point.growthScore:.2f}</b><br/>
-                Size Score: <b>{point.sizeScore:.2f}</b><br/>
-                Style Score: <b>{point.styleScore:.2f}</b><br/>
-                Value Score: <b>{point.valueScore:.2f}</b>`
+                Growth Score: <b>{series.options.custom.growthScore:.2f}</b><br/>
+                Size Score: <b>{series.options.custom.sizeScore:.2f}</b><br/>
+                Style Score: <b>{series.options.custom.styleScore:.2f}</b><br/>
+                Value Score: <b>{series.options.custom.valueScore:.2f}</b>`
         },
         series: [{
             name: 'Equity Style Box',
             borderWidth: 1,
             borderColor: '#e5e7e9',
-            keys: [
-                'x',
-                'y',
-                'value',
-                'effectiveDate',
-                'growthScore',
-                'sizeScore',
-                'styleScore',
-                'valueScore'
-            ],
-            data,
+            custom: {
+                ...dataTable.metadata
+            },
+            data: dataTable.getRows(),
             dataLabels: {
                 enabled: true,
                 format: '{value:.0f}%',

@@ -5,7 +5,7 @@ getPostmanFile(displayFixedIncomeSectorsBreakdown, 'postmanEnvironmentDWS');
 const loadingLabel = document.getElementById('loading-label');
 
 async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
-
+    // Configure the connector
     const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
         postman: {
             environmentJSON: postmanJSON['postmanEnvironmentDWS']
@@ -18,8 +18,10 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }
     });
 
+    // Load data
     await connector.load();
 
+    // Set global options
     Highcharts.setOptions({
         chart: {
             type: 'column'
@@ -38,12 +40,16 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }
     });
 
+    // Set categories
     const brkType = 'Fixed_Income_Breakdown_Type',
         brkLong = 'Fixed_Income_Breakdown_CalcLongFiperc',
         brkShort = 'Fixed_Income_Breakdown_CalcShortFiperc',
         brkNet = 'Fixed_Income_Breakdown_CalcNetFiperc';
 
+    // Get data table
     const superSectorsBrkTable = connector.getTable('IncBrkSuperSectors');
+
+    // Create chart
     Highcharts.chart('container-brk-super-sectors', {
         title: {
             text: 'Fixed Income Super Sectors Breakdown'
@@ -75,7 +81,10 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }]
     });
 
+    // Get data table
     const primarySectorsBrkTable = connector.getTable('IncBrkPrimarySectors');
+
+    // Create chart
     Highcharts.chart('container-brk-primary-sectors', {
         title: {
             text: 'Fixed Income Primary Sectors Breakdown'
@@ -107,7 +116,10 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }]
     });
 
+    // Get data table
     const secondarySectorsBrkTable = connector.getTable('IncBrkSecondarySectors');
+
+    // Create chart
     Highcharts.chart('container-brk-secondary-sectors', {
         title: {
             text: 'Fixed Income Secondary Sectors Breakdown'
@@ -139,13 +151,17 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }]
     });
 
+    // Set categories
     const type = 'Fixed_Income_Type',
         longRescaled = 'Fixed_Income_PercLongRescaled',
         long = 'Fixed_Income_PercLong',
         short = 'Fixed_Income_PercShort',
         net = 'Fixed_Income_PercNet';
 
+    // Get data table
     const superSectorsTable = connector.getTable('IncSuperSectors');
+
+    // Create chart
     Highcharts.chart('container-super-sectors', {
         title: {
             text: 'Fixed Income Super Sectors'
@@ -184,7 +200,10 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }]
     });
 
+    // Get data table
     const primarySectorsTable = connector.getTable('IncPrimarySectors');
+
+    // Create chart
     Highcharts.chart('container-primary-sectors', {
         title: {
             text: 'Fixed Income Primary Sectors'
@@ -223,7 +242,10 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }]
     });
 
+    // Get data table
     const secondarySectorsTable = connector.getTable('IncSecondarySectors');
+
+    // Create chart
     Highcharts.chart('container-secondary-sectors', {
         title: {
             text: 'Fixed Income Secondary Sectors'
