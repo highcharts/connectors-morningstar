@@ -35,7 +35,8 @@ export type Converters = Array<{ key: InvestmentsConverterType, children?: strin
 export type InvestmentsConverterType =
     'AssetAllocationBreakdown' |
     'EquitySectorsBreakdown' |
-    'FixedIncomeSectorsBreakdown';
+    'FixedIncomeSectorsBreakdown' |
+    'RegionExposure';
 
 export type ConverterMetadata = {
     [K in InvestmentsConverterType]?: {

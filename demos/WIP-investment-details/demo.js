@@ -14,6 +14,7 @@ async function displaySecurityDetails (postmanJSON) {
             id: '0P00000FIA'
         },
         converters: {
+            RegionExposure: {},
             EquitySectorsBreakdown: {},
             FixedIncomeSectorsBreakdown: {}
         }

@@ -20,10 +20,12 @@
  * */
 
 import {
+    createRegionExposureRequest,
     createEquitySectorsBreakdownRequest,
     createFixedIncomeSectorsBreakdownRequest,
     createAssetAllocRequest
 } from './SharedDWSRequests';
+import RegionExposureConverter from './DWSConverters/RegionExposure/RegionExposureConverter';
 import EquitySectorsBreakdownConverter from '../Sectors/EquitySectorsBreakdownConverter';
 import FixedIncomeSectorsBreakdownConverter from '../Sectors/FixedIncomeSectorsBreakdownConverter';
 import AssetAllocationBreakdownConverter from './DWSConverters/AssetAllocationBreakdown/AssetAllocationBreakdownConverter';
@@ -46,8 +48,8 @@ import type { MorningstarConverterOptions, MorningstarMetadata } from '../../Sha
  * */
 
 const CONVERTERS: Converters = [
-    { 
-        key: 'AssetAllocationBreakdown', 
+    {
+        key: 'AssetAllocationBreakdown',
         children: [
             'AssetAlloc',
             'CanadianAssetAlloc',
@@ -68,6 +70,10 @@ const CONVERTERS: Converters = [
             'IncBrkPrimarySectors',
             'IncBrkSecondarySectors'
         ]
+    },
+    {
+        key: 'RegionExposure',
+        children: ['Equity', 'FixedIncome', 'RevenueExposure', 'FixedIncomeGeo']
     }
 ];
 
@@ -141,6 +147,9 @@ export function createRequests (
                     createFixedIncomeSectorsBreakdownRequest(converter, security)
                 );
                 break;
+            case 'RegionExposure':
+                requests.push(createRegionExposureRequest(converter, security));
+                break;
         }
     }
 
@@ -158,5 +167,7 @@ export function initConverter (
             return new EquitySectorsBreakdownConverter();
         case 'FixedIncomeSectorsBreakdown':
             return new FixedIncomeSectorsBreakdownConverter();
+        case 'RegionExposure':
+            return new RegionExposureConverter();
     }
 }
