@@ -21,10 +21,12 @@
 
 import {
     createEquitySectorsBreakdownRequest,
-    createFixedIncomeSectorsBreakdownRequest
+    createFixedIncomeSectorsBreakdownRequest,
+    createAssetAllocRequest
 } from './SharedDWSRequests';
 import EquitySectorsBreakdownConverter from '../Sectors/EquitySectorsBreakdownConverter';
 import FixedIncomeSectorsBreakdownConverter from '../Sectors/FixedIncomeSectorsBreakdownConverter';
+import AssetAllocationBreakdownConverter from './DWSConverters/AssetAllocationBreakdown/AssetAllocationBreakdownConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
@@ -44,6 +46,14 @@ import type { MorningstarConverterOptions, MorningstarMetadata } from '../../Sha
  * */
 
 const CONVERTERS: Converters = [
+    { 
+        key: 'AssetAllocationBreakdown', 
+        children: [
+            'AssetAlloc',
+            'CanadianAssetAlloc',
+            'UnderlyingAssetAlloc'
+        ]
+    },
     {
         key: 'EquitySectorsBreakdown',
         children: ['EqSuperSectors', 'EqSectors', 'EqIndustries']
@@ -116,6 +126,11 @@ export function createRequests (
             continue;
         }
         switch (type) {
+            case 'AssetAllocationBreakdown':
+                requests.push(
+                    createAssetAllocRequest(converter, security)
+                );
+                break;
             case 'EquitySectorsBreakdown':
                 requests.push(
                     createEquitySectorsBreakdownRequest(converter, security)
@@ -125,6 +140,7 @@ export function createRequests (
                 requests.push(
                     createFixedIncomeSectorsBreakdownRequest(converter, security)
                 );
+                break;
         }
     }
 
@@ -135,6 +151,9 @@ export function initConverter (
     type: InvestmentsConverterType
 ): InvestmentsConverter {
     switch (type) {
+        default:
+        case 'AssetAllocationBreakdown':
+            return new AssetAllocationBreakdownConverter();
         case 'EquitySectorsBreakdown':
             return new EquitySectorsBreakdownConverter();
         case 'FixedIncomeSectorsBreakdown':
