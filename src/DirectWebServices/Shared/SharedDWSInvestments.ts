@@ -22,11 +22,13 @@
 import {
     createCountryAndRegionExposureRequest,
     createEquitySectorsBreakdownRequest,
-    createFixedIncomeSectorsBreakdownRequest
+    createFixedIncomeSectorsBreakdownRequest,
+    createAssetAllocRequest
 } from './SharedDWSRequests';
 import CountryAndRegionExposureConverter from './DWSConverters/CountryAndRegionExposure/CountryAndRegionExposureConverter';
 import EquitySectorsBreakdownConverter from '../Sectors/EquitySectorsBreakdownConverter';
 import FixedIncomeSectorsBreakdownConverter from '../Sectors/FixedIncomeSectorsBreakdownConverter';
+import AssetAllocationBreakdownConverter from './DWSConverters/AssetAllocationBreakdown/AssetAllocationBreakdownConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
@@ -46,6 +48,14 @@ import type { MorningstarConverterOptions, MorningstarMetadata } from '../../Sha
  * */
 
 const CONVERTERS: Converters = [
+    {
+        key: 'AssetAllocationBreakdown',
+        children: [
+            'AssetAlloc',
+            'CanadianAssetAlloc',
+            'UnderlyingAssetAlloc'
+        ]
+    },
     {
         key: 'CountryAndRegionExposure',
         children: [
@@ -130,8 +140,15 @@ export function createRequests (
             continue;
         }
         switch (type) {
+            case 'AssetAllocationBreakdown':
+                requests.push(
+                    createAssetAllocRequest(converter, security)
+                );
+                break;
             case 'CountryAndRegionExposure':
-                requests.push(createCountryAndRegionExposureRequest(converter, security));
+                requests.push(
+                    createCountryAndRegionExposureRequest(converter, security)
+                );
                 break;
             case 'EquitySectorsBreakdown':
                 requests.push(
@@ -142,6 +159,7 @@ export function createRequests (
                 requests.push(
                     createFixedIncomeSectorsBreakdownRequest(converter, security)
                 );
+                break;
         }
     }
 
@@ -152,6 +170,9 @@ export function initConverter (
     type: InvestmentsConverterType
 ): InvestmentsConverter {
     switch (type) {
+        default:
+        case 'AssetAllocationBreakdown':
+            return new AssetAllocationBreakdownConverter();
         case 'CountryAndRegionExposure':
             return new CountryAndRegionExposureConverter();
         case 'EquitySectorsBreakdown':

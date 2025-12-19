@@ -17,11 +17,22 @@ import type { DWSRequest } from '../DWSOptions';
 import type { InvestmentsConverterOptions, InvestmentsSecurityOptions } from '../InvestmentsConnector/InvestmentsOptions';
 
 /* *
- *
- * Functions
- *
- * */
+*
+* Functions
+*
+* */
 
+export function createAssetAllocRequest (
+    converter: InvestmentsConverterOptions,
+    security: InvestmentsSecurityOptions
+): DWSRequest {
+    const { id } = security;
+
+    return {
+        type: 'AssetAllocationBreakdown',
+        url: `investments/${id}/asset-Allocation-Breakdown`
+    };
+}
 
 export function createCountryAndRegionExposureRequest (
     converter: InvestmentsConverterOptions,
