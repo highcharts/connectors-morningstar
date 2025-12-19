@@ -38,7 +38,7 @@ export interface RiskScoreConverterOptions extends MorningstarConverterOptions {
 export type RiskScoreMetadataMessage = {
     type: string,
     message: string,
-    invalidHoldings: RiskScoreInvalidHolding[]
+    invalidHoldings?: RiskScoreInvalidHolding[]
 };
 
 export type RiskScoreInvalidHolding = {
@@ -54,7 +54,7 @@ export interface RiskScoreMetadata extends MorningstarMetadata {
 export interface BaseRiskScorePortfolio {
     /**
      * The name of the portfolio.
-     * 
+     *
      * This value is used for the column names in the DataTable.
      */
     name: string;
@@ -66,14 +66,14 @@ export interface BaseRiskScorePortfolio {
 
     /**
      * A unique identifier of a portfolio.
-     * 
+     *
      * Morningstar echoes this property in the response.
      */
     externalId?: string;
 
     /**
      * The total market value of a portfolio.
-     * 
+     *
      * This field is required if the holdings are specified with `weight`
      */
     totalValue?: number;
@@ -82,7 +82,7 @@ export interface BaseRiskScorePortfolio {
 export interface RiskScorePortfolio extends BaseRiskScorePortfolio {
     /**
      * List of holdings in your portfolio.
-     * 
+     *
      * You specify the quantity of a holding using either `weight` or `value`. 
      * If `weight` is used, you must specify `totalValue`.
      */
@@ -99,7 +99,7 @@ export interface RiskScoreOptions extends MorningstarOptions {
 
     /**
      * The portfolios you would like to analyse for risk.
-     * 
+     *
      * A maximum of two portfolios can be passed in the request.
      */
     portfolios?: [RiskScorePortfolio] | [RiskScorePortfolio, RiskScorePortfolio]

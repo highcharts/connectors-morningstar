@@ -125,38 +125,45 @@ export class RiskScoreConverter extends MorningstarConverter {
         const json = userOptions.json;
 
         // Validate JSON
-
         if (!RiskScoreJSON.isResponse(json)) {
             throw new Error('Invalid data');
         }
 
         // Parse and cumulate risk scores by date
-
         const sortedPortfolios: RiskScorePortfolio[] = [];
         const messages: RiskScoreMetadataMessage[] = [];
 
         for (const riskScorePortfolio of json.riskScores) {
+            const portfolio = riskScorePortfolio.portfolio as RiskScoreJSON.RiskScoreCalculated;
+
             const {
-                externalId,
                 name,
+                externalId,
                 effectiveDate,
                 riskScore,
                 alignmentScore,
                 rSquared,
                 retainedWeightProxied,
                 scoringMethodUsed
-            } = riskScorePortfolio.portfolio;
+            } = portfolio;
 
             sortedPortfolios.push({
-                externalId,
                 name,
-                effectiveDate: Date.parse(effectiveDate),
+                externalId,
+                effectiveDate: Date.parse(effectiveDate) ?? '',
                 riskScore,
                 alignmentScore,
                 rSquared,
                 retainedWeightProxied,
                 scoringMethodUsed
             });
+
+            if (!RiskScoreJSON.isRiskScoreCalculated(portfolio)) {
+                messages.push({
+                    type: 'Warning',
+                    message: 'Invalid RiskScore data for ' + name
+                });
+            }
 
             if (
                 riskScorePortfolio.metadata !== undefined &&
@@ -172,45 +179,27 @@ export class RiskScoreConverter extends MorningstarConverter {
                 a.effectiveDate < b.effectiveDate ? -1 : 1
         ));
 
-        const portfolioNames = sortedPortfolios.map(portfolio => portfolio.name);
-
         // Reset table
 
         table.deleteColumns();
 
-        const valueColumns = [
-            'EffectiveDate',
-            'RiskScore',
-            'AlignmentScore',
-            'RSquared',
-            'RetainedWeightProxied',
-            'ScoringMethodUsed'
-        ];
-
-        for (const portfolioName of portfolioNames) {
-            for (const columnName of valueColumns) {
-                table.setColumn(`${portfolioName}_${columnName}`);
-            }
-        }
-
         // Add risk scores to table
-
-        for (let rowIndex = 0; rowIndex < sortedPortfolios.length; rowIndex++) {
-            const portfolio = sortedPortfolios[rowIndex];
-            const riskScoreValues = [
-                portfolio.effectiveDate,
-                portfolio.riskScore,
-                portfolio.alignmentScore,
-                portfolio.rSquared,
-                portfolio.retainedWeightProxied,
-                portfolio.scoringMethodUsed
+        let rowIndex = 0;
+        for (const portfolio of sortedPortfolios) {
+            const rows = [
+                ['EffectiveDate', portfolio.effectiveDate],
+                ['RiskScore', portfolio.riskScore],
+                ['AlignmentScore', portfolio.alignmentScore],
+                ['RSquared', portfolio.rSquared],
+                ['RetainedWeightProxied', portfolio.retainedWeightProxied],
+                ['ScoringMethodUsed', portfolio.scoringMethodUsed]
             ];
 
-            for (let columnIndex = 0; columnIndex < riskScoreValues.length; columnIndex++) {
-                const column = `${portfolio.name}_${valueColumns[columnIndex]}`;
-                const value = riskScoreValues[columnIndex];
-                table.setCell(column, Number(rowIndex), value);
-            }
+            rows.forEach(row => {
+                table.setCell(`${portfolio.name}_${row[0]}`, rowIndex, row[1] ?? null);
+            });
+
+            rowIndex++;
         }
 
         this.metadata.messages = messages;
