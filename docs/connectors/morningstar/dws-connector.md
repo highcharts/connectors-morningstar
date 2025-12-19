@@ -2,7 +2,7 @@
 
 The `HighchartsConnectors.MorningstarDWS.InvestmentsConnector` is a connector
 that allows access to the newer Morningstar API, which provides the Investment
-Details API and the Time Series API.
+Details API.
 
 ## How to use Investments Connector
 
@@ -30,7 +30,7 @@ planned for the future.
 
 ## Available data converters
 
-Here is a list of available converters along with their corresponding datatable
+Here is a list of available converters along with their corresponding data table
 names:
 
 * **EquitySectorsBreakdown**:
@@ -54,8 +54,10 @@ names:
 
 ```js
 const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
-    postman: {
-        environmentJSON: postmanJSON['postmanEnvironmentDWS']
+    api: {
+        access: {
+            token: 'your_access_token'
+        }
     },
     security: {
         id: '0P00006W6Q'
@@ -160,7 +162,7 @@ Highcharts.chart('container', {
         text: 'Equity Style Box'
     },
     subtitle: {
-        text: `Stock Style (${dataTable.metadata.performanceId})`,
+        text: 'Stock Style',
         align: 'left'
     },
     xAxis: {

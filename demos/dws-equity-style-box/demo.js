@@ -21,7 +21,7 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
     await connector.load();
 
     const dataTable = connector.getTable('StockStyle'),
-        data = dataTable.getRows(0, 9).map((row) => {
+        data = dataTable.getRows().map((row) => {
             row.push(dataTable.metadata['effectiveDate']);
             row.push(dataTable.metadata['growthScore']);
             row.push(dataTable.metadata['sizeScore']);
@@ -40,7 +40,7 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
             align: 'left'
         },
         subtitle: {
-            text: `Stock Style (${dataTable.metadata.performanceId})`,
+            text: 'Stock Style',
             align: 'left'
         },
         xAxis: {
