@@ -34,6 +34,7 @@ export type InvestmentsConverters = Partial<Record<InvestmentsConverterType, Inv
 export type Converters = Array<{ key: InvestmentsConverterType, children?: string[] }>;
 
 export type InvestmentsConverterType =
+    'AssetAllocationBreakdown' |
     'EquitySectorsBreakdown' |
     'EquityStyleBox' |
     'FixedIncomeSectorsBreakdown';

@@ -315,7 +315,6 @@ export async function portfolioHoldings (
             'NumberOfShare_F0GBR050DD',
             'LocalCurrencyCode_F0GBR050DD',
             'GICSIndustryId_F0GBR050DD',
-            'ShareChange_F0GBR050DD',
             'Id_F00000Q5PZ',
             'ExternalId_F00000Q5PZ',
             'DetailHoldingTypeId_F00000Q5PZ',
@@ -331,7 +330,8 @@ export async function portfolioHoldings (
             'GlobalSectorId_F00000Q5PZ',
             'NumberOfShare_F00000Q5PZ',
             'GICSIndustryId_F00000Q5PZ',
-            'ShareChange_F00000Q5PZ'
+            'ShareChange_F00000Q5PZ',
+            'ShareChange_F0GBR050DD'
         ].sort(),
         'PortfolioHoldings table should exist of expected columns'
     );
