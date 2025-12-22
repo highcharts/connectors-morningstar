@@ -21,12 +21,12 @@
 
 import {
     createAssetAllocRequest,
-    createRegionExposureRequest,
+    createCountryAndRegionExposureRequest,
     createEquitySectorsBreakdownRequest,
     createEquityStyleBoxRequest,
     createFixedIncomeSectorsBreakdownRequest
 } from './SharedDWSRequests';
-import RegionExposureConverter from './DWSConverters/RegionExposure/RegionExposureConverter';
+import CountryAndRegionExposureConverter from './DWSConverters/CountryAndRegionExposure/CountryAndRegionExposureConverter';
 import EquitySectorsBreakdownConverter from '../Sectors/EquitySectorsBreakdownConverter';
 import EquityStyleBoxConverter from '../StyleBox/EquityStyleBoxConverter';
 import FixedIncomeSectorsBreakdownConverter from '../Sectors/FixedIncomeSectorsBreakdownConverter';
@@ -58,6 +58,18 @@ const CONVERTERS: Converters = [
         ]
     },
     {
+        key: 'CountryAndRegionExposure',
+        children: [
+            'Region_Equity',
+            'Region_FixedIncome',
+            'Region_RevenueExposure',
+            'Region_FixedIncomeGeo',
+            'Country_Equity',
+            'Country_Breakdown',
+            'Country_RevenueExposure'
+        ]
+    },
+    {
         key: 'EquitySectorsBreakdown',
         children: ['EqSuperSectors', 'EqSectors', 'EqIndustries']
     },
@@ -75,10 +87,6 @@ const CONVERTERS: Converters = [
             'IncBrkPrimarySectors',
             'IncBrkSecondarySectors'
         ]
-    },
-    {
-        key: 'RegionExposure',
-        children: ['Equity', 'FixedIncome', 'RevenueExposure', 'FixedIncomeGeo']
     }
 ];
 
@@ -140,6 +148,11 @@ export function createRequests (
                     createAssetAllocRequest(converter, security)
                 );
                 break;
+            case 'CountryAndRegionExposure':
+                requests.push(
+                    createCountryAndRegionExposureRequest(converter, security)
+                );
+                break;
             case 'EquitySectorsBreakdown':
                 requests.push(
                     createEquitySectorsBreakdownRequest(converter, security)
@@ -155,9 +168,6 @@ export function createRequests (
                     createFixedIncomeSectorsBreakdownRequest(converter, security)
                 );
                 break;
-            case 'RegionExposure':
-                requests.push(createRegionExposureRequest(converter, security));
-                break;
         }
     }
 
@@ -171,13 +181,13 @@ export function initConverter (
         default:
         case 'AssetAllocationBreakdown':
             return new AssetAllocationBreakdownConverter();
+        case 'CountryAndRegionExposure':
+            return new CountryAndRegionExposureConverter();
         case 'EquitySectorsBreakdown':
             return new EquitySectorsBreakdownConverter();
         case 'EquityStyleBox':
             return new EquityStyleBoxConverter();
         case 'FixedIncomeSectorsBreakdown':
             return new FixedIncomeSectorsBreakdownConverter();
-        case 'RegionExposure':
-            return new RegionExposureConverter();
     }
 }

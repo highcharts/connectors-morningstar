@@ -33,6 +33,15 @@ planned for the future.
 Here is a list of available converters along with their corresponding data table
 names:
 
+* **CountryAndRegionExposure**:
+    - Region_Equity
+    - Region_FixedIncome
+    - Region_FixedIncomeGeo
+    - Region_RevenueExposure
+    - Country_Equity
+    - Country_Breakdown
+    - Country_RevenueExposure
+
 * **EquitySectorsBreakdown**:
     - EqSuperSectors
     - EqSectors
@@ -63,6 +72,7 @@ const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
         id: '0P00006W6Q'
     },
     converters: {
+        CountryAndRegionExposure: {},
         EquitySectorsBreakdown: {},
         FixedIncomeSectorsBreakdown: {},
         EquityStyleBox: {
@@ -238,6 +248,25 @@ Highcharts.chart('container', {
         }
     }]
 });
+```
+
+### The `CountryAndRegionExposure` converter example:
+```js
+    const regionEquityTable = connector.getTable('Region_Equity'),
+        data = regionEquityTable.getRows(void 0, void 0, ['Region', 'PercNet']);
+
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Region Equity (Net)'
+        },
+        series: [{
+            name: 'Region Equity (Net)',
+            data
+        }]
+    });
 ```
 
 ## Relevant demos
