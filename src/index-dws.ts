@@ -17,6 +17,7 @@
  * */
 
 import Investments from './DirectWebServices/InvestmentsConnector/index';
+import TimeSeries from './DirectWebServices/TimeSeriesConnector/index';
 import * as Shared from './Shared/index';
 import { version } from './version';
 
@@ -27,6 +28,7 @@ import { version } from './version';
  * */
 
 export * from './DirectWebServices/InvestmentsConnector/index';
+export * from './DirectWebServices/TimeSeriesConnector/index';
 export * as Shared from './Shared/index';
 export { version } from './version';
 
@@ -38,6 +40,7 @@ export { version } from './version';
 
 export default {
     Investments,
+    TimeSeries,
     Shared,
     version
 };
