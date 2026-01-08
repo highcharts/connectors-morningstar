@@ -51,7 +51,7 @@ const targetFolder = './code/';
 const banner = `/**
 * Highcharts Connectors for Morningstar Direct Web Services ` +
 `v${version} (${new Date().toISOString().split('T')[0]})
-* (c) 2009-2025 Highsoft AS
+* (c) 2009-2026 Highsoft AS
 * License: https://shop.highcharts.com/contact/partner-data
 **/`;
 const license = /License: https:\/\/shop.highcharts.com\/contact\/partner-data/u;
