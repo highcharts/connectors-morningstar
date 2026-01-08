@@ -44,7 +44,7 @@ export interface DWSConnectorOptions extends MorningstarOptions {
 }
 
 export interface DWSConnectorMetadata extends MorningstarMetadata {
-    rawResponses: Array<{ type: InvestmentsConverterType; json: unknown }>;
+
 }
 
 /* *

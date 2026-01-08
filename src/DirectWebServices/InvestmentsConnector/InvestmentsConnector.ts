@@ -72,6 +72,12 @@ export class InvestmentsConnector extends DWSConnector {
 
         super(options);
         this.options = options;
+
+        this.metadata = {
+            columns: {},
+            rawResponses: []
+        };
+
         this.convertersToUse = convertersToUse;
     }
 

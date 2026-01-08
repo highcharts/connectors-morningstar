@@ -40,7 +40,9 @@ export type InvestmentsConverterType =
     'EquityStyleBox' |
     'FixedIncomeSectorsBreakdown';
 
-export interface InvestmentsConnectorMetadata extends DWSConnectorMetadata, ConnectorMetadata {}
+export interface InvestmentsConnectorMetadata extends DWSConnectorMetadata, ConnectorMetadata {
+    rawResponses: Array<{ type: InvestmentsConverterType; json: unknown }>;
+}
 
 export type ConnectorMetadata = {
     [K in InvestmentsConverterType]?: {

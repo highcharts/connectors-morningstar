@@ -19,15 +19,18 @@
 *
 * */
 
+import External from '../../Shared/External';
+import DWSConnector from '../DWSConnector';
+import DWSTimeSeriesConverter from './TimeSeriesConverter';
 import {
     MorningstarAPI,
     MorningstarRegion,
     MorningstarURL
 } from '../../Shared';
-import DWSConnector from '../DWSConnector';
-import External from '../../Shared/External';
-import type { TimeSeriesConnectorOptions } from './TimeSeriesOptions';
-import DWSTimeSeriesConverter from './TimeSeriesConverter';
+import type {
+    DWSTimeSeriesConverterMetadata,
+    TimeSeriesConnectorOptions
+} from './TimeSeriesOptions';
 
 /**
  *
@@ -75,6 +78,11 @@ export class DWSTimeSeriesConnector extends DWSConnector {
 
         this.options = options;
 
+        this.metadata = {
+            columns: {},
+            rawResponse: void 0
+        };
+
         this.converter = new DWSTimeSeriesConverter(options.converter);
     }
 
@@ -88,6 +96,7 @@ export class DWSTimeSeriesConnector extends DWSConnector {
 
     public override readonly options: TimeSeriesConnectorOptions;
 
+    public override readonly metadata!: DWSTimeSeriesConverterMetadata;
     /* *
      *
      *  Functions
@@ -121,7 +130,14 @@ export class DWSTimeSeriesConnector extends DWSConnector {
                 continue;
             }
             if (value !== undefined && value !== null) {
-                url.searchParams.set(key, String(value));
+                if (Array.isArray(value)) {
+                    url.searchParams.set(
+                        key,
+                        value.map(v => (v == null ? '' : String(v))).join(',')
+                    );
+                } else {
+                    url.searchParams.set(key, String(value));
+                }
             }
         }
 
@@ -132,6 +148,8 @@ export class DWSTimeSeriesConnector extends DWSConnector {
 
         const json = await response.json() as unknown;
         this.converter.parse({ json });
+
+        this.metadata.rawResponse = json;
 
         this.getTable().deleteColumns();
         this.getTable().setColumns(this.converter.getTable().getColumns());

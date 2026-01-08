@@ -12,6 +12,9 @@ export async function dwsTimeSeriesLoad (
         ids: [{
             id: '0P00000FIA',
             idType: 'performanceId'
+        }, {
+            id: 'US2562191062',
+            idType: 'ISIN'
         }],
         category: 'performance',
         dataPoint: 'growth',
@@ -26,11 +29,21 @@ export async function dwsTimeSeriesLoad (
 
     await connector.load();
 
+    Assert.ok(
+        connector.metadata !== undefined,
+        'Connector should have metadata defined.'
+    );
+
     const dataTable = connector.getTable();
 
     Assert.deepStrictEqual(
         dataTable.getColumnIds(),
-        ['Date','Value'],
+        [
+            'Date_0P00002PB8',
+            'Value_0P00002PB8',
+            'Date_0P00000FIA',
+            'Value_0P00000FIA'
+        ],
         'TimeSeries table should have expected columns.'
     );
 

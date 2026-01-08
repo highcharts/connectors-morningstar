@@ -13,7 +13,6 @@
 
 'use strict';
 
-import { DataConnectorMetadata } from '../../Shared/External';
 /* *
  *
  *  Imports
@@ -21,6 +20,7 @@ import { DataConnectorMetadata } from '../../Shared/External';
  * */
 
 import type { MorningstarConverterOptions, MorningstarOptions, MorningstarSecurityOptions } from '../../Shared/MorningstarOptions';
+import { DWSConnectorMetadata } from '../DWSOptions';
 
 /* *
  *
@@ -29,8 +29,8 @@ import type { MorningstarConverterOptions, MorningstarOptions, MorningstarSecuri
  *
  * */
 
-export interface DWSTimeSeriesConverterMetadata extends DataConnectorMetadata {
-    rawResponse: Array<unknown>;
+export interface DWSTimeSeriesConverterMetadata extends DWSConnectorMetadata {
+    rawResponse: unknown;
 }
 
 export interface DWSTimeSeriesConverterOptions extends MorningstarConverterOptions {
@@ -58,30 +58,31 @@ export interface TimeSeriesConnectorOptions extends MorningstarOptions {
     /**
      * Filters results by the base currency of each investment. Accepts a
      * comma-separated list of 3-character ISO 4217 currency codes. Values
-     * must align with `ids`. Use empty entries to skip (omit trailing
-     * commas after the last non-empty value). Example: `,USD,,USD`.
+     * must align with `ids`. Use empty entries to skip.
+     * Example: `[null, 'USA', null, 'GBR']`.
      */
-    baseCurrency?: string;
+    baseCurrency?: Array<string | null>;
 
     /**
      * Filters results by domicile (3-character ISO 3166-1 codes). Values
-     * must align with `ids`. Use empty entries to skip. Example: `,USA,,GBR`.
+     * must align with `ids`. Use empty entries to skip.
+     * Example: `[null, 'USA', null, 'GBR']`.
      */
-    domicile?: string;
+    domicile?: Array<string | null>;
 
     /**
      * Filters results by exchange country (3-character ISO 3166-1 codes).
      * Values must align with `ids`. Use empty entries to skip. Example:
-     * `,CAN,CAN`.
+     * `[null, 'CAN', null, 'CAN']`.
      */
-    exchangeCountry?: string;
+    exchangeCountry?: Array<string | null>;
 
     /**
      * Filters results by exchange ID. See the Data Dictionary for accepted
      * values. Values must align with `ids`. Use empty entries to skip.
-     * Example: `EX$$$$XMEX`.
+     * Example: `['EX$$$$XMEX']`.
      */
-    exchangeId?: string;
+    exchangeId?: Array<string | null>;
 
     /**
      * Specifies the time interval between data points.
@@ -147,8 +148,9 @@ export interface TimeSeriesConnectorOptions extends MorningstarOptions {
 
     /**
      * Specifies the currency in which to return data. Example values:
-     * `AUD, BAS, BND, BRL, CAD, CHF, ...`. See the API docs / Data Dictionary
-     * for the full list of accepted currency codes.
+     * `AUD, BAS, BND, BRL, CAD, CHF, ...`. Accepts ISO 4217 currency codes.
+     * Defaults to the investment’s base currency.
+     * @default 'BAS'
      */
     currencyId?: string;
 }

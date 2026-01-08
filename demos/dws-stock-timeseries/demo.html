@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <script src="https://code.highcharts.com/stock/highstock.js"></script>
+        <script src="https://code.highcharts.com/connectors/morningstar/connectors-morningstar-dws.js"></script>
+        <title>Highcharts Stock + Morningstar DWS Time Series</title>
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+            #postman-message {
+                display: none;
+            }
+            #loading-label {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Highcharts Stock + Morningstar DWS Time Series</h1>
+        <p id="postman-message">
+             Add your Postman environment file from Morningstar <b>DWS</b> to start the demo:
+            <input type="file" id="postman-json" accept=".json,application/json" />
+        </p>
+        <p id="loading-label">Loading data…</p>
+        <div id="container"></div>
+        <script type="module" src="./demo.js"></script>
+    </body>
+</html>
