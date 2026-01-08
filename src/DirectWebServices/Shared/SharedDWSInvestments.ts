@@ -60,13 +60,13 @@ const CONVERTERS: Converters = [
     {
         key: 'CountryAndRegionExposure',
         children: [
-            'Region_Equity',
-            'Region_FixedIncome',
-            'Region_RevenueExposure',
-            'Region_FixedIncomeGeo',
-            'Country_Equity',
-            'Country_Breakdown',
-            'Country_RevenueExposure'
+            'RegionEquity',
+            'RegionFixedIncome',
+            'RegionRevenueExposure',
+            'RegionFixedIncomeGeo',
+            'CountryEquity',
+            'CountryBreakdown',
+            'CountryRevenueExposure'
         ]
     },
     {

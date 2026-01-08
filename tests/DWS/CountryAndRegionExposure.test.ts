@@ -21,9 +21,9 @@ export async function countryAndRegionExposureConnector (
 
     // Region tests
 
-    const regionEquityTable = connector.getTable('Region_Equity'),
-        regionFixedIncomeTable = connector.getTable('Region_FixedIncome'),
-        regionFixedIncomeGeoTable = connector.getTable('Region_FixedIncomeGeo');
+    const regionEquityTable = connector.getTable('RegionEquity'),
+        regionFixedIncomeTable = connector.getTable('RegionFixedIncome'),
+        regionFixedIncomeGeoTable = connector.getTable('RegionFixedIncomeGeo');
 
     Assert.deepStrictEqual(
         regionEquityTable.getColumnIds(),
@@ -89,8 +89,8 @@ export async function countryAndRegionExposureConnector (
 
     // Country tests
 
-    const countryEquityTable = connector.getTable('Country_Equity'),
-        countryBreakdownTable = connector.getTable('Country_Breakdown');
+    const countryEquityTable = connector.getTable('CountryEquity'),
+        countryBreakdownTable = connector.getTable('CountryBreakdown');
 
     Assert.deepStrictEqual(
         countryEquityTable.getColumnIds(),
