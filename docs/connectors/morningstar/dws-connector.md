@@ -34,13 +34,13 @@ Here is a list of available converters along with their corresponding data table
 names:
 
 * **CountryAndRegionExposure**:
-    - Region_Equity
-    - Region_FixedIncome
-    - Region_FixedIncomeGeo
-    - Region_RevenueExposure
-    - Country_Equity
-    - Country_Breakdown
-    - Country_RevenueExposure
+    - RegionEquity
+    - RegionFixedIncome
+    - RegionFixedIncomeGeo
+    - RegionRevenueExposure
+    - CountryEquity
+    - CountryBreakdown
+    - CountryRevenueExposure
 
 * **EquitySectorsBreakdown**:
     - EqSuperSectors
@@ -252,7 +252,7 @@ Highcharts.chart('container', {
 
 ### The `CountryAndRegionExposure` converter example:
 ```js
-    const regionEquityTable = connector.getTable('Region_Equity'),
+    const regionEquityTable = connector.getTable('RegionEquity'),
         data = regionEquityTable.getRows(void 0, void 0, ['Region', 'PercNet']);
 
     Highcharts.chart('container', {
