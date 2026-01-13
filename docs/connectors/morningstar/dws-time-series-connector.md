@@ -1,6 +1,6 @@
 # Time Series Connector
 
-The `HighchartsConnectors.MorningstarDWS.DWSTimeSeriesConenctor` is a connector that
+The `HighchartsConnectors.MorningstarDWS.DWSTimeSeriesConnector` is a connector that
 provides access to Morningstar’s **Time Series API**, allowing you to retrieve
 historical time series data for given securities.
 
@@ -8,7 +8,9 @@ historical time series data for given securities.
 
 The `DWSTimeSeriesConnector` allows you to fetch most recent data from up to 25 securities per one request.
 
-You can fetch time series data of various kinds. For more details regarding availalbe categories and dataPoints, see [Morningstar’s Time Series API].
+You can fetch time series data of various kinds. For more details regarding available categories and dataPoints, see [Morningstar’s Time Series API].
+
+The `category` and `dataPoint` values can be directly extracted from the request path, where the two path segments immediately after `time-series/v1/` represent them, e.g. in `.../time-series/v1/performance/growth/`, performance is the `category` and growth is the `dataPoint`.
 
 Example of fetching Time Series data:
 

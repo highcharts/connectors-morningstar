@@ -16,7 +16,8 @@ async function initializeChart (postmanJSON) {
         category: 'performance',
         dataPoint: 'growth',
         startDate: '2024-10-30',
-        endDate: '2025-10-30'
+        endDate: '2025-10-30',
+        currencyId: 'EUR'
     });
 
     await growthConnector.load();

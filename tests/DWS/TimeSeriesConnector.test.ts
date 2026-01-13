@@ -52,9 +52,4 @@ export async function dwsTimeSeriesLoad (
         'TimeSeries table should not return empty rows.'
     );
 
-    Assert.ok(
-        dataTable.metadata !== undefined,
-        'TimeSeries table should have metadata defined.'
-    );
-
 }

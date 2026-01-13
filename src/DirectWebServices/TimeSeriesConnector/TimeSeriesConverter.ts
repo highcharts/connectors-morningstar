@@ -22,11 +22,9 @@
  * */
 
 
+
 import MorningstarConverter from '../../Shared/MorningstarConverter';
-import {
-    DWSTimeSeriesConverterOptions,
-    DWSTimeSeriesConverterMetadata
-} from './TimeSeriesOptions';
+import { DWSTimeSeriesConverterOptions } from './TimeSeriesOptions';
 
 import type { TimeSeriesResponse } from './TimeSeriesJSON';
 
@@ -36,6 +34,7 @@ import type { TimeSeriesResponse } from './TimeSeriesJSON';
  *  Class
  *
  * */
+
 
 
 export class DWSTimeSeriesConverter extends MorningstarConverter {
@@ -51,20 +50,8 @@ export class DWSTimeSeriesConverter extends MorningstarConverter {
         options?: DWSTimeSeriesConverterOptions
     ) {
         super(options);
-
-        this.metadata = {
-            columns: {},
-            rawResponse: []
-        };
     }
 
-    /**
-     *
-     *  Properties
-     *
-     */
-
-    public readonly metadata: DWSTimeSeriesConverterMetadata;
 
     /* *
      *
@@ -84,27 +71,19 @@ export class DWSTimeSeriesConverter extends MorningstarConverter {
                 const { timeSeries, identifiers } = investment,
                     columnSuffix = hasMultiple ? `_${identifiers.performanceId}` : '';
 
-                table.metadata = { ...identifiers };
-
                 for (const series of timeSeries) {
-                    const { data } = series;
-
                     let rowIndex = 0;
-                    for (const point of data) {
-                        const date = point.date,
-                            value = point.value;
-
-
+                    for (const point of series.data) {
                         table.setCell(
                             `Date${columnSuffix}`,
                             rowIndex,
-                            date
+                            point.date
                         );
 
                         table.setCell(
                             `Value${columnSuffix}`,
                             rowIndex,
-                            value
+                            point.value
                         );
 
                         rowIndex++;
@@ -112,7 +91,6 @@ export class DWSTimeSeriesConverter extends MorningstarConverter {
                 }
             }
         }
-
     }
 }
 
