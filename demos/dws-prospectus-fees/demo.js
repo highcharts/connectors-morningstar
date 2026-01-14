@@ -1,6 +1,6 @@
 import { getPostmanFile } from '../utils/postman-localstorage.js';
 
-getPostmanFile(displayProspectusFees);
+getPostmanFile(displayProspectusFees, 'postmanEnvironmentDWS');
 
 const loadingLabel = document.getElementById('loading-label');
 
