@@ -26,10 +26,10 @@ import type { InvestmentResponse } from '../../../InvestmentsConnector/Investmen
 namespace ProspectusFeesJSON {
 
     export interface ProspectusFeesResponse extends InvestmentResponse {
-        prospectusFees: prospectusFeesItem;
+        prospectusFees: ProspectusFeesItem;
     }
 
-    export interface prospectusFeesItem {
+    export interface ProspectusFeesItem {
         [key: string]: number | string | { [key: string]: number | string };
     }
 }

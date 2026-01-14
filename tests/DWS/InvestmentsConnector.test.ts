@@ -15,7 +15,8 @@ export async function investmentsConnectorLoad (
         converters: {
             CountryAndRegionExposure: {},
             EquitySectorsBreakdown: {},
-            FixedIncomeSectorsBreakdown: {}
+            FixedIncomeSectorsBreakdown: {},
+            ProspectusFees: {}
         }
     });
 

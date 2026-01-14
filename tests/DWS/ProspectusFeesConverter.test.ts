@@ -2,8 +2,7 @@ import * as Assert from 'node:assert/strict';
 import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar-dws.src';
 
-
-export async function prospectusFeesLoad (
+export async function prospectusFees (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.InvestmentsConnector({
@@ -19,6 +18,11 @@ export async function prospectusFeesLoad (
     });
 
     await connector.load();
+
+    Assert.ok(
+        connector instanceof MC.InvestmentsConnector,
+        'Connector should be instance of InvestmentsConnector class.'
+    )
 
     const expectedProspectusFeesCols = [
         'ProspectusDistributionFee',

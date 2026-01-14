@@ -35,7 +35,6 @@ import MorningstarConverter from '../../../../Shared/MorningstarConverter';
  *
  * */
 
-
 export class ProspectusFeesConverter extends MorningstarConverter {
 
 
@@ -76,7 +75,6 @@ export class ProspectusFeesConverter extends MorningstarConverter {
         const table = this.table,
             metadata = this.metadata,
             json = options.json,
-            id = json.identifiers.performanceId,
             prospectusFees = json.prospectusFees;
 
         if (prospectusFees) {
@@ -87,16 +85,11 @@ export class ProspectusFeesConverter extends MorningstarConverter {
                 if (value && typeof value === 'object' && !Array.isArray(value)) {
                     // If value is an object, loop over its properties and
                     // set the keys as columns in the table.
-                    const nestedObject = value;
-
-                    for (const nestedKey in nestedObject) {
-                        const nestedColumnName =
-                            nestedKey[0].toUpperCase() + nestedKey.slice(1);
-
+                    for (const nestedKey in value) {
                         table.setCell(
-                            `${columnName}_${nestedColumnName}`,
+                            `${columnName}_${nestedKey[0].toUpperCase() + nestedKey.slice(1)}`,
                             0,
-                            nestedObject[nestedKey]
+                            value[nestedKey]
                         );
                     }
                 } else if (typeof value === 'number' || typeof value === 'string') {
@@ -110,7 +103,7 @@ export class ProspectusFeesConverter extends MorningstarConverter {
         }
 
         // Converter metadata
-        metadata.performanceId = id;
+        metadata.performanceId = json.identifiers.performanceId;
 
         if (json.metadata.messages?.length) {
             metadata.messages = json.metadata.messages;
