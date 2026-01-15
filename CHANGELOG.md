@@ -1,6 +1,23 @@
 Changelog
 =========
 
+v3.0.0
+------
+
+## What's Changed
+
+## Enhancements
+* Portfolio Analysis XRay (Americas): Added `FundStatistics` metadata properties (`Analyzed`/`NotAnalyzed`) in https://github.com/highcharts/connectors-morningstar/pull/154
+* Security Details (SD): Refactored and adjusted `RiskScore` converter in https://github.com/highcharts/connectors-morningstar/pull/160
+* Investment Details (Sync, Global): Created Direct Web Services Investment Details connector in https://github.com/highcharts/connectors-morningstar/pull/151
+* Investment Details (Sync, Global): Created Sector Breakdown converter in https://github.com/highcharts/connectors-morningstar/pull/156
+* Investment Details (Sync, Global): Created Asset Allocation Breakdown converter in https://github.com/highcharts/connectors-morningstar/pull/155
+* Investment Details (Sync, Global): Created Region Exposure converter in https://github.com/highcharts/connectors-morningstar/pull/153
+* Investment Details (Sync, Global): Created Equity Style Box converter in https://github.com/highcharts/connectors-morningstar/pull/161
+* Investment Details (Sync, Global): Created Country Exposure converter in https://github.com/highcharts/connectors-morningstar/pull/159
+
+**Full Changelog**: https://github.com/highcharts/connectors-morningstar/compare/v2.2.0...v3.0.0
+
 v2.2.0
 ------
 
