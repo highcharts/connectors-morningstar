@@ -19,8 +19,13 @@
  *
  * */
 
-import type { MorningstarConverterOptions, MorningstarOptions, MorningstarSecurityOptions } from '../../Shared/MorningstarOptions';
-import { DWSConnectorMetadata } from '../DWSOptions';
+import type {
+    MorningstarConverterOptions,
+    MorningstarMetadata,
+    MorningstarOptions,
+    MorningstarSecurityOptions
+} from '../../Shared/MorningstarOptions';
+
 
 /* *
  *
@@ -29,11 +34,11 @@ import { DWSConnectorMetadata } from '../DWSOptions';
  *
  * */
 
-export interface DWSTimeSeriesConverterMetadata extends DWSConnectorMetadata {
+export interface TimeSeriesConverterMetadata extends MorningstarMetadata {
     rawResponse: unknown;
 }
 
-export interface DWSTimeSeriesConverterOptions extends MorningstarConverterOptions {
+export interface TimeSeriesConverterOptions extends MorningstarConverterOptions {
 
 }
 
@@ -51,7 +56,8 @@ export interface TimeSeriesConnectorOptions extends MorningstarOptions {
 
     /**
      * Security IDs to retrieve time series for. Up to 25 securities can be
-     * requested in a single query.
+     * requested in a single query. If the `idType` is a performanceId, the
+     * `idType` can be omitted, as it's a default option.
      */
     ids: Pick<MorningstarSecurityOptions, 'id' | 'idType'>[];
 
@@ -112,12 +118,13 @@ export interface TimeSeriesConnectorOptions extends MorningstarOptions {
      * Specifies the `timePeriod` unit. When `timePeriod` & `timePeriodUnit` are
      * set, they are prioritized over `startDate` & `endDate` params.
      */
-    timePeriodUnit?: 'months'|'days'|'years';
+    timePeriodUnit?: 'months' | 'days' | 'years';
 
     /**
      * If `true`, adjusts the start date to the latest inception date among
      * the requested investments so that all returned series align on a
      * common earliest date.
+     *
      * @default false
      */
     applyEarliestCommonDate?: boolean;
@@ -126,6 +133,7 @@ export interface TimeSeriesConnectorOptions extends MorningstarOptions {
      * If `true`, applies the Track Record Extension logic to extend the
      * performance of an investment by copying historical performance from a
      * qualified older investment.
+     *
      * @default false
      */
     applyTrackRecordExtension?: boolean;
@@ -134,6 +142,7 @@ export interface TimeSeriesConnectorOptions extends MorningstarOptions {
      * If `true`, considers the Morningstar or custom restructure date when
      * determining the start of the performance period. Only applies when
      * `applyEarliestCommonDate` is `true`.
+     *
      * @default false
      */
     applyRestructureDate?: boolean;
@@ -142,6 +151,7 @@ export interface TimeSeriesConnectorOptions extends MorningstarOptions {
      * If `true`, sets the time range from inception (or the maximum
      * supported lookback) to the end date. Overrides `timePeriod`/`timePeriodUnit`
      * and `startDate`/`endDate`.
+     *
      * @default false
      */
     sinceInception?: boolean;
@@ -150,6 +160,7 @@ export interface TimeSeriesConnectorOptions extends MorningstarOptions {
      * Specifies the currency in which to return data. Example values:
      * `AUD, BAS, BND, BRL, CAD, CHF, ...`. Accepts ISO 4217 currency codes.
      * Defaults to the investment’s base currency.
+     *
      * @default 'BAS'
      */
     currencyId?: string;

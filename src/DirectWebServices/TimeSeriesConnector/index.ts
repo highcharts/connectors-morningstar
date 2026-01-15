@@ -19,7 +19,7 @@
  *
  * */
 
-import DWSTimeSeriesConnector from './TimeSeriesConnector';
+import TimeSeriesConnector from './TimeSeriesConnector';
 
 /* *
  *
@@ -36,4 +36,4 @@ export * from './TimeSeriesOptions';
  *
  * */
 
-export default DWSTimeSeriesConnector;
+export default TimeSeriesConnector;

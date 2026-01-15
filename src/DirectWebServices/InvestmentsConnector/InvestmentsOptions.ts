@@ -19,8 +19,7 @@
  *
  * */
 
-import type { MorningstarOptions } from '../../Shared/MorningstarOptions';
-import type { DWSConnectorMetadata } from '../DWSOptions';
+import type { MorningstarMetadata, MorningstarOptions } from '../../Shared/MorningstarOptions';
 
 /* *
  *
@@ -40,7 +39,7 @@ export type InvestmentsConverterType =
     'EquityStyleBox' |
     'FixedIncomeSectorsBreakdown';
 
-export interface InvestmentsConnectorMetadata extends DWSConnectorMetadata, ConnectorMetadata {
+export interface InvestmentsConnectorMetadata extends MorningstarMetadata, ConnectorMetadata {
     rawResponses: Array<{ type: InvestmentsConverterType; json: unknown }>;
 }
 

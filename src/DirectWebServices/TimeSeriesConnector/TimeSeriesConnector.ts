@@ -21,14 +21,14 @@
 
 import External from '../../Shared/External';
 import DWSConnector from '../DWSConnector';
-import DWSTimeSeriesConverter from './TimeSeriesConverter';
+import TimeSeriesConverter from './TimeSeriesConverter';
 import {
     MorningstarAPI,
     MorningstarRegion,
     MorningstarURL
 } from '../../Shared';
 import type {
-    DWSTimeSeriesConverterMetadata,
+    TimeSeriesConverterMetadata,
     TimeSeriesConnectorOptions
 } from './TimeSeriesOptions';
 
@@ -46,7 +46,7 @@ const excludedKeys = ['id', 'type', 'category', 'dataPoint', 'ids', 'api', 'conv
  *
  * */
 
-export class DWSTimeSeriesConnector extends DWSConnector {
+export class TimeSeriesConnector extends DWSConnector {
 
     /* *
      *
@@ -70,7 +70,7 @@ export class DWSTimeSeriesConnector extends DWSConnector {
     ) {
 
         options = {
-            ...DWSTimeSeriesConnector.defaultOptions,
+            ...TimeSeriesConnector.defaultOptions,
             ...options
         };
 
@@ -83,7 +83,7 @@ export class DWSTimeSeriesConnector extends DWSConnector {
             rawResponse: void 0
         };
 
-        this.converter = new DWSTimeSeriesConverter(options.converter);
+        this.converter = new TimeSeriesConverter(options.converter);
     }
 
     /* *
@@ -92,11 +92,11 @@ export class DWSTimeSeriesConnector extends DWSConnector {
      *
      * */
 
-    public override readonly converter: DWSTimeSeriesConverter;
+    public override readonly converter: TimeSeriesConverter;
 
     public override readonly options: TimeSeriesConnectorOptions;
 
-    public override readonly metadata!: DWSTimeSeriesConverterMetadata;
+    public override readonly metadata!: TimeSeriesConverterMetadata;
     /* *
      *
      *  Functions
@@ -153,7 +153,6 @@ export class DWSTimeSeriesConnector extends DWSConnector {
 
         this.getTable().deleteColumns();
         this.getTable().setColumns(this.converter.getTable().getColumns());
-        this.getTable().metadata = this.converter.getTable().metadata;
 
         return this.applyTableModifiers();
     }
@@ -169,12 +168,12 @@ export class DWSTimeSeriesConnector extends DWSConnector {
 
 declare module '@highcharts/dashboards/es-modules/Data/Connectors/DataConnectorType' {
     interface DataConnectorTypes {
-        MorningstarDWSTimeSeries: typeof DWSTimeSeriesConnector;
+        MorningstarDWSTimeSeries: typeof TimeSeriesConnector;
     }
 }
 
 
-External.DataConnector.registerType('MorningstarDWSTimeSeries', DWSTimeSeriesConnector);
+External.DataConnector.registerType('MorningstarDWSTimeSeries', TimeSeriesConnector);
 
 
 /* *
@@ -183,4 +182,4 @@ External.DataConnector.registerType('MorningstarDWSTimeSeries', DWSTimeSeriesCon
  *
  * */
 
-export default DWSTimeSeriesConnector;
+export default TimeSeriesConnector;

@@ -24,8 +24,7 @@
 
 
 import MorningstarConverter from '../../Shared/MorningstarConverter';
-import { DWSTimeSeriesConverterOptions } from './TimeSeriesOptions';
-
+import type { TimeSeriesConverterOptions } from './TimeSeriesOptions';
 import type { TimeSeriesResponse } from './TimeSeriesJSON';
 
 
@@ -37,17 +36,17 @@ import type { TimeSeriesResponse } from './TimeSeriesJSON';
 
 
 
-export class DWSTimeSeriesConverter extends MorningstarConverter {
+export class TimeSeriesConverter extends MorningstarConverter {
 
     /* *
-        *
-        *  Constructor
-        *
-        * */
+     *
+     *  Constructor
+     *
+     * */
 
 
     public constructor (
-        options?: DWSTimeSeriesConverterOptions
+        options?: TimeSeriesConverterOptions
     ) {
         super(options);
     }
@@ -60,10 +59,9 @@ export class DWSTimeSeriesConverter extends MorningstarConverter {
      * */
 
 
-    public override parse (options: DWSTimeSeriesConverterOptions): void {
+    public override parse (options: TimeSeriesConverterOptions): void {
         const table = this.table,
-            json = options.json as TimeSeriesResponse,
-            investments = json.investments;
+            { investments } = options.json as TimeSeriesResponse;
 
         if (investments) {
             const hasMultiple = investments.length > 1;
@@ -94,4 +92,4 @@ export class DWSTimeSeriesConverter extends MorningstarConverter {
     }
 }
 
-export default DWSTimeSeriesConverter;
+export default TimeSeriesConverter;

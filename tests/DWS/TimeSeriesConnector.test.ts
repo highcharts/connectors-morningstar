@@ -5,7 +5,7 @@ import * as MC from '../../code/connectors-morningstar-dws.src';
 export async function dwsTimeSeriesLoad (
     api: MC.Shared.MorningstarAPIOptions
 ) {
-    const connector = new MC.DWSTimeSeriesConnector({
+    const connector = new MC.TimeSeriesConnector({
         api,
         id: '',
         type: '',
@@ -23,7 +23,7 @@ export async function dwsTimeSeriesLoad (
     });
 
     Assert.ok(
-        connector instanceof MC.DWSTimeSeriesConnector,
+        connector instanceof MC.TimeSeriesConnector,
         'Connector should be instance of InvestmentsConnector class.'
     );
 

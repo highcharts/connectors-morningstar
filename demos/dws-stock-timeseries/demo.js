@@ -5,7 +5,7 @@ getPostmanFile(initializeChart, 'postmanEnvironmentDWS');
 const loadingLabel = document.getElementById('loading-label');
 
 async function initializeChart (postmanJSON) {
-    const growthConnector = new HighchartsConnectors.MorningstarDWS.DWSTimeSeriesConnector({
+    const growthConnector = new HighchartsConnectors.MorningstarDWS.TimeSeriesConnector({
         postman: {
             environmentJSON: postmanJSON['postmanEnvironmentDWS']
         },

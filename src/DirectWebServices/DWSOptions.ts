@@ -20,7 +20,7 @@
  * */
 
 import type { InvestmentsConverterType } from './InvestmentsConnector/InvestmentsOptions';
-import type { MorningstarMetadata, MorningstarOptions } from '../Shared/MorningstarOptions';
+import type { MorningstarOptions } from '../Shared/MorningstarOptions';
 
 /* *
  *
@@ -41,10 +41,6 @@ export interface DWSResponse {
 export interface DWSConnectorOptions extends MorningstarOptions {
     languageId?: 'ENG' | 'SPA' | 'FRA' | 'DEU' | 'ITA' | 'JPN' | 'CHI' | 'ZHO' | 'KOR';
     requests?: Array<DWSRequest>;
-}
-
-export interface DWSConnectorMetadata extends MorningstarMetadata {
-
 }
 
 /* *
