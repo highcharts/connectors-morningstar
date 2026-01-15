@@ -42,6 +42,13 @@ names:
     - CountryBreakdown
     - CountryRevenueExposure
 
+* **EquityAggregatesResidualRisk**:
+    - AggregatesRiskMonthly
+
+* **EquityResidualRisk**:
+    - RiskDaily
+    - RiskMonthly
+
 * **EquitySectorsBreakdown**:
     - EqSuperSectors
     - EqSectors
@@ -73,6 +80,8 @@ const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
     },
     converters: {
         CountryAndRegionExposure: {},
+        EquityAggregatesResidualRisk: {},
+        EquityResidualRisk: {},
         EquitySectorsBreakdown: {},
         FixedIncomeSectorsBreakdown: {},
         EquityStyleBox: {
@@ -83,6 +92,108 @@ const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
 });
 
 await connector.load();
+```
+
+### The `EquityAggregatesResidualRisk` converter example:
+
+```js
+const dataTable = connector.getTable('AggregatesRiskMonthly');
+
+Highcharts.chart('container', {
+    title: {
+        text: 'Equity Aggregates Residual Risk Values'
+    },
+    subtitle: {
+        text: dataTable.metadata.performanceId
+    },
+    series: [{
+        name: 'Alpha',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'Alpha']
+        )
+    }, {
+        name: 'Beta',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'Beta']
+        )
+    }, {
+        name: 'Non Dividend Alpha',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'NonDividendAlpha']
+        )
+    }, {
+        name: 'Non Dividend Beta',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'NonDividendBeta']
+        )
+    }]
+});
+```
+
+### The `EquityResidualRisk` converter example:
+
+```js
+const dataTable = connector.getTable('RiskDaily');
+
+Highcharts.chart('container-daily', {
+    title: {
+        text: 'Equity Residual Risk Daily Values'
+    },
+    subtitle: {
+        text: dataTable.metadata.performanceId
+    },
+    series: [{
+        name: 'Alpha',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'Alpha']
+        )
+    }, {
+        name: 'Beta',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'Beta']
+        )
+    }, {
+        name: 'RSquare',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'RSquare']
+        )
+    }, {
+        name: 'Non Dividend Alpha',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'NonDividendAlpha']
+        )
+    }, {
+        name: 'Non Dividend Beta',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'NonDividendBeta']
+        )
+    }, {
+        name: 'Non Dividend RSquare',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'NonDividendRSquare']
+        )
+    }]
+});
 ```
 
 ### The `EquitySectorsBreakdown` converter example:
@@ -273,6 +384,8 @@ Highcharts.chart('container', {
 
 Examples of using the InvestmentsConnector are available in our demos:
 
+- **Highcharts Core + Morningstar Equity Aggregates Residual Risk**
+- **Highcharts Core + Morningstar Equity Residual Risk**
 - **Highcharts Core + Morningstar Equity Sectors Breakdown**
 - **Highcharts Core + Morningstar Fixed Income Sectors Breakdown**
 - **Highcharts Core + Morningstar Equity Style Box**
