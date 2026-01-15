@@ -22,11 +22,15 @@
 import {
     createAssetAllocRequest,
     createCountryAndRegionExposureRequest,
+    createEquityAggregatesResidualRiskRequest,
+    createEquityResidualRiskRequest,
     createEquitySectorsBreakdownRequest,
     createEquityStyleBoxRequest,
     createFixedIncomeSectorsBreakdownRequest
 } from './SharedDWSRequests';
 import CountryAndRegionExposureConverter from './DWSConverters/CountryAndRegionExposure/CountryAndRegionExposureConverter';
+import EquityAggregatesResidualRiskConverter from '../Risk/EquityAggregatesResidualRiskConverter';
+import EquityResidualRiskConverter from '../Risk/EquityResidualRiskConverter';
 import EquitySectorsBreakdownConverter from '../Sectors/EquitySectorsBreakdownConverter';
 import EquityStyleBoxConverter from '../StyleBox/EquityStyleBoxConverter';
 import FixedIncomeSectorsBreakdownConverter from '../Sectors/FixedIncomeSectorsBreakdownConverter';
@@ -68,6 +72,14 @@ const CONVERTERS: Converters = [
             'CountryBreakdown',
             'CountryRevenueExposure'
         ]
+    },
+    {
+        key: 'EquityAggregatesResidualRisk',
+        children: ['AggregatesRiskMonthly']
+    },
+    {
+        key: 'EquityResidualRisk',
+        children: ['RiskDaily', 'RiskMonthly']
     },
     {
         key: 'EquitySectorsBreakdown',
@@ -153,6 +165,16 @@ export function createRequests (
                     createCountryAndRegionExposureRequest(converter, security)
                 );
                 break;
+            case 'EquityAggregatesResidualRisk':
+                requests.push(
+                    createEquityAggregatesResidualRiskRequest(converter, security)
+                );
+                break;
+            case 'EquityResidualRisk':
+                requests.push(
+                    createEquityResidualRiskRequest(converter, security)
+                );
+                break;
             case 'EquitySectorsBreakdown':
                 requests.push(
                     createEquitySectorsBreakdownRequest(converter, security)
@@ -183,6 +205,10 @@ export function initConverter (
             return new AssetAllocationBreakdownConverter();
         case 'CountryAndRegionExposure':
             return new CountryAndRegionExposureConverter();
+        case 'EquityAggregatesResidualRisk':
+            return new EquityAggregatesResidualRiskConverter();
+        case 'EquityResidualRisk':
+            return new EquityResidualRiskConverter();
         case 'EquitySectorsBreakdown':
             return new EquitySectorsBreakdownConverter();
         case 'EquityStyleBox':

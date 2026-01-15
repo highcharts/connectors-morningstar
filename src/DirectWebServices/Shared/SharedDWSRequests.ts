@@ -46,6 +46,30 @@ export function createCountryAndRegionExposureRequest (
     };
 }
 
+export function createEquityAggregatesResidualRiskRequest (
+    converter: InvestmentsConverterOptions,
+    security: InvestmentsSecurityOptions
+): DWSRequest {
+    const { id } = security;
+
+    return {
+        type: 'EquityAggregatesResidualRisk',
+        url: `investments/${id}/equity-aggregates-residual-risk-and-return-sensitivity`
+    };
+}
+
+export function createEquityResidualRiskRequest (
+    converter: InvestmentsConverterOptions,
+    security: InvestmentsSecurityOptions
+): DWSRequest {
+    const { id } = security;
+
+    return {
+        type: 'EquityResidualRisk',
+        url: `investments/${id}/equity-residual-risk-and-return-sensitivity`
+    };
+}
+
 export function createEquitySectorsBreakdownRequest (
     converter: InvestmentsConverterOptions,
     security: InvestmentsSecurityOptions

@@ -2,8 +2,7 @@ import * as Assert from 'node:assert/strict';
 import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar-dws.src';
 
-
-export async function assetAllocBreakdownLoad (
+export async function assetAllocationBreakdown (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.InvestmentsConnector({
@@ -35,18 +34,17 @@ export async function assetAllocBreakdownLoad (
         'Us_Short',
         'NonUs_Short'
     ],
-        expectedCanadianAssetAllocCols = [
-            'Type',
-            'Long',
-            'LongRescaled',
-            'Net',
-            'Short'
-        ],
-        expectedUnderlyingAssetAllocCols = [
-            'Type',
-            'UnderlyingInstruments'
-        ];
-
+    expectedCanadianAssetAllocCols = [
+        'Type',
+        'Long',
+        'LongRescaled',
+        'Net',
+        'Short'
+    ],
+    expectedUnderlyingAssetAllocCols = [
+        'Type',
+        'UnderlyingInstruments'
+    ];
 
     Assert.deepStrictEqual(
         connector.dataTables.AssetAlloc.getColumnIds(),
@@ -65,7 +63,7 @@ export async function assetAllocBreakdownLoad (
         expectedUnderlyingAssetAllocCols,
         'UnderlyingAssetAlloc table should exist of expected columns.'
     );
-    
+
     Assert.ok(
         connector.dataTables.AssetAlloc.getRowCount() > 0,
         'AssetAlloc should not return empty rows.'

@@ -36,6 +36,8 @@ export type Converters = Array<{ key: InvestmentsConverterType, children?: strin
 export type InvestmentsConverterType =
     'AssetAllocationBreakdown' |
     'CountryAndRegionExposure' |
+    'EquityAggregatesResidualRisk' |
+    'EquityResidualRisk' |
     'EquitySectorsBreakdown' |
     'EquityStyleBox' |
     'FixedIncomeSectorsBreakdown';

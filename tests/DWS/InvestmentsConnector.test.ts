@@ -13,8 +13,10 @@ export async function investmentsConnectorLoad (
             id: '0P00000FIA'
         },
         converters: {
+            AssetAllocationBreakdown: {},
             CountryAndRegionExposure: {},
             EquitySectorsBreakdown: {},
+            EquityStyleBox: {},
             FixedIncomeSectorsBreakdown: {}
         }
     });
