@@ -23,7 +23,6 @@ import type {
     InvestorPreferencesConverterOptions,
     InvestorPreferencesMetadata
 } from './InvestorPreferencesOptions';
-import type { DataTable } from '@highcharts/dashboards/dashboards';
 
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 import InvestorPreferencesJSON from './InvestorPreferencesJSON';
@@ -81,7 +80,7 @@ export class InvestorPreferencesConverter extends MorningstarConverter {
                     table.setCell(
                         `InvestorPreferences_${key}`,
                         i,
-                        val as DataTable.CellType
+                        val
                     );
                 }
             }

@@ -27,7 +27,7 @@ import type * as _Grid from '@highcharts/grid-pro/grid-pro';
 import type _DataTableOptions from '@highcharts/dashboards/es-modules/Data/DataTableOptions';
 
 import _DataConnector from '@highcharts/dashboards/es-modules/Data/Connectors/DataConnector';
-import _DataConverter from '@highcharts/dashboards/es-modules/Data/Converters/DataConverter';
+import _DataConverter, { UserOptions } from '@highcharts/dashboards/es-modules/Data/Converters/DataConverter';
 import _DataTable from '@highcharts/dashboards/es-modules/Data/DataTable';
 
 
@@ -42,7 +42,7 @@ export type DataConnectorMetadata = _DataConnector['metadata'];
 
 export type DataConnectorOptions = _DataConnector['options'];
 
-export type DataConverterOptions = Partial<_DataConverter.Options>;
+export type DataConverterOptions = UserOptions;
 
 
 export type DataTable = _DataTable;

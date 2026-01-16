@@ -32,7 +32,7 @@ namespace InvestorPreferencesJSON {
     }
 
     export interface InvestorPreferenceRow {
-        [key: string]: any;
+        [key: string]: string | number | boolean;
     }
 
 
