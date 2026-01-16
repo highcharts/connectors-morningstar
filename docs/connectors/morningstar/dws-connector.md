@@ -59,6 +59,11 @@ names:
     - StockStyle
     - TimeSeries
 
+* **AssetAllocationBreakdown**:
+    - AssetAlloc
+    - CanadianAssetAlloc
+    - UnderlyingAssetAlloc
+
 ## Investments Connector Examples
 
 ```js
@@ -269,6 +274,42 @@ Highcharts.chart('container', {
     });
 ```
 
+### The `AssetAllocationBreakdown` converter example:
+```js
+    const generalTable = connector.getTable('AssetAlloc'),
+        // Example only uses the first data table. This is how to get
+        // the other tables.
+        canadaTable = connector.getTable('CanadianAssetAlloc'),
+        underlyingTable = connector.getTable('UnderlyingAssetAlloc');
+
+    Highcharts.chart('container', {
+
+        title: {
+            text: 'General Asset Allocation Breakdown Data'
+        },
+        chart: {
+            type: 'column'
+        },
+        xAxis: {
+            categories: generalTable.getColumn('Type')
+        },
+        series: [{
+            name: 'Long',
+            data: generalTable.getColumn('Long')
+        }, {
+            name: 'Long Rescaled',
+            data: generalTable.getColumn('LongRescaled')
+        }, {
+            name: 'Net',
+            data: generalTable.getColumn('Net')
+        }, {
+            name: 'Short',
+            data: generalTable.getColumn('Short')
+        }]
+
+    });
+```
+
 ## Relevant demos
 
 Examples of using the InvestmentsConnector are available in our demos:
@@ -277,5 +318,6 @@ Examples of using the InvestmentsConnector are available in our demos:
 - **Highcharts Core + Morningstar Fixed Income Sectors Breakdown**
 - **Highcharts Core + Morningstar Equity Style Box**
 - **Highcharts Core + Morningstar Equity Style Box Time Series**
+- **Highcharts Core + Morningstar Asset Allocation Breakdown**
 
 [Morningstar’s Investment Details API]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/investment-details---managed-investments---async/openapi-specification
