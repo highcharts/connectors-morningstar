@@ -37,7 +37,8 @@ export type InvestmentsConverterType =
     'CountryAndRegionExposure' |
     'EquitySectorsBreakdown' |
     'EquityStyleBox' |
-    'FixedIncomeSectorsBreakdown';
+    'FixedIncomeSectorsBreakdown' |
+    'ProspectusFees';
 
 export interface InvestmentsConnectorMetadata extends MorningstarMetadata, ConnectorMetadata {
     rawResponses: Array<{ type: InvestmentsConverterType; json: unknown }>;

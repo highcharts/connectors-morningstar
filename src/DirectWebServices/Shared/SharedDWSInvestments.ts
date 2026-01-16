@@ -24,13 +24,15 @@ import {
     createCountryAndRegionExposureRequest,
     createEquitySectorsBreakdownRequest,
     createEquityStyleBoxRequest,
-    createFixedIncomeSectorsBreakdownRequest
+    createFixedIncomeSectorsBreakdownRequest,
+    createProspectusFeesRequest
 } from './SharedDWSRequests';
 import CountryAndRegionExposureConverter from './DWSConverters/CountryAndRegionExposure/CountryAndRegionExposureConverter';
 import EquitySectorsBreakdownConverter from '../Sectors/EquitySectorsBreakdownConverter';
 import EquityStyleBoxConverter from '../StyleBox/EquityStyleBoxConverter';
 import FixedIncomeSectorsBreakdownConverter from '../Sectors/FixedIncomeSectorsBreakdownConverter';
 import AssetAllocationBreakdownConverter from './DWSConverters/AssetAllocationBreakdown/AssetAllocationBreakdownConverter';
+import ProspectusFeesConverter from './DWSConverters/ProspectusFees/ProspectusFeesConverter';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 
 import type {
@@ -87,6 +89,9 @@ const CONVERTERS: Converters = [
             'IncBrkPrimarySectors',
             'IncBrkSecondarySectors'
         ]
+    },
+    {
+        key: 'ProspectusFees'
     }
 ];
 
@@ -168,6 +173,11 @@ export function createRequests (
                     createFixedIncomeSectorsBreakdownRequest(converter, security)
                 );
                 break;
+            case 'ProspectusFees':
+                requests.push(
+                    createProspectusFeesRequest(converter, security)
+                );
+                break;
         }
     }
 
@@ -189,5 +199,7 @@ export function initConverter (
             return new EquityStyleBoxConverter();
         case 'FixedIncomeSectorsBreakdown':
             return new FixedIncomeSectorsBreakdownConverter();
+        case 'ProspectusFees':
+            return new ProspectusFeesConverter();
     }
 }

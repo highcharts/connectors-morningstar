@@ -87,3 +87,15 @@ export function createFixedIncomeSectorsBreakdownRequest (
         url: `investments/${id}/morningstar-fixed-income-sectors-breakdown`
     };
 }
+
+export function createProspectusFeesRequest (
+    converter: InvestmentsConverterOptions,
+    security: InvestmentsSecurityOptions
+): DWSRequest {
+    const { id } = security;
+
+    return {
+        type: 'ProspectusFees',
+        url: `investments/${id}/prospectus-fees`
+    };
+}
