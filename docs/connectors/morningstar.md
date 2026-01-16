@@ -63,6 +63,7 @@ pool as other connector types.
 * [Performance](https://www.highcharts.com/docs/morningstar/performance)
 * [Hypo Performance](https://www.highcharts.com/docs/morningstar/hypo-performance)
 * [DWS Connector](https://www.highcharts.com/docs/morningstar/dws-connector)
+* [DWS TimeSeries](https://www.highcharts.com/docs/morningstar/dws-time-series-connector)
 
 ### Morningstar Regions
 

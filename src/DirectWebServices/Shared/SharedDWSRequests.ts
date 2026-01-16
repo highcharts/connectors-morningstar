@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2025 Highsoft AS
+ *  (c) 2009-2026 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -85,5 +85,17 @@ export function createFixedIncomeSectorsBreakdownRequest (
     return {
         type: 'FixedIncomeSectorsBreakdown',
         url: `investments/${id}/morningstar-fixed-income-sectors-breakdown`
+    };
+}
+
+export function createProspectusFeesRequest (
+    converter: InvestmentsConverterOptions,
+    security: InvestmentsSecurityOptions
+): DWSRequest {
+    const { id } = security;
+
+    return {
+        type: 'ProspectusFees',
+        url: `investments/${id}/prospectus-fees`
     };
 }
