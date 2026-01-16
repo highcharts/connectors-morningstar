@@ -283,7 +283,6 @@ Highcharts.chart('container', {
         underlyingTable = connector.getTable('UnderlyingAssetAlloc');
 
     Highcharts.chart('container', {
-
         title: {
             text: 'General Asset Allocation Breakdown Data'
         },
@@ -306,7 +305,6 @@ Highcharts.chart('container', {
             name: 'Short',
             data: generalTable.getColumn('Short')
         }]
-
     });
 ```
 
