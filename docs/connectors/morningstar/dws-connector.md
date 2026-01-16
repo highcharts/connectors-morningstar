@@ -66,6 +66,9 @@ names:
     - StockStyle
     - TimeSeries
 
+* **ProspectusFees**:
+    - ProspectusFees
+
 ## Investments Connector Examples
 
 ```js
@@ -87,7 +90,8 @@ const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
         EquityStyleBox: {
             startDate: '2025-01-01',
             endDate: '2025-12-01'
-        }
+        },
+        ProspectusFees: {}
     }
 });
 

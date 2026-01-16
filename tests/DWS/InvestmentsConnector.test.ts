@@ -15,9 +15,12 @@ export async function investmentsConnectorLoad (
         converters: {
             AssetAllocationBreakdown: {},
             CountryAndRegionExposure: {},
+            EquityAggregatesResidualRisk: {},
+            EquityResidualRisk: {},
             EquitySectorsBreakdown: {},
             EquityStyleBox: {},
-            FixedIncomeSectorsBreakdown: {}
+            FixedIncomeSectorsBreakdown: {},
+            ProspectusFees: {}
         }
     });
 
