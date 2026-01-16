@@ -19,6 +19,7 @@
  *
  * */
 
+import External from '../../Shared/External';
 import DWSConnector from '../DWSConnector';
 import {
     createRequests,
@@ -99,7 +100,7 @@ export class InvestmentsConnector extends DWSConnector {
      *
      * */
 
-    public override async load (): Promise<any> {
+    public override async load (): Promise<this> {
         const { converters, security } = this.options;
 
         if (!converters) {
@@ -139,8 +140,26 @@ export class InvestmentsConnector extends DWSConnector {
                 ...converter.metadata
             };
         }
+
+        return this;
     }
 }
+
+/* *
+ *
+ *  Registry
+ *
+ * */
+
+
+declare module '@highcharts/dashboards/es-modules/Data/Connectors/DataConnectorType' {
+    interface DataConnectorTypes {
+        MorningstarDWSInvestments: typeof InvestmentsConnector;
+    }
+}
+
+
+External.DataConnector.registerType('MorningstarDWSInvestments', InvestmentsConnector);
 
 /* *
  *

@@ -20,7 +20,7 @@ async function displayCountryAndRegionExposure (postmanJSON) {
 
     await connector.load();
 
-    const regionEquityTable = connector.getTable('Region_Equity'),
+    const regionEquityTable = connector.getTable('RegionEquity'),
         data = regionEquityTable.getRows(void 0, void 0, ['Region', 'PercNet']);
 
     Highcharts.chart('container', {

@@ -89,13 +89,13 @@ export class CountryAndRegionExposureConverter extends MorningstarConverter {
         };
 
         this.tables = [
-            new DataTable({ id: 'Region_Equity' }),
-            new DataTable({ id: 'Region_FixedIncome' }),
-            new DataTable({ id: 'Region_FixedIncomeGeo' }),
-            new DataTable({ id: 'Region_RevenueExposure' }),
-            new DataTable({ id: 'Country_Equity' }),
-            new DataTable({ id: 'Country_Breakdown' }),
-            new DataTable({ id: 'Country_RevenueExposure' })
+            new DataTable({ id: 'RegionEquity' }),
+            new DataTable({ id: 'RegionFixedIncome' }),
+            new DataTable({ id: 'RegionFixedIncomeGeo' }),
+            new DataTable({ id: 'RegionRevenueExposure' }),
+            new DataTable({ id: 'CountryEquity' }),
+            new DataTable({ id: 'CountryBreakdown' }),
+            new DataTable({ id: 'CountryRevenueExposure' })
         ];
     }
 
@@ -193,7 +193,7 @@ export class CountryAndRegionExposureConverter extends MorningstarConverter {
                     rowIndexRecord[regionKey] = rowIndex;
 
                     table.setCell(
-                        table.id.split('_')[0], // Region or Country
+                        table.id.match(/^[A-Z][a-z]*/u)?.[0] || table.id, // Region or Country
                         rowIndex,
                         regionKey
                     );
