@@ -33,6 +33,11 @@ planned for the future.
 Here is a list of available converters along with their corresponding data table
 names:
 
+* **AssetAllocationBreakdown**:
+    - AssetAlloc
+    - CanadianAssetAlloc
+    - UnderlyingAssetAlloc
+
 * **CountryAndRegionExposure**:
     - RegionEquity
     - RegionFixedIncome
@@ -273,10 +278,45 @@ Highcharts.chart('container', {
     });
 ```
 
+### The `AssetAllocationBreakdown` converter example:
+```js
+    const generalTable = connector.getTable('AssetAlloc'),
+        // Example only uses the first data table. This is how to get
+        // the other tables.
+        canadaTable = connector.getTable('CanadianAssetAlloc'),
+        underlyingTable = connector.getTable('UnderlyingAssetAlloc');
+
+    Highcharts.chart('container', {
+        title: {
+            text: 'General Asset Allocation Breakdown Data'
+        },
+        chart: {
+            type: 'column'
+        },
+        xAxis: {
+            categories: generalTable.getColumn('Type')
+        },
+        series: [{
+            name: 'Long',
+            data: generalTable.getColumn('Long')
+        }, {
+            name: 'Long Rescaled',
+            data: generalTable.getColumn('LongRescaled')
+        }, {
+            name: 'Net',
+            data: generalTable.getColumn('Net')
+        }, {
+            name: 'Short',
+            data: generalTable.getColumn('Short')
+        }]
+    });
+```
+
 ## Relevant demos
 
 Examples of using the InvestmentsConnector are available in our demos:
 
+- **Highcharts Core + Morningstar Asset Allocation Breakdown**
 - **Highcharts Core + Morningstar Equity Sectors Breakdown**
 - **Highcharts Core + Morningstar Fixed Income Sectors Breakdown**
 - **Highcharts Core + Morningstar Equity Style Box**
