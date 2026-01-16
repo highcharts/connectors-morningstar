@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2025 Highsoft AS
+ *  (c) 2009-2026 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -19,8 +19,7 @@
  *
  * */
 
-import type { MorningstarOptions } from '../../Shared/MorningstarOptions';
-import type { DWSConnectorMetadata } from '../DWSOptions';
+import type { MorningstarMetadata, MorningstarOptions } from '../../Shared/MorningstarOptions';
 
 /* *
  *
@@ -41,7 +40,9 @@ export type InvestmentsConverterType =
     'FixedIncomeSectorsBreakdown' |
     'ProspectusFees';
 
-export interface InvestmentsConnectorMetadata extends DWSConnectorMetadata, ConnectorMetadata {}
+export interface InvestmentsConnectorMetadata extends MorningstarMetadata, ConnectorMetadata {
+    rawResponses: Array<{ type: InvestmentsConverterType; json: unknown }>;
+}
 
 export type ConnectorMetadata = {
     [K in InvestmentsConverterType]?: {

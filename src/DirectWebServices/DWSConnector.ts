@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2025 Highsoft AS
+ *  (c) 2009-2026 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -24,7 +24,7 @@ import MorningstarURL from '../Shared/MorningstarURL';
 import MorningstarAPI from '../Shared/MorningstarAPI';
 import MorningstarRegion from '../Shared/MorningstarRegion';
 
-import type { DWSRequest, DWSResponse, DWSConnectorOptions, DWSConnectorMetadata } from './DWSOptions';
+import type { DWSRequest, DWSResponse, DWSConnectorOptions } from './DWSOptions';
 
 /* *
  *
@@ -48,12 +48,6 @@ export abstract class DWSConnector extends MorningstarConnector {
         }
 
         super(options);
-
-        this.metadata = {
-            columns: {},
-            rawResponses: []
-        };
-
         this.options = options;
     }
 
@@ -68,8 +62,6 @@ export abstract class DWSConnector extends MorningstarConnector {
     public responses: Array<DWSResponse> = [];
 
     public requests: Array<DWSRequest> = [];
-
-    public override metadata!: DWSConnectorMetadata;
 
     protected url!: string;
 

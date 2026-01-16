@@ -1,6 +1,6 @@
 /* *
  *
- *  (c) 2009-2025 Highsoft AS
+ *  (c) 2009-2026 Highsoft AS
  *
  *  License: www.highcharts.com/license
  *
@@ -73,6 +73,12 @@ export class InvestmentsConnector extends DWSConnector {
 
         super(options);
         this.options = options;
+
+        this.metadata = {
+            columns: {},
+            rawResponses: []
+        };
+
         this.convertersToUse = convertersToUse;
     }
 
