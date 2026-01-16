@@ -38,7 +38,8 @@ export type InvestmentsConverterType =
     'CountryAndRegionExposure' |
     'EquitySectorsBreakdown' |
     'EquityStyleBox' |
-    'FixedIncomeSectorsBreakdown';
+    'FixedIncomeSectorsBreakdown' |
+    'ProspectusFees';
 
 export interface InvestmentsConnectorMetadata extends DWSConnectorMetadata, ConnectorMetadata {}
 
