@@ -24,15 +24,15 @@ export async function fixedIncomeSectorsBreakdown (
 
     await connector.load();
 
-    const connectorMeradata = connector.metadata['FixedIncomeSectorsBreakdown'];
+    const connectorMetadata = connector.metadata['FixedIncomeSectorsBreakdown'];
 
     Assert.ok(
-        connectorMeradata !== undefined,
+        connectorMetadata !== undefined,
         'InvestmentsConnector metadata should contain FixedIncomeSectorsBreakdown section.'
     );
 
     Assert.deepStrictEqual(
-        Object.keys(connectorMeradata).sort(),
+        Object.keys(connectorMetadata).sort(),
         [
             'columns',
             'fixdIncMorningstarSectorsPortfolioDate',
@@ -42,7 +42,7 @@ export async function fixedIncomeSectorsBreakdown (
     );
 
     Assert.deepStrictEqual(
-        connectorMeradata.performanceId,
+        connectorMetadata.performanceId,
         '0P00002QN3',
         'FixedIncomeSectorsBreakdown metadata should contain performanceId.'
     );

@@ -26,6 +26,9 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         chart: {
             type: 'column'
         },
+        subtitle: {
+            text: `Performance ID: ${connector.metadata.FixedIncomeSectorsBreakdown.performanceId}`
+        },
         xAxis: {
             type: 'category'
         },
@@ -53,9 +56,6 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
     Highcharts.chart('container-brk-super-sectors', {
         title: {
             text: 'Fixed Income Super Sectors Breakdown'
-        },
-        subtitle: {
-            text: superSectorsBrkTable.metadata.performanceId
         },
         series: [{
             name: 'Fixed Income Breakdown Super Sectors Long',
@@ -89,9 +89,6 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         title: {
             text: 'Fixed Income Primary Sectors Breakdown'
         },
-        subtitle: {
-            text: primarySectorsBrkTable.metadata.performanceId
-        },
         series: [{
             name: 'Fixed Income Breakdown Primary Sectors Long',
             data: primarySectorsBrkTable.getRows(
@@ -123,9 +120,6 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
     Highcharts.chart('container-brk-secondary-sectors', {
         title: {
             text: 'Fixed Income Secondary Sectors Breakdown'
-        },
-        subtitle: {
-            text: secondarySectorsBrkTable.metadata.performanceId
         },
         series: [{
             name: 'Fixed Income Breakdown Secondary Sectors Long',
@@ -166,9 +160,6 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         title: {
             text: 'Fixed Income Super Sectors'
         },
-        subtitle: {
-            text: superSectorsTable.metadata.performanceId
-        },
         series: [{
             name: 'Fixed Income Super Sectors Long Rescaled',
             data: superSectorsTable.getRows(
@@ -208,9 +199,6 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         title: {
             text: 'Fixed Income Primary Sectors'
         },
-        subtitle: {
-            text: primarySectorsTable.metadata.performanceId
-        },
         series: [{
             name: 'Fixed Income Primary Sectors Long Rescaled',
             data: primarySectorsTable.getRows(
@@ -249,9 +237,6 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
     Highcharts.chart('container-secondary-sectors', {
         title: {
             text: 'Fixed Income Secondary Sectors'
-        },
-        subtitle: {
-            text: secondarySectorsTable.metadata.performanceId
         },
         series: [{
             name: 'Fixed Income Secondary Sectors Long Rescaled',

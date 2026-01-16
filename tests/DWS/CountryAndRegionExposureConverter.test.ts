@@ -2,7 +2,7 @@ import * as Assert from 'node:assert/strict';
 import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar-dws.src'
 
-export async function countryAndRegionExposureConnector (
+export async function countryAndRegionExposure (
     api: MC.Shared.MorningstarAPIOptions
 ) {
     const connector = new MC.InvestmentsConnector({
