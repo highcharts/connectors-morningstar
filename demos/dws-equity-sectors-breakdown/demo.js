@@ -26,6 +26,9 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         chart: {
             type: 'column'
         },
+        subtitle: {
+            text: `Performance ID: ${connector.metadata.EquitySectorsBreakdown.performanceId}`
+        },
         xAxis: {
             type: 'category'
         },
@@ -53,9 +56,6 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
     Highcharts.chart('container-super-sectors', {
         title: {
             text: 'Equity Super Sectors Breakdown'
-        },
-        subtitle: {
-            text: superSectorsTable.metadata.performanceId
         },
         series: [{
             name: 'Equity Super Sectors Long Rescaled',
@@ -89,9 +89,6 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         title: {
             text: 'Equity Sectors Breakdown'
         },
-        subtitle: {
-            text: sectorsTable.metadata.performanceId
-        },
         series: [{
             name: 'Equity Sectors Long Rescaled',
             data: sectorsTable.getRows(
@@ -123,9 +120,6 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
     Highcharts.chart('container-industries', {
         title: {
             text: 'Equity Industries Breakdown'
-        },
-        subtitle: {
-            text: industriesTable.metadata.performanceId
         },
         series: [{
             name: 'Equity Industries Long Rescaled',

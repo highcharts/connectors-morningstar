@@ -21,16 +21,13 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
     // Load data
     await connector.load();
 
-    // Get data table
-    const dataTable = connector.getTable('AggregatesRiskMonthly');
-
     // Set global options
     Highcharts.setOptions({
         chart: {
             type: 'column'
         },
         subtitle: {
-            text: dataTable.metadata.performanceId
+            text: `Performance ID: ${connector.metadata.EquityAggregatesResidualRisk.performanceId}`
         },
         xAxis: {
             type: 'category'
@@ -39,6 +36,9 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
             shared: true
         }
     });
+
+    // Get data table
+    const dataTable = connector.getTable('AggregatesRiskMonthly');
 
     // Create chart
     Highcharts.chart('container-values', {
@@ -80,9 +80,6 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
     Highcharts.chart('container-companies', {
         title: {
             text: 'Equity Aggregates Residual Risk Number Of Companies'
-        },
-        subtitle: {
-            text: dataTable.metadata.performanceId
         },
         series: [{
             name: 'Alpha Companies',

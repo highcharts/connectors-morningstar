@@ -26,6 +26,9 @@ async function displayEquityResidualRisk (postmanJSON) {
         chart: {
             type: 'column'
         },
+        subtitle: {
+            text: `Performance ID: ${connector.metadata.EquityResidualRisk.performanceId}`
+        },
         xAxis: {
             type: 'category'
         },
@@ -41,9 +44,6 @@ async function displayEquityResidualRisk (postmanJSON) {
     Highcharts.chart('container-daily', {
         title: {
             text: 'Equity Residual Risk Daily Values'
-        },
-        subtitle: {
-            text: riskDailyTable.metadata.performanceId
         },
         series: [{
             name: 'Alpha',
@@ -97,9 +97,6 @@ async function displayEquityResidualRisk (postmanJSON) {
     Highcharts.chart('container-monthly', {
         title: {
             text: 'Equity Residual Risk Monthly Values'
-        },
-        subtitle: {
-            text: riskMonthlyTable.metadata.performanceId
         },
         series: [{
             name: 'Alpha',

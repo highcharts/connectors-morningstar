@@ -79,14 +79,14 @@ export class EquityResidualRiskConverter extends MorningstarConverter {
             metadata = this.metadata,
             userOptions = { ...this.options, ...options },
             json = userOptions.json,
-            id = json.identifiers.performanceId,
+            id = json.identifiers?.performanceId,
             monthlyRiskData = {
                 ...json.dividendResidualRiskAndReturnSensitivity,
                 ...json.nonDividendResidualRiskAndReturnSensitivity
             },
             dailyRiskData = {
-                ...json.dailyDividendResidualRiskAndReturnSensitivity[0],
-                ...json.dailyNonDividendResidualRiskAndReturnSensitivity[0]
+                ...json.dailyDividendResidualRiskAndReturnSensitivity?.[0],
+                ...json.dailyNonDividendResidualRiskAndReturnSensitivity?.[0]
             };
 
         function setRisk (
@@ -94,7 +94,7 @@ export class EquityResidualRiskConverter extends MorningstarConverter {
             table: DataTable,
             timeUnits: string[]
         ): void {
-            if (riskData) {
+            if (Object.keys(riskData).length > 0) {
                 const { asOfDate, compareIndexId } = riskData;
 
                 timeUnits.forEach((unit, index) => {
@@ -137,8 +137,10 @@ export class EquityResidualRiskConverter extends MorningstarConverter {
         // Set Monthly Risk
         setRisk(monthlyRiskData, tables[1], EquityResidualRisk.months);
 
-        // Converter metadata
-        metadata.performanceId = id;
+        if (id) {
+            // Converter metadata
+            metadata.performanceId = id;
+        }
 
         if (json.metadata.messages?.length) {
             metadata.messages = json.metadata.messages;

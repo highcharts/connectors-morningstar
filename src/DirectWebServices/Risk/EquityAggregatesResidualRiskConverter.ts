@@ -78,10 +78,10 @@ export class EquityAggregatesResidualRiskConverter extends MorningstarConverter 
             metadata = this.metadata,
             userOptions = { ...this.options, ...options },
             json = userOptions.json,
-            id = json.identifiers.performanceId,
-            riskData = json.aggregationResidualRiskAndReturnSensitivity[0];
+            id = json.identifiers?.performanceId,
+            riskData = { ...json.aggregationResidualRiskAndReturnSensitivity?.[0] };
 
-        if (riskData) {
+        if (Object.keys(riskData).length > 0) {
             const { periodEndDate, numberOfCompanies } = riskData;
 
             EquityAggregatesResidualRisk.months.forEach((month, index) => {
@@ -133,13 +133,15 @@ export class EquityAggregatesResidualRiskConverter extends MorningstarConverter 
             if (numberOfCompanies) {
                 table.metadata.numberOfCompanies = numberOfCompanies;
             }
+        }
 
+        if (id) {
             // Converter metadata
             metadata.performanceId = id;
+        }
 
-            if (json.metadata.messages?.length) {
-                metadata.messages = json.metadata.messages;
-            }
+        if (json.metadata.messages?.length) {
+            metadata.messages = json.metadata.messages;
         }
     }
 
