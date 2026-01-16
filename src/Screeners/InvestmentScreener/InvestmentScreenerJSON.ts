@@ -32,7 +32,7 @@ namespace InvestmentScreenerJSON {
     }
 
     export interface InvestmentScreenerRow {
-        [key: string]: any;
+        [key: string]: string | number | boolean;
     }
 
     /* *

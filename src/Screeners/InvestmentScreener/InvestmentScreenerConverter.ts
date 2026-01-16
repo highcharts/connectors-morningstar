@@ -20,7 +20,6 @@
  * */
 
 import type { InvestmentScreenerConverterOptions, InvestmentScreenerMetadata } from './InvestmentScreenerOptions';
-import type { DataTable } from '@highcharts/dashboards/dashboards';
 
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 import InvestmentScreenerJSON from './InvestmentScreenerJSON';
@@ -79,7 +78,7 @@ export class InvestmentScreenerConverter extends MorningstarConverter {
                     table.setCell(
                         `InvestmentScreener_${key}`,
                         i,
-                        val as DataTable.CellType
+                        val
                     );
                 }
             }

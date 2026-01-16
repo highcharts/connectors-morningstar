@@ -22,9 +22,9 @@
 
 import MorningstarConverter from '../Shared/MorningstarConverter';
 import DataConverterUtils from '@highcharts/dashboards/es-modules/Data/Converters/DataConverterUtils';
+import { ColumnCollection } from '@highcharts/dashboards/es-modules/Data/DataTable';
 import RNANewsJSON from './RNANewsJSON';
 import { RNANewsConverterOptions } from './RNANewsOptions';
-import DataTable from '@highcharts/dashboards/es-modules/Data/DataTable';
 
 
 /* *
@@ -139,10 +139,10 @@ export class RNANewsConverter extends MorningstarConverter {
     /**
      * Handles converting the parsed data to a table.
      *
-     * @return {DataTable.ColumnCollection}
+     * @return {ColumnCollection}
      * Table from the parsed RNANews
      */
-    public getTableColumns (): DataTable.ColumnCollection {
+    public getTableColumns (): ColumnCollection {
         return DataConverterUtils.getColumnsCollection(this.columns, this.header);
     }
 
