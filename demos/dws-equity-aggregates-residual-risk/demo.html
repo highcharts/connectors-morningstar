@@ -24,8 +24,14 @@
             <input type="file" id="postman-json" accept=".json,application/json" />
         </p>
         <p id="loading-label">Loading data…</p>
-        <div id="container-values"></div>
-        <div id="container-companies"></div>
+        <div style="display: flex; justify-content: space-between;">
+            <div id="container-values-alpha" style="width: 50%; height: 350px;"></div>
+            <div id="container-values-beta" style="width: 50%; height: 350px;"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <div id="container-companies-alpha" style="width: 50%; height: 350px;"></div>
+            <div id="container-companies-beta" style="width: 50%; height: 350px;"></div>
+        </div>
         <script type="module" src="./demo.js"></script>
     </body>
 </html>

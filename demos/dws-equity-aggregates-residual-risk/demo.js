@@ -26,14 +26,15 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
         chart: {
             type: 'column'
         },
+        colors: ['#274FE0', '#E1E1E6'],
         subtitle: {
             text: `Performance ID: ${connector.metadata.EquityAggregatesResidualRisk.performanceId}`
         },
-        xAxis: {
-            type: 'category'
-        },
         tooltip: {
             shared: true
+        },
+        xAxis: {
+            type: 'category'
         }
     });
 
@@ -41,9 +42,14 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
     const dataTable = connector.getTable('AggregatesRiskMonthly');
 
     // Create chart
-    Highcharts.chart('container-values', {
+    Highcharts.chart('container-values-alpha', {
         title: {
-            text: 'Equity Aggregates Residual Risk Values'
+            text: 'Monthly Values - Alpha'
+        },
+        yAxis: {
+            title: {
+                text: 'Monthly - Alpha (Value)'
+            }
         },
         series: [{
             name: 'Alpha',
@@ -53,18 +59,31 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
                 ['Type', 'Alpha']
             )
         }, {
-            name: 'Beta',
-            data: dataTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'Beta']
-            )
-        }, {
             name: 'Non Dividend Alpha',
             data: dataTable.getRows(
                 void 0,
                 void 0,
                 ['Type', 'NonDividendAlpha']
+            )
+        }]
+    });
+
+    // Create chart
+    Highcharts.chart('container-values-beta', {
+        title: {
+            text: 'Monthly Values - Beta'
+        },
+        yAxis: {
+            title: {
+                text: 'Monthly - Beta (Value)'
+            }
+        },
+        series: [{
+            name: 'Beta',
+            data: dataTable.getRows(
+                void 0,
+                void 0,
+                ['Type', 'Beta']
             )
         }, {
             name: 'Non Dividend Beta',
@@ -77,9 +96,14 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
     });
 
     // Create chart
-    Highcharts.chart('container-companies', {
+    Highcharts.chart('container-companies-alpha', {
         title: {
-            text: 'Equity Aggregates Residual Risk Number Of Companies'
+            text: 'Monthly Companies - Alpha'
+        },
+        yAxis: {
+            title: {
+                text: 'Monthly - Alpha (Companies)'
+            }
         },
         series: [{
             name: 'Alpha Companies',
@@ -89,18 +113,31 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
                 ['Type', 'AlphaCompanies']
             )
         }, {
-            name: 'Beta Companies',
-            data: dataTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'BetaCompanies']
-            )
-        }, {
             name: 'Non Dividend Alpha Companies',
             data: dataTable.getRows(
                 void 0,
                 void 0,
                 ['Type', 'NonDividendAlphaCompanies']
+            )
+        }]
+    });
+
+    // Create chart
+    Highcharts.chart('container-companies-beta', {
+        title: {
+            text: 'Monthly Companies - Beta'
+        },
+        yAxis: {
+            title: {
+                text: 'Monthly - Beta (Companies)'
+            }
+        },
+        series: [{
+            name: 'Beta Companies',
+            data: dataTable.getRows(
+                void 0,
+                void 0,
+                ['Type', 'BetaCompanies']
             )
         }, {
             name: 'Non Dividend Beta Companies',
