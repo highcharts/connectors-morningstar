@@ -33,6 +33,11 @@ planned for the future.
 Here is a list of available converters along with their corresponding data table
 names:
 
+* **AssetAllocationBreakdown**:
+    - AssetAlloc
+    - CanadianAssetAlloc
+    - UnderlyingAssetAlloc
+
 * **CountryAndRegionExposure**:
     - RegionEquity
     - RegionFixedIncome
@@ -96,6 +101,59 @@ const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
 });
 
 await connector.load();
+```
+
+### The `AssetAllocationBreakdown` converter example:
+```js
+    const generalTable = connector.getTable('AssetAlloc'),
+        // Example only uses the first data table. This is how to get
+        // the other tables.
+        canadaTable = connector.getTable('CanadianAssetAlloc'),
+        underlyingTable = connector.getTable('UnderlyingAssetAlloc');
+
+    Highcharts.chart('container', {
+        title: {
+            text: 'General Asset Allocation Breakdown Data'
+        },
+        chart: {
+            type: 'column'
+        },
+        xAxis: {
+            categories: generalTable.getColumn('Type')
+        },
+        series: [{
+            name: 'Long',
+            data: generalTable.getColumn('Long')
+        }, {
+            name: 'Long Rescaled',
+            data: generalTable.getColumn('LongRescaled')
+        }, {
+            name: 'Net',
+            data: generalTable.getColumn('Net')
+        }, {
+            name: 'Short',
+            data: generalTable.getColumn('Short')
+        }]
+    });
+```
+
+### The `CountryAndRegionExposure` converter example:
+```js
+    const regionEquityTable = connector.getTable('RegionEquity'),
+        data = regionEquityTable.getRows(void 0, void 0, ['Region', 'PercNet']);
+
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Region Equity (Net)'
+        },
+        series: [{
+            name: 'Region Equity (Net)',
+            data
+        }]
+    });
 ```
 
 ### The `EquityAggregatesResidualRisk` converter example:
@@ -365,29 +423,12 @@ Highcharts.chart('container', {
 });
 ```
 
-### The `CountryAndRegionExposure` converter example:
-```js
-    const regionEquityTable = connector.getTable('RegionEquity'),
-        data = regionEquityTable.getRows(void 0, void 0, ['Region', 'PercNet']);
-
-    Highcharts.chart('container', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Region Equity (Net)'
-        },
-        series: [{
-            name: 'Region Equity (Net)',
-            data
-        }]
-    });
-```
-
 ## Relevant demos
 
 Examples of using the InvestmentsConnector are available in our demos:
 
+- **Highcharts Core + Morningstar Asset Allocation Breakdown**
+- **Highcharts Core + Morningstar Country and Region Exposure**
 - **Highcharts Core + Morningstar Equity Aggregates Residual Risk**
 - **Highcharts Core + Morningstar Equity Residual Risk**
 - **Highcharts Core + Morningstar Equity Sectors Breakdown**
