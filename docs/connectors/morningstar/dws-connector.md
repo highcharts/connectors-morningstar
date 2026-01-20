@@ -48,7 +48,7 @@ names:
     - CountryRevenueExposure
 
 * **EquityAggregatesResidualRisk**:
-    - AggregatesRiskMonthly
+    - EquityAggregatesResidualRisk
 
 * **EquityResidualRisk**:
     - RiskDaily
@@ -159,7 +159,7 @@ await connector.load();
 ### The `EquityAggregatesResidualRisk` converter example:
 
 ```js
-const dataTable = connector.getTable('AggregatesRiskMonthly');
+const dataTable = connector.getTable('EquityAggregatesResidualRisk');
 
 Highcharts.chart('container', {
     title: {

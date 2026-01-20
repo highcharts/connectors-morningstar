@@ -39,7 +39,7 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
     });
 
     // Get data table
-    const dataTable = connector.getTable('AggregatesRiskMonthly');
+    const dataTable = connector.getTable('EquityAggregatesResidualRisk');
 
     // Create chart
     Highcharts.chart('container-values-alpha', {

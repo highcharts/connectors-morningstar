@@ -30,25 +30,13 @@ import { InvestmentResponse } from '../InvestmentsConnector/InvestmentsJSON';
 namespace EquityResidualRiskJSON {
 
     export interface EquityResidualRiskResponse extends InvestmentResponse {
-        dailyDividendResidualRiskAndReturnSensitivity: Array<DailyDividendResidualRiskAndReturnSensitivity>;
-        dailyNonDividendResidualRiskAndReturnSensitivity: Array<DailyNonDividendResidualRiskAndReturnSensitivity>;
-        dividendResidualRiskAndReturnSensitivity: DividendResidualRiskAndReturnSensitivity;
-        nonDividendResidualRiskAndReturnSensitivity: NonDividendResidualRiskAndReturnSensitivity;
+        dailyDividendResidualRiskAndReturnSensitivity: Array<ResidualRiskAndReturnSensitivity>;
+        dailyNonDividendResidualRiskAndReturnSensitivity: Array<ResidualRiskAndReturnSensitivity>;
+        dividendResidualRiskAndReturnSensitivity: ResidualRiskAndReturnSensitivity;
+        nonDividendResidualRiskAndReturnSensitivity: ResidualRiskAndReturnSensitivity;
     }
 
-    export interface DailyDividendResidualRiskAndReturnSensitivity {
-        [key: string]: number | string;
-    }
-
-    export interface DailyNonDividendResidualRiskAndReturnSensitivity {
-        [key: string]: number | string;
-    }
-
-    export interface DividendResidualRiskAndReturnSensitivity {
-        [key: string]: number | string;
-    }
-
-    export interface NonDividendResidualRiskAndReturnSensitivity {
+    export interface ResidualRiskAndReturnSensitivity {
         [key: string]: number | string;
     }
 }

@@ -20,7 +20,6 @@
  * */
 
 import MorningstarConverter from '../../Shared/MorningstarConverter';
-import { DataTable } from '../../Shared/External';
 import { EquityAggregatesResidualRisk } from './EquityAggregatesResidualRiskOptions';
 
 import type {
@@ -46,12 +45,6 @@ export class EquityAggregatesResidualRiskConverter extends MorningstarConverter 
         options?: EquityAggregatesResidualRiskConverterOptions
     ) {
         super(options);
-
-        // Create main data tables
-        this.tables = [
-            new DataTable({ id: 'AggregatesRiskMonthly' })
-        ];
-
         this.metadata = {
             columns: {}
         };
@@ -74,7 +67,7 @@ export class EquityAggregatesResidualRiskConverter extends MorningstarConverter 
     public override parse (
         options: EquityAggregatesResidualRiskConverterOptions
     ): void {
-        const table = this.tables[0],
+        const table = this.table,
             metadata = this.metadata,
             userOptions = { ...this.options, ...options },
             json = userOptions.json,

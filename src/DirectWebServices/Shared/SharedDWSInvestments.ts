@@ -76,8 +76,7 @@ const CONVERTERS: Converters = [
         ]
     },
     {
-        key: 'EquityAggregatesResidualRisk',
-        children: ['AggregatesRiskMonthly']
+        key: 'EquityAggregatesResidualRisk'
     },
     {
         key: 'EquityResidualRisk',

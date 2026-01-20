@@ -57,27 +57,27 @@ export async function equityAggregatesResidualRisk (
         'NonDividendBeta',
         'NonDividendBetaCompanies'
     ];
-    const dataTable = connector.getTable('AggregatesRiskMonthly');
+    const dataTable = connector.getTable('EquityAggregatesResidualRisk');
 
     Assert.deepStrictEqual(
         dataTable.getColumnIds(),
         columns,
-        'AggregatesRiskMonthly table should have expected columns.'
+        'EquityAggregatesResidualRisk table should have expected columns.'
     );
 
     Assert.ok(
         dataTable.getRowCount() > 0,
-        'AggregatesRiskMonthly table should not return empty rows.'
+        'EquityAggregatesResidualRisk table should not return empty rows.'
     );
 
     Assert.ok(
         dataTable.metadata !== undefined,
-        'AggregatesRiskMonthly table should have metadata defined.'
+        'EquityAggregatesResidualRisk table should have metadata defined.'
     );
 
     Assert.deepStrictEqual(
         Object.keys(dataTable.metadata).sort(),
         ['numberOfCompanies', 'performanceId', 'periodEndDate'],
-        'AggregatesRiskMonthly table metadata should contain expected properties.'
+        'EquityAggregatesResidualRisk table metadata should contain expected properties.'
     );
 }

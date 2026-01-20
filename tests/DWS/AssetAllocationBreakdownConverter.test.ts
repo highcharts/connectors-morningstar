@@ -20,31 +20,31 @@ export async function assetAllocationBreakdown (
     await connector.load();
 
     const expectedAssetAllocCols = [
-        'Type',
-        'Long',
-        'Us_Long',
-        'NonUs_Long',
-        'LongRescaled',
-        'Us_LongRescaled',
-        'NonUs_LongRescaled',
-        'Net',
-        'Us_Net',
-        'NonUs_Net',
-        'Short',
-        'Us_Short',
-        'NonUs_Short'
-    ],
-    expectedCanadianAssetAllocCols = [
-        'Type',
-        'Long',
-        'LongRescaled',
-        'Net',
-        'Short'
-    ],
-    expectedUnderlyingAssetAllocCols = [
-        'Type',
-        'UnderlyingInstruments'
-    ];
+            'Type',
+            'Long',
+            'Us_Long',
+            'NonUs_Long',
+            'LongRescaled',
+            'Us_LongRescaled',
+            'NonUs_LongRescaled',
+            'Net',
+            'Us_Net',
+            'NonUs_Net',
+            'Short',
+            'Us_Short',
+            'NonUs_Short'
+        ],
+        expectedCanadianAssetAllocCols = [
+            'Type',
+            'Long',
+            'LongRescaled',
+            'Net',
+            'Short'
+        ],
+        expectedUnderlyingAssetAllocCols = [
+            'Type',
+            'UnderlyingInstruments'
+        ];
 
     Assert.deepStrictEqual(
         connector.dataTables.AssetAlloc.getColumnIds(),
