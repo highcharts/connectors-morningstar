@@ -83,7 +83,7 @@ export class EquityAggregatesResidualRiskConverter extends MorningstarConverter 
 
                 EquityAggregatesResidualRisk.riskMetrics.forEach((metric) => {
                     // For dividend
-                    let category = `${metric.toLocaleLowerCase()}${month}`;
+                    let category = `${metric.toLowerCase()}${month}`;
 
                     // Get the value of a metric
                     let data = riskData[`${category}Value`];
