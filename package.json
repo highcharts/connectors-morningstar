@@ -48,9 +48,9 @@
         ]
     },
     "peerDependencies": {
-        "@highcharts/dashboards": "^4.0.0",
-        "@highcharts/grid-pro": "^2.0.0",
-        "highcharts": "^12.4.0"
+        "@highcharts/dashboards": "^4.1.0",
+        "@highcharts/grid-pro": "^2.2.0",
+        "highcharts": "^12.5.0"
     },
     "scripts": {
         "api": "npm run webpack && npm run api:server",
