@@ -24,15 +24,15 @@ export async function equityStyleBox (
 
     await connector.load();
 
-    const connectorMeradata = connector.metadata['EquityStyleBox'];
+    const connectorMetadata = connector.metadata['EquityStyleBox'];
 
     Assert.ok(
-        connectorMeradata !== undefined,
+        connectorMetadata !== undefined,
         'InvestmentsConnector metadata should contain EquityStyleBox section.'
     );
 
     Assert.deepStrictEqual(
-        Object.keys(connectorMeradata).sort(),
+        Object.keys(connectorMetadata).sort(),
         [
             'columns',
             'performanceId'
@@ -41,7 +41,7 @@ export async function equityStyleBox (
     );
 
     Assert.deepStrictEqual(
-        connectorMeradata.performanceId,
+        connectorMetadata.performanceId,
         '0P00006W6Q',
         'EquityStyleBox metadata should contain performanceId.'
     );

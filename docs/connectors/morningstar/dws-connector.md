@@ -47,6 +47,13 @@ names:
     - CountryBreakdown
     - CountryRevenueExposure
 
+* **EquityAggregatesResidualRisk**:
+    - EquityAggregatesResidualRisk
+
+* **EquityResidualRisk**:
+    - RiskDaily
+    - RiskMonthly
+
 * **EquitySectorsBreakdown**:
     - EqSuperSectors
     - EqSectors
@@ -81,6 +88,8 @@ const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
     },
     converters: {
         CountryAndRegionExposure: {},
+        EquityAggregatesResidualRisk: {},
+        EquityResidualRisk: {},
         EquitySectorsBreakdown: {},
         FixedIncomeSectorsBreakdown: {},
         EquityStyleBox: {
@@ -92,6 +101,161 @@ const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
 });
 
 await connector.load();
+```
+
+### The `AssetAllocationBreakdown` converter example:
+```js
+    const generalTable = connector.getTable('AssetAlloc'),
+        // Example only uses the first data table. This is how to get
+        // the other tables.
+        canadaTable = connector.getTable('CanadianAssetAlloc'),
+        underlyingTable = connector.getTable('UnderlyingAssetAlloc');
+
+    Highcharts.chart('container', {
+        title: {
+            text: 'General Asset Allocation Breakdown Data'
+        },
+        chart: {
+            type: 'column'
+        },
+        xAxis: {
+            categories: generalTable.getColumn('Type')
+        },
+        series: [{
+            name: 'Long',
+            data: generalTable.getColumn('Long')
+        }, {
+            name: 'Long Rescaled',
+            data: generalTable.getColumn('LongRescaled')
+        }, {
+            name: 'Net',
+            data: generalTable.getColumn('Net')
+        }, {
+            name: 'Short',
+            data: generalTable.getColumn('Short')
+        }]
+    });
+```
+
+### The `CountryAndRegionExposure` converter example:
+```js
+    const regionEquityTable = connector.getTable('RegionEquity'),
+        data = regionEquityTable.getRows(void 0, void 0, ['Region', 'PercNet']);
+
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Region Equity (Net)'
+        },
+        series: [{
+            name: 'Region Equity (Net)',
+            data
+        }]
+    });
+```
+
+### The `EquityAggregatesResidualRisk` converter example:
+
+```js
+const dataTable = connector.getTable('EquityAggregatesResidualRisk');
+
+Highcharts.chart('container', {
+    title: {
+        text: 'Equity Aggregates Residual Risk Values'
+    },
+    subtitle: {
+        text: dataTable.metadata.performanceId
+    },
+    series: [{
+        name: 'Alpha',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'Alpha']
+        )
+    }, {
+        name: 'Beta',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'Beta']
+        )
+    }, {
+        name: 'Non Dividend Alpha',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'NonDividendAlpha']
+        )
+    }, {
+        name: 'Non Dividend Beta',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'NonDividendBeta']
+        )
+    }]
+});
+```
+
+### The `EquityResidualRisk` converter example:
+
+```js
+const dataTable = connector.getTable('RiskDaily');
+
+Highcharts.chart('container-daily', {
+    title: {
+        text: 'Equity Residual Risk Daily Values'
+    },
+    subtitle: {
+        text: dataTable.metadata.performanceId
+    },
+    series: [{
+        name: 'Alpha',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'Alpha']
+        )
+    }, {
+        name: 'Beta',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'Beta']
+        )
+    }, {
+        name: 'RSquare',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'RSquare']
+        )
+    }, {
+        name: 'Non Dividend Alpha',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'NonDividendAlpha']
+        )
+    }, {
+        name: 'Non Dividend Beta',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'NonDividendBeta']
+        )
+    }, {
+        name: 'Non Dividend RSquare',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            ['Type', 'NonDividendRSquare']
+        )
+    }]
+});
 ```
 
 ### The `EquitySectorsBreakdown` converter example:
@@ -259,64 +423,14 @@ Highcharts.chart('container', {
 });
 ```
 
-### The `CountryAndRegionExposure` converter example:
-```js
-    const regionEquityTable = connector.getTable('RegionEquity'),
-        data = regionEquityTable.getRows(void 0, void 0, ['Region', 'PercNet']);
-
-    Highcharts.chart('container', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Region Equity (Net)'
-        },
-        series: [{
-            name: 'Region Equity (Net)',
-            data
-        }]
-    });
-```
-
-### The `AssetAllocationBreakdown` converter example:
-```js
-    const generalTable = connector.getTable('AssetAlloc'),
-        // Example only uses the first data table. This is how to get
-        // the other tables.
-        canadaTable = connector.getTable('CanadianAssetAlloc'),
-        underlyingTable = connector.getTable('UnderlyingAssetAlloc');
-
-    Highcharts.chart('container', {
-        title: {
-            text: 'General Asset Allocation Breakdown Data'
-        },
-        chart: {
-            type: 'column'
-        },
-        xAxis: {
-            categories: generalTable.getColumn('Type')
-        },
-        series: [{
-            name: 'Long',
-            data: generalTable.getColumn('Long')
-        }, {
-            name: 'Long Rescaled',
-            data: generalTable.getColumn('LongRescaled')
-        }, {
-            name: 'Net',
-            data: generalTable.getColumn('Net')
-        }, {
-            name: 'Short',
-            data: generalTable.getColumn('Short')
-        }]
-    });
-```
-
 ## Relevant demos
 
 Examples of using the InvestmentsConnector are available in our demos:
 
 - **Highcharts Core + Morningstar Asset Allocation Breakdown**
+- **Highcharts Core + Morningstar Country and Region Exposure**
+- **Highcharts Core + Morningstar Equity Aggregates Residual Risk**
+- **Highcharts Core + Morningstar Equity Residual Risk**
 - **Highcharts Core + Morningstar Equity Sectors Breakdown**
 - **Highcharts Core + Morningstar Fixed Income Sectors Breakdown**
 - **Highcharts Core + Morningstar Equity Style Box**
