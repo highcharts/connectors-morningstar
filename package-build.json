@@ -26,7 +26,7 @@
         "docs/",
         "es-modules/",
         "CHANGELOG.md",
-        "LICENSE.md",
+        "LICENSE.txt",
         "*-morningstar.d.ts",
         "*-morningstar.js",
         "*-morningstar.src.js",
