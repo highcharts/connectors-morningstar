@@ -16,7 +16,7 @@ Links
 
 * Official website: [www.highcharts.com](http://www.highcharts.com)
 * Product page: [www.highcharts.com/products/data-connector-for-morningstar](https://www.highcharts.com/products/data-connector-for-morningstar/)
-* Demos: [https://www.highcharts.com/demo](https://www.highcharts.com/demo#highcharts-stock-demo-general)
+* Demos: [www.highcharts.com/demo](https://www.highcharts.com/demo#highcharts-stock-demo-general)
 * Download: [www.highcharts.com/download](http://www.highcharts.com/download)
 * License: [www.highcharts.com/license](https://www.highcharts.com/license)
 * Documentation: [www.highcharts.com/docs/morningstar/morningstar](https://www.highcharts.com/docs/morningstar/morningstar)
