@@ -11,6 +11,19 @@ with more to come in the future.
 The standard version of the script provides access to all APIs described here:
 [Highcharts Connectors Docs].
 
+Links
+-----
+
+* Official website: [www.highcharts.com](http://www.highcharts.com)
+* Product page: [www.highcharts.com/products/data-connector-for-morningstar](https://www.highcharts.com/products/data-connector-for-morningstar/)
+* Demos: [www.highcharts.com/demo](https://www.highcharts.com/demo#highcharts-stock-demo-general)
+* Download: [www.highcharts.com/download](http://www.highcharts.com/download)
+* License: [www.highcharts.com/license](https://www.highcharts.com/license) + [shop.highcharts.com/contact/partner-data](https://shop.highcharts.com/contact/partner-data)
+* Documentation: [www.highcharts.com/docs/morningstar/morningstar](https://www.highcharts.com/docs/morningstar/morningstar)
+* Support: [www.highcharts.com/support](http://www.highcharts.com/support)
+* Issues: [Working repo](https://github.com/highcharts/connectors-morningstar/issues)
+
+
 Usage
 -----
 
