@@ -1,6 +1,19 @@
 Changelog
 =========
 
+v3.1.0
+------
+
+## What's Changed
+
+## Enhancements
+* Dashboards v4.1 compatibility adjustments in https://github.com/highcharts/connectors-morningstar/pull/169
+* Investment Details (Sync, Global): Created Prospectus Fees converter in https://github.com/highcharts/connectors-morningstar/pull/166
+* Investment Details (Sync, Global): Created TimeSeries converter in https://github.com/highcharts/connectors-morningstar/pull/163
+* Investment Details (Sync, Global): Created Equity Residual Risk converters in https://github.com/highcharts/connectors-morningstar/pull/167
+
+**Full Changelog**: https://github.com/highcharts/connectors-morningstar/compare/v3.0.0...v3.1.0
+
 v3.0.0
 ------
 
