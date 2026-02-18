@@ -40,6 +40,7 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
 
     // Get data table
     const dataTable = connector.getTable('EquityAggregatesResidualRisk');
+    // TO DO: Uncomment alpha and beta series when query params are supported
 
     // Create chart
     Highcharts.chart('container-values-alpha', {
@@ -51,21 +52,24 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
                 text: 'Monthly - Alpha (Value)'
             }
         },
-        series: [{
-            name: 'Alpha',
-            data: dataTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'Alpha']
-            )
-        }, {
-            name: 'Non Dividend Alpha',
-            data: dataTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'NonDividendAlpha']
-            )
-        }]
+        series: [
+            // {
+            //     name: 'Alpha',
+            //     data: dataTable.getRows(
+            //         void 0,
+            //         void 0,
+            //         ['Type', 'Alpha']
+            //     )
+            // },
+            {
+                name: 'Non Dividend Alpha',
+                data: dataTable.getRows(
+                    void 0,
+                    void 0,
+                    ['Type', 'NonDividendAlpha']
+                )
+            }
+        ]
     });
 
     // Create chart
@@ -78,21 +82,24 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
                 text: 'Monthly - Beta (Value)'
             }
         },
-        series: [{
-            name: 'Beta',
-            data: dataTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'Beta']
-            )
-        }, {
-            name: 'Non Dividend Beta',
-            data: dataTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'NonDividendBeta']
-            )
-        }]
+        series: [
+            // {
+            //     name: 'Beta',
+            //     data: dataTable.getRows(
+            //         void 0,
+            //         void 0,
+            //         ['Type', 'Beta']
+            //     )
+            // },
+            {
+                name: 'Non Dividend Beta',
+                data: dataTable.getRows(
+                    void 0,
+                    void 0,
+                    ['Type', 'NonDividendBeta']
+                )
+            }
+        ]
     });
 
     // Create chart
@@ -105,21 +112,24 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
                 text: 'Monthly - Alpha (Companies)'
             }
         },
-        series: [{
-            name: 'Alpha Companies',
-            data: dataTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'AlphaCompanies']
-            )
-        }, {
-            name: 'Non Dividend Alpha Companies',
-            data: dataTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'NonDividendAlphaCompanies']
-            )
-        }]
+        series: [
+            // {
+            //     name: 'Alpha Companies',
+            //     data: dataTable.getRows(
+            //         void 0,
+            //         void 0,
+            //         ['Type', 'AlphaCompanies']
+            //     )
+            // },
+            {
+                name: 'Non Dividend Alpha Companies',
+                data: dataTable.getRows(
+                    void 0,
+                    void 0,
+                    ['Type', 'NonDividendAlphaCompanies']
+                )
+            }
+        ]
     });
 
     // Create chart
@@ -132,21 +142,24 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
                 text: 'Monthly - Beta (Companies)'
             }
         },
-        series: [{
-            name: 'Beta Companies',
-            data: dataTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'BetaCompanies']
-            )
-        }, {
-            name: 'Non Dividend Beta Companies',
-            data: dataTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'NonDividendBetaCompanies']
-            )
-        }]
+        series: [
+            // {
+            //     name: 'Beta Companies',
+            //     data: dataTable.getRows(
+            //         void 0,
+            //         void 0,
+            //         ['Type', 'BetaCompanies']
+            //     )
+            // },
+            {
+                name: 'Non Dividend Beta Companies',
+                data: dataTable.getRows(
+                    void 0,
+                    void 0,
+                    ['Type', 'NonDividendBetaCompanies']
+                )
+            }
+        ]
     });
 
     loadingLabel.style.display = 'none';
