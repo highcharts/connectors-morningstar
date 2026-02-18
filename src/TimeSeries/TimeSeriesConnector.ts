@@ -163,12 +163,9 @@ export class TimeSeriesConnector extends MorningstarConnector {
         await super.load();
 
         const options = this.options;
-        const currencyId = options.currencyId;
-        const endDate = options.endDate;
-        const securities = options.securities;
-        const startDate = options.startDate;
-        const tax = options.tax;
-        const frequency = options.frequency;
+        const {
+            currencyId, endDate, performanceType, securities, startDate, tax, frequency
+        } = options;
 
         if (!securities) {
             return this;
@@ -185,6 +182,10 @@ export class TimeSeriesConnector extends MorningstarConnector {
 
         if (endDate) {
             url.setDate('endDate', endDate);
+        }
+
+        if (performanceType) {
+            url.searchParams.set('performanceType', performanceType);
         }
 
         if (startDate) {
