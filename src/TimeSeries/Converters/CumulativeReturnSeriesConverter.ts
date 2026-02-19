@@ -25,6 +25,7 @@
 import TimeSeriesConverter from '../TimeSeriesConverter';
 import { CumulativeReturnSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
+import MorningstarURL from '../../Shared/MorningstarURL';
 
 
 /* *
@@ -157,6 +158,22 @@ export class CumulativeReturnSeriesConverter extends TimeSeriesConverter {
             table.setCell(return_.Id, currentTableIndex, return_.Value);
         }
 
+    }
+
+    public override decorateURL (url: MorningstarURL) {
+        const { categoryBands, decPlaces, excludeStubMonth } = this.options;
+
+        if (categoryBands) {
+            url.searchParams.set('categoryBands', `${categoryBands}`);
+        }
+
+        if (decPlaces) {
+            url.searchParams.set('decPlaces', `${decPlaces}`);
+        }
+
+        if (excludeStubMonth) {
+            url.searchParams.set('excludeStubMonth', `${excludeStubMonth}`);
+        }
     }
 
 
