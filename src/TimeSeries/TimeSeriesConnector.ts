@@ -163,12 +163,10 @@ export class TimeSeriesConnector extends MorningstarConnector {
         await super.load();
 
         const options = this.options;
-        const currencyId = options.currencyId;
-        const endDate = options.endDate;
-        const securities = options.securities;
-        const startDate = options.startDate;
-        const tax = options.tax;
-        const frequency = options.frequency;
+        const {
+            currencyId, endDate, frequency, localization, performanceType, restructureDateOptions,
+            securities, startDate, taxOption, timePeriod, timePeriodUnit
+        } = options;
 
         if (!securities) {
             return this;
@@ -187,16 +185,36 @@ export class TimeSeriesConnector extends MorningstarConnector {
             url.setDate('endDate', endDate);
         }
 
+        if (frequency) {
+            url.searchParams.set('frequency', frequency);
+        }
+
+        if (localization) {
+            url.setLocalizationOptions(localization);
+        }
+
+        if (performanceType) {
+            url.searchParams.set('performanceType', performanceType);
+        }
+
+        if (restructureDateOptions) {
+            url.searchParams.set('restructureDateOptions', restructureDateOptions);
+        }
+
         if (startDate) {
             url.setDate('startDate', startDate);
         }
 
-        if (tax) {
-            url.searchParams.set('tax', tax);
+        if (taxOption) {
+            url.searchParams.set('taxOption', taxOption);
         }
 
-        if (frequency) {
-            url.searchParams.set('frequency', frequency);
+        if (timePeriod) {
+            url.searchParams.set('timePeriod', `${timePeriod}`);
+        }
+
+        if (timePeriodUnit) {
+            url.searchParams.set('timePeriodUnit', timePeriodUnit);
         }
 
         this.converter.decorateURL(url);

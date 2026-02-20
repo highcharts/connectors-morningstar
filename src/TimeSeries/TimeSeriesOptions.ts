@@ -40,10 +40,30 @@ import type {
 export interface CumulativeReturnSeriesOptions extends TimeSeriesConverterOptions {
 
     /**
+     * When `true`, includes category bands.
+     *
+     * @default true
+    */
+    categoryBands?: boolean;
+
+    /**
+     * Number of decimal places. Used when `outputType=compactjson`.
+     *
+     * @default 2
+    */
+    decPlaces?: number;
+
+    /**
+     * When true, excludes stub month.
+     *
+     * @default false
+     */
+    excludeStubMonth?: boolean;
+
+    /**
      * Series type to retrieve.
      */
     type: 'CumulativeReturn';
-
 }
 
 
@@ -69,9 +89,30 @@ export interface DividendSeriesOptions extends TimeSeriesConverterOptions {
 export interface GrowthSeriesOptions extends TimeSeriesConverterOptions {
 
     /**
+     * When `true`, includes category bands.
+     *
+     * @default true
+     */
+    categoryBands?: boolean;
+
+    /**
+     * Start value for growth series.
+     *
+     * @default 10000
+     */
+    startValue?: number;
+
+    /**
      * Series type to retrieve.
      */
     type: 'Growth';
+
+    /**
+     * Defines the start day when `frequency=weekly`.
+     *
+     * @default null
+     */
+    weeklyStartDay?: ('firstAvailable');
 
 }
 
@@ -202,6 +243,18 @@ export interface TimeSeriesOptions extends MorningstarOptions {
     localization?: LocalizationOptions;
 
     /**
+     * Performance type to base the return on.
+     */
+    performanceType?: string;
+
+    /**
+     * Sets if restructured dates should be considered.
+     *
+     * @default 'ignore'
+     */
+    restructureDateOptions?: ('ignore'|'validate');
+
+    /**
      * Securities to retrieve.
      *
      * **NOTE: When series type is `OHLCV`, only one security is supported.**
@@ -222,7 +275,27 @@ export interface TimeSeriesOptions extends MorningstarOptions {
     /**
      * Tax option.
      */
-    tax?: ('pretax'|'posttax');
+    taxOption?: ('pretax'|'posttax');
+
+    /**
+     * Sets the length of the time period. For example, if `timePeriodUnit` is set
+     * to monthly and `timePeriod` value is 24, time series data for 24 months
+     * is returned.
+     *
+     * If `timePeriod` has no value, the service returns results since inception.
+     *
+     * **Note:** `timePeriod` value overrides the `startDate` value.
+     *
+     * @default 12
+     */
+    timePeriod?: number;
+
+    /**
+     * Sets the time period unit of the time series.
+     *
+     * @default 'months'
+     */
+    timePeriodUnit?: ('months'|'days'|'years');
 
 }
 

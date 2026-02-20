@@ -18,7 +18,8 @@ export async function growthLoad (
             idType: 'MSID'
         }],
         series: {
-            type: 'Growth'
+            type: 'Growth',
+            startValue: 1000
         },
         startDate: '2020-01-01'
     });
@@ -47,5 +48,10 @@ export async function growthLoad (
         31,
         'Connector table should have 31 growth rows.'
     );
+
+    Assert.ok(
+        connector.getTable().getCell(securityId, 0) === 1000,
+        'Growth value for first day should be equal to startValue option.'
+    )
 
 }

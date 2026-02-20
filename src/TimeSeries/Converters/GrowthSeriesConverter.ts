@@ -25,6 +25,7 @@
 import TimeSeriesConverter from '../TimeSeriesConverter';
 import { GrowthSeriesOptions } from '../TimeSeriesOptions';
 import TimeSeriesJSON from '../TimeSeriesJSON';
+import MorningstarURL from '../../Shared/MorningstarURL';
 
 
 /* *
@@ -159,6 +160,21 @@ export class GrowthSeriesConverter extends TimeSeriesConverter {
 
     }
 
+    public override decorateURL (url: MorningstarURL) {
+        const { categoryBands, startValue, weeklyStartDay } = this.options;
+
+        if (categoryBands) {
+            url.searchParams.set('categoryBands', `${categoryBands}`);
+        }
+
+        if (startValue) {
+            url.searchParams.set('startValue', `${startValue}`);
+        }
+
+        if (weeklyStartDay) {
+            url.searchParams.set('weeklyStartDay', weeklyStartDay);
+        }
+    }
 
 }
 
