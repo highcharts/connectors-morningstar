@@ -58,7 +58,9 @@ const banner = `// SPDX-License-Identifier: LicenseRef-Highcharts
 * A commercial license is required.
 * See https://shop.highcharts.com/contact/partner-data
 */`;
-const license = /License: https:\/\/shop.highcharts.com\/contact\/partner-data/u;
+const keepLicenseComment = (_: unknown, comment: { value: string }) =>
+  /SPDX-License-Identifier:\s*LicenseRef-Highcharts\b/u.test(comment.value) ||
+  /See https:\/\/shop\.highcharts\.com\/contact\/partner-data/u.test(comment.value);
 
 /* *
  *
@@ -237,7 +239,8 @@ webpacks.forEach(webpack => {
         new TerserPlugin({
             terserOptions: {
                 format: {
-                    comments: license // Keep comments that include "License:"
+                    // Keep comments that include "License:" or "SPDX-License"
+                    comments: keepLicenseComment
                 }
             },
             extractComments: false
