@@ -1,6 +1,16 @@
 Changelog
 =========
 
+v3.1.1
+------
+
+## What's Changed
+
+## Bugfixes
+* Time Series (EMEA/APAC): Added support for missing query params in https://github.com/highcharts/connectors-morningstar/pull/173
+
+**Full Changelog**: https://github.com/highcharts/connectors-morningstar/compare/v3.1.0...v3.1.1
+
 v3.1.0
 ------
 
