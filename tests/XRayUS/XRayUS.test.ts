@@ -99,8 +99,8 @@ export async function xRayUSConnectorLoad (
         'Unclassified_F00000VCTT',
         'Value_FOUSA00C3O',
         'Unclassified_FOUSA00C3O',
-        'Value_0P0000BVN5',
-        'Unclassified_0P0000BVN5',
+        'Value_0P000000GY',
+        'Unclassified_0P000000GY',
         'Style',
         'Size'
     ];
@@ -123,7 +123,7 @@ export async function xRayUSConnectorLoad (
         'Value',
         'Value_FOUSA00DFS',
         'Value_F00000VCTT',
-        'Value_0P0000BVN5',
+        'Value_0P000000GY',
         'Value_FOUSA00C3O',
         'Style',
         'Size'
@@ -166,9 +166,9 @@ export async function xRayUSConnectorLoad (
         'L_Benchmark',
         'S_Benchmark',
         'N_Benchmark',
-        'L_0P0000BVN5',
-        'S_0P0000BVN5',
-        'N_0P0000BVN5',
+        'L_0P000000GY',
+        'S_0P000000GY',
+        'N_0P000000GY',
         'L_F00000VCTT',
         'S_F00000VCTT',
         'N_F00000VCTT',
@@ -240,9 +240,9 @@ export async function xRayUSConnectorLoad (
         'Weight_FOUSA00C3O',
         'SharpeRatio_FOUSA00C3O',
         'StandardDeviation_FOUSA00C3O',
-        'Mean_0P0000BVN5',
-        'Weight_0P0000BVN5',
-        'StandardDeviation_0P0000BVN5'
+        'Mean_0P000000GY',
+        'Weight_0P000000GY',
+        'StandardDeviation_0P000000GY'
     ];
 
     const actualRiskStatisticsColumns = connector.dataTables.RiskStatistics.getColumnIds();
@@ -273,7 +273,7 @@ export async function xRayUSConnectorLoad (
         [
             'Type',
             'Value',
-            'Value_0P0000BVN5',
+            'Value_0P000000GY',
             'Value_F00000VCTT',
             'Value_FOUSA00C3O',
             'Value_FOUSA00DFS'
@@ -300,8 +300,8 @@ export async function xRayUSConnectorLoad (
             'PortfolioAnalyzed',
             'Analyzed_FOUSA00C3O',
             'NotAnalyzed_FOUSA00C3O',
-            'Analyzed_0P0000BVN5',
-            'NotAnalyzed_0P0000BVN5',
+            'Analyzed_0P000000GY',
+            'NotAnalyzed_0P000000GY',
             'Analyzed_FOUSA00DFS',
             'NotAnalyzed_FOUSA00DFS',
             'Analyzed_F00000VCTT',
@@ -356,17 +356,17 @@ export async function xRayUSConnectorLoad (
 
     const expectedCorrelationMatrixColumns = [
         'Year10',
-        'Year10_0P0000BVN5',
+        'Year10_0P000000GY',
         'Year10_F00000VCTT',
         'Year10_FOUSA00C3O',
         'Year10_FOUSA00DFS',
         'Year3',
-        'Year3_0P0000BVN5',
+        'Year3_0P000000GY',
         'Year3_F00000VCTT',
         'Year3_FOUSA00C3O',
         'Year3_FOUSA00DFS',
         'Year5',
-        'Year5_0P0000BVN5',
+        'Year5_0P000000GY',
         'Year5_F00000VCTT',
         'Year5_FOUSA00C3O',
         'Year5_FOUSA00DFS',
@@ -388,7 +388,7 @@ export async function xRayUSConnectorLoad (
     );
 
     const year3ColumnNames = [
-        'Year3_0P0000BVN5',
+        'Year3_0P000000GY',
         'Year3_F00000VCTT',
         'Year3_FOUSA00C3O',
         'Year3_FOUSA00DFS'
