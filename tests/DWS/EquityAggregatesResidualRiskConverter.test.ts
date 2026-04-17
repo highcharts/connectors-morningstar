@@ -49,12 +49,12 @@ export async function equityAggregatesResidualRisk (
     // TO DO: Uncomment alpha and beta columns when query params are supported
     const columns = [
         'Type',
-        // 'Alpha',
-        // 'AlphaCompanies',
+        'Alpha',
+        'AlphaCompanies',
         'NonDividendAlpha',
         'NonDividendAlphaCompanies',
-        // 'Beta',
-        // 'BetaCompanies',
+        'Beta',
+        'BetaCompanies',
         'NonDividendBeta',
         'NonDividendBetaCompanies'
     ];

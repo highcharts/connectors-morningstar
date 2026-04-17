@@ -321,6 +321,7 @@ export async function portfolioHoldings (
             'ExternalName_F00000Q5PZ',
             'PerformanceId_F00000Q5PZ',
             'ISIN_F00000Q5PZ',
+            'CUSIP_F0GBR050DD',
             'CurrencyId_F00000Q5PZ',
             'CountryId_F00000Q5PZ',
             'SecurityName_F00000Q5PZ',
