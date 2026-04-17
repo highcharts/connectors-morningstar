@@ -110,6 +110,61 @@ function capitalize (text: string) {
 }
 
 
+/**
+ * Rewrites Highcharts CDN URLs to local `node_modules` (and `/code/` for
+ * connectors) so demos work offline when dependencies are installed.
+ *
+ * @param source
+ * Response body before send.
+ *
+ * @return
+ * Transformed source.
+ */
+export function CDNToLocal (source: string): string {
+    return source
+        .replace(
+            /https:\/\/code\.highcharts\.com\/connectors\/morningstar\//gu,
+            '/code/'
+        )
+        .replace(
+            /https:\/\/code\.highcharts\.com\/stock\/highstock\.js/gu,
+            '/node_modules/highcharts/highstock.js'
+        )
+        .replace(
+            /https:\/\/code\.highcharts\.com\/highcharts\.js/gu,
+            '/node_modules/highcharts/highcharts.js'
+        )
+        .replace(
+            /https:\/\/code\.highcharts\.com\/gantt\//gu,
+            '/node_modules/highcharts/gantt/'
+        )
+        .replace(
+            /https:\/\/code\.highcharts\.com\/maps\//gu,
+            '/node_modules/highcharts/maps/'
+        )
+        .replace(
+            /https:\/\/code\.highcharts\.com\/mapdata\//gu,
+            '/node_modules/highcharts/mapdata/'
+        )
+        .replace(
+            /https:\/\/code\.highcharts\.com\/modules\//gu,
+            '/node_modules/highcharts/modules/'
+        )
+        .replace(
+            /https:\/\/code\.highcharts\.com\/css\//gu,
+            '/node_modules/highcharts/css/'
+        )
+        .replace(
+            /https:\/\/code\.highcharts\.com\/dashboards\//gu,
+            '/node_modules/@highcharts/dashboards/'
+        )
+        .replace(
+            /https:\/\/cdn\.jsdelivr\.net\/npm\/@highcharts\/grid-pro\//gu,
+            '/node_modules/@highcharts/grid-pro/'
+        );
+}
+
+
 /* *
  *
  *  Class
@@ -184,11 +239,13 @@ export class Server {
         let folder = this.folder;
         let path = sanitizePath(request.url || '/' + this.defaultFile);
 
-        if (path.startsWith('/code/')) {
+        if (path.startsWith('/code/') || path.startsWith('/node_modules/')) {
             if (folder.includes('node_modules')) {
                 // Runs in package
                 folder = Path.relative(CWD, Path.join(__dirname, '..', '..'));
-                path = path.substring(5);
+                if (path.startsWith('/code/')) {
+                    path = path.substring(5);
+                }
             } else {
                 // Runs in repository
                 folder = '.';
@@ -236,14 +293,9 @@ export class Server {
                 ext = 'html';
             }
 
-            if (['html', 'js'].includes(ext)) {
+            if (['css', 'html', 'js'].includes(ext)) {
                 fileBuffer = Buffer.from(
-                    fileBuffer
-                        .toString('utf8')
-                        .replace(
-                            /https:\/\/code\.highcharts\.com\/connectors\/morningstar\//gu,
-                            '/code/'
-                        )
+                    CDNToLocal(fileBuffer.toString('utf8'))
                 );
             }
 
