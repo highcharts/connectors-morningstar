@@ -242,6 +242,7 @@ export async function portfolioHoldingsLoad (
             'ISIN',
             'CurrencyId',
             'CountryId',
+            'CUSIP',
             'SecurityName',
             'ShareChange',
             'Weighting',
