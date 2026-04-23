@@ -55,6 +55,17 @@
         "@highcharts/grid-pro": "^2.2.0",
         "highcharts": "^12.5.0"
     },
+    "peerDependenciesMeta": {
+        "@highcharts/dashboards": {
+            "optional": true
+        },
+        "@highcharts/grid-pro": {
+            "optional": true
+        },
+        "highcharts": {
+            "optional": true
+        }
+    },
     "scripts": {
         "api": "npm run webpack && npm run api:server",
         "api:server": "(sleep 1 ; open http://localhost:8005) & node bin/connectors-morningstar api",
