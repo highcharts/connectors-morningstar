@@ -40,6 +40,13 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         tooltip: {
             shared: true,
             valueSuffix: '%'
+        },
+        plotOptions: {
+            series: {
+                dataMapping: {
+                    name: 'Type'
+                }
+            }
         }
     });
 
@@ -54,30 +61,25 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
 
     // Create chart
     Highcharts.chart('container-super-sectors', {
+        dataTable: superSectorsTable,
         title: {
             text: 'Equity Super Sectors Breakdown'
         },
         series: [{
             name: 'Equity Super Sectors Long Rescaled',
-            data: superSectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, longRescaled]
-            )
+            dataMapping: {
+                y: longRescaled
+            }
         }, {
             name: 'Equity Super Sectors Long',
-            data: superSectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, long]
-            )
+            dataMapping: {
+                y: long
+            }
         }, {
             name: 'Equity Super Sectors Net',
-            data: superSectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, net]
-            )
+            dataMapping: {
+                y: net
+            }
         }]
     });
 
@@ -86,30 +88,25 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
 
     // Create chart
     Highcharts.chart('container-sectors', {
+        dataTable: sectorsTable,
         title: {
             text: 'Equity Sectors Breakdown'
         },
         series: [{
             name: 'Equity Sectors Long Rescaled',
-            data: sectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, longRescaled]
-            )
+            dataMapping: {
+                y: longRescaled
+            }
         }, {
             name: 'Equity Sectors Long',
-            data: sectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, long]
-            )
+            dataMapping: {
+                y: long
+            }
         }, {
             name: 'Equity Sectors Net',
-            data: sectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, net]
-            )
+            dataMapping: {
+                y: net
+            }
         }]
     });
 
@@ -118,30 +115,25 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
 
     // Create chart
     Highcharts.chart('container-industries', {
+        dataTable: industriesTable,
         title: {
             text: 'Equity Industries Breakdown'
         },
         series: [{
             name: 'Equity Industries Long Rescaled',
-            data: industriesTable.getRows(
-                void 0,
-                void 0,
-                [type, longRescaled]
-            )
+            dataMapping: {
+                y: longRescaled
+            }
         }, {
             name: 'Equity Industries Long',
-            data: industriesTable.getRows(
-                void 0,
-                void 0,
-                [type, long]
-            )
+            dataMapping: {
+                y: long
+            }
         }, {
             name: 'Equity Industries Net',
-            data: industriesTable.getRows(
-                void 0,
-                void 0,
-                [type, net]
-            )
+            dataMapping: {
+                y: net
+            }
         }]
     });
 

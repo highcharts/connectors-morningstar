@@ -64,19 +64,15 @@ async function displayPerformance (postmanJSON) {
         SinceInception: 'Since Inception'
     };
 
-    const portfolioData = connector.dataTables.TrailingReturns.getRows(
-        void 0,
-        void 0,
-        ['Id', 'Value']
-    ).map(([period, value]) => [periods[period], value]);
+    const dataTable = connector.getTable('TrailingReturns');
 
-    const benchmarkData = connector.dataTables.TrailingReturns.getRows(
-        void 0,
-        void 0,
-        ['Id', 'Value_Benchmark']
-    ).map(([period, value]) => [periods[period], value]);
+    dataTable.setColumn(
+        'Name',
+        dataTable.getColumn('Id').map(id => periods[id] || id)
+    );
 
     Highcharts.chart('container', {
+        dataTable,
         chart: {
             type: 'column'
         },
@@ -97,11 +93,17 @@ async function displayPerformance (postmanJSON) {
         series: [
             {
                 name: 'Portfolio',
-                data: portfolioData
+                dataMapping: {
+                    name: 'Name',
+                    y: 'Value'
+                }
             },
             {
                 name: 'Benchmark',
-                data: benchmarkData
+                dataMapping: {
+                    name: 'Name',
+                    y: 'Value_Benchmark'
+                }
             }
         ]
     });

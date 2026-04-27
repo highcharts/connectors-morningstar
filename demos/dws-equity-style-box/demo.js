@@ -26,6 +26,7 @@ async function displayEquityStyleBox (postmanJSON) {
 
     // Create chart
     Highcharts.chart('container', {
+        dataTable,
         chart: {
             type: 'heatmap'
         },
@@ -111,7 +112,11 @@ async function displayEquityStyleBox (postmanJSON) {
             custom: {
                 ...dataTable.metadata
             },
-            data: dataTable.getRows(),
+            dataMapping: {
+                x: 'Style',
+                y: 'Size',
+                value: 'Value'
+            },
             dataLabels: {
                 enabled: true,
                 format: '{value:.0f}%',

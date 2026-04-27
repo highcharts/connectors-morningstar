@@ -29,7 +29,11 @@ async function initializeChart (postmanJSON) {
         },
         series: [{
             type: 'area',
-            data: priceConnector.getTable().getRows(),
+            dataTable: priceConnector.getTable(),
+            dataMapping: {
+                x: 'Date',
+                y: '0P000000GY'
+            },
             fillColor: {
                 linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
                 stops: [

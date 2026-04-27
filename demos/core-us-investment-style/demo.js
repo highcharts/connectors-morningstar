@@ -133,12 +133,15 @@ async function displayXRayUS (postmanJSON) {
         },
         series: [{
             name: 'Portfolio Weight',
+            dataTable: connector.getTable('EquityStyle'),
             borderWidth: 1,
             borderColor: '#e5e7e9',
-            keys: ['Type', 'value', 'x', 'y'],
-            data: connector.dataTables.EquityStyle.getRows(
-                void 0, void 0, ['Type', 'Value', 'Style', 'Size']
-            ),
+            dataMapping: {
+                Type: 'Type',
+                value: 'Value',
+                x: 'Style',
+                y: 'Size'
+            },
             dataLabels: {
                 enabled: true,
                 format: '{value:.0f}%',

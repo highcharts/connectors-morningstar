@@ -49,99 +49,96 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         brkShort = 'Fixed_Income_Breakdown_CalcShortFiperc',
         brkNet = 'Fixed_Income_Breakdown_CalcNetFiperc';
 
-    // Get data table
-    const superSectorsBrkTable = connector.getTable('IncBrkSuperSectors');
-
     // Create chart
     Highcharts.chart('container-brk-super-sectors', {
+        dataTable: connector.getTable('IncBrkSuperSectors'),
+        plotOptions: {
+            series: {
+                dataMapping: {
+                    name: brkType
+                }
+            }
+        },
         title: {
             text: 'Fixed Income Super Sectors Breakdown'
         },
         series: [{
             name: 'Fixed Income Breakdown Super Sectors Long',
-            data: superSectorsBrkTable.getRows(
-                void 0,
-                void 0,
-                [brkType, brkLong]
-            )
+            dataMapping: {
+                y: brkLong
+            }
         }, {
             name: 'Fixed Income Breakdown Super Sectors Short',
-            data: superSectorsBrkTable.getRows(
-                void 0,
-                void 0,
-                [brkType, brkShort]
-            )
+            dataMapping: {
+                y: brkShort
+            }
         }, {
             name: 'Fixed Income Breakdown Super Sectors Net',
-            data: superSectorsBrkTable.getRows(
-                void 0,
-                void 0,
-                [brkType, brkNet]
-            )
+            dataMapping: {
+                y: brkNet
+            }
         }]
     });
 
-    // Get data table
-    const primarySectorsBrkTable = connector.getTable('IncBrkPrimarySectors');
-
     // Create chart
     Highcharts.chart('container-brk-primary-sectors', {
+        dataTable: connector.getTable('IncBrkPrimarySectors'),
+        plotOptions: {
+            series: {
+                dataMapping: {
+                    name: brkType
+                }
+            }
+        },
         title: {
             text: 'Fixed Income Primary Sectors Breakdown'
         },
         series: [{
             name: 'Fixed Income Breakdown Primary Sectors Long',
-            data: primarySectorsBrkTable.getRows(
-                void 0,
-                void 0,
-                [brkType, brkLong]
-            )
+            dataMapping: {
+                y: brkLong
+            }
         }, {
             name: 'Fixed Income Breakdown Primary Sectors Short',
-            data: primarySectorsBrkTable.getRows(
-                void 0,
-                void 0,
-                [brkType, brkShort]
-            )
+            dataMapping: {
+                y: brkShort
+            }
         }, {
             name: 'Fixed Income Breakdown Primary Sectors Net',
-            data: primarySectorsBrkTable.getRows(
-                void 0,
-                void 0,
-                [brkType, brkNet]
-            )
+            dataMapping: {
+                y: brkNet
+            }
         }]
     });
 
-    // Get data table
-    const secondarySectorsBrkTable = connector.getTable('IncBrkSecondarySectors');
-
     // Create chart
     Highcharts.chart('container-brk-secondary-sectors', {
+        dataTable: connector.getTable('IncBrkSecondarySectors'),
+        plotOptions: {
+            series: {
+                dataMapping: {
+                    name: brkType
+                }
+            }
+        },
         title: {
             text: 'Fixed Income Secondary Sectors Breakdown'
         },
         series: [{
             name: 'Fixed Income Breakdown Secondary Sectors Long',
-            data: secondarySectorsBrkTable.getRows(
-                void 0,
-                void 0,
-                [brkType, brkLong]
-            )
+            dataMapping: {
+                y: brkLong
+            }
         }, {
             name: 'Fixed Income Breakdown Secondary Sectors Short',
-            data: secondarySectorsBrkTable.getRows(
-                void 0,
-                void 0,
-                [brkType, brkShort]
-            )
+            dataMapping: {
+                y: brkShort
+            }
         }, {
             name: 'Fixed Income Breakdown Secondary Sectors Net',
-            data: secondarySectorsBrkTable.getRows(
-                void 0,
-                void 0,
-                [brkType, brkNet]
-            )
+            dataMapping: {
+                y: brkNet
+            }
         }]
     });
 
@@ -152,120 +149,111 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         short = 'Fixed_Income_PercShort',
         net = 'Fixed_Income_PercNet';
 
-    // Get data table
-    const superSectorsTable = connector.getTable('IncSuperSectors');
-
     // Create chart
     Highcharts.chart('container-super-sectors', {
+        dataTable: connector.getTable('IncSuperSectors'),
+        plotOptions: {
+            series: {
+                dataMapping: {
+                    name: type
+                }
+            }
+        },
         title: {
             text: 'Fixed Income Super Sectors'
         },
         series: [{
             name: 'Fixed Income Super Sectors Long Rescaled',
-            data: superSectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, longRescaled]
-            )
+            dataMapping: {
+                y: longRescaled
+            }
         }, {
             name: 'Fixed Income Super Sectors Long',
-            data: superSectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, long]
-            )
+            dataMapping: {
+                y: long
+            }
         }, {
             name: 'Fixed Income Super Sectors Short',
-            data: superSectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, short]
-            )
+            dataMapping: {
+                y: short
+            }
         }, {
             name: 'Fixed Income Super Sectors Net',
-            data: superSectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, net]
-            )
+            dataMapping: {
+                y: net
+            }
         }]
     });
 
-    // Get data table
-    const primarySectorsTable = connector.getTable('IncPrimarySectors');
-
     // Create chart
     Highcharts.chart('container-primary-sectors', {
+        dataTable: connector.getTable('IncPrimarySectors'),
+        plotOptions: {
+            series: {
+                dataMapping: {
+                    name: type
+                }
+            }
+        },
         title: {
             text: 'Fixed Income Primary Sectors'
         },
         series: [{
             name: 'Fixed Income Primary Sectors Long Rescaled',
-            data: primarySectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, longRescaled]
-            )
+            dataMapping: {
+                y: longRescaled
+            }
         }, {
             name: 'Fixed Income Primary Sectors Long',
-            data: primarySectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, long]
-            )
+            dataMapping: {
+                y: long
+            }
         }, {
             name: 'Fixed Income Primary Sectors Short',
-            data: primarySectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, short]
-            )
+            dataMapping: {
+                y: short
+            }
         }, {
             name: 'Fixed Income Primary Sectors Net',
-            data: primarySectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, net]
-            )
+            dataMapping: {
+                y: net
+            }
         }]
     });
 
-    // Get data table
-    const secondarySectorsTable = connector.getTable('IncSecondarySectors');
-
     // Create chart
     Highcharts.chart('container-secondary-sectors', {
+        dataTable: connector.getTable('IncSecondarySectors'),
+        plotOptions: {
+            series: {
+                dataMapping: {
+                    name: type
+                }
+            }
+        },
         title: {
             text: 'Fixed Income Secondary Sectors'
         },
         series: [{
             name: 'Fixed Income Secondary Sectors Long Rescaled',
-            data: secondarySectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, longRescaled]
-            )
+            dataMapping: {
+                y: longRescaled
+            }
         }, {
             name: 'Fixed Income Secondary Sectors Long',
-            data: secondarySectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, long]
-            )
+            dataMapping: {
+                y: long
+            }
         }, {
             name: 'Fixed Income Secondary Sectors Short',
-            data: secondarySectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, short]
-            )
+            dataMapping: {
+                y: short
+            }
         }, {
             name: 'Fixed Income Secondary Sectors Net',
-            data: secondarySectorsTable.getRows(
-                void 0,
-                void 0,
-                [type, net]
-            )
+            dataMapping: {
+                y: net
+            }
         }]
     });
 

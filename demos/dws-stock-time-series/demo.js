@@ -31,7 +31,11 @@ async function initializeChart (postmanJSON) {
         },
         series: [{
             type: 'area',
-            data: growthConnector.getTable().getRows(),
+            dataTable: growthConnector.getTable(),
+            dataMapping: {
+                x: 'Date',
+                y: 'Value'
+            },
             fillColor: {
                 linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
                 stops: [
