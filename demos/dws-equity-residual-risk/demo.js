@@ -63,13 +63,11 @@ async function displayEquityResidualRisk (postmanJSON) {
         series: [{
             name: 'Alpha',
             dataMapping: {
-                name: 'Type',
                 y: 'Alpha'
             }
         }, {
             name: 'Non Dividend Alpha',
             dataMapping: {
-                name: 'Type',
                 y: 'NonDividendAlpha'
             }
         }]

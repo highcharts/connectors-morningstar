@@ -21,6 +21,12 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
     // Load data
     await connector.load();
 
+    // Set categories
+    const brkType = 'Fixed_Income_Breakdown_Type',
+        brkLong = 'Fixed_Income_Breakdown_CalcLongFiperc',
+        brkShort = 'Fixed_Income_Breakdown_CalcShortFiperc',
+        brkNet = 'Fixed_Income_Breakdown_CalcNetFiperc';
+
     // Set global options
     Highcharts.setOptions({
         chart: {
@@ -40,25 +46,19 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         tooltip: {
             shared: true,
             valueSuffix: '%'
-        }
-    });
-
-    // Set categories
-    const brkType = 'Fixed_Income_Breakdown_Type',
-        brkLong = 'Fixed_Income_Breakdown_CalcLongFiperc',
-        brkShort = 'Fixed_Income_Breakdown_CalcShortFiperc',
-        brkNet = 'Fixed_Income_Breakdown_CalcNetFiperc';
-
-    // Create chart
-    Highcharts.chart('container-brk-super-sectors', {
-        dataTable: connector.getTable('IncBrkSuperSectors'),
+        },
         plotOptions: {
             series: {
                 dataMapping: {
                     name: brkType
                 }
             }
-        },
+        }
+    });
+
+    // Create chart
+    Highcharts.chart('container-brk-super-sectors', {
+        dataTable: connector.getTable('IncBrkSuperSectors'),
         title: {
             text: 'Fixed Income Super Sectors Breakdown'
         },
@@ -83,13 +83,6 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
     // Create chart
     Highcharts.chart('container-brk-primary-sectors', {
         dataTable: connector.getTable('IncBrkPrimarySectors'),
-        plotOptions: {
-            series: {
-                dataMapping: {
-                    name: brkType
-                }
-            }
-        },
         title: {
             text: 'Fixed Income Primary Sectors Breakdown'
         },
@@ -114,13 +107,6 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
     // Create chart
     Highcharts.chart('container-brk-secondary-sectors', {
         dataTable: connector.getTable('IncBrkSecondarySectors'),
-        plotOptions: {
-            series: {
-                dataMapping: {
-                    name: brkType
-                }
-            }
-        },
         title: {
             text: 'Fixed Income Secondary Sectors Breakdown'
         },

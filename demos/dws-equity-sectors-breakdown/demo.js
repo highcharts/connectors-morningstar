@@ -21,6 +21,12 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
     // Load data
     await connector.load();
 
+    // Set categories
+    const type = 'Type',
+        longRescaled = 'PercLongRescaled',
+        long = 'PercLong',
+        net = 'PercNet';
+
     // Set global options
     Highcharts.setOptions({
         chart: {
@@ -44,17 +50,11 @@ async function displayEquitySectorsBreakdown (postmanJSON) {
         plotOptions: {
             series: {
                 dataMapping: {
-                    name: 'Type'
+                    name: type
                 }
             }
         }
     });
-
-    // Set categories
-    const type = 'Type',
-        longRescaled = 'PercLongRescaled',
-        long = 'PercLong',
-        net = 'PercNet';
 
     // Get data table
     const superSectorsTable = connector.getTable('EqSuperSectors');

@@ -46,8 +46,6 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
         }
     });
 
-    // TO DO: Uncomment alpha and beta series when query params are supported
-
     // Create chart
     Highcharts.chart('container-values-alpha', {
         title: {
@@ -59,12 +57,12 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
             }
         },
         series: [
-            // {
-            //     name: 'Alpha',
-            //     dataMapping: {
-            //         y: 'Alpha'
-            //     }
-            // },
+            {
+                name: 'Alpha',
+                dataMapping: {
+                    y: 'Alpha'
+                }
+            },
             {
                 name: 'Non Dividend Alpha',
                 dataMapping: {
@@ -85,12 +83,12 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
             }
         },
         series: [
-            // {
-            //     name: 'Beta',
-            //     dataMapping: {
-            //         y: 'Beta'
-            //     }
-            // },
+            {
+                name: 'Beta',
+                dataMapping: {
+                    y: 'Beta'
+                }
+            },
             {
                 name: 'Non Dividend Beta',
                 dataMapping: {
@@ -111,12 +109,12 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
             }
         },
         series: [
-            // {
-            //     name: 'Alpha Companies',
-            //     dataMapping: {
-            //         y: 'AlphaCompanies'
-            //     }
-            // },
+            {
+                name: 'Alpha Companies',
+                dataMapping: {
+                    y: 'AlphaCompanies'
+                }
+            },
             {
                 name: 'Non Dividend Alpha Companies',
                 dataMapping: {
@@ -137,12 +135,12 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
             }
         },
         series: [
-            // {
-            //     name: 'Beta Companies',
-            //     dataMapping: {
-            //         y: 'BetaCompanies'
-            //     }
-            // },
+            {
+                name: 'Beta Companies',
+                dataMapping: {
+                    y: 'BetaCompanies'
+                }
+            },
             {
                 name: 'Non Dividend Beta Companies',
                 dataMapping: {

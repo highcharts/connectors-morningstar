@@ -66,6 +66,7 @@ async function displayPerformance (postmanJSON) {
 
     const dataTable = connector.getTable('TrailingReturns');
 
+    // Add column with name translation
     dataTable.setColumn(
         'Name',
         dataTable.getColumn('Id').map(id => periods[id] || id)

@@ -30,6 +30,7 @@ async function displayAssetAllocations (postmanJSON) {
 
     const dataTable = connector.getTable('AssetAllocations');
 
+    // Add column with name translation
     dataTable.setColumn(
         'MorningstarEUR3_Name',
         dataTable.getColumn('MorningstarEUR3_Type').map(type => typeMapping[type] || type)
