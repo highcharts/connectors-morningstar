@@ -592,10 +592,12 @@ function buildParentMap (
     map = new Map<string, string | null>()
 ) {
     for (const key in obj) {
-        map.set(key, parent);
-
         const value = obj[key];
 
+        // Set the child-to-parent association for the current key
+        map.set(key, parent);
+
+        // If the value is an array, set the parent association for each item
         if (Array.isArray(value)) {
             for (const item of value) {
                 if (typeof item === 'string') {
@@ -603,6 +605,7 @@ function buildParentMap (
                 }
             }
         } else if (typeof value === 'object' && value !== null) {
+            // If the value is a non-null object, build the parent map for it
             buildParentMap(value as Record<string, unknown>, key, map);
         }
     }

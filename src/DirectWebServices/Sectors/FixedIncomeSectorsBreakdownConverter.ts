@@ -192,10 +192,12 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                             fixedIncomeBreakdownMap.get(typeAndName) :
                             fixedIncomeMap.get(typeAndName);
 
-                        if (parent) {
-                            // Set parent sector value
-                            table.setCell(`${column}_Parent`, index, parent);
-                        }
+                        // Set parent sector value
+                        table.setCell(
+                            `${column}_Parent`,
+                            index,
+                            parent ?? 'UncategorizedSector'
+                        );
                     }
                 }
             }
