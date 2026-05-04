@@ -82,10 +82,13 @@ export async function fixedIncomeSectorsBreakdown (
         'IncSuperSectors table metadata should contain expected properties.'
     );
 
+    fixedIncColumns.push('Fixed_Income_Parent');
+    fixedIncColumns.sort();
+
     const primarySectorsDataTable = connector.getTable('IncPrimarySectors');
 
     Assert.deepStrictEqual(
-        primarySectorsDataTable.getColumnIds(),
+        primarySectorsDataTable.getColumnIds().sort(),
         fixedIncColumns,
         'IncPrimarySectors table should have expected columns.'
     );
@@ -102,14 +105,17 @@ export async function fixedIncomeSectorsBreakdown (
 
     Assert.deepStrictEqual(
         Object.keys(primarySectorsDataTable.metadata).sort(),
-        ['fixedIncPrimarySectorRescalingFactorLong', 'performanceId'],
+        [
+            'fixedIncPrimarySectorRescalingFactorLong',
+            'performanceId'
+        ],
         'IncPrimarySectors table metadata should contain expected properties.'
     );
 
     const secondarySectorsDataTable = connector.getTable('IncSecondarySectors');
 
     Assert.deepStrictEqual(
-        secondarySectorsDataTable.getColumnIds(),
+        secondarySectorsDataTable.getColumnIds().sort(),
         fixedIncColumns,
         'IncSecondarySectors table should have expected columns.'
     );
@@ -162,14 +168,21 @@ export async function fixedIncomeSectorsBreakdown (
 
     Assert.deepStrictEqual(
         Object.keys(brkSuperSectorsDataTable.metadata).sort(),
-        ['performanceId'],
+        [
+            'performanceId'
+        ],
         'IncBrkSuperSectors table metadata should contain expected properties.'
     );
 
-    const brkPrimarySectorsDataTable = connector.getTable('IncBrkPrimarySectors');
+    fixedIncomeBreakdownColumns.push('Fixed_Income_Breakdown_Parent');
+    fixedIncomeBreakdownColumns.sort();
+
+    const brkPrimarySectorsDataTable = connector.getTable(
+        'IncBrkPrimarySectors'
+    );
 
     Assert.deepStrictEqual(
-        brkPrimarySectorsDataTable.getColumnIds(),
+        brkPrimarySectorsDataTable.getColumnIds().sort(),
         fixedIncomeBreakdownColumns,
         'IncBrkPrimarySectors table should have expected columns.'
     );
@@ -190,10 +203,12 @@ export async function fixedIncomeSectorsBreakdown (
         'IncBrkPrimarySectors table metadata should contain expected properties.'
     );
 
-    const brkSecondarySectorsDataTable = connector.getTable('IncBrkSecondarySectors');
+    const brkSecondarySectorsDataTable = connector.getTable(
+        'IncBrkSecondarySectors'
+    );
 
     Assert.deepStrictEqual(
-        brkSecondarySectorsDataTable.getColumnIds(),
+        brkSecondarySectorsDataTable.getColumnIds().sort(),
         fixedIncomeBreakdownColumns,
         'IncBrkSecondarySectors table should have expected columns.'
     );
