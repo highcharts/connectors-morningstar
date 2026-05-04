@@ -26,6 +26,7 @@
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 import type { TimeSeriesConverterOptions } from './TimeSeriesOptions';
 import type { TimeSeriesResponse } from './TimeSeriesJSON';
+import { defined } from 'highcharts';
 
 
 /* *
@@ -65,26 +66,41 @@ export class TimeSeriesConverter extends MorningstarConverter {
 
         if (investments) {
             const hasMultiple = investments.length > 1;
+
+            // Create a table of dates shared among all investments.
+            const dates = new Set<string>();
+
+            for (const investment of investments) {
+                for (const series of investment.timeSeries) {
+                    for (const point of series.data) {
+                        dates.add(point.date);
+                    }
+                }
+            }
+
+            const sortedDates = [...dates].sort();
+
+            table.setColumn(
+                'Date', sortedDates
+            );
+
+            // Assign point values via date indices.
             for (const investment of investments) {
                 const { timeSeries, identifiers } = investment,
                     columnSuffix = hasMultiple ? `_${identifiers.performanceId}` : '';
 
                 for (const series of timeSeries) {
-                    let rowIndex = 0;
                     for (const point of series.data) {
-                        table.setCell(
-                            `Date${columnSuffix}`,
-                            rowIndex,
-                            point.date
-                        );
 
-                        table.setCell(
-                            `Value${columnSuffix}`,
-                            rowIndex,
-                            point.value
-                        );
+                        const dateRowIndex = table.getRowIndexBy('Date', point.date);
 
-                        rowIndex++;
+                        if (defined(dateRowIndex)) {
+                            table.setCell(
+                                `Value${columnSuffix}`,
+                                dateRowIndex as number,
+                                point.value
+                            );
+                        }
                     }
                 }
             }

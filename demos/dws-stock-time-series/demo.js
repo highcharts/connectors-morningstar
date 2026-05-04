@@ -12,6 +12,9 @@ async function initializeChart (postmanJSON) {
         ids: [{
             id: '0P00000FIA',
             idType: 'performanceId'
+        }, {
+            id: '0P00002PB8',
+            idType: 'performanceId'
         }],
         category: 'performance',
         dataPoint: 'growth',
@@ -31,7 +34,17 @@ async function initializeChart (postmanJSON) {
         },
         series: [{
             type: 'area',
-            data: growthConnector.getTable().getRows(),
+            data: growthConnector.getTable().getRows(void 0, void 0, ['Date', 'Value_0P00000FIA']),
+            fillColor: {
+                linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+                stops: [
+                    [0, Highcharts.getOptions().colors[0]],
+                    [1, 'rgba(255, 255, 255, 0)']
+                ]
+            }
+        }, {
+            type: 'area',
+            data: growthConnector.getTable().getRows(void 0, void 0, ['Date', 'Value_0P00002PB8']),
             fillColor: {
                 linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
                 stops: [
