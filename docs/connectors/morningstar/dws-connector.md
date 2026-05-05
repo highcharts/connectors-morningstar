@@ -63,9 +63,11 @@ names:
     - IncSuperSectors
     - IncPrimarySectors
     - IncSecondarySectors
+    - IncAllSectors
     - IncBrkSuperSectors
     - IncBrkPrimarySectors
     - IncBrkSecondarySectors
+    - IncBrkAllSectors
 
 * **EquityStyleBox**:
     - StockStyle

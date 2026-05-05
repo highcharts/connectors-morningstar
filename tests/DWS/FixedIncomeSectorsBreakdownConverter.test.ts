@@ -53,8 +53,9 @@ export async function fixedIncomeSectorsBreakdown (
         'Fixed_Income_PercNet',
         'Fixed_Income_PercShort',
         'Fixed_Income_PercLong'
-    ];
-    const superSectorsDataTable = connector.getTable('IncSuperSectors');
+    ],
+        superSectorsDataTable = connector.getTable('IncSuperSectors'),
+        superSectorsCount = superSectorsDataTable.getRowCount();
 
     Assert.deepStrictEqual(
         superSectorsDataTable.getColumnIds(),
@@ -63,7 +64,7 @@ export async function fixedIncomeSectorsBreakdown (
     );
 
     Assert.ok(
-        superSectorsDataTable.getRowCount() > 0,
+        superSectorsCount > 0,
         'IncSuperSectors table should not return empty rows.'
     );
 
@@ -82,10 +83,11 @@ export async function fixedIncomeSectorsBreakdown (
         'IncSuperSectors table metadata should contain expected properties.'
     );
 
-    fixedIncColumns.push('Fixed_Income_Parent');
+    fixedIncColumns.push('Fixed_Income_Path');
     fixedIncColumns.sort();
 
-    const primarySectorsDataTable = connector.getTable('IncPrimarySectors');
+    const primarySectorsDataTable = connector.getTable('IncPrimarySectors'),
+        primarySectorsCount = primarySectorsDataTable.getRowCount();
 
     Assert.deepStrictEqual(
         primarySectorsDataTable.getColumnIds().sort(),
@@ -94,7 +96,7 @@ export async function fixedIncomeSectorsBreakdown (
     );
 
     Assert.ok(
-        primarySectorsDataTable.getRowCount() > 0,
+        primarySectorsCount > 0,
         'IncPrimarySectors table should not return empty rows.'
     );
 
@@ -112,7 +114,8 @@ export async function fixedIncomeSectorsBreakdown (
         'IncPrimarySectors table metadata should contain expected properties.'
     );
 
-    const secondarySectorsDataTable = connector.getTable('IncSecondarySectors');
+    const secondarySectorsDataTable = connector.getTable('IncSecondarySectors'),
+        secondarySectorsCount = secondarySectorsDataTable.getRowCount();
 
     Assert.deepStrictEqual(
         secondarySectorsDataTable.getColumnIds().sort(),
@@ -121,7 +124,7 @@ export async function fixedIncomeSectorsBreakdown (
     );
 
     Assert.ok(
-        secondarySectorsDataTable.getRowCount() > 0,
+        secondarySectorsCount > 0,
         'IncSecondarySectors table should not return empty rows.'
     );
 
@@ -142,22 +145,46 @@ export async function fixedIncomeSectorsBreakdown (
         'IncSecondarySectors table metadata should contain expected properties.'
     );
 
-    const fixedIncomeBreakdownColumns = [
+    const sectorsDataTable = connector.getTable('IncAllSectors'),
+        sectorsCount = sectorsDataTable.getRowCount();
+
+    Assert.deepStrictEqual(
+        sectorsDataTable.getColumnIds().sort(),
+        fixedIncColumns,
+        'IncAllSectors table should have expected columns.'
+    );
+
+    Assert.ok(
+        sectorsCount > 0,
+        'IncAllSectors table should not return empty rows.'
+    );
+
+    Assert.ok(
+        sectorsCount === (
+            superSectorsCount +
+            primarySectorsCount +
+            secondarySectorsCount
+        ),
+        'IncAllSectors table should have all rows from previous sectors.'
+    );
+
+    const fixedIncBreakdownColumns = [
         'Fixed_Income_Breakdown_Type',
         'Fixed_Income_Breakdown_CalcNetFiperc',
         'Fixed_Income_Breakdown_CalcLongFiperc',
         'Fixed_Income_Breakdown_CalcShortFiperc'
-    ];
-    const brkSuperSectorsDataTable = connector.getTable('IncBrkSuperSectors');
+    ],
+        brkSuperSectorsDataTable = connector.getTable('IncBrkSuperSectors'),
+        brkSuperSectorsCount = brkSuperSectorsDataTable.getRowCount();
 
     Assert.deepStrictEqual(
         brkSuperSectorsDataTable.getColumnIds(),
-        fixedIncomeBreakdownColumns,
+        fixedIncBreakdownColumns,
         'IncBrkSuperSectors table should have expected columns.'
     );
 
     Assert.ok(
-        brkSuperSectorsDataTable.getRowCount() > 0,
+        brkSuperSectorsCount > 0,
         'IncBrkSuperSectors table should not return empty rows.'
     );
 
@@ -174,21 +201,22 @@ export async function fixedIncomeSectorsBreakdown (
         'IncBrkSuperSectors table metadata should contain expected properties.'
     );
 
-    fixedIncomeBreakdownColumns.push('Fixed_Income_Breakdown_Parent');
-    fixedIncomeBreakdownColumns.sort();
+    fixedIncBreakdownColumns.push('Fixed_Income_Breakdown_Path');
+    fixedIncBreakdownColumns.sort();
 
     const brkPrimarySectorsDataTable = connector.getTable(
         'IncBrkPrimarySectors'
-    );
+    ),
+        brkPrimarySectorsCount = brkPrimarySectorsDataTable.getRowCount();
 
     Assert.deepStrictEqual(
         brkPrimarySectorsDataTable.getColumnIds().sort(),
-        fixedIncomeBreakdownColumns,
+        fixedIncBreakdownColumns,
         'IncBrkPrimarySectors table should have expected columns.'
     );
 
     Assert.ok(
-        brkPrimarySectorsDataTable.getRowCount() > 0,
+        brkPrimarySectorsCount > 0,
         'IncBrkPrimarySectors table should not return empty rows.'
     );
 
@@ -205,16 +233,17 @@ export async function fixedIncomeSectorsBreakdown (
 
     const brkSecondarySectorsDataTable = connector.getTable(
         'IncBrkSecondarySectors'
-    );
+    ),
+        brkSecondarySectorsCount = brkSecondarySectorsDataTable.getRowCount();
 
     Assert.deepStrictEqual(
         brkSecondarySectorsDataTable.getColumnIds().sort(),
-        fixedIncomeBreakdownColumns,
+        fixedIncBreakdownColumns,
         'IncBrkSecondarySectors table should have expected columns.'
     );
 
     Assert.ok(
-        brkSecondarySectorsDataTable.getRowCount() > 0,
+        brkSecondarySectorsCount > 0,
         'IncBrkSecondarySectors table should not return empty rows.'
     );
 
@@ -227,5 +256,28 @@ export async function fixedIncomeSectorsBreakdown (
         Object.keys(brkSecondarySectorsDataTable.metadata).sort(),
         ['performanceId'],
         'IncBrkSecondarySectors table metadata should contain expected properties.'
+    );
+
+    const brkSectorsDataTable = connector.getTable('IncBrkAllSectors'),
+        brkSectorsCount = brkSectorsDataTable.getRowCount();
+
+    Assert.deepStrictEqual(
+        brkSectorsDataTable.getColumnIds().sort(),
+        fixedIncBreakdownColumns,
+        'IncBrkAllSectors table should have expected columns.'
+    );
+
+    Assert.ok(
+        brkSectorsCount > 0,
+        'IncBrkAllSectors table should not return empty rows.'
+    );
+
+    Assert.ok(
+        brkSectorsCount === (
+            brkSuperSectorsCount +
+            brkPrimarySectorsCount +
+            brkSecondarySectorsCount
+        ),
+        'IncBrkAllSectors table should have all rows from previous sectors.'
     );
 }

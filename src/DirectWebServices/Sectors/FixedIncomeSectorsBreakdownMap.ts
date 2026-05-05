@@ -566,6 +566,16 @@ const fixedIncomeBreakdown = {
     UncategorizedSector: []
 };
 
+// Prefixes stripped from sector identifiers when building paths
+const sectorPrefixes = [
+    'SuperSector',
+    'PrimarySector',
+    'SecondarySector',
+    'SuperSectorBreakdown',
+    'PrimarySectorBreakdown',
+    'SecondarySectorBreakdown'
+];
+
 /* *
  *
  *  Functions
@@ -573,40 +583,61 @@ const fixedIncomeBreakdown = {
  * */
 
 /**
+ * Removes the prefix from a sector identifier so only the meaningful segment
+ * remains.
+ *
+ * @param key Sector identifier to strip.
+ *
+ * @return The identifier without its prefix, or unchanged if none matches.
+ */
+function stripPrefix (key: string): string {
+    for (const prefix of sectorPrefixes) {
+        if (key.startsWith(prefix)) {
+            return key.slice(prefix.length);
+        }
+    }
+    return key;
+}
+
+/**
  * Recursively walks a sectors hierarchy and produces a flat lookup that maps
- * every sector identifier to the identifier of its direct parent.
+ * every sector identifier to its full root-to-leaf path, joined by `/` and
+ * with structural prefixes stripped from each segment.
  *
  * @param obj Sectors hierarchy to traverse.
  *
- * @param parent Parent identifier assigned to the keys at the current recursion
- * level.
+ * @param parentPath Path segments accumulated from ancestors at the current
+ * recursion level.
  *
- * @param map Accumulator map that collects the child-to-parent associations.
+ * @param map Accumulator map that collects the identifier-to-path associations.
  *
- * @return
- * The populated map of sector identifiers to their parent identifiers.
+ * @return The populated map of sector identifiers to their full paths.
  */
-function buildParentMap (
+function buildPathMap (
     obj: Record<string, unknown>,
-    parent: string | null = null,
-    map = new Map<string, string | null>()
+    parentPath: string[] = [],
+    map = new Map<string, string>()
 ) {
     for (const key in obj) {
-        const value = obj[key];
+        const value = obj[key],
+            currentPath = [...parentPath, stripPrefix(key)];
 
-        // Set the child-to-parent association for the current key
-        map.set(key, parent);
+        // Set the path association for the current key
+        map.set(key, currentPath.join('/'));
 
-        // If the value is an array, set the parent association for each item
+        // If the value is an array, set the path association for each item
         if (Array.isArray(value)) {
             for (const item of value) {
                 if (typeof item === 'string') {
-                    map.set(item, key);
+                    map.set(
+                        item,
+                        [...currentPath, stripPrefix(item)].join('/')
+                    );
                 }
             }
         } else if (typeof value === 'object' && value !== null) {
-            // If the value is a non-null object, build the parent map for it
-            buildParentMap(value as Record<string, unknown>, key, map);
+            // If the value is a non-null object, build the path map for it
+            buildPathMap(value as Record<string, unknown>, currentPath, map);
         }
     }
 
@@ -619,5 +650,5 @@ function buildParentMap (
  *
  * */
 
-export const fixedIncomeMap = buildParentMap(fixedIncome);
-export const fixedIncomeBreakdownMap = buildParentMap(fixedIncomeBreakdown);
+export const fixedIncomePathMap = buildPathMap(fixedIncome);
+export const fixedIncomeBreakdownPathMap = buildPathMap(fixedIncomeBreakdown);

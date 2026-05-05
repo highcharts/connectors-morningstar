@@ -20,8 +20,8 @@
  * */
 
 import {
-    fixedIncomeMap,
-    fixedIncomeBreakdownMap
+    fixedIncomePathMap,
+    fixedIncomeBreakdownPathMap
 } from './FixedIncomeSectorsBreakdownMap';
 import SectorsBreakdown from './SectorsBreakdownOptions';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
@@ -57,9 +57,11 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
             new DataTable({ id: 'IncSuperSectors' }),
             new DataTable({ id: 'IncPrimarySectors' }),
             new DataTable({ id: 'IncSecondarySectors' }),
+            new DataTable({ id: 'IncAllSectors' }),
             new DataTable({ id: 'IncBrkSuperSectors' }),
             new DataTable({ id: 'IncBrkPrimarySectors' }),
-            new DataTable({ id: 'IncBrkSecondarySectors' })
+            new DataTable({ id: 'IncBrkSecondarySectors' }),
+            new DataTable({ id: 'IncBrkAllSectors' })
         ];
 
         this.metadata = {
@@ -121,7 +123,8 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
             }
 
             if (surveyedFixedIncSectorDate) {
-                metadata.surveyedFixedIncSectorDate = surveyedFixedIncSectorDate as string;
+                metadata.surveyedFixedIncSectorDate =
+                    surveyedFixedIncSectorDate as string;
             }
 
             if (json.metadata.messages?.length) {
@@ -137,10 +140,15 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
             // Search the data
             for (const option in sectorsData) {
                 // Consider only selected data
-                const field = prefixes.find((prefix) => option.startsWith(prefix));
+                const field = prefixes.find(
+                    (prefix) => option.startsWith(prefix)
+                );
+
                 if (field) {
                     // Get the correct mapping object
-                    const mapping = fieldsMapping[field as keyof typeof fieldsMapping];
+                    const mapping = fieldsMapping[
+                        field as keyof typeof fieldsMapping
+                    ];
 
                     // Try to find matching proeprty
                     const match = option.match(mapping.pattern);
@@ -158,14 +166,23 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                     // Get the right table
                     const table = tablesObj[type];
 
+                    // Save the value also in the table with all sectors
+                    const allTable = type.includes('Breakdown') ?
+                        tablesObj['AllSectorBreakdown'] :
+                        tablesObj['AllSector'];
+
                     // Save factor properties in the table's metadata
                     if (option.includes('Factor') && table.metadata) {
                         table.metadata[option] = Number(sectorsData[option]);
                         continue;
                     }
 
-                    // Get the right array
-                    const sectors = mapping[(type.charAt(0).toLowerCase() + type.slice(1)).replace('Breakdown', '')] as Array<string>,
+                    // Get the right arrays
+                    const sectors = mapping[
+                            (type.charAt(0).toLowerCase() +
+                            type.slice(1)).replace('Breakdown', '')
+                        ] as Array<string>,
+                        allSectors = mapping['allSector'] as Array<string>,
                         column = mapping.column;
 
                     // New sector
@@ -180,24 +197,39 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                         table.setCell(`${column}_Type`, index, name);
                     }
 
-                    const value = sectorsData[option];
-                    if (value) {
-                        // Set value of a specific category
-                        table.setCell(`${column}_${match[3]}`, index, Number(value));
+                    // New sector
+                    let allIndex = allSectors.indexOf(typeAndName);
+                    if (allSectors && allIndex === -1) {
+                        allIndex = allSectors.length;
+
+                        // Save sector
+                        allSectors.push(typeAndName);
+
+                        // Sector type value
+                        allTable.setCell(`${column}_Type`, allIndex, name);
                     }
 
-                    // Get the parent sector only for Primary and Secondary
-                    if (!type.includes('SuperSector')) {
-                        const parent = field === 'fixdInc' ?
-                            fixedIncomeBreakdownMap.get(typeAndName) :
-                            fixedIncomeMap.get(typeAndName);
+                    const value = sectorsData[option];
+                    if (value) {
+                        const columnId = `${column}_${match[3]}`,
+                            cellValue = Number(value);
 
-                        // Set parent sector value
-                        table.setCell(
-                            `${column}_Parent`,
-                            index,
-                            parent ?? 'UncategorizedSector'
-                        );
+                        // Set value of a specific category
+                        table.setCell(columnId, index, cellValue);
+                        allTable.setCell(columnId, allIndex, cellValue);
+                    }
+
+                    // Get the path of sectors only for Primary and Secondary
+                    if (!type.includes('SuperSector')) {
+                        const path = field === 'fixdInc' ?
+                                fixedIncomeBreakdownPathMap.get(typeAndName) :
+                                fixedIncomePathMap.get(typeAndName),
+                            columnId = `${column}_Path`,
+                            cellValue = path ?? 'UncategorizedSector';
+
+                        // Set path to sector value
+                        table.setCell(columnId, index, cellValue);
+                        allTable.setCell(columnId, allIndex, cellValue);
                     }
                 }
             }
@@ -215,6 +247,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                 superSector: [],
                 primarySector: [],
                 secondarySector: [],
+                allSector: [],
                 suffixes: SectorsBreakdown.suffixesFiperc,
                 column: 'Fixed_Income_Breakdown'
             },
@@ -226,6 +259,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                 superSector: [],
                 primarySector: [],
                 secondarySector: [],
+                allSector: [],
                 suffixes: SectorsBreakdown.suffixes,
                 column: 'Fixed_Income'
             },
@@ -237,6 +271,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                 superSector: [],
                 primarySector: [],
                 secondarySector: [],
+                allSector: [],
                 suffixes: ['PercLong'],
                 column: 'Surveyed_Fixed_Income'
             }

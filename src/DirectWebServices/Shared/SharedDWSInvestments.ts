@@ -96,9 +96,11 @@ const CONVERTERS: Converters = [
             'IncSuperSectors',
             'IncPrimarySectors',
             'IncSecondarySectors',
+            'IncAllSectors',
             'IncBrkSuperSectors',
             'IncBrkPrimarySectors',
-            'IncBrkSecondarySectors'
+            'IncBrkSecondarySectors',
+            'IncBrkAllSectors'
         ]
     },
     {
