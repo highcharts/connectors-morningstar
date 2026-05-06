@@ -383,7 +383,7 @@ const fixedIncome = {
             'SecondarySectorBondWarrant'
         ]
     },
-    UncategorizedSector: [
+    OtherSectorUncategorized: [
         'SecondarySectorDerivativeCashOffsets',
         'SecondarySectorFrn',
         'SecondarySectorMunicipal',
@@ -563,7 +563,7 @@ const fixedIncomeBreakdown = {
             'SecondarySectorBreakdownUnknown'
         ]
     },
-    UncategorizedSector: []
+    OtherSectorUncategorized: []
 };
 
 // Prefixes stripped from sector identifiers when building paths
@@ -573,7 +573,8 @@ const sectorPrefixes = [
     'SecondarySector',
     'SuperSectorBreakdown',
     'PrimarySectorBreakdown',
-    'SecondarySectorBreakdown'
+    'SecondarySectorBreakdown',
+    'OtherSector'
 ];
 
 /* *

@@ -219,18 +219,16 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                         allTable.setCell(columnId, allIndex, cellValue);
                     }
 
-                    // Get the path of sectors only for Primary and Secondary
-                    if (!type.includes('SuperSector')) {
-                        const path = field === 'fixdInc' ?
-                                fixedIncomeBreakdownPathMap.get(typeAndName) :
-                                fixedIncomePathMap.get(typeAndName),
-                            columnId = `${column}_Path`,
-                            cellValue = path ?? 'UncategorizedSector';
+                    // Get the path of all sectors
+                    const path = field === 'fixdInc' ?
+                            fixedIncomeBreakdownPathMap.get(typeAndName) :
+                            fixedIncomePathMap.get(typeAndName),
+                        columnId = `${column}_Path`,
+                        cellValue = path ?? ['Uncategorized', name].join('/');
 
-                        // Set path to sector value
-                        table.setCell(columnId, index, cellValue);
-                        allTable.setCell(columnId, allIndex, cellValue);
-                    }
+                    // Set path to sector value
+                    table.setCell(columnId, index, cellValue);
+                    allTable.setCell(columnId, allIndex, cellValue);
                 }
             }
         }
