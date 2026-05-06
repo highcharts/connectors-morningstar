@@ -20,6 +20,86 @@
  * */
 
 
+// Country variants registered alongside super sectors
+const sectorCountryVariants: Array<{
+    keyPrefix: string;
+    parentKey: string;
+    countries: string[];
+}> = [{
+    keyPrefix: 'SuperSectorGovernment',
+    parentKey: 'SuperSectorGovernmentPerCountry',
+    countries: [
+        'AmericaUnitedStatesOf',
+        'Argentina',
+        'Australia',
+        'Austria',
+        'Bahamas',
+        'Belgium',
+        'Belize',
+        'Bermuda',
+        'Bolivia',
+        'Brazil',
+        'Canada',
+        'CaymanIslands',
+        'ChannelIslands',
+        'Chile',
+        'China',
+        'Colombia',
+        'CzechRepublic',
+        'Denmark',
+        'Egypt',
+        'Finland',
+        'France',
+        'FranceMetropolitan',
+        'FrontierCountry',
+        'Germany',
+        'Greece',
+        'Greenland',
+        'Guernsey',
+        'HolySeeVaticanCityState',
+        'HongKong',
+        'Hungary',
+        'Iceland',
+        'India',
+        'Indonesia',
+        'Ireland',
+        'IsleOfMan',
+        'Israel',
+        'Italy',
+        'Japan',
+        'Jersey',
+        'KoreaRepublicOf',
+        'Liechtenstein',
+        'Luxembourg',
+        'Malaysia',
+        'Mexico',
+        'Monaco',
+        'Morocco',
+        'Netherlands',
+        'NewZealand',
+        'Norway',
+        'Peru',
+        'Philippines',
+        'Poland',
+        'Portugal',
+        'PuertoRico',
+        'RussianFederation',
+        'Singapore',
+        'SouthAfrica',
+        'Spain',
+        'Sweden',
+        'Switzerland',
+        'Taiwan',
+        'Thailand',
+        'Turkey',
+        'UnitedKingdom',
+        'Uruguay',
+        'Venezuela',
+        'VirginIslandsBritish',
+        'VirginIslandsUS'
+    ]
+}];
+
 // Morningstar fixed income sector hierarchy
 const fixedIncome = {
     SuperSectorGovernment: {
@@ -238,6 +318,7 @@ const fixedIncome = {
             'SecondarySectorGovernmentRelatedOther'
         ]
     },
+    SuperSectorGovernmentPerCountry: {},
     SuperSectorMunicipal: {
         PrimarySectorMunicipalTaxable: [
             'SecondarySectorTaxableAdvanceRefunded',
@@ -383,7 +464,7 @@ const fixedIncome = {
             'SecondarySectorBondWarrant'
         ]
     },
-    OtherSectorUncategorized: [
+    SuperSectorUncategorized: [
         'SecondarySectorDerivativeCashOffsets',
         'SecondarySectorFrn',
         'SecondarySectorMunicipal',
@@ -563,7 +644,7 @@ const fixedIncomeBreakdown = {
             'SecondarySectorBreakdownUnknown'
         ]
     },
-    OtherSectorUncategorized: []
+    SuperSectorUncategorized: []
 };
 
 // Prefixes stripped from sector identifiers when building paths
@@ -573,8 +654,7 @@ const sectorPrefixes = [
     'SecondarySector',
     'SuperSectorBreakdown',
     'PrimarySectorBreakdown',
-    'SecondarySectorBreakdown',
-    'OtherSector'
+    'SecondarySectorBreakdown'
 ];
 
 /* *
@@ -612,12 +692,19 @@ function stripPrefix (key: string): string {
  *
  * @param map Accumulator map that collects the identifier-to-path associations.
  *
+ * @param countryVariants Optional list of country-variant configs
+ *
  * @return The populated map of sector identifiers to their full paths.
  */
 function buildPathMap (
     obj: Record<string, unknown>,
     parentPath: string[] = [],
-    map = new Map<string, string>()
+    map = new Map<string, string>(),
+    countryVariants: Array<{
+        keyPrefix: string;
+        parentKey: string;
+        countries: string[];
+    }> = []
 ) {
     for (const key in obj) {
         const value = obj[key],
@@ -625,6 +712,18 @@ function buildPathMap (
 
         // Set the path association for the current key
         map.set(key, currentPath.join('/'));
+
+        // Register country-suffixed variants attached under this super sector
+        for (const variant of countryVariants) {
+            if (variant.parentKey === key) {
+                for (const country of variant.countries) {
+                    map.set(
+                        `${variant.keyPrefix}${country}`,
+                        [...currentPath, country].join('/')
+                    );
+                }
+            }
+        }
 
         // If the value is an array, set the path association for each item
         if (Array.isArray(value)) {
@@ -638,7 +737,12 @@ function buildPathMap (
             }
         } else if (typeof value === 'object' && value !== null) {
             // If the value is a non-null object, build the path map for it
-            buildPathMap(value as Record<string, unknown>, currentPath, map);
+            buildPathMap(
+                value as Record<string, unknown>,
+                currentPath,
+                map,
+                countryVariants
+            );
         }
     }
 
@@ -651,5 +755,10 @@ function buildPathMap (
  *
  * */
 
-export const fixedIncomePathMap = buildPathMap(fixedIncome);
+export const fixedIncomePathMap = buildPathMap(
+    fixedIncome,
+    [],
+    new Map<string, string>(),
+    sectorCountryVariants
+);
 export const fixedIncomeBreakdownPathMap = buildPathMap(fixedIncomeBreakdown);

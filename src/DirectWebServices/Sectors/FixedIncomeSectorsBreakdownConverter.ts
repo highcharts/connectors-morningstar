@@ -224,13 +224,43 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                             fixedIncomeBreakdownPathMap.get(typeAndName) :
                             fixedIncomePathMap.get(typeAndName),
                         columnId = `${column}_Path`,
-                        cellValue = path ?? ['Uncategorized', name].join('/');
+                        cellValue = (path ?? ['Uncategorized', name].join('/'))
+                            .replace('Breakdown', '');
 
                     // Set path to sector value
                     table.setCell(columnId, index, cellValue);
                     allTable.setCell(columnId, allIndex, cellValue);
                 }
             }
+
+            // Supply missing sectors for uncategorized and country government
+            const superColumns = tablesObj['SuperSector'].columns,
+                allColumns = tablesObj['AllSector'].columns,
+                paths = superColumns['Fixed_Income_Path'];
+
+            // Find the last index of super sector before government per country
+            const insertIndex = paths.findIndex((path) =>
+                typeof path === 'string' && path.startsWith(
+                    'GovernmentPerCountry/'
+                )
+            );
+
+            // Append at end if index not found
+            const index = insertIndex === -1 ? paths.length : insertIndex;
+
+            // Complete others tables with missing values
+            Object.keys(superColumns).forEach((key) => {
+                const superArray = superColumns[key] as Array<string | null>,
+                    allArray = allColumns[key] as Array<string | null>,
+                    values =
+                        ['Fixed_Income_Path', 'Fixed_Income_Type']
+                            .includes(key) ?
+                            ['GovernmentPerCountry', 'Uncategorized'] :
+                            [null, null];
+
+                superArray.splice(index, 0, ...values);
+                allArray.splice(index, 0, ...values);
+            });
         }
     }
 
