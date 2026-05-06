@@ -49,16 +49,17 @@ export async function fixedIncomeSectorsBreakdown (
 
     const fixedIncColumns = [
         'Fixed_Income_Type',
-        'Fixed_Income_PercLongRescaled',
+        'Fixed_Income_Path',
         'Fixed_Income_PercNet',
         'Fixed_Income_PercShort',
-        'Fixed_Income_PercLong'
-    ],
+        'Fixed_Income_PercLong',
+        'Fixed_Income_PercLongRescaled'
+    ].sort(),
         superSectorsDataTable = connector.getTable('IncSuperSectors'),
         superSectorsCount = superSectorsDataTable.getRowCount();
 
     Assert.deepStrictEqual(
-        superSectorsDataTable.getColumnIds(),
+        superSectorsDataTable.getColumnIds().sort(),
         fixedIncColumns,
         'IncSuperSectors table should have expected columns.'
     );
@@ -82,9 +83,6 @@ export async function fixedIncomeSectorsBreakdown (
         ],
         'IncSuperSectors table metadata should contain expected properties.'
     );
-
-    fixedIncColumns.push('Fixed_Income_Path');
-    fixedIncColumns.sort();
 
     const primarySectorsDataTable = connector.getTable('IncPrimarySectors'),
         primarySectorsCount = primarySectorsDataTable.getRowCount();
@@ -137,7 +135,6 @@ export async function fixedIncomeSectorsBreakdown (
         Object.keys(secondarySectorsDataTable.metadata).sort(),
         [
             'fixedIncSecondarySectorAgencyorquasiAgencyCountryRescalingFactorLong',
-            'fixedIncSecondarySectorInflationProtectedCountryRescalingFactorLong',
             'fixedIncSecondarySectorRescalingFactorLong',
             'fixedIncSecondarySectorTreasuryCountryRescalingFactorLong',
             'performanceId'
@@ -170,15 +167,16 @@ export async function fixedIncomeSectorsBreakdown (
 
     const fixedIncBreakdownColumns = [
         'Fixed_Income_Breakdown_Type',
+        'Fixed_Income_Breakdown_Path',
         'Fixed_Income_Breakdown_CalcNetFiperc',
-        'Fixed_Income_Breakdown_CalcLongFiperc',
-        'Fixed_Income_Breakdown_CalcShortFiperc'
-    ],
+        'Fixed_Income_Breakdown_CalcShortFiperc',
+        'Fixed_Income_Breakdown_CalcLongFiperc'
+    ].sort(),
         brkSuperSectorsDataTable = connector.getTable('IncBrkSuperSectors'),
         brkSuperSectorsCount = brkSuperSectorsDataTable.getRowCount();
 
     Assert.deepStrictEqual(
-        brkSuperSectorsDataTable.getColumnIds(),
+        brkSuperSectorsDataTable.getColumnIds().sort(),
         fixedIncBreakdownColumns,
         'IncBrkSuperSectors table should have expected columns.'
     );
@@ -200,9 +198,6 @@ export async function fixedIncomeSectorsBreakdown (
         ],
         'IncBrkSuperSectors table metadata should contain expected properties.'
     );
-
-    fixedIncBreakdownColumns.push('Fixed_Income_Breakdown_Path');
-    fixedIncBreakdownColumns.sort();
 
     const brkPrimarySectorsDataTable = connector.getTable(
         'IncBrkPrimarySectors'
