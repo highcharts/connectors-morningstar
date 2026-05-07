@@ -1,6 +1,7 @@
 import * as Assert from 'node:assert/strict';
 import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar.src';
+import * as MCDWS from '../../code/connectors-morningstar-dws.src';
 
 export async function securityDetailsOfflineJSONLoad (): Promise<void> {
     const originalFetch = window.fetch;
@@ -64,4 +65,81 @@ export async function securityDetailsOfflineJSONLoad (): Promise<void> {
     } finally {
         window.fetch = originalFetch;
     }
+}
+
+export async function multiRequestTypeOfflineJSONLoad (): Promise<void> {
+    const connector = new MCDWS.InvestmentsConnector({
+        api: {
+            json: {
+                AssetAllocationBreakdown: {
+                    assetAllocationBreakdown: {
+                        assetAllocCashPercLong: 4.49556,
+                        assetAllocEquityPercLong: 95.50442,
+                        canAssetAllocCanadianEquityPercLong: 2.01286,
+                        underlyingInstrumentStockPercent: 95.50445
+                    },
+                    identifiers: {
+                        performanceId: '0P00000FIA'
+                    },
+                    metadata: {}
+                },
+                CountryAndRegionExposure: {
+                    countryAndRegionalExposureBreakdown: {
+                        equityRegionAmericasPercLongRescaled: 55.728,
+                        equityRegionNorthAmericaPercLongRescaled: 55.292,
+                        equityCountryUnitedStatesPercLongRescaled: 53.18442
+                    },
+                    identifiers: {
+                        performanceId: '0P00000FIA'
+                    },
+                    metadata: {}
+                },
+                EquityAggregatesResidualRisk: {
+                    aggregationResidualRiskAndReturnSensitivity: [{
+                        nonDividendAlpha36MonthValue: 0.42
+                    }],
+                    identifiers: {
+                        performanceId: '0P00000FIA'
+                    },
+                    metadata: {}
+                }
+            }
+        },
+        id: '',
+        security: {
+            id: '0P00000FIA'
+        },
+        converters: {
+            AssetAllocationBreakdown: {},
+            CountryAndRegionExposure: {},
+            EquityAggregatesResidualRisk: {}
+        },
+        type: ''
+    });
+
+    await connector.load();
+
+    Assert.ok(
+        connector instanceof MCDWS.InvestmentsConnector,
+        'Connector should be instance of InvestmentsConnector class.'
+    );
+
+    Assert.ok(
+        connector.getTable('AssetAlloc').getRowCount() > 0,
+        'AssetAlloc table should not be empty.'
+    );
+    Assert.ok(
+        connector.getTable('RegionEquity').getRowCount() > 0,
+        'RegionEquity table should not be empty.'
+    );
+    Assert.ok(
+        connector.getTable('EquityAggregatesResidualRisk').getRowCount() > 0,
+        'EquityAggregatesResidualRisk table should not be empty.'
+    );
+
+    Assert.strictEqual(
+        connector.getTable('AssetAlloc').getCell('Long', 1),
+        4.49556,
+        'AssetAlloc cash long value should match offline payload.'
+    );
 }

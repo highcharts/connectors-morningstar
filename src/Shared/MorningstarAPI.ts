@@ -44,6 +44,10 @@ const webServiceExceptionPattern = new RegExp([
     '<StatusMessage>([^<>]*)</StatusMessage>'
 ].join(''), 'su');
 
+export interface MorningstarOfflineContext {
+    requestType?: string;
+}
+
 
 /* *
  *
@@ -131,7 +135,8 @@ export class MorningstarAPI {
 
     public async fetch (
         url: MorningstarURL,
-        requestInit: RequestInit = {}
+        requestInit: RequestInit = {},
+        offlineContext: MorningstarOfflineContext = {}
     ): Promise<Response> {
 
         if (url.searchParams.get('outputType') !== 'compactjson') {
@@ -139,7 +144,7 @@ export class MorningstarAPI {
         }
 
         if (this.options.json) {
-            return this.fetchOffline();
+            return this.fetchOffline(offlineContext);
         }
 
         const requestDelay = (
@@ -218,9 +223,11 @@ export class MorningstarAPI {
         return response;
     }
 
-    protected fetchOffline (): Response {
+    protected fetchOffline (
+        offlineContext: MorningstarOfflineContext = {}
+    ): Response {
         const content = new Blob(
-            [JSON.stringify(this.options.json)],
+            [JSON.stringify(this.resolveOfflineData(offlineContext))],
             { type: 'application/json' }
         );
 
@@ -242,6 +249,27 @@ export class MorningstarAPI {
         response.text = (): Promise<string> => content.text();
 
         return response;
+    }
+
+    protected resolveOfflineData (
+        offlineContext: MorningstarOfflineContext
+    ): unknown {
+        const json = this.options.json as Record<string, unknown>,
+            { requestType } = offlineContext;
+
+        // Resolve single request type
+        if (!requestType) {
+            return json;
+        }
+
+        // Resolve multi-request type (DWS)
+        if (json[requestType]) {
+            return json[requestType];
+        }
+
+        throw new Error(
+            `Missing offline JSON payload for request type "${requestType}".`
+        );
     }
 
 

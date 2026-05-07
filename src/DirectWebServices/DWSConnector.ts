@@ -87,6 +87,8 @@ export abstract class DWSConnector extends MorningstarConnector {
             const response = await api.fetch(fullUrl, {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'GET'
+            }, {
+                requestType: type
             });
 
             responses.push({ [type]: response });

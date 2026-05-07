@@ -1,5 +1,3 @@
-const loadingLabel = document.getElementById('loading-label');
-
 async function loadOfflineHypoJSON () {
     const response = await fetch('./hypo.json');
 
@@ -68,8 +66,6 @@ async function displayHypoGrowth () {
             ).slice(0, -1) // A known issue with trailing 0's in the data
         }]
     });
-
-    loadingLabel.style.display = 'none';
 }
 
 displayHypoGrowth();
