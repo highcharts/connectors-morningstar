@@ -138,6 +138,10 @@ export class MorningstarAPI {
             url.searchParams.set('outputType', 'json');
         }
 
+        if (this.options.json) {
+            return this.fetchOffline();
+        }
+
         const requestDelay = (
             this.requestDelay -
             ((new Date()).getTime() - this.lastRequestTimestamp)
@@ -210,6 +214,32 @@ export class MorningstarAPI {
         if (rateLimit > 0) {
             this.requestDelay = (3600000 / rateLimit);
         }
+
+        return response;
+    }
+
+    protected fetchOffline (): Response {
+        const content = new Blob(
+            [JSON.stringify(this.options.json)],
+            { type: 'application/json' }
+        );
+
+        const response = new Response(
+            content,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                status: 200,
+                statusText: 'OK'
+            }
+        );
+
+        // Keep response body readable multiple times.
+        response.blob = async (): Promise<Blob> => content;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        response.json = async (): Promise<any> => JSON.parse(await content.text());
+        response.text = (): Promise<string> => content.text();
 
         return response;
     }

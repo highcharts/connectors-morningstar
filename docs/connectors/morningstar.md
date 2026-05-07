@@ -94,3 +94,37 @@ Example:
 ## Architecture
 This is a visualization of the Highcharts Morningstar Data Connector:
 ![Highcharts Morningstar Data Connector Architecture](architecture.png)
+
+## Offline mode with `api.json`
+
+You can bypass API authentication and network requests by passing a json
+payload through `api.json`.
+
+When `api.json` is set, it has higher priority than `postman` or online API
+settings.
+
+```js
+const connector = new HighchartsConnectors.Morningstar.SecurityDetailsConnector({
+    api: {
+        json: [{
+            Id: 'OFFLINE_SECURITY',
+            Isin: 'OFFLINE_ISIN',
+            Currency: { Id: 'USD' },
+            TrailingPerformance: [{
+                ReturnType: 'Nav',
+                Type: 'DayEnd',
+                Return: [{
+                    Date: '2026-01-01',
+                    TimePeriod: '1M',
+                    Value: 1.2
+                }]
+            }]
+        }]
+    },
+    security: {
+        id: 'F0GBR050DD',
+        idType: 'MSID'
+    },
+    converters: ['TrailingPerformance']
+});
+```
