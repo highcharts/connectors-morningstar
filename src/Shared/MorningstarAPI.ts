@@ -138,13 +138,12 @@ export class MorningstarAPI {
         requestInit: RequestInit = {},
         offlineContext: MorningstarOfflineContext = {}
     ): Promise<Response> {
+        if (this.options.json) {
+            return this.fetchOffline(offlineContext);
+        }
 
         if (url.searchParams.get('outputType') !== 'compactjson') {
             url.searchParams.set('outputType', 'json');
-        }
-
-        if (this.options.json) {
-            return this.fetchOffline(offlineContext);
         }
 
         const requestDelay = (

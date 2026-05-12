@@ -19,6 +19,8 @@ async function displayHypoGrowth () {
 
     await connector.load();
 
+    const growthData = connector.dataTables.Growth;
+
     Highcharts.chart('container', {
         chart: {
             type: 'spline'
@@ -43,7 +45,7 @@ async function displayHypoGrowth () {
         series: [{
             name: 'Portfolio',
             color: 'red',
-            data: connector.dataTables.Growth.getRows(
+            data: growthData.getRows(
                 void 0,
                 void 0,
                 ['Date', 'Value']
@@ -51,7 +53,7 @@ async function displayHypoGrowth () {
         }, {
             name: 'Benchmark',
             color: 'blue',
-            data: connector.dataTables.Growth.getRows(
+            data: growthData.getRows(
                 void 0,
                 void 0,
                 ['Date', 'Value_Benchmark']
@@ -59,7 +61,7 @@ async function displayHypoGrowth () {
         }, {
             name: 'Net Invested',
             color: 'green',
-            data: connector.dataTables.Growth.getRows(
+            data: growthData.getRows(
                 void 0,
                 void 0,
                 ['Date', 'Value_NetAmountInvested']
