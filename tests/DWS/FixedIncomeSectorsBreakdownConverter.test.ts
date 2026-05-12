@@ -134,7 +134,6 @@ export async function fixedIncomeSectorsBreakdown (
         Object.keys(secondarySectorsDataTable.metadata).sort(),
         [
             'fixedIncSecondarySectorAgencyorquasiAgencyCountryRescalingFactorLong',
-            'fixedIncSecondarySectorInflationProtectedCountryRescalingFactorLong',
             'fixedIncSecondarySectorRescalingFactorLong',
             'fixedIncSecondarySectorTreasuryCountryRescalingFactorLong',
             'performanceId'
