@@ -46,12 +46,11 @@ export async function equitySectorsBreakdown (
         'EquitySectorsBreakdown metadata should contain performanceId.'
     );
 
-    // TO DO: Uncomment the PercShort property when query params supported
     const columns = [
         'Type',
         'PercLong',
         'PercLongRescaled',
-        // 'PercShort',
+        'PercShort',
         'PercNet'
     ];
     const superSectorsDataTable = connector.getTable('EqSuperSectors');

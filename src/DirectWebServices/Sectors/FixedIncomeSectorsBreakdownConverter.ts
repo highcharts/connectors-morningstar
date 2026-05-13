@@ -19,6 +19,10 @@
  *
  * */
 
+import {
+    fixedIncomeMap,
+    fixedIncomeBreakdownMap
+} from './FixedIncomeSectorsBreakdownMap';
 import SectorsBreakdown from './SectorsBreakdownOptions';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 import { DataTable } from '../../Shared/External';
@@ -180,6 +184,20 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                     if (value) {
                         // Set value of a specific category
                         table.setCell(`${column}_${match[3]}`, index, Number(value));
+                    }
+
+                    // Get the parent sector only for Primary and Secondary
+                    if (!type.includes('SuperSector')) {
+                        const parent = field === 'fixdInc' ?
+                            fixedIncomeBreakdownMap.get(typeAndName) :
+                            fixedIncomeMap.get(typeAndName);
+
+                        // Set parent sector value
+                        table.setCell(
+                            `${column}_Parent`,
+                            index,
+                            parent ?? 'UncategorizedSector'
+                        );
                     }
                 }
             }
