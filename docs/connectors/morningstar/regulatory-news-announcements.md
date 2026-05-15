@@ -100,7 +100,7 @@ For more details, see [Morningstar’s RNANews API].
 
 You will find examples of how to use RNANewsConnector in our demos.
 
-- **Highcharts Dashboards DataGrid + Morningstar RNA News**: Shows how to use
+- **Highcharts Dashboards Grid + Morningstar RNA News**: Shows how to use
 RNANewsConnector in dashboards to retrieve RNANews for Tesco.
 
 [Morningstar’s RNANews API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/time-series/regulatory-news-announcements
