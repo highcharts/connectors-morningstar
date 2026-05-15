@@ -240,9 +240,9 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                             fixedIncomeBreakdownPathMap.get(typeAndName) :
                             fixedIncomePathMap.get(typeAndName),
                         columnId = `${column}_Path`,
-                        cellValue = (path ?? isGovPerCountry ?
+                        cellValue = (path ?? (isGovPerCountry ?
                             name :
-                            ['Uncategorized', name].join('/')
+                            ['Uncategorized', name].join('/'))
                         ).replace('Breakdown', '');
 
                     // Set path to sector value

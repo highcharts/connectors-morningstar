@@ -682,8 +682,6 @@ function stripPrefix (key: string): string {
  *
  * @param map Accumulator map that collects the identifier-to-path associations.
  *
- * @param countryVariants Optional list of country-variant configs
- *
  * @return The populated map of sector identifiers to their full paths.
  */
 function buildPathMap (
