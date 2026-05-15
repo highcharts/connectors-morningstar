@@ -51,11 +51,40 @@ export async function fixedIncomeSectorsBreakdown (
         'Fixed_Income_Type',
         'Fixed_Income_Path',
         'Fixed_Income_PercNet',
-        'Fixed_Income_PercShort',
         'Fixed_Income_PercLong',
         'Fixed_Income_PercLongRescaled'
     ].sort(),
-        superSectorsDataTable = connector.getTable('IncSuperSectors'),
+        govPerCountrySuperSectorsDataTable = connector.getTable('IncGovPerCountrySuperSectors'),
+        govPerCountrySectorsCount = govPerCountrySuperSectorsDataTable.getRowCount();
+
+    Assert.deepStrictEqual(
+        govPerCountrySuperSectorsDataTable.getColumnIds().sort(),
+        fixedIncColumns,
+        'IncGovPerCountrySuperSectors table should have expected columns.'
+    );
+
+    Assert.ok(
+        govPerCountrySectorsCount > 0,
+        'IncGovPerCountrySuperSectors table should not return empty rows.'
+    );
+
+    Assert.ok(
+        govPerCountrySuperSectorsDataTable.metadata !== undefined,
+        'IncGovPerCountrySuperSectors table should have metadata defined.'
+    );
+
+    Assert.deepStrictEqual(
+        Object.keys(govPerCountrySuperSectorsDataTable.metadata).sort(),
+        [
+            'performanceId'
+        ],
+        'IncGovPerCountrySuperSectors table metadata should contain expected properties.'
+    );
+
+    fixedIncColumns.push('Fixed_Income_PercShort');
+    fixedIncColumns.sort();
+
+    const superSectorsDataTable = connector.getTable('IncSuperSectors'),
         superSectorsCount = superSectorsDataTable.getRowCount();
 
     Assert.deepStrictEqual(

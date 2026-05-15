@@ -153,6 +153,45 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         net = 'Fixed_Income_PercNet';
 
     // Get data table
+    const govPerCountrySuperSectorsTable = connector.getTable('IncGovPerCountrySuperSectors');
+
+    // Create chart
+    Highcharts.chart('container-gov-per-country-super-sectors', {
+        title: {
+            text: 'Fixed Income Government Per Country Super Sectors'
+        },
+        series: [{
+            name: 'Fixed Income Government Per Country Super Sectors Long Rescaled',
+            data: govPerCountrySuperSectorsTable.getRows(
+                void 0,
+                void 0,
+                [type, longRescaled]
+            )
+        }, {
+            name: 'Fixed Income Government Per Country Super Sectors Long',
+            data: govPerCountrySuperSectorsTable.getRows(
+                void 0,
+                void 0,
+                [type, long]
+            )
+        }, {
+            name: 'Fixed Income Government Per Country Super Sectors Short',
+            data: govPerCountrySuperSectorsTable.getRows(
+                void 0,
+                void 0,
+                [type, short]
+            )
+        }, {
+            name: 'Fixed Income Government Per Country Super Sectors Net',
+            data: govPerCountrySuperSectorsTable.getRows(
+                void 0,
+                void 0,
+                [type, net]
+            )
+        }]
+    });
+
+    // Get data table
     const superSectorsTable = connector.getTable('IncSuperSectors');
 
     // Create chart

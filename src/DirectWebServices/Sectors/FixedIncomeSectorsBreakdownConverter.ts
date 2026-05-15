@@ -21,7 +21,8 @@
 
 import {
     fixedIncomePathMap,
-    fixedIncomeBreakdownPathMap
+    fixedIncomeBreakdownPathMap,
+    sectorCountryVariants
 } from './FixedIncomeSectorsBreakdownMap';
 import SectorsBreakdown from './SectorsBreakdownOptions';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
@@ -54,6 +55,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
 
         // Create main data tables
         this.tables = [
+            new DataTable({ id: 'IncGovPerCountrySuperSectors' }),
             new DataTable({ id: 'IncSuperSectors' }),
             new DataTable({ id: 'IncPrimarySectors' }),
             new DataTable({ id: 'IncSecondarySectors' }),
@@ -163,13 +165,26 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                         name = match[2],
                         typeAndName = `${type}${name}`;
 
+                    // Check if the sector is a country-specific government
+                    const isGovPerCountry =
+                        sectorCountryVariants.includes(typeAndName);
+
                     // Get the right table
-                    const table = tablesObj[type];
+                    const table = isGovPerCountry ?
+                        // Handle country-specific super sectors
+                        tablesObj['GovPerCountrySuperSector'] :
+                        // Handle any other sectors
+                        tablesObj[type];
 
                     // Save the value also in the table with all sectors
-                    const allTable = type.includes('Breakdown') ?
-                        tablesObj['AllSectorBreakdown'] :
-                        tablesObj['AllSector'];
+                    let allTable;
+
+                    // But don't include country-specific government sectors
+                    if (!isGovPerCountry) {
+                        allTable = type.includes('Breakdown') ?
+                            tablesObj['AllSectorBreakdown'] :
+                            tablesObj['AllSector'];
+                    }
 
                     // Save factor properties in the table's metadata
                     if (option.includes('Factor') && table.metadata) {
@@ -178,9 +193,10 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                     }
 
                     // Get the right arrays
-                    const sectors = mapping[
+                    const sectors = mapping[isGovPerCountry ?
+                            'govPerCountrySuperSector' :
                             (type.charAt(0).toLowerCase() +
-                            type.slice(1)).replace('Breakdown', '')
+                                type.slice(1)).replace('Breakdown', '')
                         ] as Array<string>,
                         allSectors = mapping['allSector'] as Array<string>,
                         column = mapping.column;
@@ -199,14 +215,14 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
 
                     // New sector
                     let allIndex = allSectors.indexOf(typeAndName);
-                    if (allSectors && allIndex === -1) {
+                    if (!isGovPerCountry && allSectors && allIndex === -1) {
                         allIndex = allSectors.length;
 
                         // Save sector
                         allSectors.push(typeAndName);
 
                         // Sector type value
-                        allTable.setCell(`${column}_Type`, allIndex, name);
+                        allTable?.setCell(`${column}_Type`, allIndex, name);
                     }
 
                     const value = sectorsData[option];
@@ -216,7 +232,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
 
                         // Set value of a specific category
                         table.setCell(columnId, index, cellValue);
-                        allTable.setCell(columnId, allIndex, cellValue);
+                        allTable?.setCell(columnId, allIndex, cellValue);
                     }
 
                     // Get the path of all sectors
@@ -224,40 +240,30 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                             fixedIncomeBreakdownPathMap.get(typeAndName) :
                             fixedIncomePathMap.get(typeAndName),
                         columnId = `${column}_Path`,
-                        cellValue = (path ?? ['Uncategorized', name].join('/'))
-                            .replace('Breakdown', '');
+                        cellValue = (path ?? isGovPerCountry ?
+                            name :
+                            ['Uncategorized', name].join('/')
+                        ).replace('Breakdown', '');
 
                     // Set path to sector value
                     table.setCell(columnId, index, cellValue);
-                    allTable.setCell(columnId, allIndex, cellValue);
+                    allTable?.setCell(columnId, allIndex, cellValue);
                 }
             }
 
-            // Add missing sectors for uncategorized and country government
-            const values = [
-                [
-                    'GovernmentPerCountry',
-                    null,
-                    'GovernmentPerCountry',
-                    null,
-                    null,
-                    null
-                ],
-                [
-                    'Uncategorized',
-                    null,
-                    'Uncategorized',
-                    null,
-                    null,
-                    null
-                ]
+            // Add missing sector for uncategorized
+            const value = [
+                'Uncategorized',
+                null,
+                'Uncategorized',
+                null,
+                null,
+                null
             ];
 
-            // Complete others tables with missing values
-            values.forEach((value) => {
-                tablesObj['SuperSector'].setRow(value);
-                tablesObj['AllSector'].setRow(value);
-            });
+            // Complete others tables with missing uncategorized values
+            tablesObj['SuperSector'].setRow(value);
+            tablesObj['AllSector'].setRow(value);
         }
     }
 
@@ -281,6 +287,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                     `^fixedInc(${SectorsBreakdown.sectorTypes.join('|')})([^_]+)(${SectorsBreakdown.suffixes.join('|')})$`,
                     'u'
                 ),
+                govPerCountrySuperSector: [],
                 superSector: [],
                 primarySector: [],
                 secondarySector: [],
