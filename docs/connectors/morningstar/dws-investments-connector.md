@@ -1,10 +1,10 @@
-# Investments Connector
+# Investments Details Connector
 
 The `HighchartsConnectors.MorningstarDWS.InvestmentsConnector` is a connector
-that allows access to the newer Morningstar API, which provides the Investment
-Details API.
+that allows access to the newer Morningstar API, which provides the
+**Investment Details API**.
 
-## How to use Investments Connector
+## How to use Investments Details Connector
 
 The `InvestmentsConnector` allows you to select multiple converters
 simultaneously.
@@ -30,51 +30,51 @@ planned for the future.
 
 ## Available data converters
 
-Here is a list of available converters along with their corresponding data table
-names:
+Here is a list of available converters along with their corresponding data
+table names:
 
-* **AssetAllocationBreakdown**:
-    - AssetAlloc
-    - CanadianAssetAlloc
-    - UnderlyingAssetAlloc
+- **AssetAllocationBreakdown**:
+  - `AssetAlloc`
+  - `CanadianAssetAlloc`
+  - `UnderlyingAssetAlloc`
 
-* **CountryAndRegionExposure**:
-    - RegionEquity
-    - RegionFixedIncome
-    - RegionFixedIncomeGeo
-    - RegionRevenueExposure
-    - CountryEquity
-    - CountryBreakdown
-    - CountryRevenueExposure
+- **CountryAndRegionExposure**:
+  - `RegionEquity`
+  - `RegionFixedIncome`
+  - `RegionFixedIncomeGeo`
+  - `RegionRevenueExposure`
+  - `CountryEquity`
+  - `CountryBreakdown`
+  - `CountryRevenueExposure`
 
-* **EquityAggregatesResidualRisk**:
-    - EquityAggregatesResidualRisk
+- **EquityAggregatesResidualRisk**:
+  - `EquityAggregatesResidualRisk`
 
-* **EquityResidualRisk**:
-    - RiskDaily
-    - RiskMonthly
+- **EquityResidualRisk**:
+  - `RiskDaily`
+  - `RiskMonthly`
 
-* **EquitySectorsBreakdown**:
-    - EqSuperSectors
-    - EqSectors
-    - EqIndustries
+- **EquitySectorsBreakdown**:
+  - `EqSuperSectors`
+  - `EqSectors`
+  - `EqIndustries`
 
-* **FixedIncomeSectorsBreakdown**:
-    - IncSuperSectors
-    - IncPrimarySectors
-    - IncSecondarySectors
-    - IncBrkSuperSectors
-    - IncBrkPrimarySectors
-    - IncBrkSecondarySectors
+- **EquityStyleBox**:
+  - `StockStyle`
+  - `TimeSeries`
 
-* **EquityStyleBox**:
-    - StockStyle
-    - TimeSeries
+- **FixedIncomeSectorsBreakdown**:
+  - `IncSuperSectors`
+  - `IncPrimarySectors`
+  - `IncSecondarySectors`
+    - `IncBrkSuperSectors`
+    - `IncBrkPrimarySectors`
+    - `IncBrkSecondarySectors`
 
-* **ProspectusFees**:
-    - ProspectusFees
+- **ProspectusFees**:
+  - `ProspectusFees`
 
-## Investments Connector Examples
+## The `InvestmentsConnector` examples
 
 ```js
 const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
@@ -87,15 +87,16 @@ const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
         id: '0P00006W6Q'
     },
     converters: {
+        AssetAllocationBreakdown: {},
         CountryAndRegionExposure: {},
         EquityAggregatesResidualRisk: {},
         EquityResidualRisk: {},
         EquitySectorsBreakdown: {},
-        FixedIncomeSectorsBreakdown: {},
         EquityStyleBox: {
             startDate: '2025-01-01',
             endDate: '2025-12-01'
         },
+        FixedIncomeSectorsBreakdown: {},
         ProspectusFees: {}
     }
 });
@@ -103,7 +104,8 @@ const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
 await connector.load();
 ```
 
-### The `AssetAllocationBreakdown` converter example:
+### The `AssetAllocationBreakdown` converter
+
 ```js
     const generalTable = connector.getTable('AssetAlloc'),
         // Example only uses the first data table. This is how to get
@@ -137,7 +139,8 @@ await connector.load();
     });
 ```
 
-### The `CountryAndRegionExposure` converter example:
+### The `CountryAndRegionExposure` converter
+
 ```js
     const regionEquityTable = connector.getTable('RegionEquity'),
         data = regionEquityTable.getRows(void 0, void 0, ['Region', 'PercNet']);
@@ -156,7 +159,7 @@ await connector.load();
     });
 ```
 
-### The `EquityAggregatesResidualRisk` converter example:
+### The `EquityAggregatesResidualRisk` converter
 
 ```js
 const dataTable = connector.getTable('EquityAggregatesResidualRisk');
@@ -200,7 +203,7 @@ Highcharts.chart('container', {
 });
 ```
 
-### The `EquityResidualRisk` converter example:
+### The `EquityResidualRisk` converter
 
 ```js
 const dataTable = connector.getTable('RiskDaily');
@@ -258,7 +261,7 @@ Highcharts.chart('container-daily', {
 });
 ```
 
-### The `EquitySectorsBreakdown` converter example:
+### The `EquitySectorsBreakdown` converter
 
 ```js
 const dataTable = connector.getTable('EqSuperSectors');
@@ -295,44 +298,7 @@ Highcharts.chart('container', {
 });
 ```
 
-### The `FixedIncomeSectorsBreakdown` converter example:
-
-```js
-const dataTable = connector.getTable('IncBrkSuperSectors');
-
-Highcharts.chart('container-brk-super-sectors', {
-    title: {
-        text: 'Fixed Income Super Sectors Breakdown'
-    },
-    subtitle: {
-        text: dataTable.metadata.performanceId
-    },
-    series: [{
-        name: 'Fixed Income Breakdown Super Sectors Long',
-        data: dataTable.getRows(
-            void 0,
-            void 0,
-            ['Fixed_Income_Breakdown_Type', 'Fixed_Income_Breakdown_CalcLongFiperc']
-        )
-    }, {
-        name: 'Fixed Income Breakdown Super Sectors Short',
-        data: dataTable.getRows(
-            void 0,
-            void 0,
-            ['Fixed_Income_Breakdown_Type', 'Fixed_Income_Breakdown_CalcShortFiperc']
-        )
-    }, {
-        name: 'Fixed Income Breakdown Super Sectors Net',
-        data: dataTable.getRows(
-            void 0,
-            void 0,
-            ['Fixed_Income_Breakdown_Type', 'Fixed_Income_Breakdown_CalcNetFiperc']
-        )
-    }]
-});
-```
-
-### The `EquityStyleBox` converter example:
+### The `EquityStyleBox` converter
 
 ```js
 const dataTable = connector.getTable('StockStyle');
@@ -423,17 +389,70 @@ Highcharts.chart('container', {
 });
 ```
 
+### The `FixedIncomeSectorsBreakdown` converter
+
+```js
+const dataTable = connector.getTable('IncBrkSuperSectors');
+
+Highcharts.chart('container-brk-super-sectors', {
+    title: {
+        text: 'Fixed Income Super Sectors Breakdown'
+    },
+    subtitle: {
+        text: dataTable.metadata.performanceId
+    },
+    series: [{
+        name: 'Fixed Income Breakdown Super Sectors Long',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            [
+                'Fixed_Income_Breakdown_Type',
+                'Fixed_Income_Breakdown_CalcLongFiperc'
+            ]
+        )
+    }, {
+        name: 'Fixed Income Breakdown Super Sectors Short',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            [
+                'Fixed_Income_Breakdown_Type',
+                'Fixed_Income_Breakdown_CalcShortFiperc'
+            ]
+        )
+    }, {
+        name: 'Fixed Income Breakdown Super Sectors Net',
+        data: dataTable.getRows(
+            void 0,
+            void 0,
+            [
+                'Fixed_Income_Breakdown_Type',
+                'Fixed_Income_Breakdown_CalcNetFiperc'
+            ]
+        )
+    }]
+});
+```
+
 ## Relevant demos
 
-Examples of using the InvestmentsConnector are available in our demos:
+Examples of using the **Investment Details Connector** are available in our
+demos:
 
 - **Highcharts Core + Morningstar Asset Allocation Breakdown**
 - **Highcharts Core + Morningstar Country and Region Exposure**
 - **Highcharts Core + Morningstar Equity Aggregates Residual Risk**
 - **Highcharts Core + Morningstar Equity Residual Risk**
 - **Highcharts Core + Morningstar Equity Sectors Breakdown**
-- **Highcharts Core + Morningstar Fixed Income Sectors Breakdown**
 - **Highcharts Core + Morningstar Equity Style Box**
 - **Highcharts Core + Morningstar Equity Style Box Time Series**
+- **Highcharts Core + Morningstar Fixed Income Sectors Breakdown**
+- **Highcharts Dashboards Grid + Morningstar Prospectus Fees**
 
+## Morningstar API Reference
+
+For more details, see [Morningstar’s Investment Details API].
+
+<!-- Links -->
 [Morningstar’s Investment Details API]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/investment-details---managed-investments---async/openapi-specification
