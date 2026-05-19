@@ -161,6 +161,11 @@ export class RNANewsConnector extends MorningstarConnector {
         await super.load();
 
         const options = this.options;
+
+        if (options.api?.json) {
+            return this.parseJSON(options.api.json, this.converter);
+        }
+
         const {
             security,
             startDate,
@@ -203,12 +208,7 @@ export class RNANewsConnector extends MorningstarConnector {
         const response = await api.fetch(url);
         const json = await response.json() as RNANewsJSON.Response;
 
-        this.converter.parse({ json });
-
-        this.getTable().deleteColumns();
-        this.getTable().setColumns(this.converter.getTableColumns());
-
-        return this.applyTableModifiers();
+        return this.parseJSON(json, this.converter);
     }
 
 

@@ -87,6 +87,11 @@ export class InvestmentScreenerConnector extends MorningstarConnector {
         await super.load();
 
         const userOptions = { ...this.options, ...options };
+
+        if (userOptions.api?.json) {
+            return this.parseJSON(userOptions.api.json, this.converter);
+        }
+
         this.api ??= new MorningstarAPI(userOptions.api);
         const api = this.api;
         const url = new MorningstarURL('ecint/v1/screener', api.baseURL);
@@ -155,11 +160,7 @@ export class InvestmentScreenerConnector extends MorningstarConnector {
         const response = await api.fetch(url);
         const json = (await response.json()) as unknown;
 
-        this.converter.parse({ json });
-        this.getTable().deleteColumns();
-        this.getTable().setColumns(this.converter.getTable().getColumns());
-
-        return this.applyTableModifiers();
+        return this.parseJSON(json, this.converter);
     }
 
     private getFilter (filter: InvestmentScreenerFilter): string {

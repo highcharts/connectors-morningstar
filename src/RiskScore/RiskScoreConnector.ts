@@ -254,6 +254,10 @@ export class RiskScoreConnector extends MorningstarConnector {
         const options = this.options;
         const portfolios = options.portfolios;
 
+        if (options.api?.json) {
+            return this.parseJSON(options.api.json, this.converter);
+        }
+
         if (!portfolios || (portfolios as Array<RiskScorePortfolio>).length === 0) {
             return this;
         }
@@ -292,12 +296,7 @@ export class RiskScoreConnector extends MorningstarConnector {
         });
         const json = await response.json() as unknown;
 
-        this.converter.parse({ json });
-
-        this.getTable().deleteColumns();
-        this.getTable().setColumns(this.converter.getTable().getColumns());
-
-        return this.applyTableModifiers();
+        return this.parseJSON(json, this.converter);
     }
 
 

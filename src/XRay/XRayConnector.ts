@@ -184,6 +184,11 @@ export class XRayConnector extends MorningstarConnector {
         await super.load();
 
         const options = this.options;
+
+        if (options.api?.json) {
+            return this.parseXRayJSON(options.api.json);
+        }
+
         const dataPoints = !options.dataPoints ? [] :
             // Backward compat: if `dataPoints` is an object, make it an array:
             Array.isArray(options.dataPoints) ?
@@ -236,7 +241,14 @@ export class XRayConnector extends MorningstarConnector {
             },
             method: 'POST'
         });
-        const json = await response.json() as XRayJSON.XRayResponse;
+        const json = await response.json() as unknown;
+
+        return this.parseXRayJSON(json);
+    }
+
+    private parseXRayJSON (
+        json: unknown
+    ): Promise<this> {
         const xrays: Array<XRayJSON.XRayResponse> = [];
 
         if (XRayJSON.isResponse(json)) {
@@ -271,7 +283,7 @@ export class XRayConnector extends MorningstarConnector {
 
         this.metadata = {
             columns: {},
-            json
+            json: json as XRayJSON.XRayResponse
         };
 
         return this.applyTableModifiers();

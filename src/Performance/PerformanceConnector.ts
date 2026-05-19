@@ -127,7 +127,7 @@ export class PerformanceConnector extends PAUSConnector {
     public override async load (): Promise<any> {
         await super.load();
 
-        const json = await this.response?.json() as PerformanceJSON.PerformanceResponse;
+        const json = this.responseJSON as PerformanceJSON.PerformanceResponse;
         const hasMultiple = json.Performance.length > 1;
 
         for (const { key } of DATA_TABLES) {

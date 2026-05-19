@@ -44,10 +44,6 @@ const webServiceExceptionPattern = new RegExp([
     '<StatusMessage>([^<>]*)</StatusMessage>'
 ].join(''), 'su');
 
-export interface MorningstarOfflineContext {
-    requestType?: string;
-}
-
 
 /* *
  *
@@ -135,12 +131,8 @@ export class MorningstarAPI {
 
     public async fetch (
         url: MorningstarURL,
-        requestInit: RequestInit = {},
-        offlineContext: MorningstarOfflineContext = {}
+        requestInit: RequestInit = {}
     ): Promise<Response> {
-        if (this.options.json) {
-            return this.fetchOffline(offlineContext);
-        }
 
         if (url.searchParams.get('outputType') !== 'compactjson') {
             url.searchParams.set('outputType', 'json');
@@ -220,55 +212,6 @@ export class MorningstarAPI {
         }
 
         return response;
-    }
-
-    protected fetchOffline (
-        offlineContext: MorningstarOfflineContext = {}
-    ): Response {
-        const content = new Blob(
-            [JSON.stringify(this.resolveOfflineData(offlineContext))],
-            { type: 'application/json' }
-        );
-
-        const response = new Response(
-            content,
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                status: 200,
-                statusText: 'OK'
-            }
-        );
-
-        // Keep response body readable multiple times.
-        response.blob = async (): Promise<Blob> => content;
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        response.json = async (): Promise<any> => JSON.parse(await content.text());
-        response.text = (): Promise<string> => content.text();
-
-        return response;
-    }
-
-    protected resolveOfflineData (
-        offlineContext: MorningstarOfflineContext
-    ): unknown {
-        const json = this.options.json as Record<string, unknown>,
-            { requestType } = offlineContext;
-
-        // Resolve single request type
-        if (!requestType) {
-            return json;
-        }
-
-        // Resolve multi-request type (DWS)
-        if (json[requestType]) {
-            return json[requestType];
-        }
-
-        throw new Error(
-            `Missing offline JSON payload for request type "${requestType}".`
-        );
     }
 
 

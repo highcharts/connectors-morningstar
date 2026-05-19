@@ -105,6 +105,11 @@ export class GoalAnalysisConnector extends MorningstarConnector {
         await super.load();
 
         const options = this.options;
+
+        if (options.api?.json) {
+            return this.parseJSON(options.api.json, this.converter);
+        }
+
         const api = this.api = this.api || new MorningstarAPI(options.api);
         const url = new MorningstarURL('ecint/v1/goal-analysis', api.baseURL);
 
@@ -142,16 +147,10 @@ export class GoalAnalysisConnector extends MorningstarConnector {
         if (options.timeHorizon) {
             searchParams.set('timeHorizon', `${options.timeHorizon}`);
         }
-
         const response = await api.fetch(url);
         const json = await response.json() as unknown;
 
-        this.converter.parse({ json });
-
-        this.getTable().deleteColumns();
-        this.getTable().setColumns(this.converter.getTable().getColumns());
-
-        return this.applyTableModifiers();
+        return this.parseJSON(json, this.converter);
     }
 
 

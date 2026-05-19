@@ -163,6 +163,9 @@ export class TimeSeriesConnector extends MorningstarConnector {
         await super.load();
 
         const options = this.options;
+        if (options.api?.json) {
+            return this.parseJSON(options.api.json, this.converter);
+        }
         const {
             currencyId, endDate, frequency, localization, performanceType, restructureDateOptions,
             securities, startDate, taxOption, timePeriod, timePeriodUnit
@@ -222,12 +225,7 @@ export class TimeSeriesConnector extends MorningstarConnector {
         const response = await api.fetch(url);
         const json = await response.json() as unknown;
 
-        this.converter.parse({ json });
-
-        this.getTable().deleteColumns();
-        this.getTable().setColumns(this.converter.getTable().getColumns());
-
-        return this.applyTableModifiers();
+        return this.parseJSON(json, this.converter);
     }
 
 

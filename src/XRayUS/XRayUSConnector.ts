@@ -97,7 +97,7 @@ export class XRayUSConnector extends PAUSConnector {
     public override async load (): Promise<any> {
         await super.load();
 
-        const json = await this.response?.json() as XRayUSJSON.XRayUSResponse,
+        const json = this.responseJSON as XRayUSJSON.XRayUSResponse,
             hasMultiple = json.XRay.length > 1;
 
         for (const { key } of DATA_TABLES) {
