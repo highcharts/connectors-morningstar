@@ -134,6 +134,14 @@ async function init () {
                 legend: {
                     enabled: true
                 },
+                navigator: {
+                    series: {
+                        name: 'Navigator',
+                        type: 'column',
+                        data: series.volume,
+                        color: '#00e272'
+                    }
+                },
                 xAxis: {
                     type: 'datetime',
                     ordinal: false
@@ -150,17 +158,17 @@ async function init () {
                 series: [{
                     name: 'Ask',
                     data: series.ask,
-                    color: '#D14C4C'
+                    color: '#2caffe'
                 }, {
                     type: 'line',
                     name: 'Bid',
                     data: series.bid,
-                    color: '#2BB673'
+                    color: '#544fc5'
                 }, {
                     type: 'line',
                     name: 'Price',
                     data: series.price,
-                    color: '#1F4FD6'
+                    color: '#fe6a35'
                 }]
             }
         }, {
@@ -191,7 +199,7 @@ async function init () {
                     name: 'Volume',
                     type: 'column',
                     data: series.volume,
-                    color: '#2BB673'
+                    color: '#00e272'
                 }]
             }
         }, {
