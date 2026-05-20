@@ -51,6 +51,7 @@ export async function fixedIncomeSectorsBreakdown (
         'Fixed_Income_Type',
         'Fixed_Income_Path',
         'Fixed_Income_PercNet',
+        'Fixed_Income_PercShort',
         'Fixed_Income_PercLong',
         'Fixed_Income_PercLongRescaled'
     ].sort(),
@@ -80,9 +81,6 @@ export async function fixedIncomeSectorsBreakdown (
         ],
         'IncGovPerCountrySuperSectors table metadata should contain expected properties.'
     );
-
-    fixedIncColumns.push('Fixed_Income_PercShort');
-    fixedIncColumns.sort();
 
     const superSectorsDataTable = connector.getTable('IncSuperSectors'),
         superSectorsCount = superSectorsDataTable.getRowCount();
@@ -164,6 +162,7 @@ export async function fixedIncomeSectorsBreakdown (
         Object.keys(secondarySectorsDataTable.metadata).sort(),
         [
             'fixedIncSecondarySectorAgencyorquasiAgencyCountryRescalingFactorLong',
+            'fixedIncSecondarySectorInflationProtectedCountryRescalingFactorLong',
             'fixedIncSecondarySectorRescalingFactorLong',
             'fixedIncSecondarySectorTreasuryCountryRescalingFactorLong',
             'performanceId'
