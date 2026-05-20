@@ -50,7 +50,7 @@ async function loadDataset () {
             row.bid = Number(row.bid);
             row.ask = Number(row.ask);
             row.volume = Number(row.volume);
-            row.spread = +(row.ask - row.bid).toFixed(4);
+            row.spread = +(row.ask - row.bid).toFixed(2);
 
             return row;
         });
@@ -65,13 +65,23 @@ async function loadDataset () {
  *
  * @returns An object containing arrays for price, bid, ask and volume series.
  */
-function buildPriceSeries (rows) {
-    return {
-        price: rows.map(r => [r.timestamp, r.price]),
-        bid: rows.map(r => [r.timestamp, r.bid]),
-        ask: rows.map(r => [r.timestamp, r.ask]),
-        volume: rows.map(r => [r.timestamp, r.volume])
-    };
+function getPriceSeries (rows) {
+    const price = [],
+        bid = [],
+        ask = [],
+        volume = [];
+
+    for (let i = 0; i < rows.length; i++) {
+        const row = rows[i],
+            date = row.timestamp;
+
+        ask.push([date, row.ask]);
+        bid.push([date, row.bid]);
+        price.push([date, row.price]);
+        volume.push([date, row.volume]);
+    }
+
+    return { ask, bid, price, volume };
 }
 
 /**
@@ -81,19 +91,31 @@ function buildPriceSeries (rows) {
  *
  * @returns An object containing the column IDs and data for the trades table.
  */
-function buildTradesTable (rows) {
-    const descending = [...rows].sort((a, b) => b.timestamp - a.timestamp);
+function getTradesTable (rows) {
+    const descRows = [...rows].sort((a, b) => b.timestamp - a.timestamp),
+        date = [],
+        time = [],
+        price = [],
+        volume = [],
+        bid = [],
+        ask = [],
+        spread = [];
+
+    for (let i = 0; i < descRows.length; i++) {
+        const row = descRows[i];
+
+        date.push(row.dateReceived);
+        time.push(row.tradeTime);
+        price.push(row.price);
+        volume.push(row.volume);
+        bid.push(row.bid);
+        ask.push(row.ask);
+        spread.push(row.spread);
+    }
+
     return {
         columnIds: ['Date', 'Time', 'Price', 'Volume', 'Bid', 'Ask', 'Spread'],
-        data: [
-            descending.map(r => r.dateReceived),
-            descending.map(r => r.tradeTime),
-            descending.map(r => r.price),
-            descending.map(r => r.volume),
-            descending.map(r => r.bid),
-            descending.map(r => r.ask),
-            descending.map(r => r.spread)
-        ]
+        data: [date, time, price, volume, bid, ask, spread]
     };
 }
 
@@ -105,8 +127,8 @@ function buildTradesTable (rows) {
  */
 async function init () {
     const rows = await loadDataset(),
-        series = buildPriceSeries(rows),
-        tradesTable = buildTradesTable(rows);
+        series = getPriceSeries(rows),
+        tradesTable = getTradesTable(rows);
 
     Dashboards.board('container', {
         dataPool: {
@@ -120,19 +142,17 @@ async function init () {
             }]
         },
         components: [{
-            renderTo: 'dashboard-col-price',
+            renderTo: 'dashboard-col-stock',
             type: 'Highcharts',
             chartConstructor: 'stockChart',
-            title: 'Intraday Price & Quote (Bid/Ask)',
+            title: 'Intraday Price & Quote (Bid/Ask) with Volume',
             chartOptions: {
                 credits: {
                     enabled: false
                 },
                 tooltip: {
-                    xDateFormat: '%H:%M:%S'
-                },
-                legend: {
-                    enabled: true
+                    xDateFormat: '%H:%M:%S',
+                    valueDecimals: 2
                 },
                 navigator: {
                     series: {
@@ -142,68 +162,74 @@ async function init () {
                         color: '#00e272'
                     }
                 },
-                xAxis: {
-                    type: 'datetime',
-                    ordinal: false
+                rangeSelector: {
+                    inputEnabled: false,
+                    selected: 4,
+                    buttons: [{
+                        type: 'minute',
+                        count: 5,
+                        text: '5m'
+                    }, {
+                        type: 'minute',
+                        count: 10,
+                        text: '10m'
+                    }, {
+                        type: 'minute',
+                        count: 15,
+                        text: '15m'
+                    }, {
+                        type: 'minute',
+                        count: 30,
+                        text: '30m'
+                    }, {
+                        type: 'all',
+                        text: 'All'
+                    }]
                 },
-                yAxis: {
-                    opposite: false,
+                xAxis: {
+                    type: 'datetime'
+                },
+                yAxis: [{
+                    height: '60%',
                     title: {
                         text: 'Price (USD)'
                     },
                     labels: {
                         format: '${value:.2f}'
                     }
-                },
+                }, {
+                    top: '65%',
+                    height: '35%',
+                    offset: 0,
+                    title: {
+                        text: 'Shares (Volume)'
+                    }
+                }],
                 series: [{
                     name: 'Ask',
                     data: series.ask,
                     color: '#2caffe'
                 }, {
-                    type: 'line',
                     name: 'Bid',
                     data: series.bid,
                     color: '#544fc5'
                 }, {
-                    type: 'line',
                     name: 'Price',
                     data: series.price,
                     color: '#fe6a35'
-                }]
-            }
-        }, {
-            renderTo: 'dashboard-col-volume',
-            type: 'Highcharts',
-            chartConstructor: 'chart',
-            title: 'Trade Volume',
-            chartOptions: {
-                title: {
-                    text: ''
-                },
-                credits: {
-                    enabled: false
-                },
-                tooltip: {
-                    xDateFormat: '%H:%M:%S',
-                    pointFormat: '<b>{point.y:,.0f}</b> shares'
-                },
-                xAxis: {
-                    type: 'datetime'
-                },
-                yAxis: {
-                    title: {
-                        text: 'Shares'
-                    }
-                },
-                series: [{
+                }, {
                     name: 'Volume',
                     type: 'column',
                     data: series.volume,
-                    color: '#00e272'
+                    color: '#00e272',
+                    yAxis: 1,
+                    tooltip: {
+                        valueDecimals: 0
+                    }
                 }]
             }
         }, {
-            renderTo: 'dashboard-col-trades',
+            renderTo: 'dashboard-col-grid',
             type: 'Grid',
             connector: {
                 id: 'trades'
@@ -218,12 +244,12 @@ async function init () {
                 columns: [{
                     id: 'Date',
                     cells: {
-                        format: '{value:,.2f}'
+                        format: '{value}'
                     }
                 }, {
                     id: 'Time',
                     cells: {
-                        format: '{value:,.2f}'
+                        format: '{value}'
                     }
                 }, {
                     id: 'Volume',
