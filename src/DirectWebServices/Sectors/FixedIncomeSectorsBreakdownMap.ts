@@ -95,7 +95,6 @@ export const sectorCountryVariants = [
 const fixedIncome = {
     SuperSectorGovernment: {
         PrimarySectorGovernment: [
-            'SecondarySectorGovernment',
             'SecondarySectorTreasury',
             'SecondarySectorTreasuryAmericaUnitedStatesOf',
             'SecondarySectorTreasuryArgentina',
@@ -306,106 +305,103 @@ const fixedIncome = {
             'SecondarySectorAgencyorquasiAgencyVirginIslandsBritish',
             'SecondarySectorAgencyorquasiAgencyVirginIslandsUS',
             'SecondarySectorSupranational',
+            'SecondarySectorInterestRateDerivative',
+            'SecondarySectorTreasuryFutures',
             'SecondarySectorGovernmentRelatedOther'
         ]
     },
     SuperSectorMunicipal: {
         PrimarySectorMunicipalTaxable: [
-            'SecondarySectorTaxableAdvanceRefunded',
-            'SecondarySectorTaxableEducation',
             'SecondarySectorTaxableGeneralObligationStateAndLocal',
+            'SecondarySectorTaxableAdvanceRefunded',
+            'SecondarySectorTaxableTobacco',
+            'SecondarySectorTaxableEducation',
             'SecondarySectorTaxableHealth',
             'SecondarySectorTaxableHousing',
             'SecondarySectorTaxableIndustrial',
-            'SecondarySectorTaxableMiscRevenueorunspecified',
-            'SecondarySectorTaxableTobacco',
             'SecondarySectorTaxableTransportation',
             'SecondarySectorTaxableUtilities',
-            'SecondarySectorTaxableWaterAndSewer'
+            'SecondarySectorTaxableWaterAndSewer',
+            'SecondarySectorTaxableMiscRevenueorunspecified'
         ],
         PrimarySectorMunicipalTaxExempt: [
-            'SecondarySectorTaxExemptAdvanceRefunded',
-            'SecondarySectorTaxExemptEducation',
             'SecondarySectorTaxExemptGeneralObligationStateAndLocal',
+            'SecondarySectorTaxExemptAdvanceRefunded',
+            'SecondarySectorTaxExemptTobacco',
+            'SecondarySectorTaxExemptEducation',
             'SecondarySectorTaxExemptHealth',
             'SecondarySectorTaxExemptHousing',
             'SecondarySectorTaxExemptIndustrial',
-            'SecondarySectorTaxExemptMiscRevenueorunspecified',
-            'SecondarySectorTaxExemptTobacco',
             'SecondarySectorTaxExemptTransportation',
             'SecondarySectorTaxExemptUtilities',
-            'SecondarySectorTaxExemptWaterAndSewer'
+            'SecondarySectorTaxExemptWaterAndSewer',
+            'SecondarySectorTaxExemptMiscRevenueorunspecified'
         ]
     },
     SuperSectorCorporate: {
-        PrimarySectorCorporateBond: [
-            'SecondarySectorCorporate',
-            'SecondarySectorCorporateBasicMaterials',
-            'SecondarySectorCorporateCommunicationServices',
-            'SecondarySectorCorporateConsumerCyclical',
-            'SecondarySectorCorporateConsumerDefensive',
-            'SecondarySectorCorporateEnergy',
-            'SecondarySectorCorporateFinancialServices',
-            'SecondarySectorCorporateHealthCare',
-            'SecondarySectorCorporateIndustrials',
-            'SecondarySectorCorporateRealEstate',
-            'SecondarySectorCorporateTechnology',
-            'SecondarySectorCorporateUnspecified',
-            'SecondarySectorCorporateUtilities'
-        ],
         PrimarySectorBankLoan: [
             'SecondarySectorBankLoanBasicMaterials',
-            'SecondarySectorBankLoanCommunicationServices',
             'SecondarySectorBankLoanConsumerCyclical',
-            'SecondarySectorBankLoanConsumerDefensive',
-            'SecondarySectorBankLoanEnergy',
             'SecondarySectorBankLoanFinancialServices',
-            'SecondarySectorBankLoanHealthCare',
-            'SecondarySectorBankLoanIndustrials',
             'SecondarySectorBankLoanRealEstate',
+            'SecondarySectorBankLoanConsumerDefensive',
+            'SecondarySectorBankLoanHealthCare',
+            'SecondarySectorBankLoanUtilities',
+            'SecondarySectorBankLoanCommunicationServices',
+            'SecondarySectorBankLoanEnergy',
+            'SecondarySectorBankLoanIndustrials',
             'SecondarySectorBankLoanTechnology',
-            'SecondarySectorBankLoanUnspecified',
-            'SecondarySectorBankLoanUtilities'
+            'SecondarySectorBankLoanUnspecified'
         ],
         PrimarySectorConvertible: [
             'SecondarySectorConvertibleBasicMaterials',
-            'SecondarySectorConvertibleCommunicationServices',
             'SecondarySectorConvertibleConsumerCyclical',
-            'SecondarySectorConvertibleConsumerDefensive',
-            'SecondarySectorConvertibleEnergy',
             'SecondarySectorConvertibleFinancialServices',
-            'SecondarySectorConvertibleHealthCare',
-            'SecondarySectorConvertibleIndustrials',
             'SecondarySectorConvertibleRealEstate',
+            'SecondarySectorConvertibleConsumerDefensive',
+            'SecondarySectorConvertibleHealthCare',
+            'SecondarySectorConvertibleUtilities',
+            'SecondarySectorConvertibleCommunicationServices',
+            'SecondarySectorConvertibleEnergy',
+            'SecondarySectorConvertibleIndustrials',
             'SecondarySectorConvertibleTechnology',
-            'SecondarySectorConvertibleUnspecified',
-            'SecondarySectorConvertibleUtilities'
+            'SecondarySectorConvertibleUnspecified'
+        ],
+        PrimarySectorCorporateBond: [
+            'SecondarySectorCorporateBasicMaterials',
+            'SecondarySectorCorporateConsumerCyclical',
+            'SecondarySectorCorporateFinancialServices',
+            'SecondarySectorCorporateRealEstate',
+            'SecondarySectorCorporateConsumerDefensive',
+            'SecondarySectorCorporateHealthCare',
+            'SecondarySectorCorporateUtilities',
+            'SecondarySectorCorporateCommunicationServices',
+            'SecondarySectorCorporateEnergy',
+            'SecondarySectorCorporateIndustrials',
+            'SecondarySectorCorporateTechnology',
+            'SecondarySectorCorporateUnspecified'
         ],
         PrimarySectorPreferredStock: [
             'SecondarySectorPreferredBasicMaterials',
-            'SecondarySectorPreferredCommunicationServices',
             'SecondarySectorPreferredConsumerCyclical',
-            'SecondarySectorPreferredConsumerDefensive',
-            'SecondarySectorPreferredEnergy',
             'SecondarySectorPreferredFinancialServices',
-            'SecondarySectorPreferredHealthCare',
-            'SecondarySectorPreferredIndustrials',
             'SecondarySectorPreferredRealEstate',
+            'SecondarySectorPreferredConsumerDefensive',
+            'SecondarySectorPreferredHealthCare',
+            'SecondarySectorPreferredUtilities',
+            'SecondarySectorPreferredCommunicationServices',
+            'SecondarySectorPreferredEnergy',
+            'SecondarySectorPreferredIndustrials',
             'SecondarySectorPreferredTechnology',
-            'SecondarySectorPreferredUnspecified',
-            'SecondarySectorPreferredUtilities'
-        ],
-        PrimarySectorCoveredBond: [
-            'SecondarySectorCoveredBond'
+            'SecondarySectorPreferredUnspecified'
         ]
     },
     SuperSectorSecuritized: {
         PrimarySectorAgencyMortgageBacked: [
+            'SecondarySectorAgencyPassThru',
             'SecondarySectorAgencyArm',
             'SecondarySectorAgencyCmo',
-            'SecondarySectorAgencyPassThru',
-            'SecondarySectorMbs',
-            'SecondarySectorGseoragency'
+            'SecondarySectorUnspecified'
         ],
         PrimarySectorNonAgencyResidentialMortgageBacked: [
             'SecondarySectorNonAgencyResidentialMortgageBacked'
@@ -413,53 +409,56 @@ const fixedIncome = {
         PrimarySectorCommercialMortgageBacked: [
             'SecondarySectorCommercialMortgageBacked'
         ],
+        PrimarySectorCoveredBond: [
+            'SecondarySectorCoveredBond'
+        ],
         PrimarySectorAssetBacked: [
-            'SecondarySectorAbs',
-            'SecondarySectorAssetBackedOther',
-            'SecondarySectorAuto',
-            'SecondarySectorCboorcdo',
-            'SecondarySectorCreditCard',
             'SecondarySectorHomeEquity',
+            'SecondarySectorCreditCard',
+            'SecondarySectorCboorcdo',
+            'SecondarySectorAuto',
             'SecondarySectorStudentLoan',
-            'SecondarySectorTdorcd'
+            'SecondarySectorAssetBackedOther'
         ]
     },
     SuperSectorCashAndEquivalents: {
         PrimarySectorCashAndEquivalents: [
-            'SecondarySectorBondUnit',
-            'SecondarySectorCurrency',
+            'SecondarySectorAbs',
             'SecondarySectorCash',
-            'SecondarySectorCashOther',
+            'SecondarySectorCorporate',
+            'SecondarySectorCurrency',
+            'SecondarySectorDerivativeCashOffsets',
+            'SecondarySectorFrn',
+            'SecondarySectorGovernment',
+            'SecondarySectorGseoragency',
+            'SecondarySectorMbs',
             'SecondarySectorMoneyMarket',
+            'SecondarySectorMunicipal',
             'SecondarySectorCommercialPaper',
             'SecondarySectorRepurchaseAgreements',
-            'SecondarySectorCollateral'
+            'SecondarySectorTdorcd',
+            'SecondarySectorCollateral',
+            'SecondarySectorCashOther'
         ]
     },
     SuperSectorDerivative: {
+        PrimarySectorSwap: [
+            'SecondarySectorCreditDefaultSwap',
+            'SecondarySectorTotalReturnSwap',
+            'SecondarySectorDebtSwap'
+        ],
         PrimarySectorForwardorfuture: [
             'SecondarySectorBondFuture',
             'SecondarySectorBondIndexFuture',
-            'SecondarySectorTreasuryFutures',
-            'SecondarySectorCurrencyForwardorfuture'
-        ],
-        PrimarySectorSwap: [
-            'SecondarySectorCreditDefaultSwap',
-            'SecondarySectorDebtSwap',
-            'SecondarySectorInterestRateDerivative',
-            'SecondarySectorTotalReturnSwap'
+            'SecondarySectorCurrencyForwardorfuture',
+            'SecondarySectorBondUnit'
         ],
         PrimarySectorOptionorwarrant: [
             'SecondarySectorBondOption',
             'SecondarySectorBondWarrant'
         ]
     },
-    SuperSectorUncategorized: [
-        'SecondarySectorDerivativeCashOffsets',
-        'SecondarySectorFrn',
-        'SecondarySectorMunicipal',
-        'SecondarySectorUnspecified'
-    ]
+    SuperSectorUncategorized: []
 };
 
 // Morningstar fixed income sector breakdown hierarchy
@@ -471,106 +470,103 @@ const fixedIncomeBreakdown = {
         ],
         PrimarySectorBreakdownGovTRelatd: [
             'SecondarySectorBreakdownGovTRelatDAgency',
-            'SecondarySectorBreakdownGovTRelatDIntRateSwap',
-            'SecondarySectorBreakdownGovTRelatDOther',
             'SecondarySectorBreakdownGovTRelatDSupranatL',
-            'SecondarySectorBreakdownGovTRelatDTrsryFuture'
+            'SecondarySectorBreakdownGovTRelatDIntRateSwap',
+            'SecondarySectorBreakdownGovTRelatDTrsryFuture',
+            'SecondarySectorBreakdownGovTRelatDOther'
         ]
     },
     SuperSectorBreakdownUsMuni: {
         PrimarySectorBreakdownUsMuniTaxable: [
-            'SecondarySectorBreakdownUsMuniTxblEducation',
-            'SecondarySectorBreakdownUsMuniTxblEscrow',
             'SecondarySectorBreakdownUsMuniTxblGeneralObligtn',
+            'SecondarySectorBreakdownUsMuniTxblEscrow',
+            'SecondarySectorBreakdownUsMuniTxblTobaccoSecurtztn',
+            'SecondarySectorBreakdownUsMuniTxblEducation',
             'SecondarySectorBreakdownUsMuniTxblHealthcare',
             'SecondarySectorBreakdownUsMuniTxblHousing',
             'SecondarySectorBreakdownUsMuniTxblIndustDev',
-            'SecondarySectorBreakdownUsMuniTxblTobaccoSecurtztn',
             'SecondarySectorBreakdownUsMuniTxblTransport',
-            'SecondarySectorBreakdownUsMuniTxblUnspec',
             'SecondarySectorBreakdownUsMuniTxblUtility',
-            'SecondarySectorBreakdownUsMuniTxblWtrorswr'
+            'SecondarySectorBreakdownUsMuniTxblWtrorswr',
+            'SecondarySectorBreakdownUsMuniTxblUnspec'
         ],
         PrimarySectorBreakdownUsMuniTaxExempt: [
-            'SecondarySectorBreakdownUsMuniTaxExEducation',
-            'SecondarySectorBreakdownUsMuniTaxExEscrow',
             'SecondarySectorBreakdownUsMuniTaxExGeneralObligtn',
+            'SecondarySectorBreakdownUsMuniTaxExEscrow',
+            'SecondarySectorBreakdownUsMuniTaxExTobaccoSecurtztn',
+            'SecondarySectorBreakdownUsMuniTaxExEducation',
             'SecondarySectorBreakdownUsMuniTaxExHealthcare',
             'SecondarySectorBreakdownUsMuniTaxExHousing',
             'SecondarySectorBreakdownUsMuniTaxExIndustDev',
-            'SecondarySectorBreakdownUsMuniTaxExTobaccoSecurtztn',
             'SecondarySectorBreakdownUsMuniTaxExTransport',
-            'SecondarySectorBreakdownUsMuniTaxExUnspec',
             'SecondarySectorBreakdownUsMuniTaxExUtility',
-            'SecondarySectorBreakdownUsMuniTaxExWtrorswr'
+            'SecondarySectorBreakdownUsMuniTaxExWtrorswr',
+            'SecondarySectorBreakdownUsMuniTaxExUnspec'
         ]
     },
     SuperSectorBreakdownCorporate: {
-        PrimarySectorBreakdownCorporateBond: [
-            'SecondarySectorBreakdownCorpBondBasicMaterial',
-            'SecondarySectorBreakdownCorpBondCommunServices',
-            'SecondarySectorBreakdownCorpBondConsumCyclical',
-            'SecondarySectorBreakdownCorpBondConsumDefense',
-            'SecondarySectorBreakdownCorpBondEnergy',
-            'SecondarySectorBreakdownCorpBondFinclServices',
-            'SecondarySectorBreakdownCorpBondHealthcare',
-            'SecondarySectorBreakdownCorpBondIndustrials',
-            'SecondarySectorBreakdownCorpBondRealEstate',
-            'SecondarySectorBreakdownCorpBondTechnology',
-            'SecondarySectorBreakdownCorpBondUnspec',
-            'SecondarySectorBreakdownCorpBondUtility'
-        ],
         PrimarySectorBreakdownBankLoans: [
             'SecondarySectorBreakdownBankLnsBasicMaterial',
-            'SecondarySectorBreakdownBankLnsCommunServices',
             'SecondarySectorBreakdownBankLnsConsumCyclical',
-            'SecondarySectorBreakdownBankLnsConsumDefense',
-            'SecondarySectorBreakdownBankLnsEnergy',
             'SecondarySectorBreakdownBankLnsFinclServices',
-            'SecondarySectorBreakdownBankLnsHealthcare',
-            'SecondarySectorBreakdownBankLnsIndustrials',
             'SecondarySectorBreakdownBankLnsRealEstate',
+            'SecondarySectorBreakdownBankLnsConsumDefense',
+            'SecondarySectorBreakdownBankLnsHealthcare',
+            'SecondarySectorBreakdownBankLnsUtility',
+            'SecondarySectorBreakdownBankLnsCommunServices',
+            'SecondarySectorBreakdownBankLnsEnergy',
+            'SecondarySectorBreakdownBankLnsIndustrials',
             'SecondarySectorBreakdownBankLnsTechnology',
-            'SecondarySectorBreakdownBankLnsUnspec',
-            'SecondarySectorBreakdownBankLnsUtility'
+            'SecondarySectorBreakdownBankLnsUnspec'
         ],
         PrimarySectorBreakdownConvertibles: [
             'SecondarySectorBreakdownConvertsBasicMaterial',
-            'SecondarySectorBreakdownConvertsCommunServices',
             'SecondarySectorBreakdownConvertsConsumCyclical',
-            'SecondarySectorBreakdownConvertsConsumDefense',
-            'SecondarySectorBreakdownConvertsEnergy',
             'SecondarySectorBreakdownConvertsFinclServices',
-            'SecondarySectorBreakdownConvertsHealthcare',
-            'SecondarySectorBreakdownConvertsIndustrials',
             'SecondarySectorBreakdownConvertsRealEstate',
+            'SecondarySectorBreakdownConvertsConsumDefense',
+            'SecondarySectorBreakdownConvertsHealthcare',
+            'SecondarySectorBreakdownConvertsUtility',
+            'SecondarySectorBreakdownConvertsCommunServices',
+            'SecondarySectorBreakdownConvertsEnergy',
+            'SecondarySectorBreakdownConvertsIndustrials',
             'SecondarySectorBreakdownConvertsTechnology',
-            'SecondarySectorBreakdownConvertsUnspec',
-            'SecondarySectorBreakdownConvertsUtility'
+            'SecondarySectorBreakdownConvertsUnspec'
+        ],
+        PrimarySectorBreakdownCorporateBond: [
+            'SecondarySectorBreakdownCorpBondBasicMaterial',
+            'SecondarySectorBreakdownCorpBondConsumCyclical',
+            'SecondarySectorBreakdownCorpBondFinclServices',
+            'SecondarySectorBreakdownCorpBondRealEstate',
+            'SecondarySectorBreakdownCorpBondConsumDefense',
+            'SecondarySectorBreakdownCorpBondHealthcare',
+            'SecondarySectorBreakdownCorpBondUtility',
+            'SecondarySectorBreakdownCorpBondCommunServices',
+            'SecondarySectorBreakdownCorpBondEnergy',
+            'SecondarySectorBreakdownCorpBondIndustrials',
+            'SecondarySectorBreakdownCorpBondTechnology',
+            'SecondarySectorBreakdownCorpBondUnspec'
         ],
         PrimarySectorBreakdownPreferreds: [
             'SecondarySectorBreakdownPreferredsBasicMaterial',
-            'SecondarySectorBreakdownPreferredsCommunServices',
             'SecondarySectorBreakdownPreferredsConsumCyclical',
-            'SecondarySectorBreakdownPreferredsConsumDefense',
-            'SecondarySectorBreakdownPreferredsEnergy',
             'SecondarySectorBreakdownPreferredsFinclServices',
-            'SecondarySectorBreakdownPreferredsHealthcare',
-            'SecondarySectorBreakdownPreferredsIndustrials',
             'SecondarySectorBreakdownPreferredsRealEstate',
+            'SecondarySectorBreakdownPreferredsConsumDefense',
+            'SecondarySectorBreakdownPreferredsHealthcare',
+            'SecondarySectorBreakdownPreferredsUtility',
+            'SecondarySectorBreakdownPreferredsCommunServices',
+            'SecondarySectorBreakdownPreferredsEnergy',
+            'SecondarySectorBreakdownPreferredsIndustrials',
             'SecondarySectorBreakdownPreferredsTechnology',
-            'SecondarySectorBreakdownPreferredsUnspec',
-            'SecondarySectorBreakdownPreferredsUtility'
-        ],
-        PrimarySectorBreakdownCoveredBond: [
-            'SecondarySectorBreakdownCoveredBond'
+            'SecondarySectorBreakdownPreferredsUnspec'
         ]
     },
     SuperSectorBreakdownSecuritized: {
         PrimarySectorBreakdownUsAgencyMortgage: [
+            'SecondarySectorBreakdownUsAgcyMtgPassThru',
             'SecondarySectorBreakdownUsAgcyMtgArm',
             'SecondarySectorBreakdownUsAgcyMtgCmo',
-            'SecondarySectorBreakdownUsAgcyMtgPassThru',
             'SecondarySectorBreakdownUsAgcyMtgUnspec'
         ],
         PrimarySectorBreakdownNonAgencyMortgage: [
@@ -579,48 +575,51 @@ const fixedIncomeBreakdown = {
         PrimarySectorBreakdownCommercialMortgage: [
             'SecondarySectorBreakdownCommercialMortgage'
         ],
+        PrimarySectorBreakdownCoveredBond: [
+            'SecondarySectorBreakdownCoveredBond'
+        ],
         PrimarySectorBreakdownAssetBacked: [
-            'SecondarySectorBreakdownAbsAuto',
-            'SecondarySectorBreakdownAbsCboorcdo',
-            'SecondarySectorBreakdownAbsCreditCard',
             'SecondarySectorBreakdownAbsHomeEqty',
-            'SecondarySectorBreakdownAbsOther',
-            'SecondarySectorBreakdownAbsStudLoan'
+            'SecondarySectorBreakdownAbsCreditCard',
+            'SecondarySectorBreakdownAbsCboorcdo',
+            'SecondarySectorBreakdownAbsAuto',
+            'SecondarySectorBreakdownAbsStudLoan',
+            'SecondarySectorBreakdownAbsOther'
         ]
     },
     SuperSectorBreakdownCashEquiv: {
         PrimarySectorBreakdownCashEquiv: [
             'SecondarySectorBreakdownCashEquivAbs',
-            'SecondarySectorBreakdownCashEquivAcctgOffset',
             'SecondarySectorBreakdownCashEquivCash',
-            'SecondarySectorBreakdownCashEquivCollateral',
             'SecondarySectorBreakdownCashEquivCorporate',
-            'SecondarySectorBreakdownCashEquivCp',
             'SecondarySectorBreakdownCashEquivCurrency',
+            'SecondarySectorBreakdownCashEquivAcctgOffset',
             'SecondarySectorBreakdownCashEquivFloater',
             'SecondarySectorBreakdownCashEquivGovt',
             'SecondarySectorBreakdownCashEquivGovtAgcy',
             'SecondarySectorBreakdownCashEquivMbs',
             'SecondarySectorBreakdownCashEquivMoneyMkt',
             'SecondarySectorBreakdownCashEquivMuni',
-            'SecondarySectorBreakdownCashEquivOther',
+            'SecondarySectorBreakdownCashEquivCp',
             'SecondarySectorBreakdownCashEquivRepo',
-            'SecondarySectorBreakdownCashEquivTdorcd'
+            'SecondarySectorBreakdownCashEquivTdorcd',
+            'SecondarySectorBreakdownCashEquivCollateral',
+            'SecondarySectorBreakdownCashEquivOther'
         ]
     },
     SuperSectorBreakdownDerivative: {
-        PrimarySectorBreakdownFuturesorforwards: [
-            'SecondarySectorBreakdownForwardsCurrency',
-            'SecondarySectorBreakdownForwardsUnit',
-            'SecondarySectorBreakdownFutureCurrency',
-            'SecondarySectorBreakdownFuturesBond',
-            'SecondarySectorBreakdownFuturesBondIndex'
-        ],
         PrimarySectorBreakdownSwaps: [
-            'SecondarySectorBreakdownSwapAsset',
             'SecondarySectorBreakdownSwapCreditDflt',
             'SecondarySectorBreakdownSwapTotalRtrn',
+            'SecondarySectorBreakdownSwapAsset',
             'SecondarySectorBreakdownSwapVolorvariance'
+        ],
+        PrimarySectorBreakdownFuturesorforwards: [
+            'SecondarySectorBreakdownFuturesBond',
+            'SecondarySectorBreakdownFuturesBondIndex',
+            'SecondarySectorBreakdownFutureCurrency',
+            'SecondarySectorBreakdownForwardsCurrency',
+            'SecondarySectorBreakdownForwardsUnit'
         ],
         PrimarySectorBreakdownOptions: [
             'SecondarySectorBreakdownOptionBond',
