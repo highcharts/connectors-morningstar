@@ -51,124 +51,105 @@ export async function fixedIncomeSectorsBreakdown (
         'Fixed_Income_Type',
         'Fixed_Income_Path',
         'Fixed_Income_PercNet',
-        'Fixed_Income_PercShort',
         'Fixed_Income_PercLong',
         'Fixed_Income_PercLongRescaled'
-    ].sort(),
-        govPerCountrySuperSectorsDataTable = connector.getTable('IncGovPerCountrySuperSectors'),
-        govPerCountrySectorsCount = govPerCountrySuperSectorsDataTable.getRowCount();
+    ].sort();
 
-    Assert.deepStrictEqual(
-        govPerCountrySuperSectorsDataTable.getColumnIds().sort(),
-        fixedIncColumns,
-        'IncGovPerCountrySuperSectors table should have expected columns.'
-    );
+    const regionSectorAsserts = (tableName: string) => {
+        const dataTable = connector.getTable(tableName),
+            dataTableCount = dataTable.getRowCount();
 
-    Assert.ok(
-        govPerCountrySectorsCount > 0,
-        'IncGovPerCountrySuperSectors table should not return empty rows.'
-    );
+        Assert.deepStrictEqual(
+            dataTable.getColumnIds().sort(),
+            fixedIncColumns,
+            `${tableName} table should have expected columns.`
+        );
 
-    Assert.ok(
-        govPerCountrySuperSectorsDataTable.metadata !== undefined,
-        'IncGovPerCountrySuperSectors table should have metadata defined.'
-    );
+        Assert.ok(
+            dataTableCount > 0,
+            `${tableName} table should not return empty rows.`
+        );
 
-    Assert.deepStrictEqual(
-        Object.keys(govPerCountrySuperSectorsDataTable.metadata).sort(),
-        [
-            'performanceId'
-        ],
-        'IncGovPerCountrySuperSectors table metadata should contain expected properties.'
-    );
+        Assert.ok(
+            dataTable.metadata !== undefined,
+            `${tableName} table should have metadata defined.`
+        );
 
-    const superSectorsDataTable = connector.getTable('IncSuperSectors'),
-        superSectorsCount = superSectorsDataTable.getRowCount();
+        Assert.deepStrictEqual(
+            Object.keys(dataTable.metadata).sort(),
+            [
+                'performanceId'
+            ],
+            `${tableName} table metadata should contain expected properties.`
+        );
+    };
 
-    Assert.deepStrictEqual(
-        superSectorsDataTable.getColumnIds().sort(),
-        fixedIncColumns,
-        'IncSuperSectors table should have expected columns.'
-    );
+    [
+        'IncInflationPerRegionSecondarySectors',
+        'IncAgencyPerRegionSecondarySectors'
+    ].forEach(regionSectorAsserts);
 
-    Assert.ok(
-        superSectorsCount > 0,
-        'IncSuperSectors table should not return empty rows.'
-    );
+    fixedIncColumns.push('Fixed_Income_PercShort');
+    fixedIncColumns.sort();
 
-    Assert.ok(
-        superSectorsDataTable.metadata !== undefined,
-        'IncSuperSectors table should have metadata defined.'
-    );
+    [
+        'IncGovernmentPerRegionSuperSectors',
+        'IncTreasuryPerRegionSecondarySectors'
+    ].forEach(regionSectorAsserts);
 
-    Assert.deepStrictEqual(
-        Object.keys(superSectorsDataTable.metadata).sort(),
-        [
+    const sectorAsserts = (
+        sectorObj: { [tableName: string]: Array<string>; },
+        columns: Array<string>
+    ) => {
+        Object.entries(sectorObj).forEach(([tableName, metadata]) => {
+            const dataTable = connector.getTable(tableName),
+                dataTableCount = dataTable.getRowCount();
+
+            sectorsRowCount += dataTableCount;
+
+            Assert.deepStrictEqual(
+                dataTable.getColumnIds().sort(),
+                columns,
+                `${tableName} table should have expected columns.`
+            );
+
+            Assert.ok(
+                dataTableCount > 0,
+                `${tableName} table should not return empty rows.`
+            );
+
+            Assert.ok(
+                dataTable.metadata !== undefined,
+                `${tableName} table should have metadata defined.`
+            );
+
+            Assert.deepStrictEqual(
+                Object.keys(dataTable.metadata).sort(),
+                [
+                    ...metadata,
+                    'performanceId'
+                ],
+                `${tableName} table metadata should contain expected properties.`
+            );
+        });
+    };
+
+    let sectorsRowCount = 0;
+    sectorAsserts({
+        IncSuperSectors: [
             'fixedIncSuperSectorGovernmentCountryRescalingFactorLong',
-            'fixedIncSuperSectorRescalingFactorLong',
-            'performanceId'
+            'fixedIncSuperSectorRescalingFactorLong'
         ],
-        'IncSuperSectors table metadata should contain expected properties.'
-    );
-
-    const primarySectorsDataTable = connector.getTable('IncPrimarySectors'),
-        primarySectorsCount = primarySectorsDataTable.getRowCount();
-
-    Assert.deepStrictEqual(
-        primarySectorsDataTable.getColumnIds().sort(),
-        fixedIncColumns,
-        'IncPrimarySectors table should have expected columns.'
-    );
-
-    Assert.ok(
-        primarySectorsCount > 0,
-        'IncPrimarySectors table should not return empty rows.'
-    );
-
-    Assert.ok(
-        primarySectorsDataTable.metadata !== undefined,
-        'IncPrimarySectors table should have metadata defined.'
-    );
-
-    Assert.deepStrictEqual(
-        Object.keys(primarySectorsDataTable.metadata).sort(),
-        [
-            'fixedIncPrimarySectorRescalingFactorLong',
-            'performanceId'
+        IncPrimarySectors: [
+            'fixedIncPrimarySectorRescalingFactorLong'
         ],
-        'IncPrimarySectors table metadata should contain expected properties.'
-    );
-
-    const secondarySectorsDataTable = connector.getTable('IncSecondarySectors'),
-        secondarySectorsCount = secondarySectorsDataTable.getRowCount();
-
-    Assert.deepStrictEqual(
-        secondarySectorsDataTable.getColumnIds().sort(),
-        fixedIncColumns,
-        'IncSecondarySectors table should have expected columns.'
-    );
-
-    Assert.ok(
-        secondarySectorsCount > 0,
-        'IncSecondarySectors table should not return empty rows.'
-    );
-
-    Assert.ok(
-        secondarySectorsDataTable.metadata !== undefined,
-        'IncSecondarySectors table should have metadata defined.'
-    );
-
-    Assert.deepStrictEqual(
-        Object.keys(secondarySectorsDataTable.metadata).sort(),
-        [
+        IncSecondarySectors: [
             'fixedIncSecondarySectorAgencyorquasiAgencyCountryRescalingFactorLong',
             'fixedIncSecondarySectorInflationProtectedCountryRescalingFactorLong',
             'fixedIncSecondarySectorRescalingFactorLong',
-            'fixedIncSecondarySectorTreasuryCountryRescalingFactorLong',
-            'performanceId'
-        ],
-        'IncSecondarySectors table metadata should contain expected properties.'
-    );
+            'fixedIncSecondarySectorTreasuryCountryRescalingFactorLong'
+        ]
+    }, fixedIncColumns);
 
     const sectorsDataTable = connector.getTable('IncAllSectors'),
         sectorsCount = sectorsDataTable.getRowCount();
@@ -185,13 +166,10 @@ export async function fixedIncomeSectorsBreakdown (
     );
 
     Assert.ok(
-        sectorsCount === (
-            superSectorsCount +
-            primarySectorsCount +
-            secondarySectorsCount
-        ),
+        sectorsCount === sectorsRowCount,
         'IncAllSectors table should have all rows from previous sectors.'
     );
+    sectorsRowCount = 0;
 
     const fixedIncBreakdownColumns = [
         'Fixed_Income_Breakdown_Type',
@@ -199,87 +177,13 @@ export async function fixedIncomeSectorsBreakdown (
         'Fixed_Income_Breakdown_CalcNetFiperc',
         'Fixed_Income_Breakdown_CalcShortFiperc',
         'Fixed_Income_Breakdown_CalcLongFiperc'
-    ].sort(),
-        brkSuperSectorsDataTable = connector.getTable('IncBrkSuperSectors'),
-        brkSuperSectorsCount = brkSuperSectorsDataTable.getRowCount();
+    ].sort();
 
-    Assert.deepStrictEqual(
-        brkSuperSectorsDataTable.getColumnIds().sort(),
-        fixedIncBreakdownColumns,
-        'IncBrkSuperSectors table should have expected columns.'
-    );
-
-    Assert.ok(
-        brkSuperSectorsCount > 0,
-        'IncBrkSuperSectors table should not return empty rows.'
-    );
-
-    Assert.ok(
-        brkSuperSectorsDataTable.metadata !== undefined,
-        'IncBrkSuperSectors table should have metadata defined.'
-    );
-
-    Assert.deepStrictEqual(
-        Object.keys(brkSuperSectorsDataTable.metadata).sort(),
-        [
-            'performanceId'
-        ],
-        'IncBrkSuperSectors table metadata should contain expected properties.'
-    );
-
-    const brkPrimarySectorsDataTable = connector.getTable(
-        'IncBrkPrimarySectors'
-    ),
-        brkPrimarySectorsCount = brkPrimarySectorsDataTable.getRowCount();
-
-    Assert.deepStrictEqual(
-        brkPrimarySectorsDataTable.getColumnIds().sort(),
-        fixedIncBreakdownColumns,
-        'IncBrkPrimarySectors table should have expected columns.'
-    );
-
-    Assert.ok(
-        brkPrimarySectorsCount > 0,
-        'IncBrkPrimarySectors table should not return empty rows.'
-    );
-
-    Assert.ok(
-        brkPrimarySectorsDataTable.metadata !== undefined,
-        'IncBrkPrimarySectors table should have metadata defined.'
-    );
-
-    Assert.deepStrictEqual(
-        Object.keys(brkPrimarySectorsDataTable.metadata).sort(),
-        ['performanceId'],
-        'IncBrkPrimarySectors table metadata should contain expected properties.'
-    );
-
-    const brkSecondarySectorsDataTable = connector.getTable(
-        'IncBrkSecondarySectors'
-    ),
-        brkSecondarySectorsCount = brkSecondarySectorsDataTable.getRowCount();
-
-    Assert.deepStrictEqual(
-        brkSecondarySectorsDataTable.getColumnIds().sort(),
-        fixedIncBreakdownColumns,
-        'IncBrkSecondarySectors table should have expected columns.'
-    );
-
-    Assert.ok(
-        brkSecondarySectorsCount > 0,
-        'IncBrkSecondarySectors table should not return empty rows.'
-    );
-
-    Assert.ok(
-        brkSecondarySectorsDataTable.metadata !== undefined,
-        'IncBrkSecondarySectors table should have metadata defined.'
-    );
-
-    Assert.deepStrictEqual(
-        Object.keys(brkSecondarySectorsDataTable.metadata).sort(),
-        ['performanceId'],
-        'IncBrkSecondarySectors table metadata should contain expected properties.'
-    );
+    sectorAsserts({
+        IncBrkSuperSectors: [],
+        IncBrkPrimarySectors: [],
+        IncBrkSecondarySectors: []
+    }, fixedIncBreakdownColumns);
 
     const brkSectorsDataTable = connector.getTable('IncBrkAllSectors'),
         brkSectorsCount = brkSectorsDataTable.getRowCount();
@@ -296,11 +200,7 @@ export async function fixedIncomeSectorsBreakdown (
     );
 
     Assert.ok(
-        brkSectorsCount === (
-            brkSuperSectorsCount +
-            brkPrimarySectorsCount +
-            brkSecondarySectorsCount
-        ),
+        brkSectorsCount === sectorsRowCount,
         'IncBrkAllSectors table should have all rows from previous sectors.'
     );
 }

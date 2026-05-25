@@ -60,15 +60,18 @@ names:
     - EqIndustries
 
 * **FixedIncomeSectorsBreakdown**:
-    - IncGovPerCountrySuperSectors
+    - IncGovernmentPerRegionSuperSectors
+    - IncTreasuryPerRegionSecondarySectors
+    - IncInflationPerRegionSecondarySectors
+    - IncAgencyPerRegionSecondarySectors
+    - IncAllSectors
     - IncSuperSectors
     - IncPrimarySectors
     - IncSecondarySectors
-    - IncAllSectors
+    - IncBrkAllSectors
     - IncBrkSuperSectors
     - IncBrkPrimarySectors
     - IncBrkSecondarySectors
-    - IncBrkAllSectors
 
 * **EquityStyleBox**:
     - StockStyle
