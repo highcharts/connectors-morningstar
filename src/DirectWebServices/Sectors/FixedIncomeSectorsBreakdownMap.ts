@@ -15,12 +15,23 @@
 
 /* *
  *
+ *  Imports
+ *
+ * */
+
+import FixedIncomeSectorsBreakdown from './FixedIncomeSectorsBreakdownOptions';
+import SectorsBreakdown from './SectorsBreakdownOptions';
+
+import type { FieldsMapping } from './FixedIncomeSectorsBreakdownJSON';
+
+/* *
+ *
  *  Constants
  *
  * */
 
-// Country variants registered alongside super sectors
-export const sectorCountryVariants = [
+// Region variants registered alongside sectors
+const regionVariants = [
     'AmericaUnitedStatesOf',
     'Argentina',
     'Australia',
@@ -89,221 +100,25 @@ export const sectorCountryVariants = [
     'Venezuela',
     'VirginIslandsBritish',
     'VirginIslandsUS'
-].map(country => `SuperSectorGovernment${country}`);
+];
+
+// Possible region sector variants
+const sectorVariants = [
+    'SuperSectorGovernment',
+    'SecondarySectorTreasury',
+    'SecondarySectorInflationProtected',
+    'SecondarySectorAgencyorquasiAgency'
+];
 
 // Morningstar fixed income sector hierarchy
 const fixedIncome = {
     SuperSectorGovernment: {
         PrimarySectorGovernment: [
             'SecondarySectorTreasury',
-            'SecondarySectorTreasuryAmericaUnitedStatesOf',
-            'SecondarySectorTreasuryArgentina',
-            'SecondarySectorTreasuryAustralia',
-            'SecondarySectorTreasuryAustria',
-            'SecondarySectorTreasuryBahamas',
-            'SecondarySectorTreasuryBelgium',
-            'SecondarySectorTreasuryBelize',
-            'SecondarySectorTreasuryBermuda',
-            'SecondarySectorTreasuryBolivia',
-            'SecondarySectorTreasuryBrazil',
-            'SecondarySectorTreasuryCanada',
-            'SecondarySectorTreasuryCaymanIslands',
-            'SecondarySectorTreasuryChannelIslands',
-            'SecondarySectorTreasuryChile',
-            'SecondarySectorTreasuryChina',
-            'SecondarySectorTreasuryColombia',
-            'SecondarySectorTreasuryCzechRepublic',
-            'SecondarySectorTreasuryDenmark',
-            'SecondarySectorTreasuryEgypt',
-            'SecondarySectorTreasuryFinland',
-            'SecondarySectorTreasuryFrance',
-            'SecondarySectorTreasuryFranceMetropolitan',
-            'SecondarySectorTreasuryFrontierCountry',
-            'SecondarySectorTreasuryGermany',
-            'SecondarySectorTreasuryGreece',
-            'SecondarySectorTreasuryGreenland',
-            'SecondarySectorTreasuryGuernsey',
-            'SecondarySectorTreasuryHolySeeVaticanCityState',
-            'SecondarySectorTreasuryHongKong',
-            'SecondarySectorTreasuryHungary',
-            'SecondarySectorTreasuryIceland',
-            'SecondarySectorTreasuryIndia',
-            'SecondarySectorTreasuryIndonesia',
-            'SecondarySectorTreasuryIreland',
-            'SecondarySectorTreasuryIsleOfMan',
-            'SecondarySectorTreasuryIsrael',
-            'SecondarySectorTreasuryItaly',
-            'SecondarySectorTreasuryJapan',
-            'SecondarySectorTreasuryJersey',
-            'SecondarySectorTreasuryKoreaRepublicOf',
-            'SecondarySectorTreasuryLiechtenstein',
-            'SecondarySectorTreasuryLuxembourg',
-            'SecondarySectorTreasuryMalaysia',
-            'SecondarySectorTreasuryMexico',
-            'SecondarySectorTreasuryMonaco',
-            'SecondarySectorTreasuryMorocco',
-            'SecondarySectorTreasuryNetherlands',
-            'SecondarySectorTreasuryNewZealand',
-            'SecondarySectorTreasuryNorway',
-            'SecondarySectorTreasuryPeru',
-            'SecondarySectorTreasuryPhilippines',
-            'SecondarySectorTreasuryPoland',
-            'SecondarySectorTreasuryPortugal',
-            'SecondarySectorTreasuryPuertoRico',
-            'SecondarySectorTreasuryRussianFederation',
-            'SecondarySectorTreasurySingapore',
-            'SecondarySectorTreasurySouthAfrica',
-            'SecondarySectorTreasurySpain',
-            'SecondarySectorTreasurySweden',
-            'SecondarySectorTreasurySwitzerland',
-            'SecondarySectorTreasuryTaiwan',
-            'SecondarySectorTreasuryThailand',
-            'SecondarySectorTreasuryTurkey',
-            'SecondarySectorTreasuryUnitedKingdom',
-            'SecondarySectorTreasuryUruguay',
-            'SecondarySectorTreasuryVenezuela',
-            'SecondarySectorTreasuryVirginIslandsBritish',
-            'SecondarySectorTreasuryVirginIslandsUS',
-            'SecondarySectorInflationProtected',
-            'SecondarySectorInflationProtectedAmericaUnitedStatesOf',
-            'SecondarySectorInflationProtectedArgentina',
-            'SecondarySectorInflationProtectedAustralia',
-            'SecondarySectorInflationProtectedAustria',
-            'SecondarySectorInflationProtectedBahamas',
-            'SecondarySectorInflationProtectedBelgium',
-            'SecondarySectorInflationProtectedBelize',
-            'SecondarySectorInflationProtectedBermuda',
-            'SecondarySectorInflationProtectedBolivia',
-            'SecondarySectorInflationProtectedBrazil',
-            'SecondarySectorInflationProtectedCanada',
-            'SecondarySectorInflationProtectedCaymanIslands',
-            'SecondarySectorInflationProtectedChannelIslands',
-            'SecondarySectorInflationProtectedChile',
-            'SecondarySectorInflationProtectedChina',
-            'SecondarySectorInflationProtectedColombia',
-            'SecondarySectorInflationProtectedCzechRepublic',
-            'SecondarySectorInflationProtectedDenmark',
-            'SecondarySectorInflationProtectedEgypt',
-            'SecondarySectorInflationProtectedFinland',
-            'SecondarySectorInflationProtectedFrance',
-            'SecondarySectorInflationProtectedFranceMetropolitan',
-            'SecondarySectorInflationProtectedFrontierCountry',
-            'SecondarySectorInflationProtectedGermany',
-            'SecondarySectorInflationProtectedGreece',
-            'SecondarySectorInflationProtectedGreenland',
-            'SecondarySectorInflationProtectedGuernsey',
-            'SecondarySectorInflationProtectedHolySeeVaticanCityState',
-            'SecondarySectorInflationProtectedHongKong',
-            'SecondarySectorInflationProtectedHungary',
-            'SecondarySectorInflationProtectedIceland',
-            'SecondarySectorInflationProtectedIndia',
-            'SecondarySectorInflationProtectedIndonesia',
-            'SecondarySectorInflationProtectedIreland',
-            'SecondarySectorInflationProtectedIsleOfMan',
-            'SecondarySectorInflationProtectedIsrael',
-            'SecondarySectorInflationProtectedItaly',
-            'SecondarySectorInflationProtectedJapan',
-            'SecondarySectorInflationProtectedJersey',
-            'SecondarySectorInflationProtectedKoreaRepublicOf',
-            'SecondarySectorInflationProtectedLiechtenstein',
-            'SecondarySectorInflationProtectedLuxembourg',
-            'SecondarySectorInflationProtectedMalaysia',
-            'SecondarySectorInflationProtectedMexico',
-            'SecondarySectorInflationProtectedMonaco',
-            'SecondarySectorInflationProtectedMorocco',
-            'SecondarySectorInflationProtectedNetherlands',
-            'SecondarySectorInflationProtectedNewZealand',
-            'SecondarySectorInflationProtectedNorway',
-            'SecondarySectorInflationProtectedPeru',
-            'SecondarySectorInflationProtectedPhilippines',
-            'SecondarySectorInflationProtectedPoland',
-            'SecondarySectorInflationProtectedPortugal',
-            'SecondarySectorInflationProtectedPuertoRico',
-            'SecondarySectorInflationProtectedRussianFederation',
-            'SecondarySectorInflationProtectedSingapore',
-            'SecondarySectorInflationProtectedSouthAfrica',
-            'SecondarySectorInflationProtectedSpain',
-            'SecondarySectorInflationProtectedSweden',
-            'SecondarySectorInflationProtectedSwitzerland',
-            'SecondarySectorInflationProtectedTaiwan',
-            'SecondarySectorInflationProtectedThailand',
-            'SecondarySectorInflationProtectedTurkey',
-            'SecondarySectorInflationProtectedUnitedKingdom',
-            'SecondarySectorInflationProtectedUruguay',
-            'SecondarySectorInflationProtectedVenezuela',
-            'SecondarySectorInflationProtectedVirginIslandsBritish',
-            'SecondarySectorInflationProtectedVirginIslandsUS'
+            'SecondarySectorInflationProtected'
         ],
         PrimarySectorGovernmentRelated: [
             'SecondarySectorAgencyorquasiAgency',
-            'SecondarySectorAgencyorquasiAgencyAmericaUnitedStatesOf',
-            'SecondarySectorAgencyorquasiAgencyArgentina',
-            'SecondarySectorAgencyorquasiAgencyAustralia',
-            'SecondarySectorAgencyorquasiAgencyAustria',
-            'SecondarySectorAgencyorquasiAgencyBahamas',
-            'SecondarySectorAgencyorquasiAgencyBelgium',
-            'SecondarySectorAgencyorquasiAgencyBelize',
-            'SecondarySectorAgencyorquasiAgencyBermuda',
-            'SecondarySectorAgencyorquasiAgencyBolivia',
-            'SecondarySectorAgencyorquasiAgencyBrazil',
-            'SecondarySectorAgencyorquasiAgencyCanada',
-            'SecondarySectorAgencyorquasiAgencyCaymanIslands',
-            'SecondarySectorAgencyorquasiAgencyChannelIslands',
-            'SecondarySectorAgencyorquasiAgencyChile',
-            'SecondarySectorAgencyorquasiAgencyChina',
-            'SecondarySectorAgencyorquasiAgencyColombia',
-            'SecondarySectorAgencyorquasiAgencyCzechRepublic',
-            'SecondarySectorAgencyorquasiAgencyDenmark',
-            'SecondarySectorAgencyorquasiAgencyEgypt',
-            'SecondarySectorAgencyorquasiAgencyFinland',
-            'SecondarySectorAgencyorquasiAgencyFrance',
-            'SecondarySectorAgencyorquasiAgencyFranceMetropolitan',
-            'SecondarySectorAgencyorquasiAgencyFrontierCountry',
-            'SecondarySectorAgencyorquasiAgencyGermany',
-            'SecondarySectorAgencyorquasiAgencyGreece',
-            'SecondarySectorAgencyorquasiAgencyGreenland',
-            'SecondarySectorAgencyorquasiAgencyGuernsey',
-            'SecondarySectorAgencyorquasiAgencyHolySeeVaticanCityState',
-            'SecondarySectorAgencyorquasiAgencyHongKong',
-            'SecondarySectorAgencyorquasiAgencyHungary',
-            'SecondarySectorAgencyorquasiAgencyIceland',
-            'SecondarySectorAgencyorquasiAgencyIndia',
-            'SecondarySectorAgencyorquasiAgencyIndonesia',
-            'SecondarySectorAgencyorquasiAgencyIreland',
-            'SecondarySectorAgencyorquasiAgencyIsleOfMan',
-            'SecondarySectorAgencyorquasiAgencyIsrael',
-            'SecondarySectorAgencyorquasiAgencyItaly',
-            'SecondarySectorAgencyorquasiAgencyJapan',
-            'SecondarySectorAgencyorquasiAgencyJersey',
-            'SecondarySectorAgencyorquasiAgencyKoreaRepublicOf',
-            'SecondarySectorAgencyorquasiAgencyLiechtenstein',
-            'SecondarySectorAgencyorquasiAgencyLuxembourg',
-            'SecondarySectorAgencyorquasiAgencyMalaysia',
-            'SecondarySectorAgencyorquasiAgencyMexico',
-            'SecondarySectorAgencyorquasiAgencyMonaco',
-            'SecondarySectorAgencyorquasiAgencyMorocco',
-            'SecondarySectorAgencyorquasiAgencyNetherlands',
-            'SecondarySectorAgencyorquasiAgencyNewZealand',
-            'SecondarySectorAgencyorquasiAgencyNorway',
-            'SecondarySectorAgencyorquasiAgencyPeru',
-            'SecondarySectorAgencyorquasiAgencyPhilippines',
-            'SecondarySectorAgencyorquasiAgencyPoland',
-            'SecondarySectorAgencyorquasiAgencyPortugal',
-            'SecondarySectorAgencyorquasiAgencyPuertoRico',
-            'SecondarySectorAgencyorquasiAgencyRussianFederation',
-            'SecondarySectorAgencyorquasiAgencySingapore',
-            'SecondarySectorAgencyorquasiAgencySouthAfrica',
-            'SecondarySectorAgencyorquasiAgencySpain',
-            'SecondarySectorAgencyorquasiAgencySweden',
-            'SecondarySectorAgencyorquasiAgencySwitzerland',
-            'SecondarySectorAgencyorquasiAgencyTaiwan',
-            'SecondarySectorAgencyorquasiAgencyThailand',
-            'SecondarySectorAgencyorquasiAgencyTurkey',
-            'SecondarySectorAgencyorquasiAgencyUnitedKingdom',
-            'SecondarySectorAgencyorquasiAgencyUruguay',
-            'SecondarySectorAgencyorquasiAgencyVenezuela',
-            'SecondarySectorAgencyorquasiAgencyVirginIslandsBritish',
-            'SecondarySectorAgencyorquasiAgencyVirginIslandsUS',
             'SecondarySectorSupranational',
             'SecondarySectorInterestRateDerivative',
             'SecondarySectorTreasuryFutures',
@@ -457,8 +272,7 @@ const fixedIncome = {
             'SecondarySectorBondOption',
             'SecondarySectorBondWarrant'
         ]
-    },
-    SuperSectorUncategorized: []
+    }
 };
 
 // Morningstar fixed income sector breakdown hierarchy
@@ -632,8 +446,7 @@ const fixedIncomeBreakdown = {
         PrimarySectorBreakdownUnknown: [
             'SecondarySectorBreakdownUnknown'
         ]
-    },
-    SuperSectorUncategorized: []
+    }
 };
 
 // Prefixes stripped from sector identifiers when building paths
@@ -646,6 +459,15 @@ const sectorPrefixes = [
     'SecondarySectorBreakdown'
 ];
 
+// All possible combinations of region variants and sector variants
+export const sectorsPerRegion = sectorVariants.flatMap(sector =>
+    regionVariants.map(region => `${sector}${region}`)
+);
+
+// Build the path maps for fixed income sectors and their breakdowns
+export const fixedIncomePathMap = buildPathMap(fixedIncome);
+export const fixedIncomeBreakdownPathMap = buildPathMap(fixedIncomeBreakdown);
+
 /* *
  *
  *  Functions
@@ -653,28 +475,11 @@ const sectorPrefixes = [
  * */
 
 /**
- * Removes the prefix from a sector identifier so only the meaningful segment
- * remains.
- *
- * @param key Sector identifier to strip.
- *
- * @return The identifier without its prefix, or unchanged if none matches.
- */
-function stripPrefix (key: string): string {
-    for (const prefix of sectorPrefixes) {
-        if (key.startsWith(prefix)) {
-            return key.slice(prefix.length);
-        }
-    }
-    return key;
-}
-
-/**
  * Recursively walks a sectors hierarchy and produces a flat lookup that maps
  * every sector identifier to its full root-to-leaf path, joined by `/` and
  * with structural prefixes stripped from each segment.
  *
- * @param obj Sectors hierarchy to traverse.
+ * @param sectorMap Sectors hierarchy to traverse.
  *
  * @param parentPath Path segments accumulated from ancestors at the current
  * recursion level.
@@ -684,12 +489,12 @@ function stripPrefix (key: string): string {
  * @return The populated map of sector identifiers to their full paths.
  */
 function buildPathMap (
-    obj: Record<string, unknown>,
+    sectorMap: Record<string, unknown>,
     parentPath: string[] = [],
     map = new Map<string, string>()
 ) {
-    for (const key in obj) {
-        const value = obj[key],
+    for (const key in sectorMap) {
+        const value = sectorMap[key],
             currentPath = [...parentPath, stripPrefix(key)];
 
         // Set the path association for the current key
@@ -714,11 +519,103 @@ function buildPathMap (
     return map;
 }
 
-/* *
+/**
+ * Removes the prefix from a sector identifier so only the meaningful segment
+ * remains.
  *
- *  Default Export
+ * @param key Sector identifier to strip.
  *
- * */
+ * @return The identifier without its prefix, or unchanged if none matches.
+ */
+function stripPrefix (key: string): string {
+    for (const prefix of sectorPrefixes) {
+        if (key.startsWith(prefix)) {
+            return key.slice(prefix.length);
+        }
+    }
+    return key;
+}
 
-export const fixedIncomePathMap = buildPathMap(fixedIncome);
-export const fixedIncomeBreakdownPathMap = buildPathMap(fixedIncomeBreakdown);
+// Static configuration for fields mapping for the createFieldsMapping function
+const staticFieldsConfig = {
+    fixdInc: {
+        pattern: new RegExp(
+            `^fixdInc(${FixedIncomeSectorsBreakdown.sectorTypes.map(s => `${s}Brkdwn`).join('|')})([^_]+)(${SectorsBreakdown.suffixesFiperc.join('|')})$`,
+            'u'
+        ),
+        column: 'Fixed_Income_Breakdown'
+    },
+    fixedInc: {
+        pattern: new RegExp(
+            `^fixedInc(${FixedIncomeSectorsBreakdown.sectorTypes.join('|')})([^_]+)(${SectorsBreakdown.suffixes.join('|')})$`,
+            'u'
+        ),
+        column: 'Fixed_Income'
+    },
+    surveyedFixedInc: {
+        pattern: new RegExp(
+            `^surveyedFixedInc(${FixedIncomeSectorsBreakdown.sectorTypes.join('|')})([^_]+)(PercLong)$`,
+            'u'
+        ),
+        column: 'Surveyed_Fixed_Income'
+    }
+} as const;
+
+/**
+ * Builds the fields mapping object that defines how to interpret the fixed
+ * income sector fields in the API response, including the regex patterns to
+ * match field names and the corresponding sector categorizations.
+ *
+ * @return The constructed fields mapping object.
+ */
+export function createFieldsMapping (): FieldsMapping {
+    return {
+        fixdInc: {
+            ...staticFieldsConfig.fixdInc,
+            allSector: [],
+            superSector: [],
+            primarySector: [],
+            secondarySector: []
+        },
+        fixedInc: {
+            ...staticFieldsConfig.fixedInc,
+            allSector: [],
+            superSector: [],
+            primarySector: [],
+            secondarySector: [],
+            governmentPerRegionSuperSector: [],
+            treasuryPerRegionSecondarySector: [],
+            inflationPerRegionSecondarySector: [],
+            agencyPerRegionSecondarySector: []
+        },
+        surveyedFixedInc: {
+            ...staticFieldsConfig.surveyedFixedInc,
+            allSector: [],
+            superSector: [],
+            primarySector: [],
+            secondarySector: []
+        }
+    };
+}
+
+/**
+ * Given a sector, checks if it belongs to the region-specific variants and
+ * returns the corresponding variant type.
+ *
+ * @param sector Sector identifier to check for region-specific variants.
+ *
+ * @return The corresponding region-specific variant type if the sector
+ * belongs to it, or the original sector identifier otherwise.
+ */
+export function getRegionSectorType (sector?: string): string | void {
+    switch (true) {
+        case sector?.includes(sectorVariants[0]):
+            return 'GovernmentPerRegionSuperSector';
+        case sector?.includes(sectorVariants[1]):
+            return 'TreasuryPerRegionSecondarySector';
+        case sector?.includes(sectorVariants[2]):
+            return 'InflationPerRegionSecondarySector';
+        case sector?.includes(sectorVariants[3]):
+            return 'AgencyPerRegionSecondarySector';
+    }
+}

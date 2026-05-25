@@ -35,13 +35,26 @@ export type FieldsMapping = {
 
 export type FieldMappingEntry = {
     pattern: RegExp;
+    column: string;
+    allSector: string[];
     superSector: string[];
     primarySector: string[];
     secondarySector: string[];
-    suffixes: string[];
-    column: string;
-    [key: string]: any;
+    governmentPerRegionSuperSector?: string[];
+    treasuryPerRegionSecondarySector?: string[];
+    inflationPerRegionSecondarySector?: string[];
+    agencyPerRegionSecondarySector?: string[];
 };
+
+export type SectorAccumulatorKey =
+    | 'allSector'
+    | 'superSector'
+    | 'primarySector'
+    | 'secondarySector'
+    | 'governmentPerRegionSuperSector'
+    | 'treasuryPerRegionSecondarySector'
+    | 'inflationPerRegionSecondarySector'
+    | 'agencyPerRegionSecondarySector';
 
 /* *
  *
@@ -58,6 +71,13 @@ namespace FixedIncomeSectorsBreakdownJSON {
     export interface MorningstarFixedIncomeSectorsBreakdownItem {
         [key: string]: number | string;
     }
+
 }
+
+/* *
+ *
+ *  Default Export
+ *
+ * */
 
 export default FixedIncomeSectorsBreakdownJSON;

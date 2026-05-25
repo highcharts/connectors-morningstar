@@ -93,15 +93,23 @@ const CONVERTERS: Converters = [
     {
         key: 'FixedIncomeSectorsBreakdown',
         children: [
-            'IncGovPerCountrySuperSectors',
+            // Region-specific sectors
+            'IncGovernmentPerRegionSuperSectors',
+            'IncTreasuryPerRegionSecondarySectors',
+            'IncInflationPerRegionSecondarySectors',
+            'IncAgencyPerRegionSecondarySectors',
+
+            // Fixed income sectors
+            'IncAllSectors',
             'IncSuperSectors',
             'IncPrimarySectors',
             'IncSecondarySectors',
-            'IncAllSectors',
+
+            // Fixed income breakdown sectors
+            'IncBrkAllSectors',
             'IncBrkSuperSectors',
             'IncBrkPrimarySectors',
-            'IncBrkSecondarySectors',
-            'IncBrkAllSectors'
+            'IncBrkSecondarySectors'
         ]
     },
     {

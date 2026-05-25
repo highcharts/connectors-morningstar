@@ -20,19 +20,20 @@
  * */
 
 import {
-    fixedIncomePathMap,
+    createFieldsMapping,
     fixedIncomeBreakdownPathMap,
-    sectorCountryVariants
+    fixedIncomePathMap,
+    getRegionSectorType,
+    sectorsPerRegion
 } from './FixedIncomeSectorsBreakdownMap';
-import SectorsBreakdown from './SectorsBreakdownOptions';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 import { DataTable } from '../../Shared/External';
 
-import type { FieldsMapping } from './FixedIncomeSectorsBreakdownJSON';
 import type {
     FixedIncomeSectorsBreakdownConverterOptions,
     FixedIncomeSectorsBreakdownConverterMetadata
 } from './FixedIncomeSectorsBreakdownOptions';
+import { SectorAccumulatorKey } from './FixedIncomeSectorsBreakdownJSON';
 
 /* *
  *
@@ -55,15 +56,23 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
 
         // Create main data tables
         this.tables = [
-            new DataTable({ id: 'IncGovPerCountrySuperSectors' }),
+            // Region-specific sectors
+            new DataTable({ id: 'IncGovernmentPerRegionSuperSectors' }),
+            new DataTable({ id: 'IncTreasuryPerRegionSecondarySectors' }),
+            new DataTable({ id: 'IncInflationPerRegionSecondarySectors' }),
+            new DataTable({ id: 'IncAgencyPerRegionSecondarySectors' }),
+
+            // Fixed income sectors
+            new DataTable({ id: 'IncAllSectors' }),
             new DataTable({ id: 'IncSuperSectors' }),
             new DataTable({ id: 'IncPrimarySectors' }),
             new DataTable({ id: 'IncSecondarySectors' }),
-            new DataTable({ id: 'IncAllSectors' }),
+
+            // Fixed income breakdown sectors
+            new DataTable({ id: 'IncBrkAllSectors' }),
             new DataTable({ id: 'IncBrkSuperSectors' }),
             new DataTable({ id: 'IncBrkPrimarySectors' }),
-            new DataTable({ id: 'IncBrkSecondarySectors' }),
-            new DataTable({ id: 'IncBrkAllSectors' })
+            new DataTable({ id: 'IncBrkSecondarySectors' })
         ];
 
         this.metadata = {
@@ -134,7 +143,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
             }
 
             // Get the fields mapping per parse
-            const fieldsMapping = this.createFieldsMapping();
+            const fieldsMapping = createFieldsMapping();
 
             // Get possible data prefixes
             const prefixes = Object.keys(fieldsMapping);
@@ -152,35 +161,36 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                         field as keyof typeof fieldsMapping
                     ];
 
-                    // Try to find matching proeprty
+                    // Try to find matching property
                     const match = option.match(mapping.pattern);
                     if (!match) {
                         continue;
                     }
 
                     // Get correct type and name
-                    const type = match[1]
-                            .replace('Secondry', 'Secondary')
-                            .replace('Brkdwn', 'Breakdown'),
-                        name = match[2],
+                    let type = match[1]
+                        .replace('Secondry', 'Secondary')
+                        .replace('Brkdwn', 'Breakdown');
+
+                    const name = match[2],
                         typeAndName = `${type}${name}`;
 
-                    // Check if the sector is a country-specific government
-                    const isGovPerCountry =
-                        sectorCountryVariants.includes(typeAndName);
+                    // Check if the sector is a region-specific or not
+                    const regionSector = sectorsPerRegion.find(
+                        item => item === typeAndName
+                    );
+
+                    // Get the type for a correct data table
+                    type = getRegionSectorType(regionSector) || type;
 
                     // Get the right table
-                    const table = isGovPerCountry ?
-                        // Handle country-specific super sectors
-                        tablesObj['GovPerCountrySuperSector'] :
-                        // Handle any other sectors
-                        tablesObj[type];
+                    const table = tablesObj[type];
 
                     // Save the value also in the table with all sectors
                     let allTable;
 
-                    // But don't include country-specific government sectors
-                    if (!isGovPerCountry) {
+                    // But don't include region-specific government sectors
+                    if (!regionSector) {
                         allTable = type.includes('Breakdown') ?
                             tablesObj['AllSectorBreakdown'] :
                             tablesObj['AllSector'];
@@ -192,13 +202,14 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                         continue;
                     }
 
+                    // Get the right sector array key
+                    const sectorKey =
+                        (type.charAt(0).toLowerCase() + type.slice(1))
+                            .replace('Breakdown', '') as SectorAccumulatorKey;
+
                     // Get the right arrays
-                    const sectors = mapping[isGovPerCountry ?
-                            'govPerCountrySuperSector' :
-                            (type.charAt(0).toLowerCase() +
-                                type.slice(1)).replace('Breakdown', '')
-                        ] as Array<string>,
-                        allSectors = mapping['allSector'] as Array<string>,
+                    const sectors = mapping[sectorKey] ?? [],
+                        allSectors = mapping['allSector'],
                         column = mapping.column;
 
                     // New sector
@@ -215,7 +226,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
 
                     // New sector
                     let allIndex = allSectors.indexOf(typeAndName);
-                    if (!isGovPerCountry && allSectors && allIndex === -1) {
+                    if (!regionSector && allSectors && allIndex === -1) {
                         allIndex = allSectors.length;
 
                         // Save sector
@@ -240,7 +251,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                             fixedIncomeBreakdownPathMap.get(typeAndName) :
                             fixedIncomePathMap.get(typeAndName),
                         columnId = `${column}_Path`,
-                        cellValue = (path ?? (isGovPerCountry ?
+                        cellValue = (path ?? (regionSector ?
                             name :
                             ['Uncategorized', name].join('/'))
                         ).replace('Breakdown', '');
@@ -250,64 +261,7 @@ export class FixedIncomeSectorsBreakdownConverter extends MorningstarConverter {
                     allTable?.setCell(columnId, allIndex, cellValue);
                 }
             }
-
-            // Add missing sector for uncategorized
-            const value = [
-                'Uncategorized',
-                null,
-                'Uncategorized',
-                null,
-                null,
-                null
-            ];
-
-            // Complete others tables with missing uncategorized values
-            tablesObj['SuperSector'].setRow(value);
-            tablesObj['AllSector'].setRow(value);
         }
-    }
-
-    private createFieldsMapping (): FieldsMapping {
-        // The fields mapping object
-        return {
-            fixdInc: {
-                pattern: new RegExp(
-                    `^fixdInc(${SectorsBreakdown.sectorTypes.map(s => `${s}Brkdwn`).join('|')})([^_]+)(${SectorsBreakdown.suffixesFiperc.join('|')})$`,
-                    'u'
-                ),
-                superSector: [],
-                primarySector: [],
-                secondarySector: [],
-                allSector: [],
-                suffixes: SectorsBreakdown.suffixesFiperc,
-                column: 'Fixed_Income_Breakdown'
-            },
-            fixedInc: {
-                pattern: new RegExp(
-                    `^fixedInc(${SectorsBreakdown.sectorTypes.join('|')})([^_]+)(${SectorsBreakdown.suffixes.join('|')})$`,
-                    'u'
-                ),
-                govPerCountrySuperSector: [],
-                superSector: [],
-                primarySector: [],
-                secondarySector: [],
-                allSector: [],
-                suffixes: SectorsBreakdown.suffixes,
-                column: 'Fixed_Income'
-            },
-            surveyedFixedInc: {
-                pattern: new RegExp(
-                    `^surveyedFixedInc(${SectorsBreakdown.sectorTypes.join('|')})([^_]+)(PercLong)$`,
-                    'u'
-                ),
-                superSector: [],
-                primarySector: [],
-                secondarySector: [],
-                allSector: [],
-                suffixes: ['PercLong'],
-                column: 'Surveyed_Fixed_Income'
-            }
-        };
     }
 
 }
