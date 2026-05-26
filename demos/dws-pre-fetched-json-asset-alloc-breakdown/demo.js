@@ -1,4 +1,4 @@
-async function loadOfflineDWSJSON () {
+async function loadPreFetchedDWSJSON () {
     const response = await fetch('./dws.json');
 
     if (!response.ok) {
@@ -11,7 +11,7 @@ async function loadOfflineDWSJSON () {
 async function displayAssetAllocationBreakdown () {
     const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
         api: {
-            json: await loadOfflineDWSJSON()
+            json: await loadPreFetchedDWSJSON()
         },
         security: {
             id: '0P00000FIA'

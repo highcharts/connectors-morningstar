@@ -65,7 +65,7 @@ export abstract class PAUSConnector extends MorningstarConnector {
 
     public override readonly options: PAUSOptions;
 
-    public responseJSON?: unknown;
+    public response?: Response;
 
     protected abstract url: string;
 
@@ -79,11 +79,6 @@ export abstract class PAUSConnector extends MorningstarConnector {
 
     public override async load (): Promise<this> {
         await super.load();
-
-        if (this.options.api?.json) {
-            this.responseJSON = this.options.api.json;
-            return this;
-        }
 
         const api = this.api = this.api || new MorningstarAPI(this.options.api);
 
@@ -99,7 +94,7 @@ export abstract class PAUSConnector extends MorningstarConnector {
             method: 'POST'
         });
 
-        this.responseJSON = await response.json();
+        this.response = response;
 
         return this;
     }

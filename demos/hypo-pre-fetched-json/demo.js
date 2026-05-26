@@ -1,4 +1,4 @@
-async function loadOfflineHypoJSON () {
+async function loadPreFetchedHypoJSON () {
     const response = await fetch('./hypo.json');
 
     if (!response.ok) {
@@ -11,7 +11,7 @@ async function loadOfflineHypoJSON () {
 async function displayHypoGrowth () {
     const connector = new HighchartsConnectors.Morningstar.HypoPerformanceConnector({
         api: {
-            json: await loadOfflineHypoJSON()
+            json: await loadPreFetchedHypoJSON()
         },
         viewId: 'Growth',
         portfolios: []

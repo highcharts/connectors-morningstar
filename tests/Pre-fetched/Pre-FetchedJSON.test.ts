@@ -3,11 +3,11 @@ import '@highcharts/dashboards/es-modules/masters/dashboards.src';
 import * as MC from '../../code/connectors-morningstar.src';
 import * as MCDWS from '../../code/connectors-morningstar-dws.src';
 
-export async function securityDetailsOfflineJSONLoad (): Promise<void> {
+export async function securityDetailsPreFetchedJSONLoad (): Promise<void> {
     const originalFetch = window.fetch;
 
     window.fetch = async (): Promise<Response> => {
-        throw new Error('Network call should not happen in offline mode.');
+        throw new Error('Network call should not happen when pre-fetched JSON is loaded.');
     };
 
     try {
@@ -15,8 +15,8 @@ export async function securityDetailsOfflineJSONLoad (): Promise<void> {
             api: {
                 json: [{
                     Currency: { Id: 'USD' },
-                    Id: 'OFFLINE_SECURITY',
-                    Isin: 'OFFLINE_ISIN',
+                    Id: 'SECURITY_ID',
+                    Isin: 'SECURITY_ISIN',
                     TrailingPerformance: [{
                         Return: [{
                             Date: '2026-01-01',
@@ -39,7 +39,7 @@ export async function securityDetailsOfflineJSONLoad (): Promise<void> {
 
         await connector.load();
 
-        Assert.strictEqual(connector.metadata.id, 'OFFLINE_SECURITY');
+        Assert.strictEqual(connector.metadata.id, 'SECURITY_ID');
 
         Assert.ok(
             connector instanceof MC.SecurityDetailsConnector,
@@ -60,14 +60,14 @@ export async function securityDetailsOfflineJSONLoad (): Promise<void> {
         Assert.strictEqual(
             connector.dataTables.TrailingPerformance.getCell('Nav_DayEnd_Value', 0),
             1.25,
-            'TrailingPerformance first value should match offline payload.'
+            'TrailingPerformance first value should match pre-fetched payload.'
         );
     } finally {
         window.fetch = originalFetch;
     }
 }
 
-export async function multiRequestTypeOfflineJSONLoad (): Promise<void> {
+export async function multiRequestTypePreFetchedJSONLoad (): Promise<void> {
     const connector = new MCDWS.InvestmentsConnector({
         api: {
             json: {
@@ -140,6 +140,6 @@ export async function multiRequestTypeOfflineJSONLoad (): Promise<void> {
     Assert.strictEqual(
         connector.getTable('AssetAlloc').getCell('Long', 1),
         4.49556,
-        'AssetAlloc cash long value should match offline payload.'
+        'AssetAlloc cash long value should match pre-fetched payload.'
     );
 }

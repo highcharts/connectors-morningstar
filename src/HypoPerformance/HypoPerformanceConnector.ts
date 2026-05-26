@@ -117,10 +117,14 @@ export class HypoPerformanceConnector extends PAUSConnector {
      * */
 
     public override async load (): Promise<any> {
-        await super.load();
+        const apiJSON = this.options.api?.json;
 
-        const json = this.responseJSON as HypoJSON.HypoResponse;
-        const hasMultiple = json.Hypo.length > 1;
+        if (!apiJSON) {
+            await super.load();
+        }
+
+        const json = (apiJSON || await this.response?.json()) as HypoJSON.HypoResponse,
+            hasMultiple = json.Hypo.length > 1;
 
         for (const { key } of DATA_TABLES) {
             const converter = this.initConverter(key);
