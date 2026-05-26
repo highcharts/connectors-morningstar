@@ -44,67 +44,18 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
     });
 
     // Set categories
-    const brkType = 'Fixed_Income_Breakdown_Type',
-        brkLong = 'Fixed_Income_Breakdown_CalcLongFiperc',
-        brkShort = 'Fixed_Income_Breakdown_CalcShortFiperc',
-        brkNet = 'Fixed_Income_Breakdown_CalcNetFiperc';
-
-    // Create charts for each sector breakdown type
-    [
-        'IncBrkSuperSectors',
-        'IncBrkPrimarySectors',
-        'IncBrkSecondarySectors'
-    ].forEach((tableName) => {
-        // Get data table
-        const dataTable = connector.getTable(tableName),
-            sectorName = tableName.match(/[A-Z][a-z]*/gu),
-            containerId = 'container-' + tableName
-                .replace(/([a-z0-9])([A-Z])/gu, '$1-$2')
-                .toLowerCase(),
-            name = `Fixed Income ${sectorName[2]} ${sectorName[3]} Breakdown`;
-
-        // Create chart
-        Highcharts.chart(containerId, {
-            title: {
-                text: name
-            },
-            series: [{
-                name: `${name} Long`,
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    [brkType, brkLong]
-                )
-            }, {
-                name: `${name} Short`,
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    [brkType, brkShort]
-                )
-            }, {
-                name: `${name} Net`,
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    [brkType, brkNet]
-                )
-            }]
-        });
-    });
-
-    // Set categories
     const type = 'Fixed_Income_Type',
         longRescaled = 'Fixed_Income_PercLongRescaled',
         long = 'Fixed_Income_PercLong',
         short = 'Fixed_Income_PercShort',
         net = 'Fixed_Income_PercNet';
 
-    // Create charts for each sector type
+    // Create charts for each region sector type
     [
-        'IncSuperSectors',
-        'IncPrimarySectors',
-        'IncSecondarySectors'
+        'IncGovernmentPerRegionSuperSectors',
+        'IncTreasuryPerRegionSecondarySectors',
+        'IncInflationPerRegionSecondarySectors',
+        'IncAgencyPerRegionSecondarySectors'
     ].forEach((tableName) => {
         // Get data table
         const dataTable = connector.getTable(tableName),
@@ -112,36 +63,37 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
             containerId = 'container-' + tableName
                 .replace(/([a-z0-9])([A-Z])/gu, '$1-$2')
                 .toLowerCase(),
-            name = `Fixed Income ${sectorName[1]} ${sectorName[2]}`;
+            seriesName =
+                `Fixed Income ${sectorName[1]} Per Region ${sectorName[4]} ${sectorName[5]}`;
 
         // Create chart
         Highcharts.chart(containerId, {
             title: {
-                text: name
+                text: seriesName
             },
             series: [{
-                name: `${name} Long Rescaled`,
+                name: `${seriesName} Long Rescaled`,
                 data: dataTable.getRows(
                     void 0,
                     void 0,
                     [type, longRescaled]
                 )
             }, {
-                name: `${name} Long`,
+                name: `${seriesName} Long`,
                 data: dataTable.getRows(
                     void 0,
                     void 0,
                     [type, long]
                 )
             }, {
-                name: `${name} Short`,
+                name: `${seriesName} Short`,
                 data: dataTable.getRows(
                     void 0,
                     void 0,
                     [type, short]
                 )
             }, {
-                name: `${name} Net`,
+                name: `${seriesName} Net`,
                 data: dataTable.getRows(
                     void 0,
                     void 0,

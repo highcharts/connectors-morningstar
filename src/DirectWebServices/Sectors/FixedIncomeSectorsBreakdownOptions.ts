@@ -39,3 +39,33 @@ export interface FixedIncomeSectorsBreakdownConverterMetadata extends Morningsta
     performanceId?: string;
     surveyedFixedIncSectorDate?: string;
 }
+
+/* *
+ *
+ *  Namespace
+ *
+ * */
+
+namespace FixedIncomeSectorsBreakdown {
+    /* *
+     *
+     *  Constants
+     *
+     * */
+
+    export const sectorTypes = [
+        'SuperSector',
+        'PrimarySector',
+        'SecondarySector',
+        'SecondrySector'
+    ];
+
+}
+
+/* *
+ *
+ *  Default Export
+ *
+ * */
+
+export default FixedIncomeSectorsBreakdown;
