@@ -180,14 +180,13 @@ export class XRayConnector extends MorningstarConnector {
 
 
     public override async load (): Promise<this> {
-
-        await super.load();
-
         const options = this.options;
 
         if (options.api?.json) {
             return this.parseXRayJSON(options.api.json);
         }
+
+        await super.load();
 
         const dataPoints = !options.dataPoints ? [] :
             // Backward compat: if `dataPoints` is an object, make it an array:

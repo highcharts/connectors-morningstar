@@ -101,14 +101,13 @@ export class GoalAnalysisConnector extends MorningstarConnector {
 
 
     public override async load (): Promise<this> {
-
-        await super.load();
-
         const options = this.options;
 
         if (options.api?.json) {
             return this.parseJSON(options.api.json, this.converter);
         }
+
+        await super.load();
 
         const api = this.api = this.api || new MorningstarAPI(options.api);
         const url = new MorningstarURL('ecint/v1/goal-analysis', api.baseURL);

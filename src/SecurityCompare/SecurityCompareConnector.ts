@@ -109,14 +109,13 @@ export class SecurityCompareConnector extends MorningstarConnector {
     public override async load (
         options?: SecurityCompareOptions
     ): Promise<this> {
-
-        await super.load();
-
         const userOptions = { ...this.options, ...options };
 
         if (userOptions.api?.json) {
             return this.parseSecurityCompareJSON(userOptions.api.json);
         }
+
+        await super.load();
 
         const { security, viewIds = 'MFsnapshot' } = userOptions;
         const { ids: securityIds, idType: securityIdType } = (security || {});

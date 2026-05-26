@@ -249,14 +249,15 @@ export class RiskScoreConnector extends MorningstarConnector {
      * Same connector instance with modified table.
      */
     public override async load (): Promise<this> {
-        await super.load();
-
         const options = this.options;
-        const portfolios = options.portfolios;
 
         if (options.api?.json) {
             return this.parseJSON(options.api.json, this.converter);
         }
+
+        const portfolios = options.portfolios;
+
+        await super.load();
 
         if (!portfolios || (portfolios as Array<RiskScorePortfolio>).length === 0) {
             return this;

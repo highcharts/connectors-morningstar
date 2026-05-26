@@ -148,12 +148,14 @@ export class InvestorPreferencesConnector extends MorningstarConnector {
     public override async load (
         options?: InvestorPreferencesOptions
     ): Promise<this> {
-        await super.load();
-
         const userOptions = { ...this.options, ...options };
+
         if (userOptions.api?.json) {
             return this.parseJSON(userOptions.api.json, this.converter);
         }
+
+        await super.load();
+
         const api = (this.api = this.api || new MorningstarAPI(userOptions.api));
         const url = new MorningstarURL('ecint/v1/screener', api.baseURL);
 

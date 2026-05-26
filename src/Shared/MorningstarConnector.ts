@@ -76,18 +76,17 @@ export abstract class MorningstarConnector extends External.DataConnector {
 
     public override async load (): Promise<this> {
         const options = this.options;
-        const hasOfflineJSON = options.api?.json;
 
         // Expecting async Postman options
         if (!this.api) {
             this.api = new MorningstarAPI(
-                (!hasOfflineJSON && options.postman) ?
+                (options.postman) ?
                     await MorningstarPostman.getAPIOptions(options.postman) :
                     options.api
             );
         }
 
-        if (!hasOfflineJSON && !this.api.access.authorized) {
+        if (!this.api.access.authorized) {
             await this.api.access.authenticate();
         }
 

@@ -101,14 +101,13 @@ export class SecurityDetailsConnector extends MorningstarConnector {
     public override async load (
         options?: SecurityDetailsOptions
     ): Promise<this> {
-
-        await super.load();
-
         const userOptions = { ...this.options, ...options };
 
         if (userOptions.api?.json) {
             return this.parseSecurityDetailsJSON(userOptions.api.json);
         }
+
+        await super.load();
 
         const { security, viewId = 'MFsnapshot' } = userOptions;
         const { id: securityId, idType: securityIdType } = (security || {});

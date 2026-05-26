@@ -158,13 +158,13 @@ export class RNANewsConnector extends MorningstarConnector {
      * Same connector instance with modified table.
      */
     public override async load (): Promise<this> {
-        await super.load();
-
         const options = this.options;
 
         if (options.api?.json) {
             return this.parseJSON(options.api.json, this.converter);
         }
+
+        await super.load();
 
         const {
             security,
