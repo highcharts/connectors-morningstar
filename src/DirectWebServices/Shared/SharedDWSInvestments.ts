@@ -93,9 +93,20 @@ const CONVERTERS: Converters = [
     {
         key: 'FixedIncomeSectorsBreakdown',
         children: [
+            // Region-specific sectors
+            'IncGovernmentPerRegionSuperSectors',
+            'IncTreasuryPerRegionSecondarySectors',
+            'IncInflationPerRegionSecondarySectors',
+            'IncAgencyPerRegionSecondarySectors',
+
+            // Fixed income sectors
+            'IncAllSectors',
             'IncSuperSectors',
             'IncPrimarySectors',
             'IncSecondarySectors',
+
+            // Fixed income breakdown sectors
+            'IncBrkAllSectors',
             'IncBrkSuperSectors',
             'IncBrkPrimarySectors',
             'IncBrkSecondarySectors'

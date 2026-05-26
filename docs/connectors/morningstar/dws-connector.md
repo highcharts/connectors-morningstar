@@ -60,9 +60,15 @@ names:
     - EqIndustries
 
 * **FixedIncomeSectorsBreakdown**:
+    - IncGovernmentPerRegionSuperSectors
+    - IncTreasuryPerRegionSecondarySectors
+    - IncInflationPerRegionSecondarySectors
+    - IncAgencyPerRegionSecondarySectors
+    - IncAllSectors
     - IncSuperSectors
     - IncPrimarySectors
     - IncSecondarySectors
+    - IncBrkAllSectors
     - IncBrkSuperSectors
     - IncBrkPrimarySectors
     - IncBrkSecondarySectors

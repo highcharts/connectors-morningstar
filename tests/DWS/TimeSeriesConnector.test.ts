@@ -39,9 +39,8 @@ export async function timeSeriesConnectorLoad (
     Assert.deepStrictEqual(
         dataTable.getColumnIds(),
         [
-            'Date_0P00002PB8',
+            'Date',
             'Value_0P00002PB8',
-            'Date_0P00000FIA',
             'Value_0P00000FIA'
         ],
         'TimeSeries table should have expected columns.'
