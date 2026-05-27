@@ -68,78 +68,88 @@ export async function securityDetailsPreFetchedJSONLoad (): Promise<void> {
 }
 
 export async function multiRequestTypePreFetchedJSONLoad (): Promise<void> {
-    const connector = new MCDWS.InvestmentsConnector({
-        api: {
-            json: {
-                AssetAllocationBreakdown: {
-                    assetAllocationBreakdown: {
-                        assetAllocCashPercLong: 4.49556,
-                        assetAllocEquityPercLong: 95.50442,
-                        canAssetAllocCanadianEquityPercLong: 2.01286,
-                        underlyingInstrumentStockPercent: 95.50445
+    const originalFetch = window.fetch;
+
+    window.fetch = async (): Promise<Response> => {
+        throw new Error('Network call should not happen when pre-fetched JSON is loaded.');
+    };
+
+    try {
+        const connector = new MCDWS.InvestmentsConnector({
+            api: {
+                json: {
+                    AssetAllocationBreakdown: {
+                        assetAllocationBreakdown: {
+                            assetAllocCashPercLong: 4.49556,
+                            assetAllocEquityPercLong: 95.50442,
+                            canAssetAllocCanadianEquityPercLong: 2.01286,
+                            underlyingInstrumentStockPercent: 95.50445
+                        },
+                        identifiers: {
+                            performanceId: '0P00000FIA'
+                        },
+                        metadata: {}
                     },
-                    identifiers: {
-                        performanceId: '0P00000FIA'
+                    CountryAndRegionExposure: {
+                        countryAndRegionalExposureBreakdown: {
+                            equityRegionAmericasPercLongRescaled: 55.728,
+                            equityRegionNorthAmericaPercLongRescaled: 55.292,
+                            equityCountryUnitedStatesPercLongRescaled: 53.18442
+                        },
+                        identifiers: {
+                            performanceId: '0P00000FIA'
+                        },
+                        metadata: {}
                     },
-                    metadata: {}
-                },
-                CountryAndRegionExposure: {
-                    countryAndRegionalExposureBreakdown: {
-                        equityRegionAmericasPercLongRescaled: 55.728,
-                        equityRegionNorthAmericaPercLongRescaled: 55.292,
-                        equityCountryUnitedStatesPercLongRescaled: 53.18442
-                    },
-                    identifiers: {
-                        performanceId: '0P00000FIA'
-                    },
-                    metadata: {}
-                },
-                EquityAggregatesResidualRisk: {
-                    aggregationResidualRiskAndReturnSensitivity: [{
-                        nonDividendAlpha36MonthValue: 0.42
-                    }],
-                    identifiers: {
-                        performanceId: '0P00000FIA'
-                    },
-                    metadata: {}
+                    EquityAggregatesResidualRisk: {
+                        aggregationResidualRiskAndReturnSensitivity: [{
+                            nonDividendAlpha36MonthValue: 0.42
+                        }],
+                        identifiers: {
+                            performanceId: '0P00000FIA'
+                        },
+                        metadata: {}
+                    }
                 }
-            }
-        },
-        id: '',
-        security: {
-            id: '0P00000FIA'
-        },
-        converters: {
-            AssetAllocationBreakdown: {},
-            CountryAndRegionExposure: {},
-            EquityAggregatesResidualRisk: {}
-        },
-        type: ''
-    });
+            },
+            id: '',
+            security: {
+                id: '0P00000FIA'
+            },
+            converters: {
+                AssetAllocationBreakdown: {},
+                CountryAndRegionExposure: {},
+                EquityAggregatesResidualRisk: {}
+            },
+            type: ''
+        });
 
-    await connector.load();
+        await connector.load();
 
-    Assert.ok(
-        connector instanceof MCDWS.InvestmentsConnector,
-        'Connector should be instance of InvestmentsConnector class.'
-    );
+        Assert.ok(
+            connector instanceof MCDWS.InvestmentsConnector,
+            'Connector should be instance of InvestmentsConnector class.'
+        );
 
-    Assert.ok(
-        connector.getTable('AssetAlloc').getRowCount() > 0,
-        'AssetAlloc table should not be empty.'
-    );
-    Assert.ok(
-        connector.getTable('RegionEquity').getRowCount() > 0,
-        'RegionEquity table should not be empty.'
-    );
-    Assert.ok(
-        connector.getTable('EquityAggregatesResidualRisk').getRowCount() > 0,
-        'EquityAggregatesResidualRisk table should not be empty.'
-    );
+        Assert.ok(
+            connector.getTable('AssetAlloc').getRowCount() > 0,
+            'AssetAlloc table should not be empty.'
+        );
+        Assert.ok(
+            connector.getTable('RegionEquity').getRowCount() > 0,
+            'RegionEquity table should not be empty.'
+        );
+        Assert.ok(
+            connector.getTable('EquityAggregatesResidualRisk').getRowCount() > 0,
+            'EquityAggregatesResidualRisk table should not be empty.'
+        );
 
-    Assert.strictEqual(
-        connector.getTable('AssetAlloc').getCell('Long', 1),
-        4.49556,
-        'AssetAlloc cash long value should match pre-fetched payload.'
-    );
+        Assert.strictEqual(
+            connector.getTable('AssetAlloc').getCell('Long', 1),
+            4.49556,
+            'AssetAlloc cash long value should match pre-fetched payload.'
+        );
+    } finally {
+        window.fetch = originalFetch;
+    }
 }

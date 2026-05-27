@@ -80,7 +80,7 @@ export abstract class MorningstarConnector extends External.DataConnector {
         // Expecting async Postman options
         if (!this.api) {
             this.api = new MorningstarAPI(
-                (options.postman) ?
+                options.postman ?
                     await MorningstarPostman.getAPIOptions(options.postman) :
                     options.api
             );
