@@ -104,9 +104,14 @@ export class TimeSeriesConnector extends DWSConnector {
      * */
 
     public override async load (): Promise<any> {
-        await super.load();
-
         const { category, dataPoint, ids } = this.options;
+
+        if (this.options.api?.json) {
+            this.metadata.rawResponse = this.options.api.json;
+            return this.parseJSON(this.options.api.json, this.converter);
+        }
+
+        await super.load();
 
         const api = this.api = this.api || new MorningstarAPI(this.options.api);
 
@@ -147,14 +152,8 @@ export class TimeSeriesConnector extends DWSConnector {
         });
 
         const json = await response.json() as unknown;
-        this.converter.parse({ json });
 
-        this.metadata.rawResponse = json;
-
-        this.getTable().deleteColumns();
-        this.getTable().setColumns(this.converter.getTable().getColumns());
-
-        return this.applyTableModifiers();
+        return this.parseJSON(json, this.converter);
     }
 }
 

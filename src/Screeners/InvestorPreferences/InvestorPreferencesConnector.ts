@@ -148,9 +148,14 @@ export class InvestorPreferencesConnector extends MorningstarConnector {
     public override async load (
         options?: InvestorPreferencesOptions
     ): Promise<this> {
+        const userOptions = { ...this.options, ...options };
+
+        if (userOptions.api?.json) {
+            return this.parseJSON(userOptions.api.json, this.converter);
+        }
+
         await super.load();
 
-        const userOptions = { ...this.options, ...options };
         const api = (this.api = this.api || new MorningstarAPI(userOptions.api));
         const url = new MorningstarURL('ecint/v1/screener', api.baseURL);
 
@@ -231,12 +236,7 @@ export class InvestorPreferencesConnector extends MorningstarConnector {
 
         const json = await response.json() as unknown;
 
-        this.converter.parse({ json });
-
-        this.getTable().deleteColumns();
-        this.getTable().setColumns(this.converter.getTable().getColumns());
-
-        return this.applyTableModifiers();
+        return this.parseJSON(json, this.converter);
     }
 
     private getFilter (filter: InvestorPreferencesFilter): string {
