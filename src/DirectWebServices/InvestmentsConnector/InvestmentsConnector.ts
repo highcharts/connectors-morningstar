@@ -113,35 +113,52 @@ export class InvestmentsConnector extends DWSConnector {
 
         this.requests = createRequests(this.convertersToUse, converters, security);
 
+        if (this.options.api?.json) {
+            const json = this.options.api.json as Record<string, unknown>;
+
+            for (const { type } of this.requests) {
+                this.parseInvestmentJSONByType(
+                    json[type],
+                    type
+                );
+            }
+            return this;
+        }
+
         await super.load();
 
         for (const responseObject of this.responses) {
             const [type, response] =
                 Object.entries(responseObject)[0] as [InvestmentsConverterType, Response];
 
-            const json: unknown = await response?.json();
-            const converter = initConverter(type);
-
-            converter.parse({ json });
-
-            if (this.convertersToUse.find(c => c.key === type)?.children) {
-                for (const table of converter.getTables()) {
-                    this.dataTables[table.id].setColumns(table.getColumns());
-                    this.dataTables[table.id].metadata = table.metadata;
-                }
-            } else {
-                this.dataTables[type].setColumns(converter.getTable().getColumns());
-                this.dataTables[type].metadata = converter.getTable().metadata;
-            }
-
-            // Connector metadata
-            this.metadata.rawResponses.push({ type, json });
-            this.metadata[type] = {
-                ...converter.metadata
-            };
+            this.parseInvestmentJSONByType(await response?.json() as unknown, type);
         }
 
         return this;
+    }
+
+    private parseInvestmentJSONByType (
+        json: unknown,
+        type: InvestmentsConverterType
+    ): void {
+        const converter = initConverter(type);
+
+        converter.parse({ json });
+
+        if (this.convertersToUse.find(c => c.key === type)?.children) {
+            for (const table of converter.getTables()) {
+                this.dataTables[table.id].setColumns(table.getColumns());
+                this.dataTables[table.id].metadata = table.metadata;
+            }
+        } else {
+            this.dataTables[type].setColumns(converter.getTable().getColumns());
+            this.dataTables[type].metadata = converter.getTable().metadata;
+        }
+
+        this.metadata.rawResponses.push({ type, json });
+        this.metadata[type] = {
+            ...converter.metadata
+        };
     }
 }
 

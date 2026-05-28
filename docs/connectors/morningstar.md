@@ -96,3 +96,76 @@ Example:
 
 This is a visualization of the Highcharts Morningstar Data Connector:
 ![Highcharts Morningstar Data Connector Architecture](architecture.png)
+
+## Using pre-fetched JSON with `api.json` option
+
+You can bypass API authentication and network requests by passing a json
+payload through `api.json` option.
+
+When `api.json` option is set, it has higher priority than `postman` or online
+API settings.
+
+```js
+const connector = new HighchartsConnectors.Morningstar.SecurityDetailsConnector({
+    api: {
+        json: [{
+            Id: 'SECURITY_ID',
+            Isin: 'SECURITY_ISIN',
+            Currency: { Id: 'USD' },
+            TrailingPerformance: [{
+                ReturnType: 'Nav',
+                Type: 'DayEnd',
+                Return: [{
+                    Date: '2026-01-01',
+                    TimePeriod: '1M',
+                    Value: 1.2
+                }]
+            }]
+        }]
+    },
+    security: {
+        id: 'F0GBR050DD',
+        idType: 'MSID'
+    },
+    converters: ['TrailingPerformance']
+});
+```
+
+```js
+const dwsConnector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
+    api: {
+        json: {
+            AssetAllocationBreakdown: {
+                assetAllocationBreakdown: {
+                    assetAllocCashPercLong: 4.49556,
+                    assetAllocEquityPercLong: 95.50442,
+                    canAssetAllocCanadianEquityPercLong: 2.01286,
+                    underlyingInstrumentStockPercent: 95.50445
+                },
+                identifiers: {
+                    performanceId: '0P00000FIA'
+                },
+                metadata: {}
+            },
+            CountryAndRegionExposure: {
+                countryAndRegionalExposureBreakdown: {
+                    equityRegionAmericasPercLongRescaled: 55.728,
+                    equityRegionNorthAmericaPercLongRescaled: 55.292,
+                    equityCountryUnitedStatesPercLongRescaled: 53.18442
+                },
+                identifiers: {
+                    performanceId: '0P00000FIA'
+                },
+                metadata: {}
+            }
+        }
+    },
+    security: {
+        id: '0P00000FIA'
+    },
+    converters: {
+        AssetAllocationBreakdown: {},
+        CountryAndRegionExposure: {}
+    }
+});
+```

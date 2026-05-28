@@ -64,12 +64,18 @@ table names:
   - `TimeSeries`
 
 - **FixedIncomeSectorsBreakdown**:
+  - `IncGovernmentPerRegionSuperSectors`
+  - `IncTreasuryPerRegionSecondarySectors`
+  - `IncInflationPerRegionSecondarySectors`
+  - `IncAgencyPerRegionSecondarySectors`
+  - `IncAllSectors`
   - `IncSuperSectors`
   - `IncPrimarySectors`
   - `IncSecondarySectors`
-    - `IncBrkSuperSectors`
-    - `IncBrkPrimarySectors`
-    - `IncBrkSecondarySectors`
+  - `IncBrkAllSectors`
+  - `IncBrkSuperSectors`
+  - `IncBrkPrimarySectors`
+  - `IncBrkSecondarySectors`
 
 - **ProspectusFees**:
   - `ProspectusFees`

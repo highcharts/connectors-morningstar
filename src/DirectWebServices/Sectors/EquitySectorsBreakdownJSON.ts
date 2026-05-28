@@ -38,4 +38,10 @@ namespace EquitySectorsBreakdownJSON {
     }
 }
 
+/* *
+ *
+ *  Default Export
+ *
+ * */
+
 export default EquitySectorsBreakdownJSON;
