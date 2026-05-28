@@ -1,10 +1,36 @@
-# Investments Details Connector
+# Investment Details Connector
 
-The `HighchartsConnectors.MorningstarDWS.InvestmentsConnector` is a connector
-that allows access to the newer Morningstar API, which provides the
-**Investment Details API**.
+The `HighchartsConnectors.MorningstarDWS.InvestmentsConnector` provides access
+to Morningstar's **Investment Details API** (the newer DWS API). A single
+connector instance can request multiple converters at once. Each converter
+populates one or more named data tables that you bind to your Highcharts
+series.
 
-## How to use Investments Details Connector
+## Requirements
+
+Using the Morningstar Connectors requires an active Highcharts license and a
+Morningstar subscription, plus Morningstar Direct Web Services credentials -
+either an access token from your server or a username and password. See the
+[Morningstar Connectors overview](https://www.highcharts.com/docs/morningstar/morningstar)
+for licensing and credential details.
+
+## Setup
+
+Load the DWS bundle alongside Highcharts. As an ES module:
+
+```js
+import Highcharts from 'highcharts';
+import '@highcharts/connectors-morningstar/dws';
+```
+
+Or as a UMD script from the CDN:
+
+```html
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/connectors/morningstar/connectors-morningstar-dws.js"></script>
+```
+
+## How to use the Investments Connector
 
 The `InvestmentsConnector` allows you to select multiple converters
 simultaneously.
@@ -30,15 +56,19 @@ planned for the future.
 
 ## Available data converters
 
-Here is a list of available converters along with their corresponding data
-table names:
+Here is a list of available converters along with a short description and their
+corresponding data table names. Each converter is selected by name under the
+`converters` option, and each data table is retrieved with
+`connector.getTable('<TableName>')`.
 
-- **AssetAllocationBreakdown**:
+- **AssetAllocationBreakdown** - the security's asset-allocation breakdown
+  (general, Canadian, and underlying-instrument views). Data tables:
   - `AssetAlloc`
   - `CanadianAssetAlloc`
   - `UnderlyingAssetAlloc`
 
-- **CountryAndRegionExposure**:
+- **CountryAndRegionExposure** - exposure broken down by region and country,
+  for equity, fixed income, and revenue. Data tables:
   - `RegionEquity`
   - `RegionFixedIncome`
   - `RegionFixedIncomeGeo`
@@ -47,23 +77,31 @@ table names:
   - `CountryBreakdown`
   - `CountryRevenueExposure`
 
-- **EquityAggregatesResidualRisk**:
+- **EquityAggregatesResidualRisk** - aggregate equity residual-risk statistics
+  (Alpha, Beta, and their company counts, including non-dividend variants).
+  Data table:
   - `EquityAggregatesResidualRisk`
 
-- **EquityResidualRisk**:
+- **EquityResidualRisk** - equity residual-risk statistics (Alpha, Beta,
+  RSquare, including non-dividend variants) at daily and monthly granularity.
+  Data tables:
   - `RiskDaily`
   - `RiskMonthly`
 
-- **EquitySectorsBreakdown**:
+- **EquitySectorsBreakdown** - equity sector exposure at super-sector, sector,
+  and industry levels. Data tables:
   - `EqSuperSectors`
   - `EqSectors`
   - `EqIndustries`
 
-- **EquityStyleBox**:
+- **EquityStyleBox** - the Morningstar equity style box: the current style/size
+  grid and its historical time series. Data tables:
   - `StockStyle`
   - `TimeSeries`
 
-- **FixedIncomeSectorsBreakdown**:
+- **FixedIncomeSectorsBreakdown** - fixed-income sector exposure across multiple
+  groupings: super/primary/secondary sectors, their breakdown (`Brk`) variants,
+  and per-region tables. Data tables:
   - `IncGovernmentPerRegionSuperSectors`
   - `IncTreasuryPerRegionSecondarySectors`
   - `IncInflationPerRegionSecondarySectors`
@@ -77,7 +115,7 @@ table names:
   - `IncBrkPrimarySectors`
   - `IncBrkSecondarySectors`
 
-- **ProspectusFees**:
+- **ProspectusFees** - prospectus fee data for the security. Data table:
   - `ProspectusFees`
 
 ## The `InvestmentsConnector` examples
@@ -298,7 +336,7 @@ Highcharts.chart('container', {
         data: dataTable.getRows(
             void 0,
             void 0,
-            ['Type', 'Net']
+            ['Type', 'PercNet']
         )
     }]
 });
@@ -321,7 +359,7 @@ Highcharts.chart('container', {
         align: 'left'
     },
     xAxis: {
-        categories: ['Value', 'Blend', 'Growth'],
+        categories: ['Value', 'Core', 'Growth'],
         lineWidth: 0,
         gridLineWidth: 0,
         opposite: true,
@@ -437,6 +475,42 @@ Highcharts.chart('container-brk-super-sectors', {
                 'Fixed_Income_Breakdown_CalcNetFiperc'
             ]
         )
+    }]
+});
+```
+
+### The `ProspectusFees` converter
+
+```js
+Dashboards.board('container', {
+    dataPool: {
+        connectors: [{
+            id: 'prospectus-fees',
+            type: 'MorningstarDWSInvestments',
+            api: {
+                access: {
+                    token: 'your_access_token'
+                }
+            },
+            security: {
+                id: '0P00000FIA'
+            },
+            converters: {
+                ProspectusFees: {}
+            },
+            dataModifier: {
+                type: 'Invert'
+            }
+        }]
+    },
+    components: [{
+        renderTo: 'container',
+        type: 'Grid',
+        connector: {
+            id: 'prospectus-fees',
+            dataTableKey: 'ProspectusFees'
+        },
+        title: 'Prospectus Fees'
     }]
 });
 ```
