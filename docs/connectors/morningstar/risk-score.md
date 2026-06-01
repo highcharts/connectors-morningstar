@@ -31,7 +31,7 @@ Be consistent and stick to one.
 If you specify any holdings that are invalid, the connector will still yield
 a result. The invalid holdings are in the connector’s `metadata` after load.
 
-For more details, see [Morningstar’s RiskScore API].
+For more details, see [Morningstar’s Portfolio Risk Score API].
 
 ### Risk Score with Morningstar standalone for Highcharts
 
@@ -91,7 +91,7 @@ portfolio.
 
 ## Morningstar API Reference
 
-For more details, see [Morningstar’s RiskScore API].
+For more details, see [Morningstar’s Portfolio Risk Score API].
 
 <!-- Links -->
-[Morningstar’s RiskScore API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/portfolio-analysis-apacemea/risk-score
+[Morningstar’s Portfolio Risk Score API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/portfolio-analysis-apacemea/risk-score

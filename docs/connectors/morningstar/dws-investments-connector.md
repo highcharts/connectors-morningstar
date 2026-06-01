@@ -535,4 +535,5 @@ demos:
 For more details, see [Morningstar’s Investment Details API].
 
 <!-- Links -->
-[Morningstar’s Investment Details API]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/investment-details---managed-investments---async/openapi-specification
+[Morningstar’s Investment Details API]:
+https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/investment-details---managed-investments/overview

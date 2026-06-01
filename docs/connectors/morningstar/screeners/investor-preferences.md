@@ -22,7 +22,7 @@ comparison, portfolio construction, or detailed analysis.
 Additionally, you can filter the returned securities list to ensure that only
 portfolios strictly meeting investor preferences are included.
 
-For more details, see [Morningstar's Investor Preferences API]
+For more details, see [Morningstar's Screener API - Investor Preferences].
 
 This connector is designed to be interacted with using external buttons, that
 might filter data on the backend, provide pagination as well as sorting.
@@ -81,9 +81,12 @@ const investorPreferencesConnector = new HighchartsConnectors.Morningstar.Invest
 });
 ```
 
+For more details, see [Morningstar's Screener API - Investor Preferences].
+
 ## Morningstar API Reference
 
-For details see [Morningstar's Investor Preferences API].
+For details see [Morningstar's Screener API].
 
 <!-- Links -->
-[Morningstar's Investor Preferences API]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/screener/investor-preferences
+[Morningstar's Screener API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/screener/overview
+[Morningstar's Screener API - Investor Preferences]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/screener/investor-preferences

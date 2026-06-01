@@ -107,4 +107,4 @@ You will find examples of how to use `RNANewsConnector` in our demos.
 For more details, see [Morningstar’s RNANews API].
 
 <!-- Links -->
-[Morningstar’s RNANews API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/time-series/regulatory-news-announcements
+[Morningstar’s RNANews API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/time-series/regulatory-news-announcements

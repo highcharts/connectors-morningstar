@@ -182,5 +182,5 @@ For more details, see [Morningstar's APAC/EMEA X-Ray API] and
 [Morningstar's Americas X-Ray API].
 
 <!-- Links -->
-[Morningstar's APAC/EMEA X-Ray API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/portfolio-analysis-apacemea/x-ray
-[Morningstar's Americas X-Ray API]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/portfolio-analysis-americas/x-ray
+[Morningstar's APAC/EMEA X-Ray API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/portfolio-analysis-apacemea/x-ray
+[Morningstar's Americas X-Ray API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/portfolio-analysis-americas/x-ray

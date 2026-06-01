@@ -122,4 +122,4 @@ You will find examples of how to use the time series connector in our demos.
 For more details, see [Morningstar’s Time Series API].
 
 <!-- Links -->
-[Morningstar’s Time Series API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/time-series/overview
+[Morningstar’s Time Series API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/time-series/overview

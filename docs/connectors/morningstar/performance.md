@@ -83,4 +83,4 @@ const data = performanceConnector.dataTables.CalendarYearReturn;
 For more details, see [Morningstar's Performance API].
 
 <!-- Links -->
-[Morningstar's Performance API]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/portfolio-analysis-americas/performance
+[Morningstar's Performance API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/portfolio-analysis-americas/performance

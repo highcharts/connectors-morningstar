@@ -11,3 +11,10 @@ business requirements.
 * [ESG Screener](https://www.highcharts.com/docs/morningstar/screeners/esg-screener)
 * [Regulatory Screener](https://www.highcharts.com/docs/morningstar/screeners/regulatory-screener)
 * [Find Similar](https://www.highcharts.com/docs/morningstar/screeners/find-similar-screener)
+
+## Morningstar API Reference
+
+For more details, see [Morningstar's Screener API].
+
+<!-- Links -->
+[Morningstar's Screener API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/screener/overview

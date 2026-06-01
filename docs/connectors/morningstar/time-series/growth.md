@@ -30,7 +30,7 @@ const growthConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnector
 });
 ```
 
-For more details, see [Morningstar’s Time Series API].
+For more details, see [Morningstar’s Time Series API - Growth].
 
 ## Relevant demos
 
@@ -43,4 +43,5 @@ For more details, see [Morningstar’s Time Series API].
 For more details, see [Morningstar’s Time Series API].
 
 <!-- Links -->
-[Morningstar’s Time Series API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/time-series/growth
+[Morningstar’s Time Series API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/time-series/overview
+[Morningstar’s Time Series API - Growth]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/time-series/growth

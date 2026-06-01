@@ -30,7 +30,7 @@ const cumulReturnConnector = new HighchartsConnectors.Morningstar.TimeSeriesConn
 });
 ```
 
-For more details, see [Morningstar’s Time Series API].
+For more details, see [Morningstar’s Time Series API - Cumulative Return].
 
 ## Relevant demos
 
@@ -43,4 +43,5 @@ For more details, see [Morningstar’s Time Series API].
 For more details, see [Morningstar’s Time Series API].
 
 <!-- Links -->
-[Morningstar’s Time Series API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/time-series/cumulative-return
+[Morningstar’s Time Series API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/time-series/overview
+[Morningstar’s Time Series API - Cumulative Return]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/time-series/cumulative-return

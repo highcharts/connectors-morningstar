@@ -21,7 +21,7 @@ You can also use it to power predefined screeners for common investment
 research interests such as Top Fixed Income Funds, Top Rated US Bond Index
 Funds, Sustainable Investments, and so on.
 
-For more details, see [Morningstar's Investment Screener API].
+For more details, see [Morningstar's Screener API - Investment Screener].
 
 This connector is designed to be interacted with using external buttons, that
 might filter data on the backend, provide pagination as well as sorting.
@@ -64,9 +64,12 @@ const screenerConnector = new HighchartsConnectors.Morningstar.InvestmentScreene
 });
 ```
 
+For more details, see [Morningstar's Screener API - Investment Screener].
+
 ## Morningstar API Reference
 
-For details see [Morningstar's Investment Screener API].
+For details see [Morningstar's Screener API].
 
 <!-- Links -->
-[Morningstar's Investment Screener API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/screener/investment-screener
+[Morningstar's Screener API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/screener/overview
+[Morningstar's Screener API - Investment Screener]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/screener/investment-screener

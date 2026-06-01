@@ -21,7 +21,7 @@ You can also use it to power predefined screeners for common ESG research
 interests such as Sustainable Investment Leaders, Low Carbon Risk Funds, and
 more.
 
-For more details, see [Morningstar's ESG Screener API].
+For more details, see [Morningstar's Screener API - ESG Screener].
 
 This connector is designed to be interacted with using external buttons, that
 might filter data on the backend, provide pagination as well as sorting.
@@ -62,9 +62,12 @@ const screenerConnector = new HighchartsConnectors.Morningstar.InvestmentScreene
 });
 ```
 
+For more details, see [Morningstar's Screener API - ESG Screener].
+
 ## Morningstar API Reference
 
-For more details, see [Morningstar's ESG Screener API].
+For more details, see [Morningstar's Screener API].
 
 <!-- Links -->
-[Morningstar's ESG Screener API]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/screener/esg-screener
+[Morningstar's Screener API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/screener/overview
+[Morningstar's Screener API - ESG Screener]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/screener/esg-screener

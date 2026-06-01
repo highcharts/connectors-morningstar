@@ -29,7 +29,7 @@ const dividendConnector = new HighchartsConnectors.Morningstar.TimeSeriesConnect
 });
 ```
 
-For more details, see [Morningstar’s Time Series API].
+For more details, see [Morningstar’s Time Series API - Dividend].
 
 ## Relevant demos
 
@@ -41,4 +41,5 @@ For more details, see [Morningstar’s Time Series API].
 For more details, see [Morningstar’s Time Series API].
 
 <!-- Links -->
-[Morningstar’s Time Series API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/time-series/dividend
+[Morningstar’s Time Series API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/time-series/overview
+[Morningstar’s Time Series API - Dividend]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/time-series/dividend

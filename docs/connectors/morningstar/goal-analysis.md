@@ -37,4 +37,4 @@ const goalAnalysisConnector = new HighchartsConnectors.Morningstar.GoalAnalysisC
 For more details, see [Morningstar's Goal Analysis API].
 
 <!-- Links -->
-[Morningstar's Goal Analysis API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/portfolio-analysis-apacemea/goal-analysis
+[Morningstar's Goal Analysis API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/portfolio-analysis-apacemea/goal-analysis

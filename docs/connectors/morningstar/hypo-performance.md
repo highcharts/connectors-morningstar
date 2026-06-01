@@ -126,4 +126,4 @@ Example request:
 For more details, see [Morningstar's Hypothetical Performance API].
 
 <!-- Links -->
-[Morningstar's Hypothetical Performance API]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/portfolio-analysis-americas/hypothetical-performance
+[Morningstar's Hypothetical Performance API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/portfolio-analysis-americas/hypothetical-performance

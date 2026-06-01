@@ -134,4 +134,4 @@ Examples of using the **Time Series Connector** are available in our demos:
 For more details, see [Morningstar’s Time Series API].
 
 <!-- Links -->
-[Morningstar’s Time Series API]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/time-series/openapi-specification
+[Morningstar’s Time Series API]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/time-series---sync/overview
