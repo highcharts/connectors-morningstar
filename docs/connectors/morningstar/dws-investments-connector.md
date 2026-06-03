@@ -120,6 +120,9 @@ corresponding data table names. Each converter is selected by name under the
 
 ## The `InvestmentsConnector` examples
 
+The example below sets up a single connector with every converter selected, then
+each section that follows shows how to chart the data from one of them.
+
 ```js
 const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
     api: {
@@ -149,6 +152,12 @@ await connector.load();
 ```
 
 ### The `AssetAllocationBreakdown` converter
+
+The **Asset Allocation Breakdown** view provides the split of a portfolio's net
+assets across the major asset classes – equity, bond, convertible bond, cash,
+and other - reported as long, short, net, and rescaled-long percentages. It
+also includes US/non-US splits, the Canadian asset-allocation view, and a
+breakdown by underlying instrument type.
 
 ```js
     const generalTable = connector.getTable('AssetAlloc'),
@@ -185,6 +194,11 @@ await connector.load();
 
 ### The `CountryAndRegionExposure` converter
 
+The **Country and Regional Exposure Breakdown** view provides a portfolio's
+geographic exposure broken down by region and individual country for its equity
+and fixed-income holdings, together with revenue-based exposure, reported as
+long, net, and rescaled percentages.
+
 ```js
     const regionEquityTable = connector.getTable('RegionEquity'),
         data = regionEquityTable.getRows(void 0, void 0, ['Region', 'PercNet']);
@@ -204,6 +218,13 @@ await connector.load();
 ```
 
 ### The `EquityAggregatesResidualRisk` converter
+
+The **Equity Aggregates Residual Risk and Return Sensitivity** view supplies a
+stock's excess return, its volatility, and its relative performance, grouped
+by industry classification according to Morningstar's Global Equity
+Classification Structure. The figures are averaged across each industry on a
+country-by-country basis, so a company can be benchmarked against its peers
+within the same industry, industry group, or sector.
 
 ```js
 const dataTable = connector.getTable('EquityAggregatesResidualRisk');
@@ -248,6 +269,10 @@ Highcharts.chart('container', {
 ```
 
 ### The `EquityResidualRisk` converter
+
+The **Equity Residual Risk and Return Sensitivity** view reports a stock's excess
+return together with how volatile it is and how it performs when measured
+against a benchmark index.
 
 ```js
 const dataTable = connector.getTable('RiskDaily');
@@ -307,6 +332,11 @@ Highcharts.chart('container-daily', {
 
 ### The `EquitySectorsBreakdown` converter
 
+The **Morningstar Equity Sectors Breakdown** view provides the equity portion of
+a portfolio classified by Morningstar's Global Equity Classification
+Structure into super sectors (Cyclical, Sensitive, Defensive), sectors, and
+industries, reported as long, short, net, and rescaled-long percentages.
+
 ```js
 const dataTable = connector.getTable('EqSuperSectors');
 
@@ -343,6 +373,12 @@ Highcharts.chart('container', {
 ```
 
 ### The `EquityStyleBox` converter
+
+The **Equity Style Box** view returns Morningstar's proprietary Style Box along
+with Stock Grades. The Style Box positions a stock by market capitalization
+and growth, scoring it so you can spot holdings that match your investment
+strategy, while the Stock Grades add further classifications centred on a
+company's financial health and profitability.
 
 ```js
 const dataTable = connector.getTable('StockStyle');
@@ -435,6 +471,12 @@ Highcharts.chart('container', {
 
 ### The `FixedIncomeSectorsBreakdown` converter
 
+The **Morningstar Fixed Income Sectors Breakdown** view provides the
+fixed-income portion of a portfolio classified by Morningstar's fixed-income
+sector structure into super, primary, and secondary sectors - including the
+per-region government, treasury, inflation-protected, and agency sectors -
+reported as long, short, and net percentages.
+
 ```js
 const dataTable = connector.getTable('IncBrkSuperSectors');
 
@@ -480,6 +522,11 @@ Highcharts.chart('container-brk-super-sectors', {
 ```
 
 ### The `ProspectusFees` converter
+
+The **Prospectus Fees** view provides the fee and expense data disclosed in a
+fund's prospectus, such as management, administration, and distribution fees
+(including their breakpoints), front-end and deferred sales loads, redemption
+fees, gross/net/adjusted expense ratios, and acquired-fund expenses.
 
 ```js
 Dashboards.board('container', {

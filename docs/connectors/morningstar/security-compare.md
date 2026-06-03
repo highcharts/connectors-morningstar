@@ -3,7 +3,7 @@
 This type retrieves investment data for multiple securities, making it ideal for
 comparison.
 
-## How to use SecurityCompare Connector
+## How to use Security Compare Connector
 
 Use the `SecurityCompareConnector` to load the connector.
 

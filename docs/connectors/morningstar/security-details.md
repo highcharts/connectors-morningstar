@@ -3,7 +3,7 @@
 This type retrieves investment data for a specified set of securities and is
 ideal for building single-investment profiles.
 
-## How to use SecurityDetails Connector
+## How to use Security Details Connector
 
 Use the `SecurityDetailsConnector` to load security details.
 

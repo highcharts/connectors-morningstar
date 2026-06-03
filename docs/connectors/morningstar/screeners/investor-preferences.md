@@ -1,6 +1,6 @@
 # Investor Preferences
 
-Using Morningstar **Investor Preferences** screener allows you to filter
+Using Morningstar **Investor Preferences Screener** allows you to filter
 Morningstar's database of global investments for securities that match a set of
 criteria unique to an investor.
 

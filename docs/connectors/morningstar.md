@@ -63,8 +63,8 @@ pool as other connector types.
 - [Security Compare](https://www.highcharts.com/docs/morningstar/security-compare)
 - [Performance](https://www.highcharts.com/docs/morningstar/performance)
 - [Hypo Performance](https://www.highcharts.com/docs/morningstar/hypo-performance)
-- [DWS Connector](https://www.highcharts.com/docs/morningstar/dws-investments-connector)
-- [DWS TimeSeries](https://www.highcharts.com/docs/morningstar/dws-time-series-connector)
+- [DWS Investments Details](https://www.highcharts.com/docs/morningstar/dws/investments-details-connector)
+- [DWS Time Series](https://www.highcharts.com/docs/morningstar/dws/time-series-connector)
 
 ### Morningstar Regions
 

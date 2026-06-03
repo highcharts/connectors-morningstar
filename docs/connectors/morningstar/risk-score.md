@@ -4,7 +4,7 @@ This type analyzes the specified portfolios and yields a risk score.
 
 You can analyze up to two portfolios at a time.
 
-## How to use RiskScore Connector
+## How to use Risk Score Connector
 
 Use the `RiskScoreConnector` to load risk scores.
 

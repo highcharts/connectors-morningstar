@@ -7,7 +7,7 @@ historical performance data to help you calculate hypothetical performance for
 the portfolios specified in the request body. For standard performance, see the
 Performance Connector.
 
-## How to use HypoPerformance Connector
+## How to use Hypothetical Performance Connector
 
 You can use the `HypoPerformanceConnector` to fetch return and hypothetical
 performances for multiple portfolios and benchmarks. The returned data depends
