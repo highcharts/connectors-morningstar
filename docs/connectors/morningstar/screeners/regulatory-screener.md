@@ -19,8 +19,6 @@ including proprietary data such as:
 - Principal Adverse Impacts (PAI)
 - Planned Investments and Allocations
 
-For more details, see [Morningstar's Screener API - Regulatory Screener].
-
 This connector is designed to be interacted with using external buttons, that
 might filter data on the backend, provide pagination as well as sorting.
 
@@ -56,12 +54,9 @@ const screenerConnector = new HighchartsConnectors.Morningstar.InvestmentScreene
 });
 ```
 
-For more details, see [Morningstar's Screener API - Regulatory Screener].
-
 ## Morningstar API Reference
 
 For more details, see [Morningstar's Screener API].
 
 <!-- Links -->
-[Morningstar's Screener API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/screener/overview
-[Morningstar's Screener API - Regulatory Screener]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/screener/regulatory-screener
+[Morningstar's Screener API]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/screener/overview

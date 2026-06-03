@@ -157,6 +157,6 @@ For more details, see [Morningstar’s Security Details API] and
 [Getting View IDs].
 
 <!-- Links -->
-[Morningstar’s Security Details API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/security-details/overview
-[Getting View IDs]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/security-details/investment-details#get-views
+[Morningstar’s Security Details API]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/security-details/overview
+[Getting View IDs]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/security-details/investment-details#get-views
 [series.keys]: https://api.highcharts.com/highcharts/plotOptions.series.keys

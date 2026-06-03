@@ -21,8 +21,6 @@ You can also use it to power predefined screeners for common investment
 research interests such as Top Fixed Income Funds, Top Rated US Bond Index
 Funds, Sustainable Investments, and so on.
 
-For more details, see [Morningstar's Screener API - Investment Screener].
-
 This connector is designed to be interacted with using external buttons, that
 might filter data on the backend, provide pagination as well as sorting.
 
@@ -71,5 +69,5 @@ For more details, see [Morningstar's Screener API - Investment Screener].
 For details see [Morningstar's Screener API].
 
 <!-- Links -->
-[Morningstar's Screener API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/screener/overview
-[Morningstar's Screener API - Investment Screener]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/screener/investment-screener
+[Morningstar's Screener API]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/screener/overview
+[Morningstar's Screener API - Investment Screener]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/screener/investment-screener

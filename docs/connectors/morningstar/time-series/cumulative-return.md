@@ -43,5 +43,6 @@ For more details, see [Morningstar’s Time Series API - Cumulative Return].
 For more details, see [Morningstar’s Time Series API].
 
 <!-- Links -->
-[Morningstar’s Time Series API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/time-series/overview
-[Morningstar’s Time Series API - Cumulative Return]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/time-series/cumulative-return
+[Morningstar’s Time Series API]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/time-series/about
+
+[Morningstar’s Time Series API - Cumulative Return]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/time-series/cumulative-return

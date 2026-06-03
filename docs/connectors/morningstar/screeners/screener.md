@@ -17,4 +17,4 @@ business requirements.
 For more details, see [Morningstar's Screener API].
 
 <!-- Links -->
-[Morningstar's Screener API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/screener/overview
+[Morningstar's Screener API]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/screener/overview

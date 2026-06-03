@@ -78,8 +78,6 @@ await xRayConnector.load();
 const data = xRayConnector.dataTables.AssetAllocation;
 ```
 
-For more details, see [Morningstar's APAC/EMEA X-Ray API].
-
 ## X-Ray Americas API
 
 Currently the following data points are supported in the Americas X-Ray
@@ -174,13 +172,9 @@ await americasXRayConnector.load();
 const data = americasXRayConnector.dataTables.EquityStyle;
 ```
 
-For more details, see [Morningstar's Americas X-Ray API].
-
 ## Morningstar API Reference
 
-For more details, see [Morningstar's APAC/EMEA X-Ray API] and
-[Morningstar's Americas X-Ray API].
+For more details, see [Morningstar's APAC/EMEA X-Ray API].
 
 <!-- Links -->
-[Morningstar's APAC/EMEA X-Ray API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/portfolio-analysis-apacemea/x-ray
-[Morningstar's Americas X-Ray API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/portfolio-analysis-americas/x-ray
+[Morningstar's APAC/EMEA X-Ray API]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/x-ray---apacemea/overview

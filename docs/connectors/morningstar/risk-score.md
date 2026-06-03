@@ -94,4 +94,4 @@ portfolio.
 For more details, see [Morningstar’s Portfolio Risk Score API].
 
 <!-- Links -->
-[Morningstar’s Portfolio Risk Score API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/portfolio-analysis-apacemea/risk-score
+[Morningstar’s Portfolio Risk Score API]: https://developer.morningstar.com/direct-web-services/documentation/direct-web-services/portfolio-risk-score/overview

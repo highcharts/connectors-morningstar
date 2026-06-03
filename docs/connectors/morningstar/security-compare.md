@@ -132,5 +132,5 @@ For more details, see [Morningstar’s Investment Compare API] and
 [Getting View IDs].
 
 <!-- Links -->
-[Morningstar’s Investment Compare API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/security-details/investment-compare
-[Getting View IDs]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/security-details/investment-details#get-views
+[Morningstar’s Investment Compare API]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/security-details/investment-compare
+[Getting View IDs]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/security-details/investment-details#get-views

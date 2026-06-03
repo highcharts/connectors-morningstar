@@ -10,8 +10,6 @@ comparable characteristics. For example, if a preferred investment is closed to
 new investors or has high minimum requirements, this tool can help you find
 suitable alternatives using customizable filters.
 
-For more details, see [Morningstar's Screener API - Find Similar].
-
 This connector is designed to be interacted with using external buttons, that
 might filter data on the backend, provide pagination as well as sorting.
 
@@ -58,5 +56,5 @@ For more details, see [Morningstar's Screener API - Find Similar].
 For more details, see [Morningstar's Screener API].
 
 <!-- Links -->
-[Morningstar's Screener API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/screener/overview
-[Morningstar's Screener API - Find Similar]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/screener/find-similar
+[Morningstar's Screener API]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/screener/overview
+[Morningstar's Screener API - Find Similar]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/screener/find-similar

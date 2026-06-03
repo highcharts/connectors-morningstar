@@ -42,5 +42,5 @@ For more details, see [Morningstar’s Time Series API - Price].
 For more details, see [Morningstar’s Time Series API].
 
 <!-- Links -->
-[Morningstar’s Time Series API]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/time-series/overview
-[Morningstar’s Time Series API - Price]: https://developer-beta.morningstar.com/direct-web-services/documentation/api-reference/time-series/price
+[Morningstar’s Time Series API]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/time-series/about
+[Morningstar’s Time Series API - Price]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/time-series/price
