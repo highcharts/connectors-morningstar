@@ -7,9 +7,6 @@ business requirements.
 ## Capabilities
 
 * [Investment Screener](https://www.highcharts.com/docs/morningstar/screeners/investment-screener)
-* [Investor Preferences](https://www.highcharts.com/docs/morningstar/screeners/investor-preferences)
-* [ESG Screener](https://www.highcharts.com/docs/morningstar/screeners/esg-screener)
-* [Regulatory Screener](https://www.highcharts.com/docs/morningstar/screeners/regulatory-screener)
 * [Find Similar](https://www.highcharts.com/docs/morningstar/screeners/find-similar-screener)
 
 ## Morningstar API Reference

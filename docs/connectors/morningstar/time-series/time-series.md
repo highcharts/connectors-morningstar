@@ -12,7 +12,6 @@ given time period.
 - [OHLCV](https://www.highcharts.com/docs/morningstar/time-series/ohlcv)
 - [Price](https://www.highcharts.com/docs/morningstar/time-series/price)
 - [Rating](https://www.highcharts.com/docs/morningstar/time-series/rating)
-- [Regulatory News Announcements](https://www.highcharts.com/docs/morningstar/regulatory-news-announcements)
 - [Return](https://www.highcharts.com/docs/morningstar/time-series/return)
 - [Rolling Return](https://www.highcharts.com/docs/morningstar/time-series/rolling-return)
 

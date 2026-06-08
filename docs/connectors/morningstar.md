@@ -54,7 +54,6 @@ pool as other connector types.
 ### Available Connectors
 
 - [Goal Analysis](https://www.highcharts.com/docs/morningstar/goal-analysis)
-- [RNANews](https://www.highcharts.com/docs/morningstar/regulatory-news-announcements)
 - [Risk Score](https://www.highcharts.com/docs/morningstar/risk-score)
 - [TimeSeries](https://www.highcharts.com/docs/morningstar/time-series/time-series)
 - [X-Ray](https://www.highcharts.com/docs/morningstar/x-ray)
