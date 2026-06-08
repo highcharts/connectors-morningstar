@@ -23,7 +23,6 @@ Links
 * Support: [www.highcharts.com/support](http://www.highcharts.com/support)
 * Issues: [Working repo](https://github.com/highcharts/connectors-morningstar/issues)
 
-
 Usage
 -----
 
@@ -38,6 +37,7 @@ The connectors are available as
 your web app or web page.
 
 * You can also include the UMD bundle for testing purposes directly in HTML:
+
   ``` HTML
   <script src="https://code.highcharts.com/connectors/morningstar/connectors-morningstar.js"></script>
   ```
@@ -47,9 +47,6 @@ your web app or web page.
   ```
 
 <!-- Link References -->
-
 [Highcharts Connectors]: https://www.highcharts.com/products/morningstar-data/
-
 [Highcharts Connectors Docs]: https://www.highcharts.com/docs/morningstar/morningstar/
-
 [Morningstar Direct Web Services]: https://developer.morningstar.com/direct-web-services/
