@@ -48,8 +48,12 @@ export async function equityAggregatesResidualRisk (
 
     const columns = [
         'Type',
+        // 'Alpha',
+        // 'AlphaCompanies',
         'NonDividendAlpha',
         'NonDividendAlphaCompanies',
+        // 'Beta',
+        // 'BetaCompanies',
         'NonDividendBeta',
         'NonDividendBetaCompanies'
     ];

@@ -85,6 +85,7 @@ export async function fixedIncomeSectorsBreakdown (
     };
 
     [
+        // 'IncInflationPerRegionSecondarySectors',
         'IncAgencyPerRegionSecondarySectors'
     ].forEach(regionSectorAsserts);
 
@@ -144,6 +145,8 @@ export async function fixedIncomeSectorsBreakdown (
         ],
         IncSecondarySectors: [
             'fixedIncSecondarySectorAgencyorquasiAgencyCountryRescalingFactorLong',
+            // 'fixedIncSecondarySectorInflationProtectedCountryRescaling' +
+            // 'FactorLong',
             'fixedIncSecondarySectorRescalingFactorLong',
             'fixedIncSecondarySectorTreasuryCountryRescalingFactorLong'
         ]
