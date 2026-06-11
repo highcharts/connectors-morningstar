@@ -51,13 +51,13 @@ pool as other connector types.
 ### Available Connectors
 
 - Direct Web Services:
-  - [DWS Investments Details](https://www.highcharts.com/docs/morningstar/dws/investments-details-connector)
-  - [DWS Time Series](https://www.highcharts.com/docs/morningstar/dws/time-series-connector)
+  - [Investments Details](https://www.highcharts.com/docs/morningstar/dws/investments-details-connector)
+  - [Time Series](https://www.highcharts.com/docs/morningstar/dws/time-series-connector)
 
 - Enterprise Components:
   - [Goal Analysis](https://www.highcharts.com/docs/morningstar/goal-analysis)
   - [Risk Score](https://www.highcharts.com/docs/morningstar/risk-score)
-  - [TimeSeries](https://www.highcharts.com/docs/morningstar/time-series/time-series)
+  - [Time Series](https://www.highcharts.com/docs/morningstar/time-series/time-series)
   - [X-Ray](https://www.highcharts.com/docs/morningstar/x-ray)
   - [Screener](https://www.highcharts.com/docs/morningstar/screeners/screener)
   - [Security Details](https://www.highcharts.com/docs/morningstar/security-details)
