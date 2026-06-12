@@ -58,7 +58,7 @@ export interface PerformanceRequestPayload extends PAUSPayload {
 }
 
 export interface PerformanceRequestSettings extends RequestSettings {
-    includePortfolioCorrelationMatrix?: boolean;
+    includePortfolioInCorrelationMatrix?: boolean;
     initialValue?: number;
     analysisDateTimePeriod?: string;
     portfolioPerformanceStartDate?: string;
