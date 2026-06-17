@@ -73,9 +73,7 @@ export class CorrelationMatrixConverter extends MorningstarConverter {
                 for (const key of Correlations) {
                     const { CorrelatedItemKey, SecurityId, Type } = key;
                     const isPortfolio = Type === 'Portfolio';
-                    const name = isPortfolio ?
-                        TrailingTimePeriod + '_Portfolio' + columnSuffix :
-                        TrailingTimePeriod + `_${SecurityId}` + columnSuffix;
+                    const name = `${TrailingTimePeriod}_${isPortfolio ? 'Portfolio' : SecurityId}${columnSuffix}`;
 
                     let correlationIndex = 0;
 
