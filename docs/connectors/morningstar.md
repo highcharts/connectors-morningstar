@@ -13,21 +13,68 @@ API**, with more to come in the future.
 
 ## Requirements
 
-You will need credentials to access the services.
+To use the Morningstar Connectors you need:
+
+- An active [Highcharts licensing](https://www.highcharts.com/license) plus a
+[Morningstar subscription](https://shop.highcharts.com/contact/partner-data).
 
 - Morningstar credentials (this can be either):
   - Access token from your server
   - Username and password
 
-- Morningstar standalone for Highcharts (this can be either):
-  - `@highcharts/connectors-morningstar/connectors-morningstar.js`
-  - `@highcharts/connectors-morningstar/connectors-morningstar-dws.js`
+The connectors ship in two flavours, distinguished by the `dws` suffix. Pick the
+one matching the Morningstar API you intend to call (see [Versions](#versions)):
 
-- Morningstar Connectors for Dashboards (this can be either):
-  - `@highcharts/connectors-morningstar`
-  - `@highcharts/connectors-morningstar/dws`
+- `connectors-morningstar` - standard API.
+- `connectors-morningstar-dws` - newer DWS API.
 
-- Package bundler like Webpack.
+## Installation
+
+You can load the connectors in three equivalent ways. Pick whichever fits your
+project setup. The resulting `HighchartsConnectors.Morningstar.*` and
+`HighchartsConnectors.MorningstarDWS.*` namespaces are the same in all cases.
+
+### 1. ES module (recommended for app projects)
+
+Install the package and import the bundle you need. The import has no default
+export - it registers the connectors as a side effect.
+
+```bash
+npm install @highcharts/connectors-morningstar
+```
+
+```js
+import Highcharts from 'highcharts';
+// Standard API
+import '@highcharts/connectors-morningstar';
+// DWS API
+import '@highcharts/connectors-morningstar/dws';
+```
+
+### 2. UMD bundle through a bundler
+
+If you bundle your app yourself (Webpack, Rollup, esbuild, etc.), point it at
+the UMD build distributed inside the package:
+
+```js
+// Standard API
+@highcharts/connectors-morningstar/connectors-morningstar.js
+// DWS API
+@highcharts/connectors-morningstar/connectors-morningstar-dws.js
+```
+
+### 3. `<script>` tag from the CDN
+
+For quick prototyping or plain HTML pages, include the UMD bundle directly from
+[code.highcharts.com](https://code.highcharts.com):
+
+```html
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<!-- Standard API -->
+<script src="https://code.highcharts.com/connectors/morningstar/connectors-morningstar.js"></script>
+<!-- DWS API -->
+<script src="https://code.highcharts.com/connectors/morningstar/connectors-morningstar-dws.js"></script>
+```
 
 ## Quick Start
 
@@ -36,17 +83,14 @@ products and Highcharts Dashboards.
 
 ### Highcharts Quick Start
 
-You can connect Highcharts core products with Morningstar by using
-`connectors-morningstar.js` or `connectors-morningstar-dws.js` in the
-`connectors-morningstar` bundle. You have to manually create the connector and
-assign the resulting table to your series options.
+After loading a bundle (see [Installation](#installation)), you have to manually
+create the connector and assign the resulting table to your series options.
 
 ### Highcharts Dashboards Quick Start
 
-For Highcharts Dashboards you just need to load the `connectors-morningstar` or
-`connectors-morningstar/dws` bundle, which will register all connectors to the
-Dashboards registry. All Morningstar Connectors are then available in the data
-pool as other connector types.
+After loading a bundle, the Morningstar connectors are registered with the
+Dashboards registry automatically and are then available in the data pool as
+other connector types.
 
 ### Available Connectors
 
