@@ -38,7 +38,7 @@ option, and each data table is retrieved with
 `connector.getTable('<TableName>')`.
 
 ```js
-new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
+const investmentsConnector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
     api: {
         access: {
             token: 'your_access_token'
@@ -51,6 +51,8 @@ new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
         // Chosen converters
     }
 });
+
+await investmentsConnector.load();
 ```
 
 ## Available data converters

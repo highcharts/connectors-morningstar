@@ -25,7 +25,7 @@ To use the Morningstar Connectors you need:
 The connectors ship in two flavours, distinguished by the `dws` suffix. Pick the
 one matching the Morningstar API you intend to call (see [Versions](#versions)):
 
-- `connectors-morningstar` - standard API.
+- `connectors-morningstar` - legacy API.
 - `connectors-morningstar-dws` - newer DWS API.
 
 ## Installation
@@ -45,7 +45,7 @@ npm install @highcharts/connectors-morningstar
 
 ```js
 import Highcharts from 'highcharts';
-// Standard API
+// Legacy API
 import '@highcharts/connectors-morningstar';
 // DWS API
 import '@highcharts/connectors-morningstar/dws';
@@ -57,7 +57,7 @@ If you bundle your app yourself (Webpack, Rollup, esbuild, etc.), point it at
 the UMD build distributed inside the package:
 
 ```js
-// Standard API
+// Legacy API
 @highcharts/connectors-morningstar/connectors-morningstar.js
 // DWS API
 @highcharts/connectors-morningstar/connectors-morningstar-dws.js
@@ -70,7 +70,7 @@ For quick prototyping or plain HTML pages, include the UMD bundle directly from
 
 ```html
 <script src="https://code.highcharts.com/highcharts.js"></script>
-<!-- Standard API -->
+<!-- Legacy API -->
 <script src="https://code.highcharts.com/connectors/morningstar/connectors-morningstar.js"></script>
 <!-- DWS API -->
 <script src="https://code.highcharts.com/connectors/morningstar/connectors-morningstar-dws.js"></script>
@@ -85,6 +85,8 @@ products and Highcharts Dashboards.
 
 After loading a bundle (see [Installation](#installation)), you have to manually
 create the connector and assign the resulting table to your series options.
+Examples of how to use specific connectors can be found below in the
+[Available Connectors](#available-connectors) section.
 
 ### Highcharts Dashboards Quick Start
 
