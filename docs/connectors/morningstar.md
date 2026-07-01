@@ -35,8 +35,9 @@ fetch data depends on your API access.
 
 ### 1. ES module (recommended for app projects)
 
-Install the package and import the bundle you need. The import has no default
-export - it registers the connectors as a side effect.
+Install the package and import the bundle you need. Importing it registers the
+connectors with Highcharts as a side effect, and also exposes them through the
+imported namespace (shown below) as named exports.
 
 ```bash
 npm install @highcharts/connectors-morningstar
