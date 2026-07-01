@@ -15,9 +15,6 @@ API**, with more to come in the future.
 
 To use the Morningstar Connectors you need:
 
-- An active [Highcharts licensing](https://www.highcharts.com/license) plus a
-[Morningstar subscription](https://shop.highcharts.com/contact/partner-data).
-
 - Morningstar credentials (this can be either):
   - Access token from your server
   - Username and password
@@ -30,9 +27,11 @@ one matching the Morningstar API you intend to call (see [Versions](#versions)):
 
 ## Installation
 
-You can load the connectors in three equivalent ways. Pick whichever fits your
-project setup. The resulting `HighchartsConnectors.Morningstar.*` and
-`HighchartsConnectors.MorningstarDWS.*` namespaces are the same in all cases.
+You can load the connectors in three equivalent ways. Choose whichever best fits
+your project setup. Regardless of the loading method, connectors are exposed
+through the `HighchartsConnectors.Morningstar.*` and
+`HighchartsConnectors.MorningstarDWS.*` namespaces. Whether a connector can
+fetch data depends on your API access.
 
 ### 1. ES module (recommended for app projects)
 
@@ -46,9 +45,9 @@ npm install @highcharts/connectors-morningstar
 ```js
 import Highcharts from 'highcharts';
 // Legacy API
-import '@highcharts/connectors-morningstar';
+import * as HighchartsConnectors from '@highcharts/connectors-morningstar';
 // DWS API
-import '@highcharts/connectors-morningstar/dws';
+import * as HighchartsConnectorsDWS from '@highcharts/connectors-morningstar/dws';
 ```
 
 ### 2. UMD bundle through a bundler
