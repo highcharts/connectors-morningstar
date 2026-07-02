@@ -41,7 +41,7 @@ const screenerConnector = new HighchartsConnectors.Morningstar.InvestmentScreene
     securityDataPoints: [
         'secId',
         'name',
-        'riskRating'
+        'riskRating',
         'ongoingCharge'
     ],
     sortOrder: 'Name+Asc',
