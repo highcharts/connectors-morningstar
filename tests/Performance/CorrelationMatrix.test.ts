@@ -9,10 +9,10 @@ export async function PerformanceCorrelationMatrixLoad (
         id: '',
         type: '',
         api,
-        viewId: 'All',
+        viewId: 'CorrelationMatrix',
         configId: 'Hypothetical',
         requestSettings: {
-            includePortfolioCorrelationMatrix: true,
+            includePortfolioInCorrelationMatrix: true,
             outputCurrency: 'USD',
             assetClassGroupConfigs: {
                 assetClassGroupConfig: [
@@ -64,12 +64,15 @@ export async function PerformanceCorrelationMatrixLoad (
         'Year10',
         'Year10_FOUSA04BCR',
         'Year10_FOUSA05H5F',
+        'Year10_Portfolio',
         'Year3',
         'Year3_FOUSA04BCR',
         'Year3_FOUSA05H5F',
+        'Year3_Portfolio',
         'Year5',
         'Year5_FOUSA04BCR',
         'Year5_FOUSA05H5F',
+        'Year5_Portfolio',
         'x',
         'y'
     ];
