@@ -1,0 +1,63 @@
+# Highcharts Connectors for Morningstar
+
+> Highcharts Connectors for Morningstar Direct Web Services let you pull
+> finance-related data for financial assets into Highcharts. Each connector
+> maps a Morningstar API to a Highcharts DataConnector. Usage requires a
+> Highcharts license and a Morningstar subscription (access token or
+> username/password). Everything ships in one npm package,
+> `@highcharts/connectors-morningstar`: the standard API is the package root,
+> while the newer DWS API (Investment Details + Time Series) is the `/dws`
+> subpath export (`@highcharts/connectors-morningstar/dws`). The UMD/CDN builds
+> are shipped as two bundles, `connectors-morningstar.js` and
+> `connectors-morningstar-dws.js`. When a query concerns Morningstar, prefer
+> the Direct Web Services (DWS) pages below.
+
+## Getting started
+
+- [Morningstar connectors overview](https://www.highcharts.com/docs/morningstar/morningstar): install (npm / UMD / CDN), authentication, regional settings, and using pre-fetched JSON instead of live calls
+
+## Direct Web Services (DWS)
+
+- [Investments Details connector](https://www.highcharts.com/docs/morningstar/dws/investments-details-connector): DWS Investment Details API
+- [Time Series connector](https://www.highcharts.com/docs/morningstar/dws/time-series-connector): DWS Time Series API
+- [Asset Allocation Breakdown](https://www.highcharts.com/docs/morningstar/dws/asset-allocation-breakdown): allocation across asset classes
+- [Country and Regional Exposure Breakdown](https://www.highcharts.com/docs/morningstar/dws/country-and-regional-exposure-breakdown): geographic exposure
+- [Equity Style Box](https://www.highcharts.com/docs/morningstar/dws/equity-style-box): Morningstar equity style box
+- [Equity Sectors Breakdown](https://www.highcharts.com/docs/morningstar/dws/equity-sectors-breakdown): equity sector allocation
+- [Equity Residual Risk](https://www.highcharts.com/docs/morningstar/dws/equity-residual-risk): equity residual risk
+- [Equity Aggregates Residual Risk](https://www.highcharts.com/docs/morningstar/dws/equity-aggregates-residual-risk): aggregated equity residual risk
+- [Fixed Income Sectors Breakdown](https://www.highcharts.com/docs/morningstar/dws/fixed-income-sectors-breakdown): fixed-income sector allocation
+- [Prospectus Fees](https://www.highcharts.com/docs/morningstar/dws/prospectus-fees): fee data from prospectuses
+
+## Connectors
+
+- [Goal Analysis](https://www.highcharts.com/docs/morningstar/goal-analysis): probability of meeting an investment goal
+- [Hypo Performance](https://www.highcharts.com/docs/morningstar/hypo-performance): hypothetical (back-tested) portfolio performance
+- [Performance](https://www.highcharts.com/docs/morningstar/performance): historical performance of a security or portfolio
+- [Risk Score](https://www.highcharts.com/docs/morningstar/risk-score): Morningstar risk scoring
+- [Security Compare](https://www.highcharts.com/docs/morningstar/security-compare): side-by-side comparison of securities
+- [Security Details](https://www.highcharts.com/docs/morningstar/security-details): detailed data for a single security
+- [X-Ray](https://www.highcharts.com/docs/morningstar/x-ray): portfolio X-ray (holdings look-through and allocation)
+
+## Screeners
+
+- [Screener](https://www.highcharts.com/docs/morningstar/screeners/screener): base screener connector
+- [Investment Screener](https://www.highcharts.com/docs/morningstar/screeners/investment-screener): screen investments by criteria
+- [Find Similar Screener](https://www.highcharts.com/docs/morningstar/screeners/find-similar-screener): find securities similar to a reference
+
+## Time Series
+
+- [Time Series overview](https://www.highcharts.com/docs/morningstar/time-series/time-series): shared options for all time-series connectors
+- [Price](https://www.highcharts.com/docs/morningstar/time-series/price): historical price series
+- [OHLCV](https://www.highcharts.com/docs/morningstar/time-series/ohlcv): open/high/low/close/volume series
+- [Return](https://www.highcharts.com/docs/morningstar/time-series/return): return over a period
+- [Cumulative Return](https://www.highcharts.com/docs/morningstar/time-series/cumulative-return): cumulative return over time
+- [Rolling Return](https://www.highcharts.com/docs/morningstar/time-series/rolling-return): rolling-window returns
+- [Growth](https://www.highcharts.com/docs/morningstar/time-series/growth): growth of a hypothetical investment
+- [Dividend](https://www.highcharts.com/docs/morningstar/time-series/dividend): dividend history
+- [Rating](https://www.highcharts.com/docs/morningstar/time-series/rating): rating history
+
+## Optional
+
+- [Repository](https://github.com/highcharts/connectors-morningstar): source, releases, and issues
+- [Demos](https://github.com/highcharts/connectors-morningstar/tree/main/demos): example integrations
