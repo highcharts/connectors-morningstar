@@ -25,6 +25,14 @@ Release
 
 2. Run `npx ts-node tools/dist --bucket [...] --region [...] --release [x.x.x]`.
 
+Sitemap
+-------
+
+Run `npm run sitemap` (or `npx ts-node tools/sitemap`) to regenerate
+`docs/sitemap.xml`. URLs mirror `docs/llms.txt`; `<lastmod>` is taken per page
+from the last git commit that touched the source markdown, so re-run this after
+editing docs rather than hand-editing the dates.
+
 Unit-Tests
 ----------
 
