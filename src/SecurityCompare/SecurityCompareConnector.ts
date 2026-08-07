@@ -120,7 +120,7 @@ export class SecurityCompareConnector extends MorningstarConnector {
         const { security, viewIds = 'MFsnapshot' } = userOptions;
         const { ids: securityIds, idType: securityIdType } = (security || {});
         const api = this.api = this.api || new MorningstarAPI(userOptions.api);
-        const url = new MorningstarURL('ecint/v1/multi-securities/', api.baseURL);
+        const url = new MorningstarURL('ecint/v1/multi-securities', api.baseURL);
 
         const searchParams = url.searchParams;
         searchParams.set('ids', '' + securityIds.join(UTF_PIPE));
