@@ -101,10 +101,14 @@ export class SecurityDetailsConnector extends MorningstarConnector {
     public override async load (
         options?: SecurityDetailsOptions
     ): Promise<this> {
+        const userOptions = { ...this.options, ...options };
+
+        if (userOptions.api?.json) {
+            return this.parseSecurityDetailsJSON(userOptions.api.json);
+        }
 
         await super.load();
 
-        const userOptions = { ...this.options, ...options };
         const { security, viewId = 'MFsnapshot' } = userOptions;
         const { id: securityId, idType: securityIdType } = (security || {});
         const api = this.api = this.api || new MorningstarAPI(userOptions.api);
@@ -119,6 +123,12 @@ export class SecurityDetailsConnector extends MorningstarConnector {
         const response = await api.fetch(url);
         const json = await response.json() as SecurityDetailsJSON.SecurityDetailsResponse;
 
+        return this.parseSecurityDetailsJSON(json);
+    }
+
+    private parseSecurityDetailsJSON (
+        json: unknown
+    ): Promise<this> {
         if (!SecurityDetailsJSON.isSecurityDetailsResponse(json)) {
             throw new Error('Invalid data');
         }
@@ -135,7 +145,7 @@ export class SecurityDetailsConnector extends MorningstarConnector {
             columns: {},
             id: json[0].Id,
             isin: json[0].Isin,
-            json
+            json: json[0]
         };
 
         return this.applyTableModifiers();

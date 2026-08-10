@@ -19,6 +19,7 @@
  *
  * */
 
+import EquitySectorsBreakdown from './EquitySectorsBreakdownOptions';
 import SectorsBreakdown from './SectorsBreakdownOptions';
 import MorningstarConverter from '../../Shared/MorningstarConverter';
 import { DataTable } from '../../Shared/External';
@@ -201,10 +202,10 @@ export class EquitySectorsBreakdownConverter extends MorningstarConverter {
             }
 
             // Super Sectors
-            setSectors(SectorsBreakdown.superSectors, tables[0]);
+            setSectors(EquitySectorsBreakdown.superSectors, tables[0]);
 
             // Sectors
-            setSectors(SectorsBreakdown.sectors, tables[1]);
+            setSectors(EquitySectorsBreakdown.sectors, tables[1]);
 
             // Industries
             setIndustries(sectorsData, tables[2]);

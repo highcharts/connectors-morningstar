@@ -27,6 +27,9 @@ async function displayCountryAndRegionExposure (postmanJSON) {
         title: {
             text: 'Region Equity (Net)'
         },
+        xAxis: {
+            type: 'category'
+        },
         series: [{
             name: 'Region Equity (Net)',
             dataTable: connector.getTable('RegionEquity'),

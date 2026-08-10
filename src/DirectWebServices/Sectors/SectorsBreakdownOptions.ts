@@ -27,33 +27,6 @@ export namespace SectorsBreakdown {
      *
      * */
 
-    export const superSectors = [
-        'Cyclical',
-        'Defensive',
-        'Sensitive'
-    ];
-
-    export const sectors = [
-        'BasicMaterials',
-        'ConsumerCyclical',
-        'FinancialServices',
-        'RealEstate',
-        'ConsumerDefensive',
-        'Healthcare',
-        'Utilities',
-        'Communication Services',
-        'Energy',
-        'Industrials',
-        'Technology'
-    ];
-
-    export const sectorTypes = [
-        'SuperSector',
-        'PrimarySector',
-        'SecondarySector',
-        'SecondrySector'
-    ];
-
     export const suffixes = [
         'PercLong',
         'PercLongRescaled',

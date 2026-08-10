@@ -249,10 +249,15 @@ export class RiskScoreConnector extends MorningstarConnector {
      * Same connector instance with modified table.
      */
     public override async load (): Promise<this> {
-        await super.load();
-
         const options = this.options;
+
+        if (options.api?.json) {
+            return this.parseJSON(options.api.json, this.converter);
+        }
+
         const portfolios = options.portfolios;
+
+        await super.load();
 
         if (!portfolios || (portfolios as Array<RiskScorePortfolio>).length === 0) {
             return this;
@@ -292,12 +297,7 @@ export class RiskScoreConnector extends MorningstarConnector {
         });
         const json = await response.json() as unknown;
 
-        this.converter.parse({ json });
-
-        this.getTable().deleteColumns();
-        this.getTable().setColumns(this.converter.getTable().getColumns());
-
-        return this.applyTableModifiers();
+        return this.parseJSON(json, this.converter);
     }
 
 

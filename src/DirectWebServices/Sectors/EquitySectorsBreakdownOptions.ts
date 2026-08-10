@@ -37,3 +37,45 @@ export interface EquitySectorsBreakdownConverterMetadata extends MorningstarMeta
     messages?: Array<Message>;
     performanceId?: string;
 }
+
+/* *
+ *
+ *  Namespace
+ *
+ * */
+
+export namespace EquitySectorsBreakdown {
+    /* *
+     *
+     *  Constants
+     *
+     * */
+
+    export const superSectors = [
+        'Cyclical',
+        'Defensive',
+        'Sensitive'
+    ];
+
+    export const sectors = [
+        'BasicMaterials',
+        'ConsumerCyclical',
+        'FinancialServices',
+        'RealEstate',
+        'ConsumerDefensive',
+        'Healthcare',
+        'Utilities',
+        'Communication Services',
+        'Energy',
+        'Industrials',
+        'Technology'
+    ];
+}
+
+/* *
+ *
+ *  Default Export
+ *
+ * */
+
+export default EquitySectorsBreakdown;

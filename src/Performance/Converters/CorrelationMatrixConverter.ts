@@ -68,22 +68,38 @@ export class CorrelationMatrixConverter extends MorningstarConverter {
                 const { TrailingTimePeriod, Correlations } = correlationMatrixItem;
 
                 let rowIndex = 0;
+                let securityIndex = 0;
 
                 for (const key of Correlations) {
-                    const { CorrelatedItemKey, SecurityId, Id } = key;
-                    const name = TrailingTimePeriod + `_${SecurityId}` + columnSuffix;
+                    const { CorrelatedItemKey, SecurityId, Type } = key;
+                    const isPortfolio = Type === 'Portfolio';
+                    const name = `${TrailingTimePeriod}_${isPortfolio ? 'Portfolio' : SecurityId}${columnSuffix}`;
+
+                    let correlationIndex = 0;
 
                     for (let i = 0; i < CorrelatedItemKey.length; i++) {
+                        if (CorrelatedItemKey[i].Type === 'Portfolio') {
+                            continue;
+                        }
                         const value = CorrelatedItemKey[i].Value;
-                        table.setCell(name, i, value);
+                        table.setCell(name, correlationIndex, value);
 
-                        if (i <= Id - 1) {
-                            table.setCell('x' + columnSuffix, rowIndex, i);
-                            table.setCell('y' + columnSuffix, rowIndex, Id - 1);
+                        // Fill x,y coords and the heatmap value for the lower
+                        // triangle cells only, excluding Portfolio
+                        if (!isPortfolio && correlationIndex <= securityIndex) {
+                            table.setCell('x' + columnSuffix, rowIndex, correlationIndex);
+                            table.setCell('y' + columnSuffix, rowIndex, securityIndex);
                             table.setCell(TrailingTimePeriod + columnSuffix, rowIndex, value);
 
                             rowIndex++;
                         }
+
+                        correlationIndex++;
+                    }
+
+                    // Increment index only for securities, not Portfolio
+                    if (!isPortfolio) {
+                        securityIndex++;
                     }
                 }
             }

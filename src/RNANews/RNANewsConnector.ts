@@ -158,9 +158,15 @@ export class RNANewsConnector extends MorningstarConnector {
      * Same connector instance with modified table.
      */
     public override async load (): Promise<this> {
+        const options = this.options,
+            apiJSON = options.api?.json as RNANewsJSON.Response;
+
+        if (apiJSON) {
+            return this.parseRNAJSON(apiJSON, this.converter);
+        }
+
         await super.load();
 
-        const options = this.options;
         const {
             security,
             startDate,
@@ -203,15 +209,20 @@ export class RNANewsConnector extends MorningstarConnector {
         const response = await api.fetch(url);
         const json = await response.json() as RNANewsJSON.Response;
 
-        this.converter.parse({ json });
+        return this.parseRNAJSON(json, this.converter);
+    }
+
+    public parseRNAJSON (
+        json: RNANewsJSON.Response,
+        converter: RNANewsConverter
+    ): Promise<this> {
+        converter.parse({ json });
 
         this.getTable().deleteColumns();
-        this.getTable().setColumns(this.converter.getTableColumns());
+        this.getTable().setColumns(converter.getTableColumns());
 
         return this.applyTableModifiers();
     }
-
-
 }
 
 

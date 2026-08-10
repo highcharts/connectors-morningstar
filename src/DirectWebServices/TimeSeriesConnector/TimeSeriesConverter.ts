@@ -65,28 +65,37 @@ export class TimeSeriesConverter extends MorningstarConverter {
 
         if (investments) {
             const hasMultiple = investments.length > 1;
+            const dates = new Set<string>();
+            const columns: Array<{
+                name: string;
+                values: Map<string, number>;
+            }> = [];
+
+            // Collect dates and per-investment values in a single pass.
             for (const investment of investments) {
                 const { timeSeries, identifiers } = investment,
-                    columnSuffix = hasMultiple ? `_${identifiers.performanceId}` : '';
+                    columnSuffix = hasMultiple ? `_${identifiers.performanceId}` : '',
+                    values = new Map<string, number>();
 
                 for (const series of timeSeries) {
-                    let rowIndex = 0;
                     for (const point of series.data) {
-                        table.setCell(
-                            `Date${columnSuffix}`,
-                            rowIndex,
-                            point.date
-                        );
-
-                        table.setCell(
-                            `Value${columnSuffix}`,
-                            rowIndex,
-                            point.value
-                        );
-
-                        rowIndex++;
+                        dates.add(point.date);
+                        values.set(point.date, point.value);
                     }
                 }
+
+                columns.push({ name: `Value${columnSuffix}`, values });
+            }
+
+            const sortedDates = [...dates].sort();
+
+            table.setColumn('Date', sortedDates);
+
+            for (const { name, values } of columns) {
+                table.setColumn(
+                    name,
+                    sortedDates.map((date): (number | null) => values.get(date) ?? null)
+                );
             }
         }
     }

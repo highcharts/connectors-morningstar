@@ -6,8 +6,5 @@ This Highcharts Dashboards connector provides access to the
 identical data structures. Therefore each end point has its own converter that
 transfers JSON into a DataTable.
 
-
-
-<!-- Link References -->
-
-[Morningstar TimeSeries API]: https://developer.morningstar.com/direct-web-services/documentation/api-reference/time-series/overview
+<!-- Links -->
+[Morningstar TimeSeries API]: https://developer.morningstar.com/direct-web-services/documentation/enterprise-component-apis/time-series/about

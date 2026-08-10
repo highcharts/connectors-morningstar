@@ -30,7 +30,7 @@ export function createAssetAllocRequest (
 
     return {
         type: 'AssetAllocationBreakdown',
-        url: `investments/${id}/asset-Allocation-Breakdown`
+        url: `investments/${id}/asset-allocation-breakdown`
     };
 }
 

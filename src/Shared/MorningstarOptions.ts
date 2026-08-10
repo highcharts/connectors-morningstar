@@ -40,6 +40,19 @@ export interface MorningstarAPIOptions {
     access?: MorningstarAccessOptions;
 
     /**
+     * Optional offline response source that bypasses authentication and
+     * network requests.
+     *
+     * Supports a single JSON value that is used as offline response. The value
+     * has to be provided in a format that is compatible with available
+     * connectors.
+     *
+     * For multi-request scenarios, object keys can match request types (for
+     * example `AssetAllocationBreakdown`) to provide payloads per request.
+     */
+    json?: unknown;
+
+    /**
      * Internal flag to indicate that the credentials are used for the
      * Morningstar Direct Web Services new API.
      */

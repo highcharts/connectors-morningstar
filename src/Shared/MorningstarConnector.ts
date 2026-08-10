@@ -27,6 +27,7 @@ import MorningstarAPI from './MorningstarAPI';
 import MorningstarOptions from './MorningstarOptions';
 import MorningstarPostman from './MorningstarPostman';
 
+import type MorningstarConverter from './MorningstarConverter';
 
 /* *
  *
@@ -90,6 +91,18 @@ export abstract class MorningstarConnector extends External.DataConnector {
         }
 
         return super.load();
+    }
+
+    protected parseJSON (
+        json: unknown,
+        converter: MorningstarConverter
+    ): Promise<this> {
+        converter.parse({ json });
+
+        this.getTable().deleteColumns();
+        this.getTable().setColumns(converter.getTable().getColumns());
+
+        return this.applyTableModifiers();
     }
 
 

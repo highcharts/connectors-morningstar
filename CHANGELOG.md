@@ -1,6 +1,39 @@
 Changelog
 =========
 
+v3.2.0
+------
+
+## What’s Changed
+
+## Enhancements
+- All Connectors: Added support for using pre-fetched JSON through the new `api.json` option, which bypasses authentication and network requests in https://github.com/highcharts/connectors-morningstar/pull/185
+- Investment Details (Sync, Global): Added “all sectors” and per-region data tables to the Fixed Income Sectors Breakdown, with optimized parsing logic in https://github.com/highcharts/connectors-morningstar/pull/184
+- Investment Details (Sync, Global): Added a parent sector name column to the Fixed Income Sectors Breakdown in https://github.com/highcharts/connectors-morningstar/pull/182
+- Investment Details (Sync, Global): Merged the separate date columns into a single column in the Time Series converter in https://github.com/highcharts/connectors-morningstar/pull/183
+- Marked `highcharts`, `@highcharts/dashboards` and `@highcharts/grid-pro` peer dependencies as optional in https://github.com/highcharts/connectors-morningstar/pull/180
+- Updated Grid, Dashboards and Highcharts packages and cleaned up the demos in https://github.com/highcharts/connectors-morningstar/pull/187
+
+## Upgrade notes
+1. All Connectors: New `api.json` option for pre-fetched / offline data.
+You can now bypass API authentication and network requests by passing a payload through the api.json option. When set, it takes priority over postman and online API settings. It is fully opt-in - existing connectors are unaffected.
+
+See the full guide in [Connectors docs](https://www.highcharts.com/docs/morningstar/morningstar).
+
+2. Investment Details (Sync, Global): Fixed Income Sectors Breakdown now returns multiple data tables.
+
+  The Fixed Income Sectors Breakdown previously returned a single table. Data is now split across dedicated data tables, so read the relevant one via `connector.dataTables[<id>]` instead of connector.table:
+- `IncSuperSectors`, `IncSecondarySectors`
+- `IncBrkSuperSectors`, `IncBrkSecondarySectors`
+- Per-region tables: `IncGovernmentPerRegionSuperSectors`, `IncTreasuryPerRegionSecondarySectors`, `IncInflationPerRegionSecondarySectors`, `IncAgencyPerRegionSecondarySectors`
+
+A parent sector name column was also added to the breakdown (#182, #184).
+
+3. Investment Details (Sync, Global): Time Series date columns merged.
+The Time Series converter now emits a single merged date column instead of separate per-series date columns - update any code that referenced the previous column layout (#183).
+
+Full Changelog: https://github.com/highcharts/connectors-morningstar/compare/v3.1.1...v3.2.0
+
 v3.1.1
 ------
 

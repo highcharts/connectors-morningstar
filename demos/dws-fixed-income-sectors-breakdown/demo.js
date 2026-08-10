@@ -46,86 +46,53 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         tooltip: {
             shared: true,
             valueSuffix: '%'
-        },
-        plotOptions: {
-            series: {
-                dataMapping: {
-                    name: brkType
-                }
-            }
         }
     });
 
-    // Create chart
-    Highcharts.chart('container-brk-super-sectors', {
-        dataTable: connector.getTable('IncBrkSuperSectors'),
-        title: {
-            text: 'Fixed Income Super Sectors Breakdown'
-        },
-        series: [{
-            name: 'Fixed Income Breakdown Super Sectors Long',
-            dataMapping: {
-                y: brkLong
-            }
-        }, {
-            name: 'Fixed Income Breakdown Super Sectors Short',
-            dataMapping: {
-                y: brkShort
-            }
-        }, {
-            name: 'Fixed Income Breakdown Super Sectors Net',
-            dataMapping: {
-                y: brkNet
-            }
-        }]
-    });
+    // Create charts for each sector breakdown type
+    [
+        'IncBrkSuperSectors',
+        'IncBrkPrimarySectors',
+        'IncBrkSecondarySectors'
+    ].forEach((tableName) => {
+        // Get data table
+        const dataTable = connector.getTable(tableName),
+            sectorName = tableName.match(/[A-Z][a-z]*/gu),
+            containerId = 'container-' + tableName
+                .replace(/([a-z0-9])([A-Z])/gu, '$1-$2')
+                .toLowerCase(),
+            name = `Fixed Income ${sectorName[2]} ${sectorName[3]} Breakdown`;
 
-    // Create chart
-    Highcharts.chart('container-brk-primary-sectors', {
-        dataTable: connector.getTable('IncBrkPrimarySectors'),
-        title: {
-            text: 'Fixed Income Primary Sectors Breakdown'
-        },
-        series: [{
-            name: 'Fixed Income Breakdown Primary Sectors Long',
-            dataMapping: {
-                y: brkLong
-            }
-        }, {
-            name: 'Fixed Income Breakdown Primary Sectors Short',
-            dataMapping: {
-                y: brkShort
-            }
-        }, {
-            name: 'Fixed Income Breakdown Primary Sectors Net',
-            dataMapping: {
-                y: brkNet
-            }
-        }]
-    });
-
-    // Create chart
-    Highcharts.chart('container-brk-secondary-sectors', {
-        dataTable: connector.getTable('IncBrkSecondarySectors'),
-        title: {
-            text: 'Fixed Income Secondary Sectors Breakdown'
-        },
-        series: [{
-            name: 'Fixed Income Breakdown Secondary Sectors Long',
-            dataMapping: {
-                y: brkLong
-            }
-        }, {
-            name: 'Fixed Income Breakdown Secondary Sectors Short',
-            dataMapping: {
-                y: brkShort
-            }
-        }, {
-            name: 'Fixed Income Breakdown Secondary Sectors Net',
-            dataMapping: {
-                y: brkNet
-            }
-        }]
+        // Create chart
+        Highcharts.chart(containerId, {
+            dataTable,
+            title: {
+                text: name
+            },
+            plotOptions: {
+                series: {
+                    dataMapping: {
+                        name: brkType
+                    }
+                }
+            },
+            series: [{
+                name: `${name} Long`,
+                dataMapping: {
+                    y: brkLong
+                }
+            }, {
+                name: `${name} Short`,
+                dataMapping: {
+                    y: brkShort
+                }
+            }, {
+                name: `${name} Net`,
+                dataMapping: {
+                    y: brkNet
+                }
+            }]
+        });
     });
 
     // Set categories
@@ -135,112 +102,55 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         short = 'Fixed_Income_PercShort',
         net = 'Fixed_Income_PercNet';
 
-    // Create chart
-    Highcharts.chart('container-super-sectors', {
-        dataTable: connector.getTable('IncSuperSectors'),
-        plotOptions: {
-            series: {
-                dataMapping: {
-                    name: type
-                }
-            }
-        },
-        title: {
-            text: 'Fixed Income Super Sectors'
-        },
-        series: [{
-            name: 'Fixed Income Super Sectors Long Rescaled',
-            dataMapping: {
-                y: longRescaled
-            }
-        }, {
-            name: 'Fixed Income Super Sectors Long',
-            dataMapping: {
-                y: long
-            }
-        }, {
-            name: 'Fixed Income Super Sectors Short',
-            dataMapping: {
-                y: short
-            }
-        }, {
-            name: 'Fixed Income Super Sectors Net',
-            dataMapping: {
-                y: net
-            }
-        }]
-    });
+    // Create charts for each sector type
+    [
+        'IncSuperSectors',
+        'IncPrimarySectors',
+        'IncSecondarySectors'
+    ].forEach((tableName) => {
+        // Get data table
+        const dataTable = connector.getTable(tableName),
+            sectorName = tableName.match(/[A-Z][a-z]*/gu),
+            containerId = 'container-' + tableName
+                .replace(/([a-z0-9])([A-Z])/gu, '$1-$2')
+                .toLowerCase(),
+            name = `Fixed Income ${sectorName[1]} ${sectorName[2]}`;
 
-    // Create chart
-    Highcharts.chart('container-primary-sectors', {
-        dataTable: connector.getTable('IncPrimarySectors'),
-        plotOptions: {
-            series: {
-                dataMapping: {
-                    name: type
+        // Create chart
+        Highcharts.chart(containerId, {
+            dataTable,
+            title: {
+                text: name
+            },
+            plotOptions: {
+                series: {
+                    dataMapping: {
+                        name: type
+                    }
                 }
-            }
-        },
-        title: {
-            text: 'Fixed Income Primary Sectors'
-        },
-        series: [{
-            name: 'Fixed Income Primary Sectors Long Rescaled',
-            dataMapping: {
-                y: longRescaled
-            }
-        }, {
-            name: 'Fixed Income Primary Sectors Long',
-            dataMapping: {
-                y: long
-            }
-        }, {
-            name: 'Fixed Income Primary Sectors Short',
-            dataMapping: {
-                y: short
-            }
-        }, {
-            name: 'Fixed Income Primary Sectors Net',
-            dataMapping: {
-                y: net
-            }
-        }]
-    });
-
-    // Create chart
-    Highcharts.chart('container-secondary-sectors', {
-        dataTable: connector.getTable('IncSecondarySectors'),
-        plotOptions: {
-            series: {
+            },
+            series: [{
+                name: `${name} Long Rescaled`,
                 dataMapping: {
-                    name: type
+                    y: longRescaled
                 }
-            }
-        },
-        title: {
-            text: 'Fixed Income Secondary Sectors'
-        },
-        series: [{
-            name: 'Fixed Income Secondary Sectors Long Rescaled',
-            dataMapping: {
-                y: longRescaled
-            }
-        }, {
-            name: 'Fixed Income Secondary Sectors Long',
-            dataMapping: {
-                y: long
-            }
-        }, {
-            name: 'Fixed Income Secondary Sectors Short',
-            dataMapping: {
-                y: short
-            }
-        }, {
-            name: 'Fixed Income Secondary Sectors Net',
-            dataMapping: {
-                y: net
-            }
-        }]
+            }, {
+                name: `${name} Long`,
+                dataMapping: {
+                    y: long
+                }
+            }, {
+                name: `${name} Short`,
+                dataMapping: {
+                    y: short
+                }
+            }, {
+                name: `${name} Net`,
+                dataMapping: {
+                    y: net
+                }
+            }]
+        });
     });
 
     loadingLabel.style.display = 'none';
