@@ -24,7 +24,7 @@ DWS exposes two connectors: the Investment Details Connector we are about to use
 
 ### Step 1: Load Highcharts and the DWS connectors
 
-Create an `index.html` file. Asset allocation is a snapshot rather than a time series, so plain Highcharts is all we need here:
+Create an `index.html` file. Asset allocation is a snapshot rather than a time series, so Highcharts Core is all we need here:
 
 ```html
 <!DOCTYPE html>
@@ -55,11 +55,11 @@ import Highcharts from 'highcharts';
 import { InvestmentsConnector } from '@highcharts/connectors-morningstar/dws';
 ```
 
-One difference to keep in mind as you read on. The `HighchartsConnectors.MorningstarDWS` namespace used throughout this tutorial comes from the UMD bundle; the ES module exports its connectors directly, so in an app project you write `new InvestmentsConnector({ ... })` rather than going through a global.
+One difference to keep in mind as you read on. The `<script>` tag exposes everything on the global `HighchartsConnectors` object, which is why this tutorial writes `new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({ ... })`. An ES module sets no such global, so there you write `new InvestmentsConnector({ ... })` with whatever you imported. Everything else is the same. See [Installation](https://www.highcharts.com/docs/getting-started/installation) for more on the two loading methods.
 
 ### Step 2: Configure the Investment Details Connector
 
-Now create `demo.js`. Because loading data is asynchronous, we will build the chart inside an `async` function and call it at the end of the file. The `InvestmentsConnector` describes a single security, and you choose what you want to know about it by naming one or more **converters**:
+Now create `demo.js`. Because loading data is asynchronous, we will build the chart inside an `async` function and call it at the end of the file. The `InvestmentsConnector` describes a single security, and you choose what you want to know about it by naming one or more of available **converters**:
 
 ```js
 async function createChart () {
@@ -122,7 +122,7 @@ This is the step where the connector's design pays off. `AssetAllocationBreakdow
         underlyingTable = connector.getTable('UnderlyingAssetAlloc');
 ```
 
-`AssetAlloc` is the general view, splitting net assets across bonds, cash, convertible bonds, equity, and other. `CanadianAssetAlloc` is the Canadian view, and `UnderlyingAssetAlloc` breaks the portfolio down by underlying instrument type.
+`AssetAlloc` is the general view, splitting net assets across bonds, cash, convertible bonds, equity and other. `CanadianAssetAlloc` is the Canadian view, and `UnderlyingAssetAlloc` breaks the portfolio down by underlying instrument type.
 
 Every table has a `Type` column naming its categories. `AssetAlloc` and `CanadianAssetAlloc` then carry one column per measure — `Long`, `LongRescaled`, `Net`, and `Short` — while `UnderlyingAssetAlloc` holds a single `UnderlyingInstruments` column of percentages. Because this is snapshot data rather than a series, you hand whole columns to Highcharts: `Type` becomes the axis categories, and each measure becomes a series:
 
@@ -220,6 +220,8 @@ Highcharts.stockChart('container', {
 ```
 
 `getRows()` takes a row offset and a row count, both skipped with `void 0` here, then the columns you want in the order you want them. Note the different bundle: a time series wants `highstock.js` rather than the `highcharts.js` we loaded in Step 1.
+
+Highcharts 13 added a chart-level [`dataTable`](https://api.highcharts.com/highcharts/dataTable) option that accepts a `DataTable` instance directly, with [`series.dataMapping`](https://api.highcharts.com/highcharts/plotOptions.series.dataMapping) binding its columns to point properties — so a connector's table could be handed to the chart whole, without picking it apart first. The connectors target Highcharts 12 for now, so that route is not available yet.
 
 ## What else DWS gives you
 
