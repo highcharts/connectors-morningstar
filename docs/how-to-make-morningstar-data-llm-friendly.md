@@ -49,9 +49,9 @@ Add `--scope user` if you want a server available across all your projects rathe
 
 The assistant does not guess which fund you meant — it resolves the name to an identifier first, then fetches against that identifier. The remaining tools cover data (`morningstar-data-tool`, 1,300+ data points as of July 2026), holdings (`morningstar-fund-holdings-tool`), screening (`morningstar-screener-tool`), X-Ray analysis (`morningstar-portfolio-analysis-tool`), analyst research, and editorial articles.
 
-**DWS Developer Assistant** exposes eight, aimed at writing code rather than fetching values: `get_swagger_chunk` serves the OpenAPI specs in pieces, `search_datapoints` and `get_datapoint` find and describe individual data points, and `search_documentation` covers the prose. Worth being clear about what this one is for — it gets the API contract right when you are coding against DWS, but the numbers themselves still need DWS credentials.
+**DWS Developer Assistant** exposes eight, aimed at writing code rather than fetching values: `get_swagger_chunk` serves the OpenAPI specs in pieces, `search_datapoints` and `get_datapoint` find and describe individual data points, and `search_documentation` searches the written documentation. Worth being clear about what this one is for — it gets the API contract right when you are coding against DWS, but the numbers themselves still need DWS credentials.
 
-**Highcharts Dev Assist** exposes five: `search_docs` and `search_snippets` for documentation and runnable examples, `recommend_chart` and `get_chart_type_info` for choosing a chart type, and `validate_config`, which is the important one.
+**Highcharts Dev Assist** exposes five: `search_docs` and `search_snippets` for documentation and runnable examples, `recommend_chart` and `get_chart_type_info` for choosing a chart type, and `validate_config`, which is the one that checks the model's output.
 
 `validate_config` takes a Highcharts configuration and checks it against the official Highcharts schema — the same `tree.json` that powers the API reference. Anything that is not in the schema comes back named, one line per option. That is the mechanism that kills invented API: a key the model made up gets called out before the config reaches your codebase.
 
