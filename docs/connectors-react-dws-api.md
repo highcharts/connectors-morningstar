@@ -100,7 +100,7 @@ Keep in mind that credentials passed this way are bundled into your frontend and
 
 ### Using an access token instead
 
-Exchanging credentials for a token is something your own server should handle — that's outside the scope of this article. All the endpoint needs to do is return a valid Morningstar access token. Once you have it, only the `api.access` block changes: `{ username, password }` becomes `{ token }`, sourced from a `fetch` to your own backend instead of `.env`. Everything else stays exactly the same.
+Exchanging credentials for a token is something your own server should handle - that's outside the scope of this article. All the endpoint needs to do is return a valid Morningstar access token. Once you have it, only the `api.access` block changes: `{ username, password }` becomes `{ token }`, sourced from a `fetch` to your own backend instead of `.env`. Everything else stays exactly the same.
 
 ```jsx
 const getData = async () => {
