@@ -16,7 +16,7 @@ In this section we assume that you already have a React project set up and runni
 
 ### Install the package
 
-In your terminal, run the below command to install the latest Highcharts React package. Note that the latest release requires a version of React 18.3.1 or higher.
+In your terminal, run the command below to install the latest Highcharts React package. Note that the latest release requires a version of React **18.3.1** or higher.
 
 ```bash
 npm install @highcharts/react
@@ -33,7 +33,7 @@ import { Title } from '@highcharts/react/options';
 
 export default function LineChart() {
     return (
-       <StockChart>
+        <StockChart>
             <Title>Fund growth</Title>
             <LineSeries name="Mock data" data={[3, 4, 1, 5, 2]} />
         </StockChart>
