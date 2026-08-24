@@ -8,7 +8,7 @@ In this tutorial we will go from an empty HTML file to a working chart built on 
 
 ## What we will build
 
-An asset allocation chart showing how a fund splits its net assets across equity, bonds, cash, and other holdings - built with the **Investment Details Connector** and Highcharts, in four steps from an empty file.
+An asset allocation chart showing how a fund splits its net assets across equity, bonds, cash, and other holdings - built with the **Investment Details Connector** and Highcharts, in three steps from an empty file.
 
 The connectors ship in two flavours, and they are not interchangeable:
 
@@ -58,7 +58,7 @@ One difference to keep in mind as you read on. The `<script>` tag exposes everyt
 
 ### Step 2: Configure the Investment Details Connector
 
-Now create `demo.js`. Because loading data is asynchronous, we will build the chart inside an `async` function and call it at the end of the file. The `InvestmentsConnector` describes a single security, and you choose what you want to know about it by naming one or more of available **converters**:
+Now create `demo.js`. Because loading data is asynchronous, we will build the chart inside an `async` function and call it at the end of the file. The `InvestmentsConnector` describes a single security, and you choose what you want to know about it by naming one or more of the available **converters**:
 
 ```js
 async function createChart () {
@@ -108,7 +108,7 @@ api: {
 }
 ```
 
-### Step 3: Load and read the data tables and render
+### Step 3: Load the data and render the chart
 
 This is the step where the connector's design pays off. `AssetAllocationBreakdown` populates three data tables, already shaped for Highcharts, each retrieved by name:
 
@@ -305,8 +305,8 @@ Dashboards.board('container', {
     }
     // ...gui and components
 });
-
 ```
+
 Components then bind to a table by name through `dataTableKey`, so a Grid or KPI reads the connector's output the same way the chart above did. `ProspectusFees` returns a single row, so the documentation pairs it with the `Invert` data modifier to turn it into a label/value list - worth knowing when a table's shape does not match the component you have in mind.
 
 ## More details and licensing
