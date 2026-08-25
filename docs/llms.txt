@@ -29,7 +29,7 @@
 - [Fixed Income Sectors Breakdown](https://www.highcharts.com/docs/morningstar/dws/fixed-income-sectors-breakdown): fixed-income sector allocation
 - [Prospectus Fees](https://www.highcharts.com/docs/morningstar/dws/prospectus-fees): fee data from prospectuses
 
-## Connectors
+## Enterprise Components
 
 - [Goal Analysis](https://www.highcharts.com/docs/morningstar/goal-analysis): probability of meeting an investment goal
 - [Hypo Performance](https://www.highcharts.com/docs/morningstar/hypo-performance): hypothetical (back-tested) portfolio performance
@@ -39,13 +39,13 @@
 - [Security Details](https://www.highcharts.com/docs/morningstar/security-details): detailed data for a single security
 - [X-Ray](https://www.highcharts.com/docs/morningstar/x-ray): portfolio X-ray (holdings look-through and allocation)
 
-## Screeners
+### Screeners
 
 - [Screener](https://www.highcharts.com/docs/morningstar/screeners/screener): base screener connector
 - [Investment Screener](https://www.highcharts.com/docs/morningstar/screeners/investment-screener): screen investments by criteria
 - [Find Similar Screener](https://www.highcharts.com/docs/morningstar/screeners/find-similar-screener): find securities similar to a reference
 
-## Time Series
+### Time Series
 
 - [Time Series overview](https://www.highcharts.com/docs/morningstar/time-series/time-series): shared options for all time-series connectors
 - [Price](https://www.highcharts.com/docs/morningstar/time-series/price): historical price series

@@ -1,1 +1,10 @@
 npm run husky:pre-commit
+
+# Keep docs/llms.txt and docs/sitemap.xml in sync with their sources. If this
+# commit touches the docs pages, the shared manifest or the generators,
+# regenerate both files and stage them so they never drift out of sync.
+if git diff --cached --name-only |
+    grep -qE '^(docs/connectors/|tools/libs/DocsPages\.ts|tools/(llms|sitemap)\.ts)'; then
+    npm run docs:meta
+    git add docs/llms.txt docs/sitemap.xml
+fi

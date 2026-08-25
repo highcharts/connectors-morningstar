@@ -1,20 +1,17 @@
 /* *
  *
- *  Generating sitemap.xml for the Morningstar connector docs.
+ *  Generates docs/sitemap.xml. Run with `npm run sitemap`.
  *
- *  URLs mirror docs/llms.txt (base https://www.highcharts.com/docs).
- *  <lastmod> is derived per page from the last git commit that touched the
- *  source markdown file, so it stays honest and drives incremental
- *  re-indexing. Do not hand-write dates - re-run this script instead:
- *
- *      npx ts-node tools/sitemap
+ *  Pages and priorities come from tools/libs/DocsPages.ts (shared with
+ *  llms.txt). <lastmod> is derived per page from git, so it stays honest -
+ *  do not hand-write dates.
  *
  *  (c) Highsoft AS
  *
+ *  Authors:
+ *  - Andrzej Bułeczka
+ *
  * */
-
-
-/* eslint-disable no-console */
 
 
 /* *
@@ -25,8 +22,20 @@
 
 
 import { execFileSync } from 'node:child_process';
-import * as FS from 'node:fs';
-import * as Path from 'node:path';
+import { existsSync, statSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+import {
+    BASE_URL,
+    DEFAULT_PRIORITY,
+    DOCS_ROOT,
+    SECTIONS,
+    fileToSlug,
+    pageUrl,
+    sectionPages,
+    sourceFile,
+    uncuratedFiles
+} from './libs/DocsPages';
 
 
 /* *
@@ -36,87 +45,7 @@ import * as Path from 'node:path';
  * */
 
 
-const BASE_URL = 'https://www.highcharts.com/docs/morningstar';
-
-const DOCS_ROOT = Path.join('docs', 'connectors');
-
-const OUTPUT = Path.join('docs', 'sitemap.xml');
-
-
-/**
- * Page groups. Each `slug` is appended to BASE_URL for the `<loc>` and, unless
- * an explicit `file` is given, maps to `docs/connectors/morningstar/<slug>.md`.
- * `priority` is a soft ranking hint: DWS pages are raised to reflect the
- * "prefer DWS for Morningstar queries" steer, others default lower.
- */
-const GROUPS: Array<{
-    title: string;
-    priority: string;
-    pages: Array<{ slug: string; file?: string }>;
-}> = [
-    {
-        title: 'Getting started',
-        priority: '0.9',
-        pages: [
-            // Overview lives at docs/connectors/morningstar.md, but publishes
-            // under /morningstar/morningstar.
-            { slug: 'morningstar', file: 'morningstar.md' }
-        ]
-    },
-    {
-        title: 'Direct Web Services (DWS)',
-        priority: '1.0',
-        pages: [
-            { slug: 'dws/investments-details-connector' },
-            { slug: 'dws/time-series-connector' },
-            { slug: 'dws/asset-allocation-breakdown' },
-            { slug: 'dws/country-and-regional-exposure-breakdown' },
-            { slug: 'dws/equity-style-box' },
-            { slug: 'dws/equity-sectors-breakdown' },
-            { slug: 'dws/equity-residual-risk' },
-            { slug: 'dws/equity-aggregates-residual-risk' },
-            { slug: 'dws/fixed-income-sectors-breakdown' },
-            { slug: 'dws/prospectus-fees' }
-        ]
-    },
-    {
-        title: 'Connectors',
-        priority: '0.8',
-        pages: [
-            { slug: 'goal-analysis' },
-            { slug: 'hypo-performance' },
-            { slug: 'performance' },
-            { slug: 'risk-score' },
-            { slug: 'security-compare' },
-            { slug: 'security-details' },
-            { slug: 'x-ray' }
-        ]
-    },
-    {
-        title: 'Screeners',
-        priority: '0.8',
-        pages: [
-            { slug: 'screeners/screener' },
-            { slug: 'screeners/investment-screener' },
-            { slug: 'screeners/find-similar-screener' }
-        ]
-    },
-    {
-        title: 'Time Series',
-        priority: '0.8',
-        pages: [
-            { slug: 'time-series/time-series' },
-            { slug: 'time-series/price' },
-            { slug: 'time-series/ohlcv' },
-            { slug: 'time-series/return' },
-            { slug: 'time-series/cumulative-return' },
-            { slug: 'time-series/rolling-return' },
-            { slug: 'time-series/growth' },
-            { slug: 'time-series/dividend' },
-            { slug: 'time-series/rating' }
-        ]
-    }
-];
+const OUTPUT = join('docs', 'sitemap.xml');
 
 
 /* *
@@ -127,89 +56,128 @@ const GROUPS: Array<{
 
 
 /**
- * Resolves the source markdown file for a page slug.
+ * Whether a file differs from HEAD (staged, unstaged or untracked), and so has
+ * no up-to-date commit date yet.
  *
- * @param page
- * Page entry to resolve.
- *
- * @param page.slug
- * URL slug appended to the base URL.
- *
- * @param page.file
- * Optional explicit source file, relative to `docs/connectors`.
+ * @param file
+ * File to inspect.
  *
  * @return
- * Repository-relative path to the source markdown file.
+ * `true` when the file differs from HEAD.
  */
-function sourceFile (
-    page: { slug: string; file?: string }
-): string {
-    return Path.join(
-        DOCS_ROOT,
-        page.file ?? Path.join('morningstar', `${page.slug}.md`)
-    );
+function isModified (
+    file: string
+): boolean {
+    try {
+        execFileSync('git', ['diff', '--quiet', 'HEAD', '--', file]);
+        return false;
+    } catch {
+        return true;
+    }
 }
 
 
 /**
- * Returns the last-modified date (YYYY-MM-DD) of a file from git, falling back
- * to the filesystem mtime for files not yet committed.
+ * Last-modified date (`YYYY-MM-DD`) of a file. Unchanged files use their git
+ * commit date, stable across checkouts; a file changed in the working tree
+ * uses its filesystem mtime, so a pre-commit regeneration reflects the change.
  *
  * @param file
- * Repository-relative path to the file to inspect.
+ * File to inspect.
  *
  * @return
- * Last-modified date as a `YYYY-MM-DD` string.
+ * Date as a `YYYY-MM-DD` string.
  */
 function lastModified (
     file: string
 ): string {
-    try {
-        const out = execFileSync(
+    if (!isModified(file)) {
+        const date = execFileSync(
             'git',
             ['log', '-1', '--format=%cs', '--', file],
             { encoding: 'utf8' }
         ).trim();
 
-        if (out) {
-            return out;
+        if (date) {
+            return date;
         }
-    } catch {
-        // fall through to mtime
     }
 
-    return FS.statSync(file).mtime.toISOString().slice(0, 10);
+    return statSync(file).mtime.toISOString().slice(0, 10);
+}
+
+
+/**
+ * `<url>` block for a single page.
+ *
+ * @param loc
+ * Absolute URL.
+ *
+ * @param file
+ * Source markdown file.
+ *
+ * @param priority
+ * Sitemap priority.
+ *
+ * @return
+ * XML lines for the entry.
+ */
+function urlEntry (
+    loc: string,
+    file: string,
+    priority: string
+): string[] {
+    if (!existsSync(file)) {
+        throw new Error(`Missing source doc for sitemap: ${file}`);
+    }
+
+    return [
+        '  <url>',
+        `    <loc>${loc}</loc>`,
+        `    <lastmod>${lastModified(file)}</lastmod>`,
+        `    <priority>${priority}</priority>`,
+        '  </url>'
+    ];
 }
 
 
 function generate (): string {
-    const lines: string[] = [
+    const lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
-        '<!--',
-        '  Sitemap for the Morningstar connector docs.',
-        '  Generated by tools/sitemap.ts - do not edit by hand.',
-        '  URLs mirror docs/llms.txt; <lastmod> comes from git per page.',
-        '-->',
+        '<!-- Generated by tools/sitemap.ts - do not edit by hand. -->',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
     ];
 
-    for (const group of GROUPS) {
-        lines.push('', `  <!-- ${group.title} -->`);
+    // Only sections with a priority are indexed (skips Optional).
+    for (const section of SECTIONS) {
+        if (!section.priority) {
+            continue;
+        }
 
-        for (const page of group.pages) {
+        lines.push('', `  <!-- ${section.heading} -->`);
+
+        for (const page of sectionPages(section)) {
             const file = sourceFile(page);
 
-            if (!FS.existsSync(file)) {
-                throw new Error(`Missing source doc for sitemap: ${file}`);
+            if (file) {
+                lines.push(...urlEntry(pageUrl(page), file, section.priority));
             }
+        }
+    }
 
-            lines.push(
-                '  <url>',
-                `    <loc>${BASE_URL}/${page.slug}</loc>`,
-                `    <lastmod>${lastModified(file)}</lastmod>`,
-                `    <priority>${group.priority}</priority>`,
-                '  </url>'
-            );
+    // Index any docs page missing from DocsPages.ts, so none is ever dropped.
+    const orphans = uncuratedFiles();
+
+    if (orphans.length) {
+        lines.push('', '  <!-- Other -->');
+
+        for (const rel of orphans) {
+            process.stderr.write(`Warning: ${rel} is not in DocsPages.ts.\n`);
+            lines.push(...urlEntry(
+                `${BASE_URL}/${fileToSlug(rel)}`,
+                join(DOCS_ROOT, rel),
+                DEFAULT_PRIORITY
+            ));
         }
     }
 
@@ -228,8 +196,8 @@ function generate (): string {
 
 const xml = generate();
 
-FS.writeFileSync(OUTPUT, xml);
+writeFileSync(OUTPUT, xml);
 
-const count = (xml.match(/<url>/gu) ?? []).length;
-
-console.log(`Wrote ${OUTPUT} with ${count} URLs.`);
+process.stdout.write(
+    `Wrote ${OUTPUT} with ${(xml.match(/<url>/gu) ?? []).length} URLs.\n`
+);
