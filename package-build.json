@@ -6,18 +6,21 @@
     "author": "Highsoft AS",
     "bugs": "https://www.highcharts.com/support/",
     "homepage": "https://www.highcharts.com/",
-    "bin": "bin/connectors-morningstar.js",
-    "main": "es-modules/index.js",
-    "types": "es-modules/index.d.ts",
+    "bin": "./bin/connectors-morningstar.js",
+    "main": "./es-modules/index.js",
+    "types": "./es-modules/index.d.ts",
     "exports": {
         ".": {
-            "import": "./code/es-modules/index.js",
-            "types": "./code/es-modules/index.d.ts"
+            "import": "./es-modules/index.js",
+            "types": "./es-modules/index.d.ts"
         },
         "./dws": {
-            "import": "./code/es-modules/index-dws.js",
-            "types": "./code/es-modules/index-dws.d.ts"
-        }
+            "import": "./es-modules/index-dws.js",
+            "types": "./es-modules/index-dws.d.ts"
+        },
+        "./package.json": "./package.json",
+        "./connectors-morningstar.js": "./connectors-morningstar.js",
+        "./connectors-morningstar-dws.js": "./connectors-morningstar-dws.js"
     },
     "files": [
         "bin/",
