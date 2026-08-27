@@ -36,6 +36,7 @@ export async function prospectusFees (
         'PerformanceFee',
         'ProspectusDate',
         'FeeEffectiveDate',
+        'MaxFrontLoad',
         'FrontLoadFeeBreakpointUnit',
         'FrontLoadFeeUnit',
         'FrontLoadFeeStarting',
