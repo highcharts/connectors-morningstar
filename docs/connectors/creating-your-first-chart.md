@@ -8,7 +8,7 @@ In this tutorial we will go from an empty HTML file to a working chart built on 
 
 ## What we will build
 
-An asset allocation chart showing how a fund splits its net assets across equity, bonds, cash, and other holdings - built with the **Investment Details Connector** and Highcharts, in three steps from an empty file.
+An equity sector chart showing how a fund's stock holdings are spread across sectors - built with the **Investment Details Connector** and Highcharts, in three steps from an empty file.
 
 The connectors ship in two flavours, and they are not interchangeable:
 
@@ -19,11 +19,11 @@ This tutorial uses the DWS bundle throughout. Its connectors live under the `Hig
 
 DWS is a broad service. Morningstar currently lists APIs, covering screeners, scenario analysis, portfolio X-Ray, performance, optimisation, risk scoring, and more. The connectors reach two of them: the Investment Details Connector we are about to use, which returns data views for a single investment, and the Time Series Connector for historical data such as performance and fees.
 
-## Building the asset allocation chart
+## Building the sector breakdown chart
 
 ### Step 1: Load Highcharts and the DWS connectors
 
-Create an `index.html` file. Asset allocation is a snapshot rather than a time series, so Highcharts Core is all we need here:
+Create an `index.html` file. A sector breakdown is a snapshot rather than a time series, so Highcharts Core is all we need here:
 
 ```html
 <!DOCTYPE html>
@@ -72,7 +72,7 @@ async function createChart () {
             id: '0P00000FIA'
         },
         converters: {
-            AssetAllocationBreakdown: {}
+            EquitySectorsBreakdown: {}
         }
     });
     ...
@@ -82,12 +82,12 @@ Three of those options deserve a closer look.
 
 **`security`** takes a single `id` - the Investment Details API describes one investment at a time. The identifier above is a Morningstar `performanceId`.
 
-**`converters`** is the heart of this connector. Rather than one connector per data type, a single instance can request several converters at once, and each one populates its own named data tables. Here we ask for just `AssetAllocationBreakdown`; the empty object is not a placeholder to fill in, since most converters need no options at all. Some accept `startDate` and `endDate` to bound a historical series:
+**`converters`** is the heart of this connector. Rather than one connector per data type, a single instance can request several converters at once, and each one populates its own named data tables. Here we ask for just `EquitySectorsBreakdown`; the empty object is not a placeholder to fill in, since most converters need no options at all. Some accept `startDate` and `endDate` to bound a historical series:
 
 ```js
 converters: {
-    AssetAllocationBreakdown: {},
     EquitySectorsBreakdown: {},
+    AssetAllocationBreakdown: {},
     EquityStyleBox: {
         startDate: '2025-01-01',
         endDate: '2025-12-01'
@@ -112,21 +112,21 @@ const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
 
 ### Step 3: Load the data and render the chart
 
-This is the step where the connector's design pays off. `AssetAllocationBreakdown` populates three data tables, already shaped for Highcharts, each retrieved by name:
+This is the step where the connector's design pays off. `EquitySectorsBreakdown` populates three data tables, already shaped for Highcharts, each retrieved by name:
 
 ```js
 await connector.load();
 ```
 
 ```js
-const generalTable = connector.getTable('AssetAlloc'),
-    canadaTable = connector.getTable('CanadianAssetAlloc'),
-    underlyingTable = connector.getTable('UnderlyingAssetAlloc');
+const superSectorsTable = connector.getTable('EqSuperSectors'),
+    sectorsTable = connector.getTable('EqSectors'),
+    industriesTable = connector.getTable('EqIndustries');
 ```
 
-`AssetAlloc` is the general view, splitting net assets across bonds, cash, convertible bonds, equity, and other. `CanadianAssetAlloc` is the Canadian view, and `UnderlyingAssetAlloc` breaks the portfolio down by underlying instrument type.
+The three tables are the same breakdown at increasing detail. `EqSuperSectors` groups holdings into Morningstar's three super sectors - cyclical, defensive, and sensitive. `EqSectors` splits those into the eleven sectors most readers will recognise, and `EqIndustries` goes one level deeper.
 
-Every table has a `Type` column naming its categories. `AssetAlloc` and `CanadianAssetAlloc` then carry one column per measure - `Long`, `LongRescaled`, `Net`, and `Short` - while `UnderlyingAssetAlloc` holds a single `UnderlyingInstruments` column of percentages.
+Every table has a `Type` column naming its categories, plus one column per measure: `PercLong`, `PercLongRescaled`, `PercNet`, and `PercShort`.
 
 Hand the table to the chart with the `dataTable` option, then let each series pick its columns through `dataMapping`: `name` for the category label, `y` for the value. The series name defaults to the column it maps to, so there is nothing else to wire up:
 
@@ -137,25 +137,28 @@ Hand the table to the chart with the `dataTable` option, then let each series pi
             type: 'column'
         },
         title: {
-            text: 'General Asset Allocation Breakdown'
+            text: 'Equity Sectors Breakdown'
         },
-        dataTable: generalTable,
+        dataTable: sectorsTable,
+        xAxis: {
+            type: 'category'
+        },
         yAxis: {
+            title: {
+                text: 'Sector weight'
+            },
             labels: {
                 format: '{value}%'
             }
         },
-        xAxis: {
-            type: 'category'
+        tooltip: {
+            valueSuffix: '%',
+            valueDecimals: 2
         },
         series: [{
-            dataMapping: { name: 'Type', y: 'Long' }
+            dataMapping: { name: 'Type', y: 'PercLong' }
         }, {
-            dataMapping: { name: 'Type', y: 'LongRescaled' }
-        }, {
-            dataMapping: { name: 'Type', y: 'Net' }
-        }, {
-            dataMapping: { name: 'Type', y: 'Short' }
+            dataMapping: { name: 'Type', y: 'PercNet' }
         }]
     });
 }
@@ -164,20 +167,21 @@ createChart();
 ```
 
 That is your first chart from Morningstar data: one connector, one converter, and no mapping layer in between.
+[Check the live outcome here.](https://jsfiddle.net/BlackLabel/fayw7q0o/)
 
-[`dataTable`](https://api.highcharts.com/highcharts/dataTable) and [`dataMapping`](https://api.highcharts.com/highcharts/plotOptions.series.dataMapping) need Highcharts 13 or newer. On Highcharts 12, read the columns yourself and assign them to `series.data` instead - e.g `generalTable.getColumn('Long')` in place of the mapping above.
+[`dataTable`](https://api.highcharts.com/highcharts/dataTable) and [`dataMapping`](https://api.highcharts.com/highcharts/plotOptions.series.dataMapping) need Highcharts 13 or newer. On Highcharts 12, read the columns yourself and assign them to `series.data` instead - e.g `sectorsTable.getColumn('PercLong')` in place of the mapping above.
 
-Two more details worth knowing. `AssetAlloc` also carries US and non-US splits under prefixed column names - `Us_Long`, `NonUs_Net`, and so on - if you want to break the allocation down geographically without a second request. And the connector exposes the security's `performanceId` through its metadata, which is handy for a subtitle:
+One more detail worth knowing: the connector exposes the security's `performanceId` through its metadata, which is handy for a subtitle:
 
 ```js
 subtitle: {
-    text: `Performance ID: ${connector.metadata.AssetAllocationBreakdown.performanceId}`
+    text: `Performance ID: ${connector.metadata.EquitySectorsBreakdown.performanceId}`
 }
 ```
 
 ## What else DWS gives you
 
-`AssetAllocationBreakdown` is one of eight converters currently available on the Investment Details Connector. The rest follow the identical pattern - name the converter, read its tables:
+`EquitySectorsBreakdown` is one of eight converters currently available on the Investment Details Connector. The rest follow the identical pattern - name the converter, read its tables:
 
 - **Asset Allocation Breakdown** - allocation across asset classes, with general, Canadian, and underlying-instrument views.
 - **Country and Regional Exposure Breakdown** - geographic exposure by region and country, for equity, fixed income, and revenue.
