@@ -1,4 +1,4 @@
-# Creating Your First Chart from Morningstar Market Data
+# Creating Your First Chart from Morningstar Funds Data
 
 Morningstar is one of the most trusted names in financial data. But getting that data onto a screen has traditionally meant handling complex requests, and a mapping layer that someone has to maintain forever.
 
@@ -12,12 +12,12 @@ An asset allocation chart showing how a fund splits its net assets across equity
 
 The connectors ship in two flavours, and they are not interchangeable:
 
-- **`connectors-morningstar`** - the legacy API, covering Security Details, Screeners, X-Ray, Risk Score, Performance, and more.
+- **`connectors-morningstar`** - the legacy Enterprise Component API, covering Security Details, Screeners, X-Ray, Risk Score, Performance, and more.
 - **`connectors-morningstar-dws`** - the newer DWS API, covering the **Investment Details API** and the **Time Series API**, with more to come.
 
 This tutorial uses the DWS bundle throughout. Its connectors live under the `HighchartsConnectors.MorningstarDWS` namespace, while the legacy ones live under `HighchartsConnectors.Morningstar`.
 
-DWS exposes two connectors: the Investment Details Connector we are about to use, which covers portfolio composition, and the Time Series Connector for historical data such as performance and fees.
+DWS is a broad service. Morningstar currently lists APIs, covering screeners, scenario analysis, portfolio X-Ray, performance, optimisation, risk scoring, and more. The connectors reach two of them: the Investment Details Connector we are about to use, which returns data views for a single investment, and the Time Series Connector for historical data such as performance and fees.
 
 ## Building the asset allocation chart
 
@@ -58,7 +58,7 @@ One difference to keep in mind as you read on. The `<script>` tag exposes everyt
 
 ### Step 2: Configure the Investment Details Connector
 
-Now create `demo.js`. Because loading data is asynchronous, we will build the chart inside an `async` function and call it at the end of the file. The `InvestmentsConnector` describes a single security, and you choose what you want to know about it by naming one or more of the available **converters**:
+Now create `demo.js`. Because loading data is asynchronous, we will build the chart inside an `async` function and call it at the end of the file. The `InvestmentsConnector` describes a single security, and you choose what you want to know about it by naming one or more of the available [converters](https://www.highcharts.com/docs/morningstar/dws/investments-details-connector#available-data-converters):
 
 ```js
 async function createChart () {
@@ -97,15 +97,17 @@ converters: {
 
 That is one request block and one `load()` for three datasets - a fund profile page with six panels needs one connector with six converters, not six connectors.
 
-**`api.access`** carries your credentials. If you prefer a username and password over a token, note that DWS uses its own dedicated fields:
+**`api.access`** carries your credentials. The `token` is a Morningstar access token, which the connector sends as an `Authorization: Bearer` header on every request. Issue it from your own backend rather than hard-coding it in the page, so the credentials never reach the browser. To learn more about authenticating yourself in Morningstar API, see the [authentication page](https://developer.morningstar.com/direct-web-services/documentation/documentation/get-started/authentication).
 
 ```js
-api: {
-    access: {
-        dwsUsername: 'your_username',
-        dwsPassword: 'your_password'
-    }
-}
+const { token } = await getToken();
+
+const connector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
+    api: {
+        access: { token }
+    },
+    // ...security and converters as above
+});
 ```
 
 ### Step 3: Load the data and render the chart
@@ -172,9 +174,22 @@ subtitle: {
 }
 ```
 
+## What else DWS gives you
+
+`AssetAllocationBreakdown` is one of eight converters currently available on the Investment Details Connector. The rest follow the identical pattern - name the converter, read its tables:
+
+- **Asset Allocation Breakdown** - allocation across asset classes, with general, Canadian, and underlying-instrument views.
+- **Country and Regional Exposure Breakdown** - geographic exposure by region and country, for equity, fixed income, and revenue.
+- **Equity Sectors Breakdown** - sector exposure at super-sector, sector, and industry levels, in the `EqSuperSectors`, `EqSectors`, and `EqIndustries` tables.
+- **Fixed Income Sectors Breakdown** - fixed-income sector exposure across super, primary, and secondary sectors, plus per-region tables.
+- **Equity Style Box** - Morningstar's proprietary style box and stock grades, as both a current grid and a historical series.
+- **Equity Residual Risk and Return Sensitivity** - Alpha, Beta, and RSquare at daily and monthly granularity.
+- **Equity Aggregates Residual Risk and Return Sensitivity** - aggregate residual-risk statistics with their company counts.
+- **Prospectus Fees** - management, administration, and distribution fees, sales loads, and expense ratios.
+
 ## The other connector: Time Series
 
-Portfolio composition is one half of DWS. The other is the `TimeSeriesConnector`, which targets Morningstar's Time Series API and returns historical data for up to 25 securities in a single request.
+Investment details are one half of what the connectors cover. The other is the `TimeSeriesConnector`, which targets Morningstar's Time Series API and returns historical data for up to 25 securities in a single request.
 
 It follows the same three beats you just used - and, like the code above, it belongs inside an `async` function. Two things differ: instead of converters you pick data with a `category` and a `dataPoint`, and instead of one security you pass a list:
 
@@ -202,7 +217,7 @@ const growthConnector = new HighchartsConnectors.MorningstarDWS.TimeSeriesConnec
 await growthConnector.load();
 ```
 
-`category` and `dataPoint` map directly onto Morningstar's Time Series API paths: take the two segments immediately after `time-series/v1/`, so `.../time-series/v1/performance/growth/` becomes `category: 'performance'` and `dataPoint: 'growth'`. The available categories are `performance`, `fees-expenses`, `portfolio-holdings`, `portfolio-analytics`, `fund-research`, `fund-sustainability`, `corporate-actions`, and `reference`. `performanceId` is the default `idType`, so you can omit it, and `currencyId` takes an ISO 4217 code - worth setting explicitly when you compare funds domiciled in different markets, since it otherwise defaults to each investment's own base currency.
+`category` and `dataPoint` map directly onto Morningstar's Time Series API paths: take the two segments immediately after `time-series/v1/`, so `.../time-series/v1/performance/growth/` becomes `category: 'performance'` and `dataPoint: 'growth'`. Categories include `performance`, `fees-expenses`, `portfolio-holdings`, and many others with more to come in the future. `performanceId` is the default `idType`, so you can omit it, and `currencyId` takes an ISO 4217 code - worth setting explicitly when you compare funds domiciled in different markets, since it otherwise defaults to each investment's own base currency.
 
 Reading the result differs from the tables above. There is a single table whose first column is `Date`, holding `yyyy-MM-dd` strings sorted ascending. Request one security and the values land in a `Value` column; request several and each is suffixed with that security's `performanceId` - always the `performanceId`, whatever `idType` you asked with. Pair `Date` with a value column to get `[date, value]` rows, and Highcharts Stock takes them directly:
 
@@ -222,19 +237,6 @@ Highcharts.stockChart('container', {
 `getRows()` takes a row offset and a row count, both skipped with `void 0` here, then the columns you want in the order you want them. Note the different bundle: a time series wants `highstock.js` rather than the `highcharts.js` we loaded in Step 1.
 
 Highcharts 13 added a chart-level [`dataTable`](https://api.highcharts.com/highcharts/dataTable) option that accepts a `DataTable` instance directly, with [`series.dataMapping`](https://api.highcharts.com/highcharts/plotOptions.series.dataMapping) binding its columns to point properties - so a connector's table could be handed to the chart whole, without picking it apart first. The connectors target Highcharts 12 for now, so that route is not available yet.
-
-## What else DWS gives you
-
-`AssetAllocationBreakdown` is one of eight converters currently available on the Investment Details Connector. The rest follow the identical pattern - name the converter, read its tables:
-
-- **Asset Allocation Breakdown** - allocation across asset classes, with general, Canadian, and underlying-instrument views.
-- **Country and Regional Exposure Breakdown** - geographic exposure by region and country, for equity, fixed income, and revenue.
-- **Equity Sectors Breakdown** - sector exposure at super-sector, sector, and industry levels, in the `EqSuperSectors`, `EqSectors`, and `EqIndustries` tables.
-- **Fixed Income Sectors Breakdown** - fixed-income sector exposure across super, primary, and secondary sectors, plus per-region tables.
-- **Equity Style Box** - Morningstar's proprietary style box and stock grades, as both a current grid and a historical series.
-- **Equity Residual Risk and Return Sensitivity** - Alpha, Beta, and RSquare at daily and monthly granularity.
-- **Equity Aggregates Residual Risk and Return Sensitivity** - aggregate residual-risk statistics with their company counts.
-- **Prospectus Fees** - management, administration, and distribution fees, sales loads, and expense ratios.
 
 ## Two things that will save you time
 
@@ -288,7 +290,7 @@ Everything above creates connectors by hand, which is the pattern for Highcharts
 Dashboards.board('container', {
     dataPool: {
         connectors: [{
-            id: 'prospectus-fees',
+            id: 'equity-sectors',
             type: 'MorningstarDWSInvestments',
             api: {
                 access: {
@@ -299,7 +301,7 @@ Dashboards.board('container', {
                 id: '0P00000FIA'
             },
             converters: {
-                ProspectusFees: {}
+                EquitySectorsBreakdown: {}
             }
         }]
     }
@@ -307,7 +309,7 @@ Dashboards.board('container', {
 });
 ```
 
-Components then bind to a table by name through `dataTableKey`, so a Grid or KPI reads the connector's output the same way the chart above did. `ProspectusFees` returns a single row, so the documentation pairs it with the `Invert` data modifier to turn it into a label/value list - worth knowing when a table's shape does not match the component you have in mind.
+Components then bind to a table by name through `dataTableKey`, so a Grid or chart reads the connector's output the same way the chart above did - here you would get tables named `EqSuperSectors`, `EqSectors`, or `EqIndustries`.
 
 ## More details and licensing
 
