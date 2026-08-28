@@ -165,7 +165,7 @@ createChart();
 
 That is your first chart from Morningstar data: one connector, one converter, and no mapping layer in between.
 
-[`dataTable`](https://api.highcharts.com/highcharts/dataTable) and [`dataMapping`](https://api.highcharts.com/highcharts/plotOptions.series.dataMapping) need Highcharts 13 or newer, which is what the unversioned CDN URL in Step 1 gives you. On Highcharts 12, read the columns yourself and assign them to `series.data` instead - `generalTable.getColumn('Long')` in place of the mapping above.
+[`dataTable`](https://api.highcharts.com/highcharts/dataTable) and [`dataMapping`](https://api.highcharts.com/highcharts/plotOptions.series.dataMapping) need Highcharts 13 or newer. On Highcharts 12, read the columns yourself and assign them to `series.data` instead - e.g `generalTable.getColumn('Long')` in place of the mapping above.
 
 Two more details worth knowing. `AssetAlloc` also carries US and non-US splits under prefixed column names - `Us_Long`, `NonUs_Net`, and so on - if you want to break the allocation down geographically without a second request. And the connector exposes the security's `performanceId` through its metadata, which is handy for a subtitle:
 
