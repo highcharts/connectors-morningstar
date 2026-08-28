@@ -126,7 +126,9 @@ const generalTable = connector.getTable('AssetAlloc'),
 
 `AssetAlloc` is the general view, splitting net assets across bonds, cash, convertible bonds, equity, and other. `CanadianAssetAlloc` is the Canadian view, and `UnderlyingAssetAlloc` breaks the portfolio down by underlying instrument type.
 
-Every table has a `Type` column naming its categories. `AssetAlloc` and `CanadianAssetAlloc` then carry one column per measure - `Long`, `LongRescaled`, `Net`, and `Short` - while `UnderlyingAssetAlloc` holds a single `UnderlyingInstruments` column of percentages. Because this is snapshot data rather than a series, you hand whole columns to Highcharts: `Type` becomes the axis categories, and each measure becomes a series:
+Every table has a `Type` column naming its categories. `AssetAlloc` and `CanadianAssetAlloc` then carry one column per measure - `Long`, `LongRescaled`, `Net`, and `Short` - while `UnderlyingAssetAlloc` holds a single `UnderlyingInstruments` column of percentages.
+
+Hand the table to the chart with the `dataTable` option, then let each series pick its columns through `dataMapping`: `name` for the category label, `y` for the value. The series name defaults to the column it maps to, so there is nothing else to wire up:
 
 ```js
     ...
@@ -137,26 +139,23 @@ Every table has a `Type` column naming its categories. `AssetAlloc` and `Canadia
         title: {
             text: 'General Asset Allocation Breakdown'
         },
+        dataTable: generalTable,
         yAxis: {
             labels: {
                 format: '{value}%'
             }
         },
         xAxis: {
-            categories: generalTable.getColumn('Type')
+            type: 'category'
         },
         series: [{
-            name: 'Long',
-            data: generalTable.getColumn('Long')
+            dataMapping: { name: 'Type', y: 'Long' }
         }, {
-            name: 'Long Rescaled',
-            data: generalTable.getColumn('LongRescaled')
+            dataMapping: { name: 'Type', y: 'LongRescaled' }
         }, {
-            name: 'Net',
-            data: generalTable.getColumn('Net')
+            dataMapping: { name: 'Type', y: 'Net' }
         }, {
-            name: 'Short',
-            data: generalTable.getColumn('Short')
+            dataMapping: { name: 'Type', y: 'Short' }
         }]
     });
 }
@@ -165,6 +164,8 @@ createChart();
 ```
 
 That is your first chart from Morningstar data: one connector, one converter, and no mapping layer in between.
+
+[`dataTable`](https://api.highcharts.com/highcharts/dataTable) and [`dataMapping`](https://api.highcharts.com/highcharts/plotOptions.series.dataMapping) need Highcharts 13 or newer, which is what the unversioned CDN URL in Step 1 gives you. On Highcharts 12, read the columns yourself and assign them to `series.data` instead - `generalTable.getColumn('Long')` in place of the mapping above.
 
 Two more details worth knowing. `AssetAlloc` also carries US and non-US splits under prefixed column names - `Us_Long`, `NonUs_Net`, and so on - if you want to break the allocation down geographically without a second request. And the connector exposes the security's `performanceId` through its metadata, which is handy for a subtitle:
 
@@ -219,24 +220,22 @@ await growthConnector.load();
 
 `category` and `dataPoint` map directly onto Morningstar's Time Series API paths: take the two segments immediately after `time-series/v1/`, so `.../time-series/v1/performance/growth/` becomes `category: 'performance'` and `dataPoint: 'growth'`. Categories include `performance`, `fees-expenses`, `portfolio-holdings`, and many others with more to come in the future. `performanceId` is the default `idType`, so you can omit it, and `currencyId` takes an ISO 4217 code - worth setting explicitly when you compare funds domiciled in different markets, since it otherwise defaults to each investment's own base currency.
 
-Reading the result differs from the tables above. There is a single table whose first column is `Date`, holding `yyyy-MM-dd` strings sorted ascending. Request one security and the values land in a `Value` column; request several and each is suffixed with that security's `performanceId` - always the `performanceId`, whatever `idType` you asked with. Pair `Date` with a value column to get `[date, value]` rows, and Highcharts Stock takes them directly:
+Reading the result differs from the tables above. There is a single table whose first column is `Date`, holding `yyyy-MM-dd` strings sorted ascending. Request one security and the values land in a `Value` column; request several and each is suffixed with that security's `performanceId` - always the `performanceId`, whatever `idType` you asked with. The same pairing works here, with `x` taking the date column instead of `name`:
 
 ```js
 Highcharts.stockChart('container', {
+    dataTable: growthConnector.getTable(),
     series: [{
         name: 'Capital Group Global Equity Fund (LUX) B',
-        data: growthConnector.getTable().getRows(
-            void 0,
-            void 0,
-            ['Date', 'Value_0P00000FIA']
-        )
+        dataMapping: { x: 'Date', y: 'Value_0P00000FIA' }
+    }, {
+        name: 'Dodge & Cox Stock Fund Class I (DODGX)',
+        dataMapping: { x: 'Date', y: 'Value_0P00002PB8' }
     }]
 });
 ```
 
-`getRows()` takes a row offset and a row count, both skipped with `void 0` here, then the columns you want in the order you want them. Note the different bundle: a time series wants `highstock.js` rather than the `highcharts.js` we loaded in Step 1.
-
-Highcharts 13 added a chart-level [`dataTable`](https://api.highcharts.com/highcharts/dataTable) option that accepts a `DataTable` instance directly, with [`series.dataMapping`](https://api.highcharts.com/highcharts/plotOptions.series.dataMapping) binding its columns to point properties - so a connector's table could be handed to the chart whole, without picking it apart first. The connectors target Highcharts 12 for now, so that route is not available yet.
+Both securities share one table, so each series names its own value column, and Highcharts Stock parses the `yyyy-MM-dd` strings into dates for you. Note the different bundle: a time series wants `highstock.js` rather than the `highcharts.js` we loaded in Step 1.
 
 ## Two things that will save you time
 
