@@ -22,7 +22,7 @@ Four MCP servers matter here, and they do genuinely different jobs:
 | --- | --- | --- | --- |
 | **Morningstar MCP** | `https://mcp.morningstar.com/mcp` | Investment data, research, portfolio X-Ray | OAuth, licensed account |
 | **DWS Developer Assistant** | `https://dws.morningstar.com/discovery-assistant/mcp` | Morningstar DWS API specs, for writing code against the APIs | Open |
-| **Highcharts Dev Assist** | `https://mcp.highcharts.ai/developers/mcp` | Highcharts docs, chart choice, config validation | Open |
+| **Highcharts Dev Assist** | `https://mcp.highcharts.ai/developers/mcp` | Highcharts docs and runnable examples, chart choice, config validation | Open |
 | **Highcharts Render** | `https://mcp.highcharts.ai/export/mcp` | Turning a finished configuration into a PNG | Open |
 
 Highcharts Render has a single tool, `render_chart`, with optional `width`, `height`, and `scale`. It is the cheapest way to see whether a chart actually looks like anything. One quirk to save you a confused minute: `render_chart` wants the config as an object, while `validate_config` takes it as a JSON string.
@@ -115,6 +115,14 @@ limitation that affects the answer - a fixed benchmark, a date cutoff - say so.
 ```
 
 Less than 30 lines, and it converts every "the model can validate" into "the model must validate". Step 5 is the one that earns its place, and note how it is worded: because unknown options come back as warnings on a config that still reports as valid, the rule has to be about reading the warnings rather than trusting the status.
+
+## When you would rather be asked than write
+
+Everything above assumes you are writing the configuration yourself, with the servers checking your work. [Chartchooser](https://www.highcharts.com/blog/tutorials/highcharts-chartchooser-mcp/) inverts that. You paste in your data, it asks a couple of short questions like: what you are building, what is the goal, the audience, how it should be styled - and hands back a complete, styled and configured Highcharts HTML file.
+
+The workflow in this article is for building a specific chart into an application, where you want every option checked against the official schema. Chartchooser is for going from a dataset to a working chart quickly, before you know the API well enough to do it yourself. Even if you know it well enough, it's always worth comparing your thoughts against Chartchooser. It acts as your knowledgeable dataviz partner, analyzes your needs and renders a chart for you.
+
+There are two important differences worth noting. Chartchooser is actively being developed, so right now it runs only on claude.ai and Claude Desktop rather than Claude Code, and you connect it through **Settings - Integrations** with the URL `https://chartchooser-mcp.highcharts.ai/mcp`, not `claude mcp add`. It also asks you to follow the OAuth authentication, where the Highcharts servers in the table above do not.
 
 ## Why this reduces hallucination rather than just moving it
 
