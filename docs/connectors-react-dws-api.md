@@ -173,6 +173,10 @@ export default function LineChart() {
 }
 ```
 
+### Try it live
+
+ Want to see this running without your own Morningstar credentials? Check out this [complete example on StackBlitz](https://stackblitz.com/edit/hxm4pnli-xhe2yauf?file=src%2findex.jsx) - instead of fetching a token for your Morningstar credentials, it proxies requests to a Highcharts server serving static sample data, with every other step identical to what's covered above.
+
 And that is it - a fully functioning chart including data fetched from Morningstar DWS API successfully integrated into your React application.
 
 ## Licensing
