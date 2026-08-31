@@ -145,8 +145,8 @@ export async function fixedIncomeSectorsBreakdown (
         ],
         IncSecondarySectors: [
             'fixedIncSecondarySectorAgencyorquasiAgencyCountryRescalingFactorLong',
-            // 'fixedIncSecondarySectorInflationProtectedCountryRescaling' +
-            // 'FactorLong',
+            'fixedIncSecondarySectorInflationProtectedCountryRescaling' +
+            'FactorLong',
             'fixedIncSecondarySectorRescalingFactorLong',
             'fixedIncSecondarySectorTreasuryCountryRescalingFactorLong'
         ]
