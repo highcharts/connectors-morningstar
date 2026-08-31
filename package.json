@@ -8,9 +8,9 @@
     "bugs": "https://github.com/highcharts/morningstar-connectors/issues",
     "homepage": "https://github.com/highcharts/morningstar-connectors#readme",
     "repository": "https://github.com/highcharts/morningstar-connectors.git",
-    "bin": "bin/connectors-morningstar.js",
-    "main": "code/es-modules/index.js",
-    "types": "code/es-modules/index.d.ts",
+    "bin": "./bin/connectors-morningstar.js",
+    "main": "./code/es-modules/index.js",
+    "types": "./code/es-modules/index.d.ts",
     "exports": {
         ".": {
             "import": "./code/es-modules/index.js",
@@ -19,7 +19,10 @@
         "./dws": {
             "import": "./code/es-modules/index-dws.js",
             "types": "./code/es-modules/index-dws.d.ts"
-        }
+        },
+        "./package.json": "./package.json",
+        "./connectors-morningstar.js": "./code/connectors-morningstar.js",
+        "./connectors-morningstar-dws.js": "./code/connectors-morningstar-dws.js"
     },
     "devDependencies": {
         "@aws-sdk/client-s3": "^3.592.0",
