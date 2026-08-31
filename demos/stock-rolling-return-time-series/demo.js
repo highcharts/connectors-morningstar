@@ -25,6 +25,7 @@ async function initializeChart (postmanJSON) {
     await rollingReturnConnector.load();
 
     Highcharts.stockChart('container', {
+        dataTable: rollingReturnConnector.getTable(),
         title: {
             text: 'Apple Share Rolling Return for 2020'
         },
@@ -42,7 +43,6 @@ async function initializeChart (postmanJSON) {
         },
         series: [{
             name: 'AAPL',
-            dataTable: rollingReturnConnector.getTable(),
             dataMapping: {
                 x: 'Date',
                 y: '0P000000GY'

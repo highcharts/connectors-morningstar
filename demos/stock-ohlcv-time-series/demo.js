@@ -29,13 +29,13 @@ async function displayOHLCV (postmanJSON) {
     await ohlcvConnector.load();
 
     Highcharts.stockChart('container', {
+        dataTable: ohlcvConnector.getTable(),
         title: {
             text: 'NASDAQ Composite last 30 days'
         },
         series: [{
             type: 'ohlc',
             name: 'NASDAQ Composite (EUR)',
-            dataTable: ohlcvConnector.getTable(),
             dataMapping: {
                 x: 'Date',
                 open: `${securityId}_Open`,
