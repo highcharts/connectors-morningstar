@@ -1,3 +1,7 @@
+<!-- llms
+description: side-by-side comparison of securities
+-->
+
 # Security Compare
 
 This type retrieves investment data for multiple securities, making it ideal for

@@ -1,3 +1,7 @@
+<!-- llms
+description: open/high/low/close/volume series
+-->
+
 # OHLCV
 
 This type yields OHLCV time series data for a single or multiple securities.

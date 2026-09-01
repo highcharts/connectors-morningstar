@@ -1,3 +1,7 @@
+<!-- llms
+description: base screener connector
+-->
+
 # Screener
 
 Filter thousands of investments to quickly find those matching your criteria.

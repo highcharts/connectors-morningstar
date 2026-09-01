@@ -1,3 +1,7 @@
+<!-- llms
+description: DWS Investment Details API
+-->
+
 # Investment Details Connector
 
 The `HighchartsConnectors.MorningstarDWS.InvestmentsConnector` provides access

@@ -1,3 +1,7 @@
+<!-- llms
+description: historical price series
+-->
+
 # Price
 
 Get price time series data for single or multiple securities.

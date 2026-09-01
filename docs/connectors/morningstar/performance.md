@@ -1,3 +1,7 @@
+<!-- llms
+description: historical performance of a security or portfolio
+-->
+
 # Performance
 
 The Morningstar **Performance** feature calculates how a portfolio performed

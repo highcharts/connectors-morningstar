@@ -1,3 +1,7 @@
+<!-- llms
+description: find securities similar to a reference
+-->
+
 # Find Similar Screener
 
 Using the Morningstar **Find Similar Screener** endpoint allows you to find

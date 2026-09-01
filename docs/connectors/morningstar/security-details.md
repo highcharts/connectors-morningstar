@@ -1,3 +1,7 @@
+<!-- llms
+description: detailed data for a single security
+-->
+
 # Security Details
 
 This type retrieves investment data for a specified set of securities and is

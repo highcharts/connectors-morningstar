@@ -1,3 +1,7 @@
+<!-- llms
+description: return over a period
+-->
+
 # Return
 
 This type yields return time series data for single or multiple securities.

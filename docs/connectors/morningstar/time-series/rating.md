@@ -1,3 +1,7 @@
+<!-- llms
+description: rating history
+-->
+
 # Rating
 
 This type yields Morningstar Rating time series data for single or multiple
