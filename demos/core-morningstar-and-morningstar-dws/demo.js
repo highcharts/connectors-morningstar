@@ -37,11 +37,18 @@ async function displayDataFromBothAPIs (postmanJSON) {
     // Load data from the MorningstarDWS connector
     await dwsConnector.load();
 
-    // Get data from the Morningstar's TrailingPerformance
-    const dataTable = connector.dataTables['TrailingPerformance'];
-
-    // Get data from the MorningstarDWS's EquitySectorsBreakdown
+    // Get data table from the MorningstarDWS's EquitySectorsBreakdown
     const dwsDataTable = dwsConnector.getTable('EqSuperSectors');
+
+    // Set global options for charts
+    Highcharts.setOptions({
+        chart: {
+            type: 'column'
+        },
+        xAxis: {
+            type: 'category'
+        }
+    });
 
     // Display data from the Morningstar API
     Highcharts.chart('container', {
@@ -51,33 +58,24 @@ async function displayDataFromBothAPIs (postmanJSON) {
         subtitle: {
             text: connector.metadata.performanceId
         },
-        xAxis: {
-            type: 'category'
-        },
         series: [{
-            type: 'column',
             name: 'F0GBR050DD',
-            data: dataTable.getRows(
-                void 0,
-                void 0,
-                ['Nav_DayEnd_TimePeriod', 'Nav_DayEnd_Value']
-            )
+            dataTable: connector.getTable('TrailingPerformance'),
+            dataMapping: {
+                name: 'Nav_DayEnd_TimePeriod',
+                y: 'Nav_DayEnd_Value'
+            }
         }]
     });
 
     // Display data from the MorningstarDWS API
     Highcharts.chart('container-dws', {
-        chart: {
-            type: 'column'
-        },
+        dataTable: dwsDataTable,
         title: {
             text: '[Morningstar DWS API] Equity Super Sectors Breakdown'
         },
         subtitle: {
             text: dwsDataTable.metadata.performanceId
-        },
-        xAxis: {
-            type: 'category'
         },
         yAxis: {
             labels: {
@@ -88,27 +86,28 @@ async function displayDataFromBothAPIs (postmanJSON) {
             shared: true,
             valueSuffix: '%'
         },
+        plotOptions: {
+            series: {
+                dataMapping: {
+                    name: 'Type'
+                }
+            }
+        },
         series: [{
             name: 'Equity Super Sectors Long Rescaled',
-            data: dwsDataTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'PercLongRescaled']
-            )
+            dataMapping: {
+                y: 'PercLongRescaled'
+            }
         }, {
             name: 'Equity Super Sectors Long',
-            data: dwsDataTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'PercLong']
-            )
+            dataMapping: {
+                y: 'PercLong'
+            }
         }, {
             name: 'Equity Super Sectors Net',
-            data: dwsDataTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'PercNet']
-            )
+            dataMapping: {
+                y: 'PercNet'
+            }
         }]
     });
 

@@ -26,6 +26,7 @@ async function initializeChart (postmanJSON) {
     await growthConnector.load();
 
     Highcharts.stockChart('container', {
+        dataTable: growthConnector.getTable(),
         title: {
             text: 'LUX and DODGX Growth'
         },
@@ -34,10 +35,16 @@ async function initializeChart (postmanJSON) {
         },
         series: [{
             name: 'Capital Group Global Equity Fund (LUX) B',
-            data: growthConnector.getTable().getRows(void 0, void 0, ['Date', 'Value_0P00000FIA'])
+            dataMapping: {
+                x: 'Date',
+                y: 'Value_0P00000FIA'
+            }
         }, {
             name: 'Dodge & Cox Stock Fund Class I (DODGX)',
-            data: growthConnector.getTable().getRows(void 0, void 0, ['Date', 'Value_0P00002PB8'])
+            dataMapping: {
+                x: 'Date',
+                y: 'Value_0P00002PB8'
+            }
         }]
     });
 

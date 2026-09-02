@@ -24,119 +24,134 @@ async function displayAssetAllocationBreakdown (postmanJSON) {
         canadaTable = connector.getTable('CanadianAssetAlloc'),
         underlyingTable = connector.getTable('UnderlyingAssetAlloc');
 
-    Highcharts.chart('general', {
-
-        title: {
-            text: 'General'
-        },
+    // Set global options for charts
+    Highcharts.setOptions({
         chart: {
             type: 'column'
         },
         xAxis: {
-            categories: generalTable.getColumn('Type')
+            type: 'category'
+        },
+        plotOptions: {
+            series: {
+                dataMapping: {
+                    name: 'Type'
+                }
+            }
+        }
+    });
+
+    Highcharts.chart('general', {
+        dataTable: generalTable,
+        title: {
+            text: 'General'
         },
         series: [{
             name: 'Long',
-            data: generalTable.getColumn('Long')
+            dataMapping: {
+                y: 'Long'
+            }
         }, {
             name: 'Long Rescaled',
-            data: generalTable.getColumn('LongRescaled')
+            dataMapping: {
+                y: 'LongRescaled'
+            }
         }, {
             name: 'Net',
-            data: generalTable.getColumn('Net')
+            dataMapping: {
+                y: 'Net'
+            }
         }, {
             name: 'Short',
-            data: generalTable.getColumn('Short')
+            dataMapping: {
+                y: 'Short'
+            }
         }]
 
     });
 
     Highcharts.chart('canada', {
-
+        dataTable: canadaTable,
         title: {
             text: 'Canada'
         },
-        chart: {
-            type: 'column'
-        },
-        xAxis: {
-            categories: canadaTable.getColumn('Type')
-        },
         series: [{
             name: 'Long',
-            data: canadaTable.getColumn('Long')
+            dataMapping: {
+                y: 'Long'
+            }
         }, {
             name: 'Long Rescaled',
-            data: canadaTable.getColumn('LongRescaled')
+            dataMapping: {
+                y: 'LongRescaled'
+            }
         }, {
             name: 'Net',
-            data: canadaTable.getColumn('Net')
+            dataMapping: {
+                y: 'Net'
+            }
         }]
 
     });
 
     Highcharts.chart('us', {
-
+        dataTable: generalTable,
         title: {
             text: 'US'
         },
-        chart: {
-            type: 'column'
-        },
-        xAxis: {
-            categories: generalTable.getColumn('Type')
-        },
         series: [{
             name: 'Long',
-            data: generalTable.getColumn('Us_Long')
+            dataMapping: {
+                y: 'Us_Long'
+            }
         }, {
             name: 'Long Rescaled',
-            data: generalTable.getColumn('Us_LongRescaled')
+            dataMapping: {
+                y: 'Us_LongRescaled'
+            }
         }, {
             name: 'Net',
-            data: generalTable.getColumn('Us_Net')
+            dataMapping: {
+                y: 'Us_Net'
+            }
         }]
 
     });
 
     Highcharts.chart('nonus', {
-
+        dataTable: generalTable,
         title: {
             text: 'NonUS'
         },
-        chart: {
-            type: 'column'
-        },
-        xAxis: {
-            categories: generalTable.getColumn('Type')
-        },
         series: [{
             name: 'Long',
-            data: generalTable.getColumn('NonUs_Long')
+            dataMapping: {
+                y: 'NonUs_Long'
+            }
         }, {
             name: 'Long Rescaled',
-            data: generalTable.getColumn('NonUs_LongRescaled')
+            dataMapping: {
+                y: 'NonUs_LongRescaled'
+            }
         }, {
             name: 'Net',
-            data: generalTable.getColumn('NonUs_Net')
+            dataMapping: {
+                y: 'NonUs_Net'
+            }
         }]
 
     });
 
     Highcharts.chart('underlying', {
-
         title: {
             text: 'Underlying Instruments'
         },
-        chart: {
-            type: 'column'
-        },
-        xAxis: {
-            categories: underlyingTable.getColumn('Type')
-        },
         series: [{
             name: 'Underlying Instruments',
-            data: underlyingTable.getColumn('UnderlyingInstruments')
+            dataTable: underlyingTable,
+            dataMapping: {
+                y: 'UnderlyingInstruments'
+            }
         }]
 
     });
