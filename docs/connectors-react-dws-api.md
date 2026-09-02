@@ -8,7 +8,7 @@ The latest Highcharts React integration allows you to seamlessly incorporate Hig
 
 ## Morningstar's DWS API in brief
 
-The DWS (Direct Web Services) API from Morningstar is the new API service which includes `Investment Details API` and `Time Series API` endpoints along with more to come later. In order to get the general idea of the DWS, you can glance through [this article](./connectors/morningstar.md).
+The DWS (Direct Web Services) API from Morningstar is the new API service which includes `Investment Details API` and `Time Series API` endpoints along with more to come later. In order to get the general idea of the DWS, you can glance through [this article](https://www.highcharts.com/docs/morningstar/morningstar).
 
 ## Setting up Highcharts in your React project
 
@@ -54,7 +54,7 @@ npm install @highcharts/connectors-morningstar
 Then, import the package. For the sake of simplicity, we're gonna import it directly into the same place as where the chart lies, however you can manage the data differently depending on your use case.
 
 ```jsx
-import * as HighchartsConnectorsDWS from '@highcharts/connectors-morningstar/dws';
+import { TimeSeriesConnector } from '@highcharts/connectors-morningstar/dws';
 ```
 
 ### Authenticate the connector and fetch data
@@ -69,7 +69,7 @@ useEffect(() => {
         // Retrieve token from the server
         const token = await getToken();
 
-        const connector = new HighchartsConnectorsDWS.TimeSeriesConnector({
+        const connector = new TimeSeriesConnector({
             api: {
                 access: { token }
             },
@@ -128,7 +128,7 @@ import { useEffect, useState } from 'react';
 import { StockChart } from '@highcharts/react/Stock';
 import { LineSeries } from '@highcharts/react/series/Line';
 import { Title } from '@highcharts/react/options';
-import * as HighchartsConnectorsDWS from '@highcharts/connectors-morningstar/dws';
+import { TimeSeriesConnector } from '@highcharts/connectors-morningstar/dws';
 
 export default function LineChart() {
     const [data, setData] = useState([]);
@@ -136,9 +136,9 @@ export default function LineChart() {
     useEffect(() => {
         const getData = async () => {
             // Retrieve token from the server
-            const { token } = getToken();
+            const token = await getToken();
 
-            const connector = new HighchartsConnectorsDWS.TimeSeriesConnector({
+            const connector = new TimeSeriesConnector({
                 api: {
                     access: { token }
                 },
