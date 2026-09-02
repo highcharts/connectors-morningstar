@@ -53,6 +53,7 @@ async function displayPerformance (postmanJSON) {
     await connector.load();
 
     Highcharts.chart('container', {
+        dataTable: connector.getTable('CalendarYearReturn'),
         chart: {
             type: 'column'
         },
@@ -72,18 +73,16 @@ async function displayPerformance (postmanJSON) {
         },
         series: [{
             name: 'Portfolio',
-            data: connector.dataTables.CalendarYearReturn.getRows(
-                void 0,
-                void 0,
-                ['Id', 'Value']
-            )
+            dataMapping: {
+                name: 'Id',
+                y: 'Value'
+            }
         }, {
             name: 'Benchmark',
-            data: connector.dataTables.CalendarYearReturn.getRows(
-                void 0,
-                void 0,
-                ['Id', 'Value_Benchmark']
-            )
+            dataMapping: {
+                name: 'Id',
+                y: 'Value_Benchmark'
+            }
         }]
     });
 
