@@ -1,6 +1,18 @@
 Changelog
 =========
 
+v3.2.1
+------
+
+## What's Changed
+
+## Bugfixes
+* All connectors: Fixed ES6 and UMD module usage in https://github.com/highcharts/connectors-morningstar/pull/198
+* Portfolio Analysis Performance Connector (Americas): Updated the Performance Correlation Matrix converter to support recent API changes in https://github.com/highcharts/connectors-morningstar/pull/191
+* Security Details (SD): Fixed connection issues in the Security Compare connector in https://github.com/highcharts/connectors-morningstar/pull/199
+
+**Full Changelog**: https://github.com/highcharts/connectors-morningstar/compare/v3.2.0...v3.2.1
+
 v3.2.0
 ------
 
