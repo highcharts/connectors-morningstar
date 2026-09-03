@@ -1,3 +1,7 @@
+<!-- llms
+description: portfolio X-ray (holdings look-through and allocation)
+-->
+
 # X-Ray
 
 The Morningstar **X-Ray** capability enables you to quickly analyze a

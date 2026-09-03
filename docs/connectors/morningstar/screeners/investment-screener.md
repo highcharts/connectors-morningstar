@@ -1,3 +1,7 @@
+<!-- llms
+description: screen investments by criteria
+-->
+
 # Investment Screener
 
 Using Morningstar **Investment Screener** endpoint allows you to filter

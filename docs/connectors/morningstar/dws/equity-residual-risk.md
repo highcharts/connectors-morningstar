@@ -1,3 +1,7 @@
+<!-- llms
+description: equity residual risk
+-->
+
 # Equity Residual Risk and Return Sensitivity
 
 The **Equity Residual Risk and Return Sensitivity** view reports a stock's

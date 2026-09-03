@@ -1,3 +1,7 @@
+<!-- llms
+description: dividend history
+-->
+
 # Dividend
 
 This type yields dividend time series data for single or multiple securities.

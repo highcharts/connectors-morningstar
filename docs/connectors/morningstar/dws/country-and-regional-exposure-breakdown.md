@@ -1,3 +1,7 @@
+<!-- llms
+description: geographic exposure
+-->
+
 # Country and Regional Exposure Breakdown
 
 The **Country and Regional Exposure Breakdown** view provides a portfolio's

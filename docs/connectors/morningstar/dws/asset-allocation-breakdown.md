@@ -1,3 +1,7 @@
+<!-- llms
+description: allocation across asset classes
+-->
+
 # Asset Allocation Breakdown
 
 The **Asset Allocation Breakdown** view provides the split of a portfolio's net

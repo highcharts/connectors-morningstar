@@ -1,3 +1,7 @@
+<!-- llms
+description: aggregated equity residual risk
+-->
+
 # Equity Aggregates Residual Risk and Return Sensitivity
 
 The **Equity Aggregates Residual Risk and Return Sensitivity** view supplies a

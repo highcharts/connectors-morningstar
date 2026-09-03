@@ -1,3 +1,7 @@
+<!-- llms
+description: Morningstar equity style box
+-->
+
 # Equity Style Box
 
 The **Equity Style Box** view returns Morningstar's proprietary Style Box along

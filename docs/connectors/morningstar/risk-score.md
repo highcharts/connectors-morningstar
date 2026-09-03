@@ -1,3 +1,7 @@
+<!-- llms
+description: Morningstar risk scoring
+-->
+
 # Portfolio Risk Score
 
 This type analyzes the specified portfolios and yields a risk score.

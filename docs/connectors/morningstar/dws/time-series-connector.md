@@ -1,3 +1,7 @@
+<!-- llms
+description: DWS Time Series API
+-->
+
 # Time Series Connector
 
 The `HighchartsConnectors.MorningstarDWS.TimeSeriesConnector` is a connector
