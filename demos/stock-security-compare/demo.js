@@ -25,21 +25,26 @@ async function displaySecurityDetails (postmanJSON) {
     await connector.load();
 
     Highcharts.chart('container', {
+        dataTable: connector.getTable('TrailingPerformance'),
+        chart: {
+            type: 'column'
+        },
         title: {
             text: 'Comparing multiple securities (Trailing performance)'
         },
-        series: ids.map(id => ({
-            type: 'column',
-            name: idNames[id],
-            data: connector.dataTables.TrailingPerformance.getRows(
-                void 0,
-                void 0,
-                [
-                    'Nav_DayEnd_TimePeriod_' + id,
-                    'Nav_DayEnd_Value_' + id
-                ]
-            )
-        })),
+        series: [{
+            name: idNames[ids[0]],
+            dataMapping: {
+                name: 'Nav_DayEnd_TimePeriod_' + ids[0],
+                y: 'Nav_DayEnd_Value_' + ids[0]
+            }
+        }, {
+            name: idNames[ids[1]],
+            dataMapping: {
+                name: 'Nav_DayEnd_TimePeriod_' + ids[1],
+                y: 'Nav_DayEnd_Value_' + ids[1]
+            }
+        }],
         xAxis: {
             type: 'category'
         },

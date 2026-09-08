@@ -24,12 +24,16 @@ async function initializeChart (postmanJSON) {
     await priceConnector.load();
 
     Highcharts.stockChart('container', {
+        dataTable: priceConnector.getTable(),
         title: {
             text: 'Apple Share Price in EUR for 2020'
         },
         series: [{
             type: 'area',
-            data: priceConnector.getTable().getRows(),
+            dataMapping: {
+                x: 'Date',
+                y: '0P000000GY'
+            },
             fillColor: {
                 linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
                 stops: [

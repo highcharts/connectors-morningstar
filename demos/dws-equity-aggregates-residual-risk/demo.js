@@ -23,6 +23,7 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
 
     // Set global options
     Highcharts.setOptions({
+        dataTable: connector.getTable('EquityAggregatesResidualRisk'),
         chart: {
             type: 'column'
         },
@@ -35,11 +36,15 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
         },
         xAxis: {
             type: 'category'
+        },
+        plotOptions: {
+            series: {
+                dataMapping: {
+                    name: 'Type'
+                }
+            }
         }
     });
-
-    // Get data table
-    const dataTable = connector.getTable('EquityAggregatesResidualRisk');
 
     // Create chart
     Highcharts.chart('container-values-alpha', {
@@ -54,19 +59,15 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
         series: [
             {
                 name: 'Alpha',
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    ['Type', 'Alpha']
-                )
+                dataMapping: {
+                    y: 'Alpha'
+                }
             },
             {
                 name: 'Non Dividend Alpha',
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    ['Type', 'NonDividendAlpha']
-                )
+                dataMapping: {
+                    y: 'NonDividendAlpha'
+                }
             }
         ]
     });
@@ -84,19 +85,15 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
         series: [
             {
                 name: 'Beta',
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    ['Type', 'Beta']
-                )
+                dataMapping: {
+                    y: 'Beta'
+                }
             },
             {
                 name: 'Non Dividend Beta',
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    ['Type', 'NonDividendBeta']
-                )
+                dataMapping: {
+                    y: 'NonDividendBeta'
+                }
             }
         ]
     });
@@ -114,19 +111,15 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
         series: [
             {
                 name: 'Alpha Companies',
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    ['Type', 'AlphaCompanies']
-                )
+                dataMapping: {
+                    y: 'AlphaCompanies'
+                }
             },
             {
                 name: 'Non Dividend Alpha Companies',
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    ['Type', 'NonDividendAlphaCompanies']
-                )
+                dataMapping: {
+                    y: 'NonDividendAlphaCompanies'
+                }
             }
         ]
     });
@@ -144,19 +137,15 @@ async function displayEquityAggregatesResidualRisk (postmanJSON) {
         series: [
             {
                 name: 'Beta Companies',
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    ['Type', 'BetaCompanies']
-                )
+                dataMapping: {
+                    y: 'BetaCompanies'
+                }
             },
             {
                 name: 'Non Dividend Beta Companies',
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    ['Type', 'NonDividendBetaCompanies']
-                )
+                dataMapping: {
+                    y: 'NonDividendBetaCompanies'
+                }
             }
         ]
     });

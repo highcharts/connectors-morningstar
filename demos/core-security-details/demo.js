@@ -27,11 +27,11 @@ async function displaySecurityDetails (postmanJSON) {
         series: [{
             type: 'column',
             name: 'F0GBR050DD',
-            data: connector.dataTables.TrailingPerformance.getRows(
-                void 0,
-                void 0,
-                ['Nav_DayEnd_TimePeriod', 'Nav_DayEnd_Value']
-            )
+            dataTable: connector.getTable(),
+            dataMapping: {
+                name: 'Nav_DayEnd_TimePeriod',
+                y: 'Nav_DayEnd_Value'
+            }
         }],
         xAxis: {
             type: 'category'

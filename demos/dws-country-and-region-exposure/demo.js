@@ -20,9 +20,6 @@ async function displayCountryAndRegionExposure (postmanJSON) {
 
     await connector.load();
 
-    const regionEquityTable = connector.getTable('RegionEquity'),
-        data = regionEquityTable.getRows(void 0, void 0, ['Region', 'PercNet']);
-
     Highcharts.chart('container', {
         chart: {
             type: 'column'
@@ -30,9 +27,16 @@ async function displayCountryAndRegionExposure (postmanJSON) {
         title: {
             text: 'Region Equity (Net)'
         },
+        xAxis: {
+            type: 'category'
+        },
         series: [{
             name: 'Region Equity (Net)',
-            data
+            dataTable: connector.getTable('RegionEquity'),
+            dataMapping: {
+                name: 'Region',
+                y: 'PercNet'
+            }
         }]
     });
 

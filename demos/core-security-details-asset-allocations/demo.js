@@ -28,10 +28,13 @@ async function displayAssetAllocations (postmanJSON) {
         '99': 'Unclassified'
     };
 
-    const chartData = connector.dataTables.AssetAllocations.getRowObjects().map(item => ({
-        name: typeMapping[item.MorningstarEUR3_Type],
-        y: item.MorningstarEUR3_N
-    }));
+    const dataTable = connector.getTable('AssetAllocations');
+
+    // Add column with name translation
+    dataTable.setColumn(
+        'MorningstarEUR3_Name',
+        dataTable.getColumn('MorningstarEUR3_Type').map(type => typeMapping[type] || type)
+    );
 
     Highcharts.chart('container', {
         title: {
@@ -43,7 +46,11 @@ async function displayAssetAllocations (postmanJSON) {
         series: [{
             type: 'pie',
             name: 'VTI Asset Allocation',
-            data: chartData
+            dataTable,
+            dataMapping: {
+                name: 'MorningstarEUR3_Name',
+                y: 'MorningstarEUR3_N'
+            }
         }]
     });
 

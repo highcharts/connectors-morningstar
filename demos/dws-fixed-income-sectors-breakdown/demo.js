@@ -21,6 +21,12 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
     // Load data
     await connector.load();
 
+    // Set categories
+    const brkType = 'Fixed_Income_Breakdown_Type',
+        brkLong = 'Fixed_Income_Breakdown_CalcLongFiperc',
+        brkShort = 'Fixed_Income_Breakdown_CalcShortFiperc',
+        brkNet = 'Fixed_Income_Breakdown_CalcNetFiperc';
+
     // Set global options
     Highcharts.setOptions({
         chart: {
@@ -43,12 +49,6 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
         }
     });
 
-    // Set categories
-    const brkType = 'Fixed_Income_Breakdown_Type',
-        brkLong = 'Fixed_Income_Breakdown_CalcLongFiperc',
-        brkShort = 'Fixed_Income_Breakdown_CalcShortFiperc',
-        brkNet = 'Fixed_Income_Breakdown_CalcNetFiperc';
-
     // Create charts for each sector breakdown type
     [
         'IncBrkSuperSectors',
@@ -65,30 +65,32 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
 
         // Create chart
         Highcharts.chart(containerId, {
+            dataTable,
             title: {
                 text: name
             },
+            plotOptions: {
+                series: {
+                    dataMapping: {
+                        name: brkType
+                    }
+                }
+            },
             series: [{
                 name: `${name} Long`,
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    [brkType, brkLong]
-                )
+                dataMapping: {
+                    y: brkLong
+                }
             }, {
                 name: `${name} Short`,
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    [brkType, brkShort]
-                )
+                dataMapping: {
+                    y: brkShort
+                }
             }, {
                 name: `${name} Net`,
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    [brkType, brkNet]
-                )
+                dataMapping: {
+                    y: brkNet
+                }
             }]
         });
     });
@@ -116,37 +118,37 @@ async function displayFixedIncomeSectorsBreakdown (postmanJSON) {
 
         // Create chart
         Highcharts.chart(containerId, {
+            dataTable,
             title: {
                 text: name
             },
+            plotOptions: {
+                series: {
+                    dataMapping: {
+                        name: type
+                    }
+                }
+            },
             series: [{
                 name: `${name} Long Rescaled`,
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    [type, longRescaled]
-                )
+                dataMapping: {
+                    y: longRescaled
+                }
             }, {
                 name: `${name} Long`,
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    [type, long]
-                )
+                dataMapping: {
+                    y: long
+                }
             }, {
                 name: `${name} Short`,
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    [type, short]
-                )
+                dataMapping: {
+                    y: short
+                }
             }, {
                 name: `${name} Net`,
-                data: dataTable.getRows(
-                    void 0,
-                    void 0,
-                    [type, net]
-                )
+                dataMapping: {
+                    y: net
+                }
             }]
         });
     });

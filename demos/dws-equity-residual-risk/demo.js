@@ -38,7 +38,10 @@ async function displayEquityResidualRisk (postmanJSON) {
         },
         plotOptions: {
             series: {
-                minPointLength: 2
+                minPointLength: 2,
+                dataMapping: {
+                    name: 'Type'
+                }
             }
         }
     });
@@ -48,6 +51,7 @@ async function displayEquityResidualRisk (postmanJSON) {
 
     // Create chart
     Highcharts.chart('container-daily-alpha', {
+        dataTable: riskDailyTable,
         title: {
             text: 'Daily Values - Alpha'
         },
@@ -58,23 +62,20 @@ async function displayEquityResidualRisk (postmanJSON) {
         },
         series: [{
             name: 'Alpha',
-            data: riskDailyTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'Alpha']
-            )
+            dataMapping: {
+                y: 'Alpha'
+            }
         }, {
             name: 'Non Dividend Alpha',
-            data: riskDailyTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'NonDividendAlpha']
-            )
+            dataMapping: {
+                y: 'NonDividendAlpha'
+            }
         }]
     });
 
     // Create chart
     Highcharts.chart('container-daily-beta', {
+        dataTable: riskDailyTable,
         title: {
             text: 'Daily Values - Beta'
         },
@@ -85,23 +86,20 @@ async function displayEquityResidualRisk (postmanJSON) {
         },
         series: [{
             name: 'Beta',
-            data: riskDailyTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'Beta']
-            )
+            dataMapping: {
+                y: 'Beta'
+            }
         }, {
             name: 'Non Dividend Beta',
-            data: riskDailyTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'NonDividendBeta']
-            )
+            dataMapping: {
+                y: 'NonDividendBeta'
+            }
         }]
     });
 
     // Create chart
     Highcharts.chart('container-daily-rsquare', {
+        dataTable: riskDailyTable,
         title: {
             text: 'Daily Values - RSquare'
         },
@@ -115,18 +113,14 @@ async function displayEquityResidualRisk (postmanJSON) {
         },
         series: [{
             name: 'RSquare',
-            data: riskDailyTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'RSquare']
-            )
+            dataMapping: {
+                y: 'RSquare'
+            }
         }, {
             name: 'Non Dividend RSquare',
-            data: riskDailyTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'NonDividendRSquare']
-            )
+            dataMapping: {
+                y: 'NonDividendRSquare'
+            }
         }]
     });
 
@@ -135,6 +129,7 @@ async function displayEquityResidualRisk (postmanJSON) {
 
     // Create chart
     Highcharts.chart('container-monthly-alpha', {
+        dataTable: riskMonthlyTable,
         title: {
             text: 'Monthly Values - Alpha'
         },
@@ -145,23 +140,20 @@ async function displayEquityResidualRisk (postmanJSON) {
         },
         series: [{
             name: 'Alpha',
-            data: riskMonthlyTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'Alpha']
-            )
+            dataMapping: {
+                y: 'Alpha'
+            }
         }, {
             name: 'Non Dividend Alpha',
-            data: riskMonthlyTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'NonDividendAlpha']
-            )
+            dataMapping: {
+                y: 'NonDividendAlpha'
+            }
         }]
     });
 
     // Create chart
     Highcharts.chart('container-monthly-beta', {
+        dataTable: riskMonthlyTable,
         title: {
             text: 'Monthly Values - Beta'
         },
@@ -172,23 +164,20 @@ async function displayEquityResidualRisk (postmanJSON) {
         },
         series: [{
             name: 'Beta',
-            data: riskMonthlyTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'Beta']
-            )
+            dataMapping: {
+                y: 'Beta'
+            }
         }, {
             name: 'Non Dividend Beta',
-            data: riskMonthlyTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'NonDividendBeta']
-            )
+            dataMapping: {
+                y: 'NonDividendBeta'
+            }
         }]
     });
 
     // Create chart
     Highcharts.chart('container-monthly-rsquare', {
+        dataTable: riskMonthlyTable,
         title: {
             text: 'Monthly Values - RSquare'
         },
@@ -202,18 +191,14 @@ async function displayEquityResidualRisk (postmanJSON) {
         },
         series: [{
             name: 'RSquare',
-            data: riskMonthlyTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'RSquare']
-            )
+            dataMapping: {
+                y: 'RSquare'
+            }
         }, {
             name: 'Non Dividend RSquare',
-            data: riskMonthlyTable.getRows(
-                void 0,
-                void 0,
-                ['Type', 'NonDividendRSquare']
-            )
+            dataMapping: {
+                y: 'NonDividendRSquare'
+            }
         }]
     });
 

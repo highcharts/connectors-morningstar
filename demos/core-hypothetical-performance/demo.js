@@ -100,7 +100,15 @@ async function displayHypoGrowth (postmanJSON) {
 
     await connector.load();
 
+    const dataTable = connector.getTable('Growth');
+
+    // A known issue with trailing 0's in the data
+    dataTable.deleteRows(
+        dataTable.getRowCount() - 1
+    );
+
     Highcharts.chart('container', {
+        dataTable,
         chart: {
             type: 'spline'
         },
@@ -121,27 +129,28 @@ async function displayHypoGrowth (postmanJSON) {
         tooltip: {
             valueSuffix: 'USD'
         },
+        plotOptions: {
+            series: {
+                dataMapping: {
+                    x: 'Date'
+                }
+            }
+        },
         series: [{
             name: 'Portfolio',
-            data: connector.dataTables.Growth.getRows(
-                void 0,
-                void 0,
-                ['Date', 'Value']
-            ).slice(0, -1) // A known issue with trailing 0's in the data
+            dataMapping: {
+                y: 'Value'
+            }
         }, {
             name: 'Benchmark',
-            data: connector.dataTables.Growth.getRows(
-                void 0,
-                void 0,
-                ['Date', 'Value_Benchmark']
-            ).slice(0, -1) // A known issue with trailing 0's in the data
+            dataMapping: {
+                y: 'Value_Benchmark'
+            }
         }, {
             name: 'Net Invested',
-            data: connector.dataTables.Growth.getRows(
-                void 0,
-                void 0,
-                ['Date', 'Value_NetAmountInvested']
-            ).slice(0, -1) // A known issue with trailing 0's in the data
+            dataMapping: {
+                y: 'Value_NetAmountInvested'
+            }
         }]
     });
 
