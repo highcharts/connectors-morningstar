@@ -1,5 +1,5 @@
 <!-- llms
-description: historical performance of a security or portfolio
+description: portfolio trailing and calendar-year returns with risk and MPT statistics
 -->
 
 # Performance

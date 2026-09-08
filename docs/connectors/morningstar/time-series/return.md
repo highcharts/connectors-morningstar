@@ -1,5 +1,5 @@
 <!-- llms
-description: return over a period
+description: periodic, non-cumulative return series
 -->
 
 # Return

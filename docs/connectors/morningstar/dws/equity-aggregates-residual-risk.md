@@ -1,5 +1,5 @@
 <!-- llms
-description: aggregated equity residual risk
+description: alpha and beta averaged by industry and sector for peer comparison
 -->
 
 # Equity Aggregates Residual Risk and Return Sensitivity

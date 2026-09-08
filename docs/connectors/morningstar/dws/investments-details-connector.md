@@ -1,5 +1,5 @@
 <!-- llms
-description: DWS Investment Details API
+description: InvestmentsConnector setup and the converters available on it
 -->
 
 # Investment Details Connector

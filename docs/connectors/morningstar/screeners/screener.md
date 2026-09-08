@@ -1,5 +1,5 @@
 <!-- llms
-description: base screener connector
+description: screener overview linking investment screener and find similar
 -->
 
 # Screener

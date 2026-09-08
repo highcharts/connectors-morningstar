@@ -1,5 +1,5 @@
 <!-- llms
-description: Morningstar risk scoring
+description: risk score for portfolios defined by their holdings
 -->
 
 # Portfolio Risk Score

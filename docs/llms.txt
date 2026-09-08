@@ -19,42 +19,42 @@
 ## Direct Web Services (DWS)
 
 - [Asset Allocation Breakdown](https://www.highcharts.com/docs/morningstar/dws/asset-allocation-breakdown): allocation across asset classes
-- [Country and Regional Exposure Breakdown](https://www.highcharts.com/docs/morningstar/dws/country-and-regional-exposure-breakdown): geographic exposure
-- [Equity Aggregates Residual Risk and Return Sensitivity](https://www.highcharts.com/docs/morningstar/dws/equity-aggregates-residual-risk): aggregated equity residual risk
-- [Equity Residual Risk and Return Sensitivity](https://www.highcharts.com/docs/morningstar/dws/equity-residual-risk): equity residual risk
+- [Country and Regional Exposure Breakdown](https://www.highcharts.com/docs/morningstar/dws/country-and-regional-exposure-breakdown): region and country exposure for equity, fixed income, and revenue
+- [Equity Aggregates Residual Risk and Return Sensitivity](https://www.highcharts.com/docs/morningstar/dws/equity-aggregates-residual-risk): alpha and beta averaged by industry and sector for peer comparison
+- [Equity Residual Risk and Return Sensitivity](https://www.highcharts.com/docs/morningstar/dws/equity-residual-risk): per-security alpha, beta, and R-squared, daily and monthly
 - [Equity Sectors Breakdown](https://www.highcharts.com/docs/morningstar/dws/equity-sectors-breakdown): equity sector allocation
-- [Equity Style Box](https://www.highcharts.com/docs/morningstar/dws/equity-style-box): Morningstar equity style box
+- [Equity Style Box](https://www.highcharts.com/docs/morningstar/dws/equity-style-box): market-cap/growth style grid plus stock grades, current and historical
 - [Fixed Income Sectors Breakdown](https://www.highcharts.com/docs/morningstar/dws/fixed-income-sectors-breakdown): fixed-income sector allocation
-- [Investment Details Connector](https://www.highcharts.com/docs/morningstar/dws/investments-details-connector): DWS Investment Details API
+- [Investment Details Connector](https://www.highcharts.com/docs/morningstar/dws/investments-details-connector): InvestmentsConnector setup and the converters available on it
 - [Prospectus Fees](https://www.highcharts.com/docs/morningstar/dws/prospectus-fees): fee data from prospectuses
-- [Time Series Connector](https://www.highcharts.com/docs/morningstar/dws/time-series-connector): DWS Time Series API
+- [Time Series Connector](https://www.highcharts.com/docs/morningstar/dws/time-series-connector): historical series by category and dataPoint for up to 25 securities
 
 ## Enterprise Components
 
 - [Goal Analysis](https://www.highcharts.com/docs/morningstar/goal-analysis): probability of meeting an investment goal
 - [Hypothetical Performance](https://www.highcharts.com/docs/morningstar/hypo-performance): hypothetical (back-tested) portfolio performance
-- [Performance](https://www.highcharts.com/docs/morningstar/performance): historical performance of a security or portfolio
-- [Portfolio Risk Score](https://www.highcharts.com/docs/morningstar/risk-score): Morningstar risk scoring
+- [Performance](https://www.highcharts.com/docs/morningstar/performance): portfolio trailing and calendar-year returns with risk and MPT statistics
+- [Portfolio Risk Score](https://www.highcharts.com/docs/morningstar/risk-score): risk score for portfolios defined by their holdings
 - [Security Compare](https://www.highcharts.com/docs/morningstar/security-compare): side-by-side comparison of securities
 - [Security Details](https://www.highcharts.com/docs/morningstar/security-details): detailed data for a single security
-- [X-Ray](https://www.highcharts.com/docs/morningstar/x-ray): portfolio X-ray (holdings look-through and allocation)
+- [X-Ray](https://www.highcharts.com/docs/morningstar/x-ray): portfolio holdings analysis via the APAC/EMEA and Americas X-Ray connectors
 
 ### Screeners
 
 - [Find Similar Screener](https://www.highcharts.com/docs/morningstar/screeners/find-similar-screener): find securities similar to a reference
-- [Investment Screener](https://www.highcharts.com/docs/morningstar/screeners/investment-screener): screen investments by criteria
-- [Screener](https://www.highcharts.com/docs/morningstar/screeners/screener): base screener connector
+- [Investment Screener](https://www.highcharts.com/docs/morningstar/screeners/investment-screener): filter global investments on hundreds of Morningstar data points
+- [Screener](https://www.highcharts.com/docs/morningstar/screeners/screener): screener overview linking investment screener and find similar
 
 ### Time Series
 
-- [Time Series](https://www.highcharts.com/docs/morningstar/time-series/time-series): shared options for all time-series connectors
+- [Time Series](https://www.highcharts.com/docs/morningstar/time-series/time-series): TimeSeriesConnector overview, series types, and shared options
 - [Cumulative Return](https://www.highcharts.com/docs/morningstar/time-series/cumulative-return): cumulative return over time
 - [Dividend](https://www.highcharts.com/docs/morningstar/time-series/dividend): dividend history
 - [Growth](https://www.highcharts.com/docs/morningstar/time-series/growth): growth of a hypothetical investment
 - [OHLCV](https://www.highcharts.com/docs/morningstar/time-series/ohlcv): open/high/low/close/volume series
 - [Price](https://www.highcharts.com/docs/morningstar/time-series/price): historical price series
-- [Rating](https://www.highcharts.com/docs/morningstar/time-series/rating): rating history
-- [Return](https://www.highcharts.com/docs/morningstar/time-series/return): return over a period
+- [Rating](https://www.highcharts.com/docs/morningstar/time-series/rating): Morningstar star rating (1-5) history
+- [Return](https://www.highcharts.com/docs/morningstar/time-series/return): periodic, non-cumulative return series
 - [Rolling Return](https://www.highcharts.com/docs/morningstar/time-series/rolling-return): rolling-window returns
 
 ## Optional

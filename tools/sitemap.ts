@@ -2,9 +2,8 @@
  *
  *  Generates docs/sitemap.xml. Run with `npm run sitemap`.
  *
- *  Pages and priorities come from tools/libs/Docs.ts (shared with llms.txt).
- *  <lastmod> is derived per page from git, so it stays honest - do not
- *  hand-write dates.
+ *  Pages come from tools/libs/Docs.ts (shared with llms.txt). <lastmod> is
+ *  derived per page from git, so it stays honest - do not hand-write dates.
  *
  *  (c) Highsoft AS
  *
@@ -99,7 +98,7 @@ function lastModified (
 
 
 /**
- * `<url>` blocks for every page of a section, at the section's priority.
+ * `<url>` blocks for every page of a section.
  *
  * @param section
  * Section to render.
@@ -121,13 +120,18 @@ function sectionEntries (
             '  <url>',
             `    <loc>${page.url}</loc>`,
             `    <lastmod>${lastModified(page.file)}</lastmod>`,
-            `    <priority>${section.priority}</priority>`,
             '  </url>'
         ])
     ];
 }
 
 
+/**
+ * Renders the complete sitemap.
+ *
+ * @return
+ * The sitemap XML.
+ */
 function generate (): string {
     return [
         '<?xml version="1.0" encoding="UTF-8"?>',

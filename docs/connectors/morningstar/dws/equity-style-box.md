@@ -1,5 +1,5 @@
 <!-- llms
-description: Morningstar equity style box
+description: market-cap/growth style grid plus stock grades, current and historical
 -->
 
 # Equity Style Box

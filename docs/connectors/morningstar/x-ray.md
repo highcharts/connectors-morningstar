@@ -1,5 +1,5 @@
 <!-- llms
-description: portfolio X-ray (holdings look-through and allocation)
+description: portfolio holdings analysis via the APAC/EMEA and Americas X-Ray connectors
 -->
 
 # X-Ray

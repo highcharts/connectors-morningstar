@@ -1,5 +1,5 @@
 <!-- llms
-description: screen investments by criteria
+description: filter global investments on hundreds of Morningstar data points
 -->
 
 # Investment Screener

@@ -1,5 +1,5 @@
 <!-- llms
-description: rating history
+description: Morningstar star rating (1-5) history
 -->
 
 # Rating

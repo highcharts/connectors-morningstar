@@ -51,7 +51,6 @@ export interface DocsGroup {
 
 export interface DocsSection {
     heading: string;
-    priority: string;
     pages: DocsPage[];
     groups: DocsGroup[];
 }
@@ -59,7 +58,6 @@ export interface DocsSection {
 
 interface Layout {
     heading: string;
-    priority: string;
     /** Single source file, relative to `DOCS_ROOT` (e.g. the overview). */
     file?: string;
     /** Folder whose direct markdown children make up the section. */
@@ -78,9 +76,7 @@ interface Layout {
 
 export const TITLE = 'Highcharts Connectors for Morningstar';
 
-
 export const BASE_URL = 'https://www.highcharts.com/docs/morningstar';
-
 
 export const DOCS_ROOT = join('docs', 'connectors');
 
@@ -119,15 +115,14 @@ export const OPTIONAL: DocsPage[] = [
 
 
 /**
- * Section layout. Headings and priorities live here; the pages are read from
- * the folders, so adding a doc never means touching this list.
+ * Section layout. Only the headings and their order live here; the pages are
+ * read from the folders, so adding a doc never means touching this list.
  */
 const LAYOUT: Layout[] = [
-    { heading: 'Getting started', priority: '0.9', file: 'morningstar.md' },
-    { heading: 'Direct Web Services (DWS)', priority: '1.0', dir: 'morningstar/dws' },
+    { heading: 'Getting started', file: 'morningstar.md' },
+    { heading: 'Direct Web Services (DWS)', dir: 'morningstar/dws' },
     {
         heading: 'Enterprise Components',
-        priority: '0.8',
         dir: 'morningstar',
         groups: [
             { heading: 'Screeners', dir: 'morningstar/screeners' },
@@ -142,25 +137,6 @@ const LAYOUT: Layout[] = [
  *  Functions
  *
  * */
-
-
-/**
- * URL slug for a source file relative to `DOCS_ROOT`.
- *
- * @param rel
- * Path relative to `DOCS_ROOT`.
- *
- * @return
- * URL slug.
- */
-function slugFor (
-    rel: string
-): string {
-    return rel
-        .split(sep).join('/')
-        .replace(/\.md$/u, '')
-        .replace(/^morningstar\//u, '');
-}
 
 
 /**
@@ -216,24 +192,17 @@ function readPage (
         return `${file}: missing "<!-- llms ... description: -->" metadata`;
     }
 
+    const slug = rel
+        .split(sep).join('/')
+        .replace(/\.md$/u, '')
+        .replace(/^morningstar\//u, '');
+
     return {
         file,
-        url: `${BASE_URL}/${slugFor(rel)}`,
+        url: `${BASE_URL}/${slug}`,
         title: title.trim(),
         description: description.trim()
     };
-}
-
-
-/**
- * Recursively lists every markdown file under `DOCS_ROOT`.
- *
- * @return
- * Paths relative to `DOCS_ROOT`.
- */
-function allDocs (): string[] {
-    return readdirSync(DOCS_ROOT, { encoding: 'utf8', recursive: true })
-        .filter(rel => rel.endsWith('.md'));
 }
 
 
@@ -268,7 +237,6 @@ export function buildSections (): DocsSection[] {
 
     const sections = LAYOUT.map(layout => ({
         heading: layout.heading,
-        priority: layout.priority,
         pages: pagesOf(layout.file ? [layout.file] : dirDocs(layout.dir || '')),
         groups: (layout.groups || []).map(group => ({
             heading: group.heading,
@@ -276,7 +244,9 @@ export function buildSections (): DocsSection[] {
         }))
     }));
 
-    for (const rel of allDocs()) {
+    const all = readdirSync(DOCS_ROOT, { encoding: 'utf8', recursive: true });
+
+    for (const rel of all.filter(rel => rel.endsWith('.md'))) {
         if (!covered.has(rel)) {
             problems.push(`${join(DOCS_ROOT, rel)}: not covered by any section`);
         }

@@ -1,5 +1,5 @@
 <!-- llms
-description: equity residual risk
+description: per-security alpha, beta, and R-squared, daily and monthly
 -->
 
 # Equity Residual Risk and Return Sensitivity

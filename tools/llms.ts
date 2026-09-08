@@ -41,6 +41,15 @@ const OUTPUT = join('docs', 'llms.txt');
  * */
 
 
+/**
+ * Renders a page as a bullet list entry.
+ *
+ * @param page
+ * Page to render.
+ *
+ * @return
+ * The list entry.
+ */
 function item (
     page: DocsPage
 ): string {
@@ -48,6 +57,12 @@ function item (
 }
 
 
+/**
+ * Renders the complete llms.txt.
+ *
+ * @return
+ * The llms.txt content.
+ */
 function generate (): string {
     const lines = [`# ${TITLE}`, '', ...INTRO.map(line => `> ${line}`)];
 

@@ -1,5 +1,5 @@
 <!-- llms
-description: shared options for all time-series connectors
+description: TimeSeriesConnector overview, series types, and shared options
 -->
 
 # Time Series

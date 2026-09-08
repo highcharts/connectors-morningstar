@@ -1,5 +1,5 @@
 <!-- llms
-description: DWS Time Series API
+description: historical series by category and dataPoint for up to 25 securities
 -->
 
 # Time Series Connector
