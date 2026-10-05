@@ -1,7 +1,3 @@
-<!-- llms
-description: historical series by category and dataPoint for up to 25 securities
--->
-
 # Time Series Connector
 
 The `HighchartsConnectors.MorningstarDWS.TimeSeriesConnector` is a connector

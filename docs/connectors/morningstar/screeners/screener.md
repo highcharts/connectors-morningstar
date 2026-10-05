@@ -1,7 +1,3 @@
-<!-- llms
-description: screener overview linking investment screener and find similar
--->
-
 # Screener
 
 Filter thousands of investments to quickly find those matching your criteria.

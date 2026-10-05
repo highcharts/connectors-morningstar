@@ -1,7 +1,3 @@
-<!-- llms
-description: portfolio trailing and calendar-year returns with risk and MPT statistics
--->
-
 # Performance
 
 The Morningstar **Performance** feature calculates how a portfolio performed

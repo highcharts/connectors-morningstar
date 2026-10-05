@@ -1,7 +1,3 @@
-<!-- llms
-description: Morningstar star rating (1-5) history
--->
-
 # Rating
 
 This type yields Morningstar Rating time series data for single or multiple

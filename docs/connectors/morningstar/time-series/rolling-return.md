@@ -1,7 +1,3 @@
-<!-- llms
-description: rolling-window returns
--->
-
 # Rolling Return
 
 This type yields rolling return time series data for single or multiple

@@ -1,7 +1,3 @@
-<!-- llms
-description: InvestmentsConnector setup and the converters available on it
--->
-
 # Investment Details Connector
 
 The `HighchartsConnectors.MorningstarDWS.InvestmentsConnector` provides access

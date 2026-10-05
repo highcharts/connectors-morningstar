@@ -25,28 +25,22 @@ Release
 
 2. Run `npx ts-node tools/dist --bucket [...] --region [...] --release [x.x.x]`.
 
-Docs metadata (llms.txt & sitemap.xml)
---------------------------------------
+Sitemap
+-------
 
-`docs/llms.txt` and `docs/sitemap.xml` are generated from the docs themselves,
-so they never drift apart. Each doc carries its llms.txt description in a hidden
-`<!-- llms -->` block at the top; the title comes from the H1 and the grouping
-from the folder. Only the intro and external links live in
-`tools/libs/Docs.ts`. After editing the docs, regenerate both with:
+`docs/sitemap.xml` is generated from the docs themselves, with the pages read
+from the folders under `docs/connectors`. Regenerate it with:
 
-    npm run docs:meta
+    npm run sitemap
 
-You can also run them individually: `npm run llms` and `npm run sitemap`.
+A `pre-commit` hook runs this automatically whenever a commit touches the docs
+or the generator, and stages the regenerated file, so you normally do not need
+to remember to run it by hand.
 
-A `pre-commit` hook runs this automatically whenever a commit touches the docs,
-`Docs.ts` or the generators, and stages the regenerated files, so you normally
-do not need to remember to run it by hand.
-
-Every doc must have a description and sit in a folder the layout covers;
-otherwise generation fails and lists the offending files, so a new page is
-never silently dropped. `<lastmod>` in the sitemap is taken per page from the
-last git commit that touched the source markdown, so re-run this after editing
-docs rather than hand-editing the dates.
+Every doc must sit in a folder the layout covers; otherwise generation fails
+and lists the offending files, so a new page is never silently dropped.
+`<lastmod>` is taken per page from the last git commit that touched the source
+markdown, so re-run this after editing docs rather than hand-editing the dates.
 
 Unit-Tests
 ----------

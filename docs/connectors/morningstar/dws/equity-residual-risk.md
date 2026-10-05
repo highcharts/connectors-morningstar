@@ -1,7 +1,3 @@
-<!-- llms
-description: per-security alpha, beta, and R-squared, daily and monthly
--->
-
 # Equity Residual Risk and Return Sensitivity
 
 The **Equity Residual Risk and Return Sensitivity** view reports a stock's

@@ -1,7 +1,3 @@
-<!-- llms
-description: install (npm / UMD / CDN), authentication, regional settings, and using pre-fetched JSON instead of live calls
--->
-
 # Morningstar Connectors
 
 With the **Highcharts Connectors** for the **Morningstar Direct Web Services**

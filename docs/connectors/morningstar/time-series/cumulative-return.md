@@ -1,7 +1,3 @@
-<!-- llms
-description: cumulative return over time
--->
-
 # Cumulative Return
 
 This type yields cumulative return time series data for single or multiple

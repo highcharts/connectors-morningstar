@@ -1,7 +1,3 @@
-<!-- llms
-description: hypothetical (back-tested) portfolio performance
--->
-
 # Hypothetical Performance
 
 Using Morningstar **Historical Performance** data, financial advisors can

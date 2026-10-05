@@ -1,7 +1,3 @@
-<!-- llms
-description: region and country exposure for equity, fixed income, and revenue
--->
-
 # Country and Regional Exposure Breakdown
 
 The **Country and Regional Exposure Breakdown** view provides a portfolio's

@@ -1,7 +1,3 @@
-<!-- llms
-description: portfolio holdings analysis via the APAC/EMEA and Americas X-Ray connectors
--->
-
 # X-Ray
 
 The Morningstar **X-Ray** capability enables you to quickly analyze a

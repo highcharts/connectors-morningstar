@@ -1,7 +1,3 @@
-<!-- llms
-description: filter global investments on hundreds of Morningstar data points
--->
-
 # Investment Screener
 
 Using Morningstar **Investment Screener** endpoint allows you to filter

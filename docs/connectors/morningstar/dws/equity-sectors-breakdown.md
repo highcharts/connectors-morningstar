@@ -1,7 +1,3 @@
-<!-- llms
-description: equity sector allocation
--->
-
 # Equity Sectors Breakdown
 
 The **Equity Sectors Breakdown** view provides the equity portion of

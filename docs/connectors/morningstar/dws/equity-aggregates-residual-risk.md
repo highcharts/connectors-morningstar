@@ -1,7 +1,3 @@
-<!-- llms
-description: alpha and beta averaged by industry and sector for peer comparison
--->
-
 # Equity Aggregates Residual Risk and Return Sensitivity
 
 The **Equity Aggregates Residual Risk and Return Sensitivity** view supplies a

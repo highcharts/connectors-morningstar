@@ -1,7 +1,3 @@
-<!-- llms
-description: market-cap/growth style grid plus stock grades, current and historical
--->
-
 # Equity Style Box
 
 The **Equity Style Box** view returns Morningstar's proprietary Style Box along

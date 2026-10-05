@@ -1,7 +1,3 @@
-<!-- llms
-description: periodic, non-cumulative return series
--->
-
 # Return
 
 This type yields return time series data for single or multiple securities.

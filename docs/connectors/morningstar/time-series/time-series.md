@@ -1,7 +1,3 @@
-<!-- llms
-description: TimeSeriesConnector overview, series types, and shared options
--->
-
 # Time Series
 
 Time Series gives data on performance for securities. This data can for

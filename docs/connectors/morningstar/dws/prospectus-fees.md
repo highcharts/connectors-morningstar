@@ -1,7 +1,3 @@
-<!-- llms
-description: fee data from prospectuses
--->
-
 # Prospectus Fees
 
 The **Prospectus Fees** view provides the fee and expense data disclosed in a

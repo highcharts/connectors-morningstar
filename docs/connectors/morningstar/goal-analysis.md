@@ -1,7 +1,3 @@
-<!-- llms
-description: probability of meeting an investment goal
--->
-
 # Goal Analysis
 
 The Morningstar **Goal Analysis** service calculates the probabilities of an

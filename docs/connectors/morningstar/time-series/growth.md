@@ -1,7 +1,3 @@
-<!-- llms
-description: growth of a hypothetical investment
--->
-
 # Growth
 
 This type yields growth time series data for single or multiple securities.
