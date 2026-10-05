@@ -125,6 +125,17 @@ export class InvestmentsConnector extends DWSConnector {
             return this;
         }
 
+        // If a security contains an optional idType, manually append it
+        // to the all url requests as a param.
+        if (security.idType) {
+            const idType = security.idType;
+            for (const req of this.requests) {
+                const url = req.url;
+                req.url = `${url.includes('?') ?
+                    `${url}&idType=${idType}` : `${url}?`}idType=${idType}`;
+            }
+        }
+
         await super.load();
 
         for (const responseObject of this.responses) {
