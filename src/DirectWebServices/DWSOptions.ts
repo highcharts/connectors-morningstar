@@ -19,7 +19,7 @@
  *
  * */
 
-import type { InvestmentsConverterType } from './InvestmentsConnector/InvestmentsOptions';
+import type { InvestmentsConverterType, InvestmentsSecurityOptions } from './InvestmentsConnector/InvestmentsOptions';
 import type { MorningstarOptions } from '../Shared/MorningstarOptions';
 
 /* *
@@ -39,6 +39,7 @@ export interface DWSResponse {
 }
 
 export interface DWSConnectorOptions extends MorningstarOptions {
+    security?: InvestmentsSecurityOptions;
     languageId?: 'ENG' | 'SPA' | 'FRA' | 'DEU' | 'ITA' | 'JPN' | 'CHI' | 'ZHO' | 'KOR';
     requests?: Array<DWSRequest>;
 }
