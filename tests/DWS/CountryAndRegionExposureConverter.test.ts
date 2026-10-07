@@ -10,7 +10,7 @@ export async function countryAndRegionExposure (
         type: '',
         api,
         security: {
-            id: '0P0000XTUQ'
+            id: '0P00000FIA'
         },
         converters: {
             CountryAndRegionExposure: {}
@@ -51,7 +51,7 @@ export async function countryAndRegionExposure (
         [
             'Region',
             'PercLongRescaled',
-            'PercNet',
+            // 'PercNet',
             'PercLong'
         ],
         'Fixed Income table should have expected columns.'
@@ -98,7 +98,8 @@ export async function countryAndRegionExposure (
             'Country',
             'PercLongRescaled',
             'PercNet',
-            'PercLong'
+            'PercLong',
+            'Perc' // Comes from countryExposurePercent key
         ],
         'Country Equity table should have expected columns.'
     );
