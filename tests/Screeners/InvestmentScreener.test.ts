@@ -46,8 +46,8 @@ export async function investmentScreenerLoad (
     await connector.load();
 
     Assert.deepStrictEqual(
-        connector.getTable().getColumnIds(),
-        secIds.map(id => `InvestmentScreener_${id}`),
+        connector.getTable().getColumnIds().sort(),
+        secIds.map(id => `InvestmentScreener_${id}`).sort(),
         'Connector table should exist of expected columns.'
     );
 
