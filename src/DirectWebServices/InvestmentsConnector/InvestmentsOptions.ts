@@ -64,6 +64,7 @@ export interface InvestmentsConverterOptions {
 
 export interface InvestmentsSecurityOptions {
     id: string;
+    idType?: string;
 }
 
 /* *
