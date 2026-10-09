@@ -82,9 +82,11 @@ export abstract class DWSConnector extends MorningstarConnector {
 
         for (const { url, type } of requests) {
             const fullUrl = new MorningstarURL(
-                `/direct-web-services/v1/${url.includes('?') ? `${url}&` : `${url}?`}languageId=${options.languageId || 'ENG'}`,
+                `/direct-web-services/v1/${url}`,
                 options.api?.url || MorningstarRegion.baseURLs['Americas']
             );
+
+            fullUrl.searchParams.set('languageId', options.languageId || 'ENG');
 
             // If a security contains an optional idType, add the param
             if (idType) {
