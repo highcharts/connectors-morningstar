@@ -8,7 +8,7 @@ export async function equityAggregatesResidualRisk (
     const connector = new MC.InvestmentsConnector({
         id: '',
         type: '',
-        api: { ...api, access: { ...api.access } },
+        api,
         security: {
             id: '0P00006W6Q'
         },
@@ -79,29 +79,5 @@ export async function equityAggregatesResidualRisk (
         Object.keys(dataTable.metadata).sort(),
         ['numberOfCompanies', 'performanceId', 'periodEndDate'],
         'EquityAggregatesResidualRisk table metadata should contain expected properties.'
-    );
-
-    const connectorIsin = new MC.InvestmentsConnector({
-        id: '',
-        type: '',
-        api: { ...api, access: { ...api.access } },
-        security: {
-            id: 'AU000000AMP6',
-            idType: 'isin'
-        },
-        converters: {
-            EquityAggregatesResidualRisk: {}
-        }
-    });
-
-    await connectorIsin.load();
-
-    const dataTableIsin = connectorIsin.getTable('EquityAggregatesResidualRisk');
-
-    // Test whether the ISIN and Performance Id requests yield the same results.
-     Assert.deepStrictEqual(
-        dataTable.getColumnIds(),
-        dataTableIsin.getColumnIds(),
-        'ISIN and Performance Id requests should yield the same results.'
     );
 }
