@@ -69,6 +69,11 @@ const timeSeriesConnector = new HighchartsConnectors.MorningstarDWS.TimeSeriesCo
 await timeSeriesConnector.load();
 ```
 
+Query parameters that are not covered by the connector options can be passed
+with the `queryParams` option, e.g. `queryParams: { countryId: 'JPN' }`. They
+are added to the request as they are and take precedence over the other
+options.
+
 ## Charting the result
 
 The connector exposes a single data table whose first column is `Date`. When you
