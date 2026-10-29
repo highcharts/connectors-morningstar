@@ -19,6 +19,7 @@
  *
  * */
 
+import type { DWSQueryParams } from '../DWSOptions';
 import type {
     MorningstarConverterOptions,
     MorningstarMetadata,
@@ -164,6 +165,12 @@ export interface TimeSeriesConnectorOptions extends MorningstarOptions {
      * @default 'BAS'
      */
     currencyId?: string;
+
+    /**
+     * Additional query parameters, not covered by the options above, to
+     * append to the request. They take precedence over the other options.
+     */
+    queryParams?: DWSQueryParams;
 }
 
 type TimeSeriesCategory =

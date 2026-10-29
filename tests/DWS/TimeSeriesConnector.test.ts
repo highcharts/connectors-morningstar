@@ -52,3 +52,28 @@ export async function timeSeriesConnectorLoad (
     );
 
 }
+
+export async function timeSeriesConnectorQueryParams (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.TimeSeriesConnector({
+        id: '',
+        type: '',
+        api: { ...api, access: { ...api.access } },
+        ids: [{ id: '0P00000FIA', idType: 'performanceId' }],
+        category: 'performance',
+        dataPoint: 'growth',
+        startDate: '2020-01-01',
+        endDate: '2020-12-31',
+        frequency: 'daily',
+        queryParams: { frequency: 'monthly' }
+    });
+
+    await connector.load();
+
+    // Daily frequency would return a row per day
+    Assert.ok(
+        connector.getTable().getRowCount() <= 13,
+        'Query params should take precedence over the other options.'
+    );
+}
