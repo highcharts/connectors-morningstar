@@ -65,14 +65,15 @@ export async function timeSeriesConnectorQueryParams (
         dataPoint: 'growth',
         startDate: '2020-01-01',
         endDate: '2020-12-31',
+        frequency: 'daily',
         queryParams: { frequency: 'monthly' }
     });
 
     await connector.load();
 
-    // Daily frequency (default) would return a row per day
+    // Daily frequency would return a row per day
     Assert.ok(
         connector.getTable().getRowCount() <= 13,
-        'Query params should be applied to the request.'
+        'Query params should take precedence over the other options.'
     );
 }

@@ -70,9 +70,8 @@ await timeSeriesConnector.load();
 ```
 
 Query parameters that are not covered by the connector options can be passed
-with the `queryParams` option, e.g. `queryParams: { countryId: 'JPN' }`. They
-are added to the request as they are and take precedence over the other
-options.
+with the `queryParams` option, e.g. `queryParams: { performanceType: 'market' }`.
+They are added to the request as they are and take precedence over the other options.
 
 ## Charting the result
 

@@ -59,7 +59,7 @@ await investmentsConnector.load();
 
 Any other query parameter supported by the Investment Details API can be passed
 with the `queryParams` option. They are added to the request of every
-converter.
+converter and take precedence over the other options.
 
 ```js
 const investmentsConnector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
