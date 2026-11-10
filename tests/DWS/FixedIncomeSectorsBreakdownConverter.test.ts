@@ -123,12 +123,14 @@ export async function fixedIncomeSectorsBreakdown (
                 `${tableName} table should have metadata defined.`
             );
 
-            Assert.deepStrictEqual(
-                Object.keys(dataTable.metadata).sort(),
-                [
-                    ...metadata,
-                    'performanceId'
-                ],
+            // The API adds or drops factor properties over time, so only
+            // check that the expected ones are present
+            const metadataKeys = Object.keys(dataTable.metadata);
+
+            Assert.ok(
+                [...metadata, 'performanceId'].every(
+                    key => metadataKeys.includes(key)
+                ),
                 `${tableName} table metadata should contain expected properties.`
             );
         });

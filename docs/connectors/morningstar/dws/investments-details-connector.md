@@ -55,6 +55,35 @@ const investmentsConnector = new HighchartsConnectors.MorningstarDWS.Investments
 await investmentsConnector.load();
 ```
 
+## Additional query parameters
+
+Any other query parameter supported by the Investment Details API can be passed
+with the `queryParams` option. They are added to the request of every
+converter and take precedence over the other options.
+
+```js
+const investmentsConnector = new HighchartsConnectors.MorningstarDWS.InvestmentsConnector({
+    api: {
+        access: {
+            token: 'your_access_token'
+        }
+    },
+    security: {
+        id: '31010010',
+        idType: 'industryCode'
+    },
+    queryParams: {
+        countryId: 'JPN'
+    },
+    converters: {
+        EquityAggregatesResidualRisk: {}
+    }
+});
+```
+
+Which parameters are accepted differs between endpoints, see
+[Morningstar’s Investment Details API] for the full list.
+
 ## Available data converters
 
 Below are the currently implemented data converters, each documented on its own

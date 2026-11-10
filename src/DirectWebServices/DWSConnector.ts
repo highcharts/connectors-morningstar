@@ -93,6 +93,8 @@ export abstract class DWSConnector extends MorningstarConnector {
                 fullUrl.searchParams.set('idType', idType);
             }
 
+            fullUrl.setQueryParams(options.queryParams);
+
             const response = await api.fetch(fullUrl, {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'GET'

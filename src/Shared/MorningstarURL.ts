@@ -24,7 +24,8 @@
 
 
 import type { MorningstarSecurityOptions } from './MorningstarOptions';
-import LocalizationOptions from './LocalizationOptions';
+import type { DWSQueryParams } from '../DirectWebServices/DWSOptions';
+import type LocalizationOptions from './LocalizationOptions';
 
 
 /* *
@@ -123,6 +124,20 @@ export class MorningstarURL extends URL {
         searchParams.set('id', id);
         searchParams.set('idType', idType);
 
+    }
+
+
+    /**
+     * Sets additional query parameters. Existing parameters with the same name
+     * are overwritten.
+     *
+     * @param params
+     * Query parameters to set.
+     */
+    public setQueryParams (params: DWSQueryParams = {}): void {
+        for (const [key, value] of Object.entries(params)) {
+            this.searchParams.set(key, String(value));
+        }
     }
 
 

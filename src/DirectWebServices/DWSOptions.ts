@@ -29,6 +29,8 @@ import type { MorningstarOptions } from '../Shared/MorningstarOptions';
  *
  * */
 
+export type DWSQueryParams = Record<string, (boolean|number|string)>;
+
 export interface DWSRequest {
     url: string;
     type: InvestmentsConverterType;
@@ -42,6 +44,7 @@ export interface DWSConnectorOptions extends MorningstarOptions {
     security?: InvestmentsSecurityOptions;
     languageId?: 'ENG' | 'SPA' | 'FRA' | 'DEU' | 'ITA' | 'JPN' | 'CHI' | 'ZHO' | 'KOR';
     requests?: Array<DWSRequest>;
+    queryParams?: DWSQueryParams;
 }
 
 /* *

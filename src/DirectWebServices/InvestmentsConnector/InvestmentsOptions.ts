@@ -19,6 +19,7 @@
  *
  * */
 
+import type { DWSQueryParams } from '../DWSOptions';
 import type { MorningstarMetadata, MorningstarOptions } from '../../Shared/MorningstarOptions';
 
 /* *
@@ -55,6 +56,7 @@ export type ConnectorMetadata = {
 export interface InvestmentsOptions extends MorningstarOptions {
     converters?: InvestmentsConverters;
     security?: InvestmentsSecurityOptions;
+    queryParams?: DWSQueryParams;
 }
 
 export interface InvestmentsConverterOptions {

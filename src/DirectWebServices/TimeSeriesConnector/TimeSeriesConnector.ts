@@ -38,7 +38,9 @@ import type {
  *
  */
 
-const excludedKeys = ['id', 'type', 'category', 'dataPoint', 'ids', 'api', 'converter'];
+const excludedKeys = [
+    'id', 'type', 'category', 'dataPoint', 'ids', 'api', 'converter', 'queryParams'
+];
 
 /* *
  *
@@ -145,6 +147,8 @@ export class TimeSeriesConnector extends DWSConnector {
                 }
             }
         }
+
+        url.setQueryParams(this.options.queryParams);
 
         const response = await api.fetch(url, {
             headers: { 'Content-Type': 'application/json' },

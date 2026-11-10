@@ -31,3 +31,24 @@ export async function investmentsConnectorLoad (
 
     await connector.load();
 }
+
+export async function investmentsConnectorQueryParams (
+    api: MC.Shared.MorningstarAPIOptions
+) {
+    const connector = new MC.InvestmentsConnector({
+        id: '',
+        type: '',
+        api: { ...api, access: { ...api.access } },
+        security: { id: 'AU000000AMP6' },
+        queryParams: { idType: 'isin' },
+        converters: { EquityAggregatesResidualRisk: {} }
+    });
+
+    await connector.load();
+
+    // Without the param the ISIN is not found and the table stays empty
+    Assert.ok(
+        connector.getTable('EquityAggregatesResidualRisk').getRowCount() > 0,
+        'Query params should be applied to the request.'
+    );
+}
